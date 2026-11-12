@@ -1,0 +1,44 @@
+{
+  "candidate_id": "chem-328ced-3045-static",
+  "source_notebook": "atakanaldemir/qcc-gap-3-residue-repair-and-c43-native-compiler",
+  "source_notebook_url": "https://www.kaggle.com/code/atakanaldemir/qcc-gap-3-residue-repair-and-c43-native-compiler",
+  "atlas_dataset": "asteriospanoras/qcc-circuit-atlas",
+  "factorization_sha256": "328cedb098839642e38e0f0df244bd35279a8b1d08ba28cb697d47c9b8ab9e4c",
+  "folder_key_sha256": "cf393b1e5d19b903eb38a6476c230e5babf8944d7f98f6b3bbf095c941136a55",
+  "member_sha256": {
+    "angle_k_0.kmb": "d3aab7479fe3b8510e3af3797a14ec8d9bfa226d7aa7717ae4e93f496d2d9538",
+    "angle_k_1.kmb": "4595e5dcc982295db2520c8497219e1768757edf3aa9e706fa44b1716f996ed2",
+    "angle_k_2.kmb": "77dec28c5ebffe723fb58717a31c017d66c44cbec220bc3cc5a15a2fff051aa3",
+    "angle_k_3.kmb": "8e137a014a1325450eaf9ec15bc824475b757b3a05bbc542eed9cccfd6b5ec53",
+    "angle_k_4.kmb": "56b928c0d45ea9310a6d5e52c72c9f4cd40ae9fb36e601f9589e091865ebcdf5",
+    "angle_k_5.kmb": "80ac6e617215a7dbe0d6bfcc3957b9e6cff7c6b30fc6b609d448b0e4666002fb",
+    "angle_k_6.kmb": "9f2cd80a9f942c12d2e28f4352379e4cf0b74b28685276ef9cf4829e228a9f5b",
+    "angle_k_7.kmb": "e1d66fb082bb2d60514ffd78100daafc4a576cb6659e7064c7589c7e45cf2de7",
+    "angle_k_8.kmb": "22f73e3d2bb7fbb8d26969083e2a287c0edcce8b90292ea39c5bedc191db6156",
+    "angle_k_9.kmb": "647ad53c8aa88efaea42ebf506f40168a2880056a264cce027f9eda363e24ccc",
+    "angle_k_10.kmb": "2f8144c1b83dda467aaac0039963d4b3e30a711e52eb2f781c2a365ca3b8e3eb",
+    "angle_k_11.kmb": "69ffad36bd55290c3ac5b4ffe902b04463b0a19ce26f5b4b8c8a1984eec24c7c",
+    "angle_k_12.kmb": "fb4684803430403f92c7760730b888cd025b8c3510693f41bdc03a922144f027",
+    "angle_k_13.kmb": "2ab57c1ab7a1e24d39d5a61c9085b3eeaa3b989da3aaa62d5ca1b1bfef4d0995",
+    "angle_k_14.kmb": "0b8fe8707b3f30ed30407372f6a3dfec6e466d776523153467f6f3ad65140afc",
+    "submission.npz": "328cedb098839642e38e0f0df244bd35279a8b1d08ba28cb697d47c9b8ab9e4c"
+  },
+  "official_verification": {
+    "status": "PASS",
+    "score": 302196075.2036132,
+    "lambda_eff": 46.893661918626364,
+    "toffoli_count": 15092.0,
+    "num_qubits": 427,
+    "verified_shots": 78080,
+    "submission_sha256": "b089ee6183ce749c4b771b8c6adc192ce0008b852849c74c037ee2004464b708"
+  },
+  "comparison": {
+    "current_chemistry_sha256": "e9cffb841c4b8bacec7ae423a931e8b38789ecf74b22011f4e98864521e9a9bd",
+    "current_chemistry_score": 297237044.9509761,
+    "v24_local_geometric_mean": 25.449573528079686,
+    "candidate_local_geometric_mean": 25.309596091213425,
+    "delta": -0.139977436866261
+  },
+  "decision": "REJECT",
+  "archive_created": false
+}

@@ -1,0 +1,12 @@
+{
+  "observed_utc": "2026-11-12T20:18:00Z",
+  "candidate": "chem-328ced-3045-static",
+  "official_status": "PASS",
+  "verified_shots": 78080,
+  "candidate_score": 302196075.2036132,
+  "current_score": 297237044.9509761,
+  "candidate_local_gm": 25.309596091213425,
+  "current_local_gm": 25.449573528079686,
+  "decision": "rejected_worse_score",
+  "source": "atakanaldemir/qcc-gap-3-residue-repair-and-c43-native-compiler plus asteriospanoras/qcc-circuit-atlas"
+}
