@@ -1,0 +1,30 @@
+{
+  "candidate_id": "v22-392k-hybrid",
+  "archive": "artifacts/submission_v22_392k_hybrid.zip",
+  "archive_sha256": "11f7ddedb55441be5c4cc170d594f62afdd94cd59bfbcabf556103a945b75644",
+  "archive_bytes": 25719884,
+  "member_sha256": {
+    "invsqrt.kmb": "9c708f7b9abc7c7e6719f6e258a3881945e9ee1fd4fd7009fe37367ca1ef20d1",
+    "dqi.kmb": "4c81b7263c0b4856068a691295d945ae627aa6af4e62e45f2c40411b6d01e5d9",
+    "dfthcsos/submission.npz": "f21b8a8725c342eb04c37fad269a431003a304d1ac9ad6bf5c56f1d075fde2eb"
+  },
+  "member_sources": {
+    "invsqrt.kmb": "attabeezy/gq-portfolio-frontier",
+    "dqi.kmb": "maoxin123/qcc-v22-a-392k-toffoli-dqi-decoder",
+    "dfthcsos": "attabeezy/gq-portfolio-frontier (maoxin v22-4089 loaders)"
+  },
+  "member_verification": {
+    "invsqrt": {"status": "PASS", "cost": 93555.26267586512, "qubits": 62, "shots": 200540928},
+    "dqi": {"status": "PASS", "cost": 371569582947.2325, "qubits": 892, "shots": 102400, "value_errors": 0, "phase_errors": 0},
+    "dfthcsos": {"status": "PASS", "cost": 297237077.4701012, "qubits": 427, "toffolis": 14840.0, "lambda_eff": 46.907383278010116}
+  },
+  "local_geometric_mean": 25.449538401211033,
+  "verification_scope": "Each member is copied byte-for-byte from a full official-verifier PASS receipt; hybrid zip structure is preflighted, but the combined archive has not yet had a fresh full three-task run.",
+  "submission_state": {
+    "status": "ready_for_submit_quota_exhausted",
+    "checked_utc": "2026-11-12T17:37:33Z",
+    "submissions_today": 5,
+    "remaining_today": 0,
+    "lifetime_submissions": 10
+  }
+}

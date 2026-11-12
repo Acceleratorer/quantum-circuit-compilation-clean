@@ -4,8 +4,8 @@ This directory stores score snapshots and the assumptions behind them. A local e
 
 ## Current snapshot
 
-- Candidate: `v22-392k-dqi`
-- Local geometric mean: `25.41253`
+- Candidate: `v22-392k-hybrid`
+- Local geometric mean: `25.4495384012`
 - Best own submitted public score: `25.40482`
 - Live leaderboard top observed: `29.90871`
 - Submission status: waiting for Kaggle quota reset

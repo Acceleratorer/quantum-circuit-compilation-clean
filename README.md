@@ -7,9 +7,9 @@ Research log and reproducible tooling for the Google Quantum AI Verifiable Quant
 | Item | Value |
 |---|---:|
 | Best own submitted public score | **25.40482** |
-| Best local candidate estimate | **25.41253** |
+| Best local candidate estimate | **25.44954** |
 | Live leaderboard top observed | **29.90871** |
-| Current candidate members | `6c6a734d` / `4c81b726` / `f21b8a87` |
+| Current candidate members | `9c708f7b` / `4c81b726` / `f21b8a87` |
 
 The repository keeps generators, verifier evidence, provenance, and experiment notes. Large circuit binaries and Kaggle submission ZIPs stay outside Git and are addressed by SHA-256 receipts.
 
@@ -23,7 +23,7 @@ The repository keeps generators, verifier evidence, provenance, and experiment n
 
 ## Latest candidate
 
-`experiments/exp-015/` records the public 392k-Toffoli DQI candidate. Its source kernel reports a full 102,400-shot DQI pass with zero errors and a local geometric mean of 25.41253. The compiled DQI dataset does not include a generator, so prize eligibility remains a separate source-delivery question.
+`experiments/exp-016/` records the hybrid frontier candidate: public 392k-Toffoli DQI plus the lower-cost 62-qubit invsqrt and 4,089-Toffoli chemistry portfolio. Member-level official verifier receipts imply a local geometric mean of 25.4495384012. The compiled DQI dataset does not include a generator, so prize eligibility remains a separate source-delivery question.
 
 Rebuild the local archive with:
 
