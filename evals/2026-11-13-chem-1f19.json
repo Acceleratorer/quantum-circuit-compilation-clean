@@ -1,0 +1,16 @@
+{
+  "observed_utc": "2026-11-12T20:45:00Z",
+  "candidate": "chem-1f19ecca7044-4132-static",
+  "official_status": "PASS",
+  "verified_shots": 78080,
+  "candidate_score": 298998656.7697932,
+  "candidate_lambda_eff": 46.91350973464301,
+  "candidate_toffoli": 14926.0,
+  "candidate_qubits": 427,
+  "current_score": 297237044.9509761,
+  "candidate_local_gm": 25.39949459072615,
+  "current_local_gm": 25.449573528079686,
+  "delta": -0.05007893735353619,
+  "decision": "rejected_worse_score",
+  "source": "apache_full/circuits/chemistry/1f19ecca7044"
+}

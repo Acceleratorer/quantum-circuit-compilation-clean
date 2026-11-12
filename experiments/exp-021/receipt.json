@@ -1,0 +1,50 @@
+{
+  "candidate_id": "chem-1f19ecca7044-4132-static",
+  "family_key": "1f19ecca7044",
+  "source_directory": "apache_full/circuits/chemistry/1f19ecca7044",
+  "member_sha256": {
+    "angle_k_0.kmb": "37fef3606166dc3198ffc492cb80afc4bd9f1b3e6f94d3ee76cd6dd02208ff49",
+    "angle_k_1.kmb": "ece608d4e43aa284efe5d6e3e449ac434f94cdb714723d37e61f57d21264424b",
+    "angle_k_2.kmb": "5c4dbb1341e85dfc37f729dab24d2fb218c8066f16604ccf197f7c9d6bf9df3d",
+    "angle_k_3.kmb": "79fe9344c7844f83b5ed86ed4d4d3c5d66647b9fae15e01e74ff7f6cac676791",
+    "angle_k_4.kmb": "569a8a534b02ce636e3e90f7ca00161dce2cd3a4d9f4d3ca440f57d14fee856b",
+    "angle_k_5.kmb": "cf9d3307ce7766b9d155e35ae450f7d3641cc1088adf50954d7bb66a0917839a",
+    "angle_k_6.kmb": "9ceabedcbce3227a121eb39fa22f3412e41603978770822823b6b07a7fa04a77",
+    "angle_k_7.kmb": "302b9f2df17a8a63dbb7e909f586e9c24c1205d657f7c72327e79271f7a19d27",
+    "angle_k_8.kmb": "74b40540e01cb64259addd82affa4290d936c82e727e2319e56db3a27e5dcfa0",
+    "angle_k_9.kmb": "c9d692b4525d3d88eb7d99ee062d1d84bbc5785ca4b6dcf63df5bacd18f04452",
+    "angle_k_10.kmb": "dbe953792cfb4785c88ff72127a923d2bf68c6f3d041beb4853126e7ea18c89b",
+    "angle_k_11.kmb": "9cee6618570dddba72b58ef90fc8d42692dd3a9a9ec0fe742675c2c71d314957",
+    "angle_k_12.kmb": "d83cf4680008a3800f77064cd02da7ea254646ac793b63996e399fbfcc148e7b",
+    "angle_k_13.kmb": "4e78549ecca1a8c215c790f325931924bd3cb10f85f79ab4d5481b0ad0375ebe",
+    "angle_k_14.kmb": "72e5a8df32a8706219f6a4bdc01763338f6a5c492f50215a263d40540718c7b8",
+    "submission.npz": "c615d7c793252a2a5d70167b391f416c462988ca11997b638e1aee50c1a33f27"
+  },
+  "official_verification": {
+    "status": "PASS",
+    "score": 298998656.7697932,
+    "lambda_eff": 46.91350973464301,
+    "toffoli_count": 14926.0,
+    "num_qubits": 427,
+    "verified_shots": 78080,
+    "error_1": 0.017425629447271176,
+    "error_2": 0.019999974863085707,
+    "static_loader_sum": 4132,
+    "R": 8,
+    "C": 44,
+    "brot": 8,
+    "J": 5,
+    "reaction_depth": 167,
+    "num_ops": 581599,
+    "submission_sha256": "53391d6af029cadf7290b6dd736ea5c530f186cdf3bff408aa39d3a3cb30fffa"
+  },
+  "comparison": {
+    "current_chemistry_sha256": "e9cffb841c4b8bacec7ae423a931e8b38789ecf74b22011f4e98864521e9a9bd",
+    "current_chemistry_score": 297237044.9509761,
+    "v24_local_geometric_mean": 25.449573528079686,
+    "candidate_local_geometric_mean": 25.39949459072615,
+    "delta": -0.05007893735353619
+  },
+  "decision": "REJECT",
+  "archive_created": false
+}
