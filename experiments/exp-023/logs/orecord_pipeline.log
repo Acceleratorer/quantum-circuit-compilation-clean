@@ -1,0 +1,77 @@
+[{"stream_name":"stderr","time":5.983124101,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":5.983241241,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":5.983245361,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":5.983248521,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":6.512053049,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":6.512092,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":6.51209668,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":6.512099969,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":9.41143251,"data":"No release manifest found; using the configured verification salt.\n"}
+,{"stream_name":"stdout","time":9.41146118,"data":"Release directory: /kaggle/input/datasets/syed3000/vqcc-own-circuit-portfolio\n"}
+,{"stream_name":"stdout","time":9.41146434,"data":"Verification salt: notebook-verification\n"}
+,{"stream_name":"stdout","time":22.906343341,"data":"kickmix        : /kaggle/input/competitions/google-verifiable-quantum-circuit-compilation/kickmix/kickmix.so\n"}
+,{"stream_name":"stdout","time":22.906389811,"data":"competition    : /kaggle/input/competitions/google-verifiable-quantum-circuit-compilation\n"}
+,{"stream_name":"stdout","time":22.906395611,"data":"toolbox        : /kaggle/input/datasets/kozykappa/quantum-ai-dataset\n"}
+,{"stream_name":"stdout","time":22.906399411,"data":"workers / shots: 4 / FULL\n"}
+,{"stream_name":"stdout","time":23.33350821,"data":"No release manifest found; using the configured verification salt.\n"}
+,{"stream_name":"stdout","time":23.33353621,"data":"Skipped: LICENSE\n"}
+,{"stream_name":"stdout","time":23.33353968,"data":"Skipped: README.md\n"}
+,{"stream_name":"stdout","time":23.33354305,"data":"Skipped: SHA256SUMS\n"}
+,{"stream_name":"stdout","time":23.788788975,"data":"Skipped: dfthcsos_source_zip\n"}
+,{"stream_name":"stdout","time":24.634428924,"data":"Skipped: dqi_source_zip\n"}
+,{"stream_name":"stdout","time":24.634471234,"data":"Skipped: invsqrt_source_zip\n"}
+,{"stream_name":"stdout","time":24.634476324,"data":"\n"}
+,{"stream_name":"stdout","time":24.634479414,"data":"Staged 18 files in /kaggle/working/candidate_portfolio_0mvd_e8g:\n"}
+,{"stream_name":"stdout","time":24.634482674,"data":"dfthcsos/angle_k_0.kmb\n"}
+,{"stream_name":"stdout","time":24.634486054,"data":"dfthcsos/angle_k_1.kmb\n"}
+,{"stream_name":"stdout","time":24.634489004,"data":"dfthcsos/angle_k_10.kmb\n"}
+,{"stream_name":"stdout","time":24.634492204,"data":"dfthcsos/angle_k_11.kmb\n"}
+,{"stream_name":"stdout","time":24.634495084,"data":"dfthcsos/angle_k_12.kmb\n"}
+,{"stream_name":"stdout","time":24.634497914,"data":"dfthcsos/angle_k_13.kmb\n"}
+,{"stream_name":"stdout","time":24.634500574,"data":"dfthcsos/angle_k_14.kmb\n"}
+,{"stream_name":"stdout","time":24.634503684,"data":"dfthcsos/angle_k_2.kmb\n"}
+,{"stream_name":"stdout","time":24.634506344000002,"data":"dfthcsos/angle_k_3.kmb\n"}
+,{"stream_name":"stdout","time":24.634509204,"data":"dfthcsos/angle_k_4.kmb\n"}
+,{"stream_name":"stdout","time":24.634511954,"data":"dfthcsos/angle_k_5.kmb\n"}
+,{"stream_name":"stdout","time":24.634514834,"data":"dfthcsos/angle_k_6.kmb\n"}
+,{"stream_name":"stdout","time":24.634539244,"data":"dfthcsos/angle_k_7.kmb\n"}
+,{"stream_name":"stdout","time":24.634542434,"data":"dfthcsos/angle_k_8.kmb\n"}
+,{"stream_name":"stdout","time":24.634545234,"data":"dfthcsos/angle_k_9.kmb\n"}
+,{"stream_name":"stdout","time":24.634548034,"data":"dfthcsos/submission.npz\n"}
+,{"stream_name":"stdout","time":24.634551114,"data":"dqi.kmb\n"}
+,{"stream_name":"stdout","time":24.634554244,"data":"invsqrt.kmb\n"}
+,{"stream_name":"stdout","time":24.634557054,"data":"Release: unknown\n"}
+,{"stream_name":"stdout","time":397.037140843,"data":"invsqrt full verification: PASS | shots: 200540928\n"}
+,{"stream_name":"stdout","time":415.786616678,"data":"DQI 10,240/102,400: value=0, phase=0\n"}
+,{"stream_name":"stdout","time":433.512189153,"data":"DQI 20,480/102,400: value=0, phase=0\n"}
+,{"stream_name":"stdout","time":451.254176282,"data":"DQI 30,720/102,400: value=0, phase=0\n"}
+,{"stream_name":"stdout","time":468.982474046,"data":"DQI 40,960/102,400: value=0, phase=0\n"}
+,{"stream_name":"stdout","time":486.723810855,"data":"DQI 51,200/102,400: value=0, phase=0\n"}
+,{"stream_name":"stdout","time":504.428563187,"data":"DQI 61,440/102,400: value=0, phase=0\n"}
+,{"stream_name":"stdout","time":522.170886147,"data":"DQI 71,680/102,400: value=0, phase=0\n"}
+,{"stream_name":"stdout","time":539.910731212,"data":"DQI 81,920/102,400: value=0, phase=0\n"}
+,{"stream_name":"stdout","time":557.666074089,"data":"DQI 92,160/102,400: value=0, phase=0\n"}
+,{"stream_name":"stdout","time":575.445582249,"data":"DQI 102,400/102,400: value=0, phase=0\n"}
+,{"stream_name":"stdout","time":575.609907498,"data":"dqi full verification: PASS | failures: 0 / 102400\n"}
+,{"stream_name":"stdout","time":576.256663115,"data":"Using stored angle-word width: 8 bits\n"}
+,{"stream_name":"stdout","time":591.081042785,"data":"[Initial] lambda_eff: 46.907347493 | Lambda: 282.973600 | E_gap: 3.914898200 | err1: 19.6103713 mHa | err2: 19.9987799 mHa\n"}
+,{"stream_name":"stdout","time":653.661662246,"data":"[Column rotations: 63558 accepted] lambda_eff: 46.907347493\n"}
+,{"stream_name":"stdout","time":655.13598015,"data":"[Offset optimization] lambda_eff: 46.907347359\n"}
+,{"stream_name":"stdout","time":655.13602059,"data":"Original file backed up to: /kaggle/working/candidate_portfolio_refine/dfthcsos/submission.before_refine.20261112_222458.npz\n"}
+,{"stream_name":"stdout","time":656.454610346,"data":"Optimized file saved. lambda_eff: 46.907347493 -\u003e 46.907347359\n"}
+,{"stream_name":"stdout","time":656.454653216,"data":"SHA-256: 33cfa0614fb5b528c64e5a4b8e47beec67d670707936b21d18bd575ee77f90d9\n"}
+,{"stream_name":"stdout","time":671.144736202,"data":"dfthcsos full verification: PASS\n"}
+,{"stream_name":"stdout","time":671.144787932,"data":"Hamiltonian errors (mHa): 19.610372853918324 19.998779892854632\n"}
+,{"stream_name":"stdout","time":671.844795494,"data":"{'invsqrt_qubits': 46, 'dqi_qubits': 889, 'factorization_shape': [8, 143, 44], 'angle_qubits': [128, 126, 126, 126, 126, 126, 126, 126, 125, 126, 126, 126, 126, 126, 126]}\n"}
+,{"stream_name":"stdout","time":685.861435915,"data":"submission.zip written: /kaggle/working/submission.zip (49.36 MB, 18 files)\n"}
+,{"stream_name":"stdout","time":685.898086564,"data":"\n"}
+,{"stream_name":"stdout","time":685.898119634,"data":"🏆 GEOMETRIC MEAN (LOCAL VERIFIED SCORE): 27.0784\n"}
+,{"stream_name":"stderr","time":688.426037823,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":688.426080853,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":688.565610906,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":688.565640576,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":689.267800406,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":689.342739275,"data":"[NbConvertApp] Writing 92978 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":691.550596951,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":692.287004383,"data":"[NbConvertApp] Writing 655742 bytes to __results__.html\n"}
+]

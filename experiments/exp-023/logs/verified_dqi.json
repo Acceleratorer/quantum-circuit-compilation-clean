@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "score": 360733025331.81287,
+  "verified_shots": 102400,
+  "value_errors": 0,
+  "phase_errors": 0,
+  "empirical_error_rate": 0.0,
+  "effective_error_rate": 0.0008660587301657926,
+  "log2_delta": -128.0,
+  "repetition_factor": 1.1912604648115832,
+  "toffoli_count": 383156.01993164065,
+  "max_toffoli_count": 384003,
+  "num_qubits": 889,
+  "num_ops": 52930855,
+  "circuit_sha256": "7cbe8ecf6f6e9743529b574f019504bb1712ce06fbb570c719ce9d9e2c914cd9",
+  "validation": "organizer sampler + kickmix, streaming hash, reaction-depth diagnostic omitted",
+  "wall_seconds": 177.9808725790001,
+  "file_sha256": {
+    "dqi.kmb": "7cbe8ecf6f6e9743529b574f019504bb1712ce06fbb570c719ce9d9e2c914cd9"
+  }
+}
