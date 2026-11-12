@@ -1,0 +1,34 @@
+{
+  "archive_sha256": "1fc26d7cf28397457013a292c5d65043f43088bcdc15dca695a67da712872b35",
+  "rebuild_archive_sha256_py314": "874c7473fdf4f02c9869ddc0e5a6485a66962ec26949aea0246f82f7d179244a",
+  "archive_members": 18,
+  "candidate": {
+    "invsqrt_sha256": "9c708f7b9abc7c7e6719f6e258a3881945e9ee1fd4fd7009fe37367ca1ef20d1",
+    "dqi_sha256": "db16d34a4707c35c0c34bd077879223aaca41be640abfd960a4460abff406f23",
+    "chemistry_npz_sha256": "e9cffb841c4b8bacec7ae423a931e8b38789ecf74b22011f4e98864521e9a9bd"
+  },
+  "dqi_static": {
+    "qubits": 892,
+    "toffoli_like": 401180,
+    "retained_products": 133
+  },
+  "verification": {
+    "retained_base_full_default": {
+      "status": "PASS",
+      "value_errors": 0,
+      "phase_errors": 1,
+      "shots": 102400
+    },
+    "tagged_variant_smoke": {
+      "status": "PASS",
+      "value_errors": 0,
+      "phase_errors": 0,
+      "shots": 256,
+      "seed": 12,
+      "log2_delta": 0
+    },
+    "tagged_variant_full_default": "pending"
+  },
+  "portfolio_estimate_zero_dqi_failures": 25.40768321873358,
+  "current_best_public_score": 25.40482
+}
