@@ -1,0 +1,49 @@
+{
+  "observed_utc": "2026-11-12T21:23:58Z",
+  "candidate": "v25-syed-own-v12",
+  "source_notebook": "https://www.kaggle.com/code/syed3000/vqcc-own-circuit-portfolio-notebook",
+  "source_dataset": "https://www.kaggle.com/datasets/syed3000/vqcc-own-circuit-portfolio",
+  "source_license": "Apache-2.0",
+  "public_score_observed": 27.02795,
+  "local_zero_failure_gm": 27.078387708141392,
+  "components": {
+    "invsqrt": {
+      "sha256": "321aff83636214196daa9cbc9dcc9c5e12a155bcff8d9989e98b8cee40935177",
+      "qubits": 46,
+      "stated_cost": 80162.76,
+      "smoke_score": 79133.57043800523,
+      "smoke_verified_shots": 10000
+    },
+    "dqi": {
+      "sha256": "7cbe8ecf6f6e9743529b574f019504bb1712ce06fbb570c719ce9d9e2c914cd9",
+      "qubits": 889,
+      "stated_zero_failure_cost": 360730000000.0,
+      "verified_score": 360733280431.94055,
+      "verified_shots": 102400,
+      "value_errors": 0,
+      "phase_errors": 0
+    },
+    "dfthcsos": {
+      "submission_sha256": "6418ec8e10b1a8da967ee26278434f9ac950474741185f4d61363e17a03da77f",
+      "qubits": 427,
+      "stated_cost": 296635967.5935997
+    }
+  },
+  "verification": {
+    "chemistry_independent": "PASS",
+    "dqi_independent": "PASS",
+    "invsqrt_smoke_10000": "PASS",
+    "invsqrt_exhaustive": "running"
+  },
+  "archive_sha256": "9323a95aae87a04cd68bb699f3cf8e1d32a73cde3ca269d2380433ba2fc255f4",
+  "archive_bytes": 49305565,
+  "source": "Kaggle leaderboard + public dataset README/SHA256SUMS + local archive packaging",
+  "local_dqi": {
+    "verified_shots": 102400,
+    "value_errors": 0,
+    "phase_errors": 0,
+    "toffoli_count": 383156.2908886719,
+    "score": 360733280431.94055,
+    "repetition_factor": 1.1912604648115832
+  }
+}

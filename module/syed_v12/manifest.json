@@ -1,0 +1,19 @@
+{
+  "candidate_id": "v25-syed-own-v12",
+  "notebook": "syed3000/vqcc-own-circuit-portfolio-notebook",
+  "dataset": "syed3000/vqcc-own-circuit-portfolio",
+  "dataset_url": "https://www.kaggle.com/datasets/syed3000/vqcc-own-circuit-portfolio",
+  "license": "Apache-2.0",
+  "archive": "artifacts/submission_syed_own_v12.zip",
+  "archive_sha256": "9323a95aae87a04cd68bb699f3cf8e1d32a73cde3ca269d2380433ba2fc255f4",
+  "members": {
+    "invsqrt.kmb": "321aff83636214196daa9cbc9dcc9c5e12a155bcff8d9989e98b8cee40935177",
+    "dqi.kmb": "7cbe8ecf6f6e9743529b574f019504bb1712ce06fbb570c719ce9d9e2c914cd9",
+    "dfthcsos/submission.npz": "6418ec8e10b1a8da967ee26278434f9ac950474741185f4d61363e17a03da77f"
+  },
+  "claimed_costs": {
+    "invsqrt": 80162.76,
+    "dqi_zero_failure": 360730000000.0,
+    "dfthcsos": 296635967.5935997
+  }
+}

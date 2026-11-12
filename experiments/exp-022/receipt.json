@@ -1,0 +1,202 @@
+{
+  "candidate_id": "v25-syed-own-v12",
+  "source_notebook": "syed3000/vqcc-own-circuit-portfolio-notebook",
+  "source_dataset": "syed3000/vqcc-own-circuit-portfolio",
+  "source_dataset_url": "https://www.kaggle.com/datasets/syed3000/vqcc-own-circuit-portfolio",
+  "archive": "artifacts\\submission_syed_own_v12.zip",
+  "archive_sha256": "9323a95aae87a04cd68bb699f3cf8e1d32a73cde3ca269d2380433ba2fc255f4",
+  "archive_bytes": 49305565,
+  "member_count": 18,
+  "zip_test": true,
+  "members": {
+    "invsqrt.kmb": {
+      "sha256": "321aff83636214196daa9cbc9dcc9c5e12a155bcff8d9989e98b8cee40935177",
+      "bytes": 291626
+    },
+    "dqi.kmb": {
+      "sha256": "7cbe8ecf6f6e9743529b574f019504bb1712ce06fbb570c719ce9d9e2c914cd9",
+      "bytes": 455590024
+    },
+    "dfthcsos/angle_k_0.kmb": {
+      "sha256": "ce7ebaf342c5b49f7d539637359fb8a282718fb3057e7b25dd193f2a6a4b8974",
+      "bytes": 407750
+    },
+    "dfthcsos/angle_k_1.kmb": {
+      "sha256": "3eac70665f021b0e304106fd62749277d4d69db775df008aacd6d950e4934193",
+      "bytes": 420156
+    },
+    "dfthcsos/angle_k_2.kmb": {
+      "sha256": "c3e1454e29a05c3c28bcfd16c2aee02340b5d439d9466774424fedf0ed7601d1",
+      "bytes": 421220
+    },
+    "dfthcsos/angle_k_3.kmb": {
+      "sha256": "d26b576ae789b0471ec6c11b7317c7c69eb3d7190472af8120ccf25cf217a8ea",
+      "bytes": 415439
+    },
+    "dfthcsos/angle_k_4.kmb": {
+      "sha256": "2efacc9d944aa5a855acf780e6bbc3c07af16c0275eb9549bb24adc70acca344",
+      "bytes": 366414
+    },
+    "dfthcsos/angle_k_5.kmb": {
+      "sha256": "7e4ed9a363c8f56d85410185c7b4449211788bc61e81b3dc7cbdd10ab7ce8a42",
+      "bytes": 364423
+    },
+    "dfthcsos/angle_k_6.kmb": {
+      "sha256": "26ab1d5df8132bbc28e068a4eef0b247ea21a96fa4034f89a6d1bf306f07e284",
+      "bytes": 367137
+    },
+    "dfthcsos/angle_k_7.kmb": {
+      "sha256": "1ae98642315e7aaedfde99773af4ae48198bf8b4f2e11e97883d6aa1bfe12bee",
+      "bytes": 372920
+    },
+    "dfthcsos/angle_k_8.kmb": {
+      "sha256": "e69c554c360c709e52126a6f773afeaa3564da7be0927d6293665f342203771f",
+      "bytes": 353772
+    },
+    "dfthcsos/angle_k_9.kmb": {
+      "sha256": "38848ce19bd553e4007a454d9b7d392d05ac105cf4b269f41521bd1003bf838e",
+      "bytes": 359601
+    },
+    "dfthcsos/angle_k_10.kmb": {
+      "sha256": "fdb67807154e35d9f41471c22b38bbc3ed07e5c93efef30a57f0599fb8400ff7",
+      "bytes": 360179
+    },
+    "dfthcsos/angle_k_11.kmb": {
+      "sha256": "d22baf8e2d294165618bcee40d958ef2806f0b35352c8b92e0d201aff3269c37",
+      "bytes": 360339
+    },
+    "dfthcsos/angle_k_12.kmb": {
+      "sha256": "b1b6af502f4bf02e521ab888600f645aa5a5bed028290466b54a835423eb2517",
+      "bytes": 359705
+    },
+    "dfthcsos/angle_k_13.kmb": {
+      "sha256": "1843d7993215656e4e0eee69169966ba269d544bc0b90e855e4ed5e6e113accc",
+      "bytes": 359237
+    },
+    "dfthcsos/angle_k_14.kmb": {
+      "sha256": "b763f0cd2fdeaaa31e7811084e51fde5d51575b036fa22854fb28172c1712a8e",
+      "bytes": 361106
+    },
+    "dfthcsos/submission.npz": {
+      "sha256": "6418ec8e10b1a8da967ee26278434f9ac950474741185f4d61363e17a03da77f",
+      "bytes": 1847692
+    }
+  },
+  "official_verification": {
+    "chemistry": {
+      "status": "PASS",
+      "score": 296635967.5935997,
+      "lambda_eff": 46.907347493481,
+      "toffoli_count": 14810.0,
+      "num_qubits": 427,
+      "brot": 8,
+      "batch_size": 5,
+      "num_circuits": 15,
+      "reaction_depth": 168,
+      "num_ops": 624885,
+      "verified_shots": 78080,
+      "submission_sha256": "ebdf11d79863ff91e46ed620a7340ee0aeb178276dbd622ef8edc463d42cf8f8",
+      "resources": {
+        "brot": 8,
+        "keep_bits": 10,
+        "angles_toffoli_per_pass": 4074.0,
+        "angles_toffoli": 8148.0,
+        "angles_qubits": 128,
+        "angles_selection_qubits": 11,
+        "angles_persistent_qubits": 40,
+        "angles_temporary_qubits": 77,
+        "outer_state_prep_toffoli": 317,
+        "inner_state_prep_toffoli": 4095,
+        "givens_rotations_toffoli": 2250,
+        "outer_state_prep_persistent_qubits": 40,
+        "outer_state_prep_temporary_qubits": 90,
+        "outer_state_prep_qubits": 130,
+        "inner_state_prep_persistent_qubits": 44,
+        "inner_state_prep_temporary_qubits": 303,
+        "inner_state_prep_qubits": 347,
+        "heuristic_persistent_qubits": 84,
+        "heuristic_temporary_qubits": 303,
+        "heuristic_toffoli": 6662,
+        "heuristic_qubits": 387,
+        "persistent_qubits": 124,
+        "temporary_qubits": 303,
+        "toffoli": 14810.0,
+        "qubits": 427,
+        "angles_within_cap": true
+      },
+      "metrics": {
+        "error_1": 0.019610371288992325,
+        "error_2": 0.019998779892854812,
+        "Lambda": 282.9736002829144,
+        "E_SOS": -22144.1882482,
+        "E_gap": 3.914898200000607,
+        "lambda_eff": 46.907347493481,
+        "gap_in_domain": true
+      }
+    },
+    "dqi": {
+      "status": "PASS",
+      "score": 360733280431.94055,
+      "m": 4095,
+      "n": 70,
+      "degree": 12,
+      "r": 2016,
+      "verified_shots": 102400,
+      "value_errors": 0,
+      "phase_errors": 0,
+      "empirical_error_rate": 0.0,
+      "effective_error_rate": 0.0008660587301657926,
+      "log2_delta": -128.0,
+      "repetition_factor": 1.1912604648115832,
+      "mean_error_weight": 31.046737331746634,
+      "toffoli_count": 383156.2908886719,
+      "max_toffoli_count": 384003,
+      "reaction_depth": 41048,
+      "num_ops": 52930855,
+      "shot_operation_counts": {
+        "BIT_INVERT": 601187272468,
+        "BIT_STORE0": 154643716923,
+        "BIT_STORE1": 2991183736,
+        "X": 10964114064,
+        "Z": 2329105448,
+        "R": 4892881888,
+        "HMR": 7266176546,
+        "CX": 3183118113199,
+        "CZ": 27596492322,
+        "SWAP": 27249972386,
+        "CSWAP": 1268121600,
+        "CCX": 37252532745,
+        "CCZ": 714549842,
+        "POP_CONDITION": 155624857600,
+        "PUSH_CONDITION": 155624857600
+      },
+      "num_qubits": 889,
+      "num_bits": 53911,
+      "circuit_sha256": "7cbe8ecf6f6e9743529b574f019504bb1712ce06fbb570c719ce9d9e2c914cd9"
+    },
+    "invsqrt_smoke": {
+      "status": "PASS",
+      "score": 79133.57043800523,
+      "toffoli_equivalent": 1720.2950095218528,
+      "toffoli_count": 1511.7531,
+      "max_toffoli_count": 1599,
+      "t_count": 1.0,
+      "rotation_count": 33.0,
+      "rotation_eps": 1.8929887763182345e-11,
+      "num_qubits": 46,
+      "reaction_depth": 1322,
+      "num_ops": 34789,
+      "verified_shots": 10000,
+      "worst_error_over_tolerance": 0.7700785570235832,
+      "worst_x": 3968,
+      "circuit_sha256": "321aff83636214196daa9cbc9dcc9c5e12a155bcff8d9989e98b8cee40935177"
+    },
+    "exhaustive_invsqrt": "running"
+  },
+  "submission_state": {
+    "status": "prepared",
+    "submissions_today_before": 5,
+    "watcher": "artifacts/submit_v25_watch.ps1",
+    "scheduled_utc": "2026-11-13T00:02:00Z"
+  }
+}
