@@ -1,0 +1,12 @@
+{
+  "observed_utc": "2026-11-12T19:34:37Z",
+  "candidate_local_gm": 25.449539329310575,
+  "previous_local_gm": 25.449538401211033,
+  "delta": 0.000000928099542,
+  "candidate": "v23-392k-hybrid-e9cff",
+  "chemistry_score": 297237044.9509761,
+  "chemistry_hash": "e9cffb841c4b8bacec7ae423a931e8b38789ecf74b22011f4e98864521e9a9bd",
+  "dqi_refresh_rejected": {"hash": "8eccde65e8b74343", "qubits": 892, "static_toffoli_like": 401180, "reason": "higher static count than verified 392346 base"},
+  "invsqrt_refresh_rejected": {"hash": "da4fbc10221986af", "qubits": 90, "reason": "higher Q than verified 62-qubit frontier"},
+  "quota": {"submissions_today": 5, "remaining_today": 0, "lifetime": 10}
+}
