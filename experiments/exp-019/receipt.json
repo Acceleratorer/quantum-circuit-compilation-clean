@@ -1,0 +1,26 @@
+{
+  "candidate_id": "v24-5778-retained-hybrid",
+  "source_notebook": "asteriospanoras/qcc-25-449-best-portfolio-392k-dqi-splice",
+  "source_notebook_url": "https://www.kaggle.com/code/asteriospanoras/qcc-25-449-best-portfolio-392k-dqi-splice",
+  "source_notebook_sha256": "dc158a8625515c11b6c8d29a8f6554d646677fb66ee20dbd6e99a1dac93983ee",
+  "reproduction_module": "src/dqi/retain_5778.py",
+  "dqi_base_sha256": "4c81b7263c0b4856068a691295d945ae627aa6af4e62e45f2c40411b6d01e5d9",
+  "dqi_sha256": "5778cdd5d710567b970544b8929547cf3be37fe84f2a11643d49edc74eca96cc",
+  "archive": "artifacts/submission_v24_5778_retained_hybrid.zip",
+  "archive_sha256": "531f7a4263a0595d634a448da8fa23c37ed834bbcdbf9e6b98de3bb2a5ff4a28",
+  "archive_bytes": 27963149,
+  "member_sha256": {
+    "invsqrt.kmb": "9c708f7b9abc7c7e6719f6e258a3881945e9ee1fd4fd7009fe37367ca1ef20d1",
+    "dqi.kmb": "5778cdd5d710567b970544b8929547cf3be37fe84f2a11643d49edc74eca96cc",
+    "dfthcsos/submission.npz": "e9cffb841c4b8bacec7ae423a931e8b38789ecf74b22011f4e98864521e9a9bd"
+  },
+  "official_verification": {
+    "default": {"status": "PASS", "score": 371568084355.5092, "toffoli_count": 392014.3507910156, "num_qubits": 892, "verified_shots": 102400, "value_errors": 0, "phase_errors": 0},
+    "s1": {"status": "PASS", "score": 371567970197.80865, "toffoli_count": 392014.2303515625, "value_errors": 0, "phase_errors": 0},
+    "s2": {"status": "PASS", "score": 371568012869.2592, "toffoli_count": 392014.27537109377, "value_errors": 0, "phase_errors": 0}
+  },
+  "portfolio_costs": {"invsqrt": 93555.26267586512, "dqi": 371568084355.5092, "dfthcsos": 297237044.9509761},
+  "local_geometric_mean": 25.449573528079686,
+  "delta_vs_v23": 0.000034198769111,
+  "submission_state": {"status": "ready_for_submit_quota_exhausted", "submissions_today": 5, "remaining_today": 0, "lifetime_submissions": 10}
+}

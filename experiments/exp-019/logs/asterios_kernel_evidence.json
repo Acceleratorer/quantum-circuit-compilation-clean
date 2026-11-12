@@ -1,0 +1,13 @@
+{
+  "kernel": "asteriospanoras/qcc-25-449-best-portfolio-392k-dqi-splice",
+  "kernel_status_observed": "RUNNING",
+  "source_notebook": "kernel_sources/asterios/qcc-25-449-best-portfolio-392k-dqi-splice.ipynb",
+  "source_notebook_sha256": "dc158a8625515c11b6c8d29a8f6554d646677fb66ee20dbd6e99a1dac93983ee",
+  "dqi_rebuild": {"base": "4c81b7263c0b4856068a691295d945ae627aa6af4e62e45f2c40411b6d01e5d9", "output": "5778cdd5d710567b970544b8929547cf3be37fe84f2a11643d49edc74eca96cc", "retained_pairs": 2, "qubits": 892},
+  "verifications": {
+    "default": {"status": "PASS", "score": 371568084355.5092, "toffoli_count": 392014.3507910156, "value_errors": 0, "phase_errors": 0, "verified_shots": 102400},
+    "s1": {"status": "PASS", "score": 371567970197.80865, "toffoli_count": 392014.2303515625, "value_errors": 0, "phase_errors": 0, "verified_shots": 102400},
+    "s2": {"status": "PASS", "score": 371568012869.2592, "toffoli_count": 392014.27537109377, "value_errors": 0, "phase_errors": 0, "verified_shots": 102400}
+  },
+  "log_source": "kaggle kernels logs asteriospanoras/qcc-25-449-best-portfolio-392k-dqi-splice"
+}

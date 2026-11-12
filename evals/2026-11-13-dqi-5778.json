@@ -1,0 +1,14 @@
+{
+  "observed_utc": "2026-11-12T19:38:02Z",
+  "candidate": "v24-5778-retained-hybrid",
+  "dqi_hash": "5778cdd5d710567b970544b8929547cf3be37fe84f2a11643d49edc74eca96cc",
+  "dqi_default_score": 371568084355.5092,
+  "dqi_default_errors": {"value": 0, "phase": 0, "shots": 102400},
+  "dqi_salt_checks": {"s1": {"value": 0, "phase": 0}, "s2": {"value": 0, "phase": 0}},
+  "archive_sha256": "531f7a4263a0595d634a448da8fa23c37ed834bbcdbf9e6b98de3bb2a5ff4a28",
+  "candidate_local_gm": 25.449573528079686,
+  "previous_local_gm": 25.449539329310575,
+  "delta": 0.000034198769111,
+  "quota": {"submissions_today": 5, "remaining_today": 0, "lifetime": 10},
+  "source": "Asterios Kaggle kernel logs plus local byte-for-byte rebuild"
+}
