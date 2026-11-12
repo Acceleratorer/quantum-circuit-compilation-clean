@@ -1,0 +1,25 @@
+{
+  "candidate_id": "v22-392k-dqi",
+  "source_kernel": "maoxin123/qcc-v22-a-392k-toffoli-dqi-decoder",
+  "source_dataset": "maoxin123/qcc-dqi-392k-toffoli-decoder",
+  "archive_sha256": "51dc4e52bf420d4accdbac2986692271b14fa9e1ada12875ae92dcc932b92",
+  "member_sha256": {
+    "invsqrt.kmb": "6c6a734dbcb693bb18950a4e4ab84e630854df90dbe6558ed3cef3ecc89b0666",
+    "dqi.kmb": "4c81b7263c0b4856068a691295d945ae627aa6af4e62e45f2c40411b6d01e5d9",
+    "dfthcsos/submission.npz": "f21b8a8725c342eb04c37fad269a431003a304d1ac9ad6bf5c56f1d075fde2eb"
+  },
+  "local_verification": {
+    "invsqrt": {"status": "PASS", "cost": 93863.3572624325, "qubits": 62},
+    "dqi": {"status": "PASS", "cost": 371569582947.2325, "shots": 102400, "value_errors": 0, "phase_errors": 0, "qubits": 892},
+    "dfthcsos": {"status": "PASS", "cost": 297557548.7126565, "toffolis": 14856.0, "qubits": 427},
+    "geometric_mean": 25.41253
+  },
+  "source_delivery_note": "The public DQI dataset contains only dqi.kmb.xz; generator/source delivery is still an eligibility risk.",
+  "submission_state": {
+    "status": "ready_for_submit_quota_exhausted",
+    "checked_utc": "2026-11-12T17:37:33Z",
+    "submissions_today": 5,
+    "remaining_today": 0,
+    "lifetime_submissions": 10
+  }
+}

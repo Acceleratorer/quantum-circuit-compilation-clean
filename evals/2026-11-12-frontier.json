@@ -1,0 +1,9 @@
+{
+  "observed_utc": "2026-11-12T17:22:08Z",
+  "candidate_local_gm": 25.41253,
+  "best_own_submitted_public_score": 25.40482,
+  "leaderboard_top_observed": 29.90871,
+  "candidate": "v22-392k-dqi",
+  "quota": {"submissions_today": 5, "remaining_today": 0, "lifetime": 10},
+  "source": "Kaggle CLI leaderboard/submission-limits and public kernel output"
+}

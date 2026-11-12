@@ -1,0 +1,44 @@
+[{"stream_name":"stderr","time":9.539179975,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":9.539236901,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":9.539242361,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":9.539260021,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":10.485810742,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":10.485850795,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":10.485857129,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":10.485862337,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":12.290342702,"data":"competition data: /kaggle/input/competitions/google-verifiable-quantum-circuit-compilation\n"}
+,{"stream_name":"stdout","time":18.227684827,"data":"dqi.kmb                  \u003c- /kaggle/input/qcc-dqi-392k-toffoli-decoder/dqi.kmb.xz\n"}
+,{"stream_name":"stdout","time":18.227725287,"data":"dfthcsos/submission.npz  \u003c- /kaggle/input/datasets/ozertuu/quantum-sim-linalg-cache/dfthcsos/submission.npz\n"}
+,{"stream_name":"stdout","time":18.227730172,"data":"dfthcsos/angle_k_0.kmb   \u003c- /kaggle/input/datasets/ozertuu/quantum-sim-linalg-cache/dfthcsos/angle_k_0.kmb\n"}
+,{"stream_name":"stdout","time":18.227733709,"data":"dfthcsos/angle_k_1.kmb   \u003c- /kaggle/input/datasets/ozertuu/quantum-sim-linalg-cache/dfthcsos/angle_k_1.kmb\n"}
+,{"stream_name":"stdout","time":18.227737111,"data":"dfthcsos/angle_k_2.kmb   \u003c- /kaggle/input/datasets/ozertuu/quantum-sim-linalg-cache/dfthcsos/angle_k_2.kmb\n"}
+,{"stream_name":"stdout","time":18.227742075,"data":"dfthcsos/angle_k_3.kmb   \u003c- /kaggle/input/datasets/ozertuu/quantum-sim-linalg-cache/dfthcsos/angle_k_3.kmb\n"}
+,{"stream_name":"stdout","time":18.227755881,"data":"dfthcsos/angle_k_4.kmb   \u003c- /kaggle/input/datasets/ozertuu/quantum-sim-linalg-cache/dfthcsos/angle_k_4.kmb\n"}
+,{"stream_name":"stdout","time":18.227761352999998,"data":"dfthcsos/angle_k_5.kmb   \u003c- /kaggle/input/datasets/ozertuu/quantum-sim-linalg-cache/dfthcsos/angle_k_5.kmb\n"}
+,{"stream_name":"stdout","time":18.227765983,"data":"dfthcsos/angle_k_6.kmb   \u003c- /kaggle/input/datasets/ozertuu/quantum-sim-linalg-cache/dfthcsos/angle_k_6.kmb\n"}
+,{"stream_name":"stdout","time":18.227770752,"data":"dfthcsos/angle_k_7.kmb   \u003c- /kaggle/input/datasets/ozertuu/quantum-sim-linalg-cache/dfthcsos/angle_k_7.kmb\n"}
+,{"stream_name":"stdout","time":18.227775891,"data":"dfthcsos/angle_k_8.kmb   \u003c- /kaggle/input/datasets/ozertuu/quantum-sim-linalg-cache/dfthcsos/angle_k_8.kmb\n"}
+,{"stream_name":"stdout","time":18.22778605,"data":"dfthcsos/angle_k_9.kmb   \u003c- /kaggle/input/datasets/ozertuu/quantum-sim-linalg-cache/dfthcsos/angle_k_9.kmb\n"}
+,{"stream_name":"stdout","time":18.227791117,"data":"dfthcsos/angle_k_10.kmb  \u003c- /kaggle/input/datasets/ozertuu/quantum-sim-linalg-cache/dfthcsos/angle_k_10.kmb\n"}
+,{"stream_name":"stdout","time":18.227796065,"data":"dfthcsos/angle_k_11.kmb  \u003c- /kaggle/input/datasets/ozertuu/quantum-sim-linalg-cache/dfthcsos/angle_k_11.kmb\n"}
+,{"stream_name":"stdout","time":18.22780085,"data":"dfthcsos/angle_k_12.kmb  \u003c- /kaggle/input/datasets/ozertuu/quantum-sim-linalg-cache/dfthcsos/angle_k_12.kmb\n"}
+,{"stream_name":"stdout","time":18.227806093,"data":"dfthcsos/angle_k_13.kmb  \u003c- /kaggle/input/datasets/ozertuu/quantum-sim-linalg-cache/dfthcsos/angle_k_13.kmb\n"}
+,{"stream_name":"stdout","time":18.227824619,"data":"dfthcsos/angle_k_14.kmb  \u003c- /kaggle/input/datasets/ozertuu/quantum-sim-linalg-cache/dfthcsos/angle_k_14.kmb\n"}
+,{"stream_name":"stdout","time":18.303014901,"data":"invsqrt.kmb 379348 bytes\n"}
+,{"stream_name":"stdout","time":48.343241586,"data":"chemistry PASS 297557548.7126565 lambda_eff 46.907383278010116 T 14856.0 error_1 0.01999998000000355 error_2 0.019999979999999952 E_gap 3.9148980200006918\n"}
+,{"stream_name":"stdout","time":213.891523227,"data":"DQI PASS 371569582947.2325 errors 0 0 Q 892\n"}
+,{"stream_name":"stdout","time":1009.205864974,"data":"invsqrt PASS 93863.3572624325 Q 62 worst error/tolerance 0.9993237694056958\n"}
+,{"stream_name":"stdout","time":1009.404367411,"data":"invsqrt   cost 93863.357262  ratio 22.12551\n"}
+,{"stream_name":"stdout","time":1009.404402154,"data":"dqi       cost 371569582947.232483  ratio 65.77359\n"}
+,{"stream_name":"stdout","time":1009.404409101,"data":"dfthcsos  cost 297557548.712656  ratio 11.27714\n"}
+,{"stream_name":"stdout","time":1009.40441465,"data":"geometric mean, this run 25.41253\n"}
+,{"stream_name":"stdout","time":1020.85946372,"data":"wrote /kaggle/working/submission.zip 27899201 bytes\n"}
+,{"stream_name":"stderr","time":1024.562623023,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":1024.562680148,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":1024.820705041,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":1024.820742949,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":1026.012336278,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":1026.125583775,"data":"[NbConvertApp] Writing 83357 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":1029.928874748,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":1030.726761165,"data":"[NbConvertApp] Writing 383550 bytes to __results__.html\n"}
+]
