@@ -1,0 +1,34 @@
+{
+  "dataset": "manwithacat/vqcc-apache-public-circuits",
+  "manifest_sha256": "ce1e2272455f6e5c3e06d094d50429f7cbe0e1d49d5e0753da832d51afc92bbf",
+  "dataset_last_updated_utc": "2026-11-12T22:40:58.030000Z",
+  "manifest_rows": 467,
+  "task_counts": {
+    "invsqrt": 79,
+    "dqi": 94,
+    "chemistry": 294
+  },
+  "best_public_components": {
+    "invsqrt": {
+      "sha12": "321aff836362",
+      "local_task_score": 80162.73214111096,
+      "source": "https://www.kaggle.com/code/syed3000/vqcc-own-circuit-portfolio-notebook"
+    },
+    "dqi": {
+      "sha12": "7cbe8ecf6f6e",
+      "local_task_score": 360733280431.94055,
+      "source": "https://www.kaggle.com/code/syed3000/vqcc-own-circuit-portfolio-notebook"
+    },
+    "chemistry": {
+      "sha12": "2c2188e14e5c",
+      "local_task_score": 296635967.5935997,
+      "source": "https://www.kaggle.com/code/syed3000/vqcc-own-circuit-portfolio-notebook"
+    }
+  },
+  "candidate_refinement": {
+    "chemistry_sha12": "fe0bd93b42b0",
+    "chemistry_score": 296635966.74267346,
+    "zero_failure_geometric_mean": 27.078387734033633,
+    "result": "No public Apache component beats the current Syed v12 members; keep exp-023 as primary."
+  }
+}

@@ -7,9 +7,9 @@ Research log and reproducible tooling for the Google Quantum AI Verifiable Quant
 | Item | Value |
 |---|---:|
 | Best own submitted public score | **25.40482** |
-| Best local candidate estimate | **25.44954** |
+| Best local candidate estimate | **27.07839** |
 | Live leaderboard top observed | **29.90871** |
-| Current candidate members | `9c708f7b` / `5778cdd5` / `e9cffb84` |
+| Current candidate members | `321aff83` / `7cbe8ecf` / refined `fe0bd93b` |
 
 The repository keeps generators, verifier evidence, provenance, and experiment notes. Large circuit binaries and Kaggle submission ZIPs stay outside Git and are addressed by SHA-256 receipts.
 
@@ -23,7 +23,7 @@ The repository keeps generators, verifier evidence, provenance, and experiment n
 
 ## Latest candidate
 
-`experiments/exp-019/` records the current hybrid: the reproducible 5778cdd5 retained-product DQI, the 62-qubit invsqrt frontier, and the fresh Apache chemistry prefix `4a2db87b0c13`. Official verifier evidence at three salts implies a local geometric mean of 25.4495735281. The retained DQI is rebuilt from a public notebook and the public 4c81b726 binary; final prize eligibility remains a host decision.
+`experiments/exp-023/` records the current Syed v12 portfolio with a refined chemistry weight file. The archive keeps the 46-qubit invsqrt `321aff83`, the 889-qubit DQI `7cbe8ecf`, and the refined chemistry member `fe0bd93b`. All three pass the official local verifiers; the zero-failure local geometric-mean estimate is `27.0783877340`. The Kaggle submission watcher is recorded in the receipt and the archive remains outside Git.
 
 Rebuild the local archive with:
 
