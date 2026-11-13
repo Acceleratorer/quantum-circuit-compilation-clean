@@ -158,8 +158,9 @@
   },
   "submission_ref": "58291268",
   "submission_state": {
-    "status": "SubmissionStatus.PENDING",
-    "public_score": null,
+    "status": "SubmissionStatus.COMPLETE",
+    "public_score": "27.08334",
+    "submission_ref": "58291268",
     "submitted_utc": "2026-11-13T01:39:06.973000Z"
   }
 }

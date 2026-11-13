@@ -3,7 +3,7 @@ title: Rebuild the DQI decoder with cutoff 17
 task: dqi
 tests: [C-027]
 direction: D-006
-status: submitted_pending
+status: complete
 date: 2026-11-13
 result: official DQI verifier PASS; cutoff-17 lowers the verified DQI score and raises the local portfolio GM estimate
 ---
@@ -25,4 +25,4 @@ phase errors. Verified DQI score is `360535516958.67847`, down from
 `360733280431.94055`. The local zero-failure GM estimate is `27.0833379048`.
 
 - Submission ref: Kaggle `58291268`
-- Submission state: pending at commit time; update this file after Kaggle returns the public score.
+- Submission state: Kaggle ref `58291268`, status `SubmissionStatus.COMPLETE`, public score `27.08334`.

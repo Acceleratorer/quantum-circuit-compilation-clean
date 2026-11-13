@@ -25,5 +25,6 @@
   "baseline_local_gm": 27.078387734033633,
   "local_gm": 27.083337904833364,
   "kaggle_submission_ref": "58291268",
-  "kaggle_status_at_recording": "SubmissionStatus.PENDING"
+  "kaggle_status_at_recording": "SubmissionStatus.COMPLETE",
+  "kaggle_public_score": "27.08334"
 }
