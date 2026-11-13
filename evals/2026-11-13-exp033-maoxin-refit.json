@@ -10,6 +10,16 @@
   "local_zero_failure_gm": 27.289856632448792,
   "previous_best_gm": 27.28982776022811,
   "gm_delta": 0.000028872220689,
+  "public_baseline": {
+    "snapshot_utc": "2026-11-13T15:47:27Z",
+    "team": "Accelra",
+    "rank": 347,
+    "score": 27.11042,
+    "rank1_score": 29.90871,
+    "gap_to_rank1": 2.79829,
+    "quota_used": "15/15",
+    "quota_reset_utc": "2026-11-14T00:00:00Z"
+  },
   "screened_leads": {
     "hengck23/dqi-kmb-at-59-56854": {"score": 410274633000.4907, "value_errors": 1, "decision": "reject"},
     "prvsiyan/verifier-guided-quantum-circuit-optimization": {"decision": "reproduces_exp033_stack"}

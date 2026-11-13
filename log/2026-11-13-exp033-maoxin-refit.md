@@ -13,4 +13,8 @@
   `296015250.2044768`; Vaibhav's C44 public loaders score `313929523.01738775`.
 - Fresh lead negatives: Hengck's DQI is `410274633000.4907` with one value
   error, and the current Prvsiyan notebook reproduces the exp-033 stack.
+- Public leaderboard snapshot at `2026-11-13T15:47:27Z`: Accelra is rank
+  `347` at `27.11042`; rank 1 is `29.90871`, a gap of `2.79829`.
+- Submission quota was `15/15` with reset at `2026-11-14T00:00:00Z`; exp-033
+  remains unsubmitted until that reset.
 - Decision: exp-033 is the sole prepared submit candidate; no quota was spent.
