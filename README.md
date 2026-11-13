@@ -7,9 +7,9 @@ Research log and reproducible tooling for the Google Quantum AI Verifiable Quant
 | Item | Value |
 |---|---:|
 | Best own submitted public score | **27.11042** |
-| Best local candidate estimate | **27.26997** |
+| Best local candidate estimate | **27.28986** |
 | Live leaderboard top observed | **29.90871** |
-| Current candidate members | `4560ac0c` / `821bf8d1` / refit `bdd3cd1d` |
+| Current candidate members | `4560ac0c` / `821bf8d1` / refit `06d67d21` |
 
 The repository keeps generators, verifier evidence, provenance, and experiment notes. Large circuit binaries and Kaggle submission ZIPs stay outside Git and are addressed by SHA-256 receipts.
 
@@ -23,7 +23,7 @@ The repository keeps generators, verifier evidence, provenance, and experiment n
 
 ## Latest candidate
 
-`experiments/exp-032/` records the current Atakan portfolio with a constrained chemistry refit. The archive keeps the 46-qubit inverse `4560ac0c`, the 889-qubit DQI `821bf8d1`, and the refit chemistry member `bdd3cd1d`. All three have PASS evidence; the zero-failure local geometric-mean estimate is `27.2699740595`. The archive remains outside Git and awaits the next Kaggle quota reset.
+`experiments/exp-033/` records the current portfolio with Maoxin's 4,044-Toffoli chemistry loaders and a constrained refit. The archive keeps the 46-qubit inverse `4560ac0c`, the 889-qubit DQI `821bf8d1`, and the refit chemistry member `06d67d21`. All three have PASS evidence; the zero-failure local geometric-mean estimate is `27.2898566324`. The archive remains outside Git and awaits the next Kaggle quota reset.
 
 Rebuild the local archive with:
 

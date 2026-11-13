@@ -1,0 +1,63 @@
+{
+  "experiment": "exp-033",
+  "candidate": "maoxin-v25-4044-chem-refit-atanak-46q-cutoff18-dqi",
+  "source": {
+    "kernel": "maoxin123/qcc-v25-coded-word-chemistry",
+    "dataset": "maoxin123/qcc-chemistry-4044-toffoli-loaders",
+    "refit": "kaggle_scout/new_prvsiyan_dataset/code/refit_grg.py",
+    "refit_iterations": 200
+  },
+  "archive": {
+    "workspace_path": "kaggle_scout/chem_refit_exp033/submission_exp033.zip",
+    "sha256": "0f992a97d4411737cb1da2712b3617f0bdfd784ce3a5b3ebe8689fd85a2365cb",
+    "bytes": 49302365,
+    "member_count": 18,
+    "zip_test": true
+  },
+  "members": {
+    "invsqrt.kmb": "4560ac0c017bf6d1bf27c73320f2e30c247a2a18143d58ff92a601f8bc20b218",
+    "dqi.kmb": "821bf8d15703c3e868a0099b0ab1438cfba664ab1bc6fec3210654099b672a3",
+    "dfthcsos/submission.npz": "06d67d21dbfe92484e05402c90e46b8eb46d6c5b4a5841f49f7f3b26ac5f672f"
+  },
+  "invsqrt": {
+    "status": "PASS",
+    "score": 78765.63681893334,
+    "num_qubits": 46,
+    "verified_shots": 200540928,
+    "evidence": "source_full_receipt"
+  },
+  "dqi": {
+    "status": "PASS",
+    "score": 360209905486.0156,
+    "num_qubits": 889,
+    "verified_shots": 102400,
+    "value_errors": 0,
+    "phase_errors": 0,
+    "evidence": "source_full_receipt_exact_hash"
+  },
+  "dfthcsos": {
+    "status": "PASS",
+    "score": 295362181.14128023,
+    "lambda_eff": 46.895912537812926,
+    "num_qubits": 427,
+    "toffoli_count": 14750,
+    "verified_shots": 78080,
+    "error_1": 0.01999998000000014,
+    "error_2": 0.019999997000000283,
+    "evidence": "fresh_local_official_verifier"
+  },
+  "portfolio": {
+    "reference_costs": {
+      "invsqrt": 2076774.233715282,
+      "dqi": 24439463583672.93,
+      "dfthcsos": 3355599588.3155365
+    },
+    "local_zero_failure_gm": 27.289856632448792,
+    "previous_best_gm": 27.28982776022811,
+    "gm_delta": 0.000028872220689
+  },
+  "submission": {
+    "attempted": false,
+    "reason": "daily Kaggle quota exhausted; hold until reset"
+  }
+}
