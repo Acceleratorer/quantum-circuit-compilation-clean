@@ -1,0 +1,29 @@
+{
+  "experiment": "exp-024",
+  "candidate": "v27-syed-v12-cutoff17",
+  "source_kernel": "ozertuu/27-083-vqcc-dqi-cutoff-17",
+  "archive_sha256": "af3f851f98a7e9a2d35049b80408981ed57f06320bb511202e80bf368b9dcc92",
+  "dqi_sha256": "cc0d7d25db72e90130c7c739f874a7ac611751791ee6e6c765d4d881c01b7a52",
+  "build": {
+    "cutoff": 17,
+    "scan_positions": 4095,
+    "allocated_qubits": 840,
+    "num_qubits": 889,
+    "static_toffoli_like": 383771,
+    "bytes": 455581884
+  },
+  "official_verification": {
+    "status": "PASS",
+    "verified_shots": 102400,
+    "value_errors": 0,
+    "phase_errors": 0,
+    "score": 360535516958.67847,
+    "toffoli_count": 382946.23453125,
+    "reaction_depth": 40943
+  },
+  "baseline_dqi_score": 360733280431.94055,
+  "baseline_local_gm": 27.078387734033633,
+  "local_gm": 27.083337904833364,
+  "kaggle_submission_ref": "58291268",
+  "kaggle_status_at_recording": "SubmissionStatus.PENDING"
+}
