@@ -1,0 +1,98 @@
+{
+  "experiment": "exp-027",
+  "candidate": "v30-areebbb-cutoff18-retained",
+  "source_kernel": "areebbb/qai-fewer-toffolis-same-qubits-lb-27-11042",
+  "archive_sha256": "86e4300cb2bef05944bbe8cb4f802f56f4c2481aaa73f579d7d51b808065e147",
+  "archive_bytes": 49130877,
+  "dqi_sha256": "821bf8d157c03c3e868a0099b0ab1438cfba664ab1bc6fec3210654099b672a3",
+  "official_source_verification": {
+    "status": "PASS",
+    "verified_shots": 102400,
+    "value_errors": 0,
+    "phase_errors": 0,
+    "score": 360209905486.0156,
+    "toffoli_count": 382600.383203125,
+    "max_toffoli_count": 383414,
+    "num_qubits": 889
+  },
+  "chemistry_verification": {
+    "status": "PASS",
+    "verified_shots": 78080,
+    "score": 296015250.2044768,
+    "toffoli_count": 14776.0,
+    "num_qubits": 427
+  },
+  "invsqrt_verification": {
+    "status": "PASS",
+    "verified_shots": 200540928,
+    "score": 80162.73214111096,
+    "num_qubits": 46
+  },
+  "retention": [
+    {
+      "extra_qubits": 0,
+      "max_hops": 0,
+      "qubits": 889,
+      "toffolis_saved": 241,
+      "moves_used": 0,
+      "hosted_on_extra": 0,
+      "relative_dqi_cost": 0.99937
+    },
+    {
+      "extra_qubits": 0,
+      "max_hops": 16,
+      "qubits": 889,
+      "toffolis_saved": 241,
+      "moves_used": 0,
+      "hosted_on_extra": 0,
+      "relative_dqi_cost": 0.99937
+    },
+    {
+      "extra_qubits": 1,
+      "max_hops": 0,
+      "qubits": 890,
+      "toffolis_saved": 373,
+      "moves_used": 0,
+      "hosted_on_extra": 132,
+      "relative_dqi_cost": 1.001274
+    }
+  ],
+  "cutoff_table": [
+    {
+      "cutoff": 16,
+      "excluded_probability_vs_15": 2.444040255733925e-08,
+      "expected_excluded_shots_in_102400": 0.0025026972218715393
+    },
+    {
+      "cutoff": 17,
+      "excluded_probability_vs_15": 1.5251025076076813e-07,
+      "expected_excluded_shots_in_102400": 0.015617049677902657
+    },
+    {
+      "cutoff": 18,
+      "excluded_probability_vs_15": 7.662231095204008e-07,
+      "expected_excluded_shots_in_102400": 0.07846124641488904
+    },
+    {
+      "cutoff": 19,
+      "excluded_probability_vs_15": 3.4611178360908524e-06,
+      "expected_excluded_shots_in_102400": 0.3544184664157033
+    },
+    {
+      "cutoff": 20,
+      "excluded_probability_vs_15": 1.4320824002467792e-05,
+      "expected_excluded_shots_in_102400": 1.4664523778527019
+    },
+    {
+      "cutoff": 21,
+      "excluded_probability_vs_15": 5.451924556447648e-05,
+      "expected_excluded_shots_in_102400": 5.582770745802391
+    }
+  ],
+  "source_zero_failure_gm": 27.110422140236516,
+  "source_one_failure_gm": 27.06904592726123,
+  "source_two_failure_gm": 27.034027282204782,
+  "kaggle_submission_ref": "58299178",
+  "kaggle_status_at_recording": "SubmissionStatus.PENDING",
+  "kaggle_public_score": null
+}

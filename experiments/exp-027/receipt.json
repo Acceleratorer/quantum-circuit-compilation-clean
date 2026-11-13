@@ -1,0 +1,438 @@
+{
+  "candidate_id": "v30-areebbb-cutoff18-retained",
+  "source_kernel": "areebbb/qai-fewer-toffolis-same-qubits-lb-27-11042",
+  "base_archive": "artifacts/submission_syed_v12_refined.zip",
+  "archive": "artifacts/submission.zip",
+  "archive_sha256": "86e4300cb2bef05944bbe8cb4f802f56f4c2481aaa73f579d7d51b808065e147",
+  "archive_bytes": 49130877,
+  "member_count": 18,
+  "zip_test": true,
+  "members": {
+    "dfthcsos/angle_k_0.kmb": {
+      "sha256": "ae7b8f93b92d6a597edc6c20733a7be06619f484a63fd52b4fac8ccbd98de05a",
+      "bytes": 180690
+    },
+    "dfthcsos/angle_k_1.kmb": {
+      "sha256": "052a7bf3edb8f3f6810761ad6912e74c8448ae875c893dbce14d4b02ed520da7",
+      "bytes": 158289
+    },
+    "dfthcsos/angle_k_10.kmb": {
+      "sha256": "150540c0236d07eee74275fbe659e895153eeb449dd6b025dd449d634dd853e1",
+      "bytes": 125437
+    },
+    "dfthcsos/angle_k_11.kmb": {
+      "sha256": "241c8ddd8d43e3532f4e9aa3e682e1fd9f226b64e2089f0ce65f702294657087",
+      "bytes": 125717
+    },
+    "dfthcsos/angle_k_12.kmb": {
+      "sha256": "abd3368c5171672f8adc4e3b8007c8df4c224da7c52dda3aaf87c486c63494c9",
+      "bytes": 125644
+    },
+    "dfthcsos/angle_k_13.kmb": {
+      "sha256": "ed4e454cc0a1c3e61f471e72e577f48225d1b48a5d485e80843440cee3d8442c",
+      "bytes": 125719
+    },
+    "dfthcsos/angle_k_14.kmb": {
+      "sha256": "765caf99c762dbf31eb3cc51683a5efa1b94fb675af32b4e4bcfd93c76ad9a50",
+      "bytes": 125414
+    },
+    "dfthcsos/angle_k_2.kmb": {
+      "sha256": "5d9f875a054de065b1abe1d2ab250be4604bc3a30d9e90225f56b09433f606df",
+      "bytes": 158609
+    },
+    "dfthcsos/angle_k_3.kmb": {
+      "sha256": "7a976c0a895928bb73786ce40cb4d656ce0906116326d5a7a8c6d147822a0e93",
+      "bytes": 158000
+    },
+    "dfthcsos/angle_k_4.kmb": {
+      "sha256": "2da39468bd86de86429747a50f67797a0d621bd22d08da5e03a2dee285c8e6d4",
+      "bytes": 125383
+    },
+    "dfthcsos/angle_k_5.kmb": {
+      "sha256": "3b9d04e3200dadb1b9e29b77a073a379072c12ad3065dcc6112c2f0015f63587",
+      "bytes": 125186
+    },
+    "dfthcsos/angle_k_6.kmb": {
+      "sha256": "1f0c8982e01914af9a35aa9a37746f2c4974eb28e868d8ce7e63655faf8088d8",
+      "bytes": 126132
+    },
+    "dfthcsos/angle_k_7.kmb": {
+      "sha256": "0e31d2dfb812b528d9f4f945a85c3399a768ce4af4cff5ccd1d3ab374137afc4",
+      "bytes": 125887
+    },
+    "dfthcsos/angle_k_8.kmb": {
+      "sha256": "b819d7c9e88e1f71128fa1859405758f87f84ffd1229a5d26288a6bc87c11828",
+      "bytes": 125518
+    },
+    "dfthcsos/angle_k_9.kmb": {
+      "sha256": "f7c4f84bd6bed56dc100885fa30354599aba0d9d19d1dbfb8f2a9732d3e8ac0d",
+      "bytes": 125832
+    },
+    "dfthcsos/submission.npz": {
+      "sha256": "6b52ae43eed2908f6cf42afeef9e93854e1336824ea94f515aa504af099e0ae2",
+      "bytes": 1847692
+    },
+    "dqi.kmb": {
+      "sha256": "821bf8d157c03c3e868a0099b0ab1438cfba664ab1bc6fec3210654099b672a3",
+      "bytes": 455584321
+    },
+    "invsqrt.kmb": {
+      "sha256": "321aff83636214196daa9cbc9dcc9c5e12a155bcff8d9989e98b8cee40935177",
+      "bytes": 291626
+    }
+  },
+  "official_verification_dqi": {
+    "status": "PASS",
+    "score": 360209905486.0156,
+    "m": 4095,
+    "n": 70,
+    "degree": 12,
+    "r": 2016,
+    "verified_shots": 102400,
+    "value_errors": 0,
+    "phase_errors": 0,
+    "empirical_error_rate": 0.0,
+    "effective_error_rate": 0.0008660587301657926,
+    "log2_delta": -128.0,
+    "repetition_factor": 1.1912604648115832,
+    "mean_error_weight": 31.046737331746634,
+    "toffoli_count": 382600.383203125,
+    "max_toffoli_count": 383414,
+    "reaction_depth": 40891,
+    "num_ops": 52930180,
+    "shot_operation_counts": {
+      "BIT_INVERT": 601186766521,
+      "BIT_STORE0": 154643750389,
+      "BIT_STORE1": 2991143983,
+      "X": 10927278342,
+      "Z": 2328978956,
+      "R": 4875995320,
+      "HMR": 7273354062,
+      "CX": 3183166986255,
+      "CZ": 27600910957,
+      "SWAP": 27249867499,
+      "CSWAP": 1253376000,
+      "CCX": 37210353650,
+      "CCZ": 714549590,
+      "POP_CONDITION": 155624550400,
+      "PUSH_CONDITION": 155624550400
+    },
+    "num_qubits": 889,
+    "num_bits": 154157,
+    "circuit_sha256": "821bf8d157c03c3e868a0099b0ab1438cfba664ab1bc6fec3210654099b672a3"
+  },
+  "official_verification_dfthcsos": {
+    "status": "PASS",
+    "score": 296015250.2044768,
+    "lambda_eff": 46.916902116806405,
+    "toffoli_count": 14776.0,
+    "num_qubits": 427,
+    "brot": 8,
+    "batch_size": 5,
+    "num_circuits": 15,
+    "reaction_depth": 167,
+    "num_ops": 224572,
+    "verified_shots": 78080,
+    "submission_sha256": "ed49a01a0697acd584f228365f5da09948d94777ecdce0abbcd3296f975edf66",
+    "resources": {
+      "brot": 8,
+      "keep_bits": 10,
+      "angles_toffoli_per_pass": 4057.0,
+      "angles_toffoli": 8114.0,
+      "angles_qubits": 128,
+      "angles_selection_qubits": 11,
+      "angles_persistent_qubits": 40,
+      "angles_temporary_qubits": 77,
+      "outer_state_prep_toffoli": 317,
+      "inner_state_prep_toffoli": 4095,
+      "givens_rotations_toffoli": 2250,
+      "outer_state_prep_persistent_qubits": 40,
+      "outer_state_prep_temporary_qubits": 90,
+      "outer_state_prep_qubits": 130,
+      "inner_state_prep_persistent_qubits": 44,
+      "inner_state_prep_temporary_qubits": 303,
+      "inner_state_prep_qubits": 347,
+      "heuristic_persistent_qubits": 84,
+      "heuristic_temporary_qubits": 303,
+      "heuristic_toffoli": 6662,
+      "heuristic_qubits": 387,
+      "persistent_qubits": 124,
+      "temporary_qubits": 303,
+      "toffoli": 14776.0,
+      "qubits": 427,
+      "angles_within_cap": true
+    },
+    "metrics": {
+      "error_1": 0.019945000007192112,
+      "error_2": 0.019999450073002602,
+      "Lambda": 283.0881047850708,
+      "E_SOS": -22144.18824803599,
+      "E_gap": 3.9148980359896086,
+      "lambda_eff": 46.916902116806405,
+      "gap_in_domain": true
+    }
+  },
+  "official_verification_invsqrt": {
+    "status": "PASS",
+    "score": 80162.73214111096,
+    "toffoli_equivalent": 1742.6680900241513,
+    "toffoli_count": 1511.5700305625394,
+    "max_toffoli_count": 1599,
+    "t_count": 1.0,
+    "rotation_count": 33.0,
+    "rotation_eps": 6.418510368591089e-13,
+    "num_qubits": 46,
+    "reaction_depth": 1322,
+    "num_ops": 34789,
+    "verified_shots": 200540928,
+    "worst_error_over_tolerance": 0.973575996935943,
+    "worst_x": 54566,
+    "circuit_sha256": "321aff83636214196daa9cbc9dcc9c5e12a155bcff8d9989e98b8cee40935177"
+  },
+  "paired_cutoff18_unretained": {
+    "status": "PASS",
+    "score": 360436622906.5201,
+    "m": 4095,
+    "n": 70,
+    "degree": 12,
+    "r": 2016,
+    "verified_shots": 102400,
+    "value_errors": 0,
+    "phase_errors": 0,
+    "empirical_error_rate": 0.0,
+    "effective_error_rate": 0.0008660587301657926,
+    "log2_delta": -128.0,
+    "repetition_factor": 1.1912604648115832,
+    "mean_error_weight": 31.046737331746634,
+    "toffoli_count": 382841.1932714844,
+    "max_toffoli_count": 383655,
+    "reaction_depth": 40891,
+    "num_ops": 52929457,
+    "shot_operation_counts": {
+      "BIT_INVERT": 601186150216,
+      "BIT_STORE0": 154643756489,
+      "BIT_STORE1": 2991137322,
+      "X": 10927214310,
+      "Z": 2329079682,
+      "R": 4875973133,
+      "HMR": 7248654484,
+      "CX": 3183117890156,
+      "CZ": 27588069947,
+      "SWAP": 27249898610,
+      "CSWAP": 1253376000,
+      "CCX": 37235012472,
+      "CCZ": 714549719,
+      "POP_CONDITION": 155624550400,
+      "PUSH_CONDITION": 155624550400
+    },
+    "num_qubits": 889,
+    "num_bits": 53908,
+    "circuit_sha256": "32b0a8b444762334ac028a381693cab9185b370ffd2261560894929afffaf216"
+  },
+  "retention": [
+    {
+      "extra_qubits": 0,
+      "max_hops": 0,
+      "qubits": 889,
+      "toffolis_saved": 241,
+      "moves_used": 0,
+      "hosted_on_extra": 0,
+      "relative_dqi_cost": 0.99937
+    },
+    {
+      "extra_qubits": 0,
+      "max_hops": 16,
+      "qubits": 889,
+      "toffolis_saved": 241,
+      "moves_used": 0,
+      "hosted_on_extra": 0,
+      "relative_dqi_cost": 0.99937
+    },
+    {
+      "extra_qubits": 1,
+      "max_hops": 0,
+      "qubits": 890,
+      "toffolis_saved": 373,
+      "moves_used": 0,
+      "hosted_on_extra": 132,
+      "relative_dqi_cost": 1.001274
+    }
+  ],
+  "cutoff_table": [
+    {
+      "cutoff": 16,
+      "excluded_probability_vs_15": 2.444040255733925e-08,
+      "expected_excluded_shots_in_102400": 0.0025026972218715393
+    },
+    {
+      "cutoff": 17,
+      "excluded_probability_vs_15": 1.5251025076076813e-07,
+      "expected_excluded_shots_in_102400": 0.015617049677902657
+    },
+    {
+      "cutoff": 18,
+      "excluded_probability_vs_15": 7.662231095204008e-07,
+      "expected_excluded_shots_in_102400": 0.07846124641488904
+    },
+    {
+      "cutoff": 19,
+      "excluded_probability_vs_15": 3.4611178360908524e-06,
+      "expected_excluded_shots_in_102400": 0.3544184664157033
+    },
+    {
+      "cutoff": 20,
+      "excluded_probability_vs_15": 1.4320824002467792e-05,
+      "expected_excluded_shots_in_102400": 1.4664523778527019
+    },
+    {
+      "cutoff": 21,
+      "excluded_probability_vs_15": 5.451924556447648e-05,
+      "expected_excluded_shots_in_102400": 5.582770745802391
+    }
+  ],
+  "audit": [
+    {
+      "circuit": "angle_k_0 (maoxin123)",
+      "qubits": 128,
+      "static_toffoli_like": 292,
+      "repeated_pairs": 0,
+      "retained_k0_hops0": 0,
+      "peephole_rewrites": 0
+    },
+    {
+      "circuit": "angle_k_1 (maoxin123)",
+      "qubits": 126,
+      "static_toffoli_like": 287,
+      "repeated_pairs": 0,
+      "retained_k0_hops0": 0,
+      "peephole_rewrites": 0
+    },
+    {
+      "circuit": "angle_k_2 (maoxin123)",
+      "qubits": 126,
+      "static_toffoli_like": 287,
+      "repeated_pairs": 0,
+      "retained_k0_hops0": 0,
+      "peephole_rewrites": 0
+    },
+    {
+      "circuit": "angle_k_3 (maoxin123)",
+      "qubits": 126,
+      "static_toffoli_like": 287,
+      "repeated_pairs": 0,
+      "retained_k0_hops0": 0,
+      "peephole_rewrites": 0
+    },
+    {
+      "circuit": "angle_k_4 (maoxin123)",
+      "qubits": 128,
+      "static_toffoli_like": 264,
+      "repeated_pairs": 0,
+      "retained_k0_hops0": 0,
+      "peephole_rewrites": 0
+    },
+    {
+      "circuit": "angle_k_5 (maoxin123)",
+      "qubits": 128,
+      "static_toffoli_like": 264,
+      "repeated_pairs": 0,
+      "retained_k0_hops0": 0,
+      "peephole_rewrites": 0
+    },
+    {
+      "circuit": "angle_k_6 (maoxin123)",
+      "qubits": 128,
+      "static_toffoli_like": 264,
+      "repeated_pairs": 0,
+      "retained_k0_hops0": 0,
+      "peephole_rewrites": 0
+    },
+    {
+      "circuit": "angle_k_7 (maoxin123)",
+      "qubits": 128,
+      "static_toffoli_like": 264,
+      "repeated_pairs": 0,
+      "retained_k0_hops0": 0,
+      "peephole_rewrites": 0
+    },
+    {
+      "circuit": "angle_k_8 (maoxin123)",
+      "qubits": 128,
+      "static_toffoli_like": 264,
+      "repeated_pairs": 0,
+      "retained_k0_hops0": 0,
+      "peephole_rewrites": 0
+    },
+    {
+      "circuit": "angle_k_9 (maoxin123)",
+      "qubits": 128,
+      "static_toffoli_like": 264,
+      "repeated_pairs": 0,
+      "retained_k0_hops0": 0,
+      "peephole_rewrites": 0
+    },
+    {
+      "circuit": "angle_k_10 (maoxin123)",
+      "qubits": 128,
+      "static_toffoli_like": 264,
+      "repeated_pairs": 0,
+      "retained_k0_hops0": 0,
+      "peephole_rewrites": 0
+    },
+    {
+      "circuit": "angle_k_11 (maoxin123)",
+      "qubits": 128,
+      "static_toffoli_like": 264,
+      "repeated_pairs": 0,
+      "retained_k0_hops0": 0,
+      "peephole_rewrites": 0
+    },
+    {
+      "circuit": "angle_k_12 (maoxin123)",
+      "qubits": 128,
+      "static_toffoli_like": 264,
+      "repeated_pairs": 0,
+      "retained_k0_hops0": 0,
+      "peephole_rewrites": 0
+    },
+    {
+      "circuit": "angle_k_13 (maoxin123)",
+      "qubits": 128,
+      "static_toffoli_like": 264,
+      "repeated_pairs": 0,
+      "retained_k0_hops0": 0,
+      "peephole_rewrites": 0
+    },
+    {
+      "circuit": "angle_k_14 (maoxin123)",
+      "qubits": 128,
+      "static_toffoli_like": 264,
+      "repeated_pairs": 0,
+      "retained_k0_hops0": 0,
+      "peephole_rewrites": 0
+    },
+    {
+      "circuit": "dqi (cutoff 18 + retention)",
+      "qubits": 889,
+      "static_toffoli_like": 383414,
+      "repeated_pairs": 5697,
+      "retained_k0_hops0": 0,
+      "retained_k0_hops16": 0,
+      "peephole_rewrites": 0,
+      "register_qubits": 840,
+      "min_qubits": 889
+    }
+  ],
+  "source_zero_failure_gm": 27.110422140236516,
+  "source_one_failure_gm": 27.06904592726123,
+  "source_two_failure_gm": 27.034027282204782,
+  "previous_kaggle_public_score": "27.08903",
+  "source_receipt": "kernel_outputs/areebbb_2711042/receipt.json",
+  "submission_ref": "58299178",
+  "submission_state": {
+    "status": "SubmissionStatus.PENDING",
+    "public_score": null,
+    "submission_ref": "58299178",
+    "submitted_utc": "2026-11-13T06:45:44.890000Z"
+  }
+}
