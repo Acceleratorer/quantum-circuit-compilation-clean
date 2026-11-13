@@ -1,0 +1,55 @@
+{
+  "experiment": "exp-031",
+  "candidate": "atakan-46q-inverse-v17-chem-cutoff18-dqi",
+  "source_notebook": "atakanaldemir/quantum-circuits-iso-gap-dqi-h5",
+  "archive": {
+    "workspace_path": "kaggle_scout/refresh_atakan_h5/submission.zip",
+    "sha256": "2040d92d2a479916e88672251257f05b05d806b8e4f82852b1812bdc9328d024",
+    "bytes": 49128283,
+    "member_count": 18,
+    "zip_test": true
+  },
+  "members": {
+    "invsqrt.kmb": "4560ac0c017bf6d1bf27c73320f2e30c247a2a18143d58ff92a601f8bc20b218",
+    "dqi.kmb": "821bf8d157c03c3e868a0099b0ab1438cfba664ab1bc6fec3210654099b672a3",
+    "dfthcsos/submission.npz": "45621b0e3d363ad7e944ed9cdaa8d82ad989b72fb9dc27358758014c30766031"
+  },
+  "invsqrt": {
+    "status": "PASS",
+    "score": 78765.63681893334,
+    "num_qubits": 46,
+    "verified_shots": 200540928,
+    "evidence": "source_full_receipt"
+  },
+  "dqi": {
+    "status": "PASS",
+    "score": 360209905486.0156,
+    "num_qubits": 889,
+    "verified_shots": 102400,
+    "value_errors": 0,
+    "phase_errors": 0,
+    "evidence": "source_full_receipt_exact_hash"
+  },
+  "dfthcsos": {
+    "status": "PASS",
+    "score": 296008772.34505755,
+    "num_qubits": 427,
+    "toffoli_count": 14776,
+    "verified_shots": 78080,
+    "evidence": "fresh_local_official_verifier"
+  },
+  "portfolio": {
+    "reference_costs": {
+      "invsqrt": 2076774.233715282,
+      "dqi": 24439463583672.93,
+      "dfthcsos": 3355599588.3155365
+    },
+    "local_zero_failure_gm": 27.269971810894724,
+    "previous_best_gm": 27.1105624615787,
+    "gm_delta": 0.159409349316024
+  },
+  "submission": {
+    "attempted": false,
+    "reason": "daily Kaggle quota exhausted; hold until reset"
+  }
+}

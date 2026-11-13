@@ -1,3 +1,4 @@
+---
 id: exp-026
 title: Combine cutoff-17 synthesis with same-qubit retention
 task: dqi

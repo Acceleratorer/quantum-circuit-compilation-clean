@@ -1,3 +1,4 @@
+---
 id: exp-024
 title: Rebuild the DQI decoder with cutoff 17
 task: dqi

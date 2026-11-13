@@ -1,3 +1,4 @@
+---
 id: exp-025
 title: Use Areeb's same-qubit retained-product DQI
 task: dqi

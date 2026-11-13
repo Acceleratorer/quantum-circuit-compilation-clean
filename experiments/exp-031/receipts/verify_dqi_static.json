@@ -1,0 +1,10 @@
+{
+  "status": "STATIC_OK",
+  "sha256": "821bf8d157c03c3e868a0099b0ab1438cfba664ab1bc6fec3210654099b672a3",
+  "num_qubits": 889,
+  "num_ops": 52930180,
+  "reaction_depth": 40891,
+  "toffoli_like": 383414,
+  "t_like": 0,
+  "full_source_receipt": "../refresh_atakan_h5/reproduction_audit.json"
+}

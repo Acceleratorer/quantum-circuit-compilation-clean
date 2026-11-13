@@ -5,6 +5,7 @@ task: portfolio
 tests: [C-033]
 status: verified_no_improvement
 date: 2026-11-13
+result: six chemistry PASS candidates and seven DQI static candidates were all worse than the retained portfolio
 ---
 
 # SomeJoint sweep
