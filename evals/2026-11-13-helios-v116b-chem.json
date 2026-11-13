@@ -1,0 +1,22 @@
+{
+  "experiment": "exp-028",
+  "candidate": "v31-helios-v116b-chemistry",
+  "source_dataset": "heliosli/qcc-circuits-live",
+  "source_manifest": "v116b_mx25_ay3",
+  "archive_sha256": "19f6880d88ddf1c0fabba39f2133317d7fe172ef3ca2f80fd7b6a3a858608498",
+  "member_count": 18,
+  "zip_test": true,
+  "chemistry": {
+    "status": "PASS",
+    "score": 296014706.5856464,
+    "verified_shots": 78080,
+    "salt_checked": ["", "notebook-verification"],
+    "npz_sha256": "865f52ce67b3d4908208699bf42806502aff6528b4d5ee682c0b3c18a87890bc"
+  },
+  "dqi": {"status": "PASS", "score": 360209905486.0156, "verified_shots": 102400, "value_errors": 0, "phase_errors": 0, "sha256": "821bf8d157c03c3e868a0099b0ab1438cfba664ab1bc6fec3210654099b672a3"},
+  "invsqrt": {"status": "PASS", "score": 80162.73214111096, "verified_shots": 200540928, "sha256": "321aff83636214196daa9cbc9dcc9c5e12a155bcff8d9989e98b8cee40935177"},
+  "local_zero_failure_gm": 27.1104387521059,
+  "gm_delta_vs_v30": 0.000016595714832,
+  "submission_attempted": false,
+  "submission_reason": "daily quota exhausted"
+}

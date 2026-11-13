@@ -93,6 +93,6 @@
   "source_one_failure_gm": 27.06904592726123,
   "source_two_failure_gm": 27.034027282204782,
   "kaggle_submission_ref": "58299178",
-  "kaggle_status_at_recording": "SubmissionStatus.PENDING",
-  "kaggle_public_score": null
+  "kaggle_status_at_recording": "SubmissionStatus.COMPLETE",
+  "kaggle_public_score": 27.11042
 }

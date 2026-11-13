@@ -4,9 +4,9 @@ title: Raise DQI cutoff to 18 with same-qubit retention
 task: dqi
 tests: [C-030]
 direction: D-009
-status: submitted_pending
+status: complete
 date: 2026-11-13
-result: full official source PASS; local zero-failure GM 27.11042; Kaggle score pending
+result: full official source PASS; local zero-failure GM 27.11042; Kaggle public score 27.11042
 ---
 
 # Cutoff-18 plus retained products
@@ -28,4 +28,4 @@ qubit width and 241 retained products.
 - Local zero-failure GM estimate: `27.110422140236516`
 
 - Submission ref: Kaggle `58299178`
-- Submission state: `SubmissionStatus.PENDING`; public score pending.
+- Submission state: `SubmissionStatus.COMPLETE`; public score 27.11042.

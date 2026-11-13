@@ -1,0 +1,37 @@
+{
+  "candidate_id": "v31-helios-v116b-chemistry",
+  "source_dataset": "heliosli/qcc-circuits-live",
+  "source_manifest": "v116b_mx25_ay3",
+  "source_salt": "notebook-verification",
+  "archive": "kernel_outputs/helios_v116b_chem/submission.zip",
+  "archive_sha256": "19f6880d88ddf1c0fabba39f2133317d7fe172ef3ca2f80fd7b6a3a858608498",
+  "archive_bytes": 47488121,
+  "member_count": 18,
+  "zip_test": true,
+  "members": {
+    "dfthcsos/submission.npz": {"sha256": "865f52ce67b3d4908208699bf42806502aff6528b4d5ee682c0b3c18a87890bc", "bytes": 1847692},
+    "dqi.kmb": {"sha256": "821bf8d157c03c3e868a0099b0ab1438cfba664ab1bc6fec3210654099b672a3", "bytes": 455584321},
+    "invsqrt.kmb": {"sha256": "321aff83636214196daa9cbc9dcc9c5e12a155bcff8d9989e98b8cee40935177", "bytes": 291626}
+  },
+  "chemistry_verification": {
+    "status": "PASS",
+    "score": 296014706.5856464,
+    "submission_sha256": "3538f1a4b0a71df9746d6eceb2e3a864b52f826c70903d06a548988b87bca7d1",
+    "salt_checked": ["", "notebook-verification"],
+    "verified_shots": 78080,
+    "num_qubits": 427,
+    "toffoli_count": 14776.0,
+    "lambda_eff": 46.9168159560041
+  },
+  "retained_component_verification": {
+    "dqi": {"status": "PASS", "score": 360209905486.0156, "verified_shots": 102400, "value_errors": 0, "phase_errors": 0, "num_qubits": 889},
+    "invsqrt": {"status": "PASS", "score": 80162.73214111096, "verified_shots": 200540928, "num_qubits": 46}
+  },
+  "portfolio": {
+    "reference_costs": {"invsqrt": 2076774.233715282, "dqi": 24439463583672.93, "dfthcsos": 3355599588.3155375},
+    "local_zero_failure_gm": 27.1104387521059,
+    "v30_gm": 27.1104221563911,
+    "gm_delta": 0.000016595714832
+  },
+  "submission": {"attempted": false, "reason": "daily Kaggle quota exhausted after ref 58299178"}
+}

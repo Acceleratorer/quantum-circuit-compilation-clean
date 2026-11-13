@@ -430,8 +430,8 @@
   "source_receipt": "kernel_outputs/areebbb_2711042/receipt.json",
   "submission_ref": "58299178",
   "submission_state": {
-    "status": "SubmissionStatus.PENDING",
-    "public_score": null,
+    "status": "SubmissionStatus.COMPLETE",
+    "public_score": 27.11042,
     "submission_ref": "58299178",
     "submitted_utc": "2026-11-13T06:45:44.890000Z"
   }
