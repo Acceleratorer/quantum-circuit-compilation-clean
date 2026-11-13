@@ -1,0 +1,55 @@
+{
+  "experiment": "exp-032",
+  "candidate": "atakan-46q-inverse-v17-chem-refit-cutoff18-dqi",
+  "archive": {
+    "workspace_path": "kaggle_scout/chem_refit_exp032/submission_exp032.zip",
+    "sha256": "8a56b17df9fe0d9abeb10b60f5f21a76924158256b3338b438c7200c1f382937",
+    "bytes": 49129984,
+    "member_count": 18,
+    "zip_test": true
+  },
+  "members": {
+    "invsqrt.kmb": "4560ac0c017bf6d1bf27c73320f2e30c247a2a18143d58ff92a601f8bc20b218",
+    "dqi.kmb": "821bf8d15703c3e868a0099b0ab1438cfba664ab1bc6fec3210654099b672a3",
+    "dfthcsos/submission.npz": "bdd3cd1df1b5954f359f9ff4258f5aac1647b632513eae578752e6fbbe29987e"
+  },
+  "invsqrt": {
+    "status": "PASS",
+    "score": 78765.63681893334,
+    "num_qubits": 46,
+    "verified_shots": 200540928,
+    "evidence": "source_full_receipt"
+  },
+  "dqi": {
+    "status": "PASS",
+    "score": 360209905486.0156,
+    "num_qubits": 889,
+    "verified_shots": 102400,
+    "value_errors": 0,
+    "phase_errors": 0,
+    "evidence": "source_full_receipt_exact_hash"
+  },
+  "dfthcsos": {
+    "status": "PASS",
+    "score": 296008698.5905082,
+    "num_qubits": 427,
+    "toffoli_count": 14776,
+    "verified_shots": 78080,
+    "lambda_eff": 46.915863719524324,
+    "evidence": "fresh_local_official_verifier"
+  },
+  "portfolio": {
+    "reference_costs": {
+      "invsqrt": 2076774.233715282,
+      "dqi": 24439463583672.93,
+      "dfthcsos": 3355599588.3155365
+    },
+    "local_zero_failure_gm": 27.26997405953837,
+    "previous_best_gm": 27.269971810894724,
+    "gm_delta": 0.000002248643646
+  },
+  "submission": {
+    "attempted": false,
+    "reason": "daily Kaggle quota exhausted; hold until reset"
+  }
+}

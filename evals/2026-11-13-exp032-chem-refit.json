@@ -1,0 +1,16 @@
+{
+  "experiment": "exp-032",
+  "candidate": "atakan-46q-inverse-v17-chem-refit-cutoff18-dqi",
+  "archive_sha256": "8a56b17df9fe0d9abeb10b60f5f21a76924158256b3338b438c7200c1f382937",
+  "verification": {
+    "invsqrt": {"status": "PASS", "verified_shots": 200540928, "score": 78765.63681893334},
+    "dqi": {"status": "PASS", "verified_shots": 102400, "score": 360209905486.0156, "value_errors": 0, "phase_errors": 0},
+    "dfthcsos": {"status": "PASS", "verified_shots": 78080, "score": 296008698.5905082, "lambda_eff": 46.915863719524324}
+  },
+  "local_zero_failure_gm": 27.26997405953837,
+  "previous_best_gm": 27.269971810894724,
+  "gm_delta": 0.000002248643646,
+  "observed_public_score": null,
+  "submission_attempted": false,
+  "risk": "This is a local chemistry improvement only; no Kaggle score is available until quota reset."
+}
