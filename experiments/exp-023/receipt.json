@@ -205,8 +205,19 @@
     "gm_after": 27.078387734033633
   },
   "submission_state": {
-    "status": "prepared",
-    "watcher": "artifacts/submit_v26_watch.ps1",
-    "scheduled_utc": "2026-11-13T00:02:00Z"
+    "status": "submitted_pending",
+    "submitted_utc": "2026-11-13T00:21:42.826773+00:00",
+    "raw_output": "Submission ref: 58288978\n4 submissions remaining today.\nSuccessfully submitted to Google Quantum AI - Verifiable Quantum Circuit Compilation\narchive=artifacts/submission_syed_v12_refined.zip\nsubmitted_file=artifacts/submission.zip\nsha256=3f2d8d70965fa1f9afcb1e9da5bae2f400cf12204d1692b1bb80f26beabc8d85\n",
+    "kaggle_rows": [
+      {
+        "ref": "58288978",
+        "fileName": "submission.zip",
+        "date": "2026-11-13 00:10:19.653000",
+        "description": "v26 Syed v12 with Orecord refined chemistry weights; invsqrt 46Q, DQI 889Q",
+        "status": "SubmissionStatus.PENDING",
+        "publicScore": "",
+        "privateScore": ""
+      }
+    ]
   }
 }

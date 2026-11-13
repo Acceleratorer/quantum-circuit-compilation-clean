@@ -4,7 +4,7 @@ title: Refine Syed v12 chemistry weights
 task: dfthcsos
 tests: [C-026]
 direction: D-005
-status: ready_for_submit
+status: submitted_pending
 date: 2026-11-13
 result: official chemistry verifier PASS; refined weight file lowers the chemistry cost by 0.85 while preserving the Syed v12 invsqrt and DQI bytes
 ---
@@ -24,3 +24,5 @@ The official local verifier passed all three members used in the archive. The
 chemistry score moved from `296635967.5935997` to `296635966.74267346`; the
 zero-failure geometric-mean estimate moved from `27.078387708141392` to
 `27.078387734033633`.
+
+- Submission state: Kaggle ref `58288978`, status `SubmissionStatus.PENDING`, public score ``.
