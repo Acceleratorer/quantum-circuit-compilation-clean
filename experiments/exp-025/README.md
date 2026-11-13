@@ -3,9 +3,9 @@ title: Use Areeb's same-qubit retained-product DQI
 task: dqi
 tests: [C-028]
 direction: D-007
-status: submitted_pending
+status: complete
 date: 2026-11-13
-result: public source receipt PASS; local 1024-shot smoke PASS; Kaggle score pending
+result: public source receipt PASS; local 1024-shot smoke PASS; Kaggle public score 27.08407
 ---
 
 # Areeb retained-product DQI
@@ -23,4 +23,4 @@ and a full official verifier PASS with zero errors.
 - Archive SHA-256: `b3a4e0e2736007e24d8d99693b53ab5666bb05d5af34547a3d6b467fbca8a12`
 
 - Submission ref: Kaggle `58292102`
-- Submission state: pending at commit time; update after Kaggle returns the public score.
+- Submission state: Kaggle ref `58292102`, status `SubmissionStatus.COMPLETE`, public score `27.08407`.
