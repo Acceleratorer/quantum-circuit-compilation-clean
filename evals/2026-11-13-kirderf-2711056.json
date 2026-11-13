@@ -1,0 +1,15 @@
+{
+  "experiment": "exp-029",
+  "candidate": "kirderf-27.11056-portfolio",
+  "source_notebook": "kirderf/vqcc-portfolio-2711-reproduced",
+  "archive_sha256": "dce2b52dcba789655ca3195f2b968e4ea511b76be3519f672203fc1032a79dba",
+  "member_count": 18,
+  "zip_test": true,
+  "chemistry": {"status": "PASS", "score": 296010654.3285701, "verified_shots": 78080, "npz_sha256": "f90d6c660bce3c6ce55143100ac9e71e0aa34c4911014934c4536ccc88c64679"},
+  "dqi": {"status": "PASS", "score": 360209905486.0156, "verified_shots": 102400, "value_errors": 0, "phase_errors": 0, "sha256": "821bf8d157c03c3e868a0099b0ab1438cfba664ab1bc6fec3210654099b672a3"},
+  "invsqrt": {"status": "PASS", "score": 80162.73214111096, "verified_shots": 200540928, "sha256": "321aff83636214196daa9cbc9dcc9c5e12a155bcff8d9989e98b8cee40935177"},
+  "local_zero_failure_gm": 27.1105624615787,
+  "gm_delta_vs_v30": 0.000140305187628087,
+  "submission_attempted": false,
+  "submission_reason": "daily quota exhausted"
+}
