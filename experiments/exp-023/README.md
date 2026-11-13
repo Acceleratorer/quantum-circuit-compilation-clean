@@ -25,4 +25,4 @@ chemistry score moved from `296635967.5935997` to `296635966.74267346`; the
 zero-failure geometric-mean estimate moved from `27.078387708141392` to
 `27.078387734033633`.
 
-- Submission state: Kaggle ref `58288978`, status `SubmissionStatus.PENDING`, public score ``.
+- Submission state: Kaggle ref `58288978`, status `SubmissionStatus.COMPLETE`, public score `27.00209`.
