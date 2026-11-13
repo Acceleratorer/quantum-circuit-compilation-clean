@@ -129,8 +129,9 @@
   "local_zero_failure_gm": 27.08902203411437,
   "submission_ref": "58294002",
   "submission_state": {
-    "status": "SubmissionStatus.PENDING",
-    "public_score": null,
-    "submitted_utc": "2026-11-13T03:41:50Z"
+    "status": "SubmissionStatus.COMPLETE",
+    "public_score": "27.08903",
+    "submission_ref": "58294002",
+    "submitted_utc": "2026-11-13T03:41:50.460000Z"
   }
 }

@@ -25,5 +25,7 @@
   },
   "local_zero_failure_gm": 27.08902203411437,
   "kaggle_submission_ref": "58294002",
-  "kaggle_status_at_recording": "SubmissionStatus.PENDING"
+  "kaggle_status_at_recording": "SubmissionStatus.COMPLETE",
+  "kaggle_public_score": "27.08903",
+  "leaderboard_top_score": "29.90871"
 }

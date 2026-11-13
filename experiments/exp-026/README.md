@@ -3,9 +3,9 @@ title: Combine cutoff-17 synthesis with same-qubit retention
 task: dqi
 tests: [C-029]
 direction: D-008
-status: submitted_pending
+status: complete
 date: 2026-11-13
-result: full official DQI PASS; Kaggle score pending
+result: full official DQI PASS; Kaggle public score 27.08903
 ---
 
 # Cutoff-17 plus retained products
@@ -22,4 +22,4 @@ free products again on the cutoff-17 circuit, preserving 889 qubits and saving
 - Local zero-failure GM estimate: `27.0890220341`
 
 - Submission ref: Kaggle `58294002`
-- Submission state: pending at commit time; update after Kaggle returns the public score.
+- Submission state: Kaggle ref `58294002`, status `SubmissionStatus.COMPLETE`, public score `27.08903`.
