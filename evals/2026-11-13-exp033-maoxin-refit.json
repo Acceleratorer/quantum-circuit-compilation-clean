@@ -10,6 +10,10 @@
   "local_zero_failure_gm": 27.289856632448792,
   "previous_best_gm": 27.28982776022811,
   "gm_delta": 0.000028872220689,
+  "screened_leads": {
+    "hengck23/dqi-kmb-at-59-56854": {"score": 410274633000.4907, "value_errors": 1, "decision": "reject"},
+    "prvsiyan/verifier-guided-quantum-circuit-optimization": {"decision": "reproduces_exp033_stack"}
+  },
   "observed_public_score": null,
   "submission_attempted": false,
   "risk": "The candidate is locally verified but has no Kaggle score until quota reset."

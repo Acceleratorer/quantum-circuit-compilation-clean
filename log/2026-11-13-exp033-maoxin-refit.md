@@ -11,4 +11,6 @@
 - Public scan negatives: Ahoirg k6c is the same `4560ac0c` inverse; Hypery11's
   DQI is `939011176530.0194`; the 4,057-loader chemistry scores
   `296015250.2044768`; Vaibhav's C44 public loaders score `313929523.01738775`.
+- Fresh lead negatives: Hengck's DQI is `410274633000.4907` with one value
+  error, and the current Prvsiyan notebook reproduces the exp-033 stack.
 - Decision: exp-033 is the sole prepared submit candidate; no quota was spent.
