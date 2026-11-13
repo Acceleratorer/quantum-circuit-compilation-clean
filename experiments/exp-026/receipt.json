@@ -1,0 +1,136 @@
+{
+  "candidate_id": "v29-syed-v12-cutoff17-retained",
+  "source_lineage": [
+    "ozertuu/27-083-vqcc-dqi-cutoff-17",
+    "areebbb/qai-fewer-toffolis-same-qubits-lb-27-08407"
+  ],
+  "base_archive": "artifacts/submission_syed_v12_refined.zip",
+  "archive": "artifacts/submission_syed_v12_cutoff17_retained.zip",
+  "archive_sha256": "39be3341cdf390987e869ea0bde5f0eed3e02129cef5341e3cc247da58914167",
+  "archive_bytes": 49361069,
+  "member_count": 18,
+  "zip_test": true,
+  "members": {
+    "invsqrt.kmb": {
+      "sha256": "321aff83636214196daa9cbc9dcc9c5e12a155bcff8d9989e98b8cee40935177",
+      "bytes": 291626
+    },
+    "dqi.kmb": {
+      "sha256": "c60beda89448fad6f927de6a7c53786c82d88d33e51744b1281a9e68ca1d3e1e",
+      "bytes": 455588391
+    },
+    "dfthcsos/angle_k_0.kmb": {
+      "sha256": "ce7ebaf342c5b49f7d539637359fb8a282718fb3057e7b25dd193f2a6a4b8974",
+      "bytes": 407750
+    },
+    "dfthcsos/angle_k_1.kmb": {
+      "sha256": "3eac70665f021b0e304106fd62749277d4d69db775df008aacd6d950e4934193",
+      "bytes": 420156
+    },
+    "dfthcsos/angle_k_2.kmb": {
+      "sha256": "c3e1454e29a05c3c28bcfd16c2aee02340b5d439d9466774424fedf0ed7601d1",
+      "bytes": 421220
+    },
+    "dfthcsos/angle_k_3.kmb": {
+      "sha256": "d26b576ae789b0471ec6c11b7317c7c69eb3d7190472af8120ccf25cf217a8ea",
+      "bytes": 415439
+    },
+    "dfthcsos/angle_k_4.kmb": {
+      "sha256": "2efacc9d944aa5a855acf780e6bbc3c07af16c0275eb9549bb24adc70acca344",
+      "bytes": 366414
+    },
+    "dfthcsos/angle_k_5.kmb": {
+      "sha256": "7e4ed9a363c8f56d85410185c7b4449211788bc61e81b3dc7cbdd10ab7ce8a42",
+      "bytes": 364423
+    },
+    "dfthcsos/angle_k_6.kmb": {
+      "sha256": "26ab1d5df8132bbc28e068a4eef0b247ea21a96fa4034f89a6d1bf306f07e284",
+      "bytes": 367137
+    },
+    "dfthcsos/angle_k_7.kmb": {
+      "sha256": "1ae98642315e7aaedfde99773af4ae48198bf8b4f2e11e97883d6aa1bfe12bee",
+      "bytes": 372920
+    },
+    "dfthcsos/angle_k_8.kmb": {
+      "sha256": "e69c554c360c709e52126a6f773afeaa3564da7be0927d6293665f342203771f",
+      "bytes": 353772
+    },
+    "dfthcsos/angle_k_9.kmb": {
+      "sha256": "38848ce19bd553e4007a454d9b7d392d05ac105cf4b269f41521bd1003bf838e",
+      "bytes": 359601
+    },
+    "dfthcsos/angle_k_10.kmb": {
+      "sha256": "fdb67807154e35d9f41471c22b38bbc3ed07e5c93efef30a57f0599fb8400ff7",
+      "bytes": 360179
+    },
+    "dfthcsos/angle_k_11.kmb": {
+      "sha256": "d22baf8e2d294165618bcee40d958ef2806f0b35352c8b92e0d201aff3269c37",
+      "bytes": 360339
+    },
+    "dfthcsos/angle_k_12.kmb": {
+      "sha256": "b1b6af502f4bf02e521ab888600f645aa5a5bed028290466b54a835423eb2517",
+      "bytes": 359705
+    },
+    "dfthcsos/angle_k_13.kmb": {
+      "sha256": "1843d7993215656e4e0eee69169966ba269d544bc0b90e855e4ed5e6e113accc",
+      "bytes": 359237
+    },
+    "dfthcsos/angle_k_14.kmb": {
+      "sha256": "b763f0cd2fdeaaa31e7811084e51fde5d51575b036fa22854fb28172c1712a8e",
+      "bytes": 361106
+    },
+    "dfthcsos/submission.npz": {
+      "sha256": "33cfa0614fb5b528c64e5a4b8e47beec67d670707936b21d18bd575ee77f90d9",
+      "bytes": 1847692
+    }
+  },
+  "official_verification_dqi": {
+    "status": "PASS",
+    "score": 360308609486.46423,
+    "m": 4095,
+    "n": 70,
+    "degree": 12,
+    "r": 2016,
+    "verified_shots": 102400,
+    "value_errors": 0,
+    "phase_errors": 0,
+    "empirical_error_rate": 0.0,
+    "effective_error_rate": 0.0008660587301657926,
+    "log2_delta": -128.0,
+    "repetition_factor": 1.1912604648115832,
+    "mean_error_weight": 31.046737331746634,
+    "toffoli_count": 382705.22259765625,
+    "max_toffoli_count": 383530,
+    "reaction_depth": 40943,
+    "num_ops": 52930646,
+    "shot_operation_counts": {
+      "BIT_INVERT": 601185371552,
+      "BIT_STORE0": 154643750307,
+      "BIT_STORE1": 2991162795,
+      "X": 10939511464,
+      "Z": 2328999076,
+      "R": 4881608039,
+      "HMR": 7279172599,
+      "CX": 3183167592674,
+      "CZ": 27604969032,
+      "SWAP": 27250032764,
+      "CSWAP": 1258291200,
+      "CCX": 37216173847,
+      "CCZ": 714549747,
+      "POP_CONDITION": 155624652800,
+      "PUSH_CONDITION": 155624652800
+    },
+    "num_qubits": 889,
+    "num_bits": 154158,
+    "circuit_sha256": "c60beda89448fad6f927de6a7c53786c82d88d33e51744b1281a9e68ca1d3e1e"
+  },
+  "previous_dqi_score": 360535516958.67847,
+  "previous_local_gm": 27.083337904833364,
+  "local_zero_failure_gm": 27.08902203411437,
+  "submission_ref": "58294002",
+  "submission_state": {
+    "status": "SubmissionStatus.PENDING",
+    "public_score": null,
+    "submitted_utc": "2026-11-13T03:41:50Z"
+  }
+}

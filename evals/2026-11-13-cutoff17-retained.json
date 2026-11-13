@@ -1,0 +1,29 @@
+{
+  "experiment": "exp-026",
+  "candidate": "v29-syed-v12-cutoff17-retained",
+  "source_lineage": [
+    "ozertuu/27-083-vqcc-dqi-cutoff-17",
+    "areebbb/qai-fewer-toffolis-same-qubits-lb-27-08407"
+  ],
+  "archive_sha256": "39be3341cdf390987e869ea0bde5f0eed3e02129cef5341e3cc247da58914167",
+  "dqi_sha256": "c60beda89448fad6f927de6a7c53786c82d88d33e51744b1281a9e68ca1d3e1e",
+  "build": {
+    "num_qubits": 889,
+    "num_bits": 154158,
+    "static_toffoli_like_before": 383771,
+    "static_toffoli_like_after": 383530,
+    "static_saved": 241
+  },
+  "official_verification": {
+    "status": "PASS",
+    "verified_shots": 102400,
+    "value_errors": 0,
+    "phase_errors": 0,
+    "score": 360308609486.46423,
+    "toffoli_count": 382705.22259765625,
+    "reaction_depth": 40943
+  },
+  "local_zero_failure_gm": 27.08902203411437,
+  "kaggle_submission_ref": "58294002",
+  "kaggle_status_at_recording": "SubmissionStatus.PENDING"
+}
