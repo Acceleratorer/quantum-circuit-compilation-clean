@@ -1,0 +1,280 @@
+{
+  "created_utc": "2026-11-13T10:09:25Z",
+  "workspace": "D:\\Code\\Kaggle\\competitions\\Google Quantum AI",
+  "targets": [
+    {
+      "path": "candidates",
+      "exists": true,
+      "bytes": 9755800462,
+      "files": 303,
+      "reason": "duplicate cache, superseded portfolio, or verified extracted copy"
+    },
+    {
+      "path": "new_download",
+      "exists": true,
+      "bytes": 2812362087,
+      "files": 1241,
+      "reason": "duplicate cache, superseded portfolio, or verified extracted copy"
+    },
+    {
+      "path": "tmp_outputs",
+      "exists": true,
+      "bytes": 2091858368,
+      "files": 190,
+      "reason": "duplicate cache, superseded portfolio, or verified extracted copy"
+    },
+    {
+      "path": "public_datasets/apache/circuits",
+      "exists": true,
+      "bytes": 11295971753,
+      "files": 4743,
+      "reason": "duplicate cache, superseded portfolio, or verified extracted copy"
+    },
+    {
+      "path": "verify_kirderf2",
+      "exists": true,
+      "bytes": 459761096,
+      "files": 18,
+      "reason": "duplicate cache, superseded portfolio, or verified extracted copy"
+    },
+    {
+      "path": "output_ozertuu_imbetter",
+      "exists": true,
+      "bytes": 49138465,
+      "files": 3,
+      "reason": "duplicate cache, superseded portfolio, or verified extracted copy"
+    },
+    {
+      "path": "candidate_helios_v115m4",
+      "exists": true,
+      "bytes": 1154243681,
+      "files": 37,
+      "reason": "duplicate cache, superseded portfolio, or verified extracted copy"
+    },
+    {
+      "path": "new_hypery",
+      "exists": true,
+      "bytes": 984645613,
+      "files": 22,
+      "reason": "duplicate cache, superseded portfolio, or verified extracted copy"
+    },
+    {
+      "path": "fresh_hypery_112",
+      "exists": true,
+      "bytes": 984645613,
+      "files": 22,
+      "reason": "duplicate cache, superseded portfolio, or verified extracted copy"
+    },
+    {
+      "path": "fresh_jakomina_latest",
+      "exists": true,
+      "bytes": 983998836,
+      "files": 18,
+      "reason": "duplicate cache, superseded portfolio, or verified extracted copy"
+    },
+    {
+      "path": "fresh_orecord_pipeline",
+      "exists": true,
+      "bytes": 977975004,
+      "files": 42,
+      "reason": "duplicate cache, superseded portfolio, or verified extracted copy"
+    },
+    {
+      "path": "fresh_kawh_112",
+      "exists": true,
+      "bytes": 640054824,
+      "files": 3,
+      "reason": "duplicate cache, superseded portfolio, or verified extracted copy"
+    },
+    {
+      "path": "fresh_kawh_v32",
+      "exists": true,
+      "bytes": 640054824,
+      "files": 3,
+      "reason": "duplicate cache, superseded portfolio, or verified extracted copy"
+    },
+    {
+      "path": "kernel_thomas_output_20261111",
+      "exists": true,
+      "bytes": 645846458,
+      "files": 21,
+      "reason": "duplicate cache, superseded portfolio, or verified extracted copy"
+    },
+    {
+      "path": "staging_asterios_pablo",
+      "exists": true,
+      "bytes": 591891741,
+      "files": 19,
+      "reason": "duplicate cache, superseded portfolio, or verified extracted copy"
+    },
+    {
+      "path": "kernel_asterios_output_20261111",
+      "exists": true,
+      "bytes": 593424122,
+      "files": 21,
+      "reason": "duplicate cache, superseded portfolio, or verified extracted copy"
+    },
+    {
+      "path": "fresh_apogean_latest",
+      "exists": true,
+      "bytes": 593439830,
+      "files": 24,
+      "reason": "duplicate cache, superseded portfolio, or verified extracted copy"
+    },
+    {
+      "path": "kernel_h5_output_20261111",
+      "exists": true,
+      "bytes": 593441400,
+      "files": 23,
+      "reason": "duplicate cache, superseded portfolio, or verified extracted copy"
+    },
+    {
+      "path": "fresh_apogean",
+      "exists": true,
+      "bytes": 588741644,
+      "files": 24,
+      "reason": "duplicate cache, superseded portfolio, or verified extracted copy"
+    },
+    {
+      "path": "fresh_apogean_112",
+      "exists": true,
+      "bytes": 593439830,
+      "files": 24,
+      "reason": "duplicate cache, superseded portfolio, or verified extracted copy"
+    },
+    {
+      "path": "staging_9706",
+      "exists": true,
+      "bytes": 565532113,
+      "files": 18,
+      "reason": "duplicate cache, superseded portfolio, or verified extracted copy"
+    },
+    {
+      "path": "new_rishabh",
+      "exists": true,
+      "bytes": 564805216,
+      "files": 20,
+      "reason": "duplicate cache, superseded portfolio, or verified extracted copy"
+    },
+    {
+      "path": "portfolios",
+      "exists": true,
+      "bytes": 563463485,
+      "files": 18,
+      "reason": "duplicate cache, superseded portfolio, or verified extracted copy"
+    },
+    {
+      "path": "staging_maoxin_v22_405weights",
+      "exists": true,
+      "bytes": 561311616,
+      "files": 18,
+      "reason": "duplicate cache, superseded portfolio, or verified extracted copy"
+    },
+    {
+      "path": "staging_maoxin_v22",
+      "exists": true,
+      "bytes": 562034415,
+      "files": 18,
+      "reason": "duplicate cache, superseded portfolio, or verified extracted copy"
+    },
+    {
+      "path": "tmp_ozertuu_2539570",
+      "exists": true,
+      "bytes": 563300927,
+      "files": 18,
+      "reason": "duplicate cache, superseded portfolio, or verified extracted copy"
+    },
+    {
+      "path": "submission_best_asterios_v1",
+      "exists": true,
+      "bytes": 563464349,
+      "files": 18,
+      "reason": "duplicate cache, superseded portfolio, or verified extracted copy"
+    },
+    {
+      "path": "ds_dmitrii_femoco",
+      "exists": true,
+      "bytes": 559083763,
+      "files": 833,
+      "reason": "duplicate cache, superseded portfolio, or verified extracted copy"
+    },
+    {
+      "path": "ds_busy_v8",
+      "exists": true,
+      "bytes": 559529885,
+      "files": 26,
+      "reason": "duplicate cache, superseded portfolio, or verified extracted copy"
+    },
+    {
+      "path": "fresh_prvsiyan_new",
+      "exists": true,
+      "bytes": 563313027,
+      "files": 5,
+      "reason": "duplicate cache, superseded portfolio, or verified extracted copy"
+    },
+    {
+      "path": "ds_blackcat7",
+      "exists": true,
+      "bytes": 536728922,
+      "files": 19,
+      "reason": "duplicate cache, superseded portfolio, or verified extracted copy"
+    },
+    {
+      "path": "ds_mason_combo",
+      "exists": true,
+      "bytes": 536727317,
+      "files": 18,
+      "reason": "duplicate cache, superseded portfolio, or verified extracted copy"
+    },
+    {
+      "path": "tmp_rishabh",
+      "exists": true,
+      "bytes": 536726010,
+      "files": 18,
+      "reason": "duplicate cache, superseded portfolio, or verified extracted copy"
+    },
+    {
+      "path": "ds_jun_11",
+      "exists": true,
+      "bytes": 536735058,
+      "files": 19,
+      "reason": "duplicate cache, superseded portfolio, or verified extracted copy"
+    },
+    {
+      "path": "fresh_lucifer_v8",
+      "exists": true,
+      "bytes": 533539220,
+      "files": 19,
+      "reason": "duplicate cache, superseded portfolio, or verified extracted copy"
+    },
+    {
+      "path": "ds_maoxin392",
+      "exists": true,
+      "bytes": 530048453,
+      "files": 2,
+      "reason": "duplicate cache, superseded portfolio, or verified extracted copy"
+    },
+    {
+      "path": "fresh_helios_latest_20261113",
+      "exists": true,
+      "bytes": 500143902,
+      "files": 23,
+      "reason": "duplicate cache, superseded portfolio, or verified extracted copy"
+    }
+  ],
+  "total_bytes": 46367223329,
+  "total_files": 7911,
+  "preserved": [
+    "artifacts",
+    "somejoint_ds_",
+    "competition_data",
+    ".venv",
+    "tmp/github_publish",
+    "output_kirderf",
+    "kernel_outputs",
+    "public_datasets/apache/parts",
+    "public_datasets/apache/factorizations",
+    "public_datasets/modular",
+    "public_datasets/busyaprime_qcc33"
+  ]
+}
