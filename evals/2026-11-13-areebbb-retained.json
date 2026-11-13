@@ -1,0 +1,26 @@
+{
+  "experiment": "exp-025",
+  "candidate": "v28-syed-v12-areebbb-retained",
+  "source_kernel": "areebbb/qai-fewer-toffolis-same-qubits-lb-27-08407",
+  "archive_sha256": "b3a4e0e2736007e24d8d99693b53ab5666bb05d5af34547a3d6b467fbca8a12",
+  "dqi_sha256": "0958baa6e5327cd71a30ff237329fb8590c7a0ef46c4394029ce231923ac5c05",
+  "official_source_verification": {
+    "status": "PASS",
+    "verified_shots": 102400,
+    "value_errors": 0,
+    "phase_errors": 0,
+    "score": 360506288134.75055,
+    "toffoli_count": 382915.18885742186,
+    "num_qubits": 889
+  },
+  "local_smoke_verification": {
+    "status": "PASS",
+    "verified_shots": 1024,
+    "value_errors": 0,
+    "phase_errors": 0,
+    "log2_delta": -1.0
+  },
+  "source_zero_failure_gm": 27.084072943311302,
+  "kaggle_submission_ref": "58292102",
+  "kaggle_status_at_recording": "SubmissionStatus.PENDING"
+}

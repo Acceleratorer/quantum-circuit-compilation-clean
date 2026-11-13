@@ -1,0 +1,173 @@
+{
+  "candidate_id": "v28-syed-v12-areebbb-retained",
+  "source_kernel": "areebbb/qai-fewer-toffolis-same-qubits-lb-27-08407",
+  "base_archive": "artifacts/submission_syed_v12_refined.zip",
+  "archive": "artifacts/submission_syed_v12_areebbb_retained.zip",
+  "archive_sha256": "b3a4e0e2736007e24d8d99693b53ab5666bb05d5af34547a3d6b467fbca8a12a",
+  "archive_bytes": 49360815,
+  "member_count": 18,
+  "zip_test": true,
+  "members": {
+    "invsqrt.kmb": {
+      "sha256": "321aff83636214196daa9cbc9dcc9c5e12a155bcff8d9989e98b8cee40935177",
+      "bytes": 291626
+    },
+    "dqi.kmb": {
+      "sha256": "0958baa6e5327cd71a30ff237329fb8590c7a0ef46c4394029ce231923ac5c05",
+      "bytes": 455596531
+    },
+    "dfthcsos/angle_k_0.kmb": {
+      "sha256": "ce7ebaf342c5b49f7d539637359fb8a282718fb3057e7b25dd193f2a6a4b8974",
+      "bytes": 407750
+    },
+    "dfthcsos/angle_k_1.kmb": {
+      "sha256": "3eac70665f021b0e304106fd62749277d4d69db775df008aacd6d950e4934193",
+      "bytes": 420156
+    },
+    "dfthcsos/angle_k_2.kmb": {
+      "sha256": "c3e1454e29a05c3c28bcfd16c2aee02340b5d439d9466774424fedf0ed7601d1",
+      "bytes": 421220
+    },
+    "dfthcsos/angle_k_3.kmb": {
+      "sha256": "d26b576ae789b0471ec6c11b7317c7c69eb3d7190472af8120ccf25cf217a8ea",
+      "bytes": 415439
+    },
+    "dfthcsos/angle_k_4.kmb": {
+      "sha256": "2efacc9d944aa5a855acf780e6bbc3c07af16c0275eb9549bb24adc70acca344",
+      "bytes": 366414
+    },
+    "dfthcsos/angle_k_5.kmb": {
+      "sha256": "7e4ed9a363c8f56d85410185c7b4449211788bc61e81b3dc7cbdd10ab7ce8a42",
+      "bytes": 364423
+    },
+    "dfthcsos/angle_k_6.kmb": {
+      "sha256": "26ab1d5df8132bbc28e068a4eef0b247ea21a96fa4034f89a6d1bf306f07e284",
+      "bytes": 367137
+    },
+    "dfthcsos/angle_k_7.kmb": {
+      "sha256": "1ae98642315e7aaedfde99773af4ae48198bf8b4f2e11e97883d6aa1bfe12bee",
+      "bytes": 372920
+    },
+    "dfthcsos/angle_k_8.kmb": {
+      "sha256": "e69c554c360c709e52126a6f773afeaa3564da7be0927d6293665f342203771f",
+      "bytes": 353772
+    },
+    "dfthcsos/angle_k_9.kmb": {
+      "sha256": "38848ce19bd553e4007a454d9b7d392d05ac105cf4b269f41521bd1003bf838e",
+      "bytes": 359601
+    },
+    "dfthcsos/angle_k_10.kmb": {
+      "sha256": "fdb67807154e35d9f41471c22b38bbc3ed07e5c93efef30a57f0599fb8400ff7",
+      "bytes": 360179
+    },
+    "dfthcsos/angle_k_11.kmb": {
+      "sha256": "d22baf8e2d294165618bcee40d958ef2806f0b35352c8b92e0d201aff3269c37",
+      "bytes": 360339
+    },
+    "dfthcsos/angle_k_12.kmb": {
+      "sha256": "b1b6af502f4bf02e521ab888600f645aa5a5bed028290466b54a835423eb2517",
+      "bytes": 359705
+    },
+    "dfthcsos/angle_k_13.kmb": {
+      "sha256": "1843d7993215656e4e0eee69169966ba269d544bc0b90e855e4ed5e6e113accc",
+      "bytes": 359237
+    },
+    "dfthcsos/angle_k_14.kmb": {
+      "sha256": "b763f0cd2fdeaaa31e7811084e51fde5d51575b036fa22854fb28172c1712a8e",
+      "bytes": 361106
+    },
+    "dfthcsos/submission.npz": {
+      "sha256": "33cfa0614fb5b528c64e5a4b8e47beec67d670707936b21d18bd575ee77f90d9",
+      "bytes": 1847692
+    }
+  },
+  "official_source_receipt_dqi": {
+    "status": "PASS",
+    "score": 360506288134.75055,
+    "m": 4095,
+    "n": 70,
+    "degree": 12,
+    "r": 2016,
+    "verified_shots": 102400,
+    "value_errors": 0,
+    "phase_errors": 0,
+    "empirical_error_rate": 0.0,
+    "effective_error_rate": 0.0008660587301657926,
+    "log2_delta": -128.0,
+    "repetition_factor": 1.1912604648115832,
+    "mean_error_weight": 31.046737331746634,
+    "toffoli_count": 382915.18885742186,
+    "max_toffoli_count": 383762,
+    "reaction_depth": 41048,
+    "num_ops": 52931578,
+    "shot_operation_counts": {
+      "BIT_INVERT": 601201963514,
+      "BIT_STORE0": 154643753818,
+      "BIT_STORE1": 2991139408,
+      "X": 10964081506,
+      "Z": 2329176500,
+      "R": 4892871288,
+      "HMR": 7290844554,
+      "CX": 3183167180026,
+      "CZ": 27609546555,
+      "SWAP": 27249767247,
+      "CSWAP": 1268121600,
+      "CCX": 37227844253,
+      "CCZ": 714549486,
+      "POP_CONDITION": 155624857600,
+      "PUSH_CONDITION": 155624857600
+    },
+    "num_qubits": 889,
+    "num_bits": 154160,
+    "circuit_sha256": "0958baa6e5327cd71a30ff237329fb8590c7a0ef46c4394029ce231923ac5c05"
+  },
+  "local_smoke_dqi": {
+    "status": "PASS",
+    "score": 353041751001.2768,
+    "m": 4095,
+    "n": 70,
+    "degree": 12,
+    "r": 2016,
+    "verified_shots": 1024,
+    "value_errors": 0,
+    "phase_errors": 0,
+    "empirical_error_rate": 0.0,
+    "effective_error_rate": 0.0006766724973492476,
+    "log2_delta": -1.0,
+    "repetition_factor": 1.1665994477183999,
+    "mean_error_weight": 31.046737331746634,
+    "toffoli_count": 382913.58984375,
+    "max_toffoli_count": 383762,
+    "reaction_depth": 41048,
+    "num_ops": 52931578,
+    "shot_operation_counts": {
+      "BIT_INVERT": 6012289889,
+      "BIT_STORE0": 1546437592,
+      "BIT_STORE1": 29915282,
+      "X": 109638328,
+      "Z": 23290642,
+      "R": 48927346,
+      "HMR": 72906981,
+      "CX": 31831635568,
+      "CZ": 276025598,
+      "SWAP": 272498911,
+      "CSWAP": 12681216,
+      "CCX": 372276817,
+      "CCZ": 7145483,
+      "POP_CONDITION": 1556248576,
+      "PUSH_CONDITION": 1556248576
+    },
+    "num_qubits": 889,
+    "num_bits": 154160,
+    "circuit_sha256": "0958baa6e5327cd71a30ff237329fb8590c7a0ef46c4394029ce231923ac5c05"
+  },
+  "local_zero_failure_gm": 27.084072943311302,
+  "previous_kaggle_public_score": "27.08334",
+  "source_receipt": "kernel_outputs/areebbb_2708407/receipt.json",
+  "submission_ref": "58292102",
+  "submission_state": {
+    "status": "SubmissionStatus.PENDING",
+    "public_score": null,
+    "submitted_utc": "2026-11-13T02:15:56Z"
+  }
+}
