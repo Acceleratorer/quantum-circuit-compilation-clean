@@ -1,0 +1,110 @@
+{
+  "experiment": "exp-030",
+  "chemistry_sweep": [
+    {
+      "candidate": "somejoint_ds_/dfthcsos-35a5c8fb/dfthcsos",
+      "status": "PASS",
+      "score": 309207580.14174414,
+      "lambda_eff": 47.18443552146208,
+      "qubits": 427,
+      "toffoli_count": 15347.0,
+      "verified_shots": 78080,
+      "submission_sha256": "35a5c8fbb7289ec02edc4db939450304b2cea127e33da1af31f86f4d66ac7203"
+    },
+    {
+      "candidate": "somejoint_ds_/dfthcsos-4efe4b1d/dfthcsos",
+      "status": "PASS",
+      "score": 326821497.3720022,
+      "lambda_eff": 47.040080661235564,
+      "qubits": 428,
+      "toffoli_count": 16233.0,
+      "verified_shots": 87232,
+      "submission_sha256": "4efe4b1d34bbb749fda0232de078e1297b5fc09bc90eb15425f84fee349ab532"
+    },
+    {
+      "candidate": "somejoint_ds_/dfthcsos-refit/dfthcsos",
+      "status": "PASS",
+      "score": 332879964.8678314,
+      "lambda_eff": 47.045543628193094,
+      "qubits": 428,
+      "toffoli_count": 16532.0,
+      "verified_shots": 87232,
+      "submission_sha256": "2dd6afb8ac506ca2480f6b594aaac582a6673a2f7ceddb6715ce2e7eadc0c2a7"
+    },
+    {
+      "candidate": "somejoint_ds_/dfthcsos-v32/dfthcsos",
+      "status": "PASS",
+      "score": 328711157.2734612,
+      "lambda_eff": 47.20737123372948,
+      "qubits": 428,
+      "toffoli_count": 16269.0,
+      "verified_shots": 87232,
+      "submission_sha256": "a21deb9bb6ca96d72513b0c9e7e9481e72d554707ec3ada47ca0c2595d71671d"
+    },
+    {
+      "candidate": "somejoint_ds_/dfthcsos-v33/dfthcsos",
+      "status": "PASS",
+      "score": 327300810.34268564,
+      "lambda_eff": 47.09746378593682,
+      "qubits": 428,
+      "toffoli_count": 16237.0,
+      "verified_shots": 87232,
+      "submission_sha256": "b7e6d2d7c522ca734752b573fbf64ccbb8d2f9f038d1c5df98192e64ceee5b44"
+    },
+    {
+      "candidate": "somejoint_ds_/dfthcsos-v34/dfthcsos",
+      "status": "PASS",
+      "score": 327053613.24085337,
+      "lambda_eff": 47.06189297100561,
+      "qubits": 428,
+      "toffoli_count": 16237.0,
+      "verified_shots": 87232,
+      "submission_sha256": "5ebe51c1798a1a815fa9dda07046a75d6f6eb9c46919659544e0d23b1ca49357"
+    }
+  ],
+  "best_existing_chemistry_score": 296010654.3285701,
+  "dqi_static_inventory": [
+    {
+      "path": "somejoint_ds_/dqi.kmb",
+      "sha256": "148bc9bcc77d5de13df6da6b33a487cc8c7c1f52e1b24a11bae03705b24b05ec",
+      "qubits": 892,
+      "toffoli_like": 453310
+    },
+    {
+      "path": "somejoint_ds_/dqi-889/dqi.kmb",
+      "sha256": "af180f734f787925800a500e558f54dc36f6533a6217130addcc922036f34ef8",
+      "qubits": 889,
+      "toffoli_like": 486571
+    },
+    {
+      "path": "somejoint_ds_/dqi-892/dqi.kmb",
+      "sha256": "bdee18489fac2b38b86c2aab225b6469477c67a61ab8b2754f72c1f4a8f6ebe9",
+      "qubits": 892,
+      "toffoli_like": 480363
+    },
+    {
+      "path": "somejoint_ds_/dqi-892-q26/dqi.kmb",
+      "sha256": "b7ca9bce749dcd049f94326446e90cad474b51e6e0abf81561fc37f261abf69b",
+      "qubits": 892,
+      "toffoli_like": 457906
+    },
+    {
+      "path": "somejoint_ds_/dqi-898/dqi.kmb",
+      "sha256": "7dcb493e9de4bee7317b27772724ff778070f1d84d13408c853e2f0bab29dd56",
+      "qubits": 898,
+      "toffoli_like": 467670
+    },
+    {
+      "path": "somejoint_ds_/dqi-900/dqi.kmb",
+      "sha256": "38f0ac173b0f8e98620d9ffa4c44f3653da3b483d6d0610323b24cd11999b39d",
+      "qubits": 900,
+      "toffoli_like": 484418
+    },
+    {
+      "path": "somejoint_ds_/dqi-993c7038/dqi-993c7038/dqi.kmb",
+      "sha256": "993c70386a3dde6664ecea36315db3aa60fb18a96dc714a18160cae3472378db",
+      "qubits": 891,
+      "toffoli_like": 397191
+    }
+  ]
+}
