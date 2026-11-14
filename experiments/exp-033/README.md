@@ -3,9 +3,9 @@ id: exp-033
 title: Maoxin v25 4044-loader chemistry with constrained refit
 task: portfolio
 tests: [C-036]
-status: submitted_pending_score
+status: scored_public
 date: 2026-11-14
-result: chemistry official PASS; projected local GM 27.2898566324
+result: Kaggle public score 27.28986; public rank 570 at 2026-11-14T16:28Z
 ---
 
 # Maoxin v25 chemistry refit
@@ -26,5 +26,6 @@ constrained reduced-gradient refit of the factorization weights.
 
 The projected zero-failure geometric mean is `27.289856632448792`, an
 improvement of `0.000028872220689` over the unrefit Maoxin v25 portfolio.
-The archive has been submitted to Kaggle as the required `submission.zip`;
-official scoring is pending (ref `58348395`).
+Kaggle completed scoring ref `58348395`: public score `27.28986`, rank `570`
+in the 16:28 UTC leaderboard snapshot. The previous Accelra entry was rank
+`715` at `27.11042`; rank 1 is `29.90871`. No private score is available yet.

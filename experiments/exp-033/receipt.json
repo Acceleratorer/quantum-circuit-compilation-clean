@@ -58,7 +58,7 @@
   },
   "submission": {
     "attempted": true,
-    "status": "PENDING",
+    "status": "COMPLETE",
     "ref": "58348395",
     "submitted_at": "2026-11-14T15:58:04.167Z",
     "uploaded_filename": "submission.zip",
@@ -66,7 +66,8 @@
       "downloaded_from_kaggle": true,
       "sha256_match": true
     },
-    "public_score": null,
+    "public_score": 27.28986,
+    "public_rank": 570,
     "private_score": null
   }
 }

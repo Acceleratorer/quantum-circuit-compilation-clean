@@ -22,11 +22,23 @@
     "quota_remaining_today": 4,
     "submission_count_total": 16
   },
+  "latest_public_result": {
+    "snapshot_utc": "2026-11-14T16:28:09Z",
+    "team": "Accelra",
+    "team_score": 27.28986,
+    "team_rank": 570,
+    "teams_in_snapshot": 3051,
+    "rank1_score": 29.90871,
+    "gap_to_rank1": 2.61885,
+    "score_improvement_over_previous": 0.17944,
+    "rank_improvement_over_previous": 145,
+    "leaderboard_csv_sha256": "f15a6d73c39045c9004150fc0115cb6ccbad81dc7117327fd1afe6ca6fe786a"
+  },
   "screened_leads": {
     "hengck23/dqi-kmb-at-59-56854": {"score": 410274633000.4907, "value_errors": 1, "decision": "reject"},
     "prvsiyan/verifier-guided-quantum-circuit-optimization": {"decision": "reproduces_exp033_stack"}
   },
-  "observed_public_score": null,
+  "observed_public_score": 27.28986,
   "submission_attempted": true,
   "kaggle_submission": {
     "ref": "58348395",
@@ -36,7 +48,10 @@
       "downloaded_from_kaggle": true,
       "sha256_match": true
     },
-    "status": "PENDING"
+    "status": "COMPLETE",
+    "public_score": 27.28986,
+    "private_score": null,
+    "public_rank": 570
   },
-  "risk": "The candidate is locally verified; Kaggle scoring is pending."
+  "risk": "The public rank is not the final private-leaderboard rank; Kaggle has not returned a private score."
 }

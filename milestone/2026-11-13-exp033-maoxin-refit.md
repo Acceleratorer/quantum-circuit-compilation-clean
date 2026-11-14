@@ -4,11 +4,10 @@ Exp-033 is the strongest prepared local portfolio. It combines the source
 verified Atakan 46-qubit inverse, the retained cutoff18 DQI, and Maoxin's
 4,044-Toffoli chemistry loaders with a constrained weight refit.
 
-All three members have PASS evidence. The projected zero-failure geometric
-mean is `27.289856632448792`, still a local estimate rather than a public score.
-Kaggle accepted the archive as submission ref `58348395` on 2026-11-14. Its
-official score is still pending.
+All three members have PASS evidence. The local zero-failure geometric mean
+was `27.289856632448792`. Kaggle completed ref `58348395` with public score
+`27.28986`.
 
-The latest public baseline snapshot puts Accelra at rank `715` with `27.11042`;
-rank 1 is `29.90871`. The projected local GM is not a public score and does
-not establish a rank.
+In the 16:28 UTC leaderboard snapshot, Accelra is rank `570` of `3,051`, up
+145 places from rank `715` at `27.11042`. Rank 1 is `29.90871`, leaving a
+`2.61885` point gap. The public rank is not the final private-leaderboard rank.
