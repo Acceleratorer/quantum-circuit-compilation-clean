@@ -6,9 +6,10 @@ Research log and reproducible tooling for the Google Quantum AI Verifiable Quant
 
 | Item | Value |
 |---|---:|
-| Best own submitted public score | **27.11042** |
-| Best local candidate estimate | **27.28986** |
-| Live leaderboard top observed | **29.90871** |
+| Best own Kaggle public score | **27.28986** |
+| Public rank (2026-11-14T16:28Z snapshot) | **570 / 3,051** |
+| Rank 1 public score in that snapshot | **29.90871** |
+| Gap to rank 1 | **2.61885** |
 | Current candidate members | `4560ac0c` / `821bf8d1` / refit `06d67d21` |
 
 The repository keeps generators, verifier evidence, provenance, and experiment notes. Large circuit binaries and Kaggle submission ZIPs stay outside Git and are addressed by SHA-256 receipts.
@@ -23,7 +24,7 @@ The repository keeps generators, verifier evidence, provenance, and experiment n
 
 ## Latest candidate
 
-`experiments/exp-033/` records the current portfolio with Maoxin's 4,044-Toffoli chemistry loaders and a constrained refit. The archive keeps the 46-qubit inverse `4560ac0c`, the 889-qubit DQI `821bf8d1`, and the refit chemistry member `06d67d21`. All three have PASS evidence; the zero-failure local geometric-mean estimate is `27.2898566324`. The archive remains outside Git and awaits the next Kaggle quota reset.
+`experiments/exp-033/` records the current public-best portfolio with Maoxin's 4,044-Toffoli chemistry loaders and a constrained refit. Kaggle submission `58348395` scored `27.28986` and ranked `570` in the cited public snapshot. The archive keeps the 46-qubit inverse `4560ac0c`, the 889-qubit DQI `821bf8d1`, and the refit chemistry member `06d67d21`; its SHA-256 and Kaggle round-trip match are in the receipt. All three have PASS evidence. The local zero-failure GM is `27.2898566324`; the public rank remains far below the current rank 1.
 
 Rebuild the local archive with:
 

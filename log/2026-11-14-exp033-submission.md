@@ -22,3 +22,7 @@
   by `145` places and `0.17944` points. Rank 1 is `29.90871`, a `2.61885`
   point gap. The leaderboard CSV SHA-256 is
   `f15a6d73c39045c9004150fc0115cb6ccbad81dc7117327fd1afe6ca6fe786a`.
+- Follow-up lead check: downloading top-team ref `58275470` still returns
+  HTTP 403 despite accepted competition rules. Competition-filtered public
+  kernel listings for `jackvd`, `jsday96`, `tonylica`, and
+  `yeoyunsianggeremie` returned no notebooks. No private artifact was accessed.

@@ -7,4 +7,6 @@ chemistry NPZ has SHA-256
 passes the official verifier at score `295362181.14128023`.
 
 The inverse and DQI members are unchanged from exp-031/exp-032. The local
-portfolio estimate is `27.289856632448792`.
+portfolio estimate is `27.289856632448792`. Kaggle submission `58348395`
+scored `27.28986` publicly and ranked `570` of `3,051` teams in the
+2026-11-14 16:28 UTC leaderboard snapshot. The rank 1 score was `29.90871`.
