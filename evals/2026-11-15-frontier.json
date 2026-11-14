@@ -1,0 +1,45 @@
+{
+  "captured_utc": "2026-11-14T17:23:21Z",
+  "source": "Kaggle public leaderboard CSV downloaded with the Kaggle CLI",
+  "snapshot_csv": "kaggle/snapshots/2026-11-15/public-leaderboard-2026-11-14T17-23-21.csv",
+  "snapshot_csv_bytes": 223965,
+  "snapshot_csv_sha256": "aa310f91812c880692fd70ad5c63228eebe68020e00bb1ed7ce133cc80b120d2",
+  "team_count": 3053,
+  "leader": {
+    "rank": 1,
+    "team": "Entangled Team",
+    "score": 29.90871
+  },
+  "best_submission": {
+    "team": "Accelra",
+    "rank": 579,
+    "score": 27.28986,
+    "submission_ref": 58348395,
+    "submitted_utc": "2026-11-14T15:58:04Z"
+  },
+  "gap": {
+    "score_points": 2.61885,
+    "leader_to_own_score_ratio": 1.0959642153,
+    "required_task_cost_product_multiplier": 1.3164037847,
+    "single_task_cost_reduction_if_other_tasks_unchanged": 0.2403546604
+  },
+  "dqi": {
+    "candidate_sha256": "821bf8d157c03c3e868a0099b0ab1438cfba664ab1bc6fec3210654099b672a3",
+    "qubits": 889,
+    "static_toffoli_like": 383414,
+    "mean_toffoli": 382600.383203125,
+    "repetition_factor": 1.1912604648115832,
+    "score": 360209905486.0156,
+    "score_formula": "repetition_factor * qubits^2 * mean_toffoli",
+    "target_cost_if_dqi_alone_closes_gap": 273631775963.6221,
+    "required_cost_reduction": 0.2403546604,
+    "stock_verifier": "PASS, 102400 shots, 0 observed value errors and 0 phase errors",
+    "known_risk": "separate targeted audit flags rare weight-16/17 value counterexamples; exhaustive correctness is unproven"
+  },
+  "candidate_members": {
+    "invsqrt": "4560ac0c017bf6d1bf27c73320f2e30c247a2a18143d58ff92a601f8bc20b218",
+    "dqi": "821bf8d157c03c3e868a0099b0ab1438cfba664ab1bc6fec3210654099b672a3",
+    "chemistry": "06d67d21dbfe"
+  },
+  "submission_decision": "No new submission: no source-complete, independently verified candidate exceeds the current score."
+}

@@ -9,6 +9,7 @@ data/
 experiments/*/out/
 /submissions/
 kaggle/.cache/
+/experiments/exp-034/external/
 
 # Python
 .venv/
