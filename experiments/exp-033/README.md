@@ -3,8 +3,8 @@ id: exp-033
 title: Maoxin v25 4044-loader chemistry with constrained refit
 task: portfolio
 tests: [C-036]
-status: verified_ready_for_submit
-date: 2026-11-13
+status: submitted_pending_score
+date: 2026-11-14
 result: chemistry official PASS; projected local GM 27.2898566324
 ---
 
@@ -26,5 +26,5 @@ constrained reduced-gradient refit of the factorization weights.
 
 The projected zero-failure geometric mean is `27.289856632448792`, an
 improvement of `0.000028872220689` over the unrefit Maoxin v25 portfolio.
-The archive is prepared but has not been submitted while the daily Kaggle
-quota is exhausted.
+The archive has been submitted to Kaggle as the required `submission.zip`;
+official scoring is pending (ref `58348395`).

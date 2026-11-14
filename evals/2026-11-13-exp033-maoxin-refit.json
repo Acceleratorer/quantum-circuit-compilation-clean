@@ -25,6 +25,12 @@
     "prvsiyan/verifier-guided-quantum-circuit-optimization": {"decision": "reproduces_exp033_stack"}
   },
   "observed_public_score": null,
-  "submission_attempted": false,
-  "risk": "The candidate is locally verified but has no Kaggle score until quota reset."
+  "submission_attempted": true,
+  "kaggle_submission": {
+    "ref": "58348395",
+    "submitted_at": "2026-11-14T15:58:04.167Z",
+    "uploaded_filename": "submission.zip",
+    "status": "PENDING"
+  },
+  "risk": "The candidate is locally verified; Kaggle scoring is pending."
 }

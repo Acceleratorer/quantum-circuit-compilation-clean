@@ -8,7 +8,7 @@
     "refit_iterations": 200
   },
   "archive": {
-    "workspace_path": "kaggle_scout/chem_refit_exp033/submission_exp033.zip",
+    "workspace_path": "kaggle_scout/chem_refit_exp033/submission.zip",
     "sha256": "0f992a97d4411737cb1da2712b3617f0bdfd784ce3a5b3ebe8689fd85a2365cb",
     "bytes": 49302365,
     "member_count": 18,
@@ -57,7 +57,12 @@
     "gm_delta": 0.000028872220689
   },
   "submission": {
-    "attempted": false,
-    "reason": "daily Kaggle quota exhausted; hold until reset"
+    "attempted": true,
+    "status": "PENDING",
+    "ref": "58348395",
+    "submitted_at": "2026-11-14T15:58:04.167Z",
+    "uploaded_filename": "submission.zip",
+    "public_score": null,
+    "private_score": null
   }
 }
