@@ -7,6 +7,8 @@
 - Renamed the prepared archive inside its experiment directory without
   changing its bytes. SHA-256 remains
   `0f992a97d4411737cb1da2712b3617f0bdfd784ce3a5b3ebe8689fd85a2365cb`.
+- Downloaded ref `58348395` back from Kaggle and verified its SHA-256 matches
+  the local archive exactly; the temporary verification copy was removed.
 - The current official status is `PENDING`; public and private scores are not
   available yet.
 - The 16:07 UTC public leaderboard snapshot contains 3,050 teams. Accelra's

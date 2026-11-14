@@ -32,6 +32,10 @@
     "ref": "58348395",
     "submitted_at": "2026-11-14T15:58:04.167Z",
     "uploaded_filename": "submission.zip",
+    "download_verification": {
+      "downloaded_from_kaggle": true,
+      "sha256_match": true
+    },
     "status": "PENDING"
   },
   "risk": "The candidate is locally verified; Kaggle scoring is pending."
