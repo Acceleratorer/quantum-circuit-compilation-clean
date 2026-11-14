@@ -11,14 +11,16 @@
   "previous_best_gm": 27.28982776022811,
   "gm_delta": 0.000028872220689,
   "public_baseline": {
-    "snapshot_utc": "2026-11-13T15:47:27Z",
+    "snapshot_utc": "2026-11-14T16:07:16Z",
     "team": "Accelra",
-    "rank": 347,
+    "rank": 715,
     "score": 27.11042,
     "rank1_score": 29.90871,
     "gap_to_rank1": 2.79829,
-    "quota_used": "15/15",
-    "quota_reset_utc": "2026-11-14T00:00:00Z"
+    "leaderboard_csv_sha256": "15595fae8397667c21126afbfe8063f11c08e2e70c52c94ab21838d4964f275",
+    "quota_used_today": 1,
+    "quota_remaining_today": 4,
+    "submission_count_total": 16
   },
   "screened_leads": {
     "hengck23/dqi-kmb-at-59-56854": {"score": 410274633000.4907, "value_errors": 1, "decision": "reject"},

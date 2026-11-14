@@ -6,9 +6,9 @@ verified Atakan 46-qubit inverse, the retained cutoff18 DQI, and Maoxin's
 
 All three members have PASS evidence. The projected zero-failure geometric
 mean is `27.289856632448792`, still a local estimate rather than a public score.
-The archive waits for the Kaggle quota reset; further source hunting is paused
-unless a new artifact beats this verified stack.
+Kaggle accepted the archive as submission ref `58348395` on 2026-11-14. Its
+official score is still pending.
 
-The current public baseline is Accelra rank `347` at `27.11042`, while rank 1
-is `29.90871`. The archive is queued for one post-reset submission, with no
-claim that the local projection will translate to rank 1.
+The latest public baseline snapshot puts Accelra at rank `715` with `27.11042`;
+rank 1 is `29.90871`. The projected local GM is not a public score and does
+not establish a rank.
