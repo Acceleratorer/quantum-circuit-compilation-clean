@@ -1,0 +1,27 @@
+{
+  "captured_utc": "2026-11-15T13:32:00Z",
+  "experiment": "exp-038",
+  "source": "maoxin123/qcc-v27-4028-toffoli-coded-word-chemistry",
+  "archive_sha256": "6af735d3d7f7b2118f7699c0817fc4b5be6dd211581360b87f4ddf1e7a6e29e7",
+  "archive_members": 18,
+  "candidate_members": {
+    "invsqrt": "a4d46b17",
+    "dqi": "821bf8d1",
+    "chemistry": "0e26f057"
+  },
+  "official_verifier_evidence": {
+    "invsqrt": {"status": "PASS", "shots": 200540928, "cost": 78673.54143957119, "qubits": 46},
+    "dqi": {"status": "PASS", "shots": 102400, "cost": 360209905486.0156, "qubits": 889, "value_errors": 0, "phase_errors": 0},
+    "dfthcsos": {"status": "PASS", "shots": 78080, "cost": 294835760.77372366, "qubits": 427, "toffoli_count": 14718.0}
+  },
+  "local_default_geometric_mean": 27.316738641218503,
+  "previous_local_geometric_mean": 27.315419599330387,
+  "score_delta": 0.001319041888116601,
+  "kaggle_submission": {
+    "ref": 58386039,
+    "status": "PENDING",
+    "public_score": null
+  },
+  "decision": "Submit once; do not submit the unarchived 4025-Toffoli dataset candidate.",
+  "known_risk": "DQI targeted weight-16/17 counterexamples remain open; sampled PASS is not exhaustive."
+}
