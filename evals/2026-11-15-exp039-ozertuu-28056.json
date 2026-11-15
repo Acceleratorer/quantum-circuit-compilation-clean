@@ -10,9 +10,26 @@
     "chemistry": "0ca0e90dae46"
   },
   "official_verifier_evidence": {
-    "invsqrt": {"status": "PASS", "shots": 200540928, "cost": 75170.62025728542, "qubits": 44},
-    "dqi": {"status": "PASS", "shots": 102400, "cost": 347904227555.5428, "qubits": 890, "value_errors": 0, "phase_errors": 0},
-    "dfthcsos": {"status": "PASS", "shots": 78080, "cost": 294878470.7110052, "qubits": 427}
+    "invsqrt": {
+      "status": "PASS",
+      "shots": 200540928,
+      "cost": 75170.62025728542,
+      "qubits": 44
+    },
+    "dqi": {
+      "status": "PASS",
+      "shots": 102400,
+      "cost": 347904227555.5428,
+      "qubits": 890,
+      "value_errors": 0,
+      "phase_errors": 0
+    },
+    "dfthcsos": {
+      "status": "PASS",
+      "shots": 78080,
+      "cost": 294878470.7110052,
+      "qubits": 427
+    }
   },
   "local_default_geometric_mean": 28.05649366079039,
   "previous_public_score": 27.31674,
@@ -21,8 +38,8 @@
     "status": "COMPLETE",
     "public_score": 28.05649,
     "public_score_exact": "28.05649",
-    "rank": null,
-    "rank_note": "Live authenticated leaderboard rank was not available."
+    "rank": 31,
+    "rank_note": "Authenticated live leaderboard snapshot 2026-11-15; snapshot file kaggle/staging/leaderboard-live.json, SHA-256 c524f0345d67feeb00e4ce112775f5e07db5759a61471de2127a3ff1e4662a46."
   },
   "known_risk": "DQI finite-sample verifier PASS is not an exhaustive correctness proof."
 }

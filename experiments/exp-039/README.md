@@ -25,9 +25,10 @@ The reported zero-error local geometric mean is `28.0564936608`, compared with
 exp-038's public `27.31674`. The exact archive SHA-256 and all 18 member hashes
 are in the external receipt under `kaggle/staging/exp-039-ozertuu-28056/`.
 
-Kaggle accepted the archive as submission `58387243` and scored it `28.05649`.
-The rank will be recorded only if the authenticated leaderboard makes it
-available.
+Kaggle accepted the archive as submission `58387243` and scored it `28.05649`;
+the authenticated live leaderboard snapshot places it at rank **31**. The
+snapshot is kept at `kaggle/staging/leaderboard-live.json` (SHA-256
+`c524f0345d67feeb00e4ce112775f5e07db5759a61471de2127a3ff1e4662a46`).
 
 The source credits Syed Asad Ali as the original builder of the 44-qubit
 inverse and 890-qubit DQI circuits, and records the chemistry lineage and
