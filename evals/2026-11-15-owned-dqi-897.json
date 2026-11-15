@@ -1,0 +1,22 @@
+{
+  "experiment": "exp-037",
+  "source": "src/dqi/generate.py",
+  "kit_files_checked": 68,
+  "kickmix_version": "1.0.0",
+  "build": {
+    "sha256": "b3354f60e459dcebe67910363e96498f8bb0aa7f699bc016ef962015c3732fd6",
+    "matches_upstream_stated": true,
+    "Q": 897,
+    "T_static": 454477,
+    "num_ops": 55778145,
+    "num_bits": 103164,
+    "seconds": 442.8
+  },
+  "comparison": {
+    "retained_member_qubits": 889,
+    "retained_member_static_toffoli_like": 401180,
+    "static_gate_delta": 53297,
+    "decision": "reject_no_improvement"
+  },
+  "artifact_policy": "Generated KMB removed after receipt; source is the reproducible artifact."
+}
