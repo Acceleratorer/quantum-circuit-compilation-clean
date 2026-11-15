@@ -6,11 +6,11 @@ Research log and reproducible tooling for the Google Quantum AI Verifiable Quant
 
 | Item | Value |
 |---|---:|
-| Best own Kaggle public score | **27.31542** |
-| Public rank | **Not captured for submission 58383886** |
+| Best own Kaggle public score | **27.31674** |
+| Public rank | **Not captured for submission 58386039** |
 | Rank 1 public score in that snapshot | **29.90871** |
-| Gap to rank 1 (score snapshot) | **2.59329** |
-| Current candidate members | `a4d46b17` / `821bf8d1` / `6f85dc86` |
+| Gap to rank 1 (score snapshot) | **2.59197** |
+| Current candidate members | `a4d46b17` / `821bf8d1` / `0e26f057` |
 
 The repository keeps generators, verifier evidence, provenance, and experiment notes. Large circuit binaries and Kaggle submission ZIPs stay outside Git and are addressed by SHA-256 receipts.
 
@@ -24,15 +24,13 @@ The repository keeps generators, verifier evidence, provenance, and experiment n
 
 ## Latest candidate
 
-`experiments/exp-036/` records the latest verified portfolio. Kaggle submission
-`58383886` scored `27.31542`; the authenticated API session did not expose its
-live rank, so no rank is claimed. The archive keeps inverse `a4d46b17`, DQI
-`821bf8d1`, and chemistry `6f85dc86`; member hashes and verifier evidence are
-in the receipt. The local zero-failure GM is `27.3154195993`.
+`experiments/exp-036/` records the preceding verified portfolio. Kaggle
+submission `58383886` scored `27.31542`; its archive keeps inverse `a4d46b17`,
+DQI `821bf8d1`, and chemistry `6f85dc86`.
 
-`experiments/exp-038/` records a stronger local portfolio with chemistry
+`experiments/exp-038/` records the current portfolio with chemistry
 `0e26f057`. Its source notebook reports full verifier PASS and local GM
-`27.3167386412`; Kaggle submission `58386039` is pending scoring. The exact
+`27.3167386412`; Kaggle submission `58386039` scored `27.31674`. The exact
 archive and member receipt stay outside Git under `kaggle/staging/`.
 
 ## DQI work still needed

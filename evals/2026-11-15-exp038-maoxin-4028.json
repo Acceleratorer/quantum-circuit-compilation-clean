@@ -1,5 +1,5 @@
 {
-  "captured_utc": "2026-11-15T13:32:00Z",
+  "captured_utc": "2026-11-15T13:48:00Z",
   "experiment": "exp-038",
   "source": "maoxin123/qcc-v27-4028-toffoli-coded-word-chemistry",
   "archive_sha256": "6af735d3d7f7b2118f7699c0817fc4b5be6dd211581360b87f4ddf1e7a6e29e7",
@@ -19,9 +19,12 @@
   "score_delta": 0.001319041888116601,
   "kaggle_submission": {
     "ref": 58386039,
-    "status": "PENDING",
-    "public_score": null
+    "status": "COMPLETE",
+    "public_score": 27.31674,
+    "public_score_exact": "27.31674",
+    "rank": null,
+    "rank_note": "Live authenticated leaderboard rank was not available."
   },
-  "decision": "Submit once; do not submit the unarchived 4025-Toffoli dataset candidate.",
+  "decision": "Submitted once and scored; do not submit the unarchived 4025-Toffoli dataset candidate.",
   "known_risk": "DQI targeted weight-16/17 counterexamples remain open; sampled PASS is not exhaustive."
 }

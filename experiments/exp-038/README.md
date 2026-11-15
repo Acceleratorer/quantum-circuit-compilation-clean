@@ -3,8 +3,8 @@ id: exp-038
 title: Maoxin 4028-Toffoli chemistry portfolio
 task: portfolio
 tests: source-notebook official verification log; archive member hash check
-status: prepared_for_submission
-result: local GM 27.3167386412 (27.31674)
+status: scored_public
+result: local GM 27.3167386412; Kaggle submission 58386039 scored 27.31674
 ---
 
 # Maoxin 4028-Toffoli chemistry portfolio
@@ -24,6 +24,9 @@ The source notebook output log reports full official verifier passes:
 The chemistry cost improves from exp-036's `294,878,475.0543` by
 `42,714.2805` (0.014487%), raising the local geometric mean from
 `27.3154195993` to `27.3167386412`.
+
+Kaggle submission `58386039` scored `27.31674`. The authenticated leaderboard
+endpoint did not expose its live rank, so no rank is claimed.
 
 The exact 18-member archive, SHA-256 values, and source output log are recorded
 in [receipt.json](receipt.json). The archive is kept outside Git under
