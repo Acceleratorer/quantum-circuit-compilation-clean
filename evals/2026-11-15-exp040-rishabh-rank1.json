@@ -1,0 +1,24 @@
+{
+  "captured_utc": "2026-11-15T14:53:43Z",
+  "experiment": "exp-040",
+  "source_notebook": "https://www.kaggle.com/code/rishabhbafnaiiitd/quantum-circuit-compilation-rank-1-breakthrough",
+  "source_notebook_sha256": "de722a449c3742f3a9a860fa73b6c789fe1fe8fe2fbfd8f9bd97beed1fdc308a",
+  "archive_sha256": "d18233c24be38801e1ca3e8b3982e4f7ecdbf83d7b6188188b39094963f022e",
+  "archive_members": 18,
+  "chemistry": {
+    "status": "PASS",
+    "verified_shots": 78080,
+    "cost": 299654755.4367362,
+    "qubits": 427,
+    "submission_sha256": "7f9af6ed8cab555dc8b8a087037a03fc6025bb059d5e85de65f8edf1ca5bf81e"
+  },
+  "dqi_static": {
+    "qubits": 892,
+    "operations": 58287124,
+    "toffoli_like": 395593,
+    "claimed_qubits": 780,
+    "claimed_toffoli": 245000
+  },
+  "decision": "reject_as_primary",
+  "reason": "Chemistry is worse than exp-039 and DQI static accounting contradicts the notebook's breakthrough claim; no submission made."
+}
