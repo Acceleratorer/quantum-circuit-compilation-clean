@@ -7,7 +7,7 @@ Research log and reproducible tooling for the Google Quantum AI Verifiable Quant
 | Item | Value |
 |---|---:|
 | Best own Kaggle public score | **28.05649** |
-| Public rank | **31** (submission `58387243`, live snapshot 2026-11-15) |
+| Latest observed public rank | **76** (submission `58387243`, latest live snapshot; earlier snapshot was rank 31) |
 | Rank 1 public score in that snapshot | **29.90871** |
 | Gap to rank 1 (score snapshot) | **1.85222** |
 | Current candidate members | `47b31838` / `46446af1` / `0ca0e90d` |
@@ -36,7 +36,8 @@ archive and member receipt stay outside Git under `kaggle/staging/`.
 `experiments/exp-039/` supersedes it with Ozertuu's 44-qubit inverse and
 890-qubit DQI portfolio. The source notebook reports full verifier PASS and
 local GM `28.0564936608`; Kaggle submission `58387243` scored `28.05649` and
-was rank **31** in the authenticated live leaderboard snapshot.
+was rank **31** in the earlier authenticated snapshot; the latest snapshot
+places it at rank **76** as newer submissions arrived.
 
 ## DQI work still needed
 
