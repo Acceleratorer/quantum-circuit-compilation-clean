@@ -1,0 +1,39 @@
+{
+  "experiment": "exp-036",
+  "source_notebook": "https://www.kaggle.com/code/boristown/qcc-gap-3-residue-repair-and-c43-native-compiler",
+  "source_archive_sha256": "d80570c16828ea983bbddc9243d5ca481cf4a179ddec5e41bf8fb6e35fcab4bf",
+  "archive_sha256": "745f6c030a6503d5fad1c88fb17b89817c917b25d87ac398aab9821179504bbc",
+  "archive_members": {
+    "dfthcsos/angle_k_0.kmb": "71735b23037e8a64d16e39b3347d440b36bdf8813613ec70c36a85bfd362d7c2",
+    "dfthcsos/angle_k_1.kmb": "1a43bbc368785aa5fc5210f6e4d5d2f9ddf114f7f3f6d3e3964f9478056bb4be",
+    "dfthcsos/angle_k_10.kmb": "5fea9f297afea7ffe74054ed1b44f92031a5f6e319a7f1c8741f86c05b234834",
+    "dfthcsos/angle_k_11.kmb": "dc425931348cc4950931c400ab19322e01495b7cf3e2d02bafabcaaf9559d28a",
+    "dfthcsos/angle_k_12.kmb": "64bbada35a382068b8dfbca0df0d781df8704aa367882cc426b76e2767f3d13f",
+    "dfthcsos/angle_k_13.kmb": "958789349187a70ab3baf426655aacd2360113f71ab9a7b49d6624bd0e20bcd6",
+    "dfthcsos/angle_k_14.kmb": "f35c803dece96ceb0ba24040e7c232a73170a3692c4f5212bdeadcbfcd154212",
+    "dfthcsos/angle_k_2.kmb": "0970b392fb4bed09d6026b77b4b31510573123cb76955030115507bffde4a6bb",
+    "dfthcsos/angle_k_3.kmb": "f9d313326dd07028bf6ef672bb47013f01e9311695d66b8d1ee2546d7dbacd7f",
+    "dfthcsos/angle_k_4.kmb": "0ab29f06e44ef247035c971dcca30e27616bdfdc2a102fbb58c3882bbfbfd1e0",
+    "dfthcsos/angle_k_5.kmb": "b346df2edafbaf4d95192a974db27abf71b770f51ee61dae2eb352f422cefdf4",
+    "dfthcsos/angle_k_6.kmb": "749d9edb817c59f8a3507400002e75c2d8db55932a6933db5c5f6f59a2679f7b",
+    "dfthcsos/angle_k_7.kmb": "0ad7d3775a36d7c14e3d4dfa4a144267e4e9759521fae4022715be25c309638e",
+    "dfthcsos/angle_k_8.kmb": "46e0f8d69e532438d476aa8244f257a649fdc4cffe9d41f9921758f4dc18fa83",
+    "dfthcsos/angle_k_9.kmb": "0b995537e919351a705babb6294dfe3525ef52a3c40b08122d842f45df8182da",
+    "dfthcsos/submission.npz": "6f85dc86abe7f4638ee7d3725f80ce703a6f497402001e953d0b78136fcf8042",
+    "dqi.kmb": "821bf8d157c03c3e868a0099b0ab1438cfba664ab1bc6fec3210654099b672a3",
+    "invsqrt.kmb": "a4d46b173ade79975f04bb33dbb93816df7559be0f9b5cfe9ea4a9b44aa09469"
+  },
+  "verification": {
+    "invsqrt": {"status": "PASS", "shots": 200540928, "score": 78673.54143957119, "qubits": 46},
+    "dqi": {"status": "PASS", "shots": 102400, "score": 360209905486.0156, "qubits": 889},
+    "dfthcsos": {"status": "PASS", "shots": 78080, "score": 294878475.0542638, "qubits": 427}
+  },
+  "local_default_geometric_mean": 27.315419599330387,
+  "kaggle": {
+    "competition": "google-verifiable-quantum-circuit-compilation",
+    "submission_ref": "58383886",
+    "status": "PENDING",
+    "public_score": null
+  },
+  "known_open_risk": "DQI targeted weight-16/17 counterexamples remain open; stock verifier PASS is not an exhaustive proof."
+}

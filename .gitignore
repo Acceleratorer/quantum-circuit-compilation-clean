@@ -9,6 +9,7 @@ data/
 experiments/*/out/
 /submissions/
 kaggle/.cache/
+kaggle/staging/
 /experiments/*/external/
 
 # Python

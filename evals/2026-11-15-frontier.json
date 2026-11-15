@@ -1,10 +1,13 @@
 {
-  "captured_utc": "2026-11-14T17:23:21Z",
+  "captured_utc": "2026-11-14T18:53:23Z",
   "source": "Kaggle public leaderboard CSV downloaded with the Kaggle CLI",
-  "snapshot_csv": "kaggle/snapshots/2026-11-15/public-leaderboard-2026-11-14T17-23-21.csv",
-  "snapshot_csv_bytes": 223965,
-  "snapshot_csv_sha256": "aa310f91812c880692fd70ad5c63228eebe68020e00bb1ed7ce133cc80b120d2",
-  "team_count": 3053,
+  "snapshot_csv": "kaggle/snapshots/2026-11-15/public-leaderboard-2026-11-14T18-53-23.csv",
+  "snapshot_csv_bytes": 224177,
+  "snapshot_csv_sha256": "3135bd1a766d79b1b1517fcca88c687d7c3ba3e6c63d601e2bad107db264bd75",
+  "download_archive_bytes": 100746,
+  "download_archive_sha256": "d3f7e7deaf11b903f5405d8f4bbb003a07f650b40e4936377ddda751c9d48fab",
+  "download_archive_member": "google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-14T18:53:23.csv",
+  "team_count": 3056,
   "leader": {
     "rank": 1,
     "team": "Entangled Team",
@@ -12,7 +15,7 @@
   },
   "best_submission": {
     "team": "Accelra",
-    "rank": 579,
+    "rank": 590,
     "score": 27.28986,
     "submission_ref": 58348395,
     "submitted_utc": "2026-11-14T15:58:04Z"
