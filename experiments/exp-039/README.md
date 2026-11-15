@@ -9,7 +9,7 @@ result: local GM 28.0564936608; Kaggle submission 58387243 pending
 
 # Ozertuu private verified portfolio 28.05649
 
-Ozertuu's public notebook `vqcc-private-verified-portfolio-28-056` emits an
+Ozertuu's public notebook `vqcc-verified-portfolio-28-056` emits an
 18-member `submission.zip` from the dataset
 `ozertuu/vqcc-verified-private-portfolio-28056`. The notebook reports the
 unchanged official verifier results below and authenticates every member by
