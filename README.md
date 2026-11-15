@@ -6,11 +6,11 @@ Research log and reproducible tooling for the Google Quantum AI Verifiable Quant
 
 | Item | Value |
 |---|---:|
-| Best own Kaggle public score | **27.31674** |
-| Public rank | **Not captured for submission 58386039** |
+| Best own Kaggle public score | **28.05649** |
+| Public rank | **Not captured for submission 58387243** |
 | Rank 1 public score in that snapshot | **29.90871** |
-| Gap to rank 1 (score snapshot) | **2.59197** |
-| Current candidate members | `a4d46b17` / `821bf8d1` / `0e26f057` |
+| Gap to rank 1 (score snapshot) | **1.85222** |
+| Current candidate members | `47b31838` / `46446af1` / `0ca0e90d` |
 
 The repository keeps generators, verifier evidence, provenance, and experiment notes. Large circuit binaries and Kaggle submission ZIPs stay outside Git and are addressed by SHA-256 receipts.
 
@@ -28,10 +28,14 @@ The repository keeps generators, verifier evidence, provenance, and experiment n
 submission `58383886` scored `27.31542`; its archive keeps inverse `a4d46b17`,
 DQI `821bf8d1`, and chemistry `6f85dc86`.
 
-`experiments/exp-038/` records the current portfolio with chemistry
+`experiments/exp-038/` records the preceding portfolio with chemistry
 `0e26f057`. Its source notebook reports full verifier PASS and local GM
 `27.3167386412`; Kaggle submission `58386039` scored `27.31674`. The exact
 archive and member receipt stay outside Git under `kaggle/staging/`.
+
+`experiments/exp-039/` supersedes it with Ozertuu's 44-qubit inverse and
+890-qubit DQI portfolio. The source notebook reports full verifier PASS and
+local GM `28.0564936608`; Kaggle submission `58387243` scored `28.05649`.
 
 ## DQI work still needed
 

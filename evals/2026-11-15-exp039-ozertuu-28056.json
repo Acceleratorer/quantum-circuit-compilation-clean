@@ -18,8 +18,11 @@
   "previous_public_score": 27.31674,
   "kaggle_submission": {
     "ref": 58387243,
-    "status": "PENDING",
-    "public_score": null
+    "status": "COMPLETE",
+    "public_score": 28.05649,
+    "public_score_exact": "28.05649",
+    "rank": null,
+    "rank_note": "Live authenticated leaderboard rank was not available."
   },
   "known_risk": "DQI finite-sample verifier PASS is not an exhaustive correctness proof."
 }
