@@ -1,0 +1,21 @@
+{
+  "captured_utc": "2026-11-15T15:00:15Z",
+  "experiment": "exp-041",
+  "source_notebook": "https://www.kaggle.com/code/atakanaldemir/qcc-terminal-readout-and-phase-folds",
+  "source_audit": "kaggle/staging/targeted-2026-11-15/atakan-terminal/reproduction_audit.json",
+  "archive_sha256": "ec4f0f9cebea39a3ed52a2a5b759bb6debf64a756316027667827ba29b34f7b4",
+  "archive_members": 18,
+  "member_hashes_verified_locally": true,
+  "official_verifier_evidence": {
+    "invsqrt": {"status": "PASS", "shots": 200540928, "cost": 75170.62025728542, "qubits": 44},
+    "dqi": {"status": "PASS", "shots": 102400, "cost": 347904227555.5428, "qubits": 890, "value_errors": 0, "phase_errors": 0},
+    "dfthcsos": {"status": "PASS", "shots": 78080, "cost": 294827530.2995456, "qubits": 427}
+  },
+  "local_default_geometric_mean": 28.05810943824118,
+  "previous_public_score": 28.05649,
+  "kaggle_submissions": [
+    {"ref": 58389412, "status": "PENDING"},
+    {"ref": 58389450, "status": "PENDING"}
+  ],
+  "known_risk": "DQI finite-sample verifier PASS is not an exhaustive correctness proof; the notebook's second DQI salt had one value error."
+}
