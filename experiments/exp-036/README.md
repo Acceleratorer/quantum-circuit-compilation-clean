@@ -3,8 +3,8 @@ id: exp-036
 title: Atakan terminal-folds verified portfolio
 task: portfolio
 tests: C-037
-status: submitted_pending
-result: local GM 27.3154195993; Kaggle submission 58383886 pending
+status: scored_public
+result: local GM 27.3154195993; Kaggle submission 58383886 scored 27.31542
 ---
 
 # Atakan terminal-folds verified portfolio
@@ -19,7 +19,7 @@ This experiment packages the best locally verified portfolio found in the
 | dfthcsos | `6f85dc86` | full official verifier, 78,080 shots | 294,878,475.0543 |
 
 The portfolio's local default geometric mean is `27.3154195993`, above the
-previous public score `27.28986`. Kaggle submission `58383886` uses the exact
+previous public score `27.28986`. Kaggle submission `58383886` scored `27.31542` and uses the exact
 18-member archive recorded in [receipt.json](receipt.json). The archive and
 downloaded notebooks remain outside Git; the receipt records their hashes and
 provenance.

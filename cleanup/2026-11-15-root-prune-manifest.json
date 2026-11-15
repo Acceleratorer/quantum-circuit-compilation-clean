@@ -1,0 +1,2456 @@
+{
+  "created_utc": "2026-11-15",
+  "purpose": "Prune downloaded Kaggle caches and scratch work outside the canonical evidence repository.",
+  "workspace": "D:\\Code\\Kaggle\\competitions\\Google Quantum AI",
+  "protected": [
+    ".venv",
+    "tmp/github_publish"
+  ],
+  "preserved_inside_repo": [
+    "tmp/github_publish/kaggle/staging/exp-036-atakan/submission.zip",
+    "tmp/github_publish/experiments/exp-036/receipt.json"
+  ],
+  "targets": [
+    {
+      "path": "24-94-lb-verified-three-task-portfolio.cells.txt",
+      "bytes": 435118,
+      "files": 1
+    },
+    {
+      "path": "24-94-lb-verified-three-task-portfolio.ipynb",
+      "bytes": 539196,
+      "files": 1
+    },
+    {
+      "path": "__pycache__",
+      "bytes": 36184,
+      "files": 4
+    },
+    {
+      "path": "_peek.py",
+      "bytes": 259,
+      "files": 1
+    },
+    {
+      "path": "alex_source.txt",
+      "bytes": 487507,
+      "files": 1
+    },
+    {
+      "path": "all_kernels.json",
+      "bytes": 23256,
+      "files": 1
+    },
+    {
+      "path": "angle0_new.kmx",
+      "bytes": 248699,
+      "files": 1
+    },
+    {
+      "path": "apache_files_all.json",
+      "bytes": 618340,
+      "files": 1
+    },
+    {
+      "path": "apache_files_current.csv",
+      "bytes": 16718,
+      "files": 1
+    },
+    {
+      "path": "apache_files_current.json",
+      "bytes": 29098,
+      "files": 1
+    },
+    {
+      "path": "apache_files_current_all.json",
+      "bytes": 750104,
+      "files": 1
+    },
+    {
+      "path": "apache_files_p1.txt",
+      "bytes": 29098,
+      "files": 1
+    },
+    {
+      "path": "apache_full",
+      "bytes": 425962930,
+      "files": 412
+    },
+    {
+      "path": "apache_latest",
+      "bytes": 8275794,
+      "files": 16
+    },
+    {
+      "path": "apache_live_files_all.json",
+      "bytes": 739937,
+      "files": 1
+    },
+    {
+      "path": "apache_live_page1.json",
+      "bytes": 29091,
+      "files": 1
+    },
+    {
+      "path": "apache_meta_latest",
+      "bytes": 37398,
+      "files": 3
+    },
+    {
+      "path": "apache_now_files.json",
+      "bytes": 29098,
+      "files": 1
+    },
+    {
+      "path": "apache_page1_raw.txt",
+      "bytes": 4627,
+      "files": 1
+    },
+    {
+      "path": "apache_refresh",
+      "bytes": 557472,
+      "files": 4
+    },
+    {
+      "path": "app_context.txt",
+      "bytes": 5299,
+      "files": 1
+    },
+    {
+      "path": "app_context2.txt",
+      "bytes": 39167,
+      "files": 1
+    },
+    {
+      "path": "artifacts",
+      "bytes": 3757221388,
+      "files": 94
+    },
+    {
+      "path": "asterios_latest",
+      "bytes": 30462,
+      "files": 3
+    },
+    {
+      "path": "asterios_source.txt",
+      "bytes": 46320,
+      "files": 1
+    },
+    {
+      "path": "atakan_latest_src",
+      "bytes": 123204,
+      "files": 2
+    },
+    {
+      "path": "attabeezy_frontier_output",
+      "bytes": 30124607,
+      "files": 3
+    },
+    {
+      "path": "bench_chem.py",
+      "bytes": 1894,
+      "files": 1
+    },
+    {
+      "path": "bench_circuits.py",
+      "bytes": 1451,
+      "files": 1
+    },
+    {
+      "path": "best_dqi_full.txt",
+      "bytes": 0,
+      "files": 1
+    },
+    {
+      "path": "blackcat_chem_verify_64.json",
+      "bytes": 1558,
+      "files": 1
+    },
+    {
+      "path": "blackcat_files.json",
+      "bytes": 2706,
+      "files": 1
+    },
+    {
+      "path": "build_helios_archive.py",
+      "bytes": 1338,
+      "files": 1
+    },
+    {
+      "path": "build_helios_run.log",
+      "bytes": 307,
+      "files": 1
+    },
+    {
+      "path": "build_hybrid.py",
+      "bytes": 1035,
+      "files": 1
+    },
+    {
+      "path": "build_hybrid_392k.py",
+      "bytes": 958,
+      "files": 1
+    },
+    {
+      "path": "candidate_helios_latest",
+      "bytes": 3885149,
+      "files": 16
+    },
+    {
+      "path": "chem_9706_candidate",
+      "bytes": 3927791,
+      "files": 16
+    },
+    {
+      "path": "chem_9706_runner.err",
+      "bytes": 0,
+      "files": 1
+    },
+    {
+      "path": "chem_9706_runner.out",
+      "bytes": 120,
+      "files": 1
+    },
+    {
+      "path": "chem_9706_verify.err",
+      "bytes": 0,
+      "files": 1
+    },
+    {
+      "path": "chem_9706_verify.out",
+      "bytes": 110,
+      "files": 1
+    },
+    {
+      "path": "chem_circuit_all_metrics.json",
+      "bytes": 91231,
+      "files": 1
+    },
+    {
+      "path": "chem_circuit_metrics.json",
+      "bytes": 27725,
+      "files": 1
+    },
+    {
+      "path": "chem_circuit_public_metrics.json",
+      "bytes": 753675,
+      "files": 1
+    },
+    {
+      "path": "chem_metrics.json",
+      "bytes": 95241,
+      "files": 1
+    },
+    {
+      "path": "chem_verify_maoxin_v22.txt",
+      "bytes": 1558,
+      "files": 1
+    },
+    {
+      "path": "chem_verify_maoxin_v22_405.txt",
+      "bytes": 1560,
+      "files": 1
+    },
+    {
+      "path": "compare_hybrid.py",
+      "bytes": 434,
+      "files": 1
+    },
+    {
+      "path": "compare_words.py",
+      "bytes": 510,
+      "files": 1
+    },
+    {
+      "path": "competition_data",
+      "bytes": 136853418,
+      "files": 26
+    },
+    {
+      "path": "competition_files_refresh.csv",
+      "bytes": 2539,
+      "files": 1
+    },
+    {
+      "path": "convert_v22.py",
+      "bytes": 681,
+      "files": 1
+    },
+    {
+      "path": "convert_v22_only.py",
+      "bytes": 336,
+      "files": 1
+    },
+    {
+      "path": "current_leaderboard.json",
+      "bytes": 3046,
+      "files": 1
+    },
+    {
+      "path": "dataset-metadata.json",
+      "bytes": 829,
+      "files": 1
+    },
+    {
+      "path": "dataset_matousakura",
+      "bytes": 7234704,
+      "files": 29
+    },
+    {
+      "path": "dataset_ozertuu_linalg",
+      "bytes": 29796843,
+      "files": 19
+    },
+    {
+      "path": "dataset_probe",
+      "bytes": 21217084,
+      "files": 52
+    },
+    {
+      "path": "dataset_prvsiyan_1106a",
+      "bytes": 605431459,
+      "files": 30
+    },
+    {
+      "path": "datasets_current.txt",
+      "bytes": 5501,
+      "files": 1
+    },
+    {
+      "path": "datasets_current_search.csv",
+      "bytes": 2662,
+      "files": 1
+    },
+    {
+      "path": "datasets_dfthc.txt",
+      "bytes": 4845,
+      "files": 1
+    },
+    {
+      "path": "datasets_live_1736.json",
+      "bytes": 5502,
+      "files": 1
+    },
+    {
+      "path": "datasets_live_183044.json",
+      "bytes": 5434,
+      "files": 1
+    },
+    {
+      "path": "datasets_qai.json",
+      "bytes": 1853,
+      "files": 1
+    },
+    {
+      "path": "datasets_qc_search_latest.txt",
+      "bytes": 5501,
+      "files": 1
+    },
+    {
+      "path": "datasets_qcc.json",
+      "bytes": 1901,
+      "files": 1
+    },
+    {
+      "path": "datasets_qcc2.json",
+      "bytes": 1754,
+      "files": 1
+    },
+    {
+      "path": "datasets_qcc_cli.csv",
+      "bytes": 712,
+      "files": 1
+    },
+    {
+      "path": "datasets_qcc_live.json",
+      "bytes": 5070,
+      "files": 1
+    },
+    {
+      "path": "datasets_qcc_live3.json",
+      "bytes": 5333,
+      "files": 1
+    },
+    {
+      "path": "datasets_qcc_now.json",
+      "bytes": 5333,
+      "files": 1
+    },
+    {
+      "path": "datasets_qcc_refresh_now.json",
+      "bytes": 5317,
+      "files": 1
+    },
+    {
+      "path": "datasets_qcc_updated_now.csv",
+      "bytes": 2500,
+      "files": 1
+    },
+    {
+      "path": "datasets_quantum_cli.csv",
+      "bytes": 2358,
+      "files": 1
+    },
+    {
+      "path": "datasets_quantum_live.json",
+      "bytes": 5484,
+      "files": 1
+    },
+    {
+      "path": "datasets_quantum_updated.json",
+      "bytes": 5341,
+      "files": 1
+    },
+    {
+      "path": "datasets_refresh_now.csv",
+      "bytes": 0,
+      "files": 1
+    },
+    {
+      "path": "datasets_search_quantum.json",
+      "bytes": 5353,
+      "files": 1
+    },
+    {
+      "path": "datasets_vqcc_cli.csv",
+      "bytes": 902,
+      "files": 1
+    },
+    {
+      "path": "datasets_vqcc_search.csv",
+      "bytes": 2588,
+      "files": 1
+    },
+    {
+      "path": "datasets_vqcc_updated.json",
+      "bytes": 5408,
+      "files": 1
+    },
+    {
+      "path": "dims_chem.py",
+      "bytes": 199,
+      "files": 1
+    },
+    {
+      "path": "discussions_live_1736.json",
+      "bytes": 0,
+      "files": 1
+    },
+    {
+      "path": "discussions_qcc.json",
+      "bytes": 19960,
+      "files": 1
+    },
+    {
+      "path": "download_blackcat_chem.py",
+      "bytes": 736,
+      "files": 1
+    },
+    {
+      "path": "download_kmb_selected.py",
+      "bytes": 976,
+      "files": 1
+    },
+    {
+      "path": "download_new.py",
+      "bytes": 1447,
+      "files": 1
+    },
+    {
+      "path": "download_npz_remaining.py",
+      "bytes": 1115,
+      "files": 1
+    },
+    {
+      "path": "dqi_prune_plan.txt",
+      "bytes": 9231,
+      "files": 1
+    },
+    {
+      "path": "dqi_stats.txt",
+      "bytes": 1195,
+      "files": 1
+    },
+    {
+      "path": "dqi_verify_maoxin_v22.txt",
+      "bytes": 0,
+      "files": 1
+    },
+    {
+      "path": "ds_helios_live",
+      "bytes": 15375413,
+      "files": 21
+    },
+    {
+      "path": "ds_jun_b",
+      "bytes": 16629843,
+      "files": 19
+    },
+    {
+      "path": "ds_jun_c",
+      "bytes": 16633682,
+      "files": 19
+    },
+    {
+      "path": "ds_jun_d",
+      "bytes": 15367250,
+      "files": 19
+    },
+    {
+      "path": "ds_jun_v22",
+      "bytes": 27196168,
+      "files": 20
+    },
+    {
+      "path": "ds_matousakura",
+      "bytes": 5665250,
+      "files": 28
+    },
+    {
+      "path": "ds_ozertuu_cache",
+      "bytes": 16926257,
+      "files": 18
+    },
+    {
+      "path": "ds_search.json",
+      "bytes": 5401,
+      "files": 1
+    },
+    {
+      "path": "dump_alex.py",
+      "bytes": 307,
+      "files": 1
+    },
+    {
+      "path": "dump_ast.py",
+      "bytes": 309,
+      "files": 1
+    },
+    {
+      "path": "eval_all_same.err",
+      "bytes": 0,
+      "files": 1
+    },
+    {
+      "path": "eval_all_same.out",
+      "bytes": 5658,
+      "files": 1
+    },
+    {
+      "path": "eval_all_same.py",
+      "bytes": 1241,
+      "files": 1
+    },
+    {
+      "path": "eval_candidates.py",
+      "bytes": 1402,
+      "files": 1
+    },
+    {
+      "path": "eval_candidates_fast.py",
+      "bytes": 1297,
+      "files": 1
+    },
+    {
+      "path": "eval_fast.err",
+      "bytes": 0,
+      "files": 1
+    },
+    {
+      "path": "eval_fast.out",
+      "bytes": 613,
+      "files": 1
+    },
+    {
+      "path": "eval_same.err",
+      "bytes": 0,
+      "files": 1
+    },
+    {
+      "path": "eval_same.out",
+      "bytes": 4100,
+      "files": 1
+    },
+    {
+      "path": "eval_same.py",
+      "bytes": 1271,
+      "files": 1
+    },
+    {
+      "path": "experiments",
+      "bytes": 0,
+      "files": 0
+    },
+    {
+      "path": "extract_angles.py",
+      "bytes": 338,
+      "files": 1
+    },
+    {
+      "path": "extract_asterios.py",
+      "bytes": 1367,
+      "files": 1
+    },
+    {
+      "path": "extract_npz_stage.py",
+      "bytes": 386,
+      "files": 1
+    },
+    {
+      "path": "extract_retain.py",
+      "bytes": 292,
+      "files": 1
+    },
+    {
+      "path": "femoco_files.csv",
+      "bytes": 8119,
+      "files": 1
+    },
+    {
+      "path": "femoco_files_all.txt",
+      "bytes": 28962,
+      "files": 1
+    },
+    {
+      "path": "femoco_files_latest.txt",
+      "bytes": 2953,
+      "files": 1
+    },
+    {
+      "path": "femoco_files_p3.txt",
+      "bytes": 28175,
+      "files": 1
+    },
+    {
+      "path": "femoco_v22",
+      "bytes": 2232244,
+      "files": 1
+    },
+    {
+      "path": "femoco_v23",
+      "bytes": 16539272,
+      "files": 32
+    },
+    {
+      "path": "files_apache_public_20261113.json",
+      "bytes": 29098,
+      "files": 1
+    },
+    {
+      "path": "files_blackcat_v9_20261113.json",
+      "bytes": 2706,
+      "files": 1
+    },
+    {
+      "path": "files_ghazaros_combo_20261113.json",
+      "bytes": 2167,
+      "files": 1
+    },
+    {
+      "path": "files_helios_live_20261113.json",
+      "bytes": 2520,
+      "files": 1
+    },
+    {
+      "path": "files_kirderf_cutoff_20261113.json",
+      "bytes": 1492,
+      "files": 1
+    },
+    {
+      "path": "files_kirderf_portfolio_20261113.json",
+      "bytes": 2138,
+      "files": 1
+    },
+    {
+      "path": "files_prvsiyan_20261113.json",
+      "bytes": 14404,
+      "files": 1
+    },
+    {
+      "path": "files_syed_own_20261113.json",
+      "bytes": 2852,
+      "files": 1
+    },
+    {
+      "path": "find_hashes.py",
+      "bytes": 388,
+      "files": 1
+    },
+    {
+      "path": "find_hashes2.py",
+      "bytes": 471,
+      "files": 1
+    },
+    {
+      "path": "find_npz.py",
+      "bytes": 239,
+      "files": 1
+    },
+    {
+      "path": "find_same_all.py",
+      "bytes": 495,
+      "files": 1
+    },
+    {
+      "path": "fix_retain.py",
+      "bytes": 158,
+      "files": 1
+    },
+    {
+      "path": "forums.json",
+      "bytes": 881,
+      "files": 1
+    },
+    {
+      "path": "forums_all.json",
+      "bytes": 881,
+      "files": 1
+    },
+    {
+      "path": "forums_live2.txt",
+      "bytes": 0,
+      "files": 1
+    },
+    {
+      "path": "forums_live3.json",
+      "bytes": 881,
+      "files": 1
+    },
+    {
+      "path": "forums_now.json",
+      "bytes": 881,
+      "files": 1
+    },
+    {
+      "path": "fresh_alex_1736",
+      "bytes": 30508385,
+      "files": 11
+    },
+    {
+      "path": "fresh_apihpih_25396",
+      "bytes": 0,
+      "files": 0
+    },
+    {
+      "path": "fresh_atakan",
+      "bytes": 30151434,
+      "files": 7
+    },
+    {
+      "path": "fresh_atakan_h5",
+      "bytes": 30145432,
+      "files": 6
+    },
+    {
+      "path": "fresh_atakan_iso_gap",
+      "bytes": 30143957,
+      "files": 5
+    },
+    {
+      "path": "fresh_atakan_latest",
+      "bytes": 0,
+      "files": 1
+    },
+    {
+      "path": "fresh_attabeezy_frontier_20261112",
+      "bytes": 30172060,
+      "files": 3
+    },
+    {
+      "path": "fresh_attabeezy_invsqrt",
+      "bytes": 2626,
+      "files": 1
+    },
+    {
+      "path": "fresh_busy_grimoire",
+      "bytes": 35048038,
+      "files": 22
+    },
+    {
+      "path": "fresh_datasets_qcc_20261113.json",
+      "bytes": 5439,
+      "files": 1
+    },
+    {
+      "path": "fresh_datasets_vqcc_20261113.json",
+      "bytes": 5389,
+      "files": 1
+    },
+    {
+      "path": "fresh_helios_live",
+      "bytes": 16641899,
+      "files": 21
+    },
+    {
+      "path": "fresh_helios_public",
+      "bytes": 30076712,
+      "files": 2
+    },
+    {
+      "path": "fresh_jako_kickmix",
+      "bytes": 228412668,
+      "files": 19
+    },
+    {
+      "path": "fresh_jako_submission_csv",
+      "bytes": 174687,
+      "files": 21
+    },
+    {
+      "path": "fresh_junmiaotiao",
+      "bytes": 29943166,
+      "files": 3
+    },
+    {
+      "path": "fresh_junmiaotiao_112",
+      "bytes": 30177720,
+      "files": 3
+    },
+    {
+      "path": "fresh_junmiaotiao_latest",
+      "bytes": 30115487,
+      "files": 3
+    },
+    {
+      "path": "fresh_kawh_v32_logonly",
+      "bytes": 82315586,
+      "files": 2
+    },
+    {
+      "path": "fresh_kernels_date_20261113.json",
+      "bytes": 23468,
+      "files": 1
+    },
+    {
+      "path": "fresh_kernels_score_20261113.json",
+      "bytes": 23322,
+      "files": 1
+    },
+    {
+      "path": "fresh_kirill_conditional",
+      "bytes": 28192819,
+      "files": 21
+    },
+    {
+      "path": "fresh_kirill_retained",
+      "bytes": 28279294,
+      "files": 26
+    },
+    {
+      "path": "fresh_manwithacat",
+      "bytes": 33170028,
+      "files": 12
+    },
+    {
+      "path": "fresh_manwithacat_1736",
+      "bytes": 35590260,
+      "files": 50
+    },
+    {
+      "path": "fresh_manwithacat_fortysix",
+      "bytes": 945252,
+      "files": 5
+    },
+    {
+      "path": "fresh_manwithacat_latest",
+      "bytes": 35677829,
+      "files": 55
+    },
+    {
+      "path": "fresh_mason_112",
+      "bytes": 28157214,
+      "files": 2
+    },
+    {
+      "path": "fresh_mason_combo",
+      "bytes": 28157214,
+      "files": 2
+    },
+    {
+      "path": "fresh_models_vqcc_20261113.json",
+      "bytes": 289,
+      "files": 1
+    },
+    {
+      "path": "fresh_ozertuu_1736",
+      "bytes": 30122506,
+      "files": 2
+    },
+    {
+      "path": "fresh_ozertuu_2539570",
+      "bytes": 30122510,
+      "files": 2
+    },
+    {
+      "path": "fresh_ozertuu_27002",
+      "bytes": 49313573,
+      "files": 2
+    },
+    {
+      "path": "fresh_ozertuu_27083",
+      "bytes": 0,
+      "files": 0
+    },
+    {
+      "path": "fresh_ozertuu_live",
+      "bytes": 0,
+      "files": 0
+    },
+    {
+      "path": "fresh_pablo2",
+      "bytes": 30715603,
+      "files": 10
+    },
+    {
+      "path": "fresh_pramit_112",
+      "bytes": 30125868,
+      "files": 2
+    },
+    {
+      "path": "fresh_pramit_25367",
+      "bytes": 30125868,
+      "files": 2
+    },
+    {
+      "path": "fresh_prvsiyan_1106a",
+      "bytes": 2308670,
+      "files": 10
+    },
+    {
+      "path": "fresh_ranjeet_1736",
+      "bytes": 30180001,
+      "files": 4
+    },
+    {
+      "path": "fresh_rishabh_apex",
+      "bytes": 28079582,
+      "files": 2
+    },
+    {
+      "path": "fresh_rishabh_rank1",
+      "bytes": 28079206,
+      "files": 2
+    },
+    {
+      "path": "fresh_sheroleg_1736",
+      "bytes": 30166217,
+      "files": 2
+    },
+    {
+      "path": "fresh_thomas_112",
+      "bytes": 82319200,
+      "files": 4
+    },
+    {
+      "path": "fresh_topeseun_112",
+      "bytes": 805,
+      "files": 1
+    },
+    {
+      "path": "fresh_topeseun_sprint",
+      "bytes": 805,
+      "files": 1
+    },
+    {
+      "path": "fresh_wc\u10d0\u10dd24_latest",
+      "bytes": 30121889,
+      "files": 3
+    },
+    {
+      "path": "fresh_wc\u10d0\u10dd24_new",
+      "bytes": 60,
+      "files": 1
+    },
+    {
+      "path": "ghazar_files.json",
+      "bytes": 2167,
+      "files": 1
+    },
+    {
+      "path": "ghazar_meta",
+      "bytes": 1155,
+      "files": 1
+    },
+    {
+      "path": "google-quantum-ai-deep-eda-with-analogies.cells.txt",
+      "bytes": 447079,
+      "files": 1
+    },
+    {
+      "path": "google-quantum-ai-deep-eda-with-analogies.ipynb",
+      "bytes": 1245809,
+      "files": 1
+    },
+    {
+      "path": "hash_archives.py",
+      "bytes": 327,
+      "files": 1
+    },
+    {
+      "path": "hash_best.py",
+      "bytes": 375,
+      "files": 1
+    },
+    {
+      "path": "hash_new.py",
+      "bytes": 507,
+      "files": 1
+    },
+    {
+      "path": "hash_new.txt",
+      "bytes": 5372,
+      "files": 1
+    },
+    {
+      "path": "hash_pablo.py",
+      "bytes": 392,
+      "files": 1
+    },
+    {
+      "path": "hashes_stage.py",
+      "bytes": 323,
+      "files": 1
+    },
+    {
+      "path": "helios_files.csv",
+      "bytes": 1238,
+      "files": 1
+    },
+    {
+      "path": "helios_files.json",
+      "bytes": 2569,
+      "files": 1
+    },
+    {
+      "path": "heliosli_latest_output",
+      "bytes": 30174919,
+      "files": 2
+    },
+    {
+      "path": "inspect_apihpih_qcc-lb-25-396-verified-portfolio-credits-inside",
+      "bytes": 15469,
+      "files": 2
+    },
+    {
+      "path": "inspect_hypery11_notebook2dcb6ea357",
+      "bytes": 99534,
+      "files": 2
+    },
+    {
+      "path": "inspect_kirderf_vqcc-portfolio-2711-reproduced",
+      "bytes": 2602,
+      "files": 2
+    },
+    {
+      "path": "inspect_mahmouednemer_google-quantum-ai-sota-vqcc-portfolio-elnemer",
+      "bytes": 10900,
+      "files": 2
+    },
+    {
+      "path": "inspect_manwithacat_fortysix-where-the-16-qubits-went",
+      "bytes": 131168,
+      "files": 2
+    },
+    {
+      "path": "inspect_ozertuu_27-002-sota-vqcc-fast-runner-portfolio",
+      "bytes": 10761,
+      "files": 2
+    },
+    {
+      "path": "inspect_ozertuu_i-m-better",
+      "bytes": 0,
+      "files": 0
+    },
+    {
+      "path": "inspect_ozertuu_quantum-ai-27-083-vqcc-dqi-cutoff-17",
+      "bytes": 15421,
+      "files": 2
+    },
+    {
+      "path": "inv_stats.txt",
+      "bytes": 8945,
+      "files": 1
+    },
+    {
+      "path": "junmiaotiao_latest_output",
+      "bytes": 30177720,
+      "files": 3
+    },
+    {
+      "path": "kaggle_page.html",
+      "bytes": 5817,
+      "files": 1
+    },
+    {
+      "path": "kaggle_rules.html",
+      "bytes": 5817,
+      "files": 1
+    },
+    {
+      "path": "kaggle_scout",
+      "bytes": 3202752669,
+      "files": 363
+    },
+    {
+      "path": "kernel_manwithacat_latest",
+      "bytes": 35546200,
+      "files": 50
+    },
+    {
+      "path": "kernel_outputs",
+      "bytes": 145971957,
+      "files": 8
+    },
+    {
+      "path": "kernel_ozertuu_latest",
+      "bytes": 804,
+      "files": 1
+    },
+    {
+      "path": "kernel_sources",
+      "bytes": 1950304,
+      "files": 28
+    },
+    {
+      "path": "kernels100.csv",
+      "bytes": 181,
+      "files": 1
+    },
+    {
+      "path": "kernels100.json",
+      "bytes": 23620,
+      "files": 1
+    },
+    {
+      "path": "kernels_after_reset.json",
+      "bytes": 23666,
+      "files": 1
+    },
+    {
+      "path": "kernels_cli.txt",
+      "bytes": 0,
+      "files": 1
+    },
+    {
+      "path": "kernels_cli_current.json",
+      "bytes": 23281,
+      "files": 1
+    },
+    {
+      "path": "kernels_cli_latest.csv",
+      "bytes": 442,
+      "files": 1
+    },
+    {
+      "path": "kernels_cli_new.csv",
+      "bytes": 13175,
+      "files": 1
+    },
+    {
+      "path": "kernels_comp.json",
+      "bytes": 23294,
+      "files": 1
+    },
+    {
+      "path": "kernels_comp_200.csv",
+      "bytes": 2096,
+      "files": 1
+    },
+    {
+      "path": "kernels_comp_date.json",
+      "bytes": 23258,
+      "files": 1
+    },
+    {
+      "path": "kernels_comp_date_latest.json",
+      "bytes": 23566,
+      "files": 1
+    },
+    {
+      "path": "kernels_comp_live3.json",
+      "bytes": 23709,
+      "files": 1
+    },
+    {
+      "path": "kernels_comp_now.csv",
+      "bytes": 184,
+      "files": 1
+    },
+    {
+      "path": "kernels_comp_refresh_now.json",
+      "bytes": 23580,
+      "files": 1
+    },
+    {
+      "path": "kernels_current.txt",
+      "bytes": 13258,
+      "files": 1
+    },
+    {
+      "path": "kernels_current_date.csv",
+      "bytes": 311,
+      "files": 1
+    },
+    {
+      "path": "kernels_current_score.csv",
+      "bytes": 769,
+      "files": 1
+    },
+    {
+      "path": "kernels_date.json",
+      "bytes": 23666,
+      "files": 1
+    },
+    {
+      "path": "kernels_entangled_latest.json",
+      "bytes": 22354,
+      "files": 1
+    },
+    {
+      "path": "kernels_fresh.json",
+      "bytes": 23658,
+      "files": 1
+    },
+    {
+      "path": "kernels_live.json",
+      "bytes": 23294,
+      "files": 1
+    },
+    {
+      "path": "kernels_live_1736.json",
+      "bytes": 23566,
+      "files": 1
+    },
+    {
+      "path": "kernels_live_183044.json",
+      "bytes": 0,
+      "files": 1
+    },
+    {
+      "path": "kernels_live_183123.json",
+      "bytes": 23566,
+      "files": 1
+    },
+    {
+      "path": "kernels_now.json",
+      "bytes": 23666,
+      "files": 1
+    },
+    {
+      "path": "kernels_now_1216.json",
+      "bytes": 23303,
+      "files": 1
+    },
+    {
+      "path": "kernels_now_latest.json",
+      "bytes": 23527,
+      "files": 1
+    },
+    {
+      "path": "kernels_qc_search.json",
+      "bytes": 23247,
+      "files": 1
+    },
+    {
+      "path": "kernels_qcc.csv",
+      "bytes": 6724,
+      "files": 1
+    },
+    {
+      "path": "kernels_quantum.json",
+      "bytes": 23425,
+      "files": 1
+    },
+    {
+      "path": "kernels_quantum_circuit.csv",
+      "bytes": 2717,
+      "files": 1
+    },
+    {
+      "path": "kernels_quantum_live2.txt",
+      "bytes": 0,
+      "files": 1
+    },
+    {
+      "path": "kernels_quantum_now.csv",
+      "bytes": 184,
+      "files": 1
+    },
+    {
+      "path": "kernels_refresh.txt",
+      "bytes": 13378,
+      "files": 1
+    },
+    {
+      "path": "kernels_refresh_now.csv",
+      "bytes": 332,
+      "files": 1
+    },
+    {
+      "path": "kernels_schrodinger_latest.json",
+      "bytes": 12695,
+      "files": 1
+    },
+    {
+      "path": "kernels_score.json",
+      "bytes": 23291,
+      "files": 1
+    },
+    {
+      "path": "kernels_score2974602.json",
+      "bytes": 11,
+      "files": 1
+    },
+    {
+      "path": "kernels_score_now.json",
+      "bytes": 23231,
+      "files": 1
+    },
+    {
+      "path": "kernels_search_quantum.json",
+      "bytes": 23130,
+      "files": 1
+    },
+    {
+      "path": "kernels_vqcc.csv",
+      "bytes": 1535,
+      "files": 1
+    },
+    {
+      "path": "kirill_latest_output",
+      "bytes": 30288420,
+      "files": 22
+    },
+    {
+      "path": "lb-25-367-verified-portfolio-dqi-readout-fix.cells.txt",
+      "bytes": 9516,
+      "files": 1
+    },
+    {
+      "path": "lb-25-367-verified-portfolio-dqi-readout-fix.ipynb",
+      "bytes": 15351,
+      "files": 1
+    },
+    {
+      "path": "lb.json",
+      "bytes": 29428,
+      "files": 1
+    },
+    {
+      "path": "lb_after_submit.txt",
+      "bytes": 3095,
+      "files": 1
+    },
+    {
+      "path": "lb_cli.txt",
+      "bytes": 8362,
+      "files": 1
+    },
+    {
+      "path": "lb_current.txt",
+      "bytes": 14770,
+      "files": 1
+    },
+    {
+      "path": "lb_json_cli.json",
+      "bytes": 14744,
+      "files": 1
+    },
+    {
+      "path": "lb_latest.txt",
+      "bytes": 14770,
+      "files": 1
+    },
+    {
+      "path": "lb_live_now.csv",
+      "bytes": 937,
+      "files": 1
+    },
+    {
+      "path": "lb_now.json",
+      "bytes": 29443,
+      "files": 1
+    },
+    {
+      "path": "lb_refresh_latest.json",
+      "bytes": 3104,
+      "files": 1
+    },
+    {
+      "path": "lb_top10_live.json",
+      "bytes": 1586,
+      "files": 1
+    },
+    {
+      "path": "leaderboard200.csv",
+      "bytes": 11903,
+      "files": 1
+    },
+    {
+      "path": "leaderboard_now.json",
+      "bytes": 3046,
+      "files": 1
+    },
+    {
+      "path": "leaderboard_now.txt",
+      "bytes": 8362,
+      "files": 1
+    },
+    {
+      "path": "list_dqi.py",
+      "bytes": 329,
+      "files": 1
+    },
+    {
+      "path": "list_dqi2.py",
+      "bytes": 436,
+      "files": 1
+    },
+    {
+      "path": "list_stage.py",
+      "bytes": 117,
+      "files": 1
+    },
+    {
+      "path": "list_zip.py",
+      "bytes": 282,
+      "files": 1
+    },
+    {
+      "path": "local_chem_verify.txt",
+      "bytes": 1557,
+      "files": 1
+    },
+    {
+      "path": "local_dqi_small.txt",
+      "bytes": 1100,
+      "files": 1
+    },
+    {
+      "path": "lucifer_v9_meta",
+      "bytes": 2227,
+      "files": 1
+    },
+    {
+      "path": "lucifer_v9_npz",
+      "bytes": 1847692,
+      "files": 1
+    },
+    {
+      "path": "make_reg.py",
+      "bytes": 236,
+      "files": 1
+    },
+    {
+      "path": "make_retain_module.py",
+      "bytes": 2851,
+      "files": 1
+    },
+    {
+      "path": "maoxin_v22_output",
+      "bytes": 30164955,
+      "files": 2
+    },
+    {
+      "path": "maoxin_v22_src",
+      "bytes": 0,
+      "files": 0
+    },
+    {
+      "path": "models_current.txt",
+      "bytes": 0,
+      "files": 1
+    },
+    {
+      "path": "models_live_1736.json",
+      "bytes": 289,
+      "files": 1
+    },
+    {
+      "path": "models_quantum.json",
+      "bytes": 11065,
+      "files": 1
+    },
+    {
+      "path": "models_quantum_current.json",
+      "bytes": 11174,
+      "files": 1
+    },
+    {
+      "path": "models_refresh_now.csv",
+      "bytes": 736,
+      "files": 1
+    },
+    {
+      "path": "models_search_quantum.json",
+      "bytes": 11174,
+      "files": 1
+    },
+    {
+      "path": "new_agentili",
+      "bytes": 2122,
+      "files": 1
+    },
+    {
+      "path": "new_atakan_shared",
+      "bytes": 30308857,
+      "files": 15
+    },
+    {
+      "path": "new_attabeezy",
+      "bytes": 30172060,
+      "files": 3
+    },
+    {
+      "path": "new_chem_verify_64.json",
+      "bytes": 1558,
+      "files": 1
+    },
+    {
+      "path": "new_hypery_bad",
+      "bytes": 0,
+      "files": 0
+    },
+    {
+      "path": "new_infinity",
+      "bytes": 6136,
+      "files": 1
+    },
+    {
+      "path": "new_malavika",
+      "bytes": 28407602,
+      "files": 12
+    },
+    {
+      "path": "new_modular",
+      "bytes": 3381,
+      "files": 1
+    },
+    {
+      "path": "new_pramit",
+      "bytes": 30125868,
+      "files": 2
+    },
+    {
+      "path": "new_ranjeet",
+      "bytes": 28051828,
+      "files": 4
+    },
+    {
+      "path": "new_thomas",
+      "bytes": 82319200,
+      "files": 4
+    },
+    {
+      "path": "new_topeseun",
+      "bytes": 805,
+      "files": 1
+    },
+    {
+      "path": "new_victor",
+      "bytes": 21832,
+      "files": 1
+    },
+    {
+      "path": "new_wcao",
+      "bytes": 30126483,
+      "files": 3
+    },
+    {
+      "path": "onezip.py",
+      "bytes": 209,
+      "files": 1
+    },
+    {
+      "path": "output_kirderf",
+      "bytes": 49148328,
+      "files": 2
+    },
+    {
+      "path": "ozertuu_39570_src",
+      "bytes": 10653,
+      "files": 1
+    },
+    {
+      "path": "ozertuu_files.csv",
+      "bytes": 1073,
+      "files": 1
+    },
+    {
+      "path": "ozertuu_latest_output",
+      "bytes": 30122518,
+      "files": 2
+    },
+    {
+      "path": "package_v23.py",
+      "bytes": 1102,
+      "files": 1
+    },
+    {
+      "path": "package_v24.py",
+      "bytes": 986,
+      "files": 1
+    },
+    {
+      "path": "print_apache.py",
+      "bytes": 182,
+      "files": 1
+    },
+    {
+      "path": "print_kernels.py",
+      "bytes": 124,
+      "files": 1
+    },
+    {
+      "path": "print_now.py",
+      "bytes": 116,
+      "files": 1
+    },
+    {
+      "path": "prvsiyan_current",
+      "bytes": 0,
+      "files": 0
+    },
+    {
+      "path": "prvsiyan_files.csv",
+      "bytes": 2192,
+      "files": 1
+    },
+    {
+      "path": "public_circuits_datasets.json",
+      "bytes": 1559,
+      "files": 1
+    },
+    {
+      "path": "public_datasets",
+      "bytes": 1126562333,
+      "files": 386
+    },
+    {
+      "path": "public_kernels",
+      "bytes": 742348375,
+      "files": 15
+    },
+    {
+      "path": "public_kernels2",
+      "bytes": 390926837,
+      "files": 27
+    },
+    {
+      "path": "public_kernels3",
+      "bytes": 655303252,
+      "files": 50
+    },
+    {
+      "path": "public_submissions",
+      "bytes": 0,
+      "files": 0
+    },
+    {
+      "path": "q_0.json",
+      "bytes": 11732,
+      "files": 1
+    },
+    {
+      "path": "q_1.json",
+      "bytes": 1737,
+      "files": 1
+    },
+    {
+      "path": "q_2.json",
+      "bytes": 11524,
+      "files": 1
+    },
+    {
+      "path": "q_3.json",
+      "bytes": 6870,
+      "files": 1
+    },
+    {
+      "path": "q_4.json",
+      "bytes": 6084,
+      "files": 1
+    },
+    {
+      "path": "q_5.json",
+      "bytes": 12107,
+      "files": 1
+    },
+    {
+      "path": "q_6.json",
+      "bytes": 7269,
+      "files": 1
+    },
+    {
+      "path": "q_7.json",
+      "bytes": 7783,
+      "files": 1
+    },
+    {
+      "path": "q_8.json",
+      "bytes": 11616,
+      "files": 1
+    },
+    {
+      "path": "qcc_live_page1.json",
+      "bytes": 2520,
+      "files": 1
+    },
+    {
+      "path": "qtmp.json",
+      "bytes": 19,
+      "files": 1
+    },
+    {
+      "path": "quantum_kernels.json",
+      "bytes": 23445,
+      "files": 1
+    },
+    {
+      "path": "refresh_apache_files.json",
+      "bytes": 29098,
+      "files": 1
+    },
+    {
+      "path": "refresh_apache_files_all.json",
+      "bytes": 747275,
+      "files": 1
+    },
+    {
+      "path": "refresh_comp_files.json",
+      "bytes": 4627,
+      "files": 1
+    },
+    {
+      "path": "refresh_datasets_quantum.json",
+      "bytes": 5502,
+      "files": 1
+    },
+    {
+      "path": "refresh_datasets_vqcc.json",
+      "bytes": 5404,
+      "files": 1
+    },
+    {
+      "path": "refresh_kernels_run.json",
+      "bytes": 23566,
+      "files": 1
+    },
+    {
+      "path": "refresh_lb_200.json",
+      "bytes": 0,
+      "files": 1
+    },
+    {
+      "path": "remote_competition_files_latest.json",
+      "bytes": 4627,
+      "files": 1
+    },
+    {
+      "path": "remote_datasets_latest.json",
+      "bytes": 5479,
+      "files": 1
+    },
+    {
+      "path": "remote_kernels_latest.json",
+      "bytes": 23667,
+      "files": 1
+    },
+    {
+      "path": "remote_leaderboard_latest.json",
+      "bytes": 29371,
+      "files": 1
+    },
+    {
+      "path": "remote_models_latest.json",
+      "bytes": 1556,
+      "files": 1
+    },
+    {
+      "path": "remote_topics_latest.json",
+      "bytes": 4679,
+      "files": 1
+    },
+    {
+      "path": "reproduce_asterios_5778.py",
+      "bytes": 25635,
+      "files": 1
+    },
+    {
+      "path": "research_kernels",
+      "bytes": 16068,
+      "files": 6
+    },
+    {
+      "path": "retain_local.py",
+      "bytes": 10218,
+      "files": 1
+    },
+    {
+      "path": "retain_reg.py",
+      "bytes": 10182,
+      "files": 1
+    },
+    {
+      "path": "retain_reg_debug.py",
+      "bytes": 10184,
+      "files": 1
+    },
+    {
+      "path": "rishabh_chem.json",
+      "bytes": 1557,
+      "files": 1
+    },
+    {
+      "path": "rishabh_inv.json",
+      "bytes": 0,
+      "files": 1
+    },
+    {
+      "path": "scan_reg.err",
+      "bytes": 0,
+      "files": 1
+    },
+    {
+      "path": "scan_reg.out",
+      "bytes": 806,
+      "files": 1
+    },
+    {
+      "path": "scan_reg.py",
+      "bytes": 467,
+      "files": 1
+    },
+    {
+      "path": "scan_text.py",
+      "bytes": 664,
+      "files": 1
+    },
+    {
+      "path": "scan_v22.py",
+      "bytes": 504,
+      "files": 1
+    },
+    {
+      "path": "scan_v22_debug.py",
+      "bytes": 512,
+      "files": 1
+    },
+    {
+      "path": "score_calc.py",
+      "bytes": 255,
+      "files": 1
+    },
+    {
+      "path": "score_search.json",
+      "bytes": 18,
+      "files": 1
+    },
+    {
+      "path": "search_current.py",
+      "bytes": 384,
+      "files": 1
+    },
+    {
+      "path": "search_entangled.json",
+      "bytes": 6629,
+      "files": 1
+    },
+    {
+      "path": "search_hash.py",
+      "bytes": 347,
+      "files": 1
+    },
+    {
+      "path": "search_score.json",
+      "bytes": 259,
+      "files": 1
+    },
+    {
+      "path": "search_scores.py",
+      "bytes": 494,
+      "files": 1
+    },
+    {
+      "path": "search_tmp.json",
+      "bytes": 20760,
+      "files": 1
+    },
+    {
+      "path": "search_top.py",
+      "bytes": 640,
+      "files": 1
+    },
+    {
+      "path": "search_vqcc.json",
+      "bytes": 19437,
+      "files": 1
+    },
+    {
+      "path": "searchkern.json",
+      "bytes": 11406,
+      "files": 1
+    },
+    {
+      "path": "show_kernels.py",
+      "bytes": 151,
+      "files": 1
+    },
+    {
+      "path": "soft_files.txt",
+      "bytes": 0,
+      "files": 1
+    },
+    {
+      "path": "somejoint_ds_",
+      "bytes": 4051756181,
+      "files": 176
+    },
+    {
+      "path": "sort_chem.py",
+      "bytes": 566,
+      "files": 1
+    },
+    {
+      "path": "sort_chem_metrics.py",
+      "bytes": 234,
+      "files": 1
+    },
+    {
+      "path": "square_search.json",
+      "bytes": 19725,
+      "files": 1
+    },
+    {
+      "path": "src_rishabh",
+      "bytes": 13131,
+      "files": 2
+    },
+    {
+      "path": "stage_e9chem.py",
+      "bytes": 428,
+      "files": 1
+    },
+    {
+      "path": "staging_asterios_splice",
+      "bytes": 30114741,
+      "files": 1
+    },
+    {
+      "path": "staging_atakan_h5",
+      "bytes": 30114684,
+      "files": 1
+    },
+    {
+      "path": "staging_cleanup_targets.txt",
+      "bytes": 772,
+      "files": 1
+    },
+    {
+      "path": "staging_hybrid_245527_f21",
+      "bytes": 30119289,
+      "files": 1
+    },
+    {
+      "path": "staging_hybrid_e9chem_01",
+      "bytes": 3918511,
+      "files": 16
+    },
+    {
+      "path": "staging_hybrid_pablo",
+      "bytes": 30110524,
+      "files": 1
+    },
+    {
+      "path": "staging_kawh_chem_20261112",
+      "bytes": 5185023,
+      "files": 16
+    },
+    {
+      "path": "staging_syed_own_v1",
+      "bytes": 463378740,
+      "files": 18
+    },
+    {
+      "path": "staging_top1_probe_wcao",
+      "bytes": 29313427,
+      "files": 1
+    },
+    {
+      "path": "submission_retained_tag.receipt.json",
+      "bytes": 2026,
+      "files": 1
+    },
+    {
+      "path": "submission_staging",
+      "bytes": 30168227,
+      "files": 1
+    },
+    {
+      "path": "summarize_live.py",
+      "bytes": 380,
+      "files": 1
+    },
+    {
+      "path": "temp_bench_somejoint.py",
+      "bytes": 1216,
+      "files": 1
+    },
+    {
+      "path": "temp_bench_somejoint_seq.py",
+      "bytes": 1052,
+      "files": 1
+    },
+    {
+      "path": "temp_dqi_stats.py",
+      "bytes": 386,
+      "files": 1
+    },
+    {
+      "path": "temp_inv_stats.py",
+      "bytes": 311,
+      "files": 1
+    },
+    {
+      "path": "thomas_latest_output",
+      "bytes": 82319200,
+      "files": 4
+    },
+    {
+      "path": "tiny_bytes.py",
+      "bytes": 104,
+      "files": 1
+    },
+    {
+      "path": "tiny_hash.py",
+      "bytes": 528,
+      "files": 1
+    },
+    {
+      "path": "tiny_test.py",
+      "bytes": 564,
+      "files": 1
+    },
+    {
+      "path": "tmp_candidate_1f19",
+      "bytes": 7107656,
+      "files": 16
+    },
+    {
+      "path": "tmp_hengck23",
+      "bytes": 14671,
+      "files": 2
+    },
+    {
+      "path": "tmp_lb",
+      "bytes": 94761,
+      "files": 1
+    },
+    {
+      "path": "top1_probe",
+      "bytes": 0,
+      "files": 0
+    },
+    {
+      "path": "top1_public",
+      "bytes": 0,
+      "files": 0
+    },
+    {
+      "path": "top1_submission_probe",
+      "bytes": 0,
+      "files": 0
+    },
+    {
+      "path": "top2_public",
+      "bytes": 0,
+      "files": 0
+    },
+    {
+      "path": "top_public_archives",
+      "bytes": 30168227,
+      "files": 1
+    },
+    {
+      "path": "top_team_submission_58275470",
+      "bytes": 0,
+      "files": 0
+    },
+    {
+      "path": "topeseun100_original",
+      "bytes": 805,
+      "files": 1
+    },
+    {
+      "path": "topeseun100_src",
+      "bytes": 59096,
+      "files": 1
+    },
+    {
+      "path": "topic753607.json",
+      "bytes": 5773,
+      "files": 1
+    },
+    {
+      "path": "topic753633.json",
+      "bytes": 1238,
+      "files": 1
+    },
+    {
+      "path": "topic758129.json",
+      "bytes": 338,
+      "files": 1
+    },
+    {
+      "path": "topic_752010_latest.json",
+      "bytes": 4235,
+      "files": 1
+    },
+    {
+      "path": "topic_754652_fresh.json",
+      "bytes": 28344,
+      "files": 1
+    },
+    {
+      "path": "topic_754652_latest.json",
+      "bytes": 14801,
+      "files": 1
+    },
+    {
+      "path": "topic_755075_fresh.json",
+      "bytes": 11725,
+      "files": 1
+    },
+    {
+      "path": "topic_756998_latest.json",
+      "bytes": 531,
+      "files": 1
+    },
+    {
+      "path": "topic_757024_latest.json",
+      "bytes": 597,
+      "files": 1
+    },
+    {
+      "path": "topic_757068_latest.json",
+      "bytes": 332,
+      "files": 1
+    },
+    {
+      "path": "topic_757363_latest.json",
+      "bytes": 328,
+      "files": 1
+    },
+    {
+      "path": "topic_757522_latest.json",
+      "bytes": 3101,
+      "files": 1
+    },
+    {
+      "path": "topic_757775_latest.json",
+      "bytes": 323,
+      "files": 1
+    },
+    {
+      "path": "topic_757915_fresh.json",
+      "bytes": 9269,
+      "files": 1
+    },
+    {
+      "path": "topic_757915_latest.json",
+      "bytes": 6307,
+      "files": 1
+    },
+    {
+      "path": "topic_758095_latest.json",
+      "bytes": 272,
+      "files": 1
+    },
+    {
+      "path": "topic_758678_fresh.json",
+      "bytes": 27514,
+      "files": 1
+    },
+    {
+      "path": "topic_758815_current.json",
+      "bytes": 303,
+      "files": 1
+    },
+    {
+      "path": "topic_758978_fresh.json",
+      "bytes": 3559,
+      "files": 1
+    },
+    {
+      "path": "topics.json",
+      "bytes": 4699,
+      "files": 1
+    },
+    {
+      "path": "topics2.txt",
+      "bytes": 4781,
+      "files": 1
+    },
+    {
+      "path": "topics3.txt",
+      "bytes": 4770,
+      "files": 1
+    },
+    {
+      "path": "topics_api.json",
+      "bytes": 0,
+      "files": 1
+    },
+    {
+      "path": "topics_comp.json",
+      "bytes": 4699,
+      "files": 1
+    },
+    {
+      "path": "topics_current_1216.json",
+      "bytes": 4872,
+      "files": 1
+    },
+    {
+      "path": "topics_latest.json",
+      "bytes": 4699,
+      "files": 1
+    },
+    {
+      "path": "topics_latest_p2.txt",
+      "bytes": 4781,
+      "files": 1
+    },
+    {
+      "path": "topics_latest_p3.txt",
+      "bytes": 4770,
+      "files": 1
+    },
+    {
+      "path": "topics_live_1736.json",
+      "bytes": 4699,
+      "files": 1
+    },
+    {
+      "path": "topics_now.json",
+      "bytes": 4602,
+      "files": 1
+    },
+    {
+      "path": "topics_p2_now.json",
+      "bytes": 4781,
+      "files": 1
+    },
+    {
+      "path": "topics_p3_now.json",
+      "bytes": 4770,
+      "files": 1
+    },
+    {
+      "path": "topics_p4_now.json",
+      "bytes": 4575,
+      "files": 1
+    },
+    {
+      "path": "topics_p5_now.json",
+      "bytes": 3568,
+      "files": 1
+    },
+    {
+      "path": "topics_refresh_now2.json",
+      "bytes": 4699,
+      "files": 1
+    },
+    {
+      "path": "topics_refresh_p1.txt",
+      "bytes": 4602,
+      "files": 1
+    },
+    {
+      "path": "topics_refresh_p2.txt",
+      "bytes": 4781,
+      "files": 1
+    },
+    {
+      "path": "topics_refresh_p3.txt",
+      "bytes": 4770,
+      "files": 1
+    },
+    {
+      "path": "topics_refresh_p4.txt",
+      "bytes": 4575,
+      "files": 1
+    },
+    {
+      "path": "topics_refresh_p5.txt",
+      "bytes": 3568,
+      "files": 1
+    },
+    {
+      "path": "user_jackvd_datasets.json",
+      "bytes": 19,
+      "files": 1
+    },
+    {
+      "path": "user_jackvd_kernels.json",
+      "bytes": 11,
+      "files": 1
+    },
+    {
+      "path": "user_jsday96_datasets.json",
+      "bytes": 5055,
+      "files": 1
+    },
+    {
+      "path": "user_jsday96_kernels.json",
+      "bytes": 883,
+      "files": 1
+    },
+    {
+      "path": "user_pjmathematician_kernels.json",
+      "bytes": 13576,
+      "files": 1
+    },
+    {
+      "path": "user_tonylica_datasets.json",
+      "bytes": 3070,
+      "files": 1
+    },
+    {
+      "path": "user_tonylica_kernels.json",
+      "bytes": 6492,
+      "files": 1
+    },
+    {
+      "path": "user_yeoyunsianggeremie_datasets.json",
+      "bytes": 5507,
+      "files": 1
+    },
+    {
+      "path": "user_yeoyunsianggeremie_kernels.json",
+      "bytes": 11358,
+      "files": 1
+    },
+    {
+      "path": "users_entangled.json",
+      "bytes": 0,
+      "files": 1
+    },
+    {
+      "path": "verifier-guided-quantum-circuit-optimization.cells.txt",
+      "bytes": 58262,
+      "files": 1
+    },
+    {
+      "path": "verifier-guided-quantum-circuit-optimization.ipynb",
+      "bytes": 120934,
+      "files": 1
+    },
+    {
+      "path": "wcao_latest_src",
+      "bytes": 94542,
+      "files": 2
+    },
+    {
+      "path": "work_cutoff17",
+      "bytes": 56715874,
+      "files": 539
+    },
+    {
+      "path": "zip_summary_new.json",
+      "bytes": 2687,
+      "files": 1
+    },
+    {
+      "path": "tmp/github_eigenos",
+      "bytes": 1277700,
+      "files": 68
+    },
+    {
+      "path": "tmp/github_inzainos",
+      "bytes": 125830385,
+      "files": 219
+    },
+    {
+      "path": "tmp/github_khanna",
+      "bytes": 58242,
+      "files": 33
+    },
+    {
+      "path": "tmp/github_kickmix",
+      "bytes": 2504312,
+      "files": 67
+    },
+    {
+      "path": "tmp/github_m4",
+      "bytes": 4535462,
+      "files": 468
+    },
+    {
+      "path": "tmp/github_research",
+      "bytes": 4617282,
+      "files": 959
+    },
+    {
+      "path": "tmp/lb_live_20261114",
+      "bytes": 324441,
+      "files": 2
+    },
+    {
+      "path": "tmp/live_refresh",
+      "bytes": 5356701,
+      "files": 25
+    }
+  ],
+  "target_bytes": 18245185335,
+  "target_files": 5266,
+  "repo_ignored_targets": [
+    {
+      "path": "tmp/github_publish/experiments/exp-034/external",
+      "bytes": 982589,
+      "files": 5
+    },
+    {
+      "path": "tmp/github_publish/experiments/exp-035/external",
+      "bytes": 10240961,
+      "files": 10
+    },
+    {
+      "path": "tmp/github_publish/experiments/exp-036/external",
+      "bytes": 203685760,
+      "files": 57
+    },
+    {
+      "path": "tmp/github_publish/.pytest_cache",
+      "bytes": 1652,
+      "files": 5
+    },
+    {
+      "path": "tmp/github_publish/experiments/exp-005/analysis/__pycache__",
+      "bytes": 45823,
+      "files": 3
+    },
+    {
+      "path": "tmp/github_publish/experiments/exp-005/tools/__pycache__",
+      "bytes": 5541,
+      "files": 1
+    },
+    {
+      "path": "tmp/github_publish/scripts/__pycache__",
+      "bytes": 10039,
+      "files": 1
+    },
+    {
+      "path": "tmp/github_publish/src/dqi/__pycache__",
+      "bytes": 37142,
+      "files": 1
+    },
+    {
+      "path": "tmp/github_publish/tests/__pycache__",
+      "bytes": 90259,
+      "files": 20
+    }
+  ],
+  "repo_ignored_target_bytes": 215099766,
+  "repo_ignored_target_files": 103
+}

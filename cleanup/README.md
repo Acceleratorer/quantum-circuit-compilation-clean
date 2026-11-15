@@ -19,3 +19,14 @@ The removed directories were duplicate Kaggle downloads, old portfolio copies, e
 verification copies, and temporary notebook outputs. Public sources remain downloadable
 from Kaggle; the evidence repo keeps hashes, scores, provenance, and the exact deletion
 manifest.
+
+## Root cache prune — 2026-11-15
+
+The remaining scratch workspace was measured at 16.99 GiB across 5,266 files.
+The canonical evidence repository at `tmp/github_publish/` and the Python runtime
+at `.venv/` are protected. The deletion manifest is
+[`2026-11-15-root-prune-manifest.json`](2026-11-15-root-prune-manifest.json).
+Within the repository, ignored downloaded outputs and Python caches totaling
+about 205 MiB were also removed; the exp-036 submission ZIP in
+`kaggle/staging/exp-036-atakan/` was preserved and its SHA-256 matches the
+receipt.

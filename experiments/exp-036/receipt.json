@@ -32,8 +32,12 @@
   "kaggle": {
     "competition": "google-verifiable-quantum-circuit-compilation",
     "submission_ref": "58383886",
-    "status": "PENDING",
-    "public_score": null
+    "status": "SCORED",
+    "public_score": 27.31542,
+    "public_score_exact": "27.31542",
+    "rank": null,
+    "rank_checked_at": "2026-11-15",
+    "rank_note": "Score confirmed; live leaderboard rank was not available from the authenticated API session."
   },
   "known_open_risk": "DQI targeted weight-16/17 counterexamples remain open; stock verifier PASS is not an exhaustive proof."
 }
