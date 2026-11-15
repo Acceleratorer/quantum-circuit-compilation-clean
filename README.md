@@ -30,6 +30,11 @@ live rank, so no rank is claimed. The archive keeps inverse `a4d46b17`, DQI
 `821bf8d1`, and chemistry `6f85dc86`; member hashes and verifier evidence are
 in the receipt. The local zero-failure GM is `27.3154195993`.
 
+`experiments/exp-038/` records a stronger local portfolio with chemistry
+`0e26f057`. Its source notebook reports full verifier PASS and local GM
+`27.3167386412`; Kaggle submission `58386039` is pending scoring. The exact
+archive and member receipt stay outside Git under `kaggle/staging/`.
+
 ## DQI work still needed
 
 The public DQI verifier reported PASS for `821bf8d1` at 102,400 shots, but a separate targeted audit flags rare weight-16/17 value counterexamples. That sampled PASS does not establish exhaustive correctness. The exact DQI member also is not reproducible from the generator currently committed in `src/dqi/`; the standing project rule requires future submissions to come from our own generator. See [the DQI module note](module/areebbb-retained-dqi.md) and [the latest frontier evaluation](evals/2026-11-15-frontier.json).
