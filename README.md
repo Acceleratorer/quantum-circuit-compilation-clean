@@ -6,13 +6,19 @@ Research log and reproducible tooling for the Google Quantum AI Verifiable Quant
 
 | Item | Value |
 |---|---:|
-| Best own Kaggle public score | **28.05810** |
-| Latest observed public rank | **62** (exp-041, submissions `58389412` / `58389450`) |
-| Rank 1 public score in that snapshot | **29.90871** |
-| Gap to rank 1 (score snapshot) | **1.85222** |
-| Current candidate members | `47b31838` / `46446af1` / `0ca0e90d` |
+| Best own Kaggle public score | **28.05962** |
+| Latest observed public rank | **893 / 3271** (submission `58478432`) |
+| Rank 1 public score in the same snapshot | **31.44520** |
+| Score gap to rank 1 | **3.38558** |
+| Current candidate members | `09000960` / `46446af1` / `8c9a3020` |
 
-The repository keeps generators, verifier evidence, provenance, and experiment notes. Large circuit binaries and Kaggle submission ZIPs stay outside Git and are addressed by SHA-256 receipts.
+The score and rank are from the authenticated Kaggle public leaderboard snapshot
+at `2026-11-17T18:36:17Z`; the complete CSV and SHA-256 are recorded in
+[`evals/2026-11-18-asterios-28059.json`](evals/2026-11-18-asterios-28059.json).
+
+The repository keeps generators, verifier evidence, provenance, and experiment
+notes. Large circuit binaries and Kaggle submission ZIPs stay outside Git and
+are addressed by SHA-256 receipts.
 
 ## Layout
 
@@ -24,34 +30,33 @@ The repository keeps generators, verifier evidence, provenance, and experiment n
 
 ## Latest candidate
 
-`experiments/exp-036/` records the preceding verified portfolio. Kaggle
-submission `58383886` scored `27.31542`; its archive keeps inverse `a4d46b17`,
-DQI `821bf8d1`, and chemistry `6f85dc86`.
+The best submitted archive came from the public kernel
+[`asteriospanoras/qcc-atlas-toolkit-in-notebook-chemistry-refit`](https://www.kaggle.com/code/asteriospanoras/qcc-atlas-toolkit-in-notebook-chemistry-refit).
+Its local zero-error geometric mean is `28.0596332502`; Kaggle submission
+`58478432`
+scored `28.05962` and was rank **893** in the latest saved snapshot. The
+18-member archive passed CRC and receipt-hash checks and has SHA-256
+`670f496db8d83ec5dde474b737eece0f825145c123acd09e4ede9f1af4a67ab5`.
+The ZIP and circuit binaries remain in ignored `kaggle/staging/`; the tracked
+evaluation contains the verifier and leaderboard evidence.
 
-`experiments/exp-038/` records the preceding portfolio with chemistry
-`0e26f057`. Its source notebook reports full verifier PASS and local GM
-`27.3167386412`; Kaggle submission `58386039` scored `27.31674`. The exact
-archive and member receipt stay outside Git under `kaggle/staging/`.
-
-`experiments/exp-039/` records Ozertuu's 44-qubit inverse and
-890-qubit DQI portfolio. The source notebook reports full verifier PASS and
-local GM `28.0564936608`; Kaggle submission `58387243` scored `28.05649` and
-was rank **31** in the earlier authenticated snapshot; the latest snapshot
-places it at rank **76** as newer submissions arrived.
-
-`experiments/exp-041/` now supersedes it with Atakan's compatible 4028-Toffoli
-chemistry refit. The archive passed the full verifier gate, has local GM
-`28.0581094382`, and Kaggle scored it `28.05810` (rank **62** in the latest
-snapshot).
+This improves the previous public score `28.05810` by `0.00152`. The gain is
+real but small relative to the current leaderboard gap.
 
 ## DQI work still needed
 
-The public DQI verifier reported PASS for `821bf8d1` at 102,400 shots, but a separate targeted audit flags rare weight-16/17 value counterexamples. That sampled PASS does not establish exhaustive correctness. The exact DQI member also is not reproducible from the generator currently committed in `src/dqi/`; the standing project rule requires future submissions to come from our own generator. See [the DQI module note](module/areebbb-retained-dqi.md) and [the latest frontier evaluation](evals/2026-11-15-frontier.json).
+The current DQI circuit (`46446af1`) passed the official local verifier at
+102,400 shots with zero observed value or phase errors. This is sampled
+verification, not an exhaustive correctness proof. The public notebook output
+is hash-locked, but the exact circuit is not yet reproduced by the local DQI
+generator; future submissions should come from a reproducible local generator.
 
-The score gap to the cited leader is `2.59329` points. If DQI alone closed
-that gap with the other members unchanged, its score would need to fall from
-`360.21e9` to about `273.63e9` (a `24.04%` reduction). This remains an
-optimization target, not a claim that the target is already achieved.
+With the other two task costs held fixed, matching the current rank-1 score
+`31.44520` requires DQI cost near `247.20e9`, about a `28.95%` reduction from
+`347.90e9`. The target is estimated from the geometric-mean score formula and
+is not an achieved result. The next useful work is a concrete DQI construction
+that can be reproduced and verified, rather than another small chemistry
+refit.
 
 Rebuild the local archive with:
 

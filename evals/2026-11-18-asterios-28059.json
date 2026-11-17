@@ -1,0 +1,66 @@
+{
+  "captured_utc": "2026-11-17T18:36:17Z",
+  "candidate": "asterios-28059",
+  "source_kernel": "asteriospanoras/qcc-atlas-toolkit-in-notebook-chemistry-refit",
+  "archive": {
+    "sha256": "670f496db8d83ec5dde474b737eece0f825145c123acd09e4ede9f1af4a67ab5",
+    "members": 18,
+    "crc_check": "PASS",
+    "receipt_member_hashes_match": true
+  },
+  "candidate_members": {
+    "invsqrt": "090009609ee68ca309b28950c06adb7c0640ed784f8dfbc78f1319088e8322bf",
+    "dqi": "46446af1186566a57edaa9e1ddcd2e87b713945218ee83df9ffa45ea68bab597",
+    "chemistry_submission": "8c9a3020698e2b63095909789251c69dac7a8615ae4f53d3f984205593ba4df6"
+  },
+  "official_verifier_evidence": {
+    "invsqrt": {
+      "status": "PASS",
+      "cost": 75170.13029174441,
+      "qubits": 44,
+      "shots": 200540928
+    },
+    "dqi": {
+      "status": "PASS",
+      "cost": 347904227555.5428,
+      "qubits": 890,
+      "shots": 102400,
+      "value_errors": 0,
+      "phase_errors": 0
+    },
+    "dfthcsos": {
+      "status": "PASS",
+      "cost": 294781421.4208742,
+      "qubits": 427,
+      "shots": 78080
+    }
+  },
+  "local_default_geometric_mean": 28.05963325021446,
+  "previous_public_score": 28.0581,
+  "kaggle_submission": {
+    "ref": 58478432,
+    "submitted_at": "2026-11-17 18:18:14.840000",
+    "status": "COMPLETE",
+    "public_score": 28.05962,
+    "private_score": null
+  },
+  "public_leaderboard_snapshot": {
+    "path": "kaggle/snapshots/2026-11-18/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-17T18-36-17.csv",
+    "sha256": "4b2eb12cbcd78821c23a110b0688ea94ba0bcc661cc4f4ebe1f59a12cc0fa855",
+    "team_rows": 3271,
+    "own_rank": 893,
+    "own_team": "Accelra",
+    "leader": {
+      "rank": 1,
+      "team": "aadi_stonks",
+      "score": 31.4452
+    },
+    "score_gap": 3.38558
+  },
+  "dqi_only_target_if_other_costs_held_fixed": {
+    "target_cost": 247196306810.2186,
+    "current_cost": 347904227555.5428,
+    "required_reduction_fraction": 0.2894702414308725
+  },
+  "known_risk": "DQI PASS is based on 102,400 sampled shots and does not prove exhaustive correctness; the private score is not yet available."
+}
