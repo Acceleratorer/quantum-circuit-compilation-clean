@@ -1,0 +1,77 @@
+{
+  "captured_utc": "2026-11-17T19:25:10Z",
+  "candidate": "bori-frontier-hybrid",
+  "source_kernels": {
+    "invsqrt_and_chemistry": "boristown/qcc-gap-3-residue-repair-and-c43-native-compiler",
+    "dqi": "asteriospanoras/qcc-atlas-toolkit-in-notebook-chemistry-refit"
+  },
+  "archive": {
+    "sha256": "4ccce01059e6d5c769e80a8091cc08a8c05a38588fc10a3877524412dd9e95cf",
+    "members": 18,
+    "crc_check": "PASS",
+    "member_receipt_hashes_match": true
+  },
+  "candidate_members": {
+    "invsqrt": "563d0583f736afc2d8111f376bc1bd5ce6aef686525b0dd281fc1f2b4eb09321",
+    "dqi": "46446af1186566a57edaa9e1ddcd2e87b713945218ee83df9ffa45ea68bab597",
+    "chemistry_submission": "0bd9c68f376b5702617512c6c6ebd2837c6a0c7faf4f738e59257e4937c94101"
+  },
+  "official_verifier_evidence": {
+    "invsqrt": {
+      "status": "PASS",
+      "cost": 74560.90687312803,
+      "qubits": 44,
+      "shots": 200540928,
+      "evidence_source": "Bori full receipt"
+    },
+    "dqi": {
+      "status": "PASS",
+      "cost": 347904227555.5428,
+      "qubits": 890,
+      "shots": 102400,
+      "value_errors": 0,
+      "phase_errors": 0,
+      "evidence_source": "Asterios full receipt"
+    },
+    "dfthcsos": {
+      "status": "PASS",
+      "cost": 294642305.5649051,
+      "qubits": 427,
+      "shots": 78080,
+      "evidence_source": "Bori full receipt"
+    }
+  },
+  "local_default_geometric_mean": 28.140276838282986,
+  "previous_public_score": 28.05962,
+  "kaggle_submission": {
+    "ref": 58479383,
+    "submitted_at": "2026-11-17 18:57:30.857000",
+    "status": "COMPLETE",
+    "public_score": 28.14028,
+    "private_score": null
+  },
+  "public_leaderboard_snapshot": {
+    "path": "kaggle/snapshots/2026-11-18/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-17T19-25-10.csv",
+    "sha256": "97bdb384751565e67cae5a5c041830d1466a0435779d64909bb76acd516e671c",
+    "team_rows": 3273,
+    "own_rank": 505,
+    "own_team": "Accelra",
+    "leader": {
+      "rank": 1,
+      "team": "aadi_stonks",
+      "score": 31.4452
+    },
+    "score_gap": 3.30492
+  },
+  "dqi_only_target_if_other_costs_held_fixed": {
+    "target_cost": 249334207301.42163,
+    "current_cost": 347904227555.5428,
+    "required_reduction_fraction": 0.28332515803759384
+  },
+  "rejected_alternative": {
+    "dqi_sha256": "bb9bf415cbdd1cd40a7a31f65cc23c8e0a1f916cc43778d6e4aac30801d4e0dd",
+    "local_default_geometric_mean": 28.18076755899312,
+    "reason": "its own audit flags unresolved weight-16/17 DQI counterexamples; retained previous scored DQI instead"
+  },
+  "known_risk": "The selected DQI has only sampled verification; a separate seven-salt audit of this hash observed one value error on one salt. The private score is unavailable."
+}

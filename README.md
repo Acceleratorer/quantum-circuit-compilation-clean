@@ -6,15 +6,15 @@ Research log and reproducible tooling for the Google Quantum AI Verifiable Quant
 
 | Item | Value |
 |---|---:|
-| Best own Kaggle public score | **28.05962** |
-| Latest observed public rank | **893 / 3271** (submission `58478432`) |
+| Best own Kaggle public score | **28.14028** |
+| Latest observed public rank | **505 / 3273** (submission `58479383`) |
 | Rank 1 public score in the same snapshot | **31.44520** |
-| Score gap to rank 1 | **3.38558** |
-| Current candidate members | `09000960` / `46446af1` / `8c9a3020` |
+| Score gap to rank 1 | **3.30492** |
+| Current candidate members | `563d0583` / `46446af1` / `0bd9c68f` |
 
 The score and rank are from the authenticated Kaggle public leaderboard snapshot
-at `2026-11-17T18:36:17Z`; the complete CSV and SHA-256 are recorded in
-[`evals/2026-11-18-asterios-28059.json`](evals/2026-11-18-asterios-28059.json).
+at `2026-11-17T19:25:10Z`; the CSV and SHA-256 are recorded in
+[`evals/2026-11-18-bori-frontier-hybrid.json`](evals/2026-11-18-bori-frontier-hybrid.json).
 
 The repository keeps generators, verifier evidence, provenance, and experiment
 notes. Large circuit binaries and Kaggle submission ZIPs stay outside Git and
@@ -30,33 +30,34 @@ are addressed by SHA-256 receipts.
 
 ## Latest candidate
 
-The best submitted archive came from the public kernel
-[`asteriospanoras/qcc-atlas-toolkit-in-notebook-chemistry-refit`](https://www.kaggle.com/code/asteriospanoras/qcc-atlas-toolkit-in-notebook-chemistry-refit).
-Its local zero-error geometric mean is `28.0596332502`; Kaggle submission
-`58478432`
-scored `28.05962` and was rank **893** in the latest saved snapshot. The
-18-member archive passed CRC and receipt-hash checks and has SHA-256
-`670f496db8d83ec5dde474b737eece0f825145c123acd09e4ede9f1af4a67ab5`.
-The ZIP and circuit binaries remain in ignored `kaggle/staging/`; the tracked
-evaluation contains the verifier and leaderboard evidence.
+The current portfolio combines the 44-qubit inverse and chemistry files from
+[`Bori's Gap-3 / C43 kernel`](https://www.kaggle.com/code/boristown/qcc-gap-3-residue-repair-and-c43-native-compiler)
+with the previously scored DQI from
+[`Asterios's kernel`](https://www.kaggle.com/code/asteriospanoras/qcc-atlas-toolkit-in-notebook-chemistry-refit).
+Its local zero-error geometric mean is `28.1402768383`; Kaggle submission
+`58479383` scored `28.14028` and ranked **505** in the latest saved snapshot.
+The hash-verified 18-member archive has SHA-256
+`4ccce01059e6d5c769e80a8091cc08a8c05a38588fc10a3877524412dd9e95cf`.
+The archive stays in ignored `kaggle/staging/`; tracked verifier and
+leaderboard evidence is in the evaluation record.
 
-This improves the previous public score `28.05810` by `0.00152`. The gain is
-real but small relative to the current leaderboard gap.
+This improves the previous public score `28.05962` by `0.08066`. The score is
+still `3.30492` points below rank 1.
 
 ## DQI work still needed
 
-The current DQI circuit (`46446af1`) passed the official local verifier at
-102,400 shots with zero observed value or phase errors. This is sampled
-verification, not an exhaustive correctness proof. The public notebook output
-is hash-locked, but the exact circuit is not yet reproduced by the local DQI
-generator; future submissions should come from a reproducible local generator.
+The submitted DQI circuit (`46446af1`) passed the official verifier at
+102,400 shots with zero observed default-salt errors. A separate seven-salt
+audit of this same hash observed one value error on one salt, so the sampled
+PASS is not an exhaustive correctness proof. The newer DQI candidate in
+Bori's kernel was not selected: its own audit leaves weight-16/17
+counterexamples open.
 
-With the other two task costs held fixed, matching the current rank-1 score
-`31.44520` requires DQI cost near `247.20e9`, about a `28.95%` reduction from
-`347.90e9`. The target is estimated from the geometric-mean score formula and
-is not an achieved result. The next useful work is a concrete DQI construction
-that can be reproduced and verified, rather than another small chemistry
-refit.
+With the submitted inverse and chemistry held fixed, matching rank 1's current
+`31.44520` would require DQI cost near `249.33e9`, about a `28.33%` reduction
+from `347.90e9`. This is an estimate from the geometric-mean score formula,
+not an achieved result. The remaining high-value work is a reproducible DQI
+construction that resolves the known error cases.
 
 Rebuild the local archive with:
 
