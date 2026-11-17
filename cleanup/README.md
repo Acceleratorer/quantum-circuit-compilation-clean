@@ -30,3 +30,7 @@ Within the repository, ignored downloaded outputs and Python caches totaling
 about 205 MiB were also removed; the exp-036 submission ZIP in
 `kaggle/staging/exp-036-atakan/` was preserved and its SHA-256 matches the
 receipt.
+
+## Staging prune — 2026-11-18
+
+Removed one 505 MiB extracted dqi.kmb copy after its SHA-256 matched the member in the preserved submission.zip. The receipt records both hashes and sizes: [2026-11-18-staging-prune-manifest.json](2026-11-18-staging-prune-manifest.json).

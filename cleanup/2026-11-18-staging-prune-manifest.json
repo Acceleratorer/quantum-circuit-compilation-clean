@@ -1,0 +1,20 @@
+{
+  "created_utc": "2026-11-18",
+  "purpose": "Remove an exact local extraction while preserving its source archive.",
+  "targets": [
+    {
+      "path": "kaggle/staging/targeted-2026-11-15/rishabh-rank1/submission/dqi.kmb",
+      "bytes": 529242495,
+      "files": 1,
+      "sha256": "4E9B50B1EE34B3EAF2B7F394873C2DD3DAD4CDDBDD1F12A348B4323B5EB41771",
+      "reason": "SHA-256 matches the dqi.kmb member in the preserved submission.zip."
+    }
+  ],
+  "preserved": [
+    {
+      "path": "kaggle/staging/targeted-2026-11-15/rishabh-rank1/submission.zip",
+      "bytes": 28071683,
+      "sha256": "D18233C24BE38801E1CA3E8B3982E4F7ECDCBF83D7B6188188B39094963F022E"
+    }
+  ]
+}
