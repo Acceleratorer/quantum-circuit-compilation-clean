@@ -4,9 +4,9 @@ title: Packed BM field-quadratic feedback screen
 task: dqi
 tests: experiments/exp-047/feedback_field_degree_screen.py (exhaustive GF(4)/GF(8) prefixes)
 direction: D-004
-status: planned
+status: negative_result
 date: 2026-11-19
-result: pending
+result: no degree-2 field predictor exists by prefix length 2 in GF(4) or GF(8)
 ---
 
 # Packed BM field-quadratic feedback screen
@@ -34,12 +34,28 @@ must still be low enough to fit the length-70 multiplication budget below.
 
 ## Method
 
-Enumerate every sequence for GF(4) through length 3 and GF(8) through length 5.
+Enumerate sequences for GF(4) through length 3 and GF(8) through length 5.
 For each prefix, compute the exact BM state and its next feedback value from
-the original sequence. Fit a field polynomial of degree at most 2 over the
-padded coefficient arrays and scalar controls. Check that equal packed states
-never map to different feedback values. This is a small-field feasibility
-screen, not a GF(2^12) circuit proof.
+the original sequence. Incrementally fit a field polynomial of degree at most
+2 over the padded coefficient arrays and scalar controls. Stop a length at
+the first inconsistent row: one contradiction disproves a formula over the
+full domain. Check that equal packed states never map to different feedback
+values. This is a small-field feasibility screen, not a GF(2^12) circuit proof.
+
+## Results
+
+Length 1 fits in both fields. At length 2, the GF(4) feature span is already
+inconsistent after 11 of 16 sequences, and the GF(8) span after 19 of 64. No
+packed-state collisions appear in the checked rows. Longer lengths also fail
+before the enumeration completes. The pre-registered prediction held, with a
+counterexample much earlier than expected; see `results.json`.
+
+## Conclusion
+
+No-go for a degree-2 field-polynomial predictor of the packed BM feedback.
+This closes the tested low-degree factored route; it does not rule out higher
+degree formulas or a different decoder representation. Do not build a circuit
+from this formulation.
 
 ## Resource gate
 
@@ -56,4 +72,10 @@ forward, phase, and uncompute count fit `R × Q² × T <= 245.285e9`.
 
 ## Status
 
-- 2026-11-19: Pre-registered; next step is the exact small-field screen.
+- 2026-11-19: Exhaustive small-field screen complete; degree-2 route closed.
+
+## Run
+
+```powershell
+..\..\.venv\Scripts\python.exe experiments\exp-047\feedback_field_degree_screen.py
+```

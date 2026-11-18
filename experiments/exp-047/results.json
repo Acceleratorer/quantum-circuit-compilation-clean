@@ -1,0 +1,88 @@
+[
+  {
+    "field_degree": 2,
+    "prefix_length": 1,
+    "sequences": 4,
+    "rows_checked": 4,
+    "unique_states": 4,
+    "quadratic_fit": true,
+    "feature_count": 28,
+    "nonzero_terms": 1,
+    "field_field_products": 0,
+    "control_field_products": 0,
+    "control_control_products": 0
+  },
+  {
+    "field_degree": 2,
+    "prefix_length": 2,
+    "sequences": 16,
+    "rows_checked": 11,
+    "state_collisions": 0,
+    "quadratic_fit": false,
+    "reason": "degree-2 feature span is inconsistent",
+    "feature_count": 55
+  },
+  {
+    "field_degree": 2,
+    "prefix_length": 3,
+    "sequences": 64,
+    "rows_checked": 11,
+    "state_collisions": 0,
+    "quadratic_fit": false,
+    "reason": "degree-2 feature span is inconsistent",
+    "feature_count": 91
+  },
+  {
+    "field_degree": 3,
+    "prefix_length": 1,
+    "sequences": 8,
+    "rows_checked": 8,
+    "unique_states": 8,
+    "quadratic_fit": true,
+    "feature_count": 28,
+    "nonzero_terms": 1,
+    "field_field_products": 0,
+    "control_field_products": 0,
+    "control_control_products": 0
+  },
+  {
+    "field_degree": 3,
+    "prefix_length": 2,
+    "sequences": 64,
+    "rows_checked": 19,
+    "state_collisions": 0,
+    "quadratic_fit": false,
+    "reason": "degree-2 feature span is inconsistent",
+    "feature_count": 55
+  },
+  {
+    "field_degree": 3,
+    "prefix_length": 3,
+    "sequences": 512,
+    "rows_checked": 19,
+    "state_collisions": 0,
+    "quadratic_fit": false,
+    "reason": "degree-2 feature span is inconsistent",
+    "feature_count": 91
+  },
+  {
+    "field_degree": 3,
+    "prefix_length": 4,
+    "sequences": 4096,
+    "rows_checked": 19,
+    "state_collisions": 0,
+    "quadratic_fit": false,
+    "reason": "degree-2 feature span is inconsistent",
+    "feature_count": 136
+  },
+  {
+    "field_degree": 3,
+    "prefix_length": 5,
+    "sequences": 32768,
+    "rows_checked": 19,
+    "state_collisions": 0,
+    "quadratic_fit": false,
+    "reason": "degree-2 feature span is inconsistent",
+    "feature_count": 171
+  }
+]

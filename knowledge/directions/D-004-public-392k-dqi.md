@@ -35,3 +35,7 @@ screen and its optimistic resource ceiling. Proceed to a circuit only if the
 formula fits and a complete reversible resource count stays under the DQI
 leader-equivalent target.
 
+The `exp-047` screen found no degree-2 field predictor by prefix length 2 in
+GF(4) or GF(8). Close this polynomial-feedback formulation; it does not
+establish that every possible BM-state transition is impossible.
+
