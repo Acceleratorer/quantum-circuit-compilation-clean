@@ -11,9 +11,10 @@ the target before every submission.
 - Best own completed submission: `58479383`, public score `28.14028`.
 - Current public leader: `Z³C¹oherence`, `31.61727` (submission
   `2026-11-18T05:19:27.396000`); gap: `3.47699` points, refreshed from Kaggle
-  at `2026-11-18 07:03 UTC`.
-- Own team rank is `635 / 3296` in the saved snapshot at
-  `2026-11-18T04:56:45Z`; see the linked CSV and hash in the README.
+  at `2026-11-18T16:00:48Z`.
+- Own team rank is `752 / 3332` in the latest saved snapshot at
+  `2026-11-18T16:00:48Z`; see [the snapshot metadata](../evals/2026-11-18-live-leaderboard-160048.json)
+  and its CSV. The earlier `635 / 3296` snapshot at `04:56:45Z` is historical.
 - Current DQI cost: `347.904e9` at 890 qubits. If the other task costs stay
   fixed, DQI must reach about `245.285e9` (a `29.50%` reduction) to match the
   current leader's score. This is a score-equivalence target, not the leader's

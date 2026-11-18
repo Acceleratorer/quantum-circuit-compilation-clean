@@ -7,14 +7,14 @@ Research log and reproducible tooling for the Google Quantum AI Verifiable Quant
 | Item | Value |
 |---|---:|
 | Best own Kaggle public score | **28.14028** |
-| Latest observed public rank | **635 / 3296** (team `Accelra`) |
-| Rank 1 public score in the same snapshot | **31.50701** |
-| Score gap to rank 1 | **3.36673** |
+| Latest observed public rank | **752 / 3332** (team `Accelra`) |
+| Rank 1 public score in the same snapshot | **31.61727** |
+| Score gap to rank 1 | **3.47699** |
 | Current candidate members | `563d0583` / `46446af1` / `0bd9c68f` |
 
 The latest rank is from the authenticated Kaggle public leaderboard snapshot
-at `2026-11-18T04:56:45Z`; its CSV and SHA-256 are recorded in
-[`evals/2026-11-18-live-leaderboard-045645.json`](evals/2026-11-18-live-leaderboard-045645.json).
+at `2026-11-18T16:00:48Z`; its CSV and SHA-256 are recorded in
+[`evals/2026-11-18-live-leaderboard-160048.json`](evals/2026-11-18-live-leaderboard-160048.json).
 
 The repository keeps generators, verifier evidence, provenance, and experiment
 notes. Large circuit binaries and Kaggle submission ZIPs stay outside Git and
@@ -35,14 +35,14 @@ The current portfolio combines the 44-qubit inverse and chemistry files from
 with the previously scored DQI from
 [`Asterios's kernel`](https://www.kaggle.com/code/asteriospanoras/qcc-atlas-toolkit-in-notebook-chemistry-refit).
 Its local zero-error geometric mean is `28.1402768383`; Kaggle submission
-`58479383` scored `28.14028`; the team ranked **635** in the latest saved snapshot.
+`58479383` scored `28.14028`; the team ranked **752** in the latest saved snapshot.
 The hash-verified 18-member archive has SHA-256
 `4ccce01059e6d5c769e80a8091cc08a8c05a38588fc10a3877524412dd9e95cf`.
 The archive stays in ignored `kaggle/staging/`; tracked verifier and
 leaderboard evidence is in the evaluation record.
 
 This improves the previous public score `28.05962` by `0.08066`. The score is
-still `3.36673` points below rank 1.
+still `3.47699` points below rank 1.
 
 This archive is a leaderboard probe assembled from public compiled circuit
 files. The tracked source has not yet been shown to regenerate every exact
@@ -60,7 +60,7 @@ Bori's kernel was not selected: its own audit leaves weight-16/17
 counterexamples open.
 
 With the submitted inverse and chemistry held fixed, matching rank 1's current
-`31.50701` would require DQI cost near `247.87e9`, about a `28.75%` reduction
+`31.61727` would require DQI cost near `245.285e9`, about a `29.50%` reduction
 from `347.90e9`. This is an estimate from the geometric-mean score formula,
 not an achieved result. The remaining high-value work is a reproducible DQI
 construction that resolves the known error cases.

@@ -2,9 +2,9 @@
 id: exp-043
 title: Audit rank-1 public source leads
 task: dqi
-tests: static notebook and provenance review; no code executed
+tests: static notebook and provenance review; Kaggle CLI public-kernel audit; no downloaded code executed
 status: no_improvement
-result: the claimed rank-1 notebook only copies a public archive; the current leader's username has no public notebook or dataset; neither source provides a verified candidate
+result: the claimed rank-1 notebook only copies a public archive; the latest leader's members have no task-specific public kernel in Kaggle's current listings; the published BM design is worse under Q²T
 ---
 
 # Audit rank-1 public source leads
@@ -30,6 +30,19 @@ No-go: do not run or submit this notebook. The title and projected score are uns
 
 ## Current leader source search
 
-The `2026-11-18T04:15:43Z` public leaderboard CSV lists the leader team as `aadi_stonks` and its member username as `aadistonks`. Kaggle CLI searches for that exact username returned no public notebooks and no public datasets at capture time. The account search is therefore exhausted for now; the leader's source remains unavailable publicly.
+The full Kaggle CLI snapshot at `2026-11-18T16:00:48Z` lists `Z³C¹oherence`
+(`cudacoding`, `honganzhu`, `shanzhong8`, `yannan90`) at rank 1. The
+competition's public-kernel listing had five entries; none belonged to those
+four accounts. Their separate public-kernel listings showed unrelated work.
+This search found no task-specific public generator for the current leader; it
+does not rule out an unpublished source or a source on another public surface.
+See [the saved snapshot](../../evals/2026-11-18-live-leaderboard-160048.json).
 
-The separate primary-source BM decoder in [Andi Gu et al.](https://arxiv.org/abs/2610.22367) is real and has Apache-2.0 code at [andigu/uncompute](https://github.com/andigu/uncompute). It reports 440,000 Toffolis and 1,837 qubits using a `T × Q` objective; under this competition's `Q² × T` cost, that is about 4.3 times the current DQI cost, so porting it unchanged is not a useful score direction. No code from that repository was downloaded or executed in this audit.
+The published BM decoder in [Andi Gu et al.](https://arxiv.org/abs/2610.22367)
+has Apache-2.0 code at [andigu/uncompute](https://github.com/andigu/uncompute).
+Its design reports about 440,000 Toffolis and 1,837 qubits. Even with `R=1`,
+that is approximately `1.493e12` under this competition's `R × Q² × T`
+objective, about 4.29 times the current DQI cost `347.904e9`. It is not a
+replacement candidate as published. The reachable-state ideas may still
+inform a lower-space design; no repository code was downloaded or executed in
+this audit.
