@@ -7,14 +7,14 @@ Research log and reproducible tooling for the Google Quantum AI Verifiable Quant
 | Item | Value |
 |---|---:|
 | Best own Kaggle public score | **28.14028** |
-| Latest observed public rank | **752 / 3332** (team `Accelra`) |
+| Latest observed public rank | **781 / 3338** (team `Accelra`) |
 | Rank 1 public score in the same snapshot | **31.61727** |
 | Score gap to rank 1 | **3.47699** |
 | Current candidate members | `563d0583` / `46446af1` / `0bd9c68f` |
 
 The latest rank is from the authenticated Kaggle public leaderboard snapshot
-at `2026-11-18T16:00:48Z`; its CSV and SHA-256 are recorded in
-[`evals/2026-11-18-live-leaderboard-160048.json`](evals/2026-11-18-live-leaderboard-160048.json).
+at `2026-11-18T18:55:00Z`; its CSV and SHA-256 are recorded in
+[`evals/2026-11-18-live-leaderboard-185500.json`](evals/2026-11-18-live-leaderboard-185500.json).
 
 The repository keeps generators, verifier evidence, provenance, and experiment
 notes. Large circuit binaries and Kaggle submission ZIPs stay outside Git and
@@ -35,7 +35,8 @@ The current portfolio combines the 44-qubit inverse and chemistry files from
 with the previously scored DQI from
 [`Asterios's kernel`](https://www.kaggle.com/code/asteriospanoras/qcc-atlas-toolkit-in-notebook-chemistry-refit).
 Its local zero-error geometric mean is `28.1402768383`; Kaggle submission
-`58479383` scored `28.14028`; the team ranked **752** in the latest saved snapshot.
+`58479383` scored `28.14028`; the team ranked **752** in the
+`2026-11-18T16:00:48Z` snapshot.
 The hash-verified 18-member archive has SHA-256
 `4ccce01059e6d5c769e80a8091cc08a8c05a38588fc10a3877524412dd9e95cf`.
 The archive stays in ignored `kaggle/staging/`; tracked verifier and
@@ -43,6 +44,13 @@ leaderboard evidence is in the evaluation record.
 
 This improves the previous public score `28.05962` by `0.08066`. The score is
 still `3.47699` points below rank 1.
+
+A later public portfolio's published verifier receipt reports three PASS
+results and a local geometric mean of `28.23163`; it would fall near rank 72
+in that leaderboard snapshot. It was not submitted: the standing user decision
+requires our own generator for every submitted circuit.
+Its receipts and source hashes are recorded in
+[`evals/2026-11-18-ozertuu-282316.json`](evals/2026-11-18-ozertuu-282316.json).
 
 This archive is a leaderboard probe assembled from public compiled circuit
 files. The tracked source has not yet been shown to regenerate every exact

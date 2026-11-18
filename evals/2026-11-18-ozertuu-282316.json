@@ -1,0 +1,26 @@
+{
+  "captured_utc": "2026-11-18T16:53:07Z",
+  "competition": "google-verifiable-quantum-circuit-compilation",
+  "candidate": "ozertuu-28.23163-public-portfolio",
+  "source_notebook": "https://www.kaggle.com/code/ozertuu/28-23163-sota-verified-compilation-top-portfolio",
+  "source_notebook_sha256": "00619ea07e88c2000679b134ca3cd1e551690ee687890d2cb348764ac0b99621",
+  "source_dataset": "https://www.kaggle.com/datasets/ozertuu/quantum-sim-linalg-cache",
+  "source_archive_sha256": "c89e11c18bcf76ecf1627cdf1b0fa68fd99bdbfeff3732e4da37aebf850d9e6c",
+  "repacked_archive_sha256": "3be8f7d2d6cdf3f292f75896eadab91b95eb368f61c27beede8fff9d061ba0ac",
+  "archive_members": 18,
+  "crc_check": "PASS",
+  "member_hashes_match_published_receipt": true,
+  "verifier_receipt": "2026-11-18-ozertuu-282316-verifier.json",
+  "archive_receipt": "2026-11-18-ozertuu-282316-archive.json",
+  "task_costs": {
+    "dqi": 345256821433.9815,
+    "invsqrt": 74405.67238374705,
+    "dfthcsos": 294642170.565169
+  },
+  "local_geometric_mean": 28.23163018384455,
+  "delta_vs_own_submitted_score": 0.09135018384455,
+  "projected_rank_in_2026-11-18T18:55:00Z_snapshot": 72,
+  "kaggle_submission": null,
+  "decision": "not_submitted",
+  "decision_reason": "The user’s standing decision requires our own generator for every submitted circuit. This downloaded public portfolio is measurement evidence only."
+}

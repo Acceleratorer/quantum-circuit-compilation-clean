@@ -34,3 +34,11 @@ receipt.
 ## Staging prune — 2026-11-18
 
 Removed one 505 MiB extracted dqi.kmb copy after its SHA-256 matched the member in the preserved submission.zip. The receipt records both hashes and sizes: [2026-11-18-staging-prune-manifest.json](2026-11-18-staging-prune-manifest.json).
+
+## Portfolio screen prune — 2026-11-19
+
+Removed the 1.05 GB temporary Ozertuu portfolio after retaining its verifier
+receipt, member hashes, archive hashes, and no-submit decision in `evals/`.
+Also removed the Kaggle leaderboard download ZIP after extracting and retaining
+the CSV snapshot. Targets and hashes are in
+[`2026-11-19-portfolio-screen-prune-manifest.json`](2026-11-19-portfolio-screen-prune-manifest.json).

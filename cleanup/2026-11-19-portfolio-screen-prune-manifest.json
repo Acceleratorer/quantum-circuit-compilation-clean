@@ -1,0 +1,44 @@
+{
+  "created_utc": "2026-11-19",
+  "purpose": "Remove the temporary external portfolio after preserving its verifier and archive receipts, and remove the downloaded leaderboard ZIP after retaining the CSV snapshot.",
+  "targets": [
+    {
+      "path": "../kaggle_ozertuu_28_23163",
+      "bytes": 1051137270,
+      "files": 27,
+      "reason": "The portfolio was measured only and is not eligible for submission under the standing user decision requiring our own circuit generators.",
+      "source_archive_sha256": "c89e11c18bcf76ecf1627cdf1b0fa68fd99bdbfeff3732e4da37aebf850d9e6c",
+      "repacked_archive_sha256": "3be8f7d2d6cdf3f292f75896eadab91b95eb368f61c27beede8fff9d061ba0ac"
+    },
+    {
+      "path": "kaggle/staging/live-lb-api-2026-11-19",
+      "bytes": 109969,
+      "files": 1,
+      "sha256": "ab79253a05d3145552d4a8d9a52a910d158ba3fc2a9ee0bec8176293b0eeb6d3",
+      "reason": "The single-file download ZIP was extracted and its CSV is retained in kaggle/snapshots/2026-11-18/."
+    }
+  ],
+  "preserved": [
+    {
+      "path": "evals/2026-11-18-live-leaderboard-185500.json",
+      "reason": "Leaderboard metadata and source/archive hashes."
+    },
+    {
+      "path": "evals/2026-11-18-ozertuu-282316.json",
+      "reason": "Candidate screen and no-submit decision."
+    },
+    {
+      "path": "evals/2026-11-18-ozertuu-282316-verifier.json",
+      "reason": "Published member hashes and official verifier results."
+    },
+    {
+      "path": "evals/2026-11-18-ozertuu-282316-archive.json",
+      "reason": "Repacked archive hash and 18 member hashes."
+    },
+    {
+      "path": "kaggle/snapshots/2026-11-18/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-18T18-55-00.csv",
+      "bytes": 245316,
+      "sha256": "b8fdaac811ada530684d84c6e5974b99989424ca1568aafea17519d2a275a5fa"
+    }
+  ]
+}

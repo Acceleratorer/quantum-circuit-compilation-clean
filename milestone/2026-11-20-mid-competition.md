@@ -11,9 +11,9 @@ the target before every submission.
 - Best own completed submission: `58479383`, public score `28.14028`.
 - Current public leader: `Z³C¹oherence`, `31.61727` (submission
   `2026-11-18T05:19:27.396000`); gap: `3.47699` points, refreshed from Kaggle
-  at `2026-11-18T16:00:48Z`.
-- Own team rank is `752 / 3332` in the latest saved snapshot at
-  `2026-11-18T16:00:48Z`; see [the snapshot metadata](../evals/2026-11-18-live-leaderboard-160048.json)
+  at `2026-11-18T18:55:00Z`.
+- Own team rank is `781 / 3338` in the latest saved snapshot at
+  `2026-11-18T18:55:00Z`; see [the snapshot metadata](../evals/2026-11-18-live-leaderboard-185500.json)
   and its CSV. The earlier `635 / 3296` snapshot at `04:56:45Z` is historical.
 - Current DQI cost: `347.904e9` at 890 qubits. If the other task costs stay
   fixed, DQI must reach about `245.285e9` (a `29.50%` reduction) to match the
@@ -33,6 +33,16 @@ chemistry cost is `294,642,170.57` versus our `294,642,305.56`, a negligible
 difference. No public component in this refresh closes the DQI-sized gap.
 
 ## Candidate decision
+
+The published verifier receipt for the `28.23163` Ozertuu portfolio reports
+all three tasks PASS. It would rank around `72` by score in the latest snapshot,
+but is not submitted: it consists of downloaded public circuits and we do not
+have our own generator for those exact bytes. The receipts and decision are
+recorded in
+[`evals/2026-11-18-ozertuu-282316.json`](../evals/2026-11-18-ozertuu-282316.json).
+
+The top-1 target is not met at this refresh: the best completed submission is
+`28.14028`, against a public leader at `31.61727`.
 
 The `575b043f` DQI reports two clean verifier draws, but its own README reports
 one lost shot on six of nine draws. Keep it as measurement evidence only; do
