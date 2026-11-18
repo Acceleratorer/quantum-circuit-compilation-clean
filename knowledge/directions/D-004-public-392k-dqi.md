@@ -93,8 +93,46 @@ build either circuit. Reopen FMA only with a concrete reversible schedule that
 proves the complete `R × Q² × T` cost under the saved target; asymptotic
 classical complexity alone is insufficient.
 
+For a bounded MBU follow-up, the most optimistic FMA cleanup floor is one
+42-Toffoli product per each of 4,455 dynamic field products: 187,110 Toffolis.
+Adding the existing 45,045-Toffoli scan leaves only 27,792 Toffolis under the
+259,947 gate for every phase correction and other nonlinear operation. This
+is a screening ceiling, not an estimate: it assumes measurement-based cleanup
+can replace the second product pass, while the 50-qubit workspace still has no
+proven schedule. FMA is worth reopening only if both the full cleanup count and
+an in-place ≤50-qubit schedule fit those gates.
+
 Source: Tang and Han, [New Decoding of Reed–Solomon Codes Based on FFT and
 Modular Approach](https://arxiv.org/abs/2207.11079), Algorithms 4–6,
 Appendix A, and Tables I–III. The 42-Toffoli field-multiplier reference is the
 measured result recorded in `experiments/exp-005/README.md`.
+
+## 2026-11-19 public handoff screen — Hengck23
+
+The staged notebook `kaggle/staging/hengck23-dqi-kmb-2026-11-19/dqi-kmb-at-59-56854.ipynb`
+was inspected as JSON/text only; no notebook code ran and no circuit archive
+was downloaded. The handoff identifies its circuit as an iteration of the
+SomeJoint fused-confluent decoder and credits the Apache-2.0 upstream. It says
+`generate.py` is omitted. The notebook code only runs the official verifier on
+`dqi_iter014.kmb` from a Kaggle dataset, so this is not a reproducible generator.
+The staged notebook metadata declares no dataset source or license; its handoff
+credit alone does not establish the license for that compiled artifact.
+
+The two result blocks disagree: the handoff table reports zero errors and a
+59.846 ratio, while the notebook's embedded verifier output reports one value
+error in 102,400 shots, `Q=889`, mean `T=433,784.891`, and cost
+`410,274,633,000.49` (`R=1.196731`, ratio `59.56855`). Use the embedded output
+as the conservative measurement. That cost is 1.67× the saved rank-1-equivalent
+DQI gate (`245.285e9`) and is also worse than the saved best-DQI measurement
+(`347.904e9`).
+
+**Decision:** no-go as a candidate. Keep the handoff as a measurement reference;
+do not copy its circuit. Its named T-only optimizations save at most a few
+thousand Toffolis; the in-place multiplier idea may lower qubit count but has
+no demonstrated schedule. Neither closes the current ~107k gap. The next DQI
+attempt must still change the key-equation algorithm and prove its reversible
+space schedule before circuit generation.
+
+Provenance: [Kaggle discussion 753607](https://www.kaggle.com/competitions/google-verifiable-quantum-circuit-compilation/discussion/753607).
+The staged notebook SHA-256 is `b9c09c6522e2da1a0b19d2584e0e9955001bedebb69e420c7c10fe93027adcc0`.
 
