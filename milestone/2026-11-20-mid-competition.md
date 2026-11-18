@@ -37,6 +37,15 @@ matching the existing GF(16)^6 kernel. No rank-30 decomposition for degree 12
 was found, so the 90-Toffoli implementation is closed unless an explicit
 decomposition appears. Source: [Ballet et al., Table 2](https://arxiv.org/html/1906.07456#S9.SS2).
 
+## Truncated-radius screen
+
+The official verifier's DQI weight distribution has mean error weight 31.05
+out of 35. Cutting the decoder to radius 34 would fail about 2.77% of inputs,
+so the repetition factor is at least 3.79; radius 33 fails about 11.97%, above
+the verifier's 1/16 limit. Even if qubits fell from 890 to the 840-qubit input
+floor, radius 34 would need to cut Toffolis by over 70% just to break even.
+Keep the full radius; this shortcut is not a useful score path.
+
 ## High-space decoder screen
 
 A reversible Berlekamp–Massey design with two 35-symbol GF(2^12) state
