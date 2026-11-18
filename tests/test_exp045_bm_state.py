@@ -29,7 +29,7 @@ class BMStateTests(unittest.TestCase):
     def test_small_binary_fields_have_injective_packed_prefix_states(self):
         _check_all_prefix_states_are_injective(self, bm_model.GF2Field(1, 0b11), 12)
         _check_all_prefix_states_are_injective(self, bm_model.GF2Field(2, 0b111), 7)
-        _check_all_prefix_states_are_injective(self, bm_model.GF2Field(3, 0b1011), 5)
+        _check_all_prefix_states_are_injective(self, bm_model.GF2Field(3, 0b1011), 6)
 
     def test_gf2_12_prefix_degree_bound_on_seeded_sequences(self):
         field = bm_model.GF2Field(12, 0x1053)

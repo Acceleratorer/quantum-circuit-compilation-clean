@@ -41,7 +41,7 @@ without retaining the raw syndrome prefix, it could keep `Q` near the current
 ## Evidence and limits
 
 `tests/test_exp045_bm_state.py` checks all prefixes for GF(2) sequences through
-length 12, GF(4) through length 7, and GF(8) through length 5. It also checks
+length 12, GF(4) through length 7, and GF(8) through length 6. It also checks
 the coefficient bound on seeded length-70 sequences over the competition's
 GF(2^12) polynomial basis (`0x1053`).
 
