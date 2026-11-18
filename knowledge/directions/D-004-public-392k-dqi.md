@@ -143,3 +143,21 @@ Replacing `final_decoder.conversion.convert_safe` with the source-owned
 56,996,735 operations. The owned baseline is `Q=897`, `T_static=454,477`, so
 this variant is worse; it was not verifier-tested or submitted. Its temporary
 517 MB circuit was deleted. Do not retry this converter path.
+
+## 2026-11-19 early-termination I-FDMA screen — no-go
+
+The official verifier samples error weight `e` with mean `31.0467` (median 31);
+`77.5%` of shots have `e >= 30`. The 2e-step MA/I-FDMA guarantee in Jiang et
+al. assumes error positions lie in `{2t, ..., n-1}`. This verifier instead
+samples positions uniformly from `0..4094`, so that guarantee does not apply
+to the benchmark as specified. Even under the paper's multiplication ledger,
+at `e=31, t=35` I-FDMA needs `18et - 6e^2 + 3e = 13,857` field multiplications;
+at the source-owned 42-Toffoli multiplier cost, that is `581,994` Toffolis for
+the locator solve alone, above the saved `259,947` target. Close this I-FDMA
+route; do not build it. The distribution was computed from the verifier's
+`optimal_dqi_weights` formula and `sample_error` implementation in
+`kaggle/staging/competition-runtime/verifiers/dqi/verifiers/dqi/verify_submission_dqi.py`.
+
+Source: Jiang et al., [Error Correction Decoding Algorithms of RS Codes Based
+on An Earlier Termination Algorithm](https://arxiv.org/abs/2407.19484), Theorem
+4 and Table I. This screen does not rule out other key-equation algorithms.
