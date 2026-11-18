@@ -48,6 +48,12 @@ most 69 field words, and the packed state including the 12-bit previous
 discrepancy and shift uses at most 847 bits. This is seven bits over the
 840-bit syndrome bank, and is sampled evidence rather than a worst-case bound.
 
+The exhaustive [`feedback_degree_screen.py`](feedback_degree_screen.py) checks
+all GF(2) prefixes of lengths 5 through 12. For each length, the next BM
+feedback term has no affine or quadratic Boolean formula over the packed
+state bits. This rules out a single low-degree feedback expression; it does
+not rule out a composed reversible transition or a block algorithm.
+
 The existing in-place Hankel primitive at
 `src/dqi/pro_q2_897/exp/convert/hankel_check.py` also passes its local check:
 700 triangular forward/reverse cases and 100 Hankel-35 round trips. A fixed
