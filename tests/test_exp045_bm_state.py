@@ -34,10 +34,22 @@ class BMStateTests(unittest.TestCase):
     def test_gf2_12_prefix_degree_bound_on_seeded_sequences(self):
         field = bm_model.GF2Field(12, 0x1053)
         rng = random.Random(20261118)
+        max_state_bits = 0
+        max_coefficient_words = 0
 
         for _ in range(128):
             sequence = [rng.randrange(field.order) for _ in range(70)]
-            self.assertLessEqual(bm_model.max_prefix_degree_excess(sequence, field), 0)
+            states = bm_model.bm_prefix_states(sequence, field)
+            self.assertLessEqual(max(state.coefficient_words - k for k, state in enumerate(states)), 0)
+
+            for k, state in enumerate(states):
+                self.assertEqual(state.linear_complexity, state.c_degree)
+                max_coefficient_words = max(max_coefficient_words, state.coefficient_words)
+                state_bits = field.degree * state.coefficient_words + field.degree + (k + 1).bit_length()
+                max_state_bits = max(max_state_bits, state_bits)
+
+        self.assertEqual(max_coefficient_words, 69)
+        self.assertEqual(max_state_bits, 847)
 
 
 if __name__ == "__main__":

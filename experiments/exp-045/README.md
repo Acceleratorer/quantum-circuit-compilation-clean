@@ -42,8 +42,11 @@ without retaining the raw syndrome prefix, it could keep `Q` near the current
 
 `tests/test_exp045_bm_state.py` checks all prefixes for GF(2) sequences through
 length 12, GF(4) through length 7, and GF(8) through length 6. It also checks
-the coefficient bound on seeded length-70 sequences over the competition's
-GF(2^12) polynomial basis (`0x1053`).
+seeded length-70 sequences over the competition's GF(2^12) polynomial basis
+(`0x1053`). Across 128 sequences, `deg(C)=L`, the coefficient arrays use at
+most 69 field words, and the packed state including the 12-bit previous
+discrepancy and shift uses at most 847 bits. This is seven bits over the
+840-bit syndrome bank, and is sampled evidence rather than a worst-case bound.
 
 The existing in-place Hankel primitive at
 `src/dqi/pro_q2_897/exp/convert/hankel_check.py` also passes its local check:
