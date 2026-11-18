@@ -59,6 +59,8 @@ from this formulation.
 
 ## Resource gate
 
+### Worst-case count
+
 The current leader-equivalent DQI target is `245.285e9`. At `R=1.1912605` and
 an optimistic `Q=860` (847 packed-state bits plus 13 inversion scratch bits),
 the Toffoli ceiling is about `278.4k`. A rough reversible BM count is `261,345`
@@ -66,6 +68,27 @@ Toffolis: two 105,840-Toffoli BM passes, two sets of 35 66-Toffoli inversions,
 and the existing 45,045-Toffoli Chien scan. This leaves only about `17.1k`
 Toffolis for branch controls and all other transition overhead. The estimate
 is optimistic and does not prove the state transition exists.
+
+### Verifier-weighted BM budget
+
+The official verifier distribution (`m=4095`, `n=70`, `degree=12`, `r=2016`)
+has `E[e]=31.046737` and `E[e²]=968.605921`. Applying the conventional BM
+field-multiplication ledger `M(e)=2e²+e+1` gives `1,969.259` products per
+pass on average, or `82,709` Toffolis at 42 per product. Counting two passes,
+`e` inversions per pass at 66 Toffolis each, and the existing 45,045-Toffoli
+scan gives an optimistic mean of `214,561` Toffolis before transition,
+control, and other decoder overhead. This leaves about `45.4k` Toffolis under
+the `Q=890` gate, or `63.8k` under the `Q=860` gate. The BM multiplication
+formula is from [Fossorier (2015)](https://doi.org/10.1109/LCOMM.2015.2436379);
+the weight moments are computed from the verifier's `optimal_dqi_weights`.
+The verifier also samples uniform nonzero field amplitudes; this estimate
+averages only over error weight and does not assume unit amplitudes.
+
+This opens a conditional route worth implementing only if the packed-state
+transition can be built within that remaining budget. The estimate is not a
+circuit result: there is still no reversible local transition that computes
+the next discrepancy from the packed state without retaining the syndrome
+prefix.
 
 Do not build a circuit unless the fitted feedback formula and the complete
 forward, phase, and uncompute count fit `R × Q² × T <= 245.285e9`.
