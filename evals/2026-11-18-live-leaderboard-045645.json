@@ -1,0 +1,24 @@
+{
+  "captured_utc": "2026-11-18T04:56:45Z",
+  "competition": "google-verifiable-quantum-circuit-compilation",
+  "source": "Kaggle CLI public leaderboard download",
+  "snapshot": {
+    "path": "kaggle/snapshots/2026-11-18/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-18T04-56-45Z.csv",
+    "csv_sha256": "0A51EDD2FCAA7742A1E80DA466BD6068D4D8CFEF97FD14493F62ACF2CCC48E46",
+    "download_archive_sha256": "780091FDF7928AFC0F77CC718E24960B109AD489BC4CED1BD2B4926BAD722E90",
+    "archive_entry": "google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-18T04:56:45.csv",
+    "team_rows": 3296
+  },
+  "own_team": {
+    "team": "Accelra",
+    "public_score": 28.14028,
+    "rank": 635
+  },
+  "leader": {
+    "team": "aadi_stonks",
+    "member_usernames": ["aadistonks"],
+    "public_score": 31.50701,
+    "rank": 1
+  },
+  "score_gap": 3.36673
+}
