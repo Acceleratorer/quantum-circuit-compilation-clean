@@ -6,7 +6,7 @@ tests: experiments/exp-047/feedback_field_degree_screen.py (exhaustive GF(4)/GF(
 direction: D-004
 status: negative_result
 date: 2026-11-19
-result: no degree-2 field predictor exists by prefix length 2 in GF(4) or GF(8)
+result: no degree-2 predictor in GF(4)/GF(8); adjusted FIA remains syndrome-dependent with no demonstrated resource advantage
 ---
 
 # Packed BM field-quadratic feedback screen
@@ -93,9 +93,34 @@ prefix.
 Do not build a circuit unless the fitted feedback formula and the complete
 forward, phase, and uncompute count fit `R × Q² × T <= 245.285e9`.
 
+## Follow-up screen: adjusted FIA
+
+The adjusted Fundamental Iterative Algorithm (FIA) does not remove the missing
+feedback step. On the syndrome matrix its discrepancy is still
+`δ = sum_i Λ_i S_(...)`, and its locator update is
+`Λ_new = Λ - (δ/δ_old) Λ_old x^shift`. Thus it still needs the next syndrome
+row to compute `δ`; the packed locator state alone does not determine the next
+state. Heydtmann and Jensen describe FIA on the syndrome matrix as equivalent
+to Berlekamp–Massey, so this representation does not establish a lower
+field-product count than the BM ledger above.
+
+The paper's statement that only three generations of variables are needed is
+a classical storage observation. It gives no reversible liveness schedule,
+peak-qubit count, or compute/phase/uncompute Toffoli count for this instance.
+It also treats generating the evaluator polynomial alongside the locator,
+which adds state and work. FIA therefore does not clear either resource gate
+and is a no-go as a direct replacement for the packed-state transition. No
+circuit or new experiment directory was created.
+
+Source: A. E. Heydtmann and J. M. Jensen, “On the Equivalence of the
+Berlekamp-Massey and the Euclidean Algorithm for Decoding,” §§2.3.3–2.3.4
+([DTU-hosted paper](https://backend.orbit.dtu.dk/ws/portalfiles/portal/3024053/Decoding%20Algebraic%20Codes.pdf)).
+
 ## Status
 
 - 2026-11-19: Exhaustive small-field screen complete; degree-2 route closed.
+- 2026-11-19: Adjusted FIA screen complete; it retains the syndrome-dependent
+  discrepancy and supplies no resource advantage over BM for this circuit.
 
 ## Run
 
