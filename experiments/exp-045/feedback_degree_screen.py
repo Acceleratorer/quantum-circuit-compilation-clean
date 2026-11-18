@@ -62,6 +62,13 @@ def _screen_length(length: int) -> dict[str, int | bool | str]:
         state_columns[left] & state_columns[right]
         for left, right in combinations(range(len(state_columns)), 2)
     ]
+    degree_four_columns = quadratic_columns + [
+        state_columns[a] & state_columns[b] & state_columns[c]
+        for a, b, c in combinations(range(len(state_columns)), 3)
+    ] + [
+        state_columns[a] & state_columns[b] & state_columns[c] & state_columns[d]
+        for a, b, c, d in combinations(range(len(state_columns)), 4)
+    ]
 
     return {
         "field": "GF(2)",
@@ -70,6 +77,7 @@ def _screen_length(length: int) -> dict[str, int | bool | str]:
         "packed_state_bits": len(rows[0]),
         "feedback_affine": _in_span(affine_columns, feedback),
         "feedback_degree_at_most_2": _in_span(quadratic_columns, feedback),
+        "feedback_degree_at_most_4": _in_span(degree_four_columns, feedback),
     }
 
 

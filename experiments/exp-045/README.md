@@ -49,10 +49,13 @@ discrepancy and shift uses at most 847 bits. This is seven bits over the
 840-bit syndrome bank, and is sampled evidence rather than a worst-case bound.
 
 The exhaustive [`feedback_degree_screen.py`](feedback_degree_screen.py) checks
-all GF(2) prefixes of lengths 5 through 12. For each length, the next BM
-feedback term has no affine or quadratic Boolean formula over the packed
-state bits. This rules out a single low-degree feedback expression; it does
-not rule out a composed reversible transition or a block algorithm.
+all GF(2) prefixes of lengths 5 through 12. The next BM feedback term has no
+affine or quadratic formula at any tested length. Degree-4 formulas fit the
+packed-state image through length 8, but fail for lengths 9 through 12. At
+length 12 the exact check covers all 4,096 prefixes and 33 state coordinates
+(26 nonzero coordinates). This rules out a direct degree-4 feedback formula
+at the longer tested prefixes; it does not rule out a composed reversible
+transition or a higher-degree formula.
 
 The existing in-place Hankel primitive at
 `src/dqi/pro_q2_897/exp/convert/hankel_check.py` also passes its local check:
@@ -69,6 +72,14 @@ for length 70, and no circuit has been built or submitted. The published
 high-space BM comparison and its `Q² × T` cost are recorded in
 [`exp-043`](../exp-043/README.md); its transition-reconstruction technique is
 not the same as proving this packed state can replace the syndrome history.
+
+The standard half-GCD route remains a no-go for implementation until a length-70
+operation count shows a real reduction. Its asymptotic bounds depend on fast
+polynomial multiplication, and the paper's radix-2 FFT model requires power-of-2
+roots of unity; GF(2¹²) has multiplicative group order 4,095, so that model does
+not apply directly. The source gives no crossover or reversible-circuit cost at
+this size. A custom block update using the existing Hankel-35 transform remains
+unproven. See [van der Hoeven and Lecerf, *Optimizing the half-gcd algorithm*](https://www.texmacs.org/joris/gcd/gcd.html).
 
 ## Next gate
 
