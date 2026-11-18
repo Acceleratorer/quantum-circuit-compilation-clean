@@ -136,3 +136,10 @@ space schedule before circuit generation.
 Provenance: [Kaggle discussion 753607](https://www.kaggle.com/competitions/google-verifiable-quantum-circuit-compilation/discussion/753607).
 The staged notebook SHA-256 is `b9c09c6522e2da1a0b19d2584e0e9955001bedebb69e420c7c10fe93027adcc0`.
 
+## 2026-11-19 converter trial — rejected
+
+Replacing `final_decoder.conversion.convert_safe` with the source-owned
+`exp/convert/repair.py` path produced `Q=897`, `T_static=488,466`, and
+56,996,735 operations. The owned baseline is `Q=897`, `T_static=454,477`, so
+this variant is worse; it was not verifier-tested or submitted. Its temporary
+517 MB circuit was deleted. Do not retry this converter path.
