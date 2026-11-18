@@ -48,6 +48,21 @@ the full reversible `R × Q² × T` cost before implementation. A literature
 candidate such as the fast modular approach remains unproven at the required
 70-symbol redundancy and space budget.
 
+## 2026-11-19 Hankel block-update gate — no-go
+
+For a BM state with locator `C`, backup `B`, and syndrome `S`, let
+`A_j = (C*S)_j` and `U_j = (B*S)_j`. The existing Hankel-35 transform computes
+35 fixed-locator outputs in 147 variable field products. A BM correction
+`C <- C + α x^m B` changes every remaining discrepancy to
+`A_j <- A_j + α U_(j-m)`. Thus batching the fixed-locator dot products does not
+remove dynamic work: each correction still needs variable products across the
+remaining discrepancy suffix, in addition to the usual locator coefficient
+update. Across 70 symbols this remains quadratic and adds the initial `A`/`U`
+transforms; it does not improve the direct BM product ledger. Keeping both
+35-word streams live also needs 70 field words (840 qubits) unless a separate
+in-place schedule proves reuse, while the 890-qubit frontier has only 50
+qubits beyond the 840 syndrome bank. Do not build this block formulation.
+
 ## 2026-11-19 focused gate — FMA / FDMA at 70 symbols
 
 The target is the source-owned RS(4095, 4025) DQI instance: 70 symbols over
