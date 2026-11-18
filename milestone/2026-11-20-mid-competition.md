@@ -85,6 +85,13 @@ flags, and cleanup. That schedule misses the score gate. This is not a lower
 bound on BM; continue only with a concrete faster/fused schedule that fits the
 68.8k budget.
 
+The exact exp-046 packed-state screen now rejects a direct degree-4 Boolean
+formula for the low-space transition: at prefix length 9, only `21 / 29`
+forward outputs and `24 / 28` full-inverse outputs fit. The inverse with the
+syndrome symbol retained fits `27 / 27`, but that is the high-space form. A
+factored transition remains unproven; require a complete resource count before
+building it.
+
 ## Submission gate
 
 - Every submitted circuit has a reproducible generator and recorded source
