@@ -25,3 +25,13 @@ and does not solve the low-space uncompute problem. Keep the direct low-degree
 formulation closed; a composed GF(2^12) transition remains unproven and must
 pass the complete `R × Q² × T` budget before circuit work.
 
+## 2026-11-19 focused next gate
+
+Do one bounded screen: test whether the packed BM next-feedback value has a
+sparse degree-2 formula over field-valued state coordinates. The direct
+degree-4 Boolean route is closed; do not reopen public-source sweeps or the
+retention variants already tested. `exp-047` pre-registers the exact GF(4)/GF(8)
+screen and its optimistic resource ceiling. Proceed to a circuit only if the
+formula fits and a complete reversible resource count stays under the DQI
+leader-equivalent target.
+
