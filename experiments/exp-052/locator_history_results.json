@@ -1,6 +1,12 @@
 {
   "experiment": "exp-052-locator-history",
   "field": "GF(8)",
+  "final_basis_matrix": {
+    "matrices_with_multiple_branch_histories": 0,
+    "max_histories_for_one_matrix": 1,
+    "result": "the_exact_full_basis_alone_determines_branch_history",
+    "unique_matrices": 97119
+  },
   "final_normalized_low_row": {
     "max_histories_for_one_row": 5,
     "max_history_witness": {
@@ -63,5 +69,35 @@
   ],
   "result": "locator_support_alone_is_insufficient",
   "scope": "Exact for all GF(8), eight-point error patterns through weight 4. Across all 97,119 cases, 99 normalized final low rows occurred; eight were associated with multiple branch histories (up to five). The final low row alone therefore does not recover the history. This is not a 70-point GF(2^12) circuit or Toffoli bound.",
+  "split_4_plus_4_compact_state": {
+    "left_recovery_state": {
+      "direct_sample_recovery_checks": 97119,
+      "exception_sample_count_distribution": {
+        "0": 12825,
+        "1": 36813,
+        "2": 47481
+      },
+      "max_left_histories_for_one_state": 1,
+      "minimum_extra_history_bits_for_max_fiber": 0,
+      "result": "left_low_row_and_exceptions_recover_branch_history",
+      "state_components": [
+        "normalized left low row",
+        "left common-zero exception samples"
+      ],
+      "states": 512,
+      "states_with_multiple_left_branch_histories": 0
+    },
+    "max_left_histories_for_one_state": 1,
+    "minimum_extra_history_bits_for_max_fiber": 0,
+    "result": "compact_state_determines_left_branch_history",
+    "scope": "Exact for all 97,119 valid GF(8), eight-point error patterns through weight 4 at split 4+4. This is an information screen, not a reversible circuit or GF(2^12) width bound.",
+    "state_components": [
+      "normalized left low row",
+      "left common-zero exception samples",
+      "right pristine d samples"
+    ],
+    "states": 97119,
+    "states_with_multiple_left_branch_histories": 0
+  },
   "valid_patterns": 97119
 }

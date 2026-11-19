@@ -434,5 +434,33 @@ fits `Q<=890` and `T<=256,943`.
 The exhaustive GF(8) locator-history pass also found 99 normalized final low
 rows across 97,119 valid patterns; 8 rows occurred with multiple branch
 histories, up to five for one row. A normalized low row alone cannot supply the
-selector history. This closes that oracle variant but does not rule out an
-oracle using the full compact payload.
+selector history.
+
+## 2026-11-20 FMA compact-state branch recovery screen
+
+The same exhaustive GF(8) pass found 97,119 distinct exact 2x2 basis matrices
+for 97,119 valid patterns; no matrix was associated with multiple branch
+histories. For split `4+4`, the normalized left low row plus the common-zero
+exception samples directly recovered all four original left samples and their
+branch history in all 97,119 cases. The left recovery state had 512 distinct
+values, no history collisions, and required at most two exception samples.
+Adding the untouched right input samples yielded 97,119 distinct compact
+states, again with no left-history collisions.
+
+For pristine inputs (`g_i=1`), the sample recovery follows the key equation.
+When `W(x_i)` is nonzero, `d_i=N(x_i)/W(x_i)`. At a common zero, set
+`A=W/gcd(W,N)` and `B=N/gcd(W,N)`: when `d_i A(x_i)+B(x_i)=0`, recover
+`d_i=B(x_i)/A(x_i)`; otherwise retain `d_i` as an exception sample. The screen
+implements this recovery and replays the 4-step FMA history on every pattern.
+
+This validates the information encoding only for the exhaustive GF(8),
+eight-point, weight-at-most-four domain. It does not give a reversible
+GF(2^12) circuit, a 70-symbol bound, or a Q/T schedule. The next gate is to
+translate the sample recovery and history replay into a reversible schedule
+that fits the `4+66` state and remaining resource budget.
+
+## 2026-11-19 18:37 UTC Kaggle leaderboard refresh
+
+The read-only Kaggle CLI top-20 query still shows `Z³C¹oherence` first at
+31.74002, with `ThemBones` second at 31.64282. The top score is unchanged, so
+the saved DQI gate remains `T<=256,943` at `Q=890` and `R=1.1912605`.

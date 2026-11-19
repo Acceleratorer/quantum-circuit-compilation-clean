@@ -53,12 +53,38 @@
       "4": 7
     },
     "max_histories_for_one_support": 5,
-    "scope": "Rejects branch history from support alone and from the normalized final low row alone on this small domain; does not rule out a magnitude-dependent oracle from the full compact payload or establish a 70-point circuit cost",
+    "scope": "The normalized final low row does not determine history, but the exact full basis and split 4+4 compact recovery state do on this small domain. This does not establish a 70-point reversible circuit or cost.",
     "final_normalized_low_row": {
       "unique_rows": 99,
       "rows_with_multiple_branch_histories": 8,
       "max_histories_for_one_row": 5,
       "result": "the_final_low_row_alone_does_not_determine_branch_history"
+    },
+    "final_basis_matrix": {
+      "unique_matrices": 97119,
+      "matrices_with_multiple_branch_histories": 0,
+      "max_histories_for_one_matrix": 1,
+      "result": "the_exact_full_basis_alone_determines_branch_history"
+    },
+    "split_4_plus_4_compact_state": {
+      "left_recovery_state": {
+        "states": 512,
+        "states_with_multiple_left_branch_histories": 0,
+        "max_left_histories_for_one_state": 1,
+        "minimum_extra_history_bits_for_max_fiber": 0,
+        "direct_sample_recovery_checks": 97119,
+        "exception_sample_count_distribution": {
+          "0": 12825,
+          "1": 36813,
+          "2": 47481
+        }
+      },
+      "states_including_right_input": 97119,
+      "states_with_multiple_left_histories": 0,
+      "max_left_histories_for_one_state": 1,
+      "minimum_extra_history_bits": 0,
+      "result": "compact_state_determines_left_branch_history",
+      "scope": "Exact for all 97,119 valid GF(8), eight-point error patterns through weight 4 at split 4+4. Information screen only; not a reversible GF(2^12) circuit or cost bound."
     }
   },
   "branch_gate_kernel": {
@@ -88,5 +114,5 @@
     }
   },
   "structural_invariant": "Before point j, the FMA basis determinant is a nonzero scalar multiple of the product of previous point factors. At a distinct next point its evaluated basis is invertible. Applying it to a pristine pair (d,1) cannot produce a zero pivot. The branch rule then selects a nonsingular sample-update matrix. A processed pivot pair is never changed by later steps, so the full pivot sequence remains available in the expanded classical state.",
-  "scope": "Local sample-pair updates invert exactly when pivot and branch are available. The naive replay exceeds the width gate; local-window, support-only, and final-low-row-only history oracles fail their GF(8) screens. The rank-invariant leaf count remains local; full history cleanup and the FMA liveness schedule are unproven."
+  "scope": "Local sample-pair updates invert exactly when pivot and branch are available. The naive replay exceeds the width gate; local-window, support-only, and final-low-row-only history oracles fail their GF(8) screens. The exact full basis and split 4+4 compact recovery state preserve history on the screened domain; their reversible GF(2^12) schedule remains unproven."
 }

@@ -9,8 +9,8 @@ date: 2026-11-20
 result: >-
   sample updates invert exactly; expanded replay exceeds the width gate;
   local-window, support-only, and final-low-row-only history recovery fail
-  GF(8) screens; the general branch/rank cell costs 95T and its rank-invariant
-  specialization costs 79T per leaf
+  GF(8) screens; the exact full basis and 4+4 compact state recover history
+  on the screened domain; the rank-invariant branch cell costs 79T per leaf
 ---
 
 # FMA sample-update reversibility screen
@@ -128,6 +128,16 @@ the composed basis. It found 99 rows; 8 occurred with multiple branch histories,
 with up to 5 histories for one row. This rejects recovery from that row alone,
 not an oracle that reads the complete compact payload. The witness and counts
 are in [`locator_history_results.json`](locator_history_results.json).
+
+The exact full 2x2 basis matrix was distinct for all 97,119 valid patterns and
+never paired one matrix with multiple histories. At split `4+4`, a compact
+left state consisting of the normalized low row and the common-zero exception
+samples directly recovered all four original left samples and their branch
+history in all 97,119 cases. This state used at most two exception samples;
+adding the untouched right samples produced 97,119 distinct compact states.
+This supports the small-domain encoding, but does not prove a reversible
+GF(2^12) implementation or its Q/T cost. Detailed counts are in
+[`locator_history_results.json`](locator_history_results.json).
 
 Run the screen with:
 
