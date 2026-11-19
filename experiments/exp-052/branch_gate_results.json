@@ -1,0 +1,18 @@
+{
+  "experiment": "exp-052-fma-branch-gate",
+  "field_bits": 12,
+  "rank_bits_each": 8,
+  "compiled_qubits_for_one_step": 73,
+  "toffoli_like_gates_for_one_step": 95,
+  "branch_steps": 70,
+  "branch_and_rank_toffolis_for_70_steps": 6650,
+  "remaining_from_9788T": 3138,
+  "projected_total_qubits_if_dg_pair_is_inside_840q_payload": 889,
+  "checks": {
+    "rank_comparator_pairs": 65536,
+    "rank_step_cases": 131072,
+    "increment_by_two_inputs": 256,
+    "branch_predicate_rank_cases": 262144
+  },
+  "scope": "One branch predicate, rank update, and one retained output tag only. Assumes d/g are already live in the 840-qubit payload and the branch is encoded into the base matrix tag. Excludes the FMA tree, generation of d/g, multi-step history cleanup, and all other omitted costs."
+}

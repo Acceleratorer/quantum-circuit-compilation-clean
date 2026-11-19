@@ -6,7 +6,7 @@ tests: exhaustive GF(4) tuples, exhaustive valid GF(8) errors, sampled GF(2^12) 
 direction: D-004
 status: local_transition_feasibility
 date: 2026-11-20
-result: sample updates invert exactly, but expanded pivot replay fails the width gate; local-window and support-only branch oracles are rejected on exhaustive GF(8) screens
+result: sample updates invert exactly; expanded pivot replay fails the width gate; local-window and support-only branch oracles fail GF(8) screens; one branch/rank cell costs 95T
 ---
 
 # FMA sample-update reversibility screen
@@ -125,6 +125,22 @@ Run the screen with:
 & 'D:\Code\Kaggle\competitions\Google Quantum AI\.venv\Scripts\python.exe' -I `
   'experiments/exp-052/fma_locator_history.py'
 ```
+
+### One branch/rank gate kernel
+
+`fma_branch_gate.py` builds one reversible leaf operation in Kickmix: compute
+the branch predicate, update both 8-bit ranks, and retain one branch output
+tag. The compiled cell uses 95 Toffoli-like gates and 73 qubits including its
+24-bit pivot pair and ranks. Projecting the pair into the existing 840-qubit
+payload leaves 49 additional qubits (`Q=889`), assuming the branch tag is part
+of the base matrix output. Repeating the cell for 70 points costs 6,650T and
+leaves 3,138T of the 9,788T remainder for every other omitted operation.
+
+This is only a local gate count. It does not generate the pivot pairs, build
+the FMA tree, show how all branch tags fit into the compact matrix, or clean
+multi-step history. Exact counts and assumptions are in
+[`branch_gate_results.json`](branch_gate_results.json). The script checks the
+8-bit comparator and rank update logic exhaustively over their small domains.
 
 ## Run
 

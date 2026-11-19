@@ -55,6 +55,15 @@
     "max_histories_for_one_support": 5,
     "scope": "Rejects support-only branch history on this small domain; does not rule out a magnitude-dependent compact-payload oracle or establish a 70-point circuit cost"
   },
+  "branch_gate_kernel": {
+    "toffoli_like_gates_per_step": 95,
+    "compiled_qubits_per_step": 73,
+    "steps": 70,
+    "total_branch_and_rank_toffolis": 6650,
+    "remaining_of_9788T": 3138,
+    "projected_Q_if_pivot_pair_is_in_840q_payload": 889,
+    "scope": "One base-case branch predicate and rank update with a retained tag; excludes compact-state extraction, FMA-tree composition, and branch-history cleanup"
+  },
   "structural_invariant": "Before point j, the FMA basis determinant is a nonzero scalar multiple of the product of previous point factors. At a distinct next point its evaluated basis is invertible. Applying it to a pristine pair (d,1) cannot produce a zero pivot. The branch rule then selects a nonsingular sample-update matrix. A processed pivot pair is never changed by later steps, so the full pivot sequence remains available in the expanded classical state.",
-  "scope": "Local sample-pair updates invert exactly when pivot and branch are available. The naive replay exceeds the width gate; local-window and support-only branch oracles fail their GF(8) screens. A magnitude-dependent compact-payload oracle and full liveness schedule remain unproven."
+  "scope": "Local sample-pair updates invert exactly when pivot and branch are available. The naive replay exceeds the width gate; local-window and support-only branch oracles fail their GF(8) screens. A single branch/rank gate fits the score remainder only under compact-state assumptions; full history cleanup and the FMA liveness schedule remain unproven."
 }
