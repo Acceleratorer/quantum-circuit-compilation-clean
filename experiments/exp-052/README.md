@@ -6,7 +6,7 @@ tests: exhaustive GF(4) tuples, exhaustive valid GF(8) errors, sampled GF(2^12) 
 direction: D-004
 status: local_transition_feasibility
 date: 2026-11-20
-result: tested updates invert exactly; immutable pivots replay branch choices, with no full-state collisions on exhaustive GF(4)/GF(8) screens; reversible replay cost remains open
+result: sample updates invert exactly, but expanded pivot replay fails the width gate; local-window and support-only branch oracles are rejected on exhaustive GF(8) screens
 ---
 
 # FMA sample-update reversibility screen
@@ -106,6 +106,24 @@ costed circuit. Run the screen with:
 ```powershell
 & 'D:\Code\Kaggle\competitions\Google Quantum AI\.venv\Scripts\python.exe' -I `
   'experiments/exp-052/fma_branch_window.py'
+```
+
+### Locator-support-only branch-history screen
+
+`fma_locator_history.py` groups every valid GF(8), eight-point error pattern
+through weight four by its error-location support, then checks all nonzero
+magnitude assignments for that support. Branch history varies with magnitudes:
+one of 35 weight-three supports has two histories, and seven of 35 weight-four
+supports have multiple histories (up to five). This rejects a locator-support-
+only branch oracle on this domain. It does not rule out a direct oracle that
+uses the compact payload, and gives no 70-point circuit or Toffoli bound. Exact
+counts are in [`locator_history_results.json`](locator_history_results.json).
+
+Run the screen with:
+
+```powershell
+& 'D:\Code\Kaggle\competitions\Google Quantum AI\.venv\Scripts\python.exe' -I `
+  'experiments/exp-052/fma_locator_history.py'
 ```
 
 ## Run

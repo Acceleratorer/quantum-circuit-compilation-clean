@@ -1,0 +1,40 @@
+{
+  "experiment": "exp-052-locator-history",
+  "field": "GF(8)",
+  "points": 8,
+  "valid_patterns": 97119,
+  "result": "locator_support_alone_is_insufficient",
+  "report": [
+    {
+      "weight": 0,
+      "supports": 1,
+      "supports_with_multiple_branch_histories": 0,
+      "max_histories_for_one_support": 1
+    },
+    {
+      "weight": 1,
+      "supports": 7,
+      "supports_with_multiple_branch_histories": 0,
+      "max_histories_for_one_support": 1
+    },
+    {
+      "weight": 2,
+      "supports": 21,
+      "supports_with_multiple_branch_histories": 0,
+      "max_histories_for_one_support": 1
+    },
+    {
+      "weight": 3,
+      "supports": 35,
+      "supports_with_multiple_branch_histories": 1,
+      "max_histories_for_one_support": 2
+    },
+    {
+      "weight": 4,
+      "supports": 35,
+      "supports_with_multiple_branch_histories": 7,
+      "max_histories_for_one_support": 5
+    }
+  ],
+  "scope": "Exact for all GF(8), eight-point error patterns through weight 4. This falsifies support-only branch history on this domain; it is not a 70-point GF(2^12) circuit or Toffoli bound."
+}

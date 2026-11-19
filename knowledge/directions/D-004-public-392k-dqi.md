@@ -369,5 +369,14 @@ GF(8), eight-point pattern through weight four. The key consisted of the
 post-step ranks and a contiguous window of pivot pairs around the current
 step. The later steps needed up to five pairs; ranks plus one pivot failed.
 That rules out the simple local-window replay, not a circuit that extracts
-branch bits directly from the compact polynomial payload. Keep the latter as
-the sole FMA follow-up only if its cost can fit the remaining 9,788T.
+branch bits directly from the compact polynomial payload.
+
+`exp-052/fma_locator_history.py` then grouped all 97,119 valid GF(8),
+eight-point patterns through weight four by error-location support and
+enumerated every nonzero magnitude assignment. Branch histories vary with
+magnitudes: one of 35 weight-three supports has two histories, and seven of 35
+weight-four supports have multiple histories (up to five). Reject the
+support-only branch-oracle formulation. This small-domain result does not rule
+out a magnitude-dependent oracle derived directly from the compact payload,
+but that is the only remaining FMA branch-oracle path. Keep it open only with a
+complete <=50-qubit and Toffoli/phase schedule that fits the remaining 9,788T.
