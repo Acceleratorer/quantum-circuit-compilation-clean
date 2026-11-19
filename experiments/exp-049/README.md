@@ -185,6 +185,13 @@ scratch after the 64 right-pair words and 70 branch bits. The target screen is
 therefore a maximum residual fiber of at most `2^16`; the 70-symbol case is
 still unbounded.
 
+A projective-state check exhaustively screened the same `GF(8)^8`, `6+2`
+domain while retaining those three samples. Encoding each right pair as
+`d/g` (with an infinity sentinel) reduced its stored state by 4 bits, but the
+largest fiber grew from 64 to 343, raising the label from 6 to 9 bits. The net
+state-plus-label saving was only 1 bit in this small case. The screen discards
+pair scale and does not provide a 70-symbol bound or a reversible encoding.
+
 A separate exhaustive valid-domain screen covered all 97,119 GF(8), eight-point
 error patterns through weight 4 while retaining the first three left `d`
 samples. Locator recovery had zero failures; the largest fibers were 1 for

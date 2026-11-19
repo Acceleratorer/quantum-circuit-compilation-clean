@@ -592,10 +592,14 @@ def screen_branch_history(degree, modulus, n, split):
     }
 
 
-def screen_branch_history_vectorized(degree, modulus, n, split, retained_left_symbols=0):
-    """Exhaustively screen small cases, optionally keeping left input symbols."""
+def screen_branch_history_vectorized(
+    degree, modulus, n, split, retained_left_symbols=0, projective_pairs=False
+):
+    """Exhaustively screen small cases, optionally compressing right pairs projectively."""
     side_bits = degree * retained_left_symbols
-    output_bits = 2 * degree * (n - split) + n + side_bits
+    right_size = n - split
+    pair_bits = degree + 1 if projective_pairs else 2 * degree
+    output_bits = pair_bits * right_size + n + side_bits
     if (
         not 1 <= split < n
         or not 0 <= retained_left_symbols <= split
@@ -611,6 +615,10 @@ def screen_branch_history_vectorized(degree, modulus, n, split, retained_left_sy
         [[gf_mul(a, b, modulus, degree) for b in range(q)] for a in range(q)],
         dtype=np.uint8,
     )
+    inverse_table = np.zeros(q, dtype=np.uint8)
+    if projective_pairs:
+        for value in range(1, q):
+            inverse_table[value] = np.flatnonzero(mul_table[value] == 1)[0]
     left_count = q**split
     right_count = q**right_size
     left_ids = np.arange(left_count, dtype=np.uint32)
@@ -660,7 +668,7 @@ def screen_branch_history_vectorized(degree, modulus, n, split, retained_left_sy
     counts = np.zeros(output_space, dtype=np.uint32) if dense_counts else None
     all_keys = np.empty(q**n, dtype=np.uint32) if not dense_counts else None
     side_mask = (1 << side_bits) - 1
-    state_bits = 2 * degree * right_size
+    state_bits = pair_bits * right_size
     check_left = {0, left_count // 2, left_count - 1}
     check_right = {0, right_count // 2, right_count - 1}
 
@@ -693,10 +701,19 @@ def screen_branch_history_vectorized(degree, modulus, n, split, retained_left_sy
                 )
 
         key = right_history.copy()
-        for values in right_d:
-            key = (key << degree) | values.astype(np.uint32)
-        for values in right_g:
-            key = (key << degree) | values.astype(np.uint32)
+        if projective_pairs:
+            for d_value, g_value in zip(right_d, right_g):
+                projective = np.where(
+                    g_value == 0,
+                    q,
+                    mul_table[d_value, inverse_table[g_value]],
+                ).astype(np.uint32)
+                key = (key << pair_bits) | projective
+        else:
+            for values in right_d:
+                key = (key << degree) | values.astype(np.uint32)
+            for values in right_g:
+                key = (key << degree) | values.astype(np.uint32)
         if side_bits:
             key = (key << side_bits) | (left_ids & side_mask)
         if dense_counts:
@@ -712,8 +729,17 @@ def screen_branch_history_vectorized(degree, modulus, n, split, retained_left_sy
                     data, list(range(n)), lambda a, b: gf_mul(a, b, modulus, degree)
                 )
                 state = 0
-                for value in ref_d[split:] + ref_g[split:]:
-                    state = (state << degree) | value
+                if projective_pairs:
+                    for d_value, g_value in zip(ref_d[split:], ref_g[split:]):
+                        value = (
+                            q
+                            if g_value == 0
+                            else gf_mul(d_value, int(inverse_table[g_value]), modulus, degree)
+                        )
+                        state = (state << pair_bits) | value
+                else:
+                    for value in ref_d[split:] + ref_g[split:]:
+                        state = (state << degree) | value
                 expected = (ref_history << state_bits) | state
                 assert int(key[left_index] >> side_bits) == expected
                 assert (int(key[left_index]) & side_mask) == (int(left_ids[left_index]) & side_mask)
@@ -734,6 +760,7 @@ def screen_branch_history_vectorized(degree, modulus, n, split, retained_left_sy
         "max_preimage_with_history": max_fiber,
         "extra_side_information_bits": (max_fiber - 1).bit_length(),
         "retained_left_symbols": retained_left_symbols,
+        "right_state_encoding": "projective" if projective_pairs else "raw pair",
         "reference_samples": "PASS",
     }
 

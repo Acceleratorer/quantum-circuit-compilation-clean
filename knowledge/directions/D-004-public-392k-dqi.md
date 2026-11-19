@@ -190,6 +190,12 @@ state would leave at most 16 qubits for the residual label and overlapping
 scratch. A concrete feasibility gate is now to prove the maximum fiber is at
 most `2^16` and implement its label reversibly; no 70-symbol bound is known.
 
+A projective encoding screen on all `GF(8)^8` inputs for split `6+2`, with
+three left samples retained, reduced the right state by 4 bits but raised the
+maximum-fiber label from 6 to 9 bits (64 to 343 inputs). The net saving was 1
+bit in this small case; it neither bounds the 70-symbol fiber nor yields a
+reversible schedule.
+
 The valid-domain screen also exhaustively covered all 97,119 GF(8), eight-point
 error patterns through weight 4, retaining those same three input samples.
 Locator recovery had zero failures; the maximum fibers were 1 for split 4+4
