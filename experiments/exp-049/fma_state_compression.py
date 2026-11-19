@@ -171,6 +171,41 @@ def verify_70_symbol_splits():
     print({"field": "GF(2^12)", "n": 70, "blocks": "64+4+2", "affine_order": "PASS", "basis": "PASS"})
 
 
+def fma_block_variable_products(size):
+    """Count data-dependent GF products in one power-of-two FMA block."""
+    if size < 1 or size & (size - 1):
+        raise ValueError("FMA block size must be a positive power of two")
+    if size == 1:
+        return 0
+    half = size // 2
+    return (
+        2 * fma_block_variable_products(half)
+        + 4 * half       # apply the left 2x2 basis to right-half input pairs
+        + 8 * (size + 1) # multiply the two 2x2 bases at size+1 points
+    )
+
+
+def estimate_70_fma_variable_products():
+    """Count forward field products for the proposed 64+(4+2) FMA tree."""
+    block_64 = fma_block_variable_products(64)
+    block_6 = (
+        fma_block_variable_products(4)
+        + fma_block_variable_products(2)
+        + 4 * 2
+        + 8 * 7
+    )
+    total = block_64 + block_6 + 4 * 6 + 8 * 71
+    assert (block_64, block_6, total) == (4344, 196, 5132)
+    return {
+        "field": "GF(2^12)",
+        "constraints": 70,
+        "tree": "64+(4+2)",
+        "variable_field_products": total,
+        "toffolis_at_42_per_product": total * 42,
+        "scope": "forward FMA basis only; excludes cleanup, branch logic, scan, and phase extraction",
+    }
+
+
 def decode_tuple(value, width, symbols):
     mask = (1 << width) - 1
     return [(value >> (width * i)) & mask for i in range(symbols)]
@@ -407,6 +442,7 @@ def screen_branch_history(degree, modulus, n, split):
 
 def main():
     verify_70_symbol_splits()
+    print(estimate_70_fma_variable_products())
     for case in [(2, 0b111, 2), (3, 0b1011, 3)]:
         print(screen_valid_error_domain(*case))
     cases = [

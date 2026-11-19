@@ -66,12 +66,11 @@ Z(x) = sum_j e_j * beta_j * P(beta_j) * Lambda(x)/(x + beta_j)
 and `degree(Z) < number_of_errors`. The polynomial quotients handle errors at
 an FMA point as well, without dividing by zero. This establishes the exact
 classical input transform for FMA on the verifier's power syndromes. It does
-not provide a reversible circuit schedule. The paper defines this FMA at
-[Tang and Han, arXiv:2207.11079](https://arxiv.org/abs/2207.11079),
-Algorithm 6. Its fast divide-and-conquer evaluation uses structured points;
-the small-field screen runs the generic sequential update on `0..n-1`. It does
-not yet validate the paper's fast recursion for 70 arbitrary-redundancy
-syndromes or its 70-symbol product count.
+not provide a reversible circuit schedule. The paper's Algorithm 6 uses
+structured points for its fast divide-and-conquer evaluation and states that
+FMA can handle non-power-of-two redundancy, but does not spell out a
+reversible 70-symbol schedule or its resource count ([Tang and Han,
+arXiv:2207.11079](https://arxiv.org/abs/2207.11079)).
 
 The verifier's installed `GF2Field(12)` uses modulus `0x1053` and primitive
 element `2`. In this polynomial basis, `omega_i = i` for `i=0..127` is a
@@ -80,9 +79,22 @@ affine blocks `64+4+2`. The 70-symbol screen now verifies that composing the
 three generic modular bases on those blocks gives the same minimum-rank basis
 as processing all 70 constraints sequentially. This validates the classical
 block boundaries only; it does not implement Algorithm 6's fast evaluation
-and interpolation, count its products, or provide a reversible schedule. The
+and interpolation or provide a reversible schedule. The
 direct syndrome map above produces a valid WB sample vector for the same
 locator, but it does not reproduce the appendix's `u_1` values.
+
+The script also tallies the data-dependent field products for one proposed
+fast tree, `64+(4+2)`. It counts four products per right-side sample when
+applying a 2x2 basis and eight products per evaluation point for a naive 2x2
+matrix product. The FFT/IFFT and fixed-coefficient transforms are linear and
+therefore omitted from the Toffoli tally. This gives 5,132 forward GF(2^12)
+products, or 215,544 Toffolis at the in-tree 42-Toffoli multiplier cost. This
+is only the FMA basis subtotal. The in-tree multiplier supports
+measurement-based erasure of standalone products at zero additional
+Toffolis ([`field.py`](../../src/dqi/pro_q2_897/exp/arithmetic/field.py)),
+but a complete schedule still needs to show how it cleans rank/branch history
+and accounts for root scan and phase extraction. The subtotal does not
+establish that the decoder resource gate passes.
 
 The exhaustive small-field check verifies that the minimum-rank FMA basis
 returns the true locator for every valid error pattern, then measures
