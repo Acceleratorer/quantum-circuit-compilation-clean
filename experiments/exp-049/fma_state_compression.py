@@ -197,6 +197,22 @@ def verify_70_valid_error_patterns():
                 power = mul(power, beta)
 
         data = syndrome_to_fma_samples(syndrome, points, mul)
+        four_point_basis = modular_basis(data[:4], points[:4], mul)
+        four_point_basis_words = sum(
+            len(polynomial) for row in four_point_basis for polynomial in row
+        )
+        assert four_point_basis_words == 11
+        results.append(
+            {
+                "field": "GF(2^12)",
+                "n": 70,
+                "error_weight": weight,
+                "split": "4+66",
+                "full_left_basis_words": four_point_basis_words,
+                "full_basis_plus_right_qubits": 12 * (66 + four_point_basis_words),
+                "scope": "sampled full-matrix width; excludes all reversible scratch",
+            }
+        )
         expected_locator = [1]
         for beta in betas:
             expected_locator = poly_mul(expected_locator, [beta, 1], mul)

@@ -239,6 +239,17 @@ three splits:
 These checks establish classical composition only. The state count excludes
 reversible scratch, branch history, and phase correction.
 
+For the `4+66` split, a full four-point basis can require 11 GF(2^12)
+coefficients: its two row ranks sum to `2*4+1=9`, and a row of rank `r` has at
+most `r+1` coefficients across its two polynomials. Keeping those 11 words
+beside the 66 untouched right samples takes `12*(11+66)=924` qubits before
+scratch, so the full matrix cannot fit under `Q=890`. The deterministic
+verifier-form cases at weights 1, 31, and 35 each attain all 11 coefficients.
+This rules out keeping that full matrix live beside untouched right samples.
+The compact path retains the normalized low row and reconstructs the
+complementary row on demand; the sampled state counts below use 816 qubits at
+weight 1 and 840 at weights 31 and 35, before scratch.
+
 ## Sampled split-cost screen
 
 The current score-equivalence gate is `T <= 256,943` at `Q=890` and
