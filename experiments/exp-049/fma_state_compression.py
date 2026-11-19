@@ -203,6 +203,66 @@ def screen(degree, modulus, n, split):
     }
 
 
+def sequential_state(data, points, mul):
+    """Run the modular update and retain its branch history and right state."""
+    d, g = list(data), [1] * len(data)
+    rank1, rank2, history = 0, 1, 0
+
+    for j, point in enumerate(points):
+        dj, gj = d[j], g[j]
+        swap = gj == 0 or (dj != 0 and rank1 < rank2)
+        history |= int(swap) << j
+        if swap:
+            rank1, rank2 = rank2, rank1 + 2
+        else:
+            rank2 += 2
+
+        for i in range(j + 1, len(data)):
+            old_d, old_g = d[i], g[i]
+            d[i] = mul(gj, old_d) ^ mul(dj, old_g)
+            g[i] = mul(points[i] ^ point, old_d if swap else old_g)
+
+    return d, g, history
+
+
+def screen_branch_history(degree, modulus, n, split):
+    """Exhaustively test branch bits plus final right pairs as a reversible state."""
+    input_bits = degree * n
+    output_bits = 2 * degree * (n - split) + n
+    if input_bits > 20 or output_bits > 27:
+        raise ValueError("branch-history screen is intentionally limited to small cases")
+
+    q = 1 << degree
+    mul = lambda a, b: gf_mul(a, b, modulus, degree)
+    points = list(range(n))
+    total = q**n
+    counts = bytearray(1 << output_bits)
+    unique, max_fiber = 0, 0
+
+    for input_index in range(total):
+        data = decode_tuple(input_index, degree, n)
+        d, g, history = sequential_state(data, points, mul)
+        key = history
+        for value in d[split:] + g[split:]:
+            key = (key << degree) | value
+        if counts[key] == 255:
+            raise OverflowError("fiber count exceeds the byte counter")
+        counts[key] += 1
+        if counts[key] == 1:
+            unique += 1
+        max_fiber = max(max_fiber, counts[key])
+
+    return {
+        "field": f"GF(2^{degree})",
+        "n": n,
+        "split": f"{split}+{n - split}",
+        "domain_size": total,
+        "distinct_history_and_right_states": unique,
+        "max_preimage_with_history": max_fiber,
+        "extra_side_information_bits": ceil(log2(max_fiber)),
+    }
+
+
 def main():
     verify_70_symbol_splits()
     cases = [
@@ -213,6 +273,8 @@ def main():
     ]
     for case in cases:
         print(screen(*case))
+    for case in [(3, 0b1011, 6, 3), (3, 0b1011, 6, 4)]:
+        print(screen_branch_history(*case))
 
 
 if __name__ == "__main__":

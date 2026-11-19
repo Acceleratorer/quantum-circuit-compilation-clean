@@ -158,6 +158,13 @@ history in the unused input slots or scratch. The 38+32 root split leaves six
 field slots (72 bits) in the 840-bit bank, plus 50 scratch qubits, for that
 history. No encoding or complete liveness schedule has been shown.
 
+A follow-up in `exp-049` recorded all sequential branch decisions as well as
+the final right-block state. Exhaustive GF(8), six-symbol cases still had
+largest preimages 21 (3+3) and 63 (4+2), requiring 5 and 6 additional bits.
+Thus one history bit per update is not a complete encoding at these sizes;
+this does not give a 70-symbol lower bound or prove that 122 bits are
+insufficient.
+
 ## 2026-11-19 public handoff screen — Hengck23
 
 The staged notebook `kaggle/staging/hengck23-dqi-kmb-2026-11-19/dqi-kmb-at-59-56854.ipynb`

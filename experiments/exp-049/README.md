@@ -6,7 +6,7 @@ tests: exhaustive small-field enumeration in fma_state_compression.py
 direction: D-004
 status: feasibility_screen
 date: 2026-11-19
-result: the updated right block alone is non-injective; a reversible split must preserve side information
+result: right-block state plus one branch bit per symbol is still non-injective in small exhaustive cases
 ---
 
 # FMA split-state information screen
@@ -41,6 +41,22 @@ of bits needed to distinguish the largest fiber when the right state is fixed.
 The map is therefore not reversible if the original input and all side
 information are discarded.
 
+## Branch-history variant
+
+The follow-up screen also records one branch bit for every step of the
+sequential modular update, together with the final right-block `(d,g)` state.
+This still does not make the map injective in the exhaustive GF(8), six-symbol
+cases:
+
+| Split | Distinct combined states | Largest preimage | Extra bits beyond branch history |
+|---:|---:|---:|---:|
+| 3+3 | 212,206 | 21 | 5 |
+| 4+2 | 33,930 | 63 | 6 |
+
+So one stored branch bit per symbol is not a complete reversible encoding even
+for these small cases. These results do not establish the side-information
+bound at 70 symbols.
+
 ## Decision
 
 This closes only the shortcut that keeps the right pairs and erases everything
@@ -52,7 +68,9 @@ field results do not bound the 70-symbol maximum preimage. No full circuit,
 For the count-minimizing 70-symbol split `38+32`, the 64 right-pair symbols
 occupy 768 of the 840 syndrome-bank bits, leaving six field slots (72 bits)
 plus the 50-qubit scratch budget for reversible history. Whether that capacity
-is enough for the actual FMA transform is still unknown.
+is enough for the actual FMA transform is still unknown. The branch-history
+screen above shows that storing one bit per sequential update is insufficient
+by itself; an upper bound for the remaining history at 70 symbols is needed.
 
 ## Reproduce
 
