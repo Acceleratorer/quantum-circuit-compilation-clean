@@ -267,13 +267,21 @@ coefficient across that division's quotient terms.
 
 The total is `42 * (FMA products + reconstruction products) + 111 *
 reconstruction inverses + 45,045`. The two high-weight samples give the same
-counts except at 16+54, where the table keeps the larger estimate. A separate
-1,024-shot screen at e=31 and e=35 found a common-zero correction in 2 shots;
-the representative paths in the table need none. This is a sample-path
-screening estimate, not a reversible circuit or a bound: it omits branch/
-control gates, phase correction, and a ≤50-qubit scratch schedule. The 4+66
-split is the best tested split, with 9,788T of headroom before those omitted
-costs.
+counts except at 16+54, where the table keeps the larger estimate.
+
+A follow-up 2,048-shot screen (`seed=0x4A66F0`) used the verifier's
+`sample_shots()` with `optimal_dqi_weights() ** 2`. Its error-weight mean was
+31.0566 and median 31. The selected low row had degrees `(w,n,gcd)=(2,1,0)`
+in 2,045 shots and `(2,1,1)` in three; those three paths each had one common
+zero and one correction sample. Dynamic taint counted 71 reconstruction
+products and 8 inversions in 2,044 shots, 64 products and 8 inversions in one,
+and 51 products and 8 inversions in the three correction shots. With the
+4+66 FMA estimate fixed at 4,720 products, the largest sampled total was
+247,155T; no sampled path exceeded 256,943T and reconstruction had zero
+failures. These are sample-path estimates, not a reversible circuit or an
+input-domain bound. Branch/control gates, phase correction, cleanup, and a
+≤50-qubit scratch schedule remain unaccounted for; the 4+66 split's 9,788T
+margin is not yet a gate pass.
 
 This is a classical reconstruction and a persistent-state count. It does not
 show that extended Euclid and the correction solve can be computed reversibly
