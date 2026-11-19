@@ -165,6 +165,13 @@ Thus one history bit per update is not a complete encoding at these sizes;
 this does not give a 70-symbol lower bound or prove that 122 bits are
 insufficient.
 
+For the 70-symbol root state, 64 right-pair field words plus 70 branch bits
+occupy 838 qubits. At `Q=890`, that leaves an absolute 52-qubit ceiling for
+additional collision labels and any overlapping scratch. A viable label must
+be computed reversibly, and its live width must be reduced further wherever
+scan or phase-extraction scratch overlaps. The small-field fibers do not prove
+that a label within this budget exists.
+
 ## 2026-11-19 public handoff screen — Hengck23
 
 The staged notebook `kaggle/staging/hengck23-dqi-kmb-2026-11-19/dqi-kmb-at-59-56854.ipynb`

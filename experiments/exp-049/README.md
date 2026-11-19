@@ -160,6 +160,11 @@ plus the 50-qubit scratch budget for reversible history. Whether that capacity
 is enough for the exact FMA transform is still unknown. The branch-history
 screen above shows that storing one bit per sequential update is insufficient
 by itself; an upper bound for the remaining history at 70 symbols is needed.
+If all 70 branch bits are retained, the right-pair state plus branch history
+uses 838 qubits, leaving an absolute 52-qubit ceiling for additional collision
+labels and any overlapping scratch under `Q=890`. The label must be computed
+reversibly; the small-field fiber counts do not establish that a ≤52-bit label
+exists for 70 symbols.
 
 ## Reproduce
 
