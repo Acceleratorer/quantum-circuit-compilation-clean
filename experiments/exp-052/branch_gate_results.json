@@ -2,6 +2,7 @@
   "experiment": "exp-052-fma-branch-gate",
   "field_bits": 12,
   "rank_bits_each": 8,
+  "leaf_matrix_selector_qubits": 1,
   "compiled_qubits_for_one_step": 73,
   "toffoli_like_gates_for_one_step": 95,
   "branch_steps": 70,
@@ -12,7 +13,10 @@
     "rank_comparator_pairs": 65536,
     "rank_step_cases": 131072,
     "increment_by_two_inputs": 256,
-    "branch_predicate_rank_cases": 262144
+    "branch_predicate_rank_cases": 262144,
+    "compiled_kernel_truth_table_cases": 262144,
+    "compiled_kernel_clean_scratch_qubits": 32,
+    "compiled_kernel_phase_flips": 0
   },
-  "scope": "One branch predicate, rank update, and one retained output tag only. Assumes d/g are already live in the 840-qubit payload and the branch is encoded into the base matrix tag. Excludes the FMA tree, generation of d/g, multi-step history cleanup, and all other omitted costs."
+  "scope": "One branch predicate, rank update, and one sparse leaf-matrix selector only. Assumes d/g are already live in the 840-qubit payload and the selector is retained as the leaf matrix output. Excludes the FMA tree, generation of d/g, selector liveness across recursive composition, and all other omitted costs."
 }

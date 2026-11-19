@@ -1,7 +1,7 @@
-"""Compile and count one reversible FMA branch/rank base case.
+"""Compile and count one reversible FMA branch/rank leaf.
 
-The branch bit is retained as one output tag, standing in for its encoding in
-the base-case matrix. This does not count the full FMA tree or history cleanup.
+The retained bit is a sparse leaf-matrix column selector. Recursive composition
+and selector cleanup are outside this local count.
 """
 
 from __future__ import annotations
@@ -9,6 +9,7 @@ from __future__ import annotations
 import json
 
 import kickmix as km
+import numpy as np
 
 
 FIELD_BITS = 12
@@ -160,7 +161,79 @@ def check_small_logic():
                     )
 
 
-def compile_one_step():
+def bit_columns(values, width):
+    return np.stack(
+        [((values >> index) & 1).astype(np.bool_) for index in range(width)]
+    )
+
+
+def check_compiled_kernel():
+    circuit, regs = build_one_step()
+    pairs = np.arange(1 << (2 * RANK_BITS), dtype=np.uint32)
+    rank1 = np.tile(pairs >> RANK_BITS, 4)
+    rank2 = np.tile(pairs & ((1 << RANK_BITS) - 1), 4)
+    zero_class = np.repeat(np.arange(4, dtype=np.uint8), len(pairs))
+    d_nonzero = (zero_class >> 1).astype(np.uint32)
+    g_nonzero = (zero_class & 1).astype(np.uint32)
+    branch = (g_nonzero == 0) | ((d_nonzero != 0) & (rank1 < rank2))
+    expected_rank1 = np.where(branch, rank2, rank1)
+    expected_rank2 = np.where(
+        branch,
+        (rank1 + 2) & ((1 << RANK_BITS) - 1),
+        (rank2 + 2) & ((1 << RANK_BITS) - 1),
+    )
+
+    sim = km.Simulator(batch_size=len(rank1), debug_print=False, seed=0)
+    sim.use_same_registers_as(circuit)
+    d_bits = bit_columns(d_nonzero, FIELD_BITS)
+    g_bits = bit_columns(g_nonzero, FIELD_BITS)
+    rank1_bits = bit_columns(rank1, RANK_BITS)
+    rank2_bits = bit_columns(rank2, RANK_BITS)
+    sim.write_across_shots(regs["d"], d_bits)
+    sim.write_across_shots(regs["g"], g_bits)
+    sim.write_across_shots(regs["rank1"], rank1_bits)
+    sim.write_across_shots(regs["rank2"], rank2_bits)
+    sim.do(circuit)
+
+    assert np.array_equal(sim.read_across_shots(regs["d"]), d_bits)
+    assert np.array_equal(sim.read_across_shots(regs["g"]), g_bits)
+    assert np.array_equal(
+        sim.read_across_shots(regs["rank1"]),
+        bit_columns(expected_rank1, RANK_BITS),
+    )
+    assert np.array_equal(
+        sim.read_across_shots(regs["rank2"]),
+        bit_columns(expected_rank2, RANK_BITS),
+    )
+    assert np.array_equal(
+        sim.read_across_shots(regs["leaf_selector"])[0], branch
+    )
+    assert not np.any(sim.read_phase_flipped_across_shots())
+    output_qubits = (
+        list(regs["d"])
+        + list(regs["g"])
+        + list(regs["rank1"])
+        + list(regs["rank2"])
+        + list(regs["leaf_selector"])
+    )
+    outputs = set(output_qubits)
+    scratch = [
+        km.q(index)
+        for index in range(circuit.num_qubits)
+        if km.q(index) not in outputs
+    ]
+    if scratch:
+        assert not np.any(sim.read_across_shots(km.array(scratch)))
+    return {
+        "rank_pairs_per_zero_class": len(pairs),
+        "pivot_zero_classes": 4,
+        "truth_table_cases": len(rank1),
+        "clean_scratch_qubits": len(scratch),
+        "phase_flips": 0,
+    }
+
+
+def build_one_step():
     b = km.CircuitBuilder()
     d = b.alloc_qubits(FIELD_BITS)
     g = b.alloc_qubits(FIELD_BITS)
@@ -194,34 +267,54 @@ def compile_one_step():
 
     controlled_rank_update(b, rank1, rank2, branch)
 
-    # Model the branch being encoded into the base-case matrix with a CNOT tag.
-    tag = b.alloc_qubits(1)[0]
-    b.cx(branch, tag)
-    b.cx(tag, branch)
+    # Algorithm 6's leaf matrix puts the same fixed nonzero polynomial in one
+    # lower-row column or the other. The selector compactly represents that
+    # sparse row; the point-dependent polynomial itself is a fixed template.
+    selector_register = b.alloc_qubits(1)
+    selector = selector_register[0]
+    b.cx(branch, selector)
+    b.cx(selector, branch)
     b.free(branch)
 
-    circuit = b.finish_circuit()
+    return b.finish_circuit(), {
+        "d": d,
+        "g": g,
+        "rank1": rank1,
+        "rank2": rank2,
+        "leaf_selector": selector_register,
+    }
+
+
+def compile_one_step():
+    circuit, _ = build_one_step()
     stats = circuit.operation_statistics()
     return {
         "field_bits": FIELD_BITS,
         "rank_bits_each": RANK_BITS,
         "input_pair_and_ranks_qubits": 2 * FIELD_BITS + 2 * RANK_BITS,
-        "branch_output_tag_qubits": 1,
+        "leaf_matrix_selector_qubits": 1,
         "compiled_qubits": circuit.num_qubits,
         "toffoli_like_gates": stats.num_toffoli_like,
         "toffolis_for_70_branch_steps": POINTS * stats.num_toffoli_like,
         "margin_left_from_9788T": REMAINING_TOFFOLIS
         - POINTS * stats.num_toffoli_like,
+        "projected_total_qubits_if_pivot_pair_is_inside_840q_payload": (
+            840 + circuit.num_qubits - 2 * FIELD_BITS
+        ),
         "scope": (
-            "One branch predicate, rank update, and one output tag only. "
+            "One branch predicate, rank update, and one sparse leaf-matrix "
+            "selector only. "
             "Assumes d/g are already live in the 840-qubit payload and the "
-            "branch is encoded into the base matrix tag. Excludes the FMA "
-            "tree, generation of d/g, multi-step history cleanup, and all "
-            "other omitted costs."
+            "selector is retained as the leaf matrix output. Excludes the "
+            "FMA tree, generation of d/g, selector liveness across recursive "
+            "composition, and all other omitted costs."
         ),
     }
 
 
 if __name__ == "__main__":
     check_small_logic()
-    print(json.dumps(compile_one_step(), indent=2, sort_keys=True))
+    compiled_checks = check_compiled_kernel()
+    result = compile_one_step()
+    result["compiled_kernel_checks"] = compiled_checks
+    print(json.dumps(result, indent=2, sort_keys=True))

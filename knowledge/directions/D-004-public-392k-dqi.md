@@ -381,17 +381,20 @@ out a magnitude-dependent oracle derived directly from the compact payload,
 but that is the only remaining FMA branch-oracle path. Keep it open only with a
 complete <=50-qubit and Toffoli/phase schedule that fits the remaining 9,788T.
 
-`exp-052/fma_branch_gate.py` compiles one base-case branch predicate and
-rank update to 95 Toffoli-like gates, including a retained output tag. Repeating
-that cell for all 70 points costs 6,650T and leaves 3,138T of the 9,788T
-remainder. Its local peak is 73 qubits including the pivot pair and ranks; if
-the pair already lives inside the 840-qubit payload, the projected total is
-`Q=889`. This is an optimistic local ledger: it assumes the branch tag is
-already represented in the base-matrix output and does not include pivot
-generation, FMA-tree composition, or multi-step history cleanup. The local
-predicate is not the blocker by itself; the unresolved gate is a complete
-compact-state/history schedule within the remaining 3,138T and 50 scratch
-qubits.
+`exp-052/fma_branch_gate.py` compiles one base-case branch predicate and rank
+update to 95 Toffoli-like gates, with a one-bit selector for the sparse
+lower-row column of the leaf matrix. For fixed point polynomial `L`, the
+selector represents `[L, 0]` or `[0, L]`; `d` and `g` supply the top row.
+Repeating that local cell for all 70 leaves costs 6,650T and leaves 3,138T of
+the 9,788T remainder. Its local peak is 73 qubits including the pivot pair
+and ranks; projecting the pair into the existing 840-qubit payload gives
+`Q=889`. This remains an optimistic local ledger: it excludes pivot
+generation, FMA-tree composition, and selector liveness during recursive
+composition. Kickmix simulated all 262,144 rank/zero-class inputs: output
+ranks and selector matched the reference, 32 scratch qubits returned to zero,
+and no phase flips occurred. The unresolved gate is a complete
+compact-state/liveness and phase schedule within the remaining 3,138T and 50
+scratch qubits.
 
 ## FMA leaf branch encoding
 

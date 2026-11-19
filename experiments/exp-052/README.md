@@ -129,18 +129,23 @@ Run the screen with:
 ### One branch/rank gate kernel
 
 `fma_branch_gate.py` builds one reversible leaf operation in Kickmix: compute
-the branch predicate, update both 8-bit ranks, and retain one branch output
-tag. The compiled cell uses 95 Toffoli-like gates and 73 qubits including its
-24-bit pivot pair and ranks. Projecting the pair into the existing 840-qubit
-payload leaves 49 additional qubits (`Q=889`), assuming the branch tag is part
-of the base matrix output. Repeating the cell for 70 points costs 6,650T and
-leaves 3,138T of the 9,788T remainder for every other omitted operation.
+the branch predicate, update both 8-bit ranks, and retain a one-bit selector
+for the sparse lower row of the leaf matrix. The compiled cell uses 95
+Toffoli-like gates and 73 qubits including its 24-bit pivot pair and ranks.
+For a fixed point polynomial `L`, the selector represents either
+`[L, 0]` or `[0, L]` in the lower row; `d` and `g` supply the top row.
+Projecting the pivot pair into the existing 840-qubit payload gives `Q=889`.
+Repeating the local count for 70 leaves costs 6,650T and leaves 3,138T of the
+9,788T remainder for every omitted operation.
 
 This is only a local gate count. It does not generate the pivot pairs, build
-the FMA tree, show how all branch tags fit into the compact matrix, or clean
-multi-step history. Exact counts and assumptions are in
+the FMA tree, or prove selector liveness through recursive composition. Exact
+counts and assumptions are in
 [`branch_gate_results.json`](branch_gate_results.json). The script checks the
-8-bit comparator and rank update logic exhaustively over their small domains.
+compiled cell on all 65,536 rank pairs in each of the four `d/g` zero classes
+(262,144 shots total); the selector/ranks match the reference, all 32 scratch
+qubits return to zero, and no phase flips occur. This verifies the leaf kernel,
+not its recursive composition or the data-pair matrix update.
 
 ## Run
 

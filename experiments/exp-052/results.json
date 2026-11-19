@@ -62,7 +62,11 @@
     "total_branch_and_rank_toffolis": 6650,
     "remaining_of_9788T": 3138,
     "projected_Q_if_pivot_pair_is_in_840q_payload": 889,
-    "scope": "One base-case branch predicate and rank update with a retained tag; excludes compact-state extraction, FMA-tree composition, and branch-history cleanup"
+    "leaf_matrix_selector_qubits": 1,
+    "compiled_kernel_truth_table_cases": 262144,
+    "compiled_kernel_clean_scratch_qubits": 32,
+    "compiled_kernel_phase_flips": 0,
+    "scope": "One base-case branch predicate and rank update with a one-bit selector for the sparse leaf-matrix lower-row column; excludes compact-state extraction, FMA-tree composition, and selector liveness through recursive composition"
   },
   "structural_invariant": "Before point j, the FMA basis determinant is a nonzero scalar multiple of the product of previous point factors. At a distinct next point its evaluated basis is invertible. Applying it to a pristine pair (d,1) cannot produce a zero pivot. The branch rule then selects a nonsingular sample-update matrix. A processed pivot pair is never changed by later steps, so the full pivot sequence remains available in the expanded classical state.",
   "scope": "Local sample-pair updates invert exactly when pivot and branch are available. The naive replay exceeds the width gate; local-window and support-only branch oracles fail their GF(8) screens. A single branch/rank gate fits the score remainder only under compact-state assumptions; full history cleanup and the FMA liveness schedule remain unproven."
