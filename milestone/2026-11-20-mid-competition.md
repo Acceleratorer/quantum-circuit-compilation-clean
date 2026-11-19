@@ -3,18 +3,16 @@
 ## Target
 
 Reach the top public leaderboard position with a source-complete portfolio.
-The latest persisted full leaderboard snapshot is at `2026-11-19T00:12:18Z`.
-A rank-only Kaggle CLI refresh at `2026-11-19T05:33Z` returned leader
-`Z³C¹oherence` at `31.74002` and own rank `854 / 3366`; refresh the target
-before every submission.
+The latest persisted full Kaggle CLI snapshot is at `2026-11-19T10:32:23Z`;
+refresh the target before every submission.
 
 ## Current frontier
 
 - Best own completed submission: `58479383`, public score `28.14028`.
 - Current public leader: `Z³C¹oherence`, `31.74002`; gap: `3.59974` points.
-- Own team rank is `854 / 3366` in the latest CLI check. The persisted full
-  snapshot at `2026-11-19T00:12:18Z` records rank `818 / 3355`; see [the
-  snapshot metadata](../evals/2026-11-19-live-leaderboard-001218.json) and CSV.
+- Own team rank is `893 / 3381` in the latest full snapshot. The previous
+  `2026-11-19T00:12:18Z` snapshot recorded rank `818 / 3355`; see [the latest
+  snapshot metadata](../evals/2026-11-19-live-leaderboard-103223Z.json) and CSV.
 - Current DQI cost: `347.904e9` at 890 qubits. If the other task costs stay
   fixed, DQI must reach about `242.451e9` (a `30.31%` reduction) to match the
   current leader's score. With zero failures in 102,400 shots (`R=1.1912605`),

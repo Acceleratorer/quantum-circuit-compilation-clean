@@ -1,0 +1,54 @@
+{
+  "captured_utc": "2026-11-19T10:32:23Z",
+  "competition": "google-verifiable-quantum-circuit-compilation",
+  "source": "Kaggle CLI full public leaderboard download",
+  "snapshot": {
+    "path": "kaggle/snapshots/2026-11-19/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-19T10-32-23.csv",
+    "csv_sha256": "b2f250ef8bcff3c24e12a1a5afee8bb6f5e0e7fec9ddd961c2c6517c95507590",
+    "download_archive_sha256": "648c7027af3c533e99e8b22402221971fd7ace9e1101f2374ada16f969c2a518",
+    "team_rows": 3381
+  },
+  "own_team": {
+    "team": "Accelra",
+    "team_id": 17349145,
+    "public_score": 28.14028,
+    "rank": 893,
+    "best_submission": 58479383
+  },
+  "leader": {
+    "rank": 1,
+    "team": "Z³C¹oherence",
+    "team_id": 17182480,
+    "score": 31.74002,
+    "last_submission_utc": "2026-11-19T02:11:42Z"
+  },
+  "score_gap": 3.599743161717015,
+  "score_equivalence_estimate": {
+    "method": "Scale the product of the three task costs by (own_local_geometric_mean / leader_public_score)^3.",
+    "own_local_geometric_mean": 28.140276838282986,
+    "required_product_cost_multiplier": 0.6968888381724738,
+    "single_task_cost_reduction_if_other_two_are_fixed": 0.3031111618275262,
+    "equal_reduction_in_each_of_two_tasks": 0.16520131877651256,
+    "current_costs": {
+      "invsqrt": 74560.90687312803,
+      "dqi": 347904227555.5428,
+      "dfthcsos": 294642305.5649051
+    },
+    "single_task_targets_if_other_costs_are_held_fixed": {
+      "dqi": 242450572936.47415
+    },
+    "dqi_target_at_Q890_zero_failure": {
+      "qubits": 890,
+      "repetition_factor": 1.1912605,
+      "maximum_mean_toffoli": 256942.80434858045
+    },
+    "status": "estimate, not a circuit result"
+  },
+  "latest_own_submission": {
+    "ref": 58479383,
+    "status": "COMPLETE",
+    "public_score": 28.14028,
+    "submitted_at_utc": "2026-11-17T18:57:30.857000"
+  },
+  "notes": "Read-only refresh. No circuit was built or submitted."
+}

@@ -7,16 +7,14 @@ Research log and reproducible tooling for the Google Quantum AI Verifiable Quant
 | Item | Value |
 |---|---:|
 | Best own Kaggle public score | **28.14028** |
-| Latest live rank | **854 / 3366** (team `Accelra`, CLI check at 2026-11-19 05:33 UTC) |
+| Latest live rank | **893 / 3381** (team `Accelra`, full CLI snapshot at 2026-11-19 10:32 UTC) |
 | Latest observed rank 1 public score | **31.74002** (team `Z³C¹oherence`) |
 | Score gap to rank 1 | **3.59974** |
 | Current candidate members | `563d0583` / `46446af1` / `0bd9c68f` |
 
-The latest persisted full leaderboard snapshot is from `2026-11-19T00:12:18Z`;
-its CSV and SHA-256 are recorded in
-[`evals/2026-11-19-live-leaderboard-001218.json`](evals/2026-11-19-live-leaderboard-001218.json).
-A later rank-only Kaggle CLI check at `2026-11-19T05:33Z` returned rank `854 / 3366`
-and leader score `31.74002`; no CSV was downloaded for that check.
+The latest persisted full leaderboard snapshot is from `2026-11-19T10:32:23Z`
+with 3,381 teams. Its CSV and SHA-256 are recorded in
+[`evals/2026-11-19-live-leaderboard-103223Z.json`](evals/2026-11-19-live-leaderboard-103223Z.json).
 
 The repository keeps generators, verifier evidence, provenance, and experiment
 notes. Large circuit binaries and Kaggle submission ZIPs stay outside Git and
@@ -38,8 +36,8 @@ with the previously scored DQI from
 [`Asterios's kernel`](https://www.kaggle.com/code/asteriospanoras/qcc-atlas-toolkit-in-notebook-chemistry-refit).
 Its local zero-error geometric mean is `28.1402768383`; Kaggle submission
 `58479383` scored `28.14028`. The latest retained
-`2026-11-19T00:12:18Z` snapshot ranks the team **818**, with a `3.47966`-point
-gap to rank 1.
+`2026-11-19T10:32:23Z` snapshot ranks the team **893**, with a `3.59974`-point
+gap to rank 1. The earlier `00:12:18Z` snapshot ranked it 818.
 The hash-verified 18-member archive has SHA-256
 `4ccce01059e6d5c769e80a8091cc08a8c05a38588fc10a3877524412dd9e95cf`.
 The downloaded archive was removed from local staging; its hash, member hashes,
@@ -72,12 +70,13 @@ Bori's kernel was not selected: its own audit leaves weight-16/17
 counterexamples open.
 
 With the submitted inverse and chemistry held fixed, matching the current
-leader's `31.61994` requires DQI cost near `245.223e9`, a `29.51%` reduction
-from `347.904e9`. This is an estimate from the geometric-mean score formula,
-not an achieved result. The same score gap could be closed by reducing each
-of any two task costs by about `16.04%`; per-task estimates are in the
-leaderboard evaluation record. The remaining high-value work is a reproducible
-candidate that clears its task's exact verifier and resource gates.
+leader's `31.74002` requires DQI cost near `242.451e9`, a `30.31%` reduction
+from `347.904e9`. At `Q=890` and `R=1.1912605`, this means mean `T <= 256,943`.
+This is a score-equivalence estimate, not a measured leader cost. The same gap
+could be closed by reducing each of any two task costs by about `16.52%`; see
+the [latest leaderboard evaluation](evals/2026-11-19-live-leaderboard-103223Z.json).
+The remaining high-value work is a reproducible candidate that clears its
+task's exact verifier and resource gates.
 
 Rebuild the local archive with:
 
