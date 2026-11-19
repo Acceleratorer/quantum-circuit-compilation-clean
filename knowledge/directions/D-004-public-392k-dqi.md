@@ -264,3 +264,21 @@ route; do not build it. The distribution was computed from the verifier's
 Source: Jiang et al., [Error Correction Decoding Algorithms of RS Codes Based
 on An Earlier Termination Algorithm](https://arxiv.org/abs/2407.19484), Theorem
 4 and Table I. This screen does not rule out other key-equation algorithms.
+
+## 2026-11-19 FMA complementary-row screen
+
+`experiments/exp-049/fma_state_compression.py` now reconstructs the
+complementary modular-basis row from a normalized low-rank row. Extended
+Euclid supplies a determinant-`P` solution; a polynomial correction enforces
+the complementary rank and the key equation at common-zero points. Exhaustive
+GF(4), four-point checking passed all 256 inputs. Deterministic random checks
+passed 256 GF(8), eight-point inputs and 256 GF(2^12), 38-point inputs.
+
+For verifier-form syndromes at weights 1, 31, and 35, the 38-point left block
+needed 2, 38, and 38 normalized field words, respectively, plus 32 right-side
+input words and no common-zero samples. The largest sampled states occupy 840
+qubits and leave 50 under `Q=890`. This counts persistent information only;
+the classical correction solve has no reversible liveness or Toffoli ledger.
+The three error weights are samples, not a proof over the verifier's complete
+input domain. Keep FMA open only for a reversible ≤50-qubit implementation
+whose full score gates are measured; no circuit or submission exists yet.

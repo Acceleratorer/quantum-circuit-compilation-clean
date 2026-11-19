@@ -124,9 +124,13 @@ def modular_basis(data, points, mul, g_values=None):
 
 
 def row_rank(basis, row):
-    deg_w = len(basis[row][0]) - 1
-    deg_n = len(basis[row][1]) - 1
-    return max(2 * deg_w, 1 + 2 * deg_n)
+    rank_terms = []
+    w, n = basis[row]
+    if w != [0]:
+        rank_terms.append(2 * (len(w) - 1))
+    if n != [0]:
+        rank_terms.append(1 + 2 * (len(n) - 1))
+    return max(rank_terms, default=0)
 
 
 def verify_70_symbol_splits():
@@ -474,14 +478,212 @@ def _quotients(node_polynomial, points, mul):
         yield quotient
 
 
+@lru_cache(None)
 def gf_inv(value, modulus, degree):
     if value == 0:
         raise ZeroDivisionError("zero has no field inverse")
-    return next(
-        candidate
-        for candidate in range(1, 1 << degree)
-        if gf_mul(value, candidate, modulus, degree) == 1
+    result = 1
+    exponent = (1 << degree) - 2
+    while exponent:
+        if exponent & 1:
+            result = gf_mul(result, value, modulus, degree)
+        value = gf_mul(value, value, modulus, degree)
+        exponent >>= 1
+    return result
+
+
+def poly_divmod(numerator, denominator, mul, modulus, degree):
+    remainder = trim(list(numerator))
+    denominator = trim(list(denominator))
+    if denominator == [0]:
+        raise ZeroDivisionError("polynomial division by zero")
+    quotient = [0] * max(1, len(remainder) - len(denominator) + 1)
+    while remainder != [0] and len(remainder) >= len(denominator):
+        shift = len(remainder) - len(denominator)
+        factor = mul(remainder[-1], gf_inv(denominator[-1], modulus, degree))
+        quotient[shift] = factor
+        for index, coefficient in enumerate(denominator):
+            remainder[shift + index] ^= mul(factor, coefficient)
+        trim(remainder)
+    return trim(quotient), remainder
+
+
+def poly_xgcd(left, right, mul, modulus, degree):
+    old_r, r = trim(list(left)), trim(list(right))
+    old_s, s = [1], [0]
+    old_t, t = [0], [1]
+    while r != [0]:
+        quotient, remainder = poly_divmod(old_r, r, mul, modulus, degree)
+        old_r, r = r, remainder
+        old_s, s = s, poly_add(old_s, poly_mul(quotient, s, mul))
+        old_t, t = t, poly_add(old_t, poly_mul(quotient, t, mul))
+    if old_r == [0]:
+        raise ValueError("the stored basis row cannot be zero")
+    scale = gf_inv(old_r[-1], modulus, degree)
+    return (
+        trim([mul(value, scale) for value in old_r]),
+        trim([mul(value, scale) for value in old_s]),
+        trim([mul(value, scale) for value in old_t]),
     )
+
+
+def reconstruct_complementary_row(row, data, points, mul, modulus, degree):
+    """Recover a minimum-rank row from one normalized basis row and its samples.
+
+    The Euclidean identity gives a determinant-P solution. A correction is
+    interpolated at common-zero points, then polynomial remainders choose a
+    representative with the required complementary rank.
+    """
+    if len(data) != len(points):
+        raise ValueError("data and point counts must match")
+    w, n = (trim(list(poly)) for poly in row)
+    pivot = w[-1] if w != [0] else n[-1]
+    scale = gf_inv(pivot, modulus, degree)
+    w = trim([mul(value, scale) for value in w])
+    n = trim([mul(value, scale) for value in n])
+
+    gcd, bezout_w, bezout_n = poly_xgcd(w, n, mul, modulus, degree)
+    w_reduced, w_remainder = poly_divmod(w, gcd, mul, modulus, degree)
+    n_reduced, n_remainder = poly_divmod(n, gcd, mul, modulus, degree)
+    assert w_remainder == n_remainder == [0]
+
+    node_polynomial = [1]
+    for point in points:
+        node_polynomial = poly_mul(node_polynomial, [point, 1], mul)
+    quotient, remainder = poly_divmod(node_polynomial, gcd, mul, modulus, degree)
+    assert remainder == [0]
+    m0 = poly_mul(bezout_w, quotient, mul)
+    v0 = poly_mul(bezout_n, quotient, mul)
+
+    correction_points = []
+    correction_values = []
+    exceptional_samples = []
+    for index, (point, value) in enumerate(zip(points, data)):
+        if poly_eval(gcd, point, mul) != 0:
+            continue
+        denominator = mul(value, poly_eval(w_reduced, point, mul)) ^ poly_eval(
+            n_reduced, point, mul
+        )
+        rhs = mul(value, poly_eval(v0, point, mul)) ^ poly_eval(m0, point, mul)
+        if denominator:
+            correction = mul(rhs, gf_inv(denominator, modulus, degree))
+            exceptional_samples.append((index, value))
+        else:
+            assert rhs == 0
+            correction = 0
+        correction_points.append(point)
+        correction_values.append(correction)
+
+    correction = [0]
+    for index, point in enumerate(correction_points):
+        basis = [1]
+        denominator = 1
+        for other_index, other_point in enumerate(correction_points):
+            if index == other_index:
+                continue
+            basis = poly_mul(basis, [other_point, 1], mul)
+            denominator = mul(denominator, point ^ other_point)
+        scale = mul(
+            correction_values[index],
+            gf_inv(denominator, modulus, degree),
+        )
+        correction = poly_add(correction, poly_mul(basis, [scale], mul))
+
+    base_v = poly_add(v0, poly_mul(w_reduced, correction, mul))
+    base_m = poly_add(m0, poly_mul(n_reduced, correction, mul))
+    complementary_rank = 2 * len(points) + 1 - row_rank([[w, n]], 0)
+    max_v_degree = complementary_rank // 2
+    max_m_degree = (complementary_rank - 1) // 2
+
+    for divisor, base in ((w, base_v), (n, base_m)):
+        if divisor == [0]:
+            continue
+        quotient, _ = poly_divmod(base, divisor, mul, modulus, degree)
+        v = poly_add(base_v, poly_mul(w, quotient, mul))
+        m = poly_add(base_m, poly_mul(n, quotient, mul))
+        if len(v) - 1 <= max_v_degree and len(m) - 1 <= max_m_degree:
+            return (w, n), (v, m), exceptional_samples
+    raise ValueError("Euclidean reduction did not meet the complementary rank")
+
+
+def verify_complementary_row_reconstruction():
+    def check(degree, modulus, points, data):
+        mul = lambda a, b: gf_mul(a, b, modulus, degree)
+        basis = modular_basis(data, points, mul)
+        row = min(range(2), key=lambda index: row_rank(basis, index))
+        low, complement, exceptions = reconstruct_complementary_row(
+            basis[row], data, points, mul, modulus, degree
+        )
+
+        node = [1]
+        for point in points:
+            node = poly_mul(node, [point, 1], mul)
+        determinant = poly_add(
+            poly_mul(low[0], complement[1], mul),
+            poly_mul(low[1], complement[0], mul),
+        )
+        assert determinant == node
+        assert all(
+            mul(value, poly_eval(low[0], point, mul))
+            ^ poly_eval(low[1], point, mul)
+            == 0
+            and mul(value, poly_eval(complement[0], point, mul))
+            ^ poly_eval(complement[1], point, mul)
+            == 0
+            for value, point in zip(data, points)
+        )
+        assert row_rank([low], 0) + row_rank([complement], 0) == 2 * len(points) + 1
+        return len(low[0]) + len(low[1]) - 1, len(exceptions)
+
+    results = []
+    degree, modulus, points = 2, 0b111, list(range(4))
+    for encoded in range(1 << (degree * len(points))):
+        check(degree, modulus, points, decode_tuple(encoded, degree, len(points)))
+    results.append({"field": "GF(4)", "points": 4, "inputs": 256, "reconstruction": "PASS"})
+
+    for degree, modulus, n, count, seed in (
+        (3, 0b1011, 8, 256, 0xB),
+        (12, 0x1053, 38, 256, 0xC),
+    ):
+        rng = Random(seed)
+        points = list(range(n))
+        for _ in range(count):
+            data = [rng.randrange(1 << degree) for _ in points]
+            check(degree, modulus, points, data)
+        results.append(
+            {"field": f"GF(2^{degree})", "points": n, "inputs": count, "reconstruction": "PASS"}
+        )
+
+    degree, modulus = 12, 0x1053
+    mul = lambda a, b: gf_mul(a, b, modulus, degree)
+    points = list(range(70))
+    rng = Random(0xD00470)
+    for weight in (1, 31, 35):
+        betas = rng.sample(range(1, 1 << degree), weight)
+        values = [rng.randrange(1, 1 << degree) for _ in betas]
+        syndrome = [0] * len(points)
+        for beta, error_value in zip(betas, values):
+            power = beta
+            for index in range(len(points)):
+                syndrome[index] ^= mul(error_value, power)
+                power = mul(power, beta)
+        data = syndrome_to_fma_samples(syndrome, points, mul)[:38]
+        row_words, exceptions = check(degree, modulus, points[:38], data)
+        persistent_words = row_words + exceptions + 32
+        results.append(
+            {
+                "field": "GF(2^12)",
+                "errors": weight,
+                "split": "38+32",
+                "normalized_left_row_words": row_words,
+                "exception_samples": exceptions,
+                "right_input_words": 32,
+                "persistent_qubits": 12 * persistent_words,
+                "remaining_under_Q890": 890 - 12 * persistent_words,
+                "scope": "state count only; excludes reversible scratch and Toffolis",
+            }
+        )
+    return results
 
 
 def screen_valid_error_domain(degree, modulus, max_errors, retained_left_symbols=0):
@@ -768,6 +970,8 @@ def screen_branch_history_vectorized(
 def main():
     verify_70_symbol_splits()
     for result in verify_70_valid_error_patterns():
+        print(result)
+    for result in verify_complementary_row_reconstruction():
         print(result)
     print(estimate_70_fma_variable_products())
     print(estimate_minimum_70_fma_products())

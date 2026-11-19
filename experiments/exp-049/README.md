@@ -6,7 +6,7 @@ tests: exhaustive small-field enumeration in fma_state_compression.py
 direction: D-004
 status: feasibility_screen
 date: 2026-11-19
-result: exact syndrome-to-FMA samples recover all screened locators, but the split state still collides
+result: complementary FMA rows can be reconstructed classically from the normalized low-rank row and common-zero samples; reversible cost remains unproven
 ---
 
 # FMA split-state information screen
@@ -204,14 +204,44 @@ label bits. This is specific to GF(8) and eight points; it does not bound the
   "import sys; sys.path.insert(0, 'experiments/exp-049'); import fma_state_compression as f; print(f.screen_valid_error_domain(3, 0b1011, 4, 3))"
 ```
 
+## Complementary row reconstruction
+
+Given a normalized low-rank row `(W,N)`, let `G=gcd(W,N)`, `A=W/G`,
+`B=N/G`, and `P(x)=product_i(x+point_i)`. Extended Euclid gives
+`U*A+V*B=1`; therefore `(V*(P/G), U*(P/G))` is a complementary row with
+determinant `P`. The remaining freedom is `(V*P/G + A*t, U*P/G + B*t)`.
+The experiment interpolates `t` at common zeros, then uses polynomial
+remainders to choose a representative with the required complementary rank.
+Those are the only original left-side `d_i` values needed by this
+reconstruction. One leading coefficient of the stored row is fixed to one and
+need not be stored.
+
+`verify_complementary_row_reconstruction()` checks determinant, key-equation
+constraints, and the complementary-rank sum for every GF(4), four-point input,
+256 deterministic GF(8), eight-point inputs, and 256 deterministic GF(2^12),
+38-point inputs. It also checks verifier-form syndromes at weights 1, 31, and 35
+for the 38-point left block of the `38+32` split:
+
+| Error weight | Normalized left-row words | Exception samples | Right input words | Persistent qubits | Remaining under Q=890 |
+|---:|---:|---:|---:|---:|---:|
+| 1 | 2 | 0 | 32 | 408 | 482 |
+| 31 | 38 | 0 | 32 | 840 | 50 |
+| 35 | 38 | 0 | 32 | 840 | 50 |
+
+This is a classical reconstruction and a persistent-state count. It does not
+show that extended Euclid and the correction solve can be computed reversibly
+within the remaining 50 qubits or the Toffoli budget. The three verifier-form
+weights are samples, not a bound over all 70-symbol inputs; no quantum circuit
+or submission has been produced.
+
 ## Decision
 
-The syndrome-to-FMA map is now exact, but this closes only the shortcut that
-keeps the right pairs and branch history while erasing everything else. A
-reversible schedule could retain more history in the unused input slots and 50
-scratch qubits. The small-field valid-domain fibers do not bound the
-70-symbol maximum preimage. No complete circuit, 70-symbol liveness proof,
-verifier run, or submission was produced.
+The syndrome-to-FMA map and the complementary-row reconstruction are now
+validated classically on the cases above. The 38+32 samples show a compact
+representation for those inputs, but they do not establish an injective map
+over the full verifier domain or a reversible schedule. The small-field
+valid-domain fibers do not bound the 70-symbol maximum preimage. No complete
+circuit, 70-symbol liveness proof, verifier run, or submission was produced.
 
 For the count-minimizing 70-symbol split `38+32`, the 64 right-pair symbols
 occupy 768 of the 840 syndrome-bank bits, leaving six field slots (72 bits)
