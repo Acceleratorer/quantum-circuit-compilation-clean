@@ -149,6 +149,15 @@ for arbitrary redundancy but does not give this split schedule, and no
 ≤50-qubit liveness schedule or circuit has been shown. Do not treat it as a
 candidate until both are verified.
 
+`exp-049` tested whether the 38+32-style update can simply discard the
+original block after producing the right `(d,g)` pairs. It cannot: exhaustive
+GF(8), 4+4 enumeration found a maximum preimage of 65, requiring at least 7
+side-information bits for that small case. This does not prove a 70-symbol
+lower bound; it means a viable schedule must explicitly carry compressed
+history in the unused input slots or scratch. The 38+32 root split leaves six
+field slots (72 bits) in the 840-bit bank, plus 50 scratch qubits, for that
+history. No encoding or complete liveness schedule has been shown.
+
 ## 2026-11-19 public handoff screen — Hengck23
 
 The staged notebook `kaggle/staging/hengck23-dqi-kmb-2026-11-19/dqi-kmb-at-59-56854.ipynb`
