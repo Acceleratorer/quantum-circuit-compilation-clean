@@ -71,6 +71,35 @@ def compare_borrow_chain(b, left, right, borrows, eq, undo=False):
         b.x(left[0])
 
 
+def compare_to_constant(b, word, constant, borrows, undo=False):
+    """Compute the final borrow of ``word - constant`` into borrows[-1]."""
+    indices = reversed(range(len(word))) if undo else range(len(word))
+    for index in indices:
+        bit = (constant >> index) & 1
+        target = borrows[index]
+        if index == 0:
+            if bit:
+                if undo:
+                    b.cx(word[index], target)
+                    b.x(target)
+                else:
+                    b.x(target)
+                    b.cx(word[index], target)
+        elif bit:
+            if undo:
+                b.ccx(word[index], borrows[index - 1], target)
+                b.cx(word[index], target)
+                b.x(target)
+            else:
+                b.x(target)
+                b.cx(word[index], target)
+                b.ccx(word[index], borrows[index - 1], target)
+        else:
+            b.x(word[index])
+            b.ccx(word[index], borrows[index - 1], target)
+            b.x(word[index])
+
+
 def increment_two(b, word):
     """In-place add 2, using a high-to-low carry cleanup schedule."""
     carries = b.alloc_qubits(len(word) - 3)
@@ -233,7 +262,103 @@ def check_compiled_kernel():
     }
 
 
-def build_one_step():
+def check_constant_rank_steps():
+    total_cases = 0
+    total_toffolis = 0
+    max_qubits = 0
+    scratch_qubits = set()
+    step_costs = []
+
+    for step in range(POINTS):
+        circuit, regs = build_one_step(step)
+        rank1_values = np.arange(2 * step + 2, dtype=np.uint32)
+        rank1 = np.tile(rank1_values, 4)
+        rank2 = np.tile(2 * step + 1 - rank1_values, 4)
+        zero_class = np.repeat(np.arange(4, dtype=np.uint8), len(rank1_values))
+        d_nonzero = (zero_class >> 1).astype(np.uint32)
+        g_nonzero = (zero_class & 1).astype(np.uint32)
+        branch = (g_nonzero == 0) | ((d_nonzero != 0) & (rank1 <= step))
+        expected_rank1 = np.where(branch, rank2, rank1)
+        expected_rank2 = np.where(
+            branch,
+            (rank1 + 2) & ((1 << RANK_BITS) - 1),
+            (rank2 + 2) & ((1 << RANK_BITS) - 1),
+        )
+
+        sim = km.Simulator(batch_size=len(rank1), debug_print=False, seed=step)
+        sim.use_same_registers_as(circuit)
+        d_bits = bit_columns(d_nonzero, FIELD_BITS)
+        g_bits = bit_columns(g_nonzero, FIELD_BITS)
+        rank1_bits = bit_columns(rank1, RANK_BITS)
+        rank2_bits = bit_columns(rank2, RANK_BITS)
+        sim.write_across_shots(regs["d"], d_bits)
+        sim.write_across_shots(regs["g"], g_bits)
+        sim.write_across_shots(regs["rank1"], rank1_bits)
+        sim.write_across_shots(regs["rank2"], rank2_bits)
+        sim.do(circuit)
+
+        assert np.array_equal(sim.read_across_shots(regs["d"]), d_bits)
+        assert np.array_equal(sim.read_across_shots(regs["g"]), g_bits)
+        assert np.array_equal(
+            sim.read_across_shots(regs["rank1"]),
+            bit_columns(expected_rank1, RANK_BITS),
+        )
+        assert np.array_equal(
+            sim.read_across_shots(regs["rank2"]),
+            bit_columns(expected_rank2, RANK_BITS),
+        )
+        assert np.array_equal(
+            sim.read_across_shots(regs["leaf_selector"])[0], branch
+        )
+        assert not np.any(sim.read_phase_flipped_across_shots())
+
+        output_qubits = (
+            list(regs["d"])
+            + list(regs["g"])
+            + list(regs["rank1"])
+            + list(regs["rank2"])
+            + list(regs["leaf_selector"])
+        )
+        outputs = set(output_qubits)
+        scratch = [
+            km.q(index)
+            for index in range(circuit.num_qubits)
+            if km.q(index) not in outputs
+        ]
+        if scratch:
+            assert not np.any(sim.read_across_shots(km.array(scratch)))
+        scratch_qubits.add(len(scratch))
+
+        total_cases += len(rank1)
+        total_toffolis += circuit.operation_statistics().num_toffoli_like
+        max_qubits = max(max_qubits, circuit.num_qubits)
+        step_costs.append(circuit.operation_statistics().num_toffoli_like)
+
+    return {
+        "steps": POINTS,
+        "valid_rank_zero_class_cases": total_cases,
+        "total_toffoli_like_gates": total_toffolis,
+        "remaining_from_9788T_after_constant_rank_steps": (
+            REMAINING_TOFFOLIS - total_toffolis
+        ),
+        "toffolis_saved_vs_dynamic_two_register": (
+            POINTS * compile_one_step()["toffoli_like_gates"] - total_toffolis
+        ),
+        "max_qubits_for_one_step": max_qubits,
+        "projected_total_qubits_if_pivot_pair_is_inside_840q_payload": (
+            840 + max_qubits - 2 * FIELD_BITS
+        ),
+        "scratch_qubits_per_step": sorted(scratch_qubits),
+        "step_toffoli_counts": step_costs,
+        "phase_flips": 0,
+        "scope": (
+            "All valid rank pairs r1+r2=2j+1 and all four d/g zero classes "
+            "for j=0..69; the rank-sum invariant reduces r1<r2 to r1<=j."
+        ),
+    }
+
+
+def build_one_step(step=None):
     b = km.CircuitBuilder()
     d = b.alloc_qubits(FIELD_BITS)
     g = b.alloc_qubits(FIELD_BITS)
@@ -244,8 +369,12 @@ def build_one_step():
     d_zero = zero_tree(b, d)
     g_zero = zero_tree(b, g)
     borrows = b.alloc_qubits(RANK_BITS)
-    eq = b.alloc_qubits(1)[0]
-    compare_borrow_chain(b, rank1, rank2, borrows, eq)
+    eq = None
+    if step is None:
+        eq = b.alloc_qubits(1)[0]
+        compare_borrow_chain(b, rank1, rank2, borrows, eq)
+    else:
+        compare_to_constant(b, rank1, step + 1, borrows)
 
     temp = b.alloc_qubits(1)[0]
     b.x(d_zero[-1])
@@ -259,9 +388,12 @@ def build_one_step():
     b.x(d_zero[-1])
     b.free(temp)
 
-    compare_borrow_chain(b, rank1, rank2, borrows, eq, undo=True)
+    if step is None:
+        compare_borrow_chain(b, rank1, rank2, borrows, eq, undo=True)
+        b.free(eq)
+    else:
+        compare_to_constant(b, rank1, step + 1, borrows, undo=True)
     b.free(borrows)
-    b.free(eq)
     undo_zero_tree(b, g, g_zero)
     undo_zero_tree(b, d, d_zero)
 
@@ -316,5 +448,7 @@ if __name__ == "__main__":
     check_small_logic()
     compiled_checks = check_compiled_kernel()
     result = compile_one_step()
+    result["experiment"] = "exp-052-fma-branch-gate"
     result["compiled_kernel_checks"] = compiled_checks
+    result["constant_rank_invariant"] = check_constant_rank_steps()
     print(json.dumps(result, indent=2, sort_keys=True))

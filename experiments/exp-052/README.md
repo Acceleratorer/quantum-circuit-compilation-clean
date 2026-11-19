@@ -6,7 +6,11 @@ tests: exhaustive GF(4) tuples, exhaustive valid GF(8) errors, sampled GF(2^12) 
 direction: D-004
 status: local_transition_feasibility
 date: 2026-11-20
-result: sample updates invert exactly; expanded pivot replay fails the width gate; local-window and support-only branch oracles fail GF(8) screens; one branch/rank cell costs 95T
+result: >-
+  sample updates invert exactly; expanded replay exceeds the width gate;
+  local-window, support-only, and final-low-row-only history recovery fail
+  GF(8) screens; the general branch/rank cell costs 95T and its rank-invariant
+  specialization costs 79T per leaf
 ---
 
 # FMA sample-update reversibility screen
@@ -119,6 +123,12 @@ only branch oracle on this domain. It does not rule out a direct oracle that
 uses the compact payload, and gives no 70-point circuit or Toffoli bound. Exact
 counts are in [`locator_history_results.json`](locator_history_results.json).
 
+The same exhaustive pass also grouped cases by the normalized final low row of
+the composed basis. It found 99 rows; 8 occurred with multiple branch histories,
+with up to 5 histories for one row. This rejects recovery from that row alone,
+not an oracle that reads the complete compact payload. The witness and counts
+are in [`locator_history_results.json`](locator_history_results.json).
+
 Run the screen with:
 
 ```powershell
@@ -130,8 +140,9 @@ Run the screen with:
 
 `fma_branch_gate.py` builds one reversible leaf operation in Kickmix: compute
 the branch predicate, update both 8-bit ranks, and retain a one-bit selector
-for the sparse lower row of the leaf matrix. The compiled cell uses 95
-Toffoli-like gates and 73 qubits including its 24-bit pivot pair and ranks.
+for the sparse lower row of the leaf matrix. The general rank-comparison cell
+uses 95 Toffoli-like gates and 73 qubits including its 24-bit pivot pair and
+ranks.
 For a fixed point polynomial `L`, the selector represents either
 `[L, 0]` or `[0, L]` in the lower row; `d` and `g` supply the top row.
 Projecting the pivot pair into the existing 840-qubit payload gives `Q=889`.
@@ -146,6 +157,22 @@ compiled cell on all 65,536 rank pairs in each of the four `d/g` zero classes
 (262,144 shots total); the selector/ranks match the reference, all 32 scratch
 qubits return to zero, and no phase flips occur. This verifies the leaf kernel,
 not its recursive composition or the data-pair matrix update.
+
+### Rank-sum specialization
+
+At step `j`, the rank invariant is `r1+r2=2j+1`, so `r1<r2` is equivalent to
+`r1<=j`. Comparing `r1` to the public constant `j+1` specializes the branch
+gate to 79 Toffoli-like gates and 72 qubits per step. The exhaustive check
+covers all 19,880 valid rank/zero-class cases across `j=0..69`; the ranks and
+selector match, all 31 scratch qubits return to zero, and there are no phase
+flips. Across 70 steps this is 5,530T, saving 1,120T against the general cell
+and leaving 4,258T of the previous 9,788T margin. The projected total is
+`Q=888` if the 24-bit pivot pair is already part of the 840-qubit payload.
+
+This remains a local count. It excludes generating the pivot pairs, recursive
+FMA composition, selector liveness, and other omitted work; it does not prove
+the complete DQI circuit fits either score gate. Detailed counts are in
+[`branch_gate_results.json`](branch_gate_results.json).
 
 ## Run
 

@@ -24,6 +24,7 @@ def screen():
     mul = lambda a, b: fma.gf_mul(a, b, modulus, degree)
     report = []
     total_patterns = 0
+    row_histories = {}
 
     for weight in range(len(points) // 2 + 1):
         supports = 0
@@ -44,10 +45,19 @@ def screen():
                 g = [1] * len(points)
                 rank1, rank2 = 0, 1
                 history = 0
+                basis = [[[1], [0]], [[0], [1]]]
 
                 for step in range(len(points)):
                     pivot_d, pivot_g = d[step], g[step]
                     swap = pivot_g == 0 or (pivot_d != 0 and rank1 < rank2)
+                    x_minus_point = [points[step], 1]
+                    zero = [0]
+                    step_matrix = (
+                        [[[pivot_g], [pivot_d]], [x_minus_point, zero]]
+                        if swap
+                        else [[[pivot_g], [pivot_d]], [zero, x_minus_point]]
+                    )
+                    basis = fma.matrix_mul(step_matrix, basis, mul)
                     if swap:
                         rank1, rank2 = rank2, rank1 + 2
                         history |= 1 << step
@@ -60,6 +70,16 @@ def screen():
                         g[index] = mul(
                             points[index] ^ points[step], old_d if swap else old_g
                         )
+
+                low_index = min(range(2), key=lambda i: fma.row_rank(basis, i))
+                low = [fma.trim(list(poly)) for poly in basis[low_index]]
+                pivot = low[0][-1] if low[0] != [0] else low[1][-1]
+                scale = fma.gf_inv(pivot, modulus, degree)
+                low_row = tuple(
+                    tuple(fma.trim([mul(scale, value) for value in poly]))
+                    for poly in low
+                )
+                row_histories.setdefault(low_row, set()).add(history)
 
                 histories.add(history)
 
@@ -78,6 +98,14 @@ def screen():
         )
 
     assert total_patterns == 97_119
+    multi_history_rows = [
+        (row, histories)
+        for row, histories in row_histories.items()
+        if len(histories) > 1
+    ]
+    witness_row, witness_histories = max(
+        multi_history_rows, key=lambda item: len(item[1])
+    )
     return {
         "experiment": "exp-052-locator-history",
         "field": "GF(8)",
@@ -85,10 +113,23 @@ def screen():
         "valid_patterns": total_patterns,
         "result": "locator_support_alone_is_insufficient",
         "report": report,
+        "final_normalized_low_row": {
+            "unique_rows": len(row_histories),
+            "rows_with_multiple_branch_histories": len(multi_history_rows),
+            "max_histories_for_one_row": len(witness_histories),
+            "max_history_witness": {
+                "row": [list(poly) for poly in witness_row],
+                "histories": sorted(witness_histories),
+            },
+            "result": "the_final_low_row_alone_does_not_determine_branch_history",
+        },
         "scope": (
             "Exact for all GF(8), eight-point error patterns through weight 4. "
-            "This falsifies support-only branch history on this domain; it is "
-            "not a 70-point GF(2^12) circuit or Toffoli bound."
+            "Across all 97,119 cases, 99 normalized final low rows occurred; "
+            "eight were associated with multiple branch histories (up to "
+            "five). The final low row alone therefore does not recover the "
+            "history. This is not a 70-point GF(2^12) circuit or Toffoli "
+            "bound."
         ),
     }
 

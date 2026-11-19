@@ -1,40 +1,67 @@
 {
   "experiment": "exp-052-locator-history",
   "field": "GF(8)",
+  "final_normalized_low_row": {
+    "max_histories_for_one_row": 5,
+    "max_history_witness": {
+      "histories": [
+        34,
+        90,
+        170,
+        210,
+        250
+      ],
+      "row": [
+        [
+          5,
+          7,
+          7,
+          4,
+          1
+        ],
+        [
+          0
+        ]
+      ]
+    },
+    "result": "the_final_low_row_alone_does_not_determine_branch_history",
+    "rows_with_multiple_branch_histories": 8,
+    "unique_rows": 99
+  },
   "points": 8,
-  "valid_patterns": 97119,
-  "result": "locator_support_alone_is_insufficient",
   "report": [
     {
-      "weight": 0,
+      "max_histories_for_one_support": 1,
       "supports": 1,
       "supports_with_multiple_branch_histories": 0,
-      "max_histories_for_one_support": 1
+      "weight": 0
     },
     {
-      "weight": 1,
+      "max_histories_for_one_support": 1,
       "supports": 7,
       "supports_with_multiple_branch_histories": 0,
-      "max_histories_for_one_support": 1
+      "weight": 1
     },
     {
-      "weight": 2,
+      "max_histories_for_one_support": 1,
       "supports": 21,
       "supports_with_multiple_branch_histories": 0,
-      "max_histories_for_one_support": 1
+      "weight": 2
     },
     {
-      "weight": 3,
+      "max_histories_for_one_support": 2,
       "supports": 35,
       "supports_with_multiple_branch_histories": 1,
-      "max_histories_for_one_support": 2
+      "weight": 3
     },
     {
-      "weight": 4,
+      "max_histories_for_one_support": 5,
       "supports": 35,
       "supports_with_multiple_branch_histories": 7,
-      "max_histories_for_one_support": 5
+      "weight": 4
     }
   ],
-  "scope": "Exact for all GF(8), eight-point error patterns through weight 4. This falsifies support-only branch history on this domain; it is not a 70-point GF(2^12) circuit or Toffoli bound."
+  "result": "locator_support_alone_is_insufficient",
+  "scope": "Exact for all GF(8), eight-point error patterns through weight 4. Across all 97,119 cases, 99 normalized final low rows occurred; eight were associated with multiple branch histories (up to five). The final low row alone therefore does not recover the history. This is not a 70-point GF(2^12) circuit or Toffoli bound.",
+  "valid_patterns": 97119
 }

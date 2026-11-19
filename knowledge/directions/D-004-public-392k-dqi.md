@@ -376,10 +376,11 @@ eight-point patterns through weight four by error-location support and
 enumerated every nonzero magnitude assignment. Branch histories vary with
 magnitudes: one of 35 weight-three supports has two histories, and seven of 35
 weight-four supports have multiple histories (up to five). Reject the
-support-only branch-oracle formulation. This small-domain result does not rule
-out a magnitude-dependent oracle derived directly from the compact payload,
-but that is the only remaining FMA branch-oracle path. Keep it open only with a
-complete <=50-qubit and Toffoli/phase schedule that fits the remaining 9,788T.
+support-only branch-oracle formulation. This small-domain result does not
+rule out a magnitude-dependent oracle derived directly from the complete
+compact payload. A separate grouping by normalized final low row also found
+collisions between branch histories, so that row alone is insufficient. Keep
+FMA open only with a complete <=50-qubit and Toffoli/phase schedule.
 
 `exp-052/fma_branch_gate.py` compiles one base-case branch predicate and rank
 update to 95 Toffoli-like gates, with a one-bit selector for the sparse
@@ -392,9 +393,9 @@ and ranks; projecting the pair into the existing 840-qubit payload gives
 generation, FMA-tree composition, and selector liveness during recursive
 composition. Kickmix simulated all 262,144 rank/zero-class inputs: output
 ranks and selector matched the reference, 32 scratch qubits returned to zero,
-and no phase flips occurred. The unresolved gate is a complete
-compact-state/liveness and phase schedule within the remaining 3,138T and 50
-scratch qubits.
+and no phase flips occurred. At that point the unresolved gate was a complete
+compact-state/liveness and phase schedule; the later rank-invariant refinement
+below increases the local remainder but does not supply that schedule.
 
 ## FMA leaf branch encoding
 
@@ -412,5 +413,26 @@ branch: over GF(8), pivot `(1,1)`, point difference `1`, ranks `(3,2)` with
 sample `(1,2)` on the no-swap branch and ranks `(2,3)` with sample `(2,1)` on
 the swap branch both produce sample `(3,2)` and ranks `(3,4)`. A promise-aware
 oracle may still exist, but generic measurement-based erasure is not justified
-by this update. The next gate is a compiled leaf that writes the actual matrix
-encoding, followed by a recursive liveness and phase ledger.
+by this update. `exp-052` now compiles a local branch/rank leaf that writes a
+one-bit selector for the sparse lower-row column. Recursive liveness and the
+phase ledger remain unproved.
+
+## 2026-11-20 FMA rank-invariant branch-gate refinement
+
+For step `j`, valid ranks satisfy `r1+r2=2j+1`, which makes the branch test
+`r1<r2` equivalent to `r1<=j`. The specialized constant comparator costs 79T
+and peaks at 72 qubits for one leaf. Across 70 steps it uses 5,530T, saves
+1,120T against the 95T general comparator, and leaves 4,258T of the prior
+9,788T remainder. The projected total is `Q=888` if the pivot pair is already
+inside the 840-qubit payload. The checker covered 19,880 valid rank/zero-class
+cases with clean scratch and no phase flips.
+
+This improves only the local branch/rank ledger. It does not generate pivots,
+compose the FMA tree, establish selector liveness, or prove the full circuit
+fits `Q<=890` and `T<=256,943`.
+
+The exhaustive GF(8) locator-history pass also found 99 normalized final low
+rows across 97,119 valid patterns; 8 rows occurred with multiple branch
+histories, up to five for one row. A normalized low row alone cannot supply the
+selector history. This closes that oracle variant but does not rule out an
+oracle using the full compact payload.
