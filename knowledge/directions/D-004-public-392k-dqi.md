@@ -539,15 +539,25 @@ they preserve row rank and pivot zero classes. Exhaustive GF(8), four-sample
 inputs and 48 seeded GF(2^12), 70-symbol DQI samples matched the reference
 branch history, row ranks, and normalized low row.
 
-The in-place pair update then uses one variable product: `d_i ^= r*g_i` in the
-no-swap case; in the swap case, `g_i ^= r*d_i`, scale `d_i` by the public
-`delta`, and swap the two words. The 70-symbol sequential count is 2,415 pair
-products plus 70 ratio products and 70 inversions. At 42T per product and
-111T per computed-and-erased inverse, the arithmetic is 112,140T. Adding the
-existing sampled reconstruction ledger, 45,045T scan, and 5,530T branch/rank
-cell projects 166,585T, leaving 90,358T under the saved gate.
+Canonicalizing the pivot and each data pair with branch-controlled swaps gives
+one shared update: swap `(d,g)` when the branch is swap, apply
+`d ^= r*g; g *= delta`, then swap back. The two pair swaps cost 24T per suffix
+update. The ratio is computed and uncomputed with two products per pivot. The
+existing in-place inverse uses 66T forward and 72T to restore the pivot; pivot
+orientation adds 24T. Thus the 70-symbol arithmetic ledger is 2,415 pair
+products, 140 ratio products, 70 inverse/restore pairs, 57,960T of pair swaps,
+and 1,680T of pivot swaps: 176,610T.
 
-This is a count lead only. The direct pair bank is 1,668 qubits before ratio
-workspace, so it exceeds `Q=890` by 778 qubits. The next gate is to integrate
-the normalized update into the compact 4+66 schedule and prove its full
-ratio, branch, and phase liveness; no circuit or submission exists.
+`exp-053` compiled this one-pair cell at `Q=888, T=312`, preserving 16 rank
+bits and a branch bit. Kickmix simulated 32 valid pivot cases across both
+branches; pivot values were restored, all 31 scratch qubits were clean, and no
+phase flips occurred. This cell does not build the 4+66 state schedule. Adding
+the existing sampled reconstruction ledger, 45,045T scan, and 5,530T
+branch/rank cell projects 231,055T, leaving 25,888T under the saved gate. The
+previous 166,585T projection omitted ratio cleanup and controlled swaps.
+
+The direct pair bank remains 1,668 qubits before ratio workspace, 778 above
+`Q=890`. The remaining gate is a complete 4+66 schedule that generates and
+consumes each pair from the compact payload and proves ratio, branch, rank,
+phase, and workspace liveness. The corrected count is still a projection; no
+full circuit or submission exists.

@@ -3,11 +3,13 @@
 from __future__ import annotations
 
 import json
+import importlib.util
 from itertools import product
 from pathlib import Path
 import sys
 from random import Random
 
+import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "experiments" / "exp-049"))
@@ -112,23 +114,162 @@ def screen_gf12_dqi_samples():
     return {"cases": cases, "per_error_weight": per_weight, "weights": [1, 31, 35]}
 
 
+def load_gate_arithmetic():
+    import kickmix as km
+
+    # Load the in-tree arithmetic helpers only; this does not build the decoder.
+    sys.modules.setdefault("circ", km)
+    path = ROOT / "src" / "dqi" / "pro_q2_897" / "exp" / "arithmetic" / "field.py"
+    spec = importlib.util.spec_from_file_location("dqi_fma_gate_arithmetic", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return km, module
+
+
+def bit_columns(values, width):
+    values = np.asarray(values, dtype=np.uint32)
+    return np.stack([((values >> bit) & 1).astype(np.bool_) for bit in range(width)])
+
+
+def build_normalized_pair_cell(delta):
+    km, ar = load_gate_arithmetic()
+    builder = km.CircuitBuilder()
+    payload = builder.alloc_qubits(840)
+    rank = builder.alloc_qubits(16)
+    branch_register = builder.alloc_qubits(1)
+    branch = branch_register[0]
+    ratio = builder.alloc_qubits(12)
+
+    pivot_d, pivot_g = payload[:12], payload[12:24]
+    pair_d, pair_g = payload[24:36], payload[36:48]
+
+    # Canonicalize either FMA branch to (d, g), compute d/g, then restore it.
+    builder.cswap(branch, pivot_d, pivot_g)
+    inverse_transcript = ar.inverse_inplace_forward(builder, pivot_g)
+    ar.mul_xor(builder, pivot_d, pivot_g, ratio)
+
+    # Both branches now use d ^= ratio*g; the controlled swaps select the
+    # matching input and output orientation.
+    builder.cswap(branch, pair_d, pair_g)
+    ar.mul_xor(builder, ratio, pair_g, pair_d)
+    builder.gf2_imul(delta, target=pair_g, field=ar.field(12))
+    builder.cswap(branch, pair_d, pair_g)
+
+    # The pivot is unchanged, so recompute its ratio to clear the workspace.
+    ar.mul_xor(builder, pivot_d, pivot_g, ratio)
+    builder.free(ratio)
+    ar.inverse_inplace_reverse(builder, pivot_g, inverse_transcript)
+    builder.cswap(branch, pivot_d, pivot_g)
+
+    circuit = builder.finish_circuit()
+    return km, ar, circuit, {
+        "payload": payload,
+        "rank": rank,
+        "branch": branch_register,
+        "pivot_d": pivot_d,
+        "pivot_g": pivot_g,
+        "pair_d": pair_d,
+        "pair_g": pair_g,
+    }
+
+
+def check_normalized_pair_cell():
+    delta = 17
+    km, _, circuit, regs = build_normalized_pair_cell(delta)
+    degree, modulus = 12, 0x1053
+    mul = lambda a, b: fma.gf_mul(a, b, modulus, degree)
+    rng = Random(0xF1A0C311)
+    cases = []
+    for branch in (False, True):
+        for _ in range(16):
+            pivot_d = rng.randrange(1 << degree)
+            pivot_g = rng.randrange(1, 1 << degree) if not branch else rng.randrange(1 << degree)
+            if branch and pivot_d == 0:
+                pivot_d = 1
+            pair_d = rng.randrange(1 << degree)
+            pair_g = rng.randrange(1 << degree)
+            cases.append((branch, pivot_d, pivot_g, pair_d, pair_g))
+
+    sim = km.Simulator(batch_size=len(cases), debug_print=False, seed=0)
+    sim.use_same_registers_as(circuit)
+    values = {
+        "pivot_d": [case[1] for case in cases],
+        "pivot_g": [case[2] for case in cases],
+        "pair_d": [case[3] for case in cases],
+        "pair_g": [case[4] for case in cases],
+    }
+    for name, symbols in values.items():
+        sim.write_across_shots(regs[name], bit_columns(symbols, degree))
+    branch_values = [int(case[0]) for case in cases]
+    sim.write_across_shots(regs["branch"], bit_columns(branch_values, 1))
+    sim.write_across_shots(regs["rank"], np.zeros((16, len(cases)), dtype=np.bool_))
+    sim.do(circuit)
+
+    expected_d, expected_g = [], []
+    for branch, pivot_d, pivot_g, pair_d, pair_g in cases:
+        numerator, denominator = (pivot_g, pivot_d) if branch else (pivot_d, pivot_g)
+        ratio = mul(numerator, fma.gf_inv(denominator, modulus, degree))
+        if branch:
+            expected_d.append(mul(delta, pair_d))
+            expected_g.append(pair_g ^ mul(ratio, pair_d))
+        else:
+            expected_d.append(pair_d ^ mul(ratio, pair_g))
+            expected_g.append(mul(delta, pair_g))
+
+    for name in ("pivot_d", "pivot_g"):
+        assert np.array_equal(
+            sim.read_across_shots(regs[name]), bit_columns(values[name], degree)
+        )
+    assert np.array_equal(sim.read_across_shots(regs["pair_d"]), bit_columns(expected_d, degree))
+    assert np.array_equal(sim.read_across_shots(regs["pair_g"]), bit_columns(expected_g, degree))
+    assert np.array_equal(sim.read_across_shots(regs["rank"]), np.zeros((16, len(cases)), dtype=np.bool_))
+    assert np.array_equal(sim.read_across_shots(regs["branch"]), bit_columns(branch_values, 1))
+    assert not np.any(sim.read_phase_flipped_across_shots())
+
+    outputs = set(list(regs["payload"]) + list(regs["rank"]) + list(regs["branch"]))
+    scratch = [km.q(index) for index in range(circuit.num_qubits) if km.q(index) not in outputs]
+    if scratch:
+        assert not np.any(sim.read_across_shots(km.array(scratch)))
+    return {
+        "cases": len(cases),
+        "branches": 2,
+        "delta": delta,
+        "compiled_qubits": circuit.num_qubits,
+        "toffoli_like_gates": circuit.operation_statistics().num_toffoli_like,
+        "clean_scratch_qubits": len(scratch),
+        "phase_flips": 0,
+    }
+
+
 def resource_screen():
     points = 70
     pair_updates = points * (points - 1) // 2
     ratio_products = points
+    ratio_cleanup_products = points
     inversions = points
-    products = pair_updates + ratio_products
-    product_t, inverse_t = 42, 111  # 42T GF12 multiply; 66T inverse + 45T erasure
-    fma_t = products * product_t + inversions * inverse_t
+    products = pair_updates + ratio_products + ratio_cleanup_products
+    product_t = 42
+    inverse_forward_t, inverse_restore_t = 66, 72
+    pair_cswaps_t, pivot_cswaps_t = 24, 24
+    fma_t = (
+        products * product_t
+        + pair_updates * pair_cswaps_t
+        + inversions * (inverse_forward_t + inverse_restore_t + pivot_cswaps_t)
+    )
     scan_t, branch_rank_t = 45_045, 5_530
-    reconstruction_t = 71 * product_t + 8 * inverse_t
+    reconstruction_t = 71 * product_t + 8 * 111
     gate_t = 256_943
     naive_pair_bank_q = 70 * 12 + 69 * 12  # g_0=1 is a constant
     return {
         "points": points,
         "pair_updates": pair_updates,
         "variable_products": products,
+        "ratio_products_to_compute_and_clear": ratio_products + ratio_cleanup_products,
         "ratio_inversions": inversions,
+        "inverse_forward_toffolis": inverse_forward_t,
+        "inverse_restore_toffolis": inverse_restore_t,
+        "controlled_swap_toffolis_per_pair_update": pair_cswaps_t,
+        "controlled_swap_toffolis_per_pivot": pivot_cswaps_t,
         "fma_arithmetic_toffolis": fma_t,
         "sampled_reconstruction_toffolis_assumption": reconstruction_t,
         "root_scan_toffolis": scan_t,
@@ -139,9 +280,12 @@ def resource_screen():
         "naive_full_pair_bank_qubits": naive_pair_bank_q,
         "qubit_limit": 890,
         "naive_pair_bank_over_limit": naive_pair_bank_q - 890,
+        "single_pair_cell_qubits": 888,
+        "single_pair_cell_toffolis": 312,
         "scope": (
-            "Count projection assumes the existing sampled reconstruction, scan, and branch/rank costs. "
-            "It excludes a width schedule, ratio-register liveness, and any uncounted phase work."
+            "Count projection includes ratio cleanup, branch-controlled canonicalizing swaps, and the "
+            "measured in-place inverse cell. It assumes the existing sampled reconstruction, scan, and "
+            "branch/rank costs. It excludes the 4+66 width schedule and any uncounted phase work."
         ),
     }
 
@@ -149,6 +293,7 @@ def resource_screen():
 def main():
     gf8_cases = screen_gf8_four_samples()
     gf12 = screen_gf12_dqi_samples()
+    pair_cell = check_normalized_pair_cell()
     result = {
         "experiment": "exp-053",
         "result": "PASS",
@@ -159,10 +304,11 @@ def main():
             "row_ranks_match_reference": True,
             "normalized_low_row_matches_reference": True,
         },
+        "compiled_pair_cell": pair_cell,
         "resource_screen": resource_screen(),
         "scope": (
-            "Classical recurrence and count screen only. The normalized in-place pair update is not a "
-            "complete 70-symbol reversible schedule and the naive full pair bank exceeds Q=890."
+            "Classical recurrence plus one compiled normalized pair cell. This is not a complete "
+            "70-symbol reversible schedule, and the naive full pair bank exceeds Q=890."
         ),
     }
     output = Path(__file__).with_name("results.json")
