@@ -160,6 +160,20 @@ do not bound the 70-symbol fiber or prove that a 52-qubit label is enough.
 `screen_branch_history_vectorized()` reproduces the screen using the pinned
 NumPy dependency.
 
+The same screen also retained the first three left-side `d` samples before
+measuring the remaining fiber:
+
+| Split | Retained samples | Largest residual fiber | Label bits | Total side width |
+|---:|---:|---:|---:|---:|
+| 6+2 | 3 | 64 | 6 | 15 bits |
+| 7+1 | 3 | 448 | 9 | 18 bits |
+
+For the 70-symbol root, retaining three 12-bit samples costs 36 qubits. Under
+`Q=890`, that leaves at most 16 qubits for the remaining label and overlapping
+scratch after the 64 right-pair words and 70 branch bits. The target screen is
+therefore a maximum residual fiber of at most `2^16`; the 70-symbol case is
+still unbounded.
+
 ## Decision
 
 The syndrome-to-FMA map is now exact, but this closes only the shortcut that

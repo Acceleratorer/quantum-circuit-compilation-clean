@@ -172,6 +172,12 @@ bits; selected entries matched the sequential reference. These cases do not
 bound the 70-symbol fiber, but they provide a reproducible small-field screen
 for the state width.
 
+Keeping the first three left-side `d` samples reduced those small-case residual
+labels to 6 and 9 bits. For the 70-symbol root, the corresponding 36-bit side
+state would leave at most 16 qubits for the residual label and overlapping
+scratch. A concrete feasibility gate is now to prove the maximum fiber is at
+most `2^16` and implement its label reversibly; no 70-symbol bound is known.
+
 For the 70-symbol root state, 64 right-pair field words plus 70 branch bits
 occupy 838 qubits. At `Q=890`, that leaves an absolute 52-qubit ceiling for
 additional collision labels and any overlapping scratch. A viable label must

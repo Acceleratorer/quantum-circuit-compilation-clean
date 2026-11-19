@@ -227,7 +227,7 @@ def estimate_minimum_70_fma_products():
         "scan_toffolis": scan_toffolis,
         "subtotal_toffolis": products * 42 + scan_toffolis,
         "margin_under_saved_gate": gate_limit - products * 42 - scan_toffolis,
-        "scope": "count only; excludes phase extraction and has no ≤50-qubit liveness proof",
+        "scope": "count only; excludes phase extraction and has no <=50-qubit liveness proof",
     }
 
 
@@ -486,11 +486,18 @@ def screen_branch_history(degree, modulus, n, split):
     }
 
 
-def screen_branch_history_vectorized(degree, modulus, n, split):
-    """Exhaustively screen small cases with vectorized prefix updates."""
-    output_bits = 2 * degree * (n - split) + n
-    if not 1 <= split < n or degree * n > 28 or output_bits > 27 or n > 1 << degree:
-        raise ValueError("vectorized screen is limited to small distinct-point cases")
+def screen_branch_history_vectorized(degree, modulus, n, split, retained_left_symbols=0):
+    """Exhaustively screen small cases, optionally keeping left input symbols."""
+    side_bits = degree * retained_left_symbols
+    output_bits = 2 * degree * (n - split) + n + side_bits
+    if (
+        not 1 <= split < n
+        or not 0 <= retained_left_symbols <= split
+        or degree * n > 24
+        or output_bits > 32
+        or n > 1 << degree
+    ):
+        raise ValueError("vectorized screen is limited to at most 2^24 small-field inputs")
 
     q = 1 << degree
     right_size = n - split
@@ -509,8 +516,14 @@ def screen_branch_history_vectorized(degree, modulus, n, split):
     rank2 = np.ones(left_count, dtype=np.uint16)
     history = np.zeros(left_count, dtype=np.uint32)
     basis = [
-        [np.ones((right_size, left_count), dtype=np.uint8), np.zeros((right_size, left_count), dtype=np.uint8)],
-        [np.zeros((right_size, left_count), dtype=np.uint8), np.ones((right_size, left_count), dtype=np.uint8)],
+        [
+            np.ones((right_size, left_count), dtype=np.uint8),
+            np.zeros((right_size, left_count), dtype=np.uint8),
+        ],
+        [
+            np.zeros((right_size, left_count), dtype=np.uint8),
+            np.ones((right_size, left_count), dtype=np.uint8),
+        ],
     ]
 
     for j, point in enumerate(range(split)):
@@ -536,8 +549,11 @@ def screen_branch_history_vectorized(degree, modulus, n, split):
             basis[1][0][offset] = np.where(swap, mul_table[factor, a], mul_table[factor, c])
             basis[1][1][offset] = np.where(swap, mul_table[factor, b], mul_table[factor, e])
 
-    output_space = 1 << output_bits
-    counts = np.zeros(output_space, dtype=np.uint32)
+    dense_counts = retained_left_symbols == 0 and output_bits <= 27
+    output_space = 1 << output_bits if dense_counts else 0
+    counts = np.zeros(output_space, dtype=np.uint32) if dense_counts else None
+    all_keys = np.empty(q**n, dtype=np.uint32) if not dense_counts else None
+    side_mask = (1 << side_bits) - 1
     state_bits = 2 * degree * right_size
     check_left = {0, left_count // 2, left_count - 1}
     check_right = {0, right_count // 2, right_count - 1}
@@ -547,8 +563,12 @@ def screen_branch_history_vectorized(degree, modulus, n, split):
         right_d = np.empty((right_size, left_count), dtype=np.uint8)
         right_g = np.empty((right_size, left_count), dtype=np.uint8)
         for offset, value in enumerate(right_data):
-            right_d[offset] = mul_table[basis[0][0][offset], value] ^ basis[0][1][offset]
-            right_g[offset] = mul_table[basis[1][0][offset], value] ^ basis[1][1][offset]
+            right_d[offset] = (
+                mul_table[basis[0][0][offset], value] ^ basis[0][1][offset]
+            )
+            right_g[offset] = (
+                mul_table[basis[1][0][offset], value] ^ basis[1][1][offset]
+            )
 
         r1, r2, right_history = rank1.copy(), rank2.copy(), history.copy()
         for j, point in enumerate(range(split, n)):
@@ -562,14 +582,22 @@ def screen_branch_history_vectorized(degree, modulus, n, split):
                 old_d, old_g = right_d[i].copy(), right_g[i].copy()
                 factor = (split + i) ^ point
                 right_d[i] = mul_table[gj, old_d] ^ mul_table[dj, old_g]
-                right_g[i] = np.where(swap, mul_table[factor, old_d], mul_table[factor, old_g])
+                right_g[i] = np.where(
+                    swap, mul_table[factor, old_d], mul_table[factor, old_g]
+                )
 
         key = right_history.copy()
         for values in right_d:
             key = (key << degree) | values.astype(np.uint32)
         for values in right_g:
             key = (key << degree) | values.astype(np.uint32)
-        counts += np.bincount(key.astype(np.int64), minlength=output_space).astype(np.uint32)
+        if side_bits:
+            key = (key << side_bits) | (left_ids & side_mask)
+        if dense_counts:
+            counts += np.bincount(key.astype(np.int64), minlength=output_space).astype(np.uint32)
+        else:
+            start = right_index * left_count
+            all_keys[start : start + left_count] = key
 
         if right_index in check_right:
             for left_index in check_left:
@@ -580,18 +608,26 @@ def screen_branch_history_vectorized(degree, modulus, n, split):
                 state = 0
                 for value in ref_d[split:] + ref_g[split:]:
                     state = (state << degree) | value
-                assert int(key[left_index]) == (ref_history << state_bits) | state
+                expected = (ref_history << state_bits) | state
+                assert int(key[left_index] >> side_bits) == expected
+                assert (int(key[left_index]) & side_mask) == (int(left_ids[left_index]) & side_mask)
 
-    assert int(counts.sum()) == q**n
-    max_fiber = int(counts.max())
+    if dense_counts:
+        assert int(counts.sum()) == q**n
+        max_fiber = int(counts.max())
+    else:
+        _, fibers = np.unique(all_keys, return_counts=True)
+        assert int(fibers.sum()) == q**n
+        max_fiber = int(fibers.max())
     return {
         "field": f"GF(2^{degree})",
         "n": n,
         "split": f"{split}+{right_size}",
         "domain_size": q**n,
-        "mean_fiber": q**n / output_space,
+        "mean_fiber": q**n / (1 << output_bits),
         "max_preimage_with_history": max_fiber,
         "extra_side_information_bits": (max_fiber - 1).bit_length(),
+        "retained_left_symbols": retained_left_symbols,
         "reference_samples": "PASS",
     }
 
@@ -613,6 +649,8 @@ def main():
     for case in [(3, 0b1011, 6, 3), (3, 0b1011, 6, 4)]:
         print(screen_branch_history(*case))
     for case in [(3, 0b1011, 8, 6), (3, 0b1011, 8, 7)]:
+        print(screen_branch_history_vectorized(*case))
+    for case in [(3, 0b1011, 8, 6, 3), (3, 0b1011, 8, 7, 3)]:
         print(screen_branch_history_vectorized(*case))
 
 
