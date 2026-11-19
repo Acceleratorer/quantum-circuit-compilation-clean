@@ -96,6 +96,23 @@ but a complete schedule still needs to show how it cleans rank/branch history
 and accounts for root scan and phase extraction. The subtotal does not
 establish that the decoder resource gate passes.
 
+The separate balanced-split count is reproducible with
+`estimate_minimum_70_fma_products()`. It minimizes the recurrence over every
+split `n=a+b`, with `P(1, pristine)=P(1, updated)=0`:
+
+```text
+P(n, pristine) = min(P(a, pristine) + P(b, updated) + 2b + 7(n+1))
+P(n, updated)  = min(P(a, updated)  + P(b, updated)  + 4b + 7(n+1))
+```
+
+The `2b`/`4b` terms apply the left basis to pristine/updated right samples;
+`7(n+1)` counts seven field products per 2x2 matrix-composition point. The
+minimum is `P(70, pristine)=4,166` at `38+32`, including `P(38, pristine)=1,961`
+and `P(32, updated)=1,644`. At 42 Toffolis per product plus the existing
+45,045-Toffoli scan, the subtotal is 220,017, leaving 39,930 under the saved
+259,947 gate. This remains a count only: it excludes phase extraction and
+does not prove a ≤50-qubit liveness schedule.
+
 The exhaustive small-field check verifies that the minimum-rank FMA basis
 returns the true locator for every valid error pattern, then measures
 collisions in `(branch history, final right-block state)`:

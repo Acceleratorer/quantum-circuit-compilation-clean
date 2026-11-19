@@ -7,9 +7,10 @@ right state alone can replace the original input; it is not a lower bound on
 other reversible schedules or on measurement-based uncomputation.
 """
 
+from functools import lru_cache
+from itertools import combinations, product
 from math import ceil, log2
 from random import Random
-from itertools import combinations, product
 
 
 def gf_mul(a, b, modulus, degree):
@@ -183,6 +184,49 @@ def fma_block_variable_products(size):
         + 4 * half       # apply the left 2x2 basis to right-half input pairs
         + 8 * (size + 1) # multiply the two 2x2 bases at size+1 points
     )
+
+
+@lru_cache(None)
+def minimum_fma_product_cost(size, updated):
+    """Minimize the FMA product recurrence; return (products, left_split)."""
+    if size < 1:
+        raise ValueError("FMA block size must be positive")
+    if size == 1:
+        return 0, None
+
+    best = None
+    best_split = None
+    for left_size in range(1, size):
+        right_size = size - left_size
+        left_mode = updated
+        left_cost, _ = minimum_fma_product_cost(left_size, left_mode)
+        right_cost, _ = minimum_fma_product_cost(right_size, True)
+        products_per_right = 4 if updated else 2
+        cost = left_cost + right_cost + products_per_right * right_size + 7 * (size + 1)
+        if best is None or cost < best:
+            best, best_split = cost, left_size
+    return best, best_split
+
+
+def estimate_minimum_70_fma_products():
+    """Reproduce the balanced-split product count, without claiming a space schedule."""
+    products, split = minimum_fma_product_cost(70, False)
+    left_products, _ = minimum_fma_product_cost(split, False)
+    right_products, _ = minimum_fma_product_cost(70 - split, True)
+    assert (products, split, left_products, right_products) == (4166, 38, 1961, 1644)
+    scan_toffolis = 45045
+    gate_limit = 259947
+    return {
+        "field": "GF(2^12)",
+        "constraints": 70,
+        "tree": f"{split}+{70 - split}",
+        "variable_field_products": products,
+        "basis_toffolis_at_42_per_product": products * 42,
+        "scan_toffolis": scan_toffolis,
+        "subtotal_toffolis": products * 42 + scan_toffolis,
+        "margin_under_saved_gate": gate_limit - products * 42 - scan_toffolis,
+        "scope": "count only; excludes phase extraction and has no ≤50-qubit liveness proof",
+    }
 
 
 def estimate_70_fma_variable_products():
@@ -443,6 +487,7 @@ def screen_branch_history(degree, modulus, n, split):
 def main():
     verify_70_symbol_splits()
     print(estimate_70_fma_variable_products())
+    print(estimate_minimum_70_fma_products())
     for case in [(2, 0b111, 2), (3, 0b1011, 3)]:
         print(screen_valid_error_domain(*case))
     cases = [
