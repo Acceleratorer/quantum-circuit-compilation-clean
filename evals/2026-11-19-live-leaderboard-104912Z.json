@@ -1,0 +1,66 @@
+{
+  "captured_utc": "2026-11-19T10:49:12Z",
+  "competition": "google-verifiable-quantum-circuit-compilation",
+  "source": "Kaggle CLI full public leaderboard download and competition listing",
+  "snapshot": {
+    "path": "kaggle/snapshots/2026-11-19/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-19T10-49-12.csv",
+    "csv_sha256": "dc90964e41ab580b6a2414489a2614e52b6bf4efc5afa57b4ffdde8131b2f770",
+    "download_archive_sha256": "5e8d43677efe3e58dcf5581263d7002e05e4c9c5f24e198ea14cec97c0a14dfa",
+    "team_rows": 3381,
+    "sample_submission_rows": 1
+  },
+  "competition": {
+    "deadline_utc": "2027-01-20T23:59:00",
+    "team_count": 3381
+  },
+  "own_team": {
+    "team": "Accelra",
+    "team_id": 17349145,
+    "public_score": 28.14028,
+    "rank": 896,
+    "best_submission": 58479383
+  },
+  "leader": {
+    "rank": 1,
+    "team": "Z³C¹oherence",
+    "team_id": 17182480,
+    "score": 31.74002,
+    "last_submission_utc": "2026-11-19T02:11:42Z"
+  },
+  "runner_up": {
+    "rank": 2,
+    "team": "ThemBones",
+    "team_id": 17339411,
+    "score": 31.64282,
+    "last_submission_utc": "2026-11-19T07:42:13Z"
+  },
+  "score_gap": 3.599743161717015,
+  "score_equivalence_estimate": {
+    "method": "Scale the product of the three task costs by (own_local_geometric_mean / leader_public_score)^3.",
+    "own_local_geometric_mean": 28.140276838282986,
+    "required_product_cost_multiplier": 0.6968888381724738,
+    "single_task_cost_reduction_if_other_two_are_fixed": 0.3031111618275262,
+    "equal_reduction_in_each_of_two_tasks": 0.16520131877651256,
+    "current_costs": {
+      "invsqrt": 74560.90687312803,
+      "dqi": 347904227555.5428,
+      "dfthcsos": 294642305.5649051
+    },
+    "single_task_targets_if_other_costs_are_held_fixed": {
+      "dqi": 242450572936.47415
+    },
+    "dqi_target_at_Q890_zero_failure": {
+      "qubits": 890,
+      "repetition_factor": 1.1912605,
+      "maximum_mean_toffoli": 256942.80434858045
+    },
+    "status": "estimate, not a circuit result"
+  },
+  "latest_own_submission": {
+    "ref": 58479383,
+    "status": "COMPLETE",
+    "public_score": 28.14028,
+    "submitted_at_utc": "2026-11-17T18:57:30.857000"
+  },
+  "notes": "Read-only refresh. The leaderboard CSV includes one rank-0 sample_submission.zip row, excluded from the 3,381 team count. No circuit was built or submitted."
+}

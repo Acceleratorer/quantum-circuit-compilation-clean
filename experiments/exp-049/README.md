@@ -295,11 +295,12 @@ or submission has been produced.
 ## Decision
 
 The syndrome-to-FMA map and the complementary-row reconstruction are validated
-classically on the cases above. The 4+66 sampled estimate is below the current
-T gate, but its 9,788T margin must also cover branch/control, common-zero,
-phase, and reversible cleanup costs. The samples do not establish a bound over all
-70-symbol inputs or a ≤50-qubit schedule. No complete circuit, liveness proof,
-official verifier run, or submission was produced.
+classically on the cases above. The later 2,048-shot refresh puts the maximum
+sampled 4+66 path at 246,831T, leaving 10,112T below the current gate for
+branch/control, common-zero, phase, and reversible cleanup work. The samples
+do not establish a bound over all 70-symbol inputs or a ≤50-qubit schedule. No
+complete circuit, liveness proof, official verifier run, or submission was
+produced.
 
 For the count-minimizing 70-symbol split `38+32`, the 64 right-pair symbols
 occupy 768 of the 840 syndrome-bank bits, leaving six field slots (72 bits)

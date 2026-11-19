@@ -7,14 +7,14 @@ Research log and reproducible tooling for the Google Quantum AI Verifiable Quant
 | Item | Value |
 |---|---:|
 | Best own Kaggle public score | **28.14028** |
-| Latest live rank | **893 / 3381** (team `Accelra`, full CLI snapshot at 2026-11-19 10:32 UTC) |
+| Latest live rank | **896 / 3381** (team `Accelra`, full CLI snapshot at 2026-11-19 10:49 UTC) |
 | Latest observed rank 1 public score | **31.74002** (team `Z³C¹oherence`) |
 | Score gap to rank 1 | **3.59974** |
 | Current candidate members | `563d0583` / `46446af1` / `0bd9c68f` |
 
-The latest persisted full leaderboard snapshot is from `2026-11-19T10:32:23Z`
+The latest persisted full leaderboard snapshot is from `2026-11-19T10:49:12Z`
 with 3,381 teams. Its CSV and SHA-256 are recorded in
-[`evals/2026-11-19-live-leaderboard-103223Z.json`](evals/2026-11-19-live-leaderboard-103223Z.json).
+[`evals/2026-11-19-live-leaderboard-104912Z.json`](evals/2026-11-19-live-leaderboard-104912Z.json).
 
 The repository keeps generators, verifier evidence, provenance, and experiment
 notes. Large circuit binaries and Kaggle submission ZIPs stay outside Git and
@@ -36,7 +36,7 @@ with the previously scored DQI from
 [`Asterios's kernel`](https://www.kaggle.com/code/asteriospanoras/qcc-atlas-toolkit-in-notebook-chemistry-refit).
 Its local zero-error geometric mean is `28.1402768383`; Kaggle submission
 `58479383` scored `28.14028`. The latest retained
-`2026-11-19T10:32:23Z` snapshot ranks the team **893**, with a `3.59974`-point
+`2026-11-19T10:49:12Z` snapshot ranks the team **896**, with a `3.59974`-point
 gap to rank 1. The earlier `00:12:18Z` snapshot ranked it 818.
 The hash-verified 18-member archive has SHA-256
 `4ccce01059e6d5c769e80a8091cc08a8c05a38588fc10a3877524412dd9e95cf`.

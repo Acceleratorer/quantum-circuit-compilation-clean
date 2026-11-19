@@ -2,14 +2,14 @@
 
 This directory separates local verifier estimates from Kaggle results.
 
-## Latest live status
+## Latest live status (`2026-11-19T10:49:12Z`)
 
 - Candidate: Bori 44Q inverse + Bori chemistry + previously scored Asterios DQI
 - Best own public score: `28.14028`, submission `58479383`
 - Latest leader: `Z³C¹oherence`, `31.74002`; Kaggle CLI check at
-  `2026-11-19T10:32:23Z`
-- Own rank: `893 / 3381` in the full snapshot; see
-  [its metadata](2026-11-19-live-leaderboard-103223Z.json) and CSV
+  `2026-11-19T10:49:12Z`
+- Own rank: `896 / 3381` in the full snapshot; see
+  [its metadata](2026-11-19-live-leaderboard-104912Z.json) and CSV
 - Local zero-error geometric mean: `28.1402768383` (not a leaderboard result)
 - DQI-only target to match the latest leader with other costs fixed: about
   `242.451e9` (score-equivalence estimate, not the leader's measured cost)

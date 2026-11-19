@@ -3,16 +3,16 @@
 ## Target
 
 Reach the top public leaderboard position with a source-complete portfolio.
-The latest persisted full Kaggle CLI snapshot is at `2026-11-19T10:32:23Z`;
+The latest persisted full Kaggle CLI snapshot is at `2026-11-19T10:49:12Z`;
 refresh the target before every submission.
 
 ## Current frontier
 
 - Best own completed submission: `58479383`, public score `28.14028`.
 - Current public leader: `Z³C¹oherence`, `31.74002`; gap: `3.59974` points.
-- Own team rank is `893 / 3381` in the latest full snapshot. The previous
-  `2026-11-19T00:12:18Z` snapshot recorded rank `818 / 3355`; see [the latest
-  snapshot metadata](../evals/2026-11-19-live-leaderboard-103223Z.json) and CSV.
+- Own team rank is `896 / 3381` in the latest full snapshot. The previous
+  `2026-11-19T10:32:23Z` snapshot recorded rank `893 / 3381`; see [the latest
+  snapshot metadata](../evals/2026-11-19-live-leaderboard-104912Z.json) and CSV.
 - Current DQI cost: `347.904e9` at 890 qubits. If the other task costs stay
   fixed, DQI must reach about `242.451e9` (a `30.31%` reduction) to match the
   current leader's score. With zero failures in 102,400 shots (`R=1.1912605`),
@@ -41,8 +41,27 @@ downloaded public circuits and we do not have our own generator for those
 exact bytes. The receipts and decision are recorded in
 [`evals/2026-11-18-ozertuu-282316.json`](../evals/2026-11-18-ozertuu-282316.json).
 
+## Kaggle source sweep (2026-11-19 10:49 UTC)
+
+- **Data:** the files endpoint lists the official verifiers and an 886 MB DQI
+  sample circuit. I did not pull that large sample into the workspace.
+- **Code:** the newest public portfolio listings cluster around `28.23`. The
+  `Inside the iadd Circuit` listing reports no score in its title; I did not
+  download or run it. The four current rank-1 members have no quantum
+  competition notebook listed under their Kaggle accounts.
+- **Models:** searching for `DQI` finds no model; the only nearby result is a
+  DF-THC factorization negative-result model, not a decoder.
+- **Discussion:** the latest technical posts report the same public `28.2x`
+  frontier. The source-delivery thread still has no organizer follow-up to
+  its open questions; our standing rule remains to submit only a complete,
+  reproducible generator.
+
+No newly listed public source closes the current score gap. Keep the DQI FMA
+route as the active research path; do not create another public-portfolio
+assembly experiment.
+
 The top-1 target is not met at this refresh: the best completed submission is
-`28.14028`, against a public leader at `31.61994`.
+`28.14028`, against a public leader at `31.74002`.
 
 The `575b043f` DQI reports two clean verifier draws, but its own README reports
 one lost shot on six of nine draws. Keep it as measurement evidence only; do
