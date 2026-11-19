@@ -304,14 +304,17 @@ inversions in the reconstruction. Using the in-tree 42T product, 66T inverse,
 
 | Split | FMA products | Reconstruction products | Inverses | Estimated T | Margin to 256,943T |
 |---:|---:|---:|---:|---:|---:|
-| 4+66 | 4,720 | 71 | 18 | 248,265 | 8,678 |
-| 8+62 | 4,585 | 205 | 31 | 249,666 | 7,277 |
-| 38+32 | 4,166 | 3,877 | 145 | 398,946 | -142,003 |
+| 4+66 | 4,720 | 71 | 8 | 247,155 | 9,788 |
+| 8+62 | 4,585 | 205 | 10 | 247,335 | 9,608 |
+| 38+32 | 4,166 | 3,877 | 25 | 385,626 | -128,683 |
 
 The estimate is `42 * (FMA products + reconstruction products) + 111 *
-inverses + 45,045`. The 4+66 split is lowest among the tested splits 1–18,
-but its 8,678T margin must cover branch/control, phase, and cleanup work. This
-screen does not compile a reversible circuit, bound the cost over all inputs,
-or prove that reconstruction fits the 50-qubit scratch ceiling. Do not treat
-it as a score-gate pass; FMA stays open only for a concrete reversible schedule
-that verifies against the official scorer.
+inverses + 45,045`. `poly_divmod()` now reuses one divisor-leading inverse per
+division. A separate 1,024-shot screen at e=31 and e=35 found common-zero
+correction in 2 shots; the representative cost paths above need none. The
+4+66 split is lowest among the tested splits 1–18, but its 9,788T margin must
+cover branch/control, common-zero, phase, and cleanup work. This screen does
+not compile a reversible circuit, bound the cost over all inputs, or prove
+that reconstruction fits the 50-qubit scratch ceiling. Do not treat it as a
+score-gate pass; FMA stays open only for a concrete reversible schedule that
+verifies against the official scorer.

@@ -498,9 +498,12 @@ def poly_divmod(numerator, denominator, mul, modulus, degree):
     if denominator == [0]:
         raise ZeroDivisionError("polynomial division by zero")
     quotient = [0] * max(1, len(remainder) - len(denominator) + 1)
+    inverse_lead = None
     while remainder != [0] and len(remainder) >= len(denominator):
+        if inverse_lead is None:
+            inverse_lead = gf_inv(denominator[-1], modulus, degree)
         shift = len(remainder) - len(denominator)
-        factor = mul(remainder[-1], gf_inv(denominator[-1], modulus, degree))
+        factor = mul(remainder[-1], inverse_lead)
         quotient[shift] = factor
         for index, coefficient in enumerate(denominator):
             remainder[shift + index] ^= mul(factor, coefficient)

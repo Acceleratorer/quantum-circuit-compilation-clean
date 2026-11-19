@@ -247,30 +247,33 @@ The current score-equivalence gate is `T <= 256,943` at `Q=890` and
 row reconstruction. The estimate uses the source-owned 42-Toffoli GF(2^12)
 product, 66-Toffoli inverse, and 45-Toffoli inverse erasure. FMA product counts
 come from `minimum_fma_product_cost()` with the first split fixed; the scan
-adds 45,045T.
+adds 45,045T. `poly_divmod()` reuses the inverse of the divisor's leading
+coefficient across that division's quotient terms.
 
 | Split | FMA products | Reconstruction products | Reconstruction inverses | Estimated T incl. scan | Margin to 256,943T |
 |---:|---:|---:|---:|---:|---:|
 | 1+69 | 4,864 | 15 | 7 | 250,740 | 6,203 |
-| 2+68 | 4,810 | 28 | 11 | 249,462 | 7,481 |
-| 3+67 | 4,763 | 65 | 18 | 249,819 | 7,124 |
-| 4+66 | 4,720 | 71 | 18 | 248,265 | 8,678 |
-| 5+65 | 4,681 | 144 | 28 | 250,803 | 6,140 |
-| 6+64 | 4,648 | 145 | 27 | 249,348 | 7,595 |
-| 7+63 | 4,615 | 253 | 38 | 253,719 | 3,224 |
-| 8+62 | 4,585 | 205 | 31 | 249,666 | 7,277 |
-| 12+58 | 4,478 | 463 | 49 | 258,006 | -1,063 |
-| 16+54 | 4,390 | 649 | 56 | 262,899 | -5,956 |
-| 18+52 | 4,354 | 919 | 69 | 274,170 | -17,227 |
-| 38+32 | 4,166 | 3,877 | 145 | 398,946 | -142,003 |
+| 2+68 | 4,810 | 28 | 7 | 249,018 | 7,925 |
+| 3+67 | 4,763 | 65 | 9 | 248,820 | 8,123 |
+| 4+66 | 4,720 | 71 | 8 | 247,155 | 9,788 |
+| 5+65 | 4,681 | 144 | 10 | 248,805 | 8,138 |
+| 6+64 | 4,648 | 145 | 9 | 247,350 | 9,593 |
+| 7+63 | 4,615 | 253 | 11 | 250,722 | 6,221 |
+| 8+62 | 4,585 | 205 | 10 | 247,335 | 9,608 |
+| 12+58 | 4,478 | 463 | 12 | 253,899 | 3,044 |
+| 16+54 | 4,390 | 649 | 14 | 258,237 | -1,294 |
+| 18+52 | 4,354 | 919 | 15 | 268,176 | -11,233 |
+| 38+32 | 4,166 | 3,877 | 25 | 385,626 | -128,683 |
 
 The total is `42 * (FMA products + reconstruction products) + 111 *
 reconstruction inverses + 45,045`. The two high-weight samples give the same
-counts except at 16+54, where the table keeps the larger estimate. This is a
-sample-path screening estimate, not a reversible circuit or a bound: it omits
-branch/control gates, phase correction, and a ≤50-qubit scratch schedule. The
-4+66 split is the best of the tested splits under this estimate, with only
-8,678T of headroom before those omitted costs.
+counts except at 16+54, where the table keeps the larger estimate. A separate
+1,024-shot screen at e=31 and e=35 found a common-zero correction in 2 shots;
+the representative paths in the table need none. This is a sample-path
+screening estimate, not a reversible circuit or a bound: it omits branch/
+control gates, phase correction, and a ≤50-qubit scratch schedule. The 4+66
+split is the best tested split, with 9,788T of headroom before those omitted
+costs.
 
 This is a classical reconstruction and a persistent-state count. It does not
 show that extended Euclid and the correction solve can be computed reversibly
@@ -282,8 +285,8 @@ or submission has been produced.
 
 The syndrome-to-FMA map and the complementary-row reconstruction are validated
 classically on the cases above. The 4+66 sampled estimate is below the current
-T gate, but its 8,678T margin must also cover branch/control, phase, and
-reversible cleanup costs. The samples do not establish a bound over all
+T gate, but its 9,788T margin must also cover branch/control, common-zero,
+phase, and reversible cleanup costs. The samples do not establish a bound over all
 70-symbol inputs or a ≤50-qubit schedule. No complete circuit, liveness proof,
 official verifier run, or submission was produced.
 
