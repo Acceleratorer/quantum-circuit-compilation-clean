@@ -1,0 +1,190 @@
+{
+  "created_utc": "2026-11-19",
+  "purpose": "Remove downloaded public submission archives and redundant leaderboard wrappers, plus two exact copies of official verifier input data; retain receipts, source code, snapshots, canonical verifier data, and SHA-256 for every removed file.",
+  "removed_files": 26,
+  "removed_bytes": 1474546514,
+  "targets": [
+    {
+      "sha256": "745f6c030a6503d5fad1c88fb17b89817c917b25d87ac398aab9821179504bbc",
+      "reason": "Downloaded public submission archive; not needed by source-owned code or official verifier, and can be fetched again from Kaggle.",
+      "path": "kaggle/staging/exp-036-atakan/submission.zip",
+      "bytes": 49284758
+    },
+    {
+      "sha256": "6af735d3d7f7b2118f7699c0817fc4b5be6dd211581360b87f4ddf1e7a6e29e7",
+      "reason": "Downloaded public submission archive; not needed by source-owned code or official verifier, and can be fetched again from Kaggle.",
+      "path": "kaggle/staging/exp-038-maoxin4028/submission.zip",
+      "bytes": 49306101
+    },
+    {
+      "sha256": "adee0d60694a14a5eb3dc4295b4201949a95ed3715562f8036efe2d3f2c32841",
+      "reason": "Downloaded public submission archive; not needed by source-owned code or official verifier, and can be fetched again from Kaggle.",
+      "path": "kaggle/staging/exp-039-ozertuu-28056/submission.zip",
+      "bytes": 59770449
+    },
+    {
+      "sha256": "4ccce01059e6d5c769e80a8091cc08a8c05a38588fc10a3877524412dd9e95cf",
+      "reason": "Downloaded public submission archive; not needed by source-owned code or official verifier, and can be fetched again from Kaggle.",
+      "path": "kaggle/staging/hybrid-2026-11-18-bori-frontier-asterios-dqi/submission.zip",
+      "bytes": 51825326
+    },
+    {
+      "sha256": "670f496db8d83ec5dde474b737eece0f825145c123acd09e4ede9f1af4a67ab5",
+      "reason": "Downloaded public submission archive; not needed by source-owned code or official verifier, and can be fetched again from Kaggle.",
+      "path": "kaggle/staging/kernel-poll-2026-11-15/asterios/submission.zip",
+      "bytes": 51862129
+    },
+    {
+      "sha256": "db9a4d0080aaaf2593801d3143dd756fb811e63609e3122620b69f0477142c15",
+      "reason": "Downloaded public submission archive; not needed by source-owned code or official verifier, and can be fetched again from Kaggle.",
+      "path": "kaggle/staging/kernel-poll-2026-11-15/lucifer19/submission_anchor.zip",
+      "bytes": 73803342
+    },
+    {
+      "sha256": "992e36af47471ed0261c5727c9b3ef44aaf206dd296ebb7efd9c087380f07b54",
+      "reason": "Downloaded public submission archive; not needed by source-owned code or official verifier, and can be fetched again from Kaggle.",
+      "path": "kaggle/staging/kernel-poll-2026-11-15/lucifer19/submission.zip",
+      "bytes": 51844216
+    },
+    {
+      "sha256": "67b7a77b992abef52f53bcb1e33ca0552b1b9df21b58dc1a8b865ab79ebce833",
+      "reason": "Redundant leaderboard ZIP; timestamped CSV snapshot is retained.",
+      "path": "kaggle/staging/leader-audit-2026-11-15/current/google-verifiable-quantum-circuit-compilation.zip",
+      "bytes": 102347
+    },
+    {
+      "sha256": "5bae30750d6b98b463aef2b0b647a391699ae79aca98a4e65b980c2770699a79",
+      "reason": "Redundant leaderboard ZIP; timestamped CSV snapshot is retained.",
+      "path": "kaggle/staging/leader-audit-2026-11-15/live/google-verifiable-quantum-circuit-compilation.zip",
+      "bytes": 102664
+    },
+    {
+      "sha256": "0228795c65ed86e93a3fa44b947ef0fb9fa3ece20275353b1b25e22b2179c097",
+      "reason": "Redundant leaderboard ZIP; timestamped CSV snapshot is retained.",
+      "path": "kaggle/staging/leaderboard-2026-11-15/google-verifiable-quantum-circuit-compilation.zip",
+      "bytes": 100796
+    },
+    {
+      "sha256": "709c83fec7582054c24f5e6050c2e906a50bb190a425db49bfc3614c5a0a316c",
+      "reason": "Redundant leaderboard ZIP; timestamped CSV snapshot is retained.",
+      "path": "kaggle/staging/leaderboard-audit-2026-11-18/google-verifiable-quantum-circuit-compilation.zip",
+      "bytes": 107722
+    },
+    {
+      "sha256": "29a8eda4eb00473aad2687bd744f27358e91d565cedc88a969158f7301786651",
+      "reason": "Redundant leaderboard ZIP; timestamped CSV snapshot is retained.",
+      "path": "kaggle/staging/leaderboard-audit-2026-11-18-posthybrid/google-verifiable-quantum-circuit-compilation.zip",
+      "bytes": 107804
+    },
+    {
+      "sha256": "9362cfb353b36b154bf805f83b91d2c3213d4544a3b95443a66c2a6c76863b9a",
+      "reason": "Redundant leaderboard ZIP; timestamped CSV snapshot is retained.",
+      "path": "kaggle/staging/leaderboard-audit-2026-11-18-postsubmit/google-verifiable-quantum-circuit-compilation.zip",
+      "bytes": 107724
+    },
+    {
+      "sha256": "57f37a7698e4872c93acdd8ffb0183c9977cc6078c8ff462d9f199ea30ce6a61",
+      "reason": "Redundant leaderboard ZIP; timestamped CSV snapshot is retained.",
+      "path": "kaggle/staging/live-lb-api-2026-11-18/google-verifiable-quantum-circuit-compilation.zip",
+      "bytes": 108418
+    },
+    {
+      "sha256": "47cc052b777481c818f7a6490142eebf530cc9d8b5f9c965ca6c33ddead75636",
+      "reason": "Redundant leaderboard ZIP; timestamped CSV snapshot is retained.",
+      "path": "kaggle/staging/live-lb-api-2026-11-18-1108/google-verifiable-quantum-circuit-compilation.zip",
+      "bytes": 108542
+    },
+    {
+      "sha256": "0497d7d7acd7f3c36fc04215cb4c9b7146dcaca889d6e9bd7b875471fc739e47",
+      "reason": "Redundant leaderboard ZIP; timestamped CSV snapshot is retained.",
+      "path": "kaggle/staging/live-rank/google-verifiable-quantum-circuit-compilation.zip",
+      "bytes": 102000
+    },
+    {
+      "sha256": "adbca4946ad3b0304c3b2cc04eb9920b163cbe0ac1b1aaf749bf3e432154fa8f",
+      "reason": "Downloaded public submission archive; not needed by source-owned code or official verifier, and can be fetched again from Kaggle.",
+      "path": "kaggle/staging/public-probe-asterios-all/submission.zip",
+      "bytes": 50950513
+    },
+    {
+      "sha256": "57e094c04776333b19e06df8e2a09548581206254db2a1a9a4816649fcca58b5",
+      "reason": "Downloaded public submission archive; not needed by source-owned code or official verifier, and can be fetched again from Kaggle.",
+      "path": "kaggle/staging/rank1-public-source-audit-2026-11-18/output/submission.zip",
+      "bytes": 51151013
+    },
+    {
+      "sha256": "670f496db8d83ec5dde474b737eece0f825145c123acd09e4ede9f1af4a67ab5",
+      "reason": "Downloaded public submission archive; not needed by source-owned code or official verifier, and can be fetched again from Kaggle.",
+      "path": "kaggle/staging/targeted-2026-11-15/asterios-28059/submission.zip",
+      "bytes": 51862129
+    },
+    {
+      "sha256": "ec4f0f9cebea39a3ed52a2a5b759bb6debf64a756316027667827ba29b34f7b4",
+      "reason": "Downloaded public submission archive; not needed by source-owned code or official verifier, and can be fetched again from Kaggle.",
+      "path": "kaggle/staging/targeted-2026-11-15/atakan-terminal/submission.zip",
+      "bytes": 51861751
+    },
+    {
+      "sha256": "a893f2f430a67286d5efcab17751078aa8479dcac1f4b298f1b07edd57ac8acc",
+      "reason": "Downloaded public submission archive; not needed by source-owned code or official verifier, and can be fetched again from Kaggle.",
+      "path": "kaggle/staging/targeted-2026-11-15/heliosli/submission.zip",
+      "bytes": 49300015
+    },
+    {
+      "sha256": "991e3cb4a3b6ad02d6208980b1ccee01aba0364ed7d8b005cd1f0c19c1042c81",
+      "reason": "Downloaded public submission archive; not needed by source-owned code or official verifier, and can be fetched again from Kaggle.",
+      "path": "kaggle/staging/targeted-2026-11-15/jeff-28059/submission.zip",
+      "bytes": 51858038
+    },
+    {
+      "sha256": "d18233c24be38801e1ca3e8b3982e4f7ecdcbf83d7b6188188b39094963f022e",
+      "reason": "Downloaded public submission archive; not needed by source-owned code or official verifier, and can be fetched again from Kaggle.",
+      "path": "kaggle/staging/targeted-2026-11-15/rishabh-rank1/submission.zip",
+      "bytes": 28071683
+    },
+    {
+      "sha256": "43170e51a56eaeba4cf1dcb8d3f528c47dcfdbb3cbf1e63011ef477a2d6383dd",
+      "reason": "Downloaded public submission archive; not needed by source-owned code or official verifier, and can be fetched again from Kaggle.",
+      "path": "kaggle/staging/targeted-2026-11-15/syed3000/submission.zip",
+      "bytes": 494590338
+    },
+    {
+      "sha256": "e5a48af746fd075026dec9e8f5df2d363802a121e8c53af9a0b984bde695e1bd",
+      "reason": "Byte-identical duplicate of the canonical verifier data at kaggle/staging/competition-runtime/verifiers/dfthcsos/verifiers/dfthcsos/FeMoCo76o113e.fcidump.",
+      "path": "kaggle/staging/runtime-flat/dfthcsos/FeMoCo76o113e.fcidump",
+      "bytes": 128128348
+    },
+    {
+      "sha256": "e5a48af746fd075026dec9e8f5df2d363802a121e8c53af9a0b984bde695e1bd",
+      "reason": "Byte-identical duplicate of the canonical verifier data at kaggle/staging/competition-runtime/verifiers/dfthcsos/verifiers/dfthcsos/FeMoCo76o113e.fcidump.",
+      "path": "kaggle/staging/runtime-flat/dfthcsos/data/FeMoCo76o113e.fcidump",
+      "bytes": 128128348
+    }
+  ],
+  "preserved": [
+    {
+      "reason": "Canonical official verifier/runtime package.",
+      "path": "kaggle/staging/competition-runtime"
+    },
+    {
+      "reason": "Retain code and lightweight runtime sources; remove only two byte-identical FCIDUMP copies.",
+      "path": "kaggle/staging/runtime-flat"
+    },
+    {
+      "reason": "Small source archive.",
+      "path": "kaggle/staging/qvc-chemistry-compiler-v0.4.0/studies/compact_invsqrt46/invsqrt_source.zip"
+    },
+    {
+      "reason": "Small source-research archive.",
+      "path": "kaggle/staging/targeted-2026-11-15/atakan-terminal/terminal4028_research_sources.zip"
+    },
+    {
+      "reason": "Small source snapshot.",
+      "path": "kaggle/staging/rank1-public-source-audit-2026-11-18/output/own4033_source_snapshot.zip"
+    },
+    {
+      "reason": "Extracted timestamped leaderboard CSVs remain tracked.",
+      "path": "kaggle/snapshots"
+    }
+  ]
+}

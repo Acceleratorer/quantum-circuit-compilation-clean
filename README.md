@@ -28,22 +28,24 @@ are addressed by SHA-256 receipts.
 - `knowledge/` — claims, decisions, and research direction.
 - `literature/` — paper notes.
 
-## Latest candidate
+## Latest public reference portfolio (not source-owned)
 
-The current portfolio combines the 44-qubit inverse and chemistry files from
+This reference portfolio combined the 44-qubit inverse and chemistry files from
 [`Bori's Gap-3 / C43 kernel`](https://www.kaggle.com/code/boristown/qcc-gap-3-residue-repair-and-c43-native-compiler)
 with the previously scored DQI from
 [`Asterios's kernel`](https://www.kaggle.com/code/asteriospanoras/qcc-atlas-toolkit-in-notebook-chemistry-refit).
 Its local zero-error geometric mean is `28.1402768383`; Kaggle submission
-`58479383` scored `28.14028`; the team ranked **752** in the
-`2026-11-18T16:00:48Z` snapshot.
+`58479383` scored `28.14028`. The latest retained
+`2026-11-19T00:12:18Z` snapshot ranks the team **818**, with a `3.47966`-point
+gap to rank 1.
 The hash-verified 18-member archive has SHA-256
 `4ccce01059e6d5c769e80a8091cc08a8c05a38588fc10a3877524412dd9e95cf`.
-The archive stays in ignored `kaggle/staging/`; tracked verifier and
-leaderboard evidence is in the evaluation record.
+The downloaded archive was removed from local staging; its hash, member hashes,
+and verifier evidence remain in [the evaluation record](evals/2026-11-18-bori-frontier-hybrid.json)
+and [the cleanup manifest](cleanup/2026-11-19-staging-artifact-prune-manifest.json).
+This public portfolio is a measurement reference, not a source-owned candidate.
 
-This improves the previous public score `28.05962` by `0.08066`. The latest
-leaderboard snapshot shows a `3.47966`-point gap to rank 1.
+This improves the previous public score `28.05962` by `0.08066`.
 
 A later public portfolio's published verifier receipt reports three PASS
 results and a local geometric mean of `28.23163`; it would fall near rank 72

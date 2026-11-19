@@ -42,3 +42,14 @@ receipt, member hashes, archive hashes, and no-submit decision in `evals/`.
 Also removed the Kaggle leaderboard download ZIP after extracting and retaining
 the CSV snapshot. Targets and hashes are in
 [`2026-11-19-portfolio-screen-prune-manifest.json`](2026-11-19-portfolio-screen-prune-manifest.json).
+
+## Staging artifact prune — 2026-11-19
+
+Removed 26 ignored files (1,474,546,514 bytes, about 1.37 GiB): downloaded
+public submission archives, leaderboard ZIP wrappers whose CSV snapshots are
+already tracked, and two FCIDUMP copies byte-identical to the canonical verifier
+input. The manifest records each path, size, and SHA-256. The official verifier,
+canonical input, source archives, source code, and compact evaluation receipts
+remain in place.
+
+See [`2026-11-19-staging-artifact-prune-manifest.json`](2026-11-19-staging-artifact-prune-manifest.json).

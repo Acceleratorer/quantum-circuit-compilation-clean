@@ -28,6 +28,7 @@ The chemistry cost improves from exp-036's `294,878,475.0543` by
 Kaggle submission `58386039` scored `27.31674`. The authenticated leaderboard
 endpoint did not expose its live rank, so no rank is claimed.
 
-The exact 18-member archive, SHA-256 values, and source output log are recorded
-in [receipt.json](receipt.json). The archive is kept outside Git under
-`kaggle/staging/exp-038-maoxin4028/`.
+The exact 18-member archive hash and verifier results are recorded in the
+[evaluation record](../../evals/2026-11-15-exp038-maoxin-4028.json). Its
+downloaded archive was pruned locally; the hash and removed path are in the
+[staging cleanup manifest](../../cleanup/2026-11-19-staging-artifact-prune-manifest.json).

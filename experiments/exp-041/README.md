@@ -24,8 +24,9 @@ Ali as the original inverse/DQI builder.
 
 The exact 18-member archive passed CRC and member SHA-256 checks locally. Its
 independent geometric mean is `28.0581094382`, a small improvement over
-exp-039's `28.0564936608`. The archive remains outside Git under
-`kaggle/staging/targeted-2026-11-15/atakan-terminal/`.
+exp-039's `28.0564936608`. The evaluation record retains the archive and member
+hash checks; the downloaded archive was pruned locally under the
+[staging cleanup manifest](../../cleanup/2026-11-19-staging-artifact-prune-manifest.json).
 
 Kaggle scored both duplicate upload refs `58389412` and `58389450` at
 `28.05810`; the latest authenticated leaderboard snapshot places the team at
