@@ -1,0 +1,32 @@
+{
+  "experiment": "exp-052",
+  "result": "PASS",
+  "checks": [
+    {
+      "field": "GF(4)",
+      "input_domain": "all pristine 4-symbol tuples",
+      "cases": 256,
+      "pivots": 1024,
+      "inverse_checks": 1280,
+      "zero_pivots": 0
+    },
+    {
+      "field": "GF(8)",
+      "input_domain": "all valid RS error patterns through weight 4",
+      "cases": 97119,
+      "pivots": 776952,
+      "inverse_checks": 1262547,
+      "zero_pivots": 0
+    },
+    {
+      "field": "GF(2^12)",
+      "input_domain": "seeded valid DQI error patterns; 64 each at weights 1, 31, 35",
+      "cases": 192,
+      "pivots": 13440,
+      "inverse_checks": 26304,
+      "zero_pivots": 0
+    }
+  ],
+  "structural_invariant": "Before point j, the FMA basis determinant is a nonzero scalar multiple of the product of previous point factors. At a distinct next point its evaluated basis is invertible. Applying it to a pristine pair (d,1) cannot produce a zero pivot. The branch rule then selects a nonsingular sample-update matrix.",
+  "scope": "Local sample-pair updates invert exactly when pivot and branch are available. This does not prove branch-history cleanup, full reversible liveness, or the score gate."
+}

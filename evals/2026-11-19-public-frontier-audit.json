@@ -1,0 +1,36 @@
+{
+  "captured_utc": "2026-11-19",
+  "experiment": "exp-051",
+  "sources": [
+    "https://www.kaggle.com/code/boristown/qcc-gap-3-residue-repair-and-c43-native-compiler",
+    "https://www.kaggle.com/code/koushikrudra/qcc-v60-frontier-verified"
+  ],
+  "archive_audit": {
+    "members": 18,
+    "crc_error": null,
+    "hash_manifest_pass": true,
+    "archive_log_pass": true,
+    "archive_sha256": "4291b65be0173ae8c79a8d818c185cee09ccf02f31afb512f5cf0337ab59f0a0",
+    "archive_bytes": 50391500,
+    "tracked": false
+  },
+  "dqi": {
+    "circuit_sha256": "4471b4933c18fd654a3ab7cf15cb01958b98ccbd9b2ce37d567289fff10962f5",
+    "status": "PASS",
+    "qubits": 890,
+    "mean_toffoli": 365872.2036425781,
+    "verified_shots": 102400,
+    "value_errors": 0,
+    "phase_errors": 0,
+    "first_salt_cost": 345236065276.47076,
+    "second_salt_cost": 345235997565.9845
+  },
+  "portfolio": {
+    "geometric_mean": 28.234976,
+    "banked_geometric_mean": 28.18965,
+    "best_own_score": 28.140276838282986,
+    "leader_score": 31.74002,
+    "gap_to_leader": 3.505044
+  },
+  "decision": "measurement_only_public_circuit_lineage_no_submission"
+}

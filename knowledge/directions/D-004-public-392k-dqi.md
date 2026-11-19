@@ -318,3 +318,22 @@ not compile a reversible circuit, bound the cost over all inputs, or prove
 that reconstruction fits the 50-qubit scratch ceiling. Do not treat it as a
 score-gate pass; FMA stays open only for a concrete reversible schedule that
 verifies against the official scorer.
+
+## 2026-11-20 local FMA pivot-invertibility screen
+
+`experiments/exp-052` checked the per-sample update used by the sequential
+FMA recurrence. For distinct points, the update determinant is
+`(x_i+x_j)*d_j` on the swap branch and `(x_i+x_j)*g_j` otherwise. The FMA
+branch rule selects a nonzero factor whenever the pivot `(d_j,g_j)` is
+nonzero. The pre-step basis determinant is a nonzero scalar times the product
+of prior point factors, so its evaluation at the next distinct point is
+invertible; applied to pristine `(d_i,1)`, it cannot produce a zero pivot.
+
+The checker found no zero pivots and exactly inverted every sampled pair in all
+256 pristine GF(4) four-point inputs, all 97,119 valid GF(8) eight-point error
+patterns through weight four, and 192 seeded GF(2^12) 70-point DQI inputs at
+weights 1, 31, and 35. This supports an in-place data-pair update when its
+pivot and branch are available. It does not supply a circuit decomposition or
+resolve rank/branch history, complementary-row liveness, the 50-qubit scratch
+limit, or the complete Toffoli count. Keep the 4+66 path as a count-only lead
+until those gates are met.

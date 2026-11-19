@@ -1,0 +1,52 @@
+{
+  "experiment": "exp-051",
+  "download_date_utc": "2026-11-19",
+  "execution_policy": "Notebook files were inspected as JSON/text only. No downloaded notebook or circuit code was executed.",
+  "sources": [
+    {
+      "slug": "boristown/qcc-gap-3-residue-repair-and-c43-native-compiler",
+      "url": "https://www.kaggle.com/code/boristown/qcc-gap-3-residue-repair-and-c43-native-compiler",
+      "version": "Kaggle pull did not expose a version; embedded output identifies run 2026-11-17T20:49Z.",
+      "files": [
+        {
+          "path": "external/boristown/qcc-gap-3-residue-repair-and-c43-native-compiler.ipynb",
+          "bytes": 89804,
+          "sha256": "67f257020dcb8fa16fd6ad7cbc291fb21a6ea8c0f463cb9bfd42145b5e78c417"
+        },
+        {
+          "path": "external/boristown/qcc-gap-3-residue-repair-and-c43-native-compiler.log",
+          "bytes": 10378,
+          "sha256": "372f3310987519005d0804b093ed7e5e3f67398359552a528c730aab7c7fec06"
+        },
+        {
+          "path": "external/boristown/submission.zip",
+          "bytes": 50391500,
+          "sha256": "4291b65be0173ae8c79a8d818c185cee09ccf02f31afb512f5cf0337ab59f0a0",
+          "retention": "Deleted after CRC, member hashes, and verifier-log hash were recorded; archive is not tracked."
+        }
+      ]
+    },
+    {
+      "slug": "koushikrudra/qcc-v60-frontier-verified",
+      "url": "https://www.kaggle.com/code/koushikrudra/qcc-v60-frontier-verified",
+      "version": "Kaggle metadata identifies kernel ID 145926476; pull did not expose a version number. The log directory pins the 2026-11-19 run.",
+      "files": [
+        {
+          "path": "external/koushik/kernel-metadata.json",
+          "bytes": 860,
+          "sha256": "c38a233c2de4b44a1b72957d634a59e6af6f3fa82c8f8ff45a797161abe92ce2"
+        },
+        {
+          "path": "external/koushik/qcc-v60-frontier-verified.ipynb",
+          "bytes": 16456,
+          "sha256": "67da3e82204306c97d9ecac45fc54529c9446dfc090a3259fe421650e4163cb2"
+        },
+        {
+          "path": "external/koushik/run-2026-11-19/qcc-v60-frontier-verified.log",
+          "bytes": 7657,
+          "sha256": "f088d33b7fb4b85e907718ee07afeee378f4836f7d64adc89f6c74e2e42defd2"
+        }
+      ]
+    }
+  ]
+}
