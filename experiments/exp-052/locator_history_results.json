@@ -10,6 +10,35 @@
       "2": 294
     },
     "field": "GF(8)",
+    "fused_factorized_state": {
+      "cases": 4096,
+      "common_root_locations_derived_from_gcd": true,
+      "common_root_sample_count_distribution": {
+        "0": 2570,
+        "1": 1232,
+        "2": 294
+      },
+      "components": [
+        "monic gcd G coefficients without the fixed leading 1",
+        "cofactor A=W/G coefficients",
+        "cofactor B=N/G coefficients",
+        "original d samples at common roots of G among the four points"
+      ],
+      "distinct_states": 4096,
+      "field_word_count_distribution": {
+        "0": 1,
+        "1": 7,
+        "2": 112,
+        "3": 658,
+        "4": 3318
+      },
+      "gcd_divides_four_point_node_polynomial": true,
+      "maximum_common_root_samples": 2,
+      "maximum_field_words": 4,
+      "result": "factorized_row_and_root_samples_recover_all_inputs",
+      "scope": "Exhaustive GF(8) information screen. The state has at most four field words on this domain; polynomial degree framing and an in-place reversible encoder are not implemented.",
+      "state_collisions": 0
+    },
     "input_domain": "all pristine four-sample d vectors; g_i=1",
     "maximum_exception_samples": 2,
     "points": [0, 1, 2, 3],

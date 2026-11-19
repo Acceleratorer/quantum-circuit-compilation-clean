@@ -134,8 +134,47 @@
     "sorted_sidecar_over_limit_qubits": 25,
     "dense_sidecar_over_limit_qubits": 24,
     "fixed_sidecar_over_limit_qubits": 37,
-    "result": "all_current_sidecar_formats_fail_width_gate_if_live_through_branch_cell",
-    "scope": "The 2-exception maximum is supported by a field-independent degree bound and exhaustive recovery of all 4,096 arbitrary GF(8) four-sample inputs. The 27-bit sorted and 26-bit dense widths are capacity counts; routing and reversible dense encoding are unbuilt. A fixed 39-bit position format avoids sorting. Fusion or earlier uncomputation may reduce peak width."
+    "result": "explicit_sidecar_formats_exceed_width_gate; fused_factorized_state_is_the_width_lead",
+    "scope": "The 2-exception maximum is supported by a field-independent degree bound and exhaustive recovery of all 4,096 arbitrary GF(8) four-sample inputs. These separate-sidecar formats are fallback capacity counts; the fused factorized state is recorded separately."
+  },
+  "fused_factorized_state_screen": {
+    "field": "GF(8)",
+    "points": [0, 1, 2, 3],
+    "input_domain": "all arbitrary pristine four-sample d vectors; g_i=1",
+    "cases": 4096,
+    "distinct_states": 4096,
+    "state_collisions": 0,
+    "components": [
+      "monic gcd G coefficients without the fixed leading 1",
+      "cofactor A=W/G coefficients",
+      "cofactor B=N/G coefficients",
+      "original d samples at common roots of G among the four points"
+    ],
+    "common_root_locations_derived_from_gcd": true,
+    "gcd_divides_four_point_node_polynomial": true,
+    "common_root_sample_count_distribution": {
+      "0": 2570,
+      "1": 1232,
+      "2": 294
+    },
+    "maximum_common_root_samples": 2,
+    "field_word_count_distribution": {
+      "0": 1,
+      "1": 7,
+      "2": 112,
+      "3": 658,
+      "4": 3318
+    },
+    "maximum_field_words": 4,
+    "gf2_12_four_sample_input_bits": 48,
+    "persistent_payload_qubits_if_encoded_in_place": 840,
+    "branch_cell_additional_workspace_qubits": 48,
+    "conditional_projected_peak_if_pivot_is_in_payload": 888,
+    "qubit_limit": 890,
+    "conditional_width_margin": 2,
+    "degree_framing_and_in_place_encoder": "not designed",
+    "result": "factorized_row_and_root_samples_are_injective_on_screened_domain",
+    "scope": "The algebraic representation reconstructs each four-sample input; the exhaustive GF(8) screen confirms no collisions and a maximum of four coefficient/sample words. A 48-bit label exists for every state on the full GF(2^12)^4 input domain by cardinality, so no extra persistent information bits are needed. Reversible degree framing, in-place encoding, scratch liveness, phase cleanup, and Toffoli cost are unproven. The Q=888 projection is conditional on the existing branch-cell pivot-liveness assumption."
   },
   "exception_extraction_ledger": {
     "common_root_zero_tests": 3,
@@ -158,7 +197,7 @@
     "sorted_sidecar_zero_test_peak_qubits_before_field_registers": 879,
     "dense_sidecar_zero_test_peak_qubits_before_field_registers": 878,
     "result": "sorted_slot_routing_and_field_register_liveness_remain_uncounted",
-    "scope": "Each direct 12-bit clean-ancilla zero test costs 42 Toffolis with 10 reusable ancillas. The sorted-slot subtotal replaces 36 fixed-position copy Toffolis with 24 but excludes routing. Neither subtotal is reconciled against existing dynamic-taint products; output selection, phase correction, and full scratch liveness are omitted."
+    "scope": "These estimates apply to explicit sidecar extraction, not the fused factorized encoding. Each direct 12-bit clean-ancilla zero test costs 42 Toffolis with 10 reusable ancillas. The sorted-slot subtotal replaces 36 fixed-position copy Toffolis with 24 but excludes routing. Neither subtotal is reconciled against existing dynamic-taint products; output selection, phase correction, and full scratch liveness are omitted."
   },
   "branch_gate_kernel": {
     "toffoli_like_gates_per_step": 95,

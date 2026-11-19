@@ -1,9 +1,9 @@
 """Screen compact state needed to recover FMA branch history.
 
 Exhaustively checks every GF(8), eight-point error pattern through weight four,
-including all nonzero magnitude assignments, exact full-basis matrices, and a
-4+4 compact state made from a normalized low row, exception samples, and the
-untouched right-side input samples.
+including all nonzero magnitude assignments, exact full-basis matrices, a 4+4
+compact recovery state, and every arbitrary four-sample GF(8) input with both
+explicit exceptions and a fused factorized state.
 """
 
 from __future__ import annotations
@@ -63,11 +63,20 @@ def arbitrary_four_sample_exception_screen():
     q = 1 << degree
     points = list(range(4))
     mul = lambda a, b: fma.gf_mul(a, b, modulus, degree)
+    node_polynomial = [1]
+    for point in points:
+        node_polynomial = fma.poly_mul(node_polynomial, [point, 1], mul)
     exception_counts = {}
     compact_states = {}
+    common_root_counts = {}
+    factorized_word_counts = {}
+    factorized_states = {}
     recovered_inputs = 0
     state_collisions = 0
+    factorized_state_collisions = 0
     maximum_exceptions = 0
+    maximum_common_roots = 0
+    maximum_factorized_words = 0
 
     for encoded in range(q ** len(points)):
         data = [
@@ -107,10 +116,72 @@ def arbitrary_four_sample_exception_screen():
         maximum_exceptions = max(maximum_exceptions, count)
         exception_counts[str(count)] = exception_counts.get(str(count), 0) + 1
 
+        gcd, _, _ = fma.poly_xgcd(
+            low_row[0], low_row[1], mul, modulus, degree
+        )
+        assert gcd[-1] == 1
+        _, remainder = fma.poly_divmod(
+            node_polynomial, gcd, mul, modulus, degree
+        )
+        assert remainder == [0]
+        a, remainder = fma.poly_divmod(
+            low_row[0], gcd, mul, modulus, degree
+        )
+        assert remainder == [0]
+        b, remainder = fma.poly_divmod(
+            low_row[1], gcd, mul, modulus, degree
+        )
+        assert remainder == [0]
+        common_roots = [
+            index
+            for index, point in enumerate(points)
+            if fma.poly_eval(gcd, point, mul) == 0
+        ]
+        root_samples = tuple(data[index] for index in common_roots)
+        root_records = [
+            (index, data[index], 1) for index in common_roots
+        ]
+        assert recover_pristine_samples(
+            low_row, root_records, points, mul, modulus, degree
+        ) == data
+
+        factorized_state = (
+            tuple(gcd), tuple(a), tuple(b), root_samples
+        )
+        prior_input = factorized_states.get(factorized_state)
+        if prior_input is not None and prior_input != tuple(data):
+            factorized_state_collisions += 1
+        else:
+            factorized_states[factorized_state] = tuple(data)
+
+        # G is monic. Omit A's leading word only when that word is fixed at 1.
+        g_words = len(gcd) - 1
+        a_words = (
+            0
+            if a == [0]
+            else len(a) - int(a[-1] == 1)
+        )
+        b_words = 0 if b == [0] else len(b)
+        factorized_words = g_words + a_words + b_words + len(root_samples)
+        maximum_factorized_words = max(
+            maximum_factorized_words, factorized_words
+        )
+        factorized_word_counts[str(factorized_words)] = (
+            factorized_word_counts.get(str(factorized_words), 0) + 1
+        )
+        maximum_common_roots = max(maximum_common_roots, len(common_roots))
+        common_root_counts[str(len(common_roots))] = (
+            common_root_counts.get(str(len(common_roots)), 0) + 1
+        )
+
     assert recovered_inputs == q ** len(points)
     assert len(compact_states) == recovered_inputs
+    assert len(factorized_states) == recovered_inputs
     assert state_collisions == 0
+    assert factorized_state_collisions == 0
     assert maximum_exceptions <= 2
+    assert maximum_common_roots <= 2
+    assert maximum_factorized_words <= len(points)
     return {
         "field": "GF(8)",
         "points": points,
@@ -122,6 +193,29 @@ def arbitrary_four_sample_exception_screen():
         "exception_sample_count_distribution": exception_counts,
         "maximum_exception_samples": maximum_exceptions,
         "result": "normalized_low_row_and_exceptions_recover_all_inputs",
+        "fused_factorized_state": {
+            "components": [
+                "monic gcd G coefficients without the fixed leading 1",
+                "cofactor A=W/G coefficients",
+                "cofactor B=N/G coefficients",
+                "original d samples at common roots of G among the four points",
+            ],
+            "common_root_locations_derived_from_gcd": True,
+            "gcd_divides_four_point_node_polynomial": True,
+            "cases": q ** len(points),
+            "distinct_states": len(factorized_states),
+            "state_collisions": factorized_state_collisions,
+            "common_root_sample_count_distribution": common_root_counts,
+            "maximum_common_root_samples": maximum_common_roots,
+            "field_word_count_distribution": factorized_word_counts,
+            "maximum_field_words": maximum_factorized_words,
+            "result": "factorized_row_and_root_samples_recover_all_inputs",
+            "scope": (
+                "Exhaustive GF(8) information screen. The state has at most "
+                "four field words on this domain; polynomial degree framing "
+                "and an in-place reversible encoder are not implemented."
+            ),
+        },
         "scope": (
             "Exhaustive information screen over all 4,096 GF(8) d vectors "
             "at points 0,1,2,3 with pristine g_i=1. It is not a reversible "

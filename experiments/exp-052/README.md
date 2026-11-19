@@ -6,7 +6,7 @@ tests: exhaustive GF(4) tuples, exhaustive valid GF(8) errors, all 4,096 GF(8) f
 direction: D-004
 status: local_transition_feasibility
 date: 2026-11-20
-result: sample updates and compact recovery pass; at most two exceptions are needed; the 79T branch cell plus a 27-qubit sidecar projects Q=915 if both are live
+result: the fused four-point factorized state is injective in the GF(8) screen and uses at most four field words; its in-place reversible circuit remains open
 ---
 
 # FMA sample-update reversibility screen
@@ -149,7 +149,37 @@ normalized `(W,N)` row, this gives `deg(W) <= 2`; if `N` is nonzero,
 `deg(N) <= 1`. Thus `gcd(W,N)` has degree at most 2 and can have at most two
 distinct common-zero exception points.
 
-### 4+66 exception-width gate
+### Fused four-point factorized state
+
+The exception values need not be kept as a separate sidecar in the logical
+state. Factor the normalized low row as `W=G*A`, `N=G*B`, and store the monic
+`G` without its leading 1, the coefficients of `A` and `B`, and the original
+`d_i` values at points where `G(x_i)=0`. Those point locations are derived from
+`G`: the FMA basis determinant is the four-point node polynomial, so `G` divides
+that polynomial and its roots lie among the four public points. This
+representation needs no location mask. Every other sample is `B(x_i)/A(x_i)`.
+
+The same 4,096-input GF(8) screen found 4,096 distinct factorized states, no
+collisions, at most two common-root samples, and at most four field words in
+the listed polynomial/sample coefficients. The reconstruction argument is
+field-independent: at a nonroot of `G`, the sample constraint gives
+`d_i*A(x_i)+B(x_i)=0`; since `A` and `B` are coprime, `A(x_i)` is nonzero and
+`d_i=B(x_i)/A(x_i)`. At roots, the saved sample restores `d_i` directly.
+
+Four GF(2^12) samples have `2^48` possible inputs. Since the factorized state
+reconstructs each input, a 48-bit label exists for every state by cardinality;
+no extra persistent information bits are needed. That does not automatically
+turn the variable-length polynomial tuple into a fixed-width code: degree
+framing and a reversible in-place encoder remain undesigned.
+
+The existing 840-qubit payload can therefore remain the width target if the
+four-sample factorization is implemented in-place. Under the existing branch
+cell assumption that its pivot pair is already in the payload, the branch
+projection is `Q=888`, leaving two qubits. This is an information-width lead,
+not a verified schedule: the factorization's scratch, Toffoli cost, phase
+cleanup, and pivot liveness are still uncounted.
+
+### 4+66 explicit sidecar alternatives
 
 The first block contains FMA points `{0,1,2,3}`. Verifier error locations are
 nonzero field elements, so only points `1,2,3` can be common-zero exception
@@ -159,7 +189,8 @@ the reversible routing that packs values into those sorted slots is not
 designed. Dense enumeration of all 50,343,937 possible support/value records
 needs 26 bits, but its reversible encoder and decoder are also unbuilt. A
 fixed-position representation remains 39 bits (3-bit mask plus three 12-bit
-slots) and avoids sorting. These are capacity counts, not circuit lower bounds.
+slots) and avoids sorting. These are fallback capacity counts; the fused
+factorized state above is the current width lead.
 
 For four left constraints, the two row ranks sum to 9, so the normalized
 minimum-rank row has rank at most 4 and at most four stored field coefficients
@@ -172,16 +203,15 @@ workspace qubits after its 24-qubit pivot pair is counted inside the payload.
 All three projections exceed the 890 limit. The 27-bit sorted format is 25
 qubits over the gate; its routing cost and liveness are still unproved.
 
-**Decision:** no-go for any of these sidecar formats kept live through the
-current branch cell. The exception data could be fused into the four-sample
-representation or erased before branch execution, but neither schedule has a
-verified reversible liveness or phase ledger. This does not rule out the 4+66
-FMA path.
+**Decision:** keep explicit sidecars closed while they exceed the width gate.
+Pursue the fused four-point factorization as the width lead, but do not count it
+as a circuit until an in-place reversible encoder, decoder, and liveness/phase
+ledger exist. This does not close the 4+66 FMA path.
 At the latest 2,048-shot sample maximum of 246,831T, adding the 5,530T local
 branch gate leaves 4,582T below the 256,943T gate for all still-unaccounted
 work.
 
-The extraction has a six-test shape: three tests for `G(i)=0` and
+The explicit sidecar extractor has a six-test shape: three tests for `G(i)=0` and
 three for `D_i=d_i*A(i)+B(i)=0`, at `i=1,2,3`. It needs three field products
 to form the `D_i`, and three Toffolis for `exception_i = [G(i)=0] AND
 [D_i!=0]`. A direct 12-bit zero test uses 42 Toffolis and 10 reusable clean
