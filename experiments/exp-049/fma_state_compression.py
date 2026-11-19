@@ -174,6 +174,95 @@ def verify_70_symbol_splits():
     print({"field": "GF(2^12)", "n": 70, "blocks": "64+4+2", "affine_order": "PASS", "basis": "PASS"})
 
 
+def verify_70_valid_error_patterns():
+    """Check FMA locators for fixed-weight verifier syndromes at n=70."""
+    degree, modulus = 12, 0x1053
+    mul = lambda a, b: gf_mul(a, b, modulus, degree)
+    points = list(range(70))
+    rng = Random(0xD00470)
+    results = []
+
+    for weight in (1, 31, 35):
+        betas = rng.sample(range(1, 1 << degree), weight)
+        values = [rng.randrange(1, 1 << degree) for _ in betas]
+        syndrome = [0] * len(points)
+        for beta, error_value in zip(betas, values):
+            power = beta
+            for k in range(len(points)):
+                syndrome[k] ^= mul(error_value, power)
+                power = mul(power, beta)
+
+        data = syndrome_to_fma_samples(syndrome, points, mul)
+        expected_locator = [1]
+        for beta in betas:
+            expected_locator = poly_mul(expected_locator, [beta, 1], mul)
+        node_polynomial = [1]
+        for point in points:
+            node_polynomial = poly_mul(node_polynomial, [point, 1], mul)
+        expected_evaluator = [0]
+        for beta, error_value in zip(betas, values):
+            quotient = [1]
+            for other_beta in betas:
+                if other_beta != beta:
+                    quotient = poly_mul(quotient, [other_beta, 1], mul)
+            factor = mul(mul(error_value, beta), poly_eval(node_polynomial, beta, mul))
+            expected_evaluator = poly_add(
+                expected_evaluator,
+                [mul(factor, coefficient) for coefficient in quotient],
+            )
+
+        def check_locator(basis):
+            row = min(range(2), key=lambda index: row_rank(basis, index))
+            locator, evaluator = (trim(poly) for poly in basis[row])
+            assert locator[-1] != 0
+            scale = gf_inv(locator[-1], modulus, degree)
+            locator = trim([mul(scale, coefficient) for coefficient in locator])
+            evaluator = trim([mul(scale, coefficient) for coefficient in evaluator])
+            assert locator == expected_locator
+            assert evaluator == trim(expected_evaluator)
+            assert evaluator == [0] or len(evaluator) <= weight
+
+        direct = modular_basis(data, points, mul)
+        check_locator(direct)
+
+        for stops, label in (((38, 70), "38+32"), ((64, 68, 70), "64+4+2")):
+            combined = None
+            start = 0
+            for stop in stops:
+                if start == 0:
+                    combined = modular_basis(data[:stop], points[:stop], mul)
+                else:
+                    block_d, block_g = [], []
+                    for sample, point in zip(data[start:stop], points[start:stop]):
+                        block_d.append(
+                            mul(poly_eval(combined[0][0], point, mul), sample)
+                            ^ mul(poly_eval(combined[0][1], point, mul), 1)
+                        )
+                        block_g.append(
+                            mul(poly_eval(combined[1][0], point, mul), sample)
+                            ^ mul(poly_eval(combined[1][1], point, mul), 1)
+                        )
+                    block = modular_basis(block_d, points[start:stop], mul, block_g)
+                    combined = matrix_mul(block, combined, mul)
+                start = stop
+
+            assert sorted(row_rank(combined, row) for row in range(2)) == sorted(
+                row_rank(direct, row) for row in range(2)
+            )
+            check_locator(combined)
+            results.append(
+                {
+                    "field": "GF(2^12)",
+                    "n": 70,
+                    "error_weight": weight,
+                    "tree": label,
+                    "locator_evaluator": "PASS",
+                }
+            )
+
+    return results
+
+
 def fma_block_variable_products(size):
     """Count data-dependent GF products in one power-of-two FMA block."""
     if size < 1 or size & (size - 1):
@@ -642,6 +731,8 @@ def screen_branch_history_vectorized(degree, modulus, n, split, retained_left_sy
 
 def main():
     verify_70_symbol_splits()
+    for result in verify_70_valid_error_patterns():
+        print(result)
     print(estimate_70_fma_variable_products())
     print(estimate_minimum_70_fma_products())
     for case in [(2, 0b111, 2), (3, 0b1011, 3)]:

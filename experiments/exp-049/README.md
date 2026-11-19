@@ -83,6 +83,12 @@ and interpolation or provide a reversible schedule. The
 direct syndrome map above produces a valid WB sample vector for the same
 locator, but it does not reproduce the appendix's `u_1` values.
 
+`verify_70_valid_error_patterns()` checks deterministic verifier-form syndromes
+at error weights 1, 31, and 35. The direct basis and both trees (`38+32` and
+`64+4+2`) recovered the exact monic locator and evaluator polynomials in all
+six cases. This checks classical decoding on three valid inputs; it is not
+exhaustive and does not verify a quantum circuit.
+
 The script also tallies the data-dependent field products for one proposed
 fast tree, `64+(4+2)`. It counts four products per right-side sample when
 applying a 2x2 basis and eight products per evaluation point for a naive 2x2

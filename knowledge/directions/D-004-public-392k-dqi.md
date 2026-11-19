@@ -124,6 +124,12 @@ and measurement-based erasure add zero Toffolis. This validates the 42-Toffoli
 per-product floor, but does not include FMA rank controls or prove the required
 ≤50-qubit schedule.
 
+The classical 70-symbol path was checked on deterministic verifier-form
+syndromes with 1, 31, and 35 errors. Direct FMA and both block trees (`38+32`,
+`64+4+2`) recovered the exact monic locator and evaluator polynomials in all
+six cases. This keeps the classical solver plausible; it does not change the
+no-go for a quantum circuit without a proven live-state schedule.
+
 Source: Tang and Han, [New Decoding of Reed–Solomon Codes Based on FFT and
 Modular Approach](https://arxiv.org/abs/2207.11079), Algorithms 4–6,
 Appendix A, and Tables I–III. The 42-Toffoli field-multiplier reference is the
