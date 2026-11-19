@@ -31,6 +31,19 @@
       "zero_pivots": 0
     }
   ],
-  "structural_invariant": "Before point j, the FMA basis determinant is a nonzero scalar multiple of the product of previous point factors. At a distinct next point its evaluated basis is invertible. Applying it to a pristine pair (d,1) cannot produce a zero pivot. The branch rule then selects a nonsingular sample-update matrix. A processed pivot pair is never changed by later steps, so the final pivot sequence allows classical replay of branch decisions.",
-  "scope": "Local sample-pair updates invert exactly when pivot and branch are available. Exhaustive GF(4)/GF(8) screens found no full-state collisions on their stated domains. This does not provide a reversible branch-replay circuit, its resource count, full liveness, or the score gate."
+  "replay_storage_screen": {
+    "points": 70,
+    "field_bits": 12,
+    "expanded_pivot_pair_qubits": 1680,
+    "expanded_pivot_pairs_fit_q890": false,
+    "branch_history_qubits": 70,
+    "rank_register_qubits": 16,
+    "clean_replay_scratch_qubits": 86,
+    "compact_payload_qubits": 840,
+    "payload_plus_history_and_ranks_qubits": 926,
+    "scratch_needed_over_50": 36,
+    "scope": "rules out storing all 70 pivot pairs or all branch bits beside the 840-qubit payload; a compact branch oracle remains possible but unbuilt"
+  },
+  "structural_invariant": "Before point j, the FMA basis determinant is a nonzero scalar multiple of the product of previous point factors. At a distinct next point its evaluated basis is invertible. Applying it to a pristine pair (d,1) cannot produce a zero pivot. The branch rule then selects a nonsingular sample-update matrix. A processed pivot pair is never changed by later steps, so the full pivot sequence remains available in the expanded classical state.",
+  "scope": "Local sample-pair updates invert exactly when pivot and branch are available. Exhaustive GF(4)/GF(8) screens found no full-state collisions on their stated domains. The naive replay exceeds the width gate; a compact branch oracle and full liveness schedule remain unproven."
 }

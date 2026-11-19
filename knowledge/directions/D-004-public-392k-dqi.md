@@ -346,3 +346,20 @@ remains unchanged to the end; replaying branch predicates from those pivots
 and the initial ranks recovers the branch sequence classically. This opens a
 branch-replay route, but no reversible replay circuit, scratch bound, or
 Toffoli count has been established for 70 symbols.
+
+## 2026-11-20 FMA branch-replay storage gate
+
+`exp-052` now makes the naive replay width explicit. Retaining the expanded
+70-pair state means 140 GF(2^12) values (1,680 qubits), above the 890-qubit
+limit. Keeping 70 branch-history qubits and two 8-bit ranks beside the
+840-qubit compact payload would use 926 qubits before arithmetic scratch.
+Kickmix's HMR operation measures in the X basis and returns a random bit with
+phase kickback; it does not expose the computed branch bit as a free classical
+register ([format semantics](https://github.com/quantumlib/Qualtran/blob/main/docs/kickmix/kickmix_format.md#semantics),
+[HMR instruction](https://github.com/tanujkhattar/zkp_ecc/blob/main/docs/kickmix_instruction_set.md#hmr-instruction)).
+
+**Decision:** the naive replay from retained pivots is a no-go at `Q=890`.
+Keep the 4+66 FMA estimate open only if a branch oracle can be derived from
+the 840-qubit compact payload with a complete <=50-qubit liveness and
+Toffoli/phase ledger. The current evidence does not supply that oracle, so
+there is still no FMA circuit or score-gate pass.

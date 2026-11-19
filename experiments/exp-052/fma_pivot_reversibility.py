@@ -162,12 +162,37 @@ def sampled_dqi():
     }
 
 
+def replay_storage_screen():
+    points, field_bits, input_qubits, qubit_limit = 70, 12, 70 * 12, 890
+    rank_bits = (2 * points + 1).bit_length()
+    pivot_qubits = 2 * points * field_bits
+    history_qubits = points
+    rank_qubits = 2 * rank_bits
+    return {
+        "points": points,
+        "field_bits": field_bits,
+        "expanded_pivot_pair_qubits": pivot_qubits,
+        "expanded_pivot_pairs_fit_q890": pivot_qubits <= qubit_limit,
+        "branch_history_qubits": history_qubits,
+        "rank_register_qubits": rank_qubits,
+        "clean_replay_scratch_qubits": history_qubits + rank_qubits,
+        "compact_payload_qubits": input_qubits,
+        "payload_plus_history_and_ranks_qubits": input_qubits + history_qubits + rank_qubits,
+        "scratch_needed_over_50": max(0, history_qubits + rank_qubits - (qubit_limit - input_qubits)),
+        "scope": (
+            "rules out storing all 70 pivot pairs or all branch bits beside the "
+            "840-qubit payload; a compact branch oracle remains possible but unbuilt"
+        ),
+    }
+
+
 def main():
     results = [exhaustive_gf4(), exhaustive_valid_gf8(), sampled_dqi()]
     report = {
         "experiment": "exp-052",
         "result": "PASS",
         "checks": results,
+        "replay_storage_screen": replay_storage_screen(),
         "structural_invariant": (
             "The pre-step FMA basis determinant is a nonzero scalar multiple of "
             "the product of previous point factors. At a distinct next point, "
@@ -175,13 +200,14 @@ def main():
             "(d, 1) is nonzero. Thus the pivot pair is nonzero. The selected "
             "FMA branch then makes the sample-update determinant nonzero. A "
             "processed pivot pair is never changed by later steps, so the full "
-            "pivot sequence remains available to replay the branch decisions."
+            "pivot sequence remains available in the expanded classical state."
         ),
         "scope": (
             "Local data-pair updates are invertible when the branch and pivot "
             "are available. Small-domain full-state injectivity does not give "
-            "a reversible branch-replay circuit, its resource count, the full "
-            "liveness schedule, or the score gate."
+            "a reversible branch-replay circuit. The naive replay exceeds the "
+            "width gate; a compact branch oracle and full liveness schedule "
+            "remain unproven."
         ),
     }
     print(json.dumps(report, indent=2, sort_keys=True))

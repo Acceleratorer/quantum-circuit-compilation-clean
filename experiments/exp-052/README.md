@@ -61,6 +61,21 @@ GF(8), eight-point error patterns through weight four. This is small-domain
 evidence only; it does not provide a low-space reversible replay circuit or
 show that its Toffoli cost fits the score gate.
 
+### Storage gate for this replay idea
+
+The classical checker keeps both 70-symbol `d` and `g` arrays. That pivot
+array is 140 GF(2^12) values, or 1,680 qubits, so it cannot be the retained
+state of a `Q<=890` circuit. Storing all 70 branch bits beside the 840-qubit
+payload also needs 70 history qubits plus 16 rank qubits: 926 qubits before
+arithmetic scratch. The direct replay schedule therefore fails the width gate.
+
+Kickmix's measurement primitive is HMR, an X-basis measurement whose output is
+random and carries phase kickback; it does not expose a computed branch value
+as a classical bit. See the [Kickmix circuit format](https://github.com/quantumlib/Qualtran/blob/main/docs/kickmix/kickmix_format.md#semantics)
+and [HMR instruction](https://github.com/tanujkhattar/zkp_ecc/blob/main/docs/kickmix_instruction_set.md#hmr-instruction).
+The remaining option is a branch oracle derived from the compact FMA payload,
+with a complete <=50-qubit and Toffoli schedule. No such oracle is known yet.
+
 ## Limits
 
 This removes the need to keep an old copy of an individual right-side pair if
@@ -69,8 +84,9 @@ replayable, but a reversible replay circuit and its cost are still missing.
 The polynomial-basis state, full 70-symbol liveness, and `Q<=890`,
 `T<=256,943` gates remain unproved. No circuit was built or submitted.
 
-The next gate is a low-space reversible branch/rank replay for the 4+66 path,
-with a complete Toffoli and phase ledger under the 50-qubit scratch limit.
+The naive replay from retained pivots is closed on width. Reopen branch replay
+only with a branch oracle derived from the compact FMA payload and a complete
+Toffoli, phase, and <=50-qubit liveness ledger.
 
 ## Run
 
