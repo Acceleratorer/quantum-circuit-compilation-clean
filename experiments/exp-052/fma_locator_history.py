@@ -57,6 +57,33 @@ def recover_pristine_samples(low_row, exceptions, points, mul, modulus, degree):
     return recovered
 
 
+def recover_factorized_samples(
+    gcd, cofactor_w, cofactor_n, root_samples, points, mul, modulus, degree
+):
+    """Decode samples directly from the fused gcd/cofactor representation."""
+    root_indices = [
+        index
+        for index, point in enumerate(points)
+        if fma.poly_eval(gcd, point, mul) == 0
+    ]
+    assert len(root_indices) == len(root_samples)
+    exception_values = dict(zip(root_indices, root_samples))
+
+    recovered = []
+    for index, point in enumerate(points):
+        if index in exception_values:
+            recovered.append(exception_values[index])
+            continue
+
+        w_value = fma.poly_eval(cofactor_w, point, mul)
+        n_value = fma.poly_eval(cofactor_n, point, mul)
+        assert w_value != 0
+        recovered.append(
+            mul(n_value, fma.gf_inv(w_value, modulus, degree))
+        )
+    return recovered
+
+
 def arbitrary_four_sample_exception_screen():
     """Exhaust all pristine GF(8) samples at the first four FMA points."""
     degree, modulus = 3, 0b1011
@@ -138,11 +165,8 @@ def arbitrary_four_sample_exception_screen():
             if fma.poly_eval(gcd, point, mul) == 0
         ]
         root_samples = tuple(data[index] for index in common_roots)
-        root_records = [
-            (index, data[index], 1) for index in common_roots
-        ]
-        assert recover_pristine_samples(
-            low_row, root_records, points, mul, modulus, degree
+        assert recover_factorized_samples(
+            gcd, a, b, root_samples, points, mul, modulus, degree
         ) == data
 
         factorized_state = (
