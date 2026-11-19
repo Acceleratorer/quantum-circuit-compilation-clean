@@ -511,3 +511,18 @@ direct clean-ancilla 12-bit zero tests cost 252T; fixed-position copies give a
 1,029T listed subtotal, while two packed value writes give 1,017T before
 unaccounted routing. Neither subtotal is reconciled against dynamic-taint
 products, output selection, phase correction, or cleanup.
+
+## 2026-11-20 zero-workspace GF(2^12) product audit
+
+The existing `field.py::mul_xor0` accumulates a product into a separate target
+register without allocating private qubits. For `GF(2^12)`, its tensor has 42
+terms and the implementation applies one CCX per term, so the source-level
+cost is 42 Toffoli-like gates per product. This can remove the multiplier's
+private ancilla from a schedule; it does not remove the separate 12-bit output
+register required by the accumulator or prove that the FMA update is in-place.
+
+The Windows environment lacks the `circ` module, while the staged Kickmix
+binary is Linux-only, so this count was audited from source and was not
+runtime-compiled here. The next gate remains a complete pair-update schedule
+with output-register liveness, phase cleanup, and branch/rank storage all
+included under the 50-qubit scratch ceiling.
