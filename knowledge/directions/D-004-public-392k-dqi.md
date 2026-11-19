@@ -178,6 +178,13 @@ state would leave at most 16 qubits for the residual label and overlapping
 scratch. A concrete feasibility gate is now to prove the maximum fiber is at
 most `2^16` and implement its label reversibly; no 70-symbol bound is known.
 
+The valid-domain screen also exhaustively covered all 97,119 GF(8), eight-point
+error patterns through weight 4, retaining those same three input samples.
+Locator recovery had zero failures; the maximum fibers were 1 for split 4+4
+and 7 for split 5+3 (0 and 3 residual label bits). The reproducible call is
+`screen_valid_error_domain(3, 0b1011, 4, 3)` in `exp-049`; these small cases do
+not bound the 70-symbol maximum fiber.
+
 For the 70-symbol root state, 64 right-pair field words plus 70 branch bits
 occupy 838 qubits. At `Q=890`, that leaves an absolute 52-qubit ceiling for
 additional collision labels and any overlapping scratch. A viable label must

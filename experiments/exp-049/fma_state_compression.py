@@ -386,12 +386,14 @@ def gf_inv(value, modulus, degree):
     )
 
 
-def screen_valid_error_domain(degree, modulus, max_errors):
-    """Exhaust valid RS error patterns through the exact syndrome map."""
+def screen_valid_error_domain(degree, modulus, max_errors, retained_left_symbols=0):
+    """Exhaust valid RS errors and measure fibers with retained left samples."""
     q = 1 << degree
     n = 2 * max_errors
     if n > q:
         raise ValueError("the small-field screen needs at least n distinct base-field points")
+    if not 0 <= retained_left_symbols <= max_errors:
+        raise ValueError("retained samples must fit both tested left blocks")
     points = list(range(n))
     mul = lambda a, b: gf_mul(a, b, modulus, degree)
     state_counts = {split: {} for split in (max_errors, max_errors + 1)}
@@ -428,7 +430,12 @@ def screen_valid_error_domain(degree, modulus, max_errors):
 
                 transformed_d, transformed_g, history = sequential_state(data, points, mul)
                 for split, counts in state_counts.items():
-                    key = (history, tuple(transformed_d[split:]), tuple(transformed_g[split:]))
+                    key = (
+                        history,
+                        tuple(transformed_d[split:]),
+                        tuple(transformed_g[split:]),
+                        tuple(data[:retained_left_symbols]),
+                    )
                     counts[key] = counts.get(key, 0) + 1
                 patterns += 1
 
@@ -436,6 +443,7 @@ def screen_valid_error_domain(degree, modulus, max_errors):
         "field": f"GF(2^{degree})",
         "n": n,
         "valid_error_patterns": patterns,
+        "retained_left_symbols": retained_left_symbols,
         "fma_locator_failures": locator_failures,
         "split_fibers": {
             f"{split}+{n - split}": {

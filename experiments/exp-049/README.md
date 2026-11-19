@@ -174,6 +174,18 @@ scratch after the 64 right-pair words and 70 branch bits. The target screen is
 therefore a maximum residual fiber of at most `2^16`; the 70-symbol case is
 still unbounded.
 
+A separate exhaustive valid-domain screen covered all 97,119 GF(8), eight-point
+error patterns through weight 4 while retaining the first three left `d`
+samples. Locator recovery had zero failures; the largest fibers were 1 for
+split 4+4 and 7 for split 5+3, so these two small cases need 0 and 3 extra
+label bits. This is specific to GF(8) and eight points; it does not bound the
+70-symbol fiber. To run this slower screen alone:
+
+```powershell
+& 'D:\Code\Kaggle\competitions\Google Quantum AI\.venv\Scripts\python.exe' -c `
+  "import sys; sys.path.insert(0, 'experiments/exp-049'); import fma_state_compression as f; print(f.screen_valid_error_domain(3, 0b1011, 4, 3))"
+```
+
 ## Decision
 
 The syndrome-to-FMA map is now exact, but this closes only the shortcut that
