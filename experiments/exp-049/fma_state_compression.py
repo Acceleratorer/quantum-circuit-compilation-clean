@@ -228,9 +228,14 @@ def verify_70_valid_error_patterns():
         for stops, label in (((38, 70), "38+32"), ((64, 68, 70), "64+4+2")):
             combined = None
             start = 0
+            left_basis_fields = None
             for stop in stops:
                 if start == 0:
                     combined = modular_basis(data[:stop], points[:stop], mul)
+                    if label == "38+32":
+                        left_basis_fields = sum(
+                            len(poly) for row in combined for poly in row
+                        )
                 else:
                     block_d, block_g = [], []
                     for sample, point in zip(data[start:stop], points[start:stop]):
@@ -257,6 +262,10 @@ def verify_70_valid_error_patterns():
                     "error_weight": weight,
                     "tree": label,
                     "locator_evaluator": "PASS",
+                    "left_basis_field_coefficients": left_basis_fields,
+                    "materialized_left_basis_qubits": (
+                        None if left_basis_fields is None else degree * left_basis_fields
+                    ),
                 }
             )
 

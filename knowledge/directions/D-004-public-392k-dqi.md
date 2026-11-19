@@ -130,6 +130,12 @@ syndromes with 1, 31, and 35 errors. Direct FMA and both block trees (`38+32`,
 six cases. This keeps the classical solver plausible; it does not change the
 no-go for a quantum circuit without a proven live-state schedule.
 
+The same runs count 79 GF(2^12) coefficients in the materialized 38-point
+left basis, or 948 qubits. That state alone exceeds `Q=890`, so a schedule that
+stores the whole polynomial matrix is ruled out. This leaves streaming or
+in-place reuse as the concrete liveness problem; it is not a lower bound on
+other representations.
+
 Source: Tang and Han, [New Decoding of Reed–Solomon Codes Based on FFT and
 Modular Approach](https://arxiv.org/abs/2207.11079), Algorithms 4–6,
 Appendix A, and Tables I–III. The 42-Toffoli field-multiplier reference is the

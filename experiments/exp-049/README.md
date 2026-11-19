@@ -89,6 +89,11 @@ at error weights 1, 31, and 35. The direct basis and both trees (`38+32` and
 six cases. This checks classical decoding on three valid inputs; it is not
 exhaustive and does not verify a quantum circuit.
 
+In each case, the materialized 38-point left basis contains 79 GF(2^12)
+coefficients (948 qubits), already above `Q=890`. The ordinary schedule that
+keeps the whole coefficient matrix cannot fit; a viable version must stream or
+reuse that state in place. This only rules out full matrix materialization.
+
 The script also tallies the data-dependent field products for one proposed
 fast tree, `64+(4+2)`. It counts four products per right-side sample when
 applying a 2x2 basis and eight products per evaluation point for a naive 2x2
