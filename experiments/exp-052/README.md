@@ -6,7 +6,7 @@ tests: exhaustive GF(4) tuples, exhaustive valid GF(8) errors, sampled GF(2^12) 
 direction: D-004
 status: local_transition_feasibility
 date: 2026-11-20
-result: every tested pivot was nonzero and every checked sample update inverted exactly; branch-history cleanup and full resource counts remain open
+result: tested updates invert exactly; immutable pivots replay branch choices, with no full-state collisions on exhaustive GF(4)/GF(8) screens; reversible replay cost remains open
 ---
 
 # FMA sample-update reversibility screen
@@ -48,16 +48,29 @@ GF(4), 1,262,547 for GF(8), and 26,304 for GF(2^12); all passed. Exact counts ar
 [`results.json`](results.json), and the checker is
 [`fma_pivot_reversibility.py`](fma_pivot_reversibility.py).
 
+## Pivot and branch replay
+
+Step `j` updates only samples `i>j`; later steps also leave sample `j`
+untouched. The final sample array therefore retains every pivot pair used by
+the forward pass. Replaying the branch predicate from the initial ranks and
+these pivots recovers the same branch sequence classically.
+
+The checker counted distinct full `(d,g,rank1,rank2)` states after every
+step. All 256 pristine GF(4) inputs remained distinct, as did all 97,119 valid
+GF(8), eight-point error patterns through weight four. This is small-domain
+evidence only; it does not provide a low-space reversible replay circuit or
+show that its Toffoli cost fits the score gate.
+
 ## Limits
 
 This removes the need to keep an old copy of an individual right-side pair if
-the pivot and branch are available. It does **not** remove the need to preserve
-or recompute branch decisions, implement the polynomial-basis state, or prove
-that the full 70-symbol circuit fits `Q<=890` and `T<=256,943`. No circuit was
-built or submitted.
+the pivot and branch are available. Pivot retention makes the branch sequence
+replayable, but a reversible replay circuit and its cost are still missing.
+The polynomial-basis state, full 70-symbol liveness, and `Q<=890`,
+`T<=256,943` gates remain unproved. No circuit was built or submitted.
 
-The next gate is a reversible branch/rank schedule for the 4+66 path under the
-50-qubit scratch limit, with a complete Toffoli and phase ledger.
+The next gate is a low-space reversible branch/rank replay for the 4+66 path,
+with a complete Toffoli and phase ledger under the 50-qubit scratch limit.
 
 ## Run
 

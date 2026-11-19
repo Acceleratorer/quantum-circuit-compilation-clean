@@ -8,7 +8,9 @@
       "cases": 256,
       "pivots": 1024,
       "inverse_checks": 1280,
-      "zero_pivots": 0
+      "zero_pivots": 0,
+      "distinct_full_states_after_each_step": [256, 256, 256, 256],
+      "full_state_injective_on_domain": true
     },
     {
       "field": "GF(8)",
@@ -16,7 +18,9 @@
       "cases": 97119,
       "pivots": 776952,
       "inverse_checks": 1262547,
-      "zero_pivots": 0
+      "zero_pivots": 0,
+      "distinct_full_states_after_each_step": [97119, 97119, 97119, 97119, 97119, 97119, 97119, 97119],
+      "full_state_injective_on_domain": true
     },
     {
       "field": "GF(2^12)",
@@ -27,6 +31,6 @@
       "zero_pivots": 0
     }
   ],
-  "structural_invariant": "Before point j, the FMA basis determinant is a nonzero scalar multiple of the product of previous point factors. At a distinct next point its evaluated basis is invertible. Applying it to a pristine pair (d,1) cannot produce a zero pivot. The branch rule then selects a nonsingular sample-update matrix.",
-  "scope": "Local sample-pair updates invert exactly when pivot and branch are available. This does not prove branch-history cleanup, full reversible liveness, or the score gate."
+  "structural_invariant": "Before point j, the FMA basis determinant is a nonzero scalar multiple of the product of previous point factors. At a distinct next point its evaluated basis is invertible. Applying it to a pristine pair (d,1) cannot produce a zero pivot. The branch rule then selects a nonsingular sample-update matrix. A processed pivot pair is never changed by later steps, so the final pivot sequence allows classical replay of branch decisions.",
+  "scope": "Local sample-pair updates invert exactly when pivot and branch are available. Exhaustive GF(4)/GF(8) screens found no full-state collisions on their stated domains. This does not provide a reversible branch-replay circuit, its resource count, full liveness, or the score gate."
 }

@@ -337,3 +337,12 @@ pivot and branch are available. It does not supply a circuit decomposition or
 resolve rank/branch history, complementary-row liveness, the 50-qubit scratch
 limit, or the complete Toffoli count. Keep the 4+66 path as a count-only lead
 until those gates are met.
+
+An extension in `experiments/exp-052` counted full `(d,g,rank1,rank2)` states
+after every sequential step. All states stayed distinct across all 256
+pristine GF(4) inputs and all 97,119 valid GF(8), eight-point error patterns
+through weight four. Each step updates only later samples, so its pivot pair
+remains unchanged to the end; replaying branch predicates from those pivots
+and the initial ranks recovers the branch sequence classically. This opens a
+branch-replay route, but no reversible replay circuit, scratch bound, or
+Toffoli count has been established for 70 symbols.

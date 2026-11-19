@@ -18,7 +18,7 @@ sys.path.insert(0, str(ROOT / "experiments" / "exp-049"))
 import fma_state_compression as fma
 
 
-def check_sequence(data, points, mul, modulus, degree):
+def check_sequence(data, points, mul, modulus, degree, state_sets=None):
     d, g = list(data), [1] * len(data)
     rank1, rank2 = 0, 1
     inverse_checks = 0
@@ -69,6 +69,9 @@ def check_sequence(data, points, mul, modulus, degree):
         else:
             rank2 += 2
 
+        if state_sets is not None:
+            state_sets[j].add(bytes(d + g + [rank1, rank2]))
+
     return {"pivots": len(points), "inverse_checks": inverse_checks}
 
 
@@ -77,8 +80,9 @@ def exhaustive_gf4():
     mul = lambda a, b: fma.gf_mul(a, b, modulus, degree)
     cases = 0
     inverses = 0
+    state_sets = [set() for _ in points]
     for values in product(range(1 << degree), repeat=len(points)):
-        result = check_sequence(values, points, mul, modulus, degree)
+        result = check_sequence(values, points, mul, modulus, degree, state_sets)
         cases += 1
         inverses += result["inverse_checks"]
     return {
@@ -88,6 +92,8 @@ def exhaustive_gf4():
         "pivots": cases * len(points),
         "inverse_checks": inverses,
         "zero_pivots": 0,
+        "distinct_full_states_after_each_step": [len(states) for states in state_sets],
+        "full_state_injective_on_domain": all(len(states) == cases for states in state_sets),
     }
 
 
@@ -96,6 +102,7 @@ def exhaustive_valid_gf8():
     mul = lambda a, b: fma.gf_mul(a, b, modulus, degree)
     cases = 0
     inverses = 0
+    state_sets = [set() for _ in points]
     q = 1 << degree
 
     for weight in range(5):
@@ -108,7 +115,7 @@ def exhaustive_valid_gf8():
                         syndrome[j] ^= mul(magnitude, power)
                         power = mul(power, beta)
                 data = fma.syndrome_to_fma_samples(syndrome, points, mul)
-                result = check_sequence(data, points, mul, modulus, degree)
+                result = check_sequence(data, points, mul, modulus, degree, state_sets)
                 cases += 1
                 inverses += result["inverse_checks"]
 
@@ -119,6 +126,8 @@ def exhaustive_valid_gf8():
         "pivots": cases * len(points),
         "inverse_checks": inverses,
         "zero_pivots": 0,
+        "distinct_full_states_after_each_step": [len(states) for states in state_sets],
+        "full_state_injective_on_domain": all(len(states) == cases for states in state_sets),
     }
 
 
@@ -164,12 +173,15 @@ def main():
             "the product of previous point factors. At a distinct next point, "
             "the evaluated basis is invertible, and the pristine input pair "
             "(d, 1) is nonzero. Thus the pivot pair is nonzero. The selected "
-            "FMA branch then makes the sample-update determinant nonzero."
+            "FMA branch then makes the sample-update determinant nonzero. A "
+            "processed pivot pair is never changed by later steps, so the full "
+            "pivot sequence remains available to replay the branch decisions."
         ),
         "scope": (
             "Local data-pair updates are invertible when the branch and pivot "
-            "are available. This does not prove branch-history cleanup, the "
-            "full reversible liveness schedule, or the score gate."
+            "are available. Small-domain full-state injectivity does not give "
+            "a reversible branch-replay circuit, its resource count, the full "
+            "liveness schedule, or the score gate."
         ),
     }
     print(json.dumps(report, indent=2, sort_keys=True))
