@@ -57,6 +57,79 @@ def recover_pristine_samples(low_row, exceptions, points, mul, modulus, degree):
     return recovered
 
 
+def arbitrary_four_sample_exception_screen():
+    """Exhaust all pristine GF(8) samples at the first four FMA points."""
+    degree, modulus = 3, 0b1011
+    q = 1 << degree
+    points = list(range(4))
+    mul = lambda a, b: fma.gf_mul(a, b, modulus, degree)
+    exception_counts = {}
+    compact_states = {}
+    recovered_inputs = 0
+    state_collisions = 0
+    maximum_exceptions = 0
+
+    for encoded in range(q ** len(points)):
+        data = [
+            (encoded >> (degree * index)) & (q - 1)
+            for index in range(len(points))
+        ]
+        basis = fma.modular_basis(data, points, mul)
+        low_index = min(range(2), key=lambda i: fma.row_rank(basis, i))
+        low_row = [fma.trim(list(poly)) for poly in basis[low_index]]
+        pivot = low_row[0][-1] if low_row[0] != [0] else low_row[1][-1]
+        scale = fma.gf_inv(pivot, modulus, degree)
+        low_row = tuple(
+            tuple(fma.trim([mul(scale, value) for value in poly]))
+            for poly in low_row
+        )
+
+        _, _, exceptions = fma.reconstruct_complementary_row(
+            low_row, data, points, mul, modulus, degree
+        )
+        recovered = recover_pristine_samples(
+            low_row, exceptions, points, mul, modulus, degree
+        )
+        assert recovered == data
+        recovered_inputs += 1
+
+        exception_state = tuple(
+            (index, d_value) for index, d_value, _ in exceptions
+        )
+        state = (low_row, exception_state)
+        prior_input = compact_states.get(state)
+        if prior_input is not None and prior_input != tuple(data):
+            state_collisions += 1
+        else:
+            compact_states[state] = tuple(data)
+
+        count = len(exceptions)
+        maximum_exceptions = max(maximum_exceptions, count)
+        exception_counts[str(count)] = exception_counts.get(str(count), 0) + 1
+
+    assert recovered_inputs == q ** len(points)
+    assert len(compact_states) == recovered_inputs
+    assert state_collisions == 0
+    assert maximum_exceptions <= 2
+    return {
+        "field": "GF(8)",
+        "points": points,
+        "input_domain": "all pristine four-sample d vectors; g_i=1",
+        "cases": q ** len(points),
+        "recovered_inputs": recovered_inputs,
+        "distinct_compact_states": len(compact_states),
+        "state_collisions": state_collisions,
+        "exception_sample_count_distribution": exception_counts,
+        "maximum_exception_samples": maximum_exceptions,
+        "result": "normalized_low_row_and_exceptions_recover_all_inputs",
+        "scope": (
+            "Exhaustive information screen over all 4,096 GF(8) d vectors "
+            "at points 0,1,2,3 with pristine g_i=1. It is not a reversible "
+            "GF(2^12) circuit or a 70-point resource bound."
+        ),
+    }
+
+
 def screen():
     degree, modulus = 3, 0b1011
     q = 1 << degree
@@ -307,6 +380,9 @@ def screen():
                 "not a reversible circuit or GF(2^12) width bound."
             ),
         },
+        "arbitrary_four_sample_exception_screen": (
+            arbitrary_four_sample_exception_screen()
+        ),
         "scope": (
             "Exact for all GF(8), eight-point error patterns through weight 4. "
             "Across all 97,119 cases, 99 normalized final low rows occurred; "
@@ -319,4 +395,10 @@ def screen():
 
 
 if __name__ == "__main__":
-    print(json.dumps(screen(), indent=2, sort_keys=True))
+    if sys.argv[1:] == ["--four-sample-exceptions"]:
+        result = arbitrary_four_sample_exception_screen()
+    elif not sys.argv[1:]:
+        result = screen()
+    else:
+        raise SystemExit("usage: fma_locator_history.py [--four-sample-exceptions]")
+    print(json.dumps(result, indent=2, sort_keys=True))

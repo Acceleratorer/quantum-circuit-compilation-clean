@@ -465,32 +465,44 @@ The read-only Kaggle CLI top-20 query still shows `Z³C¹oherence` first at
 31.74002, with `ThemBones` second at 31.64282. The top score is unchanged, so
 the saved DQI gate remains `T<=256,943` at `Q=890` and `R=1.1912605`.
 
-## 2026-11-20 4+66 exception-width gate — fixed sidecar no-go
+## 2026-11-20 4+66 exception-width gate — sidecar schedule still over width
 
-For left FMA points `{0,1,2,3}`, only `{1,2,3}` can match a verifier error
-location because locations are nonzero. Thus at most three 12-bit source
-samples can be exception records. A simple sidecar uses a 3-bit location mask
-and three 12-bit value slots (39 qubits); dense enumeration of all such
-subset/value records needs 37 bits, but no reversible dense encoder exists.
+An exhaustive screen over all 4,096 arbitrary GF(8) four-sample vectors at
+points `{0,1,2,3}` recovered each vector from the normalized low row plus its
+common-zero exception samples, with no state collisions. The exception-count
+distribution was 0: 2,570, 1: 1,232, and 2: 294. This is small-field evidence;
+the stronger bound follows from the four-point rank invariant: the row ranks
+sum to 9, so the normalized low row has rank at most 4. Its polynomial pair
+`(W,N)` has `deg(W)<=2`; if `N` is nonzero, `deg(N)<=1`. Therefore
+`gcd(W,N)` has degree at most 2 and has at most two distinct common-zero roots.
 
-The 4-point row ranks sum to 9, so the normalized low row has rank at most 4
-and at most four stored coefficients after its fixed leading 1. The 66 right
-samples plus this row give the existing 840-qubit payload. If the 39-qubit
-sidecar remains live through the rank-invariant branch cell, its 48-qubit
-workspace projects `Q=927`, 37 over the 890 limit. **Close this fixed-sidecar
-schedule.** Keep 4+66 open only for a fused ≤48-qubit left-state encoding or a
-schedule that erases exception data before branch execution and proves the
-overlapping scratch. This is a layout no-go, not a lower bound on all reversible
+For valid verifier inputs, error locations are nonzero, so only points
+`{1,2,3}` can be exception locations. A sorted record can use a 3-bit location
+mask and two 12-bit values (27 qubits); its value routing is not designed. Dense
+enumeration of the 50,343,937 possible support/value records needs 26 bits, but
+its reversible encoder and decoder are also unbuilt. The simple fixed-position
+format remains 39 bits (3-bit mask and three 12-bit slots) and avoids sorting.
+
+The normalized low row and 66 untouched right samples give the existing
+840-qubit persistent payload. With 48 branch-cell workspace qubits, the live
+sidecar projections are `Q=915` for the 27-bit sorted form, `Q=914` for the
+26-bit dense capacity, and `Q=927` for the 39-bit fixed-position form. All
+exceed `Q=890`; the sorted form is 25 qubits over. **Keep the live-through-
+branch schedules closed.** Continue 4+66 only with a fused representation or
+an exception-erasure schedule that proves overlapping scratch and phase
+cleanup. These are layout projections, not lower bounds on all reversible
 encodings. Adding the 5,530T branch gate to the latest 246,831T sampled path
 leaves 4,582T for all remaining work; no full resource pass exists.
 
-The fixed-slot exception extractor needs three common-root zero tests and
-three consistency zero tests. It forms three `D_i=d_i*A(i)+B(i)` products,
-computes three masked presence bits, and conditionally writes 36 sample bits
-to fixed slots. With a direct clean-ancilla 12-bit AND ladder, the six
-temporary zero tests cost 252T and use 10 reusable ancillas; holding the
-39-bit sidecar and two temporary flags projects `Q=891` before field
-registers. Four sample ratios can add up to 612T. The listed primitive subtotal
-is 1,029T, but some products may already be present in the dynamic-taint
-reconstruction count, so it is not a reconciled increment. Output selection,
-phase correction, and cleanup remain uncounted.
+The extractor still needs three common-root zero tests and three consistency
+zero tests. It forms three `D_i=d_i*A(i)+B(i)` products and three masked
+presence bits. With a direct clean-ancilla 12-bit AND ladder, the six temporary
+zero tests cost 252T and use 10 reusable ancillas. Before field registers,
+holding two temporary flags and those ancillas projects `Q=879` for the sorted
+format, `Q=878` for the dense format, and `Q=891` for fixed positions. Four
+sample ratios can add up to 612T. Fixed-position copies cost 36T, giving a
+1,029T listed subtotal; copying two packed values costs 24T, giving 1,017T
+before the uncounted sorted-slot routing. Neither subtotal is reconciled:
+products may already appear in the dynamic-taint reconstruction count, and
+output selection, phase correction, full scratch liveness, and cleanup remain
+uncounted.

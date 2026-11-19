@@ -1,6 +1,23 @@
 {
   "experiment": "exp-052-locator-history",
   "field": "GF(8)",
+  "arbitrary_four_sample_exception_screen": {
+    "cases": 4096,
+    "distinct_compact_states": 4096,
+    "exception_sample_count_distribution": {
+      "0": 2570,
+      "1": 1232,
+      "2": 294
+    },
+    "field": "GF(8)",
+    "input_domain": "all pristine four-sample d vectors; g_i=1",
+    "maximum_exception_samples": 2,
+    "points": [0, 1, 2, 3],
+    "recovered_inputs": 4096,
+    "result": "normalized_low_row_and_exceptions_recover_all_inputs",
+    "scope": "Exhaustive information screen over all 4,096 GF(8) d vectors at points 0,1,2,3 with pristine g_i=1. It is not a reversible GF(2^12) circuit or a 70-point resource bound.",
+    "state_collisions": 0
+  },
   "final_basis_matrix": {
     "matrices_with_multiple_branch_histories": 0,
     "max_histories_for_one_matrix": 1,

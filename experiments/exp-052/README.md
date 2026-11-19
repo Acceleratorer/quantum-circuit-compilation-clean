@@ -2,11 +2,11 @@
 id: exp-052
 title: FMA sample-update reversibility screen
 task: dqi
-tests: exhaustive GF(4) tuples, exhaustive valid GF(8) errors, sampled GF(2^12) DQI errors
+tests: exhaustive GF(4) tuples, exhaustive valid GF(8) errors, all 4,096 GF(8) four-sample inputs, sampled GF(2^12) DQI errors
 direction: D-004
 status: local_transition_feasibility
 date: 2026-11-20
-result: sample updates and small-domain compact recovery pass; the rank-invariant branch cell costs 79T per leaf; a fixed 39-qubit exception sidecar projects Q=927 if live through that cell
+result: sample updates and compact recovery pass; at most two exceptions are needed; the 79T branch cell plus a 27-qubit sidecar projects Q=915 if both are live
 ---
 
 # FMA sample-update reversibility screen
@@ -135,60 +135,75 @@ This supports the small-domain encoding, but does not prove a reversible
 GF(2^12) implementation or its Q/T cost. Detailed counts are in
 [`locator_history_results.json`](locator_history_results.json).
 
+An exhaustive screen over all 4,096 arbitrary GF(8) four-sample vectors at
+points `{0,1,2,3}` recovered every input from the normalized low row and its
+exception samples, with no compact-state collisions. The exception-count
+distribution was 0: 2,570, 1: 1,232, and 2: 294. This screen removes the RS
+weight restriction on the four local samples, but remains a small-field
+information screen; counts are in
+[`locator_history_results.json`](locator_history_results.json).
+
+There is also a field-independent two-exception bound. For four FMA points,
+the row ranks sum to 9, so the minimum row rank is at most 4. For its
+normalized `(W,N)` row, this gives `deg(W) <= 2`; if `N` is nonzero,
+`deg(N) <= 1`. Thus `gcd(W,N)` has degree at most 2 and can have at most two
+distinct common-zero exception points.
+
 ### 4+66 exception-width gate
 
 The first block contains FMA points `{0,1,2,3}`. Verifier error locations are
 nonzero field elements, so only points `1,2,3` can be common-zero exception
-locations. The exception list therefore has at most three 12-bit `d` samples.
-A simple fixed-width sidecar uses a 3-bit presence mask and three 12-bit value
-slots: 39 qubits. A dense enumerative code for every possible subset/value
-record needs 37 bits, but its reversible encoder and decoder have not been
-designed. Neither count proves the valid-domain combined state needs that many
-bits; this is a sidecar capacity calculation.
+locations. The two-exception bound gives at most two 12-bit `d` samples. A
+sorted record can use a 3-bit location mask and two 12-bit values: 27 qubits;
+the reversible routing that packs values into those sorted slots is not
+designed. Dense enumeration of all 50,343,937 possible support/value records
+needs 26 bits, but its reversible encoder and decoder are also unbuilt. A
+fixed-position representation remains 39 bits (3-bit mask plus three 12-bit
+slots) and avoids sorting. These are capacity counts, not circuit lower bounds.
 
 For four left constraints, the two row ranks sum to 9, so the normalized
 minimum-rank row has rank at most 4 and at most four stored field coefficients
 after omitting its fixed leading 1. Together with the 66 untouched right
-samples, that gives the existing 840-qubit persistent payload. Keeping the
-39-qubit sidecar live raises it to 879. The rank-invariant branch cell peaks at
-72 qubits including its 24-qubit pivot pair, so its additional live workspace
-is 48 qubits and the simple simultaneous projection is `Q=927`, 37 above the
-890 limit.
+samples, that gives the existing 840-qubit persistent payload. The 27-bit
+sorted sidecar projects to `Q=915` while live through the branch cell; the
+26-bit dense capacity projects to `Q=914`, and the 39-bit fixed-position
+sidecar to `Q=927`. The rank-invariant branch cell has 48 additional live
+workspace qubits after its 24-qubit pivot pair is counted inside the payload.
+All three projections exceed the 890 limit. The 27-bit sorted format is 25
+qubits over the gate; its routing cost and liveness are still unproved.
 
-**Decision:** no-go for a fixed exception sidecar kept live through the current
-branch cell. The sidecar could be fused into the four-sample representation
-or erased before branch execution, but neither schedule has a verified
-reversible liveness or phase ledger. This does not rule out the 4+66 FMA path.
+**Decision:** no-go for any of these sidecar formats kept live through the
+current branch cell. The exception data could be fused into the four-sample
+representation or erased before branch execution, but neither schedule has a
+verified reversible liveness or phase ledger. This does not rule out the 4+66
+FMA path.
 At the latest 2,048-shot sample maximum of 246,831T, adding the 5,530T local
 branch gate leaves 4,582T below the 256,943T gate for all still-unaccounted
 work.
 
-The fixed-slot extraction has a six-test shape: three tests for `G(i)=0` and
+The extraction has a six-test shape: three tests for `G(i)=0` and
 three for `D_i=d_i*A(i)+B(i)=0`, at `i=1,2,3`. It needs three field products
-to form the `D_i`, three Toffolis for `exception_i = [G(i)=0] AND [D_i!=0]`,
-and 36 Toffolis to conditionally copy the three 12-bit samples into their
-fixed slots. Fixed slots avoid a sorting network. A direct 12-bit zero test
-can use 11 Toffolis to produce its flag and 10 more to clear its ladder; a
-temporary flag that is later erased adds another 21, for 42 Toffolis per test
-and 10 reusable clean ancillas. Six such tests cost 252T in this simple
-construction. Holding the 39-bit sidecar, two temporary flags, and those 10
-ancillas reaches `Q=891` before the field-evaluation/product registers. A
-37-bit dense sidecar would reduce that projection to 889, but still leaves
-only one qubit before those registers.
+to form the `D_i`, and three Toffolis for `exception_i = [G(i)=0] AND
+[D_i!=0]`. A direct 12-bit zero test uses 42 Toffolis and 10 reusable clean
+ancillas; six tests cost 252T in this construction. Holding two temporary
+flags and those ancillas gives pre-field-register peaks of `Q=891` for the
+39-bit fixed-position format, `Q=879` for the 27-bit sorted format, and `Q=878`
+for the 26-bit dense format.
 
 Recovering the four left samples can require up to four ratios. At the current
 field costs, one inverse, one multiply, and inverse erasure is 153T, or 612T
-for four samples. These counts give a 1,029T primitive subtotal when added to
-the three `D_i` products, six zero tests, three mask gates, and 36 slot writes.
-Some products may overlap the existing dynamic-taint reconstruction ledger;
-the subtotal is not a reconciled incremental cost. Output selection, field
-register liveness, phase correction, and cleanup remain uncounted.
+for four samples. The fixed-position format writes three 12-bit slots (36T),
+for a 1,029T listed subtotal including the three `D_i` products, six zero
+tests, and three mask gates. The sorted two-slot format writes 24 bits, giving
+1,017T before its uncounted value-routing cost. Neither subtotal is a
+reconciled incremental cost: products may overlap the dynamic-taint ledger,
+and output selection, phase correction, and cleanup remain uncounted.
 
 Run the screen with:
 
 ```powershell
 & 'D:\Code\Kaggle\competitions\Google Quantum AI\.venv\Scripts\python.exe' -I `
-  'experiments/exp-052/fma_locator_history.py'
+  'experiments/exp-052/fma_locator_history.py' --four-sample-exceptions
 ```
 
 ### One branch/rank gate kernel
