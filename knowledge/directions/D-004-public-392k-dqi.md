@@ -16,7 +16,10 @@ reproduces it. Existing product-retention variants have already been screened.
 The active path is a source-owned DQI decoder with a genuinely different
 key-equation algorithm. Keep the official verifier's salted failure rate in
 the score model, and require the full `R × Q² × T` budget before building a
-candidate. The latest saved rank-1-equivalent target is `245.285e9`.
+candidate. The latest score-equivalence estimate is `242.451e9`; at
+`R=1.1912605` and `Q=890`, the DQI gate is `T <= 256,943` (see the current
+leaderboard refresh below and the saved score model in the mid-competition
+milestone).
 
 ## 2026-11-19 update — packed BM transition screen
 
@@ -282,3 +285,33 @@ the classical correction solve has no reversible liveness or Toffoli ledger.
 The three error weights are samples, not a proof over the verifier's complete
 input domain. Keep FMA open only for a reversible ≤50-qubit implementation
 whose full score gates are measured; no circuit or submission exists yet.
+
+## 2026-11-19 FMA split and complement screen refresh
+
+The read-only Kaggle CLI leaderboard refresh at `2026-11-19 07:25 UTC` still
+has `Z³C¹oherence` first at `31.74002`. The current score-equivalence gate is
+`T <= 256,943` at `R=1.1912605`, `Q=890`.
+
+`exp-049` now reconstructs and composes the left basis for `4+66`, `8+62`, and
+`38+32` on verifier-form samples at `e=1,31,35`. Every composed normalized low
+row matches the direct 70-point basis. At `e=31,35`, each split retains 70
+field words (840 qubits) and leaves 50 qubits for all scratch and history.
+This remains a classical composition check.
+
+A seeded dynamic-taint screen for `e=31,35` counted variable products and
+inversions in the reconstruction. Using the in-tree 42T product, 66T inverse,
+45T inverse erasure, and the 45,045T root scan gives these sample-path totals:
+
+| Split | FMA products | Reconstruction products | Inverses | Estimated T | Margin to 256,943T |
+|---:|---:|---:|---:|---:|---:|
+| 4+66 | 4,720 | 71 | 18 | 248,265 | 8,678 |
+| 8+62 | 4,585 | 205 | 31 | 249,666 | 7,277 |
+| 38+32 | 4,166 | 3,877 | 145 | 398,946 | -142,003 |
+
+The estimate is `42 * (FMA products + reconstruction products) + 111 *
+inverses + 45,045`. The 4+66 split is lowest among the tested splits 1–18,
+but its 8,678T margin must cover branch/control, phase, and cleanup work. This
+screen does not compile a reversible circuit, bound the cost over all inputs,
+or prove that reconstruction fits the 50-qubit scratch ceiling. Do not treat
+it as a score-gate pass; FMA stays open only for a concrete reversible schedule
+that verifies against the official scorer.

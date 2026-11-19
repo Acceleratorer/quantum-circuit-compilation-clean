@@ -595,12 +595,16 @@ def reconstruct_complementary_row(row, data, points, mul, modulus, degree):
     max_v_degree = complementary_rank // 2
     max_m_degree = (complementary_rank - 1) // 2
 
-    for divisor, base in ((w, base_v), (n, base_m)):
+    for reduce_v, divisor, base in ((True, w, base_v), (False, n, base_m)):
         if divisor == [0]:
             continue
-        quotient, _ = poly_divmod(base, divisor, mul, modulus, degree)
-        v = poly_add(base_v, poly_mul(w, quotient, mul))
-        m = poly_add(base_m, poly_mul(n, quotient, mul))
+        quotient, remainder = poly_divmod(base, divisor, mul, modulus, degree)
+        if reduce_v:
+            v = remainder
+            m = poly_add(base_m, poly_mul(n, quotient, mul))
+        else:
+            v = poly_add(base_v, poly_mul(w, quotient, mul))
+            m = remainder
         if len(v) - 1 <= max_v_degree and len(m) - 1 <= max_m_degree:
             return (w, n), (v, m), exceptional_samples
     raise ValueError("Euclidean reduction did not meet the complementary rank")
@@ -633,7 +637,17 @@ def verify_complementary_row_reconstruction():
             for value, point in zip(data, points)
         )
         assert row_rank([low], 0) + row_rank([complement], 0) == 2 * len(points) + 1
-        return len(low[0]) + len(low[1]) - 1, len(exceptions)
+        return len(low[0]) + len(low[1]) - 1, len(exceptions), low, complement
+
+    def normalized_low_row(basis):
+        row = min(range(2), key=lambda index: row_rank(basis, index))
+        w, n = (trim(list(poly)) for poly in basis[row])
+        pivot = w[-1] if w != [0] else n[-1]
+        scale = gf_inv(pivot, modulus, degree)
+        return (
+            trim([mul(scale, value) for value in w]),
+            trim([mul(scale, value) for value in n]),
+        )
 
     results = []
     degree, modulus, points = 2, 0b111, list(range(4))
@@ -667,22 +681,49 @@ def verify_complementary_row_reconstruction():
             for index in range(len(points)):
                 syndrome[index] ^= mul(error_value, power)
                 power = mul(power, beta)
-        data = syndrome_to_fma_samples(syndrome, points, mul)[:38]
-        row_words, exceptions = check(degree, modulus, points[:38], data)
-        persistent_words = row_words + exceptions + 32
-        results.append(
-            {
-                "field": "GF(2^12)",
-                "errors": weight,
-                "split": "38+32",
-                "normalized_left_row_words": row_words,
-                "exception_samples": exceptions,
-                "right_input_words": 32,
-                "persistent_qubits": 12 * persistent_words,
-                "remaining_under_Q890": 890 - 12 * persistent_words,
-                "scope": "state count only; excludes reversible scratch and Toffolis",
-            }
-        )
+        data = syndrome_to_fma_samples(syndrome, points, mul)
+        direct = modular_basis(data, points, mul)
+        for split in (4, 8, 38):
+            left_points = points[:split]
+            left_data = data[:split]
+            row_words, exception_count, low, complement = check(
+                degree, modulus, left_points, left_data
+            )
+
+            right_d, right_g = [], []
+            for sample, point in zip(data[split:], points[split:]):
+                right_d.append(
+                    mul(poly_eval(low[0], point, mul), sample)
+                    ^ poly_eval(low[1], point, mul)
+                )
+                right_g.append(
+                    mul(poly_eval(complement[0], point, mul), sample)
+                    ^ poly_eval(complement[1], point, mul)
+                )
+            right = modular_basis(right_d, points[split:], mul, right_g)
+            combined = matrix_mul(right, [low, complement], mul)
+            assert_basis(data, [1] * len(points), points, combined, mul)
+            assert sorted(row_rank(combined, row) for row in range(2)) == sorted(
+                row_rank(direct, row) for row in range(2)
+            )
+            assert normalized_low_row(combined) == normalized_low_row(direct)
+
+            right_words = len(points) - split
+            persistent_words = row_words + exception_count + right_words
+            results.append(
+                {
+                    "field": "GF(2^12)",
+                    "errors": weight,
+                    "split": f"{split}+{right_words}",
+                    "normalized_left_row_words": row_words,
+                    "exception_samples": exception_count,
+                    "right_input_words": right_words,
+                    "persistent_qubits": 12 * persistent_words,
+                    "remaining_under_Q890": 890 - 12 * persistent_words,
+                    "reconstruction_composition": "PASS",
+                    "scope": "state count only; excludes reversible scratch and Toffolis",
+                }
+            )
     return results
 
 
