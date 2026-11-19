@@ -12,6 +12,8 @@ from itertools import combinations, product
 from math import ceil, log2
 from random import Random
 
+import numpy as np
+
 
 def gf_mul(a, b, modulus, degree):
     out = 0
@@ -484,6 +486,116 @@ def screen_branch_history(degree, modulus, n, split):
     }
 
 
+def screen_branch_history_vectorized(degree, modulus, n, split):
+    """Exhaustively screen small cases with vectorized prefix updates."""
+    output_bits = 2 * degree * (n - split) + n
+    if not 1 <= split < n or degree * n > 28 or output_bits > 27 or n > 1 << degree:
+        raise ValueError("vectorized screen is limited to small distinct-point cases")
+
+    q = 1 << degree
+    right_size = n - split
+    mul_table = np.array(
+        [[gf_mul(a, b, modulus, degree) for b in range(q)] for a in range(q)],
+        dtype=np.uint8,
+    )
+    left_count = q**split
+    right_count = q**right_size
+    left_ids = np.arange(left_count, dtype=np.uint32)
+    d = np.empty((split, left_count), dtype=np.uint8)
+    for j in range(split):
+        d[j] = (left_ids >> (degree * j)) & (q - 1)
+    g = np.ones((split, left_count), dtype=np.uint8)
+    rank1 = np.zeros(left_count, dtype=np.uint16)
+    rank2 = np.ones(left_count, dtype=np.uint16)
+    history = np.zeros(left_count, dtype=np.uint32)
+    basis = [
+        [np.ones((right_size, left_count), dtype=np.uint8), np.zeros((right_size, left_count), dtype=np.uint8)],
+        [np.zeros((right_size, left_count), dtype=np.uint8), np.ones((right_size, left_count), dtype=np.uint8)],
+    ]
+
+    for j, point in enumerate(range(split)):
+        dj, gj = d[j], g[j]
+        swap = (gj == 0) | ((dj != 0) & (rank1 < rank2))
+        history |= swap.astype(np.uint32) << j
+        old_rank1, old_rank2 = rank1, rank2
+        rank1 = np.where(swap, old_rank2, old_rank1)
+        rank2 = np.where(swap, old_rank1 + 2, old_rank2 + 2)
+
+        for i in range(j + 1, split):
+            old_d, old_g = d[i].copy(), g[i].copy()
+            d[i] = mul_table[gj, old_d] ^ mul_table[dj, old_g]
+            factor = i ^ point
+            g[i] = np.where(swap, mul_table[factor, old_d], mul_table[factor, old_g])
+
+        for offset, x in enumerate(range(split, n)):
+            factor = x ^ point
+            a, b = basis[0][0][offset].copy(), basis[0][1][offset].copy()
+            c, e = basis[1][0][offset].copy(), basis[1][1][offset].copy()
+            basis[0][0][offset] = mul_table[gj, a] ^ mul_table[dj, c]
+            basis[0][1][offset] = mul_table[gj, b] ^ mul_table[dj, e]
+            basis[1][0][offset] = np.where(swap, mul_table[factor, a], mul_table[factor, c])
+            basis[1][1][offset] = np.where(swap, mul_table[factor, b], mul_table[factor, e])
+
+    output_space = 1 << output_bits
+    counts = np.zeros(output_space, dtype=np.uint32)
+    state_bits = 2 * degree * right_size
+    check_left = {0, left_count // 2, left_count - 1}
+    check_right = {0, right_count // 2, right_count - 1}
+
+    for right_index in range(right_count):
+        right_data = decode_tuple(right_index, degree, right_size)
+        right_d = np.empty((right_size, left_count), dtype=np.uint8)
+        right_g = np.empty((right_size, left_count), dtype=np.uint8)
+        for offset, value in enumerate(right_data):
+            right_d[offset] = mul_table[basis[0][0][offset], value] ^ basis[0][1][offset]
+            right_g[offset] = mul_table[basis[1][0][offset], value] ^ basis[1][1][offset]
+
+        r1, r2, right_history = rank1.copy(), rank2.copy(), history.copy()
+        for j, point in enumerate(range(split, n)):
+            dj, gj = right_d[j], right_g[j]
+            swap = (gj == 0) | ((dj != 0) & (r1 < r2))
+            right_history |= swap.astype(np.uint32) << point
+            old_rank1, old_rank2 = r1, r2
+            r1 = np.where(swap, old_rank2, old_rank1)
+            r2 = np.where(swap, old_rank1 + 2, old_rank2 + 2)
+            for i in range(j + 1, right_size):
+                old_d, old_g = right_d[i].copy(), right_g[i].copy()
+                factor = (split + i) ^ point
+                right_d[i] = mul_table[gj, old_d] ^ mul_table[dj, old_g]
+                right_g[i] = np.where(swap, mul_table[factor, old_d], mul_table[factor, old_g])
+
+        key = right_history.copy()
+        for values in right_d:
+            key = (key << degree) | values.astype(np.uint32)
+        for values in right_g:
+            key = (key << degree) | values.astype(np.uint32)
+        counts += np.bincount(key.astype(np.int64), minlength=output_space).astype(np.uint32)
+
+        if right_index in check_right:
+            for left_index in check_left:
+                data = decode_tuple(left_index, degree, split) + right_data
+                ref_d, ref_g, ref_history = sequential_state(
+                    data, list(range(n)), lambda a, b: gf_mul(a, b, modulus, degree)
+                )
+                state = 0
+                for value in ref_d[split:] + ref_g[split:]:
+                    state = (state << degree) | value
+                assert int(key[left_index]) == (ref_history << state_bits) | state
+
+    assert int(counts.sum()) == q**n
+    max_fiber = int(counts.max())
+    return {
+        "field": f"GF(2^{degree})",
+        "n": n,
+        "split": f"{split}+{right_size}",
+        "domain_size": q**n,
+        "mean_fiber": q**n / output_space,
+        "max_preimage_with_history": max_fiber,
+        "extra_side_information_bits": (max_fiber - 1).bit_length(),
+        "reference_samples": "PASS",
+    }
+
+
 def main():
     verify_70_symbol_splits()
     print(estimate_70_fma_variable_products())
@@ -500,6 +612,8 @@ def main():
         print(screen(*case))
     for case in [(3, 0b1011, 6, 3), (3, 0b1011, 6, 4)]:
         print(screen_branch_history(*case))
+    for case in [(3, 0b1011, 8, 6), (3, 0b1011, 8, 7)]:
+        print(screen_branch_history_vectorized(*case))
 
 
 if __name__ == "__main__":

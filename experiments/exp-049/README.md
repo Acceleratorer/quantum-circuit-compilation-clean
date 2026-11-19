@@ -145,6 +145,21 @@ So one stored branch bit per symbol is not a complete reversible encoding even
 for these small cases. These results do not establish the side-information
 bound at 70 symbols.
 
+An exact vectorized screen extended the arbitrary-input enumeration to all
+`GF(8)^8` inputs for two more splits. It records every branch bit and the final
+right-block state, then compares selected entries with the sequential reference:
+
+| Split | Mean fiber | Largest fiber | Additional label bits |
+|---:|---:|---:|---:|
+| 6+2 | 16 | 2,177 | 12 |
+| 7+1 | 1,024 | 114,940 | 17 |
+
+The vectorized reference checks pass for both cases. These exact small-field
+results show the size of the remaining collision label for these inputs; they
+do not bound the 70-symbol fiber or prove that a 52-qubit label is enough.
+`screen_branch_history_vectorized()` reproduces the screen using the pinned
+NumPy dependency.
+
 ## Decision
 
 The syndrome-to-FMA map is now exact, but this closes only the shortcut that

@@ -165,6 +165,13 @@ Thus one history bit per update is not a complete encoding at these sizes;
 this does not give a 70-symbol lower bound or prove that 122 bits are
 insufficient.
 
+The vectorized `exp-049` screen exhaustively checked all `GF(8)^8` inputs for
+splits `6+2` and `7+1`, including branch history and final right state. Their
+largest fibers were 2,177 and 114,940, requiring 12 and 17 additional label
+bits; selected entries matched the sequential reference. These cases do not
+bound the 70-symbol fiber, but they provide a reproducible small-field screen
+for the state width.
+
 For the 70-symbol root state, 64 right-pair field words plus 70 branch bits
 occupy 838 qubits. At `Q=890`, that leaves an absolute 52-qubit ceiling for
 additional collision labels and any overlapping scratch. A viable label must
