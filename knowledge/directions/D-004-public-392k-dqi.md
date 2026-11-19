@@ -464,3 +464,33 @@ that fits the `4+66` state and remaining resource budget.
 The read-only Kaggle CLI top-20 query still shows `Z³C¹oherence` first at
 31.74002, with `ThemBones` second at 31.64282. The top score is unchanged, so
 the saved DQI gate remains `T<=256,943` at `Q=890` and `R=1.1912605`.
+
+## 2026-11-20 4+66 exception-width gate — fixed sidecar no-go
+
+For left FMA points `{0,1,2,3}`, only `{1,2,3}` can match a verifier error
+location because locations are nonzero. Thus at most three 12-bit source
+samples can be exception records. A simple sidecar uses a 3-bit location mask
+and three 12-bit value slots (39 qubits); dense enumeration of all such
+subset/value records needs 37 bits, but no reversible dense encoder exists.
+
+The 4-point row ranks sum to 9, so the normalized low row has rank at most 4
+and at most four stored coefficients after its fixed leading 1. The 66 right
+samples plus this row give the existing 840-qubit payload. If the 39-qubit
+sidecar remains live through the rank-invariant branch cell, its 48-qubit
+workspace projects `Q=927`, 37 over the 890 limit. **Close this fixed-sidecar
+schedule.** Keep 4+66 open only for a fused ≤48-qubit left-state encoding or a
+schedule that erases exception data before branch execution and proves the
+overlapping scratch. This is a layout no-go, not a lower bound on all reversible
+encodings. Adding the 5,530T branch gate to the latest 246,831T sampled path
+leaves 4,582T for all remaining work; no full resource pass exists.
+
+The fixed-slot exception extractor needs three common-root zero tests and
+three consistency zero tests. It forms three `D_i=d_i*A(i)+B(i)` products,
+computes three masked presence bits, and conditionally writes 36 sample bits
+to fixed slots. With a direct clean-ancilla 12-bit AND ladder, the six
+temporary zero tests cost 252T and use 10 reusable ancillas; holding the
+39-bit sidecar and two temporary flags projects `Q=891` before field
+registers. Four sample ratios can add up to 612T. The listed primitive subtotal
+is 1,029T, but some products may already be present in the dynamic-taint
+reconstruction count, so it is not a reconciled increment. Output selection,
+phase correction, and cleanup remain uncounted.

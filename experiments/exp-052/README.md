@@ -6,11 +6,7 @@ tests: exhaustive GF(4) tuples, exhaustive valid GF(8) errors, sampled GF(2^12) 
 direction: D-004
 status: local_transition_feasibility
 date: 2026-11-20
-result: >-
-  sample updates invert exactly; expanded replay exceeds the width gate;
-  local-window, support-only, and final-low-row-only history recovery fail
-  GF(8) screens; the exact full basis and 4+4 compact state recover history
-  on the screened domain; the rank-invariant branch cell costs 79T per leaf
+result: sample updates and small-domain compact recovery pass; the rank-invariant branch cell costs 79T per leaf; a fixed 39-qubit exception sidecar projects Q=927 if live through that cell
 ---
 
 # FMA sample-update reversibility screen
@@ -138,6 +134,55 @@ adding the untouched right samples produced 97,119 distinct compact states.
 This supports the small-domain encoding, but does not prove a reversible
 GF(2^12) implementation or its Q/T cost. Detailed counts are in
 [`locator_history_results.json`](locator_history_results.json).
+
+### 4+66 exception-width gate
+
+The first block contains FMA points `{0,1,2,3}`. Verifier error locations are
+nonzero field elements, so only points `1,2,3` can be common-zero exception
+locations. The exception list therefore has at most three 12-bit `d` samples.
+A simple fixed-width sidecar uses a 3-bit presence mask and three 12-bit value
+slots: 39 qubits. A dense enumerative code for every possible subset/value
+record needs 37 bits, but its reversible encoder and decoder have not been
+designed. Neither count proves the valid-domain combined state needs that many
+bits; this is a sidecar capacity calculation.
+
+For four left constraints, the two row ranks sum to 9, so the normalized
+minimum-rank row has rank at most 4 and at most four stored field coefficients
+after omitting its fixed leading 1. Together with the 66 untouched right
+samples, that gives the existing 840-qubit persistent payload. Keeping the
+39-qubit sidecar live raises it to 879. The rank-invariant branch cell peaks at
+72 qubits including its 24-qubit pivot pair, so its additional live workspace
+is 48 qubits and the simple simultaneous projection is `Q=927`, 37 above the
+890 limit.
+
+**Decision:** no-go for a fixed exception sidecar kept live through the current
+branch cell. The sidecar could be fused into the four-sample representation
+or erased before branch execution, but neither schedule has a verified
+reversible liveness or phase ledger. This does not rule out the 4+66 FMA path.
+At the latest 2,048-shot sample maximum of 246,831T, adding the 5,530T local
+branch gate leaves 4,582T below the 256,943T gate for all still-unaccounted
+work.
+
+The fixed-slot extraction has a six-test shape: three tests for `G(i)=0` and
+three for `D_i=d_i*A(i)+B(i)=0`, at `i=1,2,3`. It needs three field products
+to form the `D_i`, three Toffolis for `exception_i = [G(i)=0] AND [D_i!=0]`,
+and 36 Toffolis to conditionally copy the three 12-bit samples into their
+fixed slots. Fixed slots avoid a sorting network. A direct 12-bit zero test
+can use 11 Toffolis to produce its flag and 10 more to clear its ladder; a
+temporary flag that is later erased adds another 21, for 42 Toffolis per test
+and 10 reusable clean ancillas. Six such tests cost 252T in this simple
+construction. Holding the 39-bit sidecar, two temporary flags, and those 10
+ancillas reaches `Q=891` before the field-evaluation/product registers. A
+37-bit dense sidecar would reduce that projection to 889, but still leaves
+only one qubit before those registers.
+
+Recovering the four left samples can require up to four ratios. At the current
+field costs, one inverse, one multiply, and inverse erasure is 153T, or 612T
+for four samples. These counts give a 1,029T primitive subtotal when added to
+the three `D_i` products, six zero tests, three mask gates, and 36 slot writes.
+Some products may overlap the existing dynamic-taint reconstruction ledger;
+the subtotal is not a reconciled incremental cost. Output selection, field
+register liveness, phase correction, and cleanup remain uncounted.
 
 Run the screen with:
 
