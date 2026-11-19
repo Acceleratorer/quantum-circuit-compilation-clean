@@ -255,7 +255,7 @@ coefficient across that division's quotient terms.
 | 1+69 | 4,864 | 15 | 7 | 250,740 | 6,203 |
 | 2+68 | 4,810 | 28 | 7 | 249,018 | 7,925 |
 | 3+67 | 4,763 | 65 | 9 | 248,820 | 8,123 |
-| 4+66 | 4,720 | 71 | 8 | 247,155 | 9,788 |
+| 4+66 | 4,720 | 25 | 3 | 244,668 | 12,275 |
 | 5+65 | 4,681 | 144 | 10 | 248,805 | 8,138 |
 | 6+64 | 4,648 | 145 | 9 | 247,350 | 9,593 |
 | 7+63 | 4,615 | 253 | 11 | 250,722 | 6,221 |
@@ -266,22 +266,25 @@ coefficient across that division's quotient terms.
 | 38+32 | 4,166 | 3,877 | 25 | 385,626 | -128,683 |
 
 The total is `42 * (FMA products + reconstruction products) + 111 *
-reconstruction inverses + 45,045`. The two high-weight samples give the same
-counts except at 16+54, where the table keeps the larger estimate.
+reconstruction inverses + 45,045`. The 4+66 row uses the closed-form
+degree-2/degree-1 coprime path in `_reconstruct_four_point_coprime()`; the
+other rows still use generic polynomial Euclid. On the verifier-form samples
+at error weights 31 and 35, that path used 25 variable products and 3
+inversions for each sample.
 
 A follow-up 2,048-shot screen (`seed=0x4A66F0`) used the verifier's
 `sample_shots()` with `optimal_dqi_weights() ** 2`. Its error-weight mean was
 31.0566 and median 31. The selected low row had degrees `(w,n,gcd)=(2,1,0)`
 in 2,045 shots and `(2,1,1)` in three; those three paths each had one common
-zero and one correction sample. Dynamic taint counted 71 reconstruction
-products and 8 inversions in 2,044 shots, 64 products and 8 inversions in one,
-and 51 products and 8 inversions in the three correction shots. With the
-4+66 FMA estimate fixed at 4,720 products, the largest sampled total was
-247,155T; no sampled path exceeded 256,943T and reconstruction had zero
-failures. These are sample-path estimates, not a reversible circuit or an
-input-domain bound. Branch/control gates, phase correction, cleanup, and a
-≤50-qubit scratch schedule remain unaccounted for; the 4+66 split's 9,788T
-margin is not yet a gate pass.
+zero and one correction sample. Dynamic taint counted `(25 products, 3
+inversions)` in 2,044 shots, `(20, 3)` in one, and `(58, 10)` in the three
+correction shots. With the 4+66 FMA estimate fixed at 4,720 products, mean
+sampled cost was 244,671.066T and the maximum was 246,831T; no sampled path
+exceeded 256,943T and reconstruction had zero failures. These are sample-path
+estimates, not a reversible circuit or an input-domain bound. Branch/control
+gates, phase correction, cleanup, and a ≤50-qubit scratch schedule remain
+unaccounted for; the 4+66 split's sampled maximum leaves 10,112T before those
+omitted costs.
 
 This is a classical reconstruction and a persistent-state count. It does not
 show that extended Euclid and the correction solve can be computed reversibly

@@ -530,6 +530,58 @@ def poly_xgcd(left, right, mul, modulus, degree):
     )
 
 
+def _poly_divmod_monic(numerator, denominator, mul):
+    remainder = trim(list(numerator))
+    denominator = trim(list(denominator))
+    if denominator[-1] != 1:
+        raise ValueError("the divisor must be monic")
+    quotient = [0] * max(1, len(remainder) - len(denominator) + 1)
+    while remainder != [0] and len(remainder) >= len(denominator):
+        shift = len(remainder) - len(denominator)
+        factor = remainder[-1]
+        quotient[shift] = factor
+        for index, coefficient in enumerate(denominator[:-1]):
+            remainder[shift + index] ^= mul(factor, coefficient)
+        remainder[-1] = 0
+        trim(remainder)
+    return trim(quotient), remainder
+
+
+def _reconstruct_four_point_coprime(row, points, mul, modulus, degree):
+    """Closed form for a monic degree-2 / degree-1 coprime four-point row."""
+    if len(points) != 4:
+        return None
+    w, n = (trim(list(poly)) for poly in row)
+    if len(w) != 3 or len(n) != 2 or w[-1] == 0 or n[-1] == 0:
+        return None
+    scale = gf_inv(w[-1], modulus, degree)
+    w = trim([mul(value, scale) for value in w[:-1]] + [1])
+    n = trim([mul(value, scale) for value in n])
+
+    inverse_lead = gf_inv(n[-1], modulus, degree)
+    quotient = [
+        mul(inverse_lead, w[1] ^ mul(inverse_lead, n[0])),
+        inverse_lead,
+    ]
+    gcd = w[0] ^ mul(quotient[0], n[0])
+    if gcd == 0:
+        return None
+
+    inverse_gcd = gf_inv(gcd, modulus, degree)
+    node = [1]
+    for point in points:
+        node = poly_mul(node, [point, 1], mul)
+    base_m = trim([mul(inverse_gcd, value) for value in node])
+    base_v = poly_mul(
+        [mul(inverse_gcd, coefficient) for coefficient in quotient], node, mul
+    )
+    quotient, v = _poly_divmod_monic(base_v, w, mul)
+    m = poly_add(base_m, poly_mul(n, quotient, mul))
+    if row_rank([[v, m]], 0) != 5:
+        return None
+    return (w, n), (v, m), []
+
+
 def reconstruct_complementary_row(row, data, points, mul, modulus, degree):
     """Recover a minimum-rank row from one normalized basis row and its samples.
 
@@ -539,6 +591,9 @@ def reconstruct_complementary_row(row, data, points, mul, modulus, degree):
     """
     if len(data) != len(points):
         raise ValueError("data and point counts must match")
+    fast = _reconstruct_four_point_coprime(row, points, mul, modulus, degree)
+    if fast is not None:
+        return fast
     w, n = (trim(list(poly)) for poly in row)
     pivot = w[-1] if w != [0] else n[-1]
     scale = gf_inv(pivot, modulus, degree)
