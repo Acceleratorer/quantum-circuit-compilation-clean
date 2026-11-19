@@ -392,3 +392,22 @@ generation, FMA-tree composition, or multi-step history cleanup. The local
 predicate is not the blocker by itself; the unresolved gate is a complete
 compact-state/history schedule within the remaining 3,138T and 50 scratch
 qubits.
+
+## FMA leaf branch encoding
+
+Tang and Han's [Algorithm 6](https://arxiv.org/abs/2207.11079) already encodes
+each leaf choice in its output matrix: one branch places the nonzero lower-row
+polynomial in the left column, and the other places it in the right column.
+This gives a concrete place to store the branch result in the matrix
+representation instead of allocating a separate history bit per leaf. It does
+not yet prove that the recursive matrix composition can consume and clean every
+intermediate within `Q<=890`.
+
+Do not assume HMR can clear the branch after the rank and sample updates. On
+unrestricted local FMA states, the post-update state need not determine the
+branch: over GF(8), pivot `(1,1)`, point difference `1`, ranks `(3,2)` with
+sample `(1,2)` on the no-swap branch and ranks `(2,3)` with sample `(2,1)` on
+the swap branch both produce sample `(3,2)` and ranks `(3,4)`. A promise-aware
+oracle may still exist, but generic measurement-based erasure is not justified
+by this update. The next gate is a compiled leaf that writes the actual matrix
+encoding, followed by a recursive liveness and phase ledger.
