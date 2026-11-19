@@ -325,6 +325,18 @@ labels and any overlapping scratch under `Q=890`. The label must be computed
 reversibly; the small-field fiber counts do not establish that a ≤52-bit label
 exists for 70 symbols.
 
+The verifier-domain syndrome register has an information-theoretic upper bound
+that does not rule out this target. The verifier uses at most 35 errors among
+4095 nonzero field points, with 4095 possible nonzero values per selected
+point. The number of error patterns, including the zero pattern, is
+`sum(C(4095,w) * 4095^w, w=0..35)`, whose bit length is 707. The 70 power
+syndromes identify these patterns injectively: the difference of two patterns
+has support at most 70, and the corresponding 70-row Vandermonde columns are
+independent. Thus the 840-bit syndrome bank has at most 133 bits of
+information-theoretic slack. This is only a counting bound; it gives no
+reversible encoding, no bound on a FMA collision label, and no scratch-space or
+Toffoli schedule.
+
 ## Reproduce
 
 ```powershell
