@@ -598,15 +598,22 @@ def _reconstruct_four_point_coprime(row, points, mul, modulus, degree):
     return (w, n), (v, m), []
 
 
-def reconstruct_complementary_row(row, data, points, mul, modulus, degree):
-    """Recover a minimum-rank row from one normalized basis row and its samples.
+def reconstruct_complementary_row(
+    row, data, points, mul, modulus, degree, g_values=None
+):
+    """Recover a minimum-rank row from a normalized row and input pairs.
 
     The Euclidean identity gives a determinant-P solution. A correction is
     interpolated at common-zero points, then polynomial remainders choose a
-    representative with the required complementary rank.
+    representative with the required complementary rank. ``g_values`` defaults
+    to the pristine-input value 1.
     """
     if len(data) != len(points):
         raise ValueError("data and point counts must match")
+    if g_values is None:
+        g_values = [1] * len(data)
+    if len(g_values) != len(data):
+        raise ValueError("data and g-value counts must match")
     fast = _reconstruct_four_point_coprime(row, points, mul, modulus, degree)
     if fast is not None:
         return fast
@@ -632,16 +639,18 @@ def reconstruct_complementary_row(row, data, points, mul, modulus, degree):
     correction_points = []
     correction_values = []
     exceptional_samples = []
-    for index, (point, value) in enumerate(zip(points, data)):
+    for index, (point, d_value, g_value) in enumerate(zip(points, data, g_values)):
         if poly_eval(gcd, point, mul) != 0:
             continue
-        denominator = mul(value, poly_eval(w_reduced, point, mul)) ^ poly_eval(
-            n_reduced, point, mul
+        denominator = mul(d_value, poly_eval(w_reduced, point, mul)) ^ mul(
+            g_value, poly_eval(n_reduced, point, mul)
         )
-        rhs = mul(value, poly_eval(v0, point, mul)) ^ poly_eval(m0, point, mul)
+        rhs = mul(d_value, poly_eval(v0, point, mul)) ^ mul(
+            g_value, poly_eval(m0, point, mul)
+        )
         if denominator:
             correction = mul(rhs, gf_inv(denominator, modulus, degree))
-            exceptional_samples.append((index, value))
+            exceptional_samples.append((index, d_value, g_value))
         else:
             assert rhs == 0
             correction = 0
@@ -685,12 +694,14 @@ def reconstruct_complementary_row(row, data, points, mul, modulus, degree):
 
 
 def verify_complementary_row_reconstruction():
-    def check(degree, modulus, points, data):
+    def check(degree, modulus, points, data, g_values=None):
         mul = lambda a, b: gf_mul(a, b, modulus, degree)
-        basis = modular_basis(data, points, mul)
+        if g_values is None:
+            g_values = [1] * len(data)
+        basis = modular_basis(data, points, mul, g_values)
         row = min(range(2), key=lambda index: row_rank(basis, index))
         low, complement, exceptions = reconstruct_complementary_row(
-            basis[row], data, points, mul, modulus, degree
+            basis[row], data, points, mul, modulus, degree, g_values
         )
 
         node = [1]
@@ -703,12 +714,12 @@ def verify_complementary_row_reconstruction():
         assert determinant == node
         assert all(
             mul(value, poly_eval(low[0], point, mul))
-            ^ poly_eval(low[1], point, mul)
+            ^ mul(g_value, poly_eval(low[1], point, mul))
             == 0
             and mul(value, poly_eval(complement[0], point, mul))
-            ^ poly_eval(complement[1], point, mul)
+            ^ mul(g_value, poly_eval(complement[1], point, mul))
             == 0
-            for value, point in zip(data, points)
+            for value, g_value, point in zip(data, g_values, points)
         )
         assert row_rank([low], 0) + row_rank([complement], 0) == 2 * len(points) + 1
         return len(low[0]) + len(low[1]) - 1, len(exceptions), low, complement
@@ -725,9 +736,25 @@ def verify_complementary_row_reconstruction():
 
     results = []
     degree, modulus, points = 2, 0b111, list(range(4))
+    rng = Random(0xB4)
     for encoded in range(1 << (degree * len(points))):
-        check(degree, modulus, points, decode_tuple(encoded, degree, len(points)))
-    results.append({"field": "GF(4)", "points": 4, "inputs": 256, "reconstruction": "PASS"})
+        data = decode_tuple(encoded, degree, len(points))
+        check(degree, modulus, points, data)
+        g_values = [rng.randrange(1 << degree) for _ in points]
+        g_values = [
+            (g_value or 1) if data_value == 0 else g_value
+            for data_value, g_value in zip(data, g_values)
+        ]
+        check(degree, modulus, points, data, g_values)
+    results.append(
+        {
+            "field": "GF(4)",
+            "points": 4,
+            "inputs": 512,
+            "input_kinds": "pristine g=1 and arbitrary nonzero (d,g) pairs",
+            "reconstruction": "PASS",
+        }
+    )
 
     for degree, modulus, n, count, seed in (
         (3, 0b1011, 8, 256, 0xB),
@@ -738,8 +765,20 @@ def verify_complementary_row_reconstruction():
         for _ in range(count):
             data = [rng.randrange(1 << degree) for _ in points]
             check(degree, modulus, points, data)
+            g_values = [rng.randrange(1 << degree) for _ in points]
+            g_values = [
+                1 if d_value == 0 and g_value == 0 else g_value
+                for d_value, g_value in zip(data, g_values)
+            ]
+            check(degree, modulus, points, data, g_values)
         results.append(
-            {"field": f"GF(2^{degree})", "points": n, "inputs": count, "reconstruction": "PASS"}
+            {
+                "field": f"GF(2^{degree})",
+                "points": n,
+                "inputs": 2 * count,
+                "input_kinds": "pristine g=1 and arbitrary nonzero (d,g) pairs",
+                "reconstruction": "PASS",
+            }
         )
 
     degree, modulus = 12, 0x1053

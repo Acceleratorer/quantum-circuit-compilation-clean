@@ -216,10 +216,15 @@ Those are the only original left-side `d_i` values needed by this
 reconstruction. One leading coefficient of the stored row is fixed to one and
 need not be stored.
 
-`verify_complementary_row_reconstruction()` checks determinant, key-equation
-constraints, and the complementary-rank sum for every GF(4), four-point input,
-256 deterministic GF(8), eight-point inputs, and 256 deterministic GF(2^12),
-38-point inputs. For verifier-form syndromes at weights 1, 31, and 35, it also
+`reconstruct_complementary_row()` also accepts arbitrary updated FMA input
+pairs `(d_i, g_i)`; pristine input uses `g_i=1` by default. At common zeros of
+the low row, its correction uses
+`d_i*A(x_i)+g_i*B(x_i)`, where `(A,B)=(W/G,N/G)`. The existing screen checks
+determinant, key-equation constraints, and complementary-rank sum for all 256
+GF(4), four-point pristine inputs and an arbitrary-pair companion for each.
+It also checks 256 deterministic pristine and 256 arbitrary nonzero-pair
+blocks at each of GF(8), eight points, and GF(2^12), 38 points. For
+verifier-form syndromes at weights 1, 31, and 35, it also
 reconstructs the left basis, updates the untouched right samples, and checks
 that the composed normalized low row matches the direct 70-point basis for
 three splits:
