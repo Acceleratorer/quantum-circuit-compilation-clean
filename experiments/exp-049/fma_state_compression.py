@@ -148,6 +148,28 @@ def verify_70_symbol_splits():
         assert sorted(row_rank(combined, row) for row in range(2)) == direct_ranks
         print({"field": "GF(2^12)", "n": 70, "split": f"{split}+{70 - split}", "basis": "PASS"})
 
+    blocks = ((0, 64), (64, 68), (68, 70))
+    for start, stop in blocks:
+        assert [points[i] ^ points[start] for i in range(start, stop)] == list(range(stop - start))
+
+    combined = None
+    start = 0
+    for stop in (64, 68, 70):
+        if start == 0:
+            combined = modular_basis(data[:stop], points[:stop], mul, g_values[:stop])
+        else:
+            block_d, block_g = [], []
+            for d, g, point in zip(data[start:stop], g_values[start:stop], points[start:stop]):
+                block_d.append(mul(poly_eval(combined[0][0], point, mul), d) ^ mul(poly_eval(combined[0][1], point, mul), g))
+                block_g.append(mul(poly_eval(combined[1][0], point, mul), d) ^ mul(poly_eval(combined[1][1], point, mul), g))
+            block = modular_basis(block_d, points[start:stop], mul, block_g)
+            combined = matrix_mul(block, combined, mul)
+        start = stop
+
+    assert_basis(data, g_values, points, combined, mul)
+    assert sorted(row_rank(combined, row) for row in range(2)) == direct_ranks
+    print({"field": "GF(2^12)", "n": 70, "blocks": "64+4+2", "affine_order": "PASS", "basis": "PASS"})
+
 
 def decode_tuple(value, width, symbols):
     mask = (1 << width) - 1

@@ -73,6 +73,17 @@ the small-field screen runs the generic sequential update on `0..n-1`. It does
 not yet validate the paper's fast recursion for 70 arbitrary-redundancy
 syndromes or its 70-symbol product count.
 
+The verifier's installed `GF2Field(12)` uses modulus `0x1053` and primitive
+element `2`. In this polynomial basis, `omega_i = i` for `i=0..127` is a
+7-dimensional additive subspace, and the first 70 points split into aligned
+affine blocks `64+4+2`. The 70-symbol screen now verifies that composing the
+three generic modular bases on those blocks gives the same minimum-rank basis
+as processing all 70 constraints sequentially. This validates the classical
+block boundaries only; it does not implement Algorithm 6's fast evaluation
+and interpolation, count its products, or provide a reversible schedule. The
+direct syndrome map above produces a valid WB sample vector for the same
+locator, but it does not reproduce the appendix's `u_1` values.
+
 The exhaustive small-field check verifies that the minimum-rank FMA basis
 returns the true locator for every valid error pattern, then measures
 collisions in `(branch history, final right-block state)`:
