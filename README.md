@@ -7,14 +7,16 @@ Research log and reproducible tooling for the Google Quantum AI Verifiable Quant
 | Item | Value |
 |---|---:|
 | Best own Kaggle public score | **28.14028** |
-| Latest observed public rank | **818 / 3355** (team `Accelra`) |
-| Current rank 1 public score | **31.61994** (`ThemBones`) |
-| Score gap to rank 1 | **3.47966** |
+| Latest live rank | **854 / 3366** (team `Accelra`, CLI check at 2026-11-19 05:33 UTC) |
+| Latest observed rank 1 public score | **31.74002** (team `Z³C¹oherence`) |
+| Score gap to rank 1 | **3.59974** |
 | Current candidate members | `563d0583` / `46446af1` / `0bd9c68f` |
 
-The latest rank and leader are from the Kaggle CLI snapshot at
-`2026-11-19T00:12:18Z`; its CSV and SHA-256 are recorded in
+The latest persisted full leaderboard snapshot is from `2026-11-19T00:12:18Z`;
+its CSV and SHA-256 are recorded in
 [`evals/2026-11-19-live-leaderboard-001218.json`](evals/2026-11-19-live-leaderboard-001218.json).
+A later rank-only Kaggle CLI check at `2026-11-19T05:33Z` returned rank `854 / 3366`
+and leader score `31.74002`; no CSV was downloaded for that check.
 
 The repository keeps generators, verifier evidence, provenance, and experiment
 notes. Large circuit binaries and Kaggle submission ZIPs stay outside Git and
