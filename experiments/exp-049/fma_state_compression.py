@@ -9,6 +9,7 @@ other reversible schedules or on measurement-based uncomputation.
 
 from math import ceil, log2
 from random import Random
+from itertools import combinations, product
 
 
 def gf_mul(a, b, modulus, degree):
@@ -225,6 +226,125 @@ def sequential_state(data, points, mul):
     return d, g, history
 
 
+def syndrome_to_fma_samples(syndrome, points, mul):
+    """Apply the exact linear map from power syndromes to FMA samples.
+
+    Let P(x)=prod_i (x+points[i]) and Q_i=P/(x+points[i]).  For
+    S_k=sum_j e_j beta_j**(k+1), the returned sample is
+    d_i=sum_k [x**k]Q_i * S_k = sum_j e_j beta_j Q_i(beta_j).
+    The Q_i form a basis because Q_i(points[j]) is zero off the diagonal
+    and nonzero on it.  This is the base-field map required by the DQI input.
+    """
+    n = len(points)
+    if len(syndrome) != n:
+        raise ValueError("syndrome and point counts must match")
+    node_polynomial = [1]
+    for point in points:
+        node_polynomial = poly_mul(node_polynomial, [point, 1], mul)
+
+    quotients = list(_quotients(node_polynomial, points, mul))
+    samples = [
+        _xor(mul(coefficient, value) for coefficient, value in zip(quotient, syndrome))
+        for quotient in quotients
+    ]
+    for i, quotient in enumerate(quotients):
+        for j, point in enumerate(points):
+            value = poly_eval(quotient, point, mul)
+            assert (value != 0) == (i == j)
+    return samples
+
+
+def _xor(values):
+    out = 0
+    for value in values:
+        out ^= value
+    return out
+
+
+def _quotients(node_polynomial, points, mul):
+    """Synthetic divisions P(x)/(x+point), coefficients in ascending order."""
+    n = len(points)
+    for point in points:
+        quotient = [0] * n
+        quotient[-1] = node_polynomial[-1]
+        for k in range(n - 2, -1, -1):
+            quotient[k] = node_polynomial[k + 1] ^ mul(point, quotient[k + 1])
+        assert node_polynomial[0] ^ mul(point, quotient[0]) == 0
+        yield quotient
+
+
+def gf_inv(value, modulus, degree):
+    if value == 0:
+        raise ZeroDivisionError("zero has no field inverse")
+    return next(
+        candidate
+        for candidate in range(1, 1 << degree)
+        if gf_mul(value, candidate, modulus, degree) == 1
+    )
+
+
+def screen_valid_error_domain(degree, modulus, max_errors):
+    """Exhaust valid RS error patterns through the exact syndrome map."""
+    q = 1 << degree
+    n = 2 * max_errors
+    if n > q:
+        raise ValueError("the small-field screen needs at least n distinct base-field points")
+    points = list(range(n))
+    mul = lambda a, b: gf_mul(a, b, modulus, degree)
+    state_counts = {split: {} for split in (max_errors, max_errors + 1)}
+    patterns = 0
+    locator_failures = 0
+
+    for weight in range(max_errors + 1):
+        for positions in combinations(range(1, q), weight):
+            for values in product(range(1, q), repeat=weight):
+                syndrome = [0] * n
+                for beta, error_value in zip(positions, values):
+                    power = beta
+                    for k in range(n):
+                        syndrome[k] ^= mul(error_value, power)
+                        power = mul(power, beta)
+
+                data = syndrome_to_fma_samples(syndrome, points, mul)
+                basis = modular_basis(data, points, mul)
+                best = min(range(2), key=lambda row: row_rank(basis, row))
+                locator, evaluator = (trim(poly) for poly in basis[best])
+
+                expected_locator = [1]
+                for beta in positions:
+                    expected_locator = poly_mul(expected_locator, [beta, 1], mul)
+                if not locator or locator[-1] == 0:
+                    locator_failures += 1
+                else:
+                    scale = gf_inv(locator[-1], modulus, degree)
+                    locator = trim([mul(coefficient, scale) for coefficient in locator])
+                    if locator != expected_locator:
+                        locator_failures += 1
+                if evaluator != [0] and len(evaluator) > weight:
+                    locator_failures += 1
+
+                transformed_d, transformed_g, history = sequential_state(data, points, mul)
+                for split, counts in state_counts.items():
+                    key = (history, tuple(transformed_d[split:]), tuple(transformed_g[split:]))
+                    counts[key] = counts.get(key, 0) + 1
+                patterns += 1
+
+    return {
+        "field": f"GF(2^{degree})",
+        "n": n,
+        "valid_error_patterns": patterns,
+        "fma_locator_failures": locator_failures,
+        "split_fibers": {
+            f"{split}+{n - split}": {
+                "distinct_states": len(counts),
+                "max_preimage": max(counts.values()),
+                "extra_side_information_bits": (max(counts.values()) - 1).bit_length(),
+            }
+            for split, counts in state_counts.items()
+        },
+    }
+
+
 def screen_branch_history(degree, modulus, n, split):
     """Exhaustively test branch bits plus final right pairs as a reversible state."""
     input_bits = degree * n
@@ -265,6 +385,8 @@ def screen_branch_history(degree, modulus, n, split):
 
 def main():
     verify_70_symbol_splits()
+    for case in [(2, 0b111, 2), (3, 0b1011, 3)]:
+        print(screen_valid_error_domain(*case))
     cases = [
         (2, 0b111, 4, 2),   # GF(4), 2+2
         (3, 0b1011, 6, 3),  # GF(8), 3+3
