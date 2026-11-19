@@ -167,14 +167,16 @@
     },
     "maximum_field_words": 4,
     "gf2_12_four_sample_input_bits": 48,
+    "fixed_width_sample_label_bits": 48,
+    "fixed_width_sample_label": "four recovered sample values in point order",
     "persistent_payload_qubits_if_encoded_in_place": 840,
     "branch_cell_additional_workspace_qubits": 48,
     "conditional_projected_peak_if_pivot_is_in_payload": 888,
     "qubit_limit": 890,
     "conditional_width_margin": 2,
-    "degree_framing_and_in_place_encoder": "not designed",
+    "in_place_reversible_mapping": "not designed",
     "result": "factorized_row_and_root_samples_are_injective_on_screened_domain",
-    "scope": "The algebraic representation reconstructs each four-sample input; the exhaustive GF(8) screen confirms no collisions and a maximum of four coefficient/sample words. A 48-bit label exists for every state on the full GF(2^12)^4 input domain by cardinality, so no extra persistent information bits are needed. Reversible degree framing, in-place encoding, scratch liveness, phase cleanup, and Toffoli cost are unproven. The Q=888 projection is conditional on the existing branch-cell pivot-liveness assumption."
+    "scope": "The factorized representation reconstructs each four-sample input; the exhaustive GF(8) screen confirms 4,096 distinct states and fixed-width sample labels. For GF(2^12), the label is four 12-bit samples in point order. This avoids serializing the variable-length polynomial tuple, but the in-place reversible mapping, scratch liveness, phase cleanup, and Toffoli cost remain unproven. The Q=888 projection is conditional on the existing branch-cell pivot-liveness assumption."
   },
   "exception_extraction_ledger": {
     "common_root_zero_tests": 3,

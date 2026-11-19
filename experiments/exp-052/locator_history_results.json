@@ -1,6 +1,4 @@
 {
-  "experiment": "exp-052-locator-history",
-  "field": "GF(8)",
   "arbitrary_four_sample_exception_screen": {
     "cases": 4096,
     "distinct_compact_states": 4096,
@@ -10,6 +8,15 @@
       "2": 294
     },
     "field": "GF(8)",
+    "fixed_width_sample_label": {
+      "bits": 12,
+      "cases": 4096,
+      "collisions": 0,
+      "components": "four original samples in point order",
+      "distinct_labels": 4096,
+      "result": "four_samples_form_a_fixed_width_state_label",
+      "scope": "The label avoids serializing a variable-length polynomial tuple. This is an information encoding, not an in-place reversible quantum circuit."
+    },
     "fused_factorized_state": {
       "cases": 4096,
       "common_root_locations_derived_from_gcd": true,
@@ -36,17 +43,24 @@
       "maximum_common_root_samples": 2,
       "maximum_field_words": 4,
       "result": "factorized_row_and_root_samples_recover_all_inputs",
-      "scope": "Exhaustive GF(8) information screen. The state has at most four field words on this domain; polynomial degree framing and an in-place reversible encoder are not implemented.",
+      "scope": "Exhaustive GF(8) information screen. The state has at most four field words on this domain. Its fixed-width label is the four recovered samples in point order; the reversible in-place circuit is not implemented.",
       "state_collisions": 0
     },
     "input_domain": "all pristine four-sample d vectors; g_i=1",
     "maximum_exception_samples": 2,
-    "points": [0, 1, 2, 3],
+    "points": [
+      0,
+      1,
+      2,
+      3
+    ],
     "recovered_inputs": 4096,
     "result": "normalized_low_row_and_exceptions_recover_all_inputs",
     "scope": "Exhaustive information screen over all 4,096 GF(8) d vectors at points 0,1,2,3 with pristine g_i=1. It is not a reversible GF(2^12) circuit or a 70-point resource bound.",
     "state_collisions": 0
   },
+  "experiment": "exp-052-locator-history",
+  "field": "GF(8)",
   "final_basis_matrix": {
     "matrices_with_multiple_branch_histories": 0,
     "max_histories_for_one_matrix": 1,

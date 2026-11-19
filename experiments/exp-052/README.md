@@ -166,11 +166,12 @@ field-independent: at a nonroot of `G`, the sample constraint gives
 `d_i*A(x_i)+B(x_i)=0`; since `A` and `B` are coprime, `A(x_i)` is nonzero and
 `d_i=B(x_i)/A(x_i)`. At roots, the saved sample restores `d_i` directly.
 
-Four GF(2^12) samples have `2^48` possible inputs. Since the factorized state
-reconstructs each input, a 48-bit label exists for every state by cardinality;
-no extra persistent information bits are needed. That does not automatically
-turn the variable-length polynomial tuple into a fixed-width code: degree
-framing and a reversible in-place encoder remain undesigned.
+Four GF(2^12) samples have a fixed-width 48-bit label: the four recovered
+sample values in point order. The exhaustive GF(8) screen checks that every
+factorized state maps to a distinct label. This avoids serializing the
+variable-length polynomial tuple, but the in-place reversible circuit that
+computes this mapping, its scratch liveness, phase cleanup, and Toffoli cost
+remain undesigned.
 
 The existing 840-qubit payload can therefore remain the width target if the
 four-sample factorization is implemented in-place. Under the existing branch

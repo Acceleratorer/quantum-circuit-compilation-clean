@@ -488,11 +488,12 @@ and therefore their FMA branch history.
 The exhaustive arbitrary GF(8) screen found 4,096 distinct factorized states,
 zero collisions, at most two common-root samples, and at most four coefficient
 and sample words. The factorized state is injective on the full four-sample
-domain. Four GF(2^12) inputs have `2^48` possibilities, so a 48-bit label
-exists for every state by cardinality and no extra persistent information
-bits are needed. This removes the separate 24-to-27-bit sidecar from the
-information payload; the code's degree framing and reversible implementation
-are not designed.
+domain. A concrete fixed-width label is the four recovered sample values in
+point order, totaling 48 bits for GF(2^12). The exhaustive GF(8) screen checks
+that every factorized state maps to a distinct label. This removes the separate
+24-to-27-bit sidecar and avoids serializing the variable-length polynomial
+tuple. The in-place reversible circuit that computes the label remains
+unbuilt.
 
 If that code is implemented in-place, the persistent 4+66 payload remains
 840 qubits. The existing branch cell's additional 48-qubit workspace projects

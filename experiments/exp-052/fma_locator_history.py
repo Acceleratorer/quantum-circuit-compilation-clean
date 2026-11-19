@@ -84,6 +84,25 @@ def recover_factorized_samples(
     return recovered
 
 
+def pack_samples(samples, field_bits):
+    """Pack field samples in point order into one fixed-width integer label."""
+    assert all(0 <= value < (1 << field_bits) for value in samples)
+    return sum(
+        value << (field_bits * index)
+        for index, value in enumerate(samples)
+    )
+
+
+def unpack_samples(label, count, field_bits):
+    """Unpack a fixed-width sample label in point order."""
+    assert 0 <= label < (1 << (count * field_bits))
+    mask = (1 << field_bits) - 1
+    return [
+        (label >> (field_bits * index)) & mask
+        for index in range(count)
+    ]
+
+
 def arbitrary_four_sample_exception_screen():
     """Exhaust all pristine GF(8) samples at the first four FMA points."""
     degree, modulus = 3, 0b1011
@@ -98,6 +117,7 @@ def arbitrary_four_sample_exception_screen():
     common_root_counts = {}
     factorized_word_counts = {}
     factorized_states = {}
+    sample_labels = set()
     recovered_inputs = 0
     state_collisions = 0
     factorized_state_collisions = 0
@@ -165,9 +185,13 @@ def arbitrary_four_sample_exception_screen():
             if fma.poly_eval(gcd, point, mul) == 0
         ]
         root_samples = tuple(data[index] for index in common_roots)
-        assert recover_factorized_samples(
+        recovered = recover_factorized_samples(
             gcd, a, b, root_samples, points, mul, modulus, degree
-        ) == data
+        )
+        assert recovered == data
+        label = pack_samples(recovered, degree)
+        assert unpack_samples(label, len(points), degree) == data
+        sample_labels.add(label)
 
         factorized_state = (
             tuple(gcd), tuple(a), tuple(b), root_samples
@@ -203,6 +227,7 @@ def arbitrary_four_sample_exception_screen():
     assert len(factorized_states) == recovered_inputs
     assert state_collisions == 0
     assert factorized_state_collisions == 0
+    assert len(sample_labels) == q ** len(points)
     assert maximum_exceptions <= 2
     assert maximum_common_roots <= 2
     assert maximum_factorized_words <= len(points)
@@ -236,8 +261,22 @@ def arbitrary_four_sample_exception_screen():
             "result": "factorized_row_and_root_samples_recover_all_inputs",
             "scope": (
                 "Exhaustive GF(8) information screen. The state has at most "
-                "four field words on this domain; polynomial degree framing "
-                "and an in-place reversible encoder are not implemented."
+                "four field words on this domain. Its fixed-width label is "
+                "the four recovered samples in point order; the reversible "
+                "in-place circuit is not implemented."
+            ),
+        },
+        "fixed_width_sample_label": {
+            "components": "four original samples in point order",
+            "bits": len(points) * degree,
+            "cases": q ** len(points),
+            "distinct_labels": len(sample_labels),
+            "collisions": q ** len(points) - len(sample_labels),
+            "result": "four_samples_form_a_fixed_width_state_label",
+            "scope": (
+                "The label avoids serializing a variable-length polynomial "
+                "tuple. This is an information encoding, not an in-place "
+                "reversible quantum circuit."
             ),
         },
         "scope": (
