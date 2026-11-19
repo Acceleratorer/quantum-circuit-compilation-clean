@@ -521,8 +521,33 @@ cost is 42 Toffoli-like gates per product. This can remove the multiplier's
 private ancilla from a schedule; it does not remove the separate 12-bit output
 register required by the accumulator or prove that the FMA update is in-place.
 
-The Windows environment lacks the `circ` module, while the staged Kickmix
-binary is Linux-only, so this count was audited from source and was not
-runtime-compiled here. The next gate remains a complete pair-update schedule
-with output-register liveness, phase cleanup, and branch/rank storage all
-included under the 50-qubit scratch ceiling.
+The local Kickmix 1.0.0 check compiled the product cell at 36 qubits and 42
+Toffoli-like gates; eight GF(2^12) sample products matched and both operands
+were preserved. A forward FMA pair update compiled at 72 qubits and 84
+Toffoli-like gates in each branch specialization; four sample pairs passed in
+each branch. That cell keeps the 24-bit output pair separate from the input
+pair, so it does not establish an in-place schedule. The remaining gate is a
+complete pair-update schedule with output-register liveness, phase cleanup,
+and branch/rank storage under the 50-qubit scratch ceiling.
+
+## 2026-11-20 pivot-normalized FMA recurrence
+
+`exp-053` tests a row-normalized FMA update. For no-swap, divide the first row
+of `[[g_j,d_j],[0,delta]]` by nonzero `g_j`; for swap, divide the first row of
+`[[g_j,d_j],[delta,0]]` by nonzero `d_j`. These are nonzero row scalings, so
+they preserve row rank and pivot zero classes. Exhaustive GF(8), four-sample
+inputs and 48 seeded GF(2^12), 70-symbol DQI samples matched the reference
+branch history, row ranks, and normalized low row.
+
+The in-place pair update then uses one variable product: `d_i ^= r*g_i` in the
+no-swap case; in the swap case, `g_i ^= r*d_i`, scale `d_i` by the public
+`delta`, and swap the two words. The 70-symbol sequential count is 2,415 pair
+products plus 70 ratio products and 70 inversions. At 42T per product and
+111T per computed-and-erased inverse, the arithmetic is 112,140T. Adding the
+existing sampled reconstruction ledger, 45,045T scan, and 5,530T branch/rank
+cell projects 166,585T, leaving 90,358T under the saved gate.
+
+This is a count lead only. The direct pair bank is 1,668 qubits before ratio
+workspace, so it exceeds `Q=890` by 778 qubits. The next gate is to integrate
+the normalized update into the compact 4+66 schedule and prove its full
+ratio, branch, and phase liveness; no circuit or submission exists.
