@@ -363,3 +363,11 @@ Keep the 4+66 FMA estimate open only if a branch oracle can be derived from
 the 840-qubit compact payload with a complete <=50-qubit liveness and
 Toffoli/phase ledger. The current evidence does not supply that oracle, so
 there is still no FMA circuit or score-gate pass.
+
+`exp-052/fma_branch_window.py` then tested a smaller oracle on every valid
+GF(8), eight-point pattern through weight four. The key consisted of the
+post-step ranks and a contiguous window of pivot pairs around the current
+step. The later steps needed up to five pairs; ranks plus one pivot failed.
+That rules out the simple local-window replay, not a circuit that extracts
+branch bits directly from the compact polynomial payload. Keep the latter as
+the sole FMA follow-up only if its cost can fit the remaining 9,788T.

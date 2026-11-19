@@ -88,6 +88,26 @@ The naive replay from retained pivots is closed on width. Reopen branch replay
 only with a branch oracle derived from the compact FMA payload and a complete
 Toffoli, phase, and <=50-qubit liveness ledger.
 
+### Local branch-window screen
+
+`fma_branch_window.py` exhaustively checks all 97,119 valid GF(8), eight-point
+error patterns through weight four. For each step it asks whether the branch
+is determined by the two post-step ranks, the current pivot, and the nearest
+previous/next pivot pairs. The minimum windows contain 1, 1, 1, 2, 4, 4, 5,
+and 5 pair values for steps 0 through 7. Later steps need several retained
+pairs; ranks plus the current pivot are insufficient. At GF(2^12), five raw
+pairs plus two 8-bit ranks would be 136 feature bits. Exact counts are in
+[`branch_window_results.json`](branch_window_results.json).
+
+This closes the small local-window oracle. It does not rule out deriving a
+branch directly from the compact polynomial payload; that would need its own
+costed circuit. Run the screen with:
+
+```powershell
+& 'D:\Code\Kaggle\competitions\Google Quantum AI\.venv\Scripts\python.exe' -I `
+  'experiments/exp-052/fma_branch_window.py'
+```
+
 ## Run
 
 ```powershell

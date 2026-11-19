@@ -1,0 +1,20 @@
+{
+  "experiment": "exp-052-branch-window",
+  "field": "GF(8)",
+  "points": 8,
+  "valid_patterns": 97119,
+  "result": "PASS",
+  "scope": "Exact on all valid GF(8) patterns through weight 4. It tests only contiguous pivot windows and gives no 70-point circuit or Toffoli bound.",
+  "steps": [
+    {"step_zero_based": 0, "pair_values_in_key": 1, "previous_pivots": 0, "future_pairs": 0, "gf8_feature_bits": 16, "gf2_12_70_point_analogue_bits": 40},
+    {"step_zero_based": 1, "pair_values_in_key": 1, "previous_pivots": 0, "future_pairs": 0, "gf8_feature_bits": 16, "gf2_12_70_point_analogue_bits": 40},
+    {"step_zero_based": 2, "pair_values_in_key": 1, "previous_pivots": 0, "future_pairs": 0, "gf8_feature_bits": 16, "gf2_12_70_point_analogue_bits": 40},
+    {"step_zero_based": 3, "pair_values_in_key": 2, "previous_pivots": 1, "future_pairs": 0, "gf8_feature_bits": 22, "gf2_12_70_point_analogue_bits": 64},
+    {"step_zero_based": 4, "pair_values_in_key": 4, "previous_pivots": 3, "future_pairs": 0, "gf8_feature_bits": 34, "gf2_12_70_point_analogue_bits": 112},
+    {"step_zero_based": 5, "pair_values_in_key": 4, "previous_pivots": 2, "future_pairs": 1, "gf8_feature_bits": 34, "gf2_12_70_point_analogue_bits": 112},
+    {"step_zero_based": 6, "pair_values_in_key": 5, "previous_pivots": 3, "future_pairs": 1, "gf8_feature_bits": 40, "gf2_12_70_point_analogue_bits": 136},
+    {"step_zero_based": 7, "pair_values_in_key": 5, "previous_pivots": 4, "future_pairs": 0, "gf8_feature_bits": 40, "gf2_12_70_point_analogue_bits": 136}
+  ],
+  "maximum_pair_values": 5,
+  "maximum_gf2_12_70_point_analogue_bits": 136
+}
