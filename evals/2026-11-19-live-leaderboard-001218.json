@@ -1,0 +1,49 @@
+{
+  "captured_utc": "2026-11-19T00:12:18Z",
+  "competition": "google-verifiable-quantum-circuit-compilation",
+  "source": "Kaggle CLI full public leaderboard CSV and submissions list",
+  "snapshot": {
+    "path": "kaggle/snapshots/2026-11-19/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-19T00-12-18.csv",
+    "csv_sha256": "cf8a3ad07f5f5594d41b87cd66ee2572b8a499e8752a33647b578276596aca68",
+    "download_archive_sha256": "38efb1dfcd2ab57ea4bff25ce1483aa8b8f5dac518151fd44ddf544ec7137f7a",
+    "team_rows": 3355
+  },
+  "own_team": {
+    "team": "Accelra",
+    "team_id": 17349145,
+    "public_score": 28.14028,
+    "rank": 818,
+    "best_submission": 58479383
+  },
+  "leader": {
+    "team": "ThemBones",
+    "team_id": 17339411,
+    "public_score": 31.61994,
+    "last_submission_utc": "2026-11-18T22:37:58.733000"
+  },
+  "score_gap": 3.47966,
+  "score_equivalence_estimate": {
+    "method": "Scale the product of the three task costs by (own_local_geometric_mean / leader_public_score)^3.",
+    "own_local_geometric_mean": 28.140276838282986,
+    "required_product_cost_multiplier": 0.7048585503165652,
+    "single_task_cost_reduction_if_other_two_are_fixed": 0.2951414496834348,
+    "equal_reduction_in_each_of_two_tasks": 0.16044145509883279,
+    "current_costs": {
+      "invsqrt": 74560.90687312803,
+      "dqi": 347904227555.5428,
+      "dfthcsos": 294642305.5649051
+    },
+    "single_task_targets_if_other_two_are_fixed": {
+      "invsqrt": 52554.892728881445,
+      "dqi": 245223269483.8043,
+      "dfthcsos": 207681148.36240944
+    },
+    "status": "estimate, not a circuit result"
+  },
+  "latest_own_submission": {
+    "ref": 58479383,
+    "status": "SubmissionStatus.COMPLETE",
+    "public_score": 28.14028,
+    "submitted_at_utc": "2026-11-17T18:57:30.857000"
+  }
+}

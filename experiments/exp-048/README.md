@@ -2,11 +2,11 @@
 id: exp-048
 title: Static audit of the claimed 25% DQI rewrite
 task: dqi
-tests: static notebook, paper-table, and scan-source inspection; no code or circuit executed
+tests: static notebook and metadata inspection; no code or circuit executed
 direction: D-004
 status: negative_result
 date: 2026-11-19
-result: the claimed rewrite is not cheaper; the 70-symbol FMA candidate has no demonstrated Toffoli or qubit advantage
+result: the claimed rewrite is not cheaper; direct FDMA/FMA ports miss the gate and MBU-FMA remains conditional
 ---
 
 # Static audit of the claimed 25% DQI rewrite
@@ -33,38 +33,12 @@ as a screening target, not a score prediction for the notebook's bundle.
 The notebook's high-level conclusion agrees with the completed BM screens:
 stop trying mechanical rewrites and low-degree packed-state feedback formulas.
 Any next DQI work must change the key-equation algorithm and pass a reversible
-resource count before circuit generation. The paper's fast modular approach is
-one literature candidate, but its field-multiplication and qubit counts for
-this 70-symbol instance have not been established.
-
-## Fast modular approach gate at 70 symbols
-
-The paper recommends its frequency-domain modular approach (FDMA) for short
-codes and its fast modular approach (FMA) for medium or long codes. The
-published FDMA comparisons closest to this 70-symbol instance use parity
-lengths 32 and 128. Their key-equation multiplication counts are nearly the
-same as reformulated BM: 3,233 vs. 3,136 at 32, and 49,921 vs. 49,408 at 128.
-The FMA's larger advantage is reported at parity length 512 (239,616 vs.
-787,456), outside this instance's size. These are classical field-operation
-counts, not Toffoli or reversible-circuit counts; they do not show a useful
-key-equation product reduction at length 70.
-
-The local DQI scan has a separate Toffoli cost: it checks the 12-bit value
-`B(β)` for zero at each of 4,095 points, using an 11-workspace-bit zero ladder
-(`src/dqi/pro_q2_897/exp/scan/scan.py` and `exp/decoder/common.py`). Its recorded
-cost is 45,045 Toffolis. The scan's polynomial evaluation uses fixed field
-constants, which are linear maps; reducing their classical field-multiply
-count does not remove the zero checks. The paper does not give a reversible
-schedule or peak-qubit count for this 70-symbol case.
-
-**Gate result:** do not build a direct FDMA/FMA replacement from the paper's
-classical counts. It has not shown the required `Q ≤ 890` and complete
-forward/phase/uncompute `T ≤ 259,947`, nor a path to the score target. Revisit
-only with a concrete reversible design that changes the zero-test or dynamic
-key-equation cost.
-
-Source: Tang and Han, [*New Decoding of Reed–Solomon Codes Based on FFT and
-Modular Approach*](https://arxiv.org/abs/2207.11079), §IV-A, Tables I–III.
+resource count before circuit generation. The 70-symbol FDMA/FMA gate, including
+the conditional measurement-based-uncompute route, is recorded in
+[`D-004`](../../knowledge/directions/D-004-public-392k-dqi.md). Its direct
+ports miss the score gate; the MBU-FMA route remains open only with a complete
+Toffoli count and a schedule under the 50-qubit workspace limit. The paper's
+classical field-operation tables alone do not establish that result.
 
 ## Provenance
 

@@ -2,23 +2,24 @@
 
 ## Target
 
-Reach the top public leaderboard position with a source-complete portfolio. The
-Kaggle CLI was checked on 2026-11-18; the public leader is moving, so refresh
-the target before every submission.
+Reach the top public leaderboard position with a source-complete portfolio.
+The public leaderboard was refreshed with the Kaggle CLI at
+`2026-11-19T00:12:18Z`; refresh the target before every submission.
 
 ## Current frontier
 
 - Best own completed submission: `58479383`, public score `28.14028`.
-- Current public leader: `Z³C¹oherence`, `31.61727` (submission
-  `2026-11-18T05:19:27.396000`); gap: `3.47699` points, refreshed from Kaggle
-  at `2026-11-18T18:55:00Z`.
-- Own team rank is `781 / 3338` in the latest saved snapshot at
-  `2026-11-18T18:55:00Z`; see [the snapshot metadata](../evals/2026-11-18-live-leaderboard-185500.json)
-  and its CSV. The earlier `635 / 3296` snapshot at `04:56:45Z` is historical.
+- Current public leader: `ThemBones`, `31.61994` (submission
+  `2026-11-18T22:37:58.733000`); gap: `3.47966` points.
+- Own team rank is `818 / 3355` in the snapshot at `2026-11-19T00:12:18Z`; see
+  [the snapshot metadata](../evals/2026-11-19-live-leaderboard-001218.json)
+  and its CSV. The earlier `781 / 3338` rank at `2026-11-18T18:55:00Z` is
+  historical.
 - Current DQI cost: `347.904e9` at 890 qubits. If the other task costs stay
-  fixed, DQI must reach about `245.285e9` (a `29.50%` reduction) to match the
-  current leader's score. This is a score-equivalence target, not the leader's
-  measured DQI cost.
+  fixed, DQI must reach about `245.223e9` (a `29.51%` reduction) to match the
+  current leader's score. Alternatively, reducing each of any two task costs
+  by about `16.04%` reaches the same product target. These are
+  score-equivalence estimates, not measured leader circuit costs.
 
 ## Public-circuit frontier refresh
 
@@ -35,14 +36,14 @@ difference. No public component in this refresh closes the DQI-sized gap.
 ## Candidate decision
 
 The published verifier receipt for the `28.23163` Ozertuu portfolio reports
-all three tasks PASS. It would rank around `72` by score in the latest snapshot,
-but is not submitted: it consists of downloaded public circuits and we do not
-have our own generator for those exact bytes. The receipts and decision are
-recorded in
+all three tasks PASS. It would rank `99 / 3355` by score in the
+`2026-11-19T00:12:18Z` snapshot, but is not submitted: it consists of
+downloaded public circuits and we do not have our own generator for those
+exact bytes. The receipts and decision are recorded in
 [`evals/2026-11-18-ozertuu-282316.json`](../evals/2026-11-18-ozertuu-282316.json).
 
 The top-1 target is not met at this refresh: the best completed submission is
-`28.14028`, against a public leader at `31.61727`.
+`28.14028`, against a public leader at `31.61994`.
 
 The `575b043f` DQI reports two clean verifier draws, but its own README reports
 one lost shot on six of nine draws. Keep it as measurement evidence only; do

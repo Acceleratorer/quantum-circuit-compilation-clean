@@ -7,14 +7,14 @@ Research log and reproducible tooling for the Google Quantum AI Verifiable Quant
 | Item | Value |
 |---|---:|
 | Best own Kaggle public score | **28.14028** |
-| Latest observed public rank | **781 / 3338** (team `Accelra`) |
-| Rank 1 public score in the same snapshot | **31.61727** |
-| Score gap to rank 1 | **3.47699** |
+| Latest observed public rank | **818 / 3355** (team `Accelra`) |
+| Current rank 1 public score | **31.61994** (`ThemBones`) |
+| Score gap to rank 1 | **3.47966** |
 | Current candidate members | `563d0583` / `46446af1` / `0bd9c68f` |
 
-The latest rank is from the authenticated Kaggle public leaderboard snapshot
-at `2026-11-18T18:55:00Z`; its CSV and SHA-256 are recorded in
-[`evals/2026-11-18-live-leaderboard-185500.json`](evals/2026-11-18-live-leaderboard-185500.json).
+The latest rank and leader are from the Kaggle CLI snapshot at
+`2026-11-19T00:12:18Z`; its CSV and SHA-256 are recorded in
+[`evals/2026-11-19-live-leaderboard-001218.json`](evals/2026-11-19-live-leaderboard-001218.json).
 
 The repository keeps generators, verifier evidence, provenance, and experiment
 notes. Large circuit binaries and Kaggle submission ZIPs stay outside Git and
@@ -42,8 +42,8 @@ The hash-verified 18-member archive has SHA-256
 The archive stays in ignored `kaggle/staging/`; tracked verifier and
 leaderboard evidence is in the evaluation record.
 
-This improves the previous public score `28.05962` by `0.08066`. The score is
-still `3.47699` points below rank 1.
+This improves the previous public score `28.05962` by `0.08066`. The latest
+leaderboard snapshot shows a `3.47966`-point gap to rank 1.
 
 A later public portfolio's published verifier receipt reports three PASS
 results and a local geometric mean of `28.23163`; it would fall near rank 72
@@ -67,11 +67,13 @@ PASS is not an exhaustive correctness proof. The newer DQI candidate in
 Bori's kernel was not selected: its own audit leaves weight-16/17
 counterexamples open.
 
-With the submitted inverse and chemistry held fixed, matching rank 1's current
-`31.61727` would require DQI cost near `245.285e9`, about a `29.50%` reduction
-from `347.90e9`. This is an estimate from the geometric-mean score formula,
-not an achieved result. The remaining high-value work is a reproducible DQI
-construction that resolves the known error cases.
+With the submitted inverse and chemistry held fixed, matching the current
+leader's `31.61994` requires DQI cost near `245.223e9`, a `29.51%` reduction
+from `347.904e9`. This is an estimate from the geometric-mean score formula,
+not an achieved result. The same score gap could be closed by reducing each
+of any two task costs by about `16.04%`; per-task estimates are in the
+leaderboard evaluation record. The remaining high-value work is a reproducible
+candidate that clears its task's exact verifier and resource gates.
 
 Rebuild the local archive with:
 

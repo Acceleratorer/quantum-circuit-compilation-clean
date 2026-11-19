@@ -117,10 +117,26 @@ can replace the second product pass, while the 50-qubit workspace still has no
 proven schedule. FMA is worth reopening only if both the full cleanup count and
 an in-place ≤50-qubit schedule fit those gates.
 
+The product-level MBU assumption is now confirmed with the source-owned
+GF(2^12) arithmetic on Kickmix 1.0.0: `mul_xor` followed by `erase_product`
+builds to 37 qubits and 42 Toffoli-like operations total. The phase correction
+and measurement-based erasure add zero Toffolis. This validates the 42-Toffoli
+per-product floor, but does not include FMA rank controls or prove the required
+≤50-qubit schedule.
+
 Source: Tang and Han, [New Decoding of Reed–Solomon Codes Based on FFT and
 Modular Approach](https://arxiv.org/abs/2207.11079), Algorithms 4–6,
 Appendix A, and Tables I–III. The 42-Toffoli field-multiplier reference is the
-measured result recorded in `experiments/exp-005/README.md`.
+measured result recorded in `experiments/exp-005/README.md`; the local MBU
+check uses `src/dqi/pro_q2_897/exp/arithmetic/field.py`.
+
+The simplest space-time tradeoff does not fit the score gate. With the ledger
+recurrence above, `P(64, pristine) = 3,771` products. If the 64-symbol first
+half is erased after updating the final six inputs and recomputed for the root
+matrix composition, the total becomes 8,226 products: 345,492 Toffolis plus
+the 45,045-Toffoli scan, or 390,537 before other decoder work. This closes
+that one-recompute schedule; a compressed or streamed ≤50-qubit schedule is
+still unproven.
 
 ## 2026-11-19 public handoff screen — Hengck23
 
