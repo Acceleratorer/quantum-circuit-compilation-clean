@@ -138,6 +138,17 @@ the 45,045-Toffoli scan, or 390,537 before other decoder work. This closes
 that one-recompute schedule; a compressed or streamed ≤50-qubit schedule is
 still unproven.
 
+## Balanced-split count screen (2026-11-19)
+
+Minimizing the same product recurrence over every split `n=a+b` gives
+`P(70, pristine)=4,166`, with a `38+32` root split, versus 4,455 for the
+power-of-two-plus-tail `64+6` split. At 42 Toffolis per product plus the
+45,045-Toffoli scan, that is 220,017T and leaves 39,930T under the saved
+259,947T gate. This is a count-only opportunity: the paper establishes FMA
+for arbitrary redundancy but does not give this split schedule, and no
+≤50-qubit liveness schedule or circuit has been shown. Do not treat it as a
+candidate until both are verified.
+
 ## 2026-11-19 public handoff screen — Hengck23
 
 The staged notebook `kaggle/staging/hengck23-dqi-kmb-2026-11-19/dqi-kmb-at-59-56854.ipynb`
