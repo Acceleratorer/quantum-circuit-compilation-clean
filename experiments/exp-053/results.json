@@ -615,6 +615,29 @@
     "scope": "Compiled four-pivot ratio/history encoder for 32 arbitrary GF(2^12) four-sample inputs, including the all-zero vector. It writes four ratios and branch history, clears the four source samples, preserves the rest of the payload, and clears scratch. It does not establish the complete 4+66 schedule.",
     "toffoli_like_gates": 3200
   },
+  "sentinel_label_prefix_encoder": {
+    "baseline": {
+      "compiled_qubits": 902,
+      "toffoli_like_gates": 3200
+    },
+    "branch_history_preserved": true,
+    "cases": 32,
+    "clean_scratch_qubits": 71,
+    "compiled_qubits": 919,
+    "delta": {
+      "qubits": 17,
+      "toffoli_like_gates": 2702
+    },
+    "kernel": "accelra/exp053-inplace-ratio-history",
+    "kernel_version": 21,
+    "labels_match_classical_reference": true,
+    "other_payload_preserved": true,
+    "phase_flips": 0,
+    "qubit_limit": 890,
+    "result": "PASS",
+    "scope": "Compiled the full-input four-pivot sentinel relabeling after the ratio/history encoder. Across 32 arbitrary GF(2^12) four-sample inputs, labels matched the classical codec, branch history and the other 66 payload words were preserved, and all scratch was clean with zero phase flips. It retains all four branch bits and does not establish branch-history erasure or the complete 4+66 schedule.",
+    "toffoli_like_gates": 5902
+  },
   "gf8_eight_point_branch_label_screen": {
     "ambiguous_ratio_plus_final_rank_states": 7306,
     "distinct_ratio_plus_final_rank_states": 85445,

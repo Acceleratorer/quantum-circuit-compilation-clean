@@ -2,14 +2,14 @@
 id: exp-053
 title: Pivot-normalized FMA recurrence screen
 task: dqi
-tests: exhaustive GF(8) four-sample inputs; all 97,119 valid GF(8) eight-point patterns; 655,360 transformed GF(8) block states; 48 seeded GF(2^12) DQI samples; 64 arbitrary GF(2^12) 70-symbol sentinel-label vectors; 32 compiled pair-cell cases; fixed-determinant transition counterexample
+tests: exhaustive GF(8) four-sample inputs; all 97,119 valid GF(8) eight-point patterns; 655,360 transformed GF(8) block states; 48 seeded GF(2^12) DQI samples; 64 arbitrary GF(2^12) 70-symbol sentinel-label vectors; 32 compiled pair-cell cases; 32 compiled four-pivot sentinel-label cases; fixed-determinant transition counterexample
 direction: D-004
-status: in_place_ratio_screen
+status: sentinel_4pivot_gate_screen
 date: 2026-11-20
 result: >-
-  The full-input four-pivot encoder is Q=902, T=3,200. The constant-aware
-  factorized-state proxy peaks at 3,114T across 48 seeded prefixes. Sentinel
-  labels alone do not erase branch history.
+  The full-input ratio/history encoder is Q=902, T=3,200. Its measured
+  four-pivot sentinel-label variant is Q=919, T=5,902 with branch history
+  retained, so it exceeds the Q=890 gate and is not a scoring candidate.
 ---
 
 # Pivot-normalized FMA recurrence
@@ -325,8 +325,8 @@ vectors and verified all 585 local prefix contexts. In GF(2^12), 48 valid
 70-symbol DQI vectors and 64 seeded arbitrary 70-symbol vectors round-tripped;
 ratios and branches matched the independent direct recurrence. These checks
 support the proof and exercise the implementation; they do not compile the
-permutation. The reversible circuit, branch oracle, liveness, phase cleanup,
-and full resource schedule remain unbuilt. Results are in
+full 70-symbol permutation. The four-pivot gate result is recorded below. The
+branch-history eraser and full 4+66 resource schedule remain unbuilt. Results are in
 [`results.json`](results.json).
 
 The fixed-determinant GF(8) counterexample remains a real local collision:
@@ -335,6 +335,23 @@ is treated as an independent input. It does not contradict the full
 triangular label map, because the prefix matrix is determined by the earlier
 labels. It does rule out treating the updated matrix and current label alone
 as the complete reversible state.
+
+### Compiled four-pivot sentinel-label encoder
+
+[`inplace_ratio_history.py`](inplace_ratio_history.py) now computes the
+sentinel labels for pivots 1 through 3 after the explicit ratio/history encoder.
+The private Kaggle kernel [version 21](https://www.kaggle.com/code/accelra/exp053-inplace-ratio-history/versions/21)
+compiled and simulated 32 arbitrary GF(2^12) four-sample inputs, including the
+all-zero vector. Labels matched the classical codec, branch history and the
+other 66 payload words were preserved, all 71 scratch qubits were clean, and
+there were zero phase flips.
+
+The circuit measured `Q=919`, `T=5,902`, compared with `Q=902`, `T=3,200` for
+the ratio/history baseline: 17 more qubits and 2,702 more Toffoli-like gates.
+It still retains all four branch bits and exceeds the `Q=890` gate by 29
+qubits. This proves the four-pivot relabeling circuit works, but this layout is
+not a scoring candidate. It does not establish branch-history erasure or the
+complete 4+66 schedule; see [`results.json`](results.json).
 
 ## Limit
 

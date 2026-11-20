@@ -85,6 +85,41 @@ def replayed_ratios(data, field):
     return tuple(ratios), tuple(branches)
 
 
+def sentinel_labels_for(data, field):
+    """Return the triangular projective labels for a four-sample vector."""
+    ratios, branches = replayed_ratios(data, field)
+    labels = list(ratios)
+    rank1, rank2 = 0, 1
+    for pivot in range(len(POINTS)):
+        a, c = 1, 0
+        for previous in range(pivot):
+            delta = POINTS[pivot] ^ POINTS[previous]
+            ratio = ratios[previous]
+            old_a = a
+            if branches[previous]:
+                a = field.mul(ratio, old_a) ^ c
+                c = field.mul(delta, old_a)
+            else:
+                a ^= field.mul(ratio, c)
+                c = field.mul(delta, c)
+
+        order = rank1 < rank2
+        if a and c:
+            sentinel = (
+                field.mul(a, field.invert(c))
+                if not order
+                else field.mul(c, field.invert(a))
+            )
+            if not branches[pivot] and ratios[pivot] == 0:
+                labels[pivot] = sentinel
+
+        if branches[pivot]:
+            rank1, rank2 = rank2, rank1 + 2
+        else:
+            rank2 += 2
+    return tuple(labels)
+
+
 def rank1_after(branches):
     rank1, rank2 = 0, 1
     for branch in branches:
@@ -174,7 +209,130 @@ def append_branch_bit(builder, pair_d, pair_g, rank1, step, branch):
     builder.free([g_zero, d_zero, order, both])
 
 
-def build_prefix_encoder(in_place=False):
+def xor_equal_flag(builder, left, right, target):
+    """Toggle target by [left == right] and leave both fields unchanged."""
+    difference = builder.alloc_qubits(len(left))
+    builder.cx(left, difference)
+    builder.cx(right, difference)
+    xor_zero_flag(builder, difference, target)
+    builder.cx(right, difference)
+    builder.cx(left, difference)
+    builder.free(difference)
+
+
+def xor_prefix_order(builder, branches, pivot, target):
+    """Toggle target by the rank-order bit before one of the first four pivots."""
+    if pivot in (0, 1):
+        builder.x(target)
+        return
+    if pivot not in (2, 3):
+        raise ValueError("the prefix encoder supports four pivots")
+
+    # For pivots 2 and 3, order is respectively b0 | !b1 and b1 | !b2.
+    left = branches[pivot - 2]
+    right = branches[pivot - 1]
+    work = builder.alloc_qubits(1)[0]
+    builder.x(left)
+    builder.init_and(left, right, work)
+    builder.x(work)
+    builder.cx(work, target)
+    builder.x(work)
+    builder.del_and(left, right, work)
+    builder.x(left)
+    builder.free([work])
+
+
+def append_sentinel_label(builder, ratios, branches, pivot, ar):
+    """Replace the duplicate zero ratio with its omitted projective label."""
+    if pivot not in (1, 2, 3):
+        return
+
+    matrix_a = builder.alloc_qubits(FIELD_BITS)
+    matrix_c = builder.alloc_qubits(FIELD_BITS)
+    sentinel = builder.alloc_qubits(FIELD_BITS)
+    order = builder.alloc_qubits(1)[0]
+    builder.x(matrix_a[0])
+    one = ar.field(FIELD_BITS)
+
+    # The first column is enough to form the omitted projective ratio.
+    for previous in range(pivot):
+        delta = POINTS[pivot] ^ POINTS[previous]
+        builder.cswap(branches[previous], matrix_a, matrix_c)
+        ar.mul_xor(builder, ratios[previous], matrix_c, matrix_a)
+        builder.gf2_imul(delta, target=matrix_c, field=one)
+
+    xor_prefix_order(builder, branches, pivot, order)
+    # The sentinel is a/c when order is false and c/a otherwise.
+    builder.cswap(order, matrix_a, matrix_c)
+    inverse_transcript = ar.inverse_inplace_forward(builder, matrix_c)
+    ar.mul_xor0(builder, matrix_a, matrix_c, sentinel)
+    ar.inverse_inplace_reverse(builder, matrix_c, inverse_transcript)
+    builder.cswap(order, matrix_a, matrix_c)
+
+    # Clear the prefix matrix before doing the output relabeling.
+    for previous in reversed(range(pivot)):
+        delta = POINTS[pivot] ^ POINTS[previous]
+        inverse_delta = ar.field(FIELD_DEGREE).invert(delta)
+        builder.gf2_imul(inverse_delta, target=matrix_c, field=one)
+        ar.mul_xor(builder, ratios[previous], matrix_c, matrix_a)
+        builder.cswap(branches[previous], matrix_a, matrix_c)
+    builder.x(matrix_a[0])
+    xor_prefix_order(builder, branches, pivot, order)
+    builder.free(matrix_a)
+    builder.free(matrix_c)
+    builder.free(order)
+
+    # On valid FMA outputs, a zero no-swap ratio is the only duplicate label.
+    # Keep the flag until it can be uncomputed from the encoded sentinel value.
+    zero = builder.alloc_qubits(1)[0]
+    exceptional = builder.alloc_qubits(1)[0]
+    xor_zero_flag(builder, ratios[pivot], zero)
+    builder.x(branches[pivot])
+    builder.ccx(zero, branches[pivot], exceptional)
+    builder.x(branches[pivot])
+    xor_zero_flag(builder, ratios[pivot], zero)
+    for bit in range(FIELD_BITS):
+        builder.ccx(exceptional, sentinel[bit], ratios[pivot][bit])
+
+    xor_equal_flag(builder, ratios[pivot], sentinel, zero)
+    builder.x(branches[pivot])
+    builder.ccx(zero, branches[pivot], exceptional)
+    builder.x(branches[pivot])
+    xor_equal_flag(builder, ratios[pivot], sentinel, zero)
+    builder.free([zero, exceptional])
+
+    # Recompute the sentinel into its output register to clear it, then erase
+    # the temporary prefix matrix again.
+    matrix_a = builder.alloc_qubits(FIELD_BITS)
+    matrix_c = builder.alloc_qubits(FIELD_BITS)
+    order = builder.alloc_qubits(1)[0]
+    builder.x(matrix_a[0])
+    for previous in range(pivot):
+        delta = POINTS[pivot] ^ POINTS[previous]
+        builder.cswap(branches[previous], matrix_a, matrix_c)
+        ar.mul_xor(builder, ratios[previous], matrix_c, matrix_a)
+        builder.gf2_imul(delta, target=matrix_c, field=one)
+    xor_prefix_order(builder, branches, pivot, order)
+    builder.cswap(order, matrix_a, matrix_c)
+    inverse_transcript = ar.inverse_inplace_forward(builder, matrix_c)
+    ar.mul_xor0(builder, matrix_a, matrix_c, sentinel)
+    ar.inverse_inplace_reverse(builder, matrix_c, inverse_transcript)
+    builder.cswap(order, matrix_a, matrix_c)
+    for previous in reversed(range(pivot)):
+        delta = POINTS[pivot] ^ POINTS[previous]
+        inverse_delta = ar.field(FIELD_DEGREE).invert(delta)
+        builder.gf2_imul(inverse_delta, target=matrix_c, field=one)
+        ar.mul_xor(builder, ratios[previous], matrix_c, matrix_a)
+        builder.cswap(branches[previous], matrix_a, matrix_c)
+    builder.x(matrix_a[0])
+    xor_prefix_order(builder, branches, pivot, order)
+    builder.free(matrix_a)
+    builder.free(matrix_c)
+    builder.free(order)
+    builder.free(sentinel)
+
+
+def build_prefix_encoder(in_place=False, sentinel_labels=False):
     """Build the four-pivot map: four samples -> ratios plus branch history."""
     km, ar = load_gate_arithmetic()
     builder = km.CircuitBuilder()
@@ -262,6 +420,12 @@ def build_prefix_encoder(in_place=False):
                 builder, payload, rank1, branches, spare_rank_bit, pivot, ar
             )
 
+    if sentinel_labels:
+        # Descending order keeps every earlier ratio in its raw form while its
+        # prefix matrix is reconstructed.
+        for pivot in reversed(range(1, len(POINTS))):
+            append_sentinel_label(builder, ratios, branches, pivot, ar)
+
     if in_place:
         builder.free(ratio_temp)
     rank_register = rank1 + branches + [spare_rank_bit]
@@ -274,6 +438,7 @@ def build_prefix_encoder(in_place=False):
         "rank_register": rank_register,
         "ratios": ratios,
         "samples": samples,
+        "sentinel_labels": sentinel_labels,
     }
 
 
@@ -281,8 +446,10 @@ def build_inplace_prefix_encoder():
     return build_prefix_encoder(in_place=True)
 
 
-def screen_prefix_encoder(case_count=32, in_place=False):
-    km, circuit, registers = build_prefix_encoder(in_place=in_place)
+def screen_prefix_encoder(case_count=32, in_place=False, use_sentinel_labels=False):
+    km, circuit, registers = build_prefix_encoder(
+        in_place=in_place, sentinel_labels=use_sentinel_labels
+    )
     field = km.GF2Field(FIELD_BITS)
     rng = Random(0xF1A05304)
     cases = [
@@ -291,7 +458,12 @@ def screen_prefix_encoder(case_count=32, in_place=False):
         else tuple(rng.randrange(1 << FIELD_BITS) for _ in POINTS)
         for index in range(case_count)
     ]
-    labels = [replayed_ratios(data, field) for data in cases]
+    references = [replayed_ratios(data, field) for data in cases]
+    expected_ratios = [ratios for ratios, _ in references]
+    expected_branches = [branches for _, branches in references]
+    expected_output = expected_ratios
+    if use_sentinel_labels:
+        expected_output = [sentinel_labels_for(data, field) for data in cases]
     if in_place:
         word_values = [
             [rng.randrange(1 << FIELD_BITS) for _ in cases]
@@ -317,7 +489,7 @@ def screen_prefix_encoder(case_count=32, in_place=False):
             registers["payload"][word * FIELD_BITS : (word + 1) * FIELD_BITS],
             bit_columns(word_values[word], FIELD_BITS),
         )
-    rank_values = [rank1_after(branches) for _, branches in labels]
+    rank_values = [rank1_after(branches) for branches in expected_branches]
     sim.write_across_shots(
         registers["rank1"], bit_columns([0] * len(cases), 3)
     )
@@ -331,16 +503,38 @@ def screen_prefix_encoder(case_count=32, in_place=False):
     )
     sim.do(circuit)
 
+    output_mismatches = []
     for pivot in range(4):
-        assert np.array_equal(
-            sim.read_across_shots(registers["ratios"][pivot]),
-            bit_columns([ratios[pivot] for ratios, _ in labels], FIELD_BITS),
+        actual = sim.read_across_shots(registers["ratios"][pivot])
+        expected = bit_columns(
+            [words[pivot] for words in expected_output], FIELD_BITS
         )
+        bad_shots = np.flatnonzero(np.any(actual != expected, axis=0))
+        if len(bad_shots):
+            actual_words = np.sum(
+                actual.astype(np.uint32)
+                * (1 << np.arange(FIELD_BITS, dtype=np.uint32))[:, None],
+                axis=0,
+            )
+            expected_words = np.sum(
+                expected.astype(np.uint32)
+                * (1 << np.arange(FIELD_BITS, dtype=np.uint32))[:, None],
+                axis=0,
+            )
+            output_mismatches.extend(
+                {
+                    "pivot": pivot,
+                    "shot": int(shot),
+                    "actual": int(actual_words[shot]),
+                    "expected": int(expected_words[shot]),
+                }
+                for shot in bad_shots[:8]
+            )
         if not in_place:
             assert not np.any(sim.read_across_shots(registers["samples"][pivot]))
         assert np.array_equal(
             sim.read_across_shots(registers["branches"][pivot]),
-            np.asarray([bool(branches[pivot]) for _, branches in labels], dtype=np.bool_),
+            np.asarray([bool(branches[pivot]) for branches in expected_branches], dtype=np.bool_),
         )
     for word in range(untouched_start, 70):
         assert np.array_equal(
@@ -361,25 +555,36 @@ def screen_prefix_encoder(case_count=32, in_place=False):
         for index in range(circuit.num_qubits)
         if km.q(index) not in live
     ]
+    scratch_state = np.zeros((0, len(cases)), dtype=np.bool_)
     if scratch:
-        assert not np.any(sim.read_across_shots(km.array(scratch)))
-    assert not np.any(sim.read_phase_flipped_across_shots())
+        scratch_state = sim.read_across_shots(km.array(scratch))
+    dirty_scratch = [
+        str(scratch[index])
+        for index in np.flatnonzero(np.any(scratch_state, axis=1))
+    ]
+    phase_flips = int(np.count_nonzero(sim.read_phase_flipped_across_shots()))
     return {
         "cases": len(cases),
         "compiled_qubits": circuit.num_qubits,
         "toffoli_like_gates": circuit.operation_statistics().num_toffoli_like,
         "clean_scratch_qubits": len(scratch),
-        "ratios_match_reference": True,
+        "output_labels_match_reference": not output_mismatches,
+        "output_mismatches": output_mismatches,
         "branch_history_matches_reference": True,
         "original_ratio_words_overwritten_in_place": in_place,
+        "sentinel_labels": use_sentinel_labels,
         "samples_cleared": not in_place,
         "other_payload_preserved": True,
-        "phase_flips": 0,
+        "scratch_clean": not dirty_scratch,
+        "dirty_scratch_qubits": dirty_scratch,
+        "phase_flips": phase_flips,
     }
 
 
-def screen_inplace_prefix_encoder(case_count=32):
-    return screen_prefix_encoder(case_count, in_place=True)
+def screen_inplace_prefix_encoder(case_count=32, use_sentinel_labels=False):
+    return screen_prefix_encoder(
+        case_count, in_place=True, use_sentinel_labels=use_sentinel_labels
+    )
 
 
 def append_sample_eraser(
@@ -564,18 +769,30 @@ def screen_pivot(pivot, case_count=32):
 def run_screen():
     clean_slot_result = screen_prefix_encoder()
     inplace_result = screen_inplace_prefix_encoder()
+    sentinel_inplace_result = screen_inplace_prefix_encoder(use_sentinel_labels=True)
+    results = (clean_slot_result, inplace_result, sentinel_inplace_result)
     return {
         "experiment": "exp-053-inplace-ratio-history-prefix-encoder",
-        "result": "PASS",
+        "result": (
+            "PASS"
+            if all(
+                result["scratch_clean"]
+                and result["phase_flips"] == 0
+                and result["output_labels_match_reference"]
+                for result in results
+            )
+            else "FAIL"
+        ),
         "clean_slot_prefix_encoder": clean_slot_result,
         "full_input_inplace_prefix_encoder": inplace_result,
+        "full_input_sentinel_label_encoder": sentinel_inplace_result,
         "scope": (
-            "Compiled both four-pivot encoders for 32 arbitrary GF(2^12) "
-            "four-sample inputs. The in-place variant accepts arbitrary values "
-            "in all 70 payload words, writes ratios into the original first four "
-            "sample words, and checks preservation of the other 66 words, branch "
-            "history, phase, and scratch. It does not establish the complete "
-            "4+66 schedule."
+            "Compiled the explicit ratio/history baseline and a four-pivot "
+            "sentinel-label variant for 32 arbitrary GF(2^12) four-sample inputs. "
+            "The sentinel variant keeps explicit branch history as a comparison, "
+            "checks label agreement, sample cleanup, payload preservation, phase, "
+            "and scratch. It does not establish the complete 4+66 schedule or "
+            "erase branch history."
         ),
     }
 
