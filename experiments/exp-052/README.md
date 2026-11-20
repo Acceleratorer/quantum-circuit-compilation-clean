@@ -6,7 +6,7 @@ tests: exhaustive GF(4) tuples, exhaustive valid GF(8) errors, all 4,096 GF(8) f
 direction: D-004
 status: local_transition_feasibility
 date: 2026-11-20
-result: the fused four-point factorized state is injective in the GF(8) screen and uses at most four field words; its in-place reversible circuit remains open
+result: the fused four-point factorized state is injective in the GF(8) screen; the local rank-sum gate projects at Q=863, but the in-place 4+66 circuit remains open
 ---
 
 # FMA sample-update reversibility screen
@@ -174,11 +174,11 @@ computes this mapping, its scratch liveness, phase cleanup, and Toffoli cost
 remain undesigned.
 
 The existing 840-qubit payload can therefore remain the width target if the
-four-sample factorization is implemented in-place. Under the existing branch
-cell assumption that its pivot pair is already in the payload, the branch
-projection is `Q=880`, leaving ten qubits. This is an information-width lead,
-not a verified schedule: the factorization's scratch, Toffoli cost, phase
-cleanup, and pivot liveness are still uncounted.
+four-sample factorization is implemented in-place. Under the updated local
+rank-sum gate, and assuming its pivot pair is already in the payload, the
+branch projection is `Q=863`, leaving 27 qubits. This is an information-width
+lead, not a verified schedule: the factorization's scratch, Toffoli cost,
+phase cleanup, and pivot liveness are still uncounted.
 
 ### 4+66 explicit sidecar alternatives
 
@@ -196,17 +196,20 @@ factorized state above is the current width lead.
 For four left constraints, the two row ranks sum to 9, so the normalized
 minimum-rank row has rank at most 4 and at most four stored field coefficients
 after omitting its fixed leading 1. Together with the 66 untouched right
-samples, that gives the existing 840-qubit persistent payload. The 27-bit
-sorted sidecar projects to `Q=907` while live through the branch cell; the
-26-bit dense capacity projects to `Q=906`, and the 39-bit fixed-position
-sidecar to `Q=919`. The rank-invariant branch cell has 40 additional live
-workspace qubits after its 24-qubit pivot pair is counted inside the payload.
-All three projections exceed the 890 limit. The 27-bit sorted format is 17
-qubits over the gate; its routing cost and liveness are still unproved.
+samples, that gives the existing 840-qubit persistent payload. With the
+updated rank-sum branch cell, the 27-bit sorted sidecar projects to `Q=890`
+while live through the cell; the 26-bit dense capacity projects to `Q=889`,
+and the 39-bit fixed-position sidecar to `Q=902`. The cell has 23 additional
+live workspace qubits after its 24-qubit pivot pair is counted inside the
+payload. The sorted projection is exactly at the limit and the dense
+projection is one qubit below it, before field-register liveness,
+sorting/routing, phase work, and cleanup are reconciled.
 
-**Decision:** keep explicit sidecars closed while they exceed the width gate.
-Pursue the fused four-point factorization as the width lead, but do not count it
-as a circuit until an in-place reversible encoder, decoder, and liveness/phase
+**Decision:** keep the sidecars as unbuilt fallback encodings. The sorted
+projection is at the limit before routing, while the dense encoder/decoder and
+all field-register, phase, and liveness costs remain uncounted. Pursue the
+fused four-point factorization as the width lead, but do not count it as a
+circuit until an in-place reversible encoder, decoder, and liveness/phase
 ledger exist. This does not close the 4+66 FMA path.
 At the latest 2,048-shot sample maximum of 246,831T, adding the 4,830T local
 branch gate leaves 5,282T below the 256,943T gate for all still-unaccounted
@@ -242,12 +245,12 @@ Run the screen with:
 `fma_branch_gate.py` builds one reversible leaf operation in Kickmix: compute
 the branch predicate, update both 8-bit ranks, and retain a one-bit selector
 for the sparse lower row of the leaf matrix. The general rank-comparison cell
-uses 95 Toffoli-like gates and 73 qubits including its 24-bit pivot pair and
+uses 83 Toffoli-like gates and 55 qubits including its 24-bit pivot pair and
 ranks.
 For a fixed point polynomial `L`, the selector represents either
 `[L, 0]` or `[0, L]` in the lower row; `d` and `g` supply the top row.
-Projecting the pivot pair into the existing 840-qubit payload gives `Q=889`.
-Repeating the local count for 70 leaves costs 6,650T and leaves 3,138T of the
+Projecting the pivot pair into the existing 840-qubit payload gives `Q=871`.
+Repeating the local count for 70 leaves costs 5,810T and leaves 3,978T of the
 9,788T remainder for every omitted operation.
 
 This is only a local gate count. It does not generate the pivot pairs, build
@@ -255,7 +258,7 @@ the FMA tree, or prove selector liveness through recursive composition. Exact
 counts and assumptions are in
 [`branch_gate_results.json`](branch_gate_results.json). The script checks the
 compiled cell on all 65,536 rank pairs in each of the four `d/g` zero classes
-(262,144 shots total); the selector/ranks match the reference, all 32 scratch
+(262,144 shots total); the selector/ranks match the reference, all 14 scratch
 qubits return to zero, and no phase flips occur. This verifies the leaf kernel,
 not its recursive composition or the data-pair matrix update.
 
@@ -264,11 +267,11 @@ not its recursive composition or the data-pair matrix update.
 At step `j`, the rank invariant is `r1+r2=2j+1`, so `r1<r2` is equivalent to
 `r1<=j`. Comparing `r1` to the public constant `j+1` and deriving `r2` by
 reflection on the swap branch leaves one 8-bit rank register. The gate uses 69
-Toffoli-like gates and 64 qubits per step. The exhaustive check covers all
+Toffoli-like gates and 47 qubits per step. The exhaustive check covers all
 19,880 valid rank/zero-class cases across `j=0..69`; the rank and selector
-match, all 31 scratch qubits return to zero, and there are no phase flips.
-Across 70 steps this is 4,830T, saving 1,820T against the general cell and
-leaving 4,958T of the previous 9,788T margin. The projected total is `Q=880`
+match, all 14 scratch qubits return to zero, and there are no phase flips.
+Across 70 steps this is 4,830T, saving 980T against the updated general cell and
+leaving 4,958T of the previous 9,788T margin. The projected total is `Q=863`
 if the 24-bit pivot pair is already part of the 840-qubit payload.
 
 This remains a local count. It excludes generating the pivot pairs, recursive

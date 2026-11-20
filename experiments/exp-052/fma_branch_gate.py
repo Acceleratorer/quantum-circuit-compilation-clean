@@ -18,88 +18,6 @@ POINTS = 70
 REMAINING_TOFFOLIS = 9_788
 
 
-def zero_tree(b, word):
-    for bit in word:
-        b.x(bit)
-    chain = b.alloc_qubits(len(word) - 1)
-    b.ccx(word[0], word[1], chain[0])
-    for index in range(2, len(word)):
-        b.ccx(chain[index - 2], word[index], chain[index - 1])
-    return chain
-
-
-def undo_zero_tree(b, word, chain):
-    for index in reversed(range(len(chain))):
-        left = word[0] if index == 0 else chain[index - 1]
-        right = word[index + 1]
-        b.ccx(left, right, chain[index])
-        b.free(chain[index])
-    for bit in word:
-        b.x(bit)
-
-
-def compare_borrow_chain(b, left, right, borrows, eq, undo=False):
-    if not undo:
-        b.x(left[0])
-        b.ccx(left[0], right[0], borrows[0])
-        b.x(left[0])
-        for index in range(1, len(left)):
-            b.x(eq)
-            b.cx(left[index], eq)
-            b.cx(right[index], eq)  # eq = not (left[index] xor right[index])
-            b.x(left[index])
-            b.ccx(left[index], right[index], borrows[index])
-            b.x(left[index])
-            b.ccx(eq, borrows[index - 1], borrows[index])
-            b.cx(right[index], eq)
-            b.cx(left[index], eq)
-            b.x(eq)
-    else:
-        for index in reversed(range(1, len(left))):
-            b.x(eq)
-            b.cx(left[index], eq)
-            b.cx(right[index], eq)
-            b.ccx(eq, borrows[index - 1], borrows[index])
-            b.x(left[index])
-            b.ccx(left[index], right[index], borrows[index])
-            b.x(left[index])
-            b.cx(right[index], eq)
-            b.cx(left[index], eq)
-            b.x(eq)
-        b.x(left[0])
-        b.ccx(left[0], right[0], borrows[0])
-        b.x(left[0])
-
-
-def compare_to_constant(b, word, constant, borrows, undo=False):
-    """Compute the final borrow of ``word - constant`` into borrows[-1]."""
-    indices = reversed(range(len(word))) if undo else range(len(word))
-    for index in indices:
-        bit = (constant >> index) & 1
-        target = borrows[index]
-        if index == 0:
-            if bit:
-                if undo:
-                    b.cx(word[index], target)
-                    b.x(target)
-                else:
-                    b.x(target)
-                    b.cx(word[index], target)
-        elif bit:
-            if undo:
-                b.ccx(word[index], borrows[index - 1], target)
-                b.cx(word[index], target)
-                b.x(target)
-            else:
-                b.x(target)
-                b.cx(word[index], target)
-                b.ccx(word[index], borrows[index - 1], target)
-        else:
-            b.x(word[index])
-            b.ccx(word[index], borrows[index - 1], target)
-            b.x(word[index])
-
-
 def increment_two(b, word):
     """In-place add 2, using a high-to-low carry cleanup schedule."""
     carries = b.alloc_qubits(len(word) - 3)
@@ -367,38 +285,37 @@ def build_one_step(step=None):
     g = b.alloc_qubits(FIELD_BITS)
     rank1 = b.alloc_qubits(RANK_BITS)
     rank2 = b.alloc_qubits(RANK_BITS) if step is None else None
-    branch = b.alloc_qubits(1)[0]
+    branch_register = b.alloc_qubits(1)
+    branch = branch_register[0]
+    d_zero = b.alloc_qubits(1)[0]
+    g_zero = b.alloc_qubits(1)[0]
+    term = b.alloc_qubits(1)[0]
 
-    d_zero = zero_tree(b, d)
-    g_zero = zero_tree(b, g)
-    borrows = b.alloc_qubits(RANK_BITS)
-    eq = None
+    # Keep only the two zero flags and one controlled comparison result live.
+    # Kickmix's exact comparator cleans its internal scratch before returning.
+    b.flip_if_less_than(g, 1, target=g_zero)
+    b.flip_if_less_than(d, 1, target=d_zero)
+    b.x(d_zero)  # d_nonzero
     if step is None:
-        eq = b.alloc_qubits(1)[0]
-        compare_borrow_chain(b, rank1, rank2, borrows, eq)
+        b.flip_if_less_than(rank1, rank2, target=term, control=d_zero)
     else:
-        compare_to_constant(b, rank1, step + 1, borrows)
+        b.flip_if_less_than(rank1, step + 1, target=term, control=d_zero)
 
-    temp = b.alloc_qubits(1)[0]
-    b.x(d_zero[-1])
-    b.ccx(d_zero[-1], borrows[-1], temp)
-    b.x(d_zero[-1])
-    b.cx(g_zero[-1], branch)
-    b.cx(temp, branch)
-    b.ccx(g_zero[-1], temp, branch)  # OR correction when both terms are true
-    b.x(d_zero[-1])
-    b.ccx(d_zero[-1], borrows[-1], temp)
-    b.x(d_zero[-1])
-    b.free(temp)
+    # branch = g_zero OR (d_nonzero AND rank_lt)
+    b.cx(g_zero, branch)
+    b.cx(term, branch)
+    b.ccx(g_zero, term, branch)
 
     if step is None:
-        compare_borrow_chain(b, rank1, rank2, borrows, eq, undo=True)
-        b.free(eq)
+        b.flip_if_less_than(rank1, rank2, target=term, control=d_zero)
     else:
-        compare_to_constant(b, rank1, step + 1, borrows, undo=True)
-    b.free(borrows)
-    undo_zero_tree(b, g, g_zero)
-    undo_zero_tree(b, d, d_zero)
+        b.flip_if_less_than(rank1, step + 1, target=term, control=d_zero)
+    b.x(d_zero)
+    b.flip_if_less_than(d, 1, target=d_zero)
+    b.flip_if_less_than(g, 1, target=g_zero)
+    b.free(term)
+    b.free(g_zero)
+    b.free(d_zero)
 
     if step is None:
         controlled_rank_update(b, rank1, rank2, branch)
@@ -408,17 +325,11 @@ def build_one_step(step=None):
     # Algorithm 6's leaf matrix puts the same fixed nonzero polynomial in one
     # lower-row column or the other. The selector compactly represents that
     # sparse row; the point-dependent polynomial itself is a fixed template.
-    selector_register = b.alloc_qubits(1)
-    selector = selector_register[0]
-    b.cx(branch, selector)
-    b.cx(selector, branch)
-    b.free(branch)
-
     registers = {
         "d": d,
         "g": g,
         "rank1": rank1,
-        "leaf_selector": selector_register,
+        "leaf_selector": branch_register,
     }
     if rank2 is not None:
         registers["rank2"] = rank2
