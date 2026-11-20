@@ -575,6 +575,21 @@
     "single_pair_cell_toffolis": 300,
     "variable_products": 2555
   },
+  "full_input_inplace_prefix_encoder": {
+    "cases": 32,
+    "clean_scratch_qubits": 54,
+    "compiled_qubits": 902,
+    "competition_submission": false,
+    "original_ratio_words_overwritten_in_place": true,
+    "other_payload_words_preserved": 66,
+    "phase_flips": 0,
+    "private_kernel_version": 16,
+    "private_kernel_url": "https://www.kaggle.com/code/accelra/exp053-inplace-ratio-history",
+    "result": "PASS",
+    "toffoli_like_gates": 3200,
+    "vs_clean_slot_prefix": "12 more qubits, same gate count; not a score improvement",
+    "scope": "32 random GF(2^12) four-sample prefixes in an otherwise arbitrary 70-word payload. Checks ratios, branch history, rank, preservation of words 4 through 69, clean scratch, and phase. Prefix only; not the full 4+66 schedule."
+  },
   "result": "PASS",
-  "scope": "Classical recurrence, one compiled normalized pair cell, one compiled fixed-shape out-of-place decoder, and the in-place ratio/history sample eraser. This is not a complete 70-symbol reversible schedule, and the naive full pair bank exceeds Q=890."
+  "scope": "Classical recurrence, one compiled normalized pair cell, one compiled fixed-shape out-of-place decoder, the in-place ratio/history sample eraser, and a full-input-compatible four-pivot prefix. This is not a complete 70-symbol reversible schedule, and the naive full pair bank exceeds Q=890."
 }

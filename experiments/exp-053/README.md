@@ -4,9 +4,9 @@ title: Pivot-normalized FMA recurrence screen
 task: dqi
 tests: exhaustive GF(8) four-sample inputs; all 97,119 valid GF(8) eight-point patterns; 655,360 transformed GF(8) block states; 48 seeded GF(2^12) DQI samples; 32 compiled pair-cell cases
 direction: D-004
-status: branch_label_screen
+status: input_compatible_prefix_screen
 date: 2026-11-20
-result: ratio plus history is injective on GF(8); compact four-point basis is 11 words; pair cell compiles at Q=871, T=300
+result: full-input four-pivot encoder compiles at Q=902, T=3,200; it costs 12 more qubits than the clean-slot screen and is not a score improvement
 ---
 
 # Pivot-normalized FMA recurrence
@@ -263,6 +263,19 @@ the unchanged arithmetic helper for the private kernel.
 
 This verifies only the four-pivot prefix. The remaining 66-point schedule,
 complete circuit resource ledger, and competition submission are still open.
+
+### Full-input prefix compatibility
+
+The in-place option in [`inplace_ratio_history.py`](inplace_ratio_history.py)
+starts with all 70 payload words arbitrary and overwrites the first four source
+words with their ratios. Private Kaggle kernel version 16 checked 32 random
+GF(2^12) prefixes, preserved the other 66 words and branch/rank outputs, cleared
+all scratch, and reported zero phase flips. It compiled at `Q=902`, `T=3,200`
+with 54 clean scratch qubits.
+
+This closes the four-pivot input-layout mismatch, but costs 12 more qubits than
+the `Q=890` clean-slot subroutine while saving no gates. It is not a scoring
+candidate and has not been submitted. The complete 4+66 decoder remains open.
 
 ## Limit
 

@@ -174,7 +174,7 @@ def append_branch_bit(builder, pair_d, pair_g, rank1, step, branch):
     builder.free([g_zero, d_zero, order, both])
 
 
-def build_prefix_encoder():
+def build_prefix_encoder(in_place=False):
     """Build the four-pivot map: four samples -> ratios plus branch history."""
     km, ar = load_gate_arithmetic()
     builder = km.CircuitBuilder()
@@ -185,8 +185,13 @@ def build_prefix_encoder():
     spare_rank_bit = rank_history[7]
     ratios = [payload[index * FIELD_BITS : (index + 1) * FIELD_BITS]
               for index in range(4)]
-    samples = [payload[(4 + index) * FIELD_BITS : (5 + index) * FIELD_BITS]
-               for index in range(4)]
+    samples = (
+        ratios
+        if in_place
+        else [payload[(4 + index) * FIELD_BITS : (5 + index) * FIELD_BITS]
+              for index in range(4)]
+    )
+    ratio_temp = builder.alloc_qubits(FIELD_BITS) if in_place else None
     one = ar.field(FIELD_BITS)
 
     for pivot, point in enumerate(POINTS):
@@ -214,7 +219,12 @@ def build_prefix_encoder():
 
         builder.cswap(branches[pivot], pair_d, pair_g)
         inverse_transcript = ar.inverse_inplace_forward(builder, pair_g)
-        ar.mul_xor0(builder, pair_d, pair_g, ratios[pivot])
+        ar.mul_xor0(
+            builder,
+            pair_d,
+            pair_g,
+            ratio_temp if in_place else ratios[pivot],
+        )
         ar.inverse_inplace_reverse(builder, pair_g, inverse_transcript)
         builder.cswap(branches[pivot], pair_d, pair_g)
 
@@ -234,10 +244,26 @@ def build_prefix_encoder():
         builder.x(pair_g[0])
         builder.free(pair_d)
         builder.free(pair_g)
-        append_sample_eraser(
-            builder, payload, rank1, branches, spare_rank_bit, pivot, ar
-        )
+        if in_place:
+            append_sample_eraser(
+                builder,
+                payload,
+                rank1,
+                branches,
+                spare_rank_bit,
+                pivot,
+                ar,
+                sample=samples[pivot],
+                ratio_words=ratios[:pivot] + [ratio_temp],
+            )
+            builder.swap(ratio_temp, samples[pivot])
+        else:
+            append_sample_eraser(
+                builder, payload, rank1, branches, spare_rank_bit, pivot, ar
+            )
 
+    if in_place:
+        builder.free(ratio_temp)
     rank_register = rank1 + branches + [spare_rank_bit]
     circuit = builder.finish_circuit()
     return km, circuit, {
@@ -251,8 +277,12 @@ def build_prefix_encoder():
     }
 
 
-def screen_prefix_encoder(case_count=32):
-    km, circuit, registers = build_prefix_encoder()
+def build_inplace_prefix_encoder():
+    return build_prefix_encoder(in_place=True)
+
+
+def screen_prefix_encoder(case_count=32, in_place=False):
+    km, circuit, registers = build_prefix_encoder(in_place=in_place)
     field = km.GF2Field(FIELD_BITS)
     rng = Random(0xF1A05304)
     cases = [
@@ -262,12 +292,23 @@ def screen_prefix_encoder(case_count=32):
         for index in range(case_count)
     ]
     labels = [replayed_ratios(data, field) for data in cases]
-    word_values = [[0] * len(cases) for _ in range(70)]
-    for index, data in enumerate(cases):
-        for pivot, value in enumerate(data):
-            word_values[4 + pivot][index] = value
-        for word in range(8, 70):
-            word_values[word][index] = rng.randrange(1 << FIELD_BITS)
+    if in_place:
+        word_values = [
+            [rng.randrange(1 << FIELD_BITS) for _ in cases]
+            for _ in range(70)
+        ]
+        for index, data in enumerate(cases):
+            for pivot, value in enumerate(data):
+                word_values[pivot][index] = value
+        untouched_start = 4
+    else:
+        word_values = [[0] * len(cases) for _ in range(70)]
+        for index, data in enumerate(cases):
+            for pivot, value in enumerate(data):
+                word_values[4 + pivot][index] = value
+            for word in range(8, 70):
+                word_values[word][index] = rng.randrange(1 << FIELD_BITS)
+        untouched_start = 8
 
     sim = km.Simulator(batch_size=len(cases), debug_print=False, seed=0)
     sim.use_same_registers_as(circuit)
@@ -295,12 +336,13 @@ def screen_prefix_encoder(case_count=32):
             sim.read_across_shots(registers["ratios"][pivot]),
             bit_columns([ratios[pivot] for ratios, _ in labels], FIELD_BITS),
         )
-        assert not np.any(sim.read_across_shots(registers["samples"][pivot]))
+        if not in_place:
+            assert not np.any(sim.read_across_shots(registers["samples"][pivot]))
         assert np.array_equal(
             sim.read_across_shots(registers["branches"][pivot]),
             np.asarray([bool(branches[pivot]) for _, branches in labels], dtype=np.bool_),
         )
-    for word in range(8, 70):
+    for word in range(untouched_start, 70):
         assert np.array_equal(
             sim.read_across_shots(
                 registers["payload"][word * FIELD_BITS : (word + 1) * FIELD_BITS]
@@ -329,13 +371,29 @@ def screen_prefix_encoder(case_count=32):
         "clean_scratch_qubits": len(scratch),
         "ratios_match_reference": True,
         "branch_history_matches_reference": True,
-        "samples_cleared": True,
+        "original_ratio_words_overwritten_in_place": in_place,
+        "samples_cleared": not in_place,
         "other_payload_preserved": True,
         "phase_flips": 0,
     }
 
 
-def append_sample_eraser(builder, payload, rank_low, branches, spare_rank_bit, pivot, ar):
+def screen_inplace_prefix_encoder(case_count=32):
+    return screen_prefix_encoder(case_count, in_place=True)
+
+
+def append_sample_eraser(
+    builder,
+    payload,
+    rank_low,
+    branches,
+    spare_rank_bit,
+    pivot,
+    ar,
+    *,
+    sample=None,
+    ratio_words=None,
+):
     """Append sample_j ^= decode(r_0..r_j, b_0..b_j) to an existing circuit."""
     # At the four-point split, rank1 is determined by branch history. Restore
     # its three low bits to zero and borrow them plus the unused high bit as
@@ -351,10 +409,15 @@ def append_sample_eraser(builder, payload, rank_low, branches, spare_rank_bit, p
     pair_ids = {str(qubit) for qubit in list(pair_d) + list(pair_g)}
     if borrowed_rank_ids - pair_ids:
         raise RuntimeError("Kickmix did not reuse the four released rank workspace wires")
-    ratios = [payload[index * FIELD_BITS : (index + 1) * FIELD_BITS]
-              for index in range(pivot + 1)]
+    if ratio_words is None:
+        ratio_words = [
+            payload[index * FIELD_BITS : (index + 1) * FIELD_BITS]
+            for index in range(pivot + 1)
+        ]
+    ratios = ratio_words
     branches = branches[: pivot + 1]
-    sample = payload[(4 + pivot) * FIELD_BITS : (5 + pivot) * FIELD_BITS]
+    if sample is None:
+        sample = payload[(4 + pivot) * FIELD_BITS : (5 + pivot) * FIELD_BITS]
     one = ar.field(FIELD_BITS)
 
     # The branch bit chooses projective coordinates [r:1] or [1:r].
@@ -499,16 +562,20 @@ def screen_pivot(pivot, case_count=32):
 
 
 def run_screen():
-    result = screen_prefix_encoder()
+    clean_slot_result = screen_prefix_encoder()
+    inplace_result = screen_inplace_prefix_encoder()
     return {
         "experiment": "exp-053-inplace-ratio-history-prefix-encoder",
         "result": "PASS",
-        "prefix_encoder": result,
+        "clean_slot_prefix_encoder": clean_slot_result,
+        "full_input_inplace_prefix_encoder": inplace_result,
         "scope": (
-            "Compiled the four-pivot ratio/history encoder for 32 arbitrary GF(2^12) "
-            "four-sample inputs. It checks label values, branch history, sample "
-            "erasure, untouched payload, phase, and scratch. It does not establish "
-            "the complete 4+66 schedule."
+            "Compiled both four-pivot encoders for 32 arbitrary GF(2^12) "
+            "four-sample inputs. The in-place variant accepts arbitrary values "
+            "in all 70 payload words, writes ratios into the original first four "
+            "sample words, and checks preservation of the other 66 words, branch "
+            "history, phase, and scratch. It does not establish the complete "
+            "4+66 schedule."
         ),
     }
 
