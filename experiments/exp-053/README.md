@@ -72,6 +72,15 @@ samples. The ratio array alone is not an injective state: the GF(8) screen has
 one ratio vector. Among the 48 DQI samples, zero-ratio counts reached 69 at
 weight 1, 8 at weight 31, and 1 at weight 35.
 
+The four-point ratio/history label now has an explicit classical inverse. For
+pivot `j`, the branch bit selects projective coordinates `[r_j:1]` or
+`[1:r_j]`; reversing each earlier normalized update recovers `d_j` as the
+final coordinate ratio. This decoded all 4,096 arbitrary GF(8) four-sample
+inputs and the first four samples of all 48 GF(2^12) DQI cases. The four
+branch bits fit in the five rank-register bits unused after the prefix. This
+proves classical reversibility, but the in-place gate circuit and full 4+66
+resource schedule remain unbuilt.
+
 Adding the full branch history made all 4,096 GF(8) ratio/history labels unique.
 This still does not give a width-safe history encoding: taking `rank1 < rank2`
 as the default branch left up to 69 exception positions in the 48 sampled

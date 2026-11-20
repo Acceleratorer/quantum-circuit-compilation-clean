@@ -438,6 +438,8 @@
     "branch_history_matches_reference": true,
     "gf12_valid_70_symbol_samples": {
       "cases": 48,
+      "four_point_prefix_decode_cases": 48,
+      "four_point_prefix_decode_errors": 0,
       "distinct_final_rank_pairs_by_weight": {
         "1": 1,
         "31": 1,
@@ -489,6 +491,8 @@
     "gf8_ratio_replay": {
       "branch_bit_1_resolves_all_ratio_plus_rank_collisions": true,
       "cases": 4096,
+      "ratio_history_decode_cases": 4096,
+      "ratio_history_decode_errors": 0,
       "distinct_ratio_history_pairs": 4096,
       "distinct_ratio_vectors": 3052,
       "max_rank_rule_exceptions": 4,

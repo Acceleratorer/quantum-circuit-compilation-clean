@@ -105,6 +105,30 @@ def replayed_ratios(data, points, modulus, degree):
     return tuple(state), tuple(branches), pair_products, rank_exceptions
 
 
+def decode_replayed_samples(ratios, branches, points, modulus, degree):
+    """Invert the sample-to-ratio map using its branch transcript."""
+    if not (len(ratios) == len(branches) == len(points)):
+        raise ValueError("ratios, branches, and points must have equal length")
+    mul = lambda a, b: fma.gf_mul(a, b, modulus, degree)
+    samples = []
+    for pivot, (ratio, branch) in enumerate(zip(ratios, branches)):
+        d, g = (1, ratio) if branch else (ratio, 1)
+        for prior in range(pivot - 1, -1, -1):
+            delta = points[pivot] ^ points[prior]
+            inverse_delta = fma.gf_inv(delta, modulus, degree)
+            if branches[prior]:
+                old_d = mul(g, inverse_delta)
+                old_g = d ^ mul(ratios[prior], old_d)
+            else:
+                old_g = mul(g, inverse_delta)
+                old_d = d ^ mul(ratios[prior], old_g)
+            d, g = old_d, old_g
+        if g == 0:
+            raise ValueError("ratio history decodes to the projective point at infinity")
+        samples.append(mul(d, fma.gf_inv(g, modulus, degree)))
+    return tuple(samples)
+
+
 def normalized_low_row(basis, mul, modulus, degree):
     row = min(range(2), key=lambda index: fma.row_rank(basis, index))
     w, n = (fma.trim(list(poly)) for poly in basis[row])
@@ -144,6 +168,7 @@ def screen_gf8_four_samples():
     degree, modulus, points = 3, 0b1011, list(range(4))
     mul = lambda a, b: fma.gf_mul(a, b, modulus, degree)
     cases = 0
+    ratio_history_decode_cases = 0
     ratio_fibers = {}
     ratio_history_fibers = {}
     ratio_rank_fibers = {}
@@ -152,6 +177,10 @@ def screen_gf8_four_samples():
         ratios, history, exception_mask, final_ranks = compare_to_reference(
             data, points, mul, modulus, degree
         )
+        assert decode_replayed_samples(
+            ratios, history, points, modulus, degree
+        ) == data
+        ratio_history_decode_cases += 1
         fiber = ratio_fibers.setdefault(ratios, [0, set()])
         fiber[0] += 1
         fiber[1].add(history)
@@ -175,6 +204,8 @@ def screen_gf8_four_samples():
     assert bit_one_resolves_all
     return {
         "cases": cases,
+        "ratio_history_decode_cases": ratio_history_decode_cases,
+        "ratio_history_decode_errors": 0,
         "distinct_ratio_vectors": len(ratio_fibers),
         "maximum_input_fiber": max(fiber[0] for fiber in ratio_fibers.values()),
         "maximum_branch_histories_per_ratio_vector": max(
@@ -369,6 +400,7 @@ def screen_gf12_dqi_samples():
     zero_ratios_by_weight = {}
     rank_exceptions_by_weight = {}
     exception_masks_by_final_rank = {}
+    prefix_decode_cases = 0
 
     for weight in (1, 31, 35):
         for _ in range(per_weight):
@@ -381,9 +413,13 @@ def screen_gf12_dqi_samples():
                     syndrome[index] ^= mul(magnitude, power)
                     power = mul(power, beta)
             data = fma.syndrome_to_fma_samples(syndrome, points, mul)
-            ratios, _, rank_exception_mask, final_ranks = compare_to_reference(
+            ratios, history, rank_exception_mask, final_ranks = compare_to_reference(
                 data, points, mul, modulus, degree
             )
+            assert decode_replayed_samples(
+                ratios[:4], history[:4], points[:4], modulus, degree
+            ) == tuple(data[:4])
+            prefix_decode_cases += 1
             zero_ratios_by_weight.setdefault(weight, []).append(
                 sum(ratio == 0 for ratio in ratios)
             )
@@ -397,6 +433,8 @@ def screen_gf12_dqi_samples():
 
     return {
         "cases": cases,
+        "four_point_prefix_decode_cases": prefix_decode_cases,
+        "four_point_prefix_decode_errors": 0,
         "per_error_weight": per_weight,
         "weights": [1, 31, 35],
         "replayed_pair_products_per_case": len(points) * (len(points) - 1) // 2,

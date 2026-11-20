@@ -617,6 +617,15 @@ bound for all valid inputs and does not supply the reversible encoder. Across
 weights 1, 31, and 35. The final rank pair did not identify the mask at weights
 1 or 35, so the small sample does not reduce the history to rank state alone.
 
+`normalized_fma.py::decode_replayed_samples()` gives an explicit inverse when
+the four branch bits are kept with the first four pivot ratios. The branch bit
+selects projective coordinates `[r_j:1]` or `[1:r_j]`; reversing each prior
+update's Möbius matrix recovers `d_j`. This passed all 4,096 arbitrary GF(8)
+four-sample inputs and the first four samples of all 48 GF(2^12) DQI cases.
+The four history bits fit in the five upper rank bits unused after the prefix.
+This is a classically reversible layout; the in-place gate encoder/decoder and
+full 4+66 schedule remain unbuilt.
+
 ## 2026-11-20 rank-exception transition screen
 
 `exp-054` checked whether rank-default exceptions have a low-transition mask.
@@ -670,6 +679,6 @@ key; none labels the collision fibers. Arbitrary GF(2)-linear/nonlinear
 kernels, higher-degree tags, or a different residual representation remain
 open. None of these GF(8) screens bounds GF(2^12).
 
-Keep the next gate on the source-owned in-place four-sample factorization and
-its complete 4+66 width, Toffoli, phase, and cleanup schedule; the information
-screens are not circuit evidence.
+Keep the next gate on the source-owned in-place four-pivot ratio/history map,
+then integrate it into the complete 4+66 width, Toffoli, phase, and cleanup
+schedule. The current evidence proves classical reversibility, not a circuit.
