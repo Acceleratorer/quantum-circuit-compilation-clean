@@ -1,0 +1,33 @@
+{
+  "captured_utc": "2026-11-20T01:43:00Z",
+  "competition": "google-verifiable-quantum-circuit-compilation",
+  "source": "Kaggle CLI full public leaderboard download",
+  "snapshot": {
+    "path": "kaggle/snapshots/2026-11-20/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-20T01-43-00.csv",
+    "csv_sha256": "d8ecc4215055c726370168b09a35254e7f0f453fe1376f3c0f2a842a63637d62",
+    "team_rows": 3414
+  },
+  "own_team": {
+    "team": "Accelra",
+    "team_id": 17349145,
+    "public_score": 28.14028,
+    "rank": 981,
+    "best_submission": 58479383
+  },
+  "leader": {
+    "rank": 1,
+    "team": "Z³C¹oherence",
+    "team_id": 17182480,
+    "score": 31.74002,
+    "last_submission_utc": "2026-11-19 02:11:42"
+  },
+  "runner_up": {
+    "rank": 2,
+    "team": "ThemBones",
+    "team_id": 17339411,
+    "score": 31.64282,
+    "last_submission_utc": "2026-11-19 07:42:13"
+  },
+  "score_gap": 3.59974,
+  "note": "Read-only refresh. No circuit was built or submitted."
+}

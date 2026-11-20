@@ -3,17 +3,17 @@
 ## Target
 
 Reach the top public leaderboard position with a source-complete portfolio.
-The latest persisted full Kaggle CLI snapshot is at `2026-11-19T13:59:41Z`;
+The latest persisted full Kaggle CLI snapshot is at `2026-11-20T01:43:00Z`;
 refresh the target before every submission.
 
 ## Current frontier
 
 - Best own completed submission: `58479383`, public score `28.14028`.
 - Current public leader: `Z³C¹oherence`, `31.74002`; gap: `3.59974` points.
-- Own team rank is `917 / 3384` in the latest full snapshot. The previous
-  `2026-11-19T10:49:12Z` snapshot recorded rank `896 / 3381`; see [the latest
-  snapshot metadata](../evals/2026-11-19-live-leaderboard-135941Z.json) and
-  [CSV](../kaggle/snapshots/2026-11-19/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-19T13-59-41.csv).
+- Own team rank is `981 / 3414` in the latest full snapshot; the previous
+  `2026-11-19T13:59:41Z` snapshot recorded rank `917 / 3384`. See [the latest
+  snapshot metadata](../evals/2026-11-20-live-leaderboard-014300Z.json) and
+  [CSV](../kaggle/snapshots/2026-11-20/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-20T01-43-00.csv).
 - Current DQI cost: `347.904e9` at 890 qubits. If the other task costs stay
   fixed, DQI must reach about `242.451e9` (a `30.31%` reduction) to match the
   current leader's score. With zero failures in 102,400 shots (`R=1.1912605`),
@@ -138,14 +138,25 @@ branch/phase label and final basis-generation schedule remain open; no full
 circuit or submission is ready.
 
 The same screen caught and fixed an output-order bug in the swap branch of the
-compiled pair cell. The corrected cell now matches the classical recurrence at
-`Q=880, T=300`; with the corrected 4,830T rank gate, the cost projection is
-`201,375T`, leaving `55,568T` before the still-unbuilt width, phase, and cleanup
-schedule.
+compiled pair cell. Allocating its ratio register after the inverse output is
+freed reuses those wires: the cell now matches the classical recurrence at
+`Q=871, T=300`, with 22 clean scratch qubits and zero phase flips across 32
+sampled pivots. The exact branch/rank gate now projects at `Q=863`; its general
+cell is `Q=55, T=83`, and the rank-sum specialization is `Q=47, T=69` per step.
+The latter passed 19,880 valid rank/zero-class cases, while the general branch
+cell passed 262,144 rank/zero-class cases; both had clean scratch and no phase
+flips. The cost projection remains `201,375T`, leaving `55,568T` before the
+still-unbuilt width, phase, and cleanup schedule.
 
 The updated GF(8) screen found that ratio plus full branch history uniquely
 labels all 4,096 four-sample inputs. A rank-comparison default still needs up to
 69 exception bits in the sampled GF(2^12) weight-one case, so it does not
 resolve the 50-qubit history/workspace limit. Across 16 samples per weight, the
 screen saw 2/1/3 distinct exception masks for weights 1/31/35; the final rank
-pair did not distinguish masks at weights 1 or 35.
+pair did not distinguish masks at weights 1 or 35. A separate screen applied
+16 left bases to all 4,096 right four-sample inputs at ten rank states
+(`655,360` GF(8) cases): two fixed parities `[1,2]` resolve every observed
+fiber. This is not a GF(2^12) bound or a reversible decoder. Keeping two tags
+for each of 17 blocks would raise the pair-cell projection from `Q=871` to
+`Q=905`, 15 qubits over the limit. The blockwise tag schedule or an in-place
+encoding that fits the tags into the 840-qubit payload remains unbuilt.
