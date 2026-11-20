@@ -182,7 +182,8 @@ single-error locations at magnitude 1; each has at most two transitions. Across
 reached nine transitions once; weight 35 reached four. A generic enumerative
 code for that nine-transition cap needs 37 qubits, 18 above the remaining 19
 after the `Q=871` pair-cell projection. A codebook for the observed masks would
-fit in nine bits, but the sample does not establish a valid-domain bound. This
-is a width lead, not a proof or submission candidate. See
+fit in nine bits, but the sample does not establish a valid-domain bound or give
+a reversible encoder. Close the generic transition-count encoding route; keep
+the FMA work on a direct oracle or the 4+66 schedule. See
 [`exp-054`](../experiments/exp-054/README.md) and the
 [official-status digest](../kaggle/digests/2026-11-20-status.md).

@@ -600,6 +600,8 @@ Weight 31 reached nine transitions once; weight 35 reached four.
 An enumerative code for masks with at most nine transitions requires 37 bits,
 18 above the optimistic 19-qubit room left by the `Q=871` pair-cell
 projection. A codebook for the 258 observed masks needs nine bits, but the
-sample does not bound the full valid domain. Keep this as a width lead. The
-next gate is an exact valid-domain encoding or a proof that an equally compact
-reversible branch oracle uses the FMA payload directly.
+sample does not bound the full valid domain and provides no reversible encoder.
+Close the generic transition-count encoding route; do not spend another screen
+on transition histograms unless a structural bound appears. Keep the FMA path
+focused on a direct branch oracle or a reversible 4+66 compact-state schedule
+with a complete width, Toffoli, and phase ledger.
