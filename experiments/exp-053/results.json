@@ -3,7 +3,8 @@
     "checks": [
       "factorized payload reconstructs all four input samples",
       "reconstructed complementary row satisfies the basis constraints",
-      "branch history matches direct replay"
+      "branch history matches direct replay",
+      "four-word payload and shape tag round-trip all four samples"
     ],
     "compact_history_round_trip": {
       "description": "Normalize and factor the low row, recover the four samples from the factorized state, then replay the four-point branch history. This omits complementary-row reconstruction.",
@@ -17,6 +18,117 @@
       "maximum_factorized_state_words": 4,
       "median_arithmetic_only_t_proxy": 4488,
       "scope": "All 4,096 arbitrary GF(8) four-sample inputs. Every counted multiply call is charged 42T and every inverse 138T, including constant-coefficient multiplies that can be linear gates. This is a conservative arithmetic proxy, not a compiled reversible circuit or full 4+66 schedule."
+    },
+    "factorized_state_codec": {
+      "distinct_packed_labels": 4096,
+      "four_sample_inputs_checked": 4096,
+      "maximum_field_words": 4,
+      "maximum_rank1_after_four_points": 7,
+      "observed_shapes": 11,
+      "packed_label_collisions": 0,
+      "rank1_register_bits": 8,
+      "rank1_unused_high_bits": 5,
+      "scope": "Classical pack/unpack plus sample recovery across all 4,096 GF(8) four-sample inputs. The shape tag is not yet computed or cleared by a reversible circuit.",
+      "seeded_gf12_sample": {
+        "distinct_packed_labels": 2048,
+        "maximum_field_words": 4,
+        "maximum_rank1_after_four_points": 4,
+        "observed_shapes": 3,
+        "packed_label_collisions": 0,
+        "rank1_unused_high_bits": 5,
+        "scope": "Seeded sample only; not an exhaustive GF(2^12) proof or a reversible circuit.",
+        "seeded_inputs_checked": 2048,
+        "shape_tag_fits_rank1_headroom": true
+      },
+      "shape_catalog": [
+        {
+          "cofactor_n_degree": -1,
+          "cofactor_w_degree": 0,
+          "gcd_degree": 0,
+          "id": 0
+        },
+        {
+          "cofactor_n_degree": 0,
+          "cofactor_w_degree": 0,
+          "gcd_degree": 0,
+          "id": 1
+        },
+        {
+          "cofactor_n_degree": 1,
+          "cofactor_w_degree": 0,
+          "gcd_degree": 0,
+          "id": 2
+        },
+        {
+          "cofactor_n_degree": -1,
+          "cofactor_w_degree": 1,
+          "gcd_degree": 0,
+          "id": 3
+        },
+        {
+          "cofactor_n_degree": 0,
+          "cofactor_w_degree": 1,
+          "gcd_degree": 0,
+          "id": 4
+        },
+        {
+          "cofactor_n_degree": 1,
+          "cofactor_w_degree": 1,
+          "gcd_degree": 0,
+          "id": 5
+        },
+        {
+          "cofactor_n_degree": -1,
+          "cofactor_w_degree": 2,
+          "gcd_degree": 0,
+          "id": 6
+        },
+        {
+          "cofactor_n_degree": 0,
+          "cofactor_w_degree": 2,
+          "gcd_degree": 0,
+          "id": 7
+        },
+        {
+          "cofactor_n_degree": 1,
+          "cofactor_w_degree": 2,
+          "gcd_degree": 0,
+          "id": 8
+        },
+        {
+          "cofactor_n_degree": -1,
+          "cofactor_w_degree": 0,
+          "gcd_degree": 1,
+          "id": 9
+        },
+        {
+          "cofactor_n_degree": 0,
+          "cofactor_w_degree": 0,
+          "gcd_degree": 1,
+          "id": 10
+        },
+        {
+          "cofactor_n_degree": -1,
+          "cofactor_w_degree": 1,
+          "gcd_degree": 1,
+          "id": 11
+        },
+        {
+          "cofactor_n_degree": 0,
+          "cofactor_w_degree": 1,
+          "gcd_degree": 1,
+          "id": 12
+        },
+        {
+          "cofactor_n_degree": -1,
+          "cofactor_w_degree": 0,
+          "gcd_degree": 2,
+          "id": 13
+        }
+      ],
+      "shape_catalog_size": 14,
+      "shape_tag_bits": 4,
+      "shape_tag_fits_rank1_headroom": true
     },
     "field": "GF(8)",
     "four_sample_inputs_checked": 4096,

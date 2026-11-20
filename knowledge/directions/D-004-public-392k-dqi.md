@@ -417,6 +417,12 @@ by this update. `exp-052` now compiles a local branch/rank leaf that writes a
 one-bit selector for the sparse lower-row column. Recursive liveness and the
 phase ledger remain unproved.
 
+## 2026-11-19 18:37 UTC Kaggle leaderboard refresh
+
+The read-only Kaggle CLI top-20 query still shows `Z³C¹oherence` first at
+31.74002, with `ThemBones` second at 31.64282. The top score is unchanged, so
+the saved DQI gate remains `T<=256,943` at `Q=890` and `R=1.1912605`.
+
 ## 2026-11-20 FMA rank-invariant branch-gate refinement
 
 For step `j`, valid ranks satisfy `r1+r2=2j+1`, which makes the branch test
@@ -459,9 +465,24 @@ GF(2^12) circuit, a 70-symbol bound, or a Q/T schedule. The next gate is to
 translate the sample recovery and history replay into a reversible schedule
 that fits the `4+66` state and remaining resource budget.
 
+### 2026-11-20 factorized-state codec screen
+
+The factorized tuple has at most 14 degree layouts: `deg(G)=0..2`,
+`deg(A)<=2-deg(G)`, and `deg(B)<=1-deg(G)` with `B=0` allowed. The selected
+low row has rank at most 4 and obeys `d_i W(x_i)+N(x_i)=0`; if `W=0`, then the
+degree-at-most-one `N` vanishes at all four public points, forcing a zero row.
+Thus `W/G` is nonzero. `G` and `A=W/G` are monic, and the roots of `G` are
+among the four public points. The tuple therefore packs into four field words
+plus a four-bit layout tag. The
+tag fits in the rank register's unused high bits at the four-point split:
+rank1 is at most 7, leaving five high bits in its 8-bit register. Pack/unpack
+recovered all 4,096 GF(8) inputs with zero collisions; 2,048 seeded GF(2^12)
+samples also had zero collisions. This is a classical layout check only; the
+reversible tag computation and cleanup are not built.
+
 ### 2026-11-20 arithmetic cost screen
 
-The cost screen now separates branch-history recovery from complementary-row
+The cost screen separates branch-history recovery from complementary-row
 reconstruction. Across all 4,096 arbitrary GF(8) four-sample inputs, low-row
 normalization/factorization, sample recovery, and branch replay use at most four
 factorized words and have a 5,118T arithmetic-only proxy (median 4,488T). The
@@ -469,11 +490,8 @@ full block transform still needs the complementary row; adding its separate
 6,138T proxy and 252T low-row composition gives an 11,508T screen. Even if
 charged additively, this is below the current 54,868T projected margin, but the
 count can overlap the FMA ledger and excludes controls, live scratch, phase,
-## 2026-11-19 18:37 UTC Kaggle leaderboard refresh
-
-The read-only Kaggle CLI top-20 query still shows `Z³C¹oherence` first at
-31.74002, with `ThemBones` second at 31.64282. The top score is unchanged, so
-the saved DQI gate remains `T<=256,943` at `Q=890` and `R=1.1912605`.
+and cleanup. The next gate is a compiled reversible encoder/decoder and a
+measured 4+66 schedule; no full circuit exists yet.
 
 ## 2026-11-20 4+66 fused factorization — width lead, circuit open
 

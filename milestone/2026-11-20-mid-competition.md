@@ -172,7 +172,11 @@ needs the complementary row. A crude additive screen for both paths is
 11,508T, leaving 43,360T of the current 54,868T projection before other omitted
 work. These are arithmetic proxies, not circuit counts; they can overlap the
 FMA ledger and omit controls, live scratch, phase, and cleanup. The next gate
-is a reversible encoder/decoder with measured width and Toffoli count.
+is a reversible encoder/decoder with measured width and Toffoli count. Its
+classical four-word layout uses a four-bit shape tag, which fits the unused
+rank1 bits at the four-point split and leaves one bit free; it round-trips all
+GF(8) cases and 2,048 seeded GF(2^12) samples without collisions. Tag
+computation and cleanup remain unbuilt.
 
 The same GF(8) sweep finds an 11-word full four-point basis on one input.
 Replacing the four source words with those coefficients projects the payload

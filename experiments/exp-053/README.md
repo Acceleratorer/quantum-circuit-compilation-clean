@@ -144,6 +144,14 @@ maxima gives an 11,508T arithmetic-only screen. Charged additively against the
 is only a feasibility screen: it may overlap the FMA ledger and is not a
 compiled reversible circuit or a width, phase, or cleanup bound.
 
+The factorized tuple has at most 14 degree layouts and packs into four field
+words plus a four-bit shape tag. The tag fits in the unused high bits of the
+8-bit rank1 register at the four-point split (rank1 is at most 7), with one
+high bit left over. Pack/unpack
+round-trips all 4,096 GF(8) inputs without collisions; 2,048 seeded GF(2^12)
+inputs also round-trip without collisions. This verifies a classical layout,
+not a reversible tag computation, cleanup circuit, or full schedule.
+
 The same exhaustive sweep finds a full four-point basis with 11 polynomial
 coefficient words (`3/2` and `3/3` across the two rows). Replacing the four
 input words with those coefficients would make the 840-qubit payload 924
