@@ -16,10 +16,14 @@ sys.path.insert(0, str(ROOT / "experiments" / "exp-049"))
 import fma_state_compression as fma
 
 
-def normalized_state(data, points, mul, modulus, degree):
-    d, g = list(data), [1] * len(data)
+def normalized_state(
+    data, points, mul, modulus, degree, g_values=None, initial_ranks=(0, 1)
+):
+    d = list(data)
+    g = [1] * len(data) if g_values is None else list(g_values)
     basis = [[[1], [0]], [[0], [1]]]
-    rank1, rank2, history, rank_exceptions = 0, 1, 0, 0
+    rank1, rank2 = initial_ranks
+    history, rank_exceptions = 0, 0
     ratios = []
 
     for j, point in enumerate(points):
@@ -251,6 +255,82 @@ def screen_gf8_valid_eight_point_patterns():
         ),
         "ratio_plus_full_history_is_injective": (
             len(ratio_history_states) == patterns
+        ),
+    }
+
+
+def screen_gf8_transformed_four_point_blocks():
+    """Screen ratio/rank fibers after a sampled left-basis transformation."""
+    degree, modulus = 3, 0b1011
+    mul = lambda a, b: fma.gf_mul(a, b, modulus, degree)
+    left_points, right_points = list(range(4)), list(range(4, 8))
+    rng = Random(0xB10C4)
+    left_cases = [
+        tuple(rng.randrange(1 << degree) for _ in left_points)
+        for _ in range(16)
+    ]
+    checked_cases = 0
+    worst_fiber = 0
+    setup_cases_with_fiber_over_two = 0
+    common_branch_tags = set(range(len(right_points)))
+
+    for left_data in left_cases:
+        basis = fma.modular_basis(left_data, left_points, mul)
+        transforms = [
+            tuple(fma.poly_eval(poly, point, mul) for row in basis for poly in row)
+            for point in right_points
+        ]
+        for start_rank in range(10):
+            fibers = {}
+            ratio_history_states = set()
+            for original in product(range(1 << degree), repeat=len(right_points)):
+                transformed_d, transformed_g = [], []
+                for value, (a, b, c, d) in zip(original, transforms):
+                    transformed_d.append(mul(a, value) ^ b)
+                    transformed_g.append(mul(c, value) ^ d)
+                _, _, history, _, _, ratios, final_ranks = normalized_state(
+                    transformed_d,
+                    right_points,
+                    mul,
+                    modulus,
+                    degree,
+                    g_values=transformed_g,
+                    initial_ranks=(start_rank, 9 - start_rank),
+                )
+                fibers.setdefault((ratios, final_ranks[0]), []).append(history)
+                ratio_history_states.add((ratios, history))
+                checked_cases += 1
+
+            maximum_fiber = max(map(len, fibers.values()))
+            worst_fiber = max(worst_fiber, maximum_fiber)
+            setup_cases_with_fiber_over_two += maximum_fiber > 2
+            assert len(ratio_history_states) == 1 << (degree * len(right_points))
+            branch_tags = {
+                bit
+                for bit in range(len(right_points))
+                if all(
+                    len({(history >> bit) & 1 for history in histories})
+                    == len(histories)
+                    for histories in fibers.values()
+                )
+            }
+            common_branch_tags &= branch_tags
+
+    return {
+        "left_basis_cases": len(left_cases),
+        "start_rank_values_per_basis": 10,
+        "right_inputs_per_setup": 1 << (degree * len(right_points)),
+        "checked_cases": checked_cases,
+        "maximum_inputs_per_ratio_plus_final_rank": worst_fiber,
+        "minimum_fixed_tag_bits_from_maximum_fiber": (worst_fiber - 1).bit_length(),
+        "setup_cases_with_fiber_over_two": setup_cases_with_fiber_over_two,
+        "single_branch_bits_that_resolve_all_setups": sorted(common_branch_tags),
+        "ratio_plus_full_history_injective_in_each_setup": True,
+        "left_sample_seed": "0xB10C4",
+        "scope": (
+            "16 sampled pristine four-point left blocks over GF(8), each applied "
+            "to all 4,096 right four-sample inputs at each valid rank1 value "
+            "with rank1+rank2=9. This does not bound GF(2^12) or 70-point fibers."
         ),
     }
 
@@ -506,6 +586,9 @@ def main():
         "result": "PASS",
         "gf8_eight_point_branch_label_screen": (
             screen_gf8_valid_eight_point_patterns()
+        ),
+        "gf8_transformed_four_point_block_screen": (
+            screen_gf8_transformed_four_point_blocks()
         ),
         "normalized_fma_screen": {
             "gf8_all_four_sample_vectors": gf8["cases"],

@@ -2,7 +2,7 @@
 id: exp-053
 title: Pivot-normalized FMA recurrence screen
 task: dqi
-tests: exhaustive GF(8) four-sample inputs; all 97,119 valid GF(8) eight-point patterns; 48 seeded GF(2^12) DQI samples; 32 compiled pair-cell cases
+tests: exhaustive GF(8) four-sample inputs; all 97,119 valid GF(8) eight-point patterns; 655,360 transformed GF(8) block states; 48 seeded GF(2^12) DQI samples; 32 compiled pair-cell cases
 direction: D-004
 status: branch_label_screen
 date: 2026-11-20
@@ -97,6 +97,14 @@ This rejects extending the four-point one-bit result directly to longer FMA
 sequences. It is still small-field information evidence; it gives no
 GF(2^12), 70-point bound or reversible history decoder. Exact counts are in
 [`results.json`](results.json).
+
+I also applied 16 sampled four-point left bases to every one of the 4,096
+right four-sample GF(8) inputs, at all ten rank states with `r1+r2=9`
+(`655,360` cases). The worst ratio/final-rank fiber has three inputs, so at
+least two tag bits are needed there. No single branch bit separates every
+collision across these setups. A one-bit tag per four-point block therefore
+does not extend to these transformed right blocks. This remains a GF(8)
+screen, not a GF(2^12) bound.
 
 This avoids materializing all `(d,g)` pairs only if the branch/phase label can
 also be retained and replayed within the 50-qubit workspace. Its bound and

@@ -18,6 +18,19 @@
     "ratio_plus_full_history_is_injective": true,
     "single_branch_bits_that_resolve_all_collisions": []
   },
+  "gf8_transformed_four_point_block_screen": {
+    "checked_cases": 655360,
+    "left_basis_cases": 16,
+    "left_sample_seed": "0xB10C4",
+    "maximum_inputs_per_ratio_plus_final_rank": 3,
+    "minimum_fixed_tag_bits_from_maximum_fiber": 2,
+    "ratio_plus_full_history_injective_in_each_setup": true,
+    "right_inputs_per_setup": 4096,
+    "scope": "16 sampled pristine four-point left blocks over GF(8), each applied to all 4,096 right four-sample inputs at each valid rank1 value with rank1+rank2=9. This does not bound GF(2^12) or 70-point fibers.",
+    "setup_cases_with_fiber_over_two": 58,
+    "single_branch_bits_that_resolve_all_setups": [],
+    "start_rank_values_per_basis": 10
+  },
   "normalized_fma_screen": {
     "branch_history_matches_reference": true,
     "gf12_valid_70_symbol_samples": {
