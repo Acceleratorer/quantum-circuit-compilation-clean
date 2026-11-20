@@ -711,3 +711,20 @@ ignores gcd, node-root, coprimality, and modular-basis constraints, so it is an
 upper bound for arbitrary packed tuples rather than the true DQI image. The
 two-bit color code is usable only after proving those constraints reduce the
 GF(2^12) image conflict graph.
+
+## 2026-11-20 projective sentinel label map
+
+`exp-053/inplace_ratio_codec.py` replaces the duplicate zero ratio at each
+pivot with the omitted projective ratio. For a fixed invertible prefix matrix
+and rank-order flag, this is a permutation of GF(2^m); the prefix determinant
+stays nonzero for distinct evaluation points. Since prior labels determine the
+prefix matrix and rank order, induction proves the full 70-symbol
+sample-to-label map is a permutation for arbitrary inputs over GF(2^m). A
+classical run round-tripped 64 seeded arbitrary GF(2^12) vectors and matched
+the independent recurrence; the prior 48 valid DQI cases also pass.
+
+The fixed-determinant collision only rejects `(matrix, sample) ->
+(updated_matrix, label)` when the matrix is treated as independent input. It
+does not contradict the full triangular map. The reversible gate circuit,
+workspace liveness, phase cleanup, and 4+66 cost remain unbuilt, so this is a
+mathematical route to test rather than a scoring candidate.

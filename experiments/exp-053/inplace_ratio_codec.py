@@ -1,4 +1,4 @@
-"""Exhaust the projective sentinel encoding on four GF(8) samples."""
+"""Screen the projective sentinel encoding for the streamed FMA label map."""
 
 from __future__ import annotations
 
@@ -89,6 +89,7 @@ def encode_step(matrix, sample, order, mul=multiply, inv=inverse):
 
 
 def encode(samples, points=POINTS, mul=multiply, inv=inverse):
+    """Map samples to triangular labels using a per-prefix field permutation."""
     if len(samples) != len(points):
         raise ValueError("samples and points must have equal length")
     ratios = []
@@ -267,6 +268,44 @@ def screen_gf12_dqi():
     }
 
 
+def screen_gf12_arbitrary_70(case_count=64):
+    """Check the full 70-symbol label codec on arbitrary GF(2^12) vectors."""
+    import normalized_fma
+
+    degree, modulus = 12, 0x1053
+    points = tuple(range(70))
+    mul = lambda left, right: fma.gf_mul(left, right, modulus, degree)
+    inv = lambda value: fma.gf_inv(value, modulus, degree)
+    rng = Random(0xB1EC7)
+    checked = 0
+
+    for _ in range(case_count):
+        samples = tuple(rng.randrange(1 << degree) for _ in points)
+        labels, ratios, branches = encode(samples, points, mul, inv)
+        assert decode(labels, points, mul, inv) == samples
+        reference = normalized_fma.replayed_ratios(
+            samples, points, modulus, degree
+        )
+        assert ratios == reference[0]
+        assert branches == reference[1]
+        checked += 1
+
+    return {
+        "field": "GF(2^12)",
+        "points": len(points),
+        "arbitrary_vectors": checked,
+        "round_trip_errors": 0,
+        "recurrence_mismatches": 0,
+        "result": "PASS",
+        "scope": (
+            "Seeded arbitrary 70-symbol vectors, not restricted to verifier "
+            "syndromes. This supports the general triangular-bijection "
+            "argument but is not a proof or a reversible circuit/resource "
+            "schedule."
+        ),
+    }
+
+
 def screen_transition_collision():
     identity = (1, 0, 0, 1)
     row_swap = (0, 1, 1, 0)
@@ -295,9 +334,11 @@ def screen_transition_collision():
         "joint_update_injective": False,
         "result": "COLLISION",
         "scope": (
-            "A single fixed-determinant counterexample shows that the local "
-            "per-prefix label bijection does not make the joint matrix/sample "
-            "update reversible without additional state."
+            "A single fixed-determinant counterexample rejects the local "
+            "transition (matrix, sample) -> (updated matrix, label) when the "
+            "matrix is treated as independent input. It does not test the full "
+            "triangular label sequence, whose earlier labels determine the "
+            "prefix matrix."
         ),
     }
 
@@ -306,6 +347,7 @@ def screen():
     return {
         "gf8_exhaustive": screen_gf8(),
         "gf12_dqi_samples": screen_gf12_dqi(),
+        "gf12_arbitrary_70_symbols": screen_gf12_arbitrary_70(),
         "joint_update_collision": screen_transition_collision(),
     }
 

@@ -2,7 +2,7 @@
 id: exp-053
 title: Pivot-normalized FMA recurrence screen
 task: dqi
-tests: exhaustive GF(8) four-sample inputs; all 97,119 valid GF(8) eight-point patterns; 655,360 transformed GF(8) block states; 48 seeded GF(2^12) DQI samples; 32 compiled pair-cell cases; exhaustive GF(8) and 48 GF(2^12) sentinel-label cases; fixed-determinant transition counterexample
+tests: exhaustive GF(8) four-sample inputs; all 97,119 valid GF(8) eight-point patterns; 655,360 transformed GF(8) block states; 48 seeded GF(2^12) DQI samples; 64 arbitrary GF(2^12) 70-symbol sentinel-label vectors; 32 compiled pair-cell cases; fixed-determinant transition counterexample
 direction: D-004
 status: in_place_ratio_screen
 date: 2026-11-20
@@ -308,18 +308,33 @@ matrix's image of infinity. Replacing the `d=0` label with that missing value
 makes the local map a permutation. If either coefficient is zero, the raw map
 is already a permutation.
 
-The exhaustive GF(8) screen round-tripped all 4,096 arbitrary four-sample
-vectors, found 4,096 distinct labels, and verified all 585 local prefix maps
-were bijective. A further 48 valid 70-symbol GF(2^12) DQI samples round-tripped;
-their raw ratios and branch histories matched the independent direct recurrence.
-This is classical evidence only; the reversible circuit, branch oracle, and
-full resource schedule remain unbuilt. Results are in [`results.json`](results.json).
+For any fixed invertible prefix matrix and rank-order flag, the local map from
+the next sample to its sentinel label is a permutation of the field. If both
+first-column entries `a,c` are nonzero, the two roots of `a*x+b` and `c*x+d`
+are distinct; the raw oriented ratio duplicates zero at those roots and omits
+the projective ratio at infinity. Replacing the no-swap zero with `a/c` (or
+the swap zero with `c/a`) restores a permutation. If either `a` or `c` is
+zero, the raw map is already a permutation. Each prefix matrix stays
+invertible because its determinant is a product of nonzero point differences.
+Earlier labels determine that matrix and the rank-order flag, so induction
+makes the full sample-vector-to-label-vector map a permutation over any finite
+binary field and any distinct evaluation points.
 
-The local bijection does not prove that branch bits can be erased after the
-prefix matrix advances. In GF(8), with rank order false and `delta=1`, both
-`(I, x=0)` and `(swap-rows(I), x=0)` update to the same matrix `I` and label
-zero. This collision shows that the sentinel label alone does not make the
-joint matrix/sample update reversible. It is not a circuit candidate.
+The exhaustive GF(8) screen round-tripped all 4,096 arbitrary four-sample
+vectors and verified all 585 local prefix contexts. In GF(2^12), 48 valid
+70-symbol DQI vectors and 64 seeded arbitrary 70-symbol vectors round-tripped;
+ratios and branches matched the independent direct recurrence. These checks
+support the proof and exercise the implementation; they do not compile the
+permutation. The reversible circuit, branch oracle, liveness, phase cleanup,
+and full resource schedule remain unbuilt. Results are in
+[`results.json`](results.json).
+
+The fixed-determinant GF(8) counterexample remains a real local collision:
+`(matrix, sample) -> (updated matrix, label)` is not injective when the matrix
+is treated as an independent input. It does not contradict the full
+triangular label map, because the prefix matrix is determined by the earlier
+labels. It does rule out treating the updated matrix and current label alone
+as the complete reversible state.
 
 ## Limit
 

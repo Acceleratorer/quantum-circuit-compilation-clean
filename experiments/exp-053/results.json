@@ -795,44 +795,56 @@
   },
   "projective_sentinel_label_screen": {
     "gf8_exhaustive": {
+      "field": "GF(8)",
+      "points": [
+        0,
+        1,
+        2,
+        3
+      ],
       "arbitrary_input_vectors": 4096,
-      "contexts_requiring_sentinel": 469,
-      "decode_errors": 0,
       "distinct_encoded_vectors": 4096,
-      "local_maps_all_bijective": true,
+      "decode_errors": 0,
       "local_prefix_contexts": {
         "0": 1,
         "1": 8,
         "2": 64,
         "3": 512
       },
+      "local_maps_all_bijective": true,
+      "contexts_requiring_sentinel": 469,
       "maximum_local_fiber": 1,
-      "result": "PASS"
+      "result": "PASS",
+      "scope": "Exhaustive over every four-sample GF(8) vector. The sentinel replaces the d=0 branch's duplicate zero ratio with the missing ratio at the omitted projective input. This is a classical bijection screen; no reversible gate circuit or 70-point cost schedule is established."
     },
     "gf12_dqi_samples": {
-      "branch_history_matches_reference": true,
+      "field": "GF(2^12)",
+      "points": 70,
+      "valid_dqi_samples": 48,
       "error_weights": [
         1,
         31,
         35
       ],
+      "round_trip_errors": 0,
+      "raw_ratios_match_reference": true,
+      "branch_history_matches_reference": true,
+      "result": "PASS",
+      "scope": "48 seeded valid 70-symbol DQI samples. The projective sentinel label round-trips each sample vector and its raw ratios and branch history match the independent direct recurrence. This does not establish a reversible circuit or resource schedule."
+    },
+    "gf12_arbitrary_70_symbols": {
       "field": "GF(2^12)",
       "points": 70,
-      "raw_ratios_match_reference": true,
-      "result": "PASS",
+      "arbitrary_vectors": 64,
       "round_trip_errors": 0,
-      "valid_dqi_samples": 48
+      "recurrence_mismatches": 0,
+      "result": "PASS",
+      "scope": "Seeded arbitrary 70-symbol vectors, not restricted to verifier syndromes. This supports the general triangular-bijection argument but is not a proof or a reversible circuit/resource schedule."
     },
     "joint_update_collision": {
-      "common_label": 0,
-      "common_output_matrix": [
-        1,
-        0,
-        0,
-        1
-      ],
-      "delta": 1,
       "field": "GF(8)",
+      "rank_order": false,
+      "delta": 1,
       "input_states": [
         {
           "matrix": [
@@ -853,11 +865,30 @@
           "sample": 0
         }
       ],
+      "common_output_matrix": [
+        1,
+        0,
+        0,
+        1
+      ],
+      "common_label": 0,
       "joint_update_injective": false,
-      "rank_order": false,
-      "result": "COLLISION"
+      "result": "COLLISION",
+      "scope": "A single fixed-determinant counterexample rejects the local transition (matrix, sample) -> (updated matrix, label) when the matrix is treated as independent input. It does not test the full triangular label sequence, whose earlier labels determine the prefix matrix."
     },
-    "scope": "Local classical bijection only: exhaustive four-sample GF(8) plus 48 valid 70-symbol GF(2^12) DQI samples. The joint matrix/sample transition has a fixed-determinant collision, so no reversible branch-free circuit or resource count is established."
+    "triangular_map_proof": {
+      "status": "PROVED_CLASSICALLY",
+      "field_family": "GF(2^m)",
+      "claim": "For any finite binary field and pairwise-distinct evaluation points, the full sample-vector to sentinel-label-vector map is a permutation.",
+      "argument": [
+        "Each prefix-matrix determinant is the product of nonzero point differences.",
+        "For a fixed invertible prefix matrix and rank-order flag, the local sample-to-label map is a field permutation.",
+        "When both first-column entries are nonzero, the two zero-coordinate roots are distinct; the sentinel replaces the duplicate zero with the omitted projective ratio.",
+        "When either first-column entry is zero, the raw oriented-ratio map is already a permutation.",
+        "Earlier labels determine the prefix matrix and rank-order flag, so induction gives a triangular global permutation."
+      ],
+      "scope": "This proves classical invertibility only. It does not establish a reversible gate implementation, qubit liveness, Toffoli count, phase cleanup, or full 4+66 schedule."
+    }
   },
   "result": "PASS",
   "scope": "Classical recurrence, one compiled normalized pair cell, one compiled fixed-shape out-of-place decoder, the in-place ratio/history sample eraser, and a full-input-compatible four-pivot prefix. This is not a complete 70-symbol reversible schedule, and the naive full pair bank exceeds Q=890."
