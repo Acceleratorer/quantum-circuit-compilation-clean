@@ -2,11 +2,11 @@
 id: exp-053
 title: Pivot-normalized FMA recurrence screen
 task: dqi
-tests: exhaustive GF(8) four-sample inputs; all 97,119 valid GF(8) eight-point patterns; 655,360 transformed GF(8) block states; 48 seeded GF(2^12) DQI samples; 32 compiled pair-cell cases
+tests: exhaustive GF(8) four-sample inputs; all 97,119 valid GF(8) eight-point patterns; 655,360 transformed GF(8) block states; 48 seeded GF(2^12) DQI samples; 32 compiled pair-cell cases; exhaustive GF(8) and 48 GF(2^12) projective sentinel cases
 direction: D-004
-status: input_compatible_prefix_screen
+status: in_place_ratio_screen
 date: 2026-11-20
-result: full-input four-pivot encoder compiles at Q=902, T=3,200; it costs 12 more qubits than the clean-slot screen and is not a score improvement
+result: full-input four-pivot encoder is Q=902, T=3,200; projective sentinel labels round-trip 4,096 GF(8) vectors and 48 valid 70-symbol GF(2^12) samples; the reversible circuit is unbuilt
 ---
 
 # Pivot-normalized FMA recurrence
@@ -276,6 +276,23 @@ with 54 clean scratch qubits.
 This closes the four-pivot input-layout mismatch, but costs 12 more qubits than
 the `Q=890` clean-slot subroutine while saving no gates. It is not a scoring
 candidate and has not been submitted. The complete 4+66 decoder remains open.
+
+### Projective sentinel label screen
+
+[`inplace_ratio_codec.py`](inplace_ratio_codec.py) tests an in-place label for
+each pivot. The prefix matrix maps `[x:1]` to `[d:g]`. When both matrix
+coefficients for `x` are nonzero, finite inputs contain both zero-coordinate
+cases: the raw oriented ratio maps both to zero and omits the ratio of the
+matrix's image of infinity. Replacing the `d=0` label with that missing value
+makes the local map a permutation. If either coefficient is zero, the raw map
+is already a permutation.
+
+The exhaustive GF(8) screen round-tripped all 4,096 arbitrary four-sample
+vectors, found 4,096 distinct labels, and verified all 585 local prefix maps
+were bijective. A further 48 valid 70-symbol GF(2^12) DQI samples round-tripped;
+their raw ratios and branch histories matched the independent direct recurrence.
+This is classical evidence only; the reversible circuit, branch oracle, and
+full resource schedule remain unbuilt. Results are in [`results.json`](results.json).
 
 ## Limit
 

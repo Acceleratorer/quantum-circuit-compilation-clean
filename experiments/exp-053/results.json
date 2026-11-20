@@ -590,6 +590,34 @@
     "vs_clean_slot_prefix": "12 more qubits, same gate count; not a score improvement",
     "scope": "32 random GF(2^12) four-sample prefixes in an otherwise arbitrary 70-word payload. Checks ratios, branch history, rank, preservation of words 4 through 69, clean scratch, and phase. Prefix only; not the full 4+66 schedule."
   },
+  "projective_sentinel_label_screen": {
+    "gf8_exhaustive": {
+      "arbitrary_input_vectors": 4096,
+      "contexts_requiring_sentinel": 469,
+      "decode_errors": 0,
+      "distinct_encoded_vectors": 4096,
+      "local_maps_all_bijective": true,
+      "local_prefix_contexts": {
+        "0": 1,
+        "1": 8,
+        "2": 64,
+        "3": 512
+      },
+      "maximum_local_fiber": 1,
+      "result": "PASS"
+    },
+    "gf12_dqi_samples": {
+      "branch_history_matches_reference": true,
+      "error_weights": [1, 31, 35],
+      "field": "GF(2^12)",
+      "points": 70,
+      "raw_ratios_match_reference": true,
+      "result": "PASS",
+      "round_trip_errors": 0,
+      "valid_dqi_samples": 48
+    },
+    "scope": "Classical bijection only: exhaustive four-sample GF(8) plus 48 valid 70-symbol GF(2^12) DQI samples. No reversible circuit, full schedule, or resource count is established."
+  },
   "result": "PASS",
   "scope": "Classical recurrence, one compiled normalized pair cell, one compiled fixed-shape out-of-place decoder, the in-place ratio/history sample eraser, and a full-input-compatible four-pivot prefix. This is not a complete 70-symbol reversible schedule, and the naive full pair bank exceeds Q=890."
 }
