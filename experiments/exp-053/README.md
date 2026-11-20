@@ -168,13 +168,15 @@ pass does not count CNOTs, excludes low-row construction, and is not a compiled
 circuit or a full 4+66 resource bound. Both results are stored as
 `gf12_dqi_cost_proxy` in `results.json`.
 
-The factorized tuple has at most 14 degree layouts and packs into four field
-words plus a four-bit shape tag. The tag fits in the unused high bits of the
+The direct shape ID uses four bits, which fits in the unused high bits of the
 8-bit rank1 register at the four-point split (rank1 is at most 7), with one
-high bit left over. Pack/unpack
-round-trips all 4,096 GF(8) inputs without collisions; 2,048 seeded GF(2^12)
-inputs also round-trip without collisions. This verifies a classical layout,
-not a reversible tag computation, cleanup circuit, or full schedule.
+high bit left over. An exhaustive conflict graph over all 4,096 GF(8) inputs
+has 9 edges and chromatic number 3, so a two-bit shape color distinguishes all
+factorized labels with zero collisions. That color map also had zero collisions
+on the 48 seeded GF(2^12) DQI prefixes. The GF(2^12) check is sample-only, and
+the two-bit decoder has not been built as a reversible circuit. The direct
+four-bit pack/unpack still round-trips all 4,096 GF(8) inputs and 2,048 seeded
+GF(2^12) inputs; neither check proves the full 4+66 schedule.
 
 The same exhaustive sweep finds a full four-point basis with 11 polynomial
 coefficient words (`3/2` and `3/3` across the two rows). Replacing the four

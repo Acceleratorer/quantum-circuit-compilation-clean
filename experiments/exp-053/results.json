@@ -128,7 +128,75 @@
       ],
       "shape_catalog_size": 14,
       "shape_tag_bits": 4,
-      "shape_tag_fits_rank1_headroom": true
+      "shape_tag_fits_rank1_headroom": true,
+      "compressed_shape_tag": {
+        "distinct_four_word_payloads": 3200,
+        "payload_collision_fibers": 802,
+        "maximum_shape_fiber": 3,
+        "conflict_graph_edges": 9,
+        "minimum_shape_colors": 3,
+        "minimum_tag_bits": 2,
+        "shape_color_map": [
+          {
+            "shape_id": 0,
+            "color": 0
+          },
+          {
+            "shape_id": 1,
+            "color": 0
+          },
+          {
+            "shape_id": 2,
+            "color": 1
+          },
+          {
+            "shape_id": 3,
+            "color": 0
+          },
+          {
+            "shape_id": 4,
+            "color": 0
+          },
+          {
+            "shape_id": 5,
+            "color": 0
+          },
+          {
+            "shape_id": 6,
+            "color": 0
+          },
+          {
+            "shape_id": 7,
+            "color": 1
+          },
+          {
+            "shape_id": 8,
+            "color": 0
+          },
+          {
+            "shape_id": 9,
+            "color": 2
+          },
+          {
+            "shape_id": 10,
+            "color": 0
+          },
+          {
+            "shape_id": 11,
+            "color": 0
+          },
+          {
+            "shape_id": 12,
+            "color": 2
+          },
+          {
+            "shape_id": 13,
+            "color": 0
+          }
+        ],
+        "scope": "Exhaustive over all 4,096 arbitrary GF(8) four-sample inputs. This reduces the shape label from four bits to two on that domain; it does not prove the same conflict graph over GF(2^12) or compile a reversible color decoder.",
+        "colored_label_collisions": 0
+      }
     },
     "field": "GF(8)",
     "four_sample_inputs_checked": 4096,
@@ -374,7 +442,14 @@
         "multiplication by the monic gcd leading coefficient 1 is omitted",
         "both paths are checked to produce identical samples, ratios, and branches"
       ],
-      "scope": "Arithmetic-only GF(2^12) proxy over 48 seeded valid 70-symbol DQI samples. The low row is formed classically, then factorization, sample recovery, and branch replay are counted separately. Each field multiply is charged 42T and each inverse 138T; multipliers inside an inverse are not double-counted. This is not a compiled circuit or a full 4+66 resource bound."
+      "scope": "Arithmetic-only GF(2^12) proxy over 48 seeded valid 70-symbol DQI samples. The low row is formed classically, then factorization, sample recovery, and branch replay are counted separately. Each field multiply is charged 42T and each inverse 138T; multipliers inside an inverse are not double-counted. This is not a compiled circuit or a full 4+66 resource bound.",
+      "shape_color_sample_check": {
+        "distinct_inputs": 48,
+        "distinct_four_word_payloads": 48,
+        "distinct_colored_labels": 48,
+        "colored_label_collisions": 0,
+        "scope": "Checks the GF(8)-derived two-bit shape coloring on these 48 seeded GF(2^12) prefixes only; it is not a full-field proof."
+      }
     }
   },
   "compact_history_budget_screen": {

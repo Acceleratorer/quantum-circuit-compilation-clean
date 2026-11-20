@@ -182,9 +182,12 @@ def screen_gf12_codec(samples=2048):
     }
 
 
-def screen_gf12_dqi_cost_proxy():
+def screen_gf12_dqi_cost_proxy(shape_colors=None):
     """Count raw and constant-aware recovery proxies on DQI samples."""
     import normalized_fma
+
+    if shape_colors is not None and len(shape_colors) != len(FACTOR_SHAPES):
+        raise ValueError("shape_colors must cover the complete shape catalog")
 
     degree, modulus = 12, 0x1053
     points, all_points = list(range(4)), list(range(70))
@@ -194,6 +197,7 @@ def screen_gf12_dqi_cost_proxy():
     original_poly_eval = fma.poly_eval
     inverse_body = original_inv.__wrapped__
     records = []
+    payload_inputs = {}
 
     def proxy(counts):
         return counts["field_multiply_calls"] * 42 + counts["inverse_calls"] * 138
@@ -255,6 +259,9 @@ def screen_gf12_dqi_cost_proxy():
                 )
                 shape_id, words = pack_factorized_state(
                     gcd, cofactor_w, cofactor_n, roots
+                )
+                payload_inputs.setdefault(words, {}).setdefault(shape_id, set()).add(
+                    tuple(data)
                 )
                 raw_factorized_state = (gcd, cofactor_w, cofactor_n, roots)
                 factorize = dict(counts)
@@ -367,6 +374,12 @@ def screen_gf12_dqi_cost_proxy():
                 }
             )
 
+    color_label_inputs = {}
+    if shape_colors is not None:
+        for words, shape_inputs in payload_inputs.items():
+            for shape_id, inputs in shape_inputs.items():
+                label = (shape_colors[shape_id], words)
+                color_label_inputs.setdefault(label, set()).update(inputs)
     return {
         "cases": len(records),
         "weights": [1, 31, 35],
@@ -415,6 +428,27 @@ def screen_gf12_dqi_cost_proxy():
             "multiplication by the monic gcd leading coefficient 1 is omitted",
             "both paths produce identical factors, samples, ratios, and branches",
         ],
+        "shape_color_sample_check": (
+            None
+            if shape_colors is None
+            else {
+                "distinct_inputs": sum(
+                    len(inputs)
+                    for shape_inputs in payload_inputs.values()
+                    for inputs in shape_inputs.values()
+                ),
+                "distinct_four_word_payloads": len(payload_inputs),
+                "distinct_colored_labels": len(color_label_inputs),
+                "colored_label_collisions": sum(
+                    max(0, len(inputs) - 1)
+                    for inputs in color_label_inputs.values()
+                ),
+                "scope": (
+                    "Checks the GF(8)-derived two-bit shape coloring on these 48 "
+                    "seeded GF(2^12) prefixes only; it is not a full-field proof."
+                ),
+            }
+        ),
         "scope": (
             "Arithmetic-only GF(2^12) proxy over 48 seeded valid 70-symbol DQI "
             "samples. Both paths start after low-row formation and normalization. "
@@ -444,6 +478,32 @@ def chromatic_number(adjacency):
         return False
 
     return next(limit for limit in range(1, len(adjacency) + 1) if colorable(limit))
+
+
+def color_graph(adjacency, color_count):
+    """Return a deterministic coloring or fail if the count is too small."""
+    order = sorted(
+        range(len(adjacency)),
+        key=lambda vertex: len(adjacency[vertex]),
+        reverse=True,
+    )
+    colors = [-1] * len(adjacency)
+
+    def assign(index=0):
+        if index == len(order):
+            return True
+        vertex = order[index]
+        for color in range(color_count):
+            if all(colors[neighbor] != color for neighbor in adjacency[vertex]):
+                colors[vertex] = color
+                if assign(index + 1):
+                    return True
+                colors[vertex] = -1
+        return False
+
+    if not assign():
+        raise ValueError("the conflict graph needs more colors")
+    return colors
 
 
 def screen_fixed_shape_streaming_labels():
@@ -664,6 +724,7 @@ def screen() -> dict[str, object]:
     mul = lambda left, right: fma.gf_mul(left, right, modulus, degree)
     records = []
     packed_labels = {}
+    payload_shapes = {}
     shape_counts = {}
     packed_collisions = 0
     max_rank1 = 0
@@ -771,6 +832,7 @@ def screen() -> dict[str, object]:
                 packed_collisions += 1
             else:
                 packed_labels[label] = tuple(data)
+            payload_shapes.setdefault(packed_words, set()).add(shape_id)
             shape = FACTOR_SHAPES[shape_id]
             shape_counts[shape] = shape_counts.get(shape, 0) + 1
 
@@ -843,9 +905,43 @@ def screen() -> dict[str, object]:
 
     records.sort(key=lambda record: record["arithmetic_only_t_proxy"], reverse=True)
     assert packed_collisions == 0 and len(packed_labels) == len(records)
+    shape_conflicts = [set() for _ in FACTOR_SHAPES]
+    for shape_ids in payload_shapes.values():
+        for left, right in combinations(shape_ids, 2):
+            shape_conflicts[left].add(right)
+            shape_conflicts[right].add(left)
+    color_count = chromatic_number(shape_conflicts)
+    shape_colors = color_graph(shape_conflicts, color_count)
+    color_labels = {
+        (shape_colors[shape_id], packed_words)
+        for packed_words, shape_ids in payload_shapes.items()
+        for shape_id in shape_ids
+    }
+    assert len(color_labels) == len(packed_labels)
     rank1_headroom = 8 - max_rank1.bit_length()
     shape_tag_bits = (len(FACTOR_SHAPES) - 1).bit_length()
     assert shape_tag_bits <= rank1_headroom
+    color_tag_screen = {
+        "distinct_four_word_payloads": len(payload_shapes),
+        "payload_collision_fibers": sum(
+            len(shape_ids) > 1 for shape_ids in payload_shapes.values()
+        ),
+        "maximum_shape_fiber": max(map(len, payload_shapes.values())),
+        "conflict_graph_edges": sum(map(len, shape_conflicts)) // 2,
+        "minimum_shape_colors": color_count,
+        "minimum_tag_bits": (color_count - 1).bit_length(),
+        "shape_color_map": [
+            {"shape_id": index, "color": color}
+            for index, color in enumerate(shape_colors)
+        ],
+        "colored_label_collisions": len(packed_labels) - len(color_labels),
+        "scope": (
+            "Exhaustive over all 4,096 arbitrary GF(8) four-sample inputs. This "
+            "reduces the shape label from four bits to two on that domain; it "
+            "does not prove the same conflict graph over GF(2^12) or compile a "
+            "reversible color decoder."
+        ),
+    }
     costs = [record["arithmetic_only_t_proxy"] for record in records]
     compact_history_costs = sorted(
         record["compact_history_t_proxy"] for record in records
@@ -869,6 +965,7 @@ def screen() -> dict[str, object]:
             "observed_shapes": len(shape_counts),
             "shape_catalog_size": len(FACTOR_SHAPES),
             "shape_tag_bits": shape_tag_bits,
+            "compressed_shape_tag": color_tag_screen,
             "shape_catalog": [
                 {"id": index, "gcd_degree": shape[0], "cofactor_w_degree": shape[1], "cofactor_n_degree": shape[2]}
                 for index, shape in enumerate(FACTOR_SHAPES)
@@ -888,7 +985,7 @@ def screen() -> dict[str, object]:
             "field_multiply_call_t": 42,
             "inverse_call_t": 138,
         },
-        "gf12_dqi_cost_proxy": screen_gf12_dqi_cost_proxy(),
+        "gf12_dqi_cost_proxy": screen_gf12_dqi_cost_proxy(shape_colors),
         "maximum": records[0],
         "materialized_basis": {
             "maximum_coefficient_words": max_basis_words,

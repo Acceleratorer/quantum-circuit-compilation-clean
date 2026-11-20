@@ -207,3 +207,10 @@ operations reduces this arithmetic proxy to 2,876.125/3,114T; both paths
 produce the same factors, samples, ratios, and branches. This omits low-row
 construction, CNOTs, circuit liveness, and the full 4+66 schedule. It is a
 cost-screen refinement, not a candidate or a compiled-circuit result.
+
+The same exhaustive GF(8) factorized-state screen finds that the direct
+four-bit shape ID can be replaced by a three-color, two-bit label: 802 of the
+3,200 four-word payloads are ambiguous without a tag, and the color map clears
+all collisions. The map also has no collisions in the 48 seeded GF(2^12)
+prefixes, but that is sample evidence only. Building the reversible color
+decoder and proving its use in the full schedule remain open.

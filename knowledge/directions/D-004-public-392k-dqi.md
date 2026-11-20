@@ -694,3 +694,13 @@ factorization, four samples, ratios, and branches. These costs begin after the
 low row is formed and normalized, omit CNOTs and circuit liveness, and do not
 establish a reversible encoder or the full 4+66 schedule. See
 [`exp-053`](../../experiments/exp-053/README.md) for the reproducible screen.
+
+## 2026-11-20 factorized-state tag width lead
+
+The existing shape ID uses four bits, but its payload-conflict graph over all
+4,096 arbitrary GF(8) four-sample inputs has 9 edges and chromatic number 3.
+A deterministic three-color map gives a two-bit tag with zero label collisions
+on that exhaustive domain. The same map had zero collisions across 48 seeded
+GF(2^12) DQI prefixes. This can save two tag qubits per live block if the
+color decoder is built; it is not a GF(2^12) proof or an in-place circuit.
+The 4+66 width and phase schedule remain open.
