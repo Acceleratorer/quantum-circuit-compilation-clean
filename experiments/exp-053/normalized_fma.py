@@ -273,6 +273,7 @@ def screen_gf8_transformed_four_point_blocks():
     worst_fiber = 0
     setup_cases_with_fiber_over_two = 0
     common_branch_tags = set(range(len(right_points)))
+    history_differences = set()
 
     for left_data in left_cases:
         basis = fma.modular_basis(left_data, left_points, mul)
@@ -305,6 +306,11 @@ def screen_gf8_transformed_four_point_blocks():
             worst_fiber = max(worst_fiber, maximum_fiber)
             setup_cases_with_fiber_over_two += maximum_fiber > 2
             assert len(ratio_history_states) == 1 << (degree * len(right_points))
+            for histories in fibers.values():
+                history_differences.update(
+                    left ^ right
+                    for left, right in combinations(histories, 2)
+                )
             branch_tags = {
                 bit
                 for bit in range(len(right_points))
@@ -316,6 +322,19 @@ def screen_gf8_transformed_four_point_blocks():
             }
             common_branch_tags &= branch_tags
 
+    separating_parities = []
+    for tag_count in range(1, len(right_points) + 1):
+        separating_parities = [
+            masks
+            for masks in combinations(range(1, 1 << len(right_points)), tag_count)
+            if all(
+                any((difference & mask).bit_count() & 1 for mask in masks)
+                for difference in history_differences
+            )
+        ]
+        if separating_parities:
+            break
+
     return {
         "left_basis_cases": len(left_cases),
         "start_rank_values_per_basis": 10,
@@ -325,6 +344,10 @@ def screen_gf8_transformed_four_point_blocks():
         "minimum_fixed_tag_bits_from_maximum_fiber": (worst_fiber - 1).bit_length(),
         "setup_cases_with_fiber_over_two": setup_cases_with_fiber_over_two,
         "single_branch_bits_that_resolve_all_setups": sorted(common_branch_tags),
+        "minimum_fixed_linear_parity_tags": len(separating_parities[0]),
+        "fixed_linear_parity_masks": [
+            list(masks) for masks in separating_parities[:8]
+        ],
         "ratio_plus_full_history_injective_in_each_setup": True,
         "left_sample_seed": "0xB10C4",
         "scope": (

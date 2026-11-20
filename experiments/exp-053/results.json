@@ -20,9 +20,44 @@
   },
   "gf8_transformed_four_point_block_screen": {
     "checked_cases": 655360,
+    "fixed_linear_parity_masks": [
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        6
+      ],
+      [
+        1,
+        7
+      ],
+      [
+        1,
+        8
+      ],
+      [
+        1,
+        9
+      ],
+      [
+        1,
+        12
+      ],
+      [
+        1,
+        13
+      ]
+    ],
     "left_basis_cases": 16,
     "left_sample_seed": "0xB10C4",
     "maximum_inputs_per_ratio_plus_final_rank": 3,
+    "minimum_fixed_linear_parity_tags": 2,
     "minimum_fixed_tag_bits_from_maximum_fiber": 2,
     "ratio_plus_full_history_injective_in_each_setup": true,
     "right_inputs_per_setup": 4096,

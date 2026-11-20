@@ -102,9 +102,12 @@ I also applied 16 sampled four-point left bases to every one of the 4,096
 right four-sample GF(8) inputs, at all ten rank states with `r1+r2=9`
 (`655,360` cases). The worst ratio/final-rank fiber has three inputs, so at
 least two tag bits are needed there. No single branch bit separates every
-collision across these setups. A one-bit tag per four-point block therefore
-does not extend to these transformed right blocks. This remains a GF(8)
-screen, not a GF(2^12) bound.
+collision across these setups, but two fixed parities do; their masks are
+`[1,2]`, which correspond to retaining the first two local branch bits. A
+one-bit tag per four-point block therefore does not extend to these transformed
+right blocks. This remains a GF(8) screen, not a GF(2^12) bound. Repeating two
+tag bits across 17 blocks would add about 34 qubits to the current `Q=880`
+projection, so this encoding still needs a width reduction.
 
 This avoids materializing all `(d,g)` pairs only if the branch/phase label can
 also be retained and replayed within the 50-qubit workspace. Its bound and
