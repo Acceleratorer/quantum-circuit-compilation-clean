@@ -160,3 +160,27 @@ fiber. This is not a GF(2^12) bound or a reversible decoder. Keeping two tags
 for each of 17 blocks would raise the pair-cell projection from `Q=871` to
 `Q=905`, 15 qubits over the limit. The blockwise tag schedule or an in-place
 encoding that fits the tags into the 840-qubit payload remains unbuilt.
+
+The focused four-point compact-state recovery screen now exhausts all 4,096
+GF(8) inputs and reproduces the source samples, a valid complementary row,
+and branch history. Its largest arithmetic-call proxy is 8,430T at GF(2^12)
+unit costs. This is not a compiled circuit, overlaps part of the FMA arithmetic
+ledger, and omits controls, workspace, phase, and cleanup; do not adjust the
+projected margin from it. The next gate is a reversible implementation with a
+measured width and Toffoli count.
+
+The same GF(8) sweep finds an 11-word full four-point basis on one input.
+Replacing the four source words with those coefficients projects the payload
+at `Q=924`, 34 over the limit before workspace. The next schedule must stream
+the basis evaluations or prove a smaller valid-domain representation.
+
+## 2026-11-20 rank-exception transition screen
+
+`exp-054` found 70 rank-default exception masks across all 4,095 nonzero
+single-error locations at magnitude 1; each has at most two transitions. In
+two seeded screens of 256 samples per weight, weight 31 reached five
+transitions in two cases and weight 35 reached two. A generic enumerative code
+at the observed five-transition cap needs 25 qubits, six above the remaining
+19 after the `Q=871` pair-cell projection. This is a sampled width lead, not a
+proof or a submission candidate. See [`exp-054`](../experiments/exp-054/README.md)
+and the [official-status digest](../kaggle/digests/2026-11-20-status.md).

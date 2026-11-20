@@ -6,7 +6,7 @@ tests: exhaustive GF(8) four-sample inputs; all 97,119 valid GF(8) eight-point p
 direction: D-004
 status: branch_label_screen
 date: 2026-11-20
-result: ratio plus history is injective on GF(8); sampled rank-default branch masks are not width-safe; pair cell compiles at Q=871, T=300
+result: ratio plus history is injective on GF(8); compact four-point basis is 11 words; pair cell compiles at Q=871, T=300
 ---
 
 # Pivot-normalized FMA recurrence
@@ -123,6 +123,38 @@ reconstruction ledger, 45,045T scan, and 4,830T branch/rank cell projects
 201,375T, leaving 55,568T under the 256,943T screen gate. This count still
 excludes the 4+66 width schedule and uncounted phase work.
 
+### Four-point compact-state recovery cost screen
+
+`compact_basis_cost.py` exhausts all 4,096 four-sample GF(8) inputs. It recovers
+the original samples, reconstructs a valid complementary row with matching
+row ranks, and reproduces branch history. In the most
+expensive counted input, the arithmetic-call proxy is 8,430T: 1,560T for sample
+recovery, 168T to compose the low row, 5,946T for the complementary row, and
+756T for branch replay. The proxy charges every field-multiplication call at
+42T and every inverse call at 138T, including operations that may simplify to
+linear gates.
+
+The same exhaustive sweep finds a full four-point basis with 11 polynomial
+coefficient words (`3/2` and `3/3` across the two rows). Replacing the four
+input words with those coefficients would make the 840-qubit payload 924
+qubits, 34 over the limit before any workspace. Direct full-matrix storage is
+therefore rejected for this screened input; the 4+66 path has to stream basis
+evaluations or use a more compact representation.
+
+This is not a reversible circuit or a resource bound. It omits branch controls,
+degree framing, phase, scratch liveness, and cleanup, and some branch replay
+work overlaps the 70-symbol arithmetic ledger. The existing 3,870T sampled
+reconstruction assumption is still unvalidated; the two figures cannot be
+subtracted or added safely without a circuit schedule. One four-point prefix
+does not hit the remaining Toffoli margin by this proxy, but the full 4+66
+schedule remains unproven.
+
+Reproduce the focused screen with:
+
+```powershell
+python -I .\experiments\exp-053\compact_basis_cost.py
+```
+
 ## Limit
 
 The compiled one-pair cell does not solve width for the full recurrence. The
@@ -135,6 +167,5 @@ state live within Q=890, and account for all cleanup and phase work. The
 ## Reproduce
 
 ```powershell
-& 'D:\Code\Kaggle\competitions\Google Quantum AI\.venv\Scripts\python.exe' -I `
-  'experiments/exp-053/normalized_fma.py'
+python -I .\experiments\exp-053\normalized_fma.py
 ```

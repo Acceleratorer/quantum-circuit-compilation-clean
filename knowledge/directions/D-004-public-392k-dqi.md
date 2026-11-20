@@ -588,3 +588,18 @@ bound for all valid inputs and does not supply the reversible encoder. Across
 16 samples per weight, the screen saw 2, 1, and 3 distinct exception masks at
 weights 1, 31, and 35. The final rank pair did not identify the mask at weights
 1 or 35, so the small sample does not reduce the history to rank state alone.
+
+## 2026-11-20 rank-exception transition screen
+
+`exp-054` checked whether rank-default exceptions have a low-transition mask.
+Across all 4,095 nonzero error locations at magnitude 1, it found 70 masks with
+at most two transitions; 21 scalar checks across selected magnitudes matched.
+Across two fixed seeds of 256 valid samples each at weights 31 and 35, the
+weight-31 mask reached five transitions (two cases) and weight 35 reached two.
+
+An enumerative code for masks with at most five transitions requires 25 bits,
+six above the optimistic 19-qubit room left by the `Q=871` pair-cell
+projection. The sampled masks have low cardinality, but that does not bound
+the full valid domain. Keep this as a width lead. The next gate is an exact
+valid-domain encoding or a proof that an equally compact reversible branch
+oracle uses the FMA payload directly.

@@ -1,0 +1,145 @@
+{
+  "experiment": "exp-054",
+  "field": "GF(2^12)",
+  "limitations": [
+    "The single-error enumeration covers all supports at magnitude 1, with only selected magnitude cross-checks.",
+    "Weights 31 and 35 are seeded samples, not an exact bound over valid DQI errors.",
+    "Combinatorial transition coding is a bit-count screen only; no reversible encoder or decoder was built."
+  ],
+  "points": 70,
+  "sampled_error_weights": {
+    "0xf1a054": {
+      "31": {
+        "cases": 256,
+        "distinct_exception_masks": 6,
+        "fixed_bits_for_any_70_bit_mask_with_at_most_sampled_max_transitions": 17,
+        "max_transitions": 3,
+        "sampled_unique_label_bits": 3,
+        "transition_histogram": {
+          "1": 244,
+          "3": 12
+        }
+      },
+      "35": {
+        "cases": 256,
+        "distinct_exception_masks": 5,
+        "fixed_bits_for_any_70_bit_mask_with_at_most_sampled_max_transitions": 13,
+        "max_transitions": 2,
+        "sampled_unique_label_bits": 3,
+        "transition_histogram": {
+          "0": 252,
+          "2": 4
+        }
+      }
+    },
+    "0xf1a055": {
+      "1": {
+        "cases": 256,
+        "distinct_exception_masks": 6,
+        "fixed_bits_for_any_70_bit_mask_with_at_most_sampled_max_transitions": 13,
+        "max_transitions": 2,
+        "sampled_unique_label_bits": 3,
+        "transition_histogram": {
+          "1": 250,
+          "2": 6
+        }
+      },
+      "31": {
+        "cases": 256,
+        "distinct_exception_masks": 10,
+        "fixed_bits_for_any_70_bit_mask_with_at_most_sampled_max_transitions": 25,
+        "max_transitions": 5,
+        "sampled_unique_label_bits": 4,
+        "transition_histogram": {
+          "1": 238,
+          "2": 2,
+          "3": 14,
+          "5": 2
+        }
+      },
+      "35": {
+        "cases": 256,
+        "distinct_exception_masks": 12,
+        "fixed_bits_for_any_70_bit_mask_with_at_most_sampled_max_transitions": 13,
+        "max_transitions": 2,
+        "sampled_unique_label_bits": 4,
+        "transition_histogram": {
+          "0": 245,
+          "1": 1,
+          "2": 10
+        }
+      }
+    },
+    "combined_by_weight": {
+      "1": {
+        "cases": 256,
+        "distinct_exception_masks": 6,
+        "fixed_bits_for_any_70_bit_mask_with_at_most_sampled_max_transitions": 13,
+        "max_transitions": 2,
+        "sampled_unique_label_bits": 3,
+        "transition_histogram": {
+          "1": 250,
+          "2": 6
+        }
+      },
+      "31": {
+        "cases": 512,
+        "distinct_exception_masks": 12,
+        "fixed_bits_for_any_70_bit_mask_with_at_most_sampled_max_transitions": 25,
+        "max_transitions": 5,
+        "sampled_unique_label_bits": 4,
+        "transition_histogram": {
+          "1": 482,
+          "2": 2,
+          "3": 26,
+          "5": 2
+        }
+      },
+      "35": {
+        "cases": 512,
+        "distinct_exception_masks": 15,
+        "fixed_bits_for_any_70_bit_mask_with_at_most_sampled_max_transitions": 13,
+        "max_transitions": 2,
+        "sampled_unique_label_bits": 4,
+        "transition_histogram": {
+          "0": 497,
+          "1": 1,
+          "2": 14
+        }
+      }
+    }
+  },
+  "sampled_masks_across_weights": {
+    "cases": 1280,
+    "distinct_exception_masks": 33,
+    "fixed_bits_for_any_70_bit_mask_with_at_most_sampled_max_transitions": 25,
+    "max_transitions": 5,
+    "sampled_unique_label_bits": 6,
+    "transition_histogram": {
+      "0": 497,
+      "1": 733,
+      "2": 22,
+      "3": 26,
+      "5": 2
+    }
+  },
+  "single_error_supports": {
+    "cases": 4095,
+    "distinct_exception_masks": 70,
+    "domain": "all 4095 nonzero error locations at magnitude 1",
+    "fixed_bits_for_any_70_bit_mask_with_at_most_sampled_max_transitions": 13,
+    "max_transitions": 2,
+    "sampled_unique_label_bits": 7,
+    "scalar_cross_checks_across_magnitudes": 21,
+    "transition_histogram": {
+      "1": 4027,
+      "2": 68
+    }
+  },
+  "width_screen": {
+    "compiled_pair_cell_qubits": 871,
+    "qubit_limit": 890,
+    "remaining_qubits": 19,
+    "scope": "Optimistic additive side-information screen; excludes a full-circuit liveness proof."
+  }
+}
