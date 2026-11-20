@@ -702,8 +702,11 @@ The existing shape ID uses four bits, but its payload-conflict graph over all
 A deterministic three-color map gives a two-bit tag with zero label collisions
 on that exhaustive domain. The same map had zero collisions across 48 seeded
 GF(2^12) DQI prefixes. This can save two tag qubits per live block if the
-color decoder is built; it is not a GF(2^12) proof or an in-place circuit.
-The 4+66 width and phase schedule remain open.
+color decoder is built. For the pristine four-point prefix, however, the
+four-bit shape ID already fits in unused high bits of the existing rank
+register, so reducing it to two bits does not itself lower total qubit count.
+The map is not a GF(2^12) proof or an in-place circuit. The 4+66 width and
+phase schedule remain open.
 
 A conservative audit of all four-word support patterns accepted by the generic
 packer has chromatic number 7, requiring a three-bit tag. It deliberately
@@ -743,3 +746,25 @@ Toffoli-like gates while retaining all four branch bits; it exceeds the
 full 4+66 schedule. The useful next gate is a reversible branch-history eraser
 with a width projection under 890 before another full-path build. Results and
 limits are in [`exp-053`](../../experiments/exp-053/README.md).
+
+## 2026-11-20 field-growth screen for the shape tag
+
+`exp-055/shape_tag_field_growth.py` first rebuilds the pristine four-point
+payload-conflict graph. It exhausts GF(8) and GF(16), then checks 65,536
+four-tuples from `0..15` with competition GF(2^12) arithmetic and points
+`0,1,2,3`. The existing three-color map has no collisions in those runs.
+
+The follow-up applies the map to a real transformed 4+4 context with left
+input `(1,6,1,6)`, points `4,5,6,7`, and the rank pair produced by the left
+block. Exhaustive GF(8) checking gives 22 conflict edges and chromatic number
+5; the old three-color map has 274 same-color collisions. For example, the
+same payload `(5,7,0,0)` represents shape IDs 10 and 4, both color 0, for
+distinct right inputs `(0,0,0,5)` and `(0,1,7,7)`. This rejects repeating the
+pristine prefix map across blocks. In the corresponding GF(2^12) run over
+`0..15` values, no collisions appeared, but 61 states fell outside the
+current codec catalog. That subset does not establish a full-field result.
+
+The two-bit prefix tag is therefore not a 34-qubit saving across 17 blocks:
+the pristine tag already occupies unused rank bits, and its blockwise
+extension fails the exhaustive small-field gate. Reproduction and limits are
+in [`exp-055`](../../experiments/exp-055/README.md).

@@ -1,0 +1,372 @@
+{
+  "experiment": "exp-055-shape-tag-field-growth",
+  "shape_catalog": [
+    [
+      0,
+      0,
+      -1
+    ],
+    [
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      1
+    ],
+    [
+      0,
+      1,
+      -1
+    ],
+    [
+      0,
+      1,
+      0
+    ],
+    [
+      0,
+      1,
+      1
+    ],
+    [
+      0,
+      2,
+      -1
+    ],
+    [
+      0,
+      2,
+      0
+    ],
+    [
+      0,
+      2,
+      1
+    ],
+    [
+      1,
+      0,
+      -1
+    ],
+    [
+      1,
+      0,
+      0
+    ],
+    [
+      1,
+      1,
+      -1
+    ],
+    [
+      1,
+      1,
+      0
+    ],
+    [
+      2,
+      0,
+      -1
+    ]
+  ],
+  "runs": [
+    {
+      "field": "GF(8), exhaustive",
+      "degree": 3,
+      "modulus": "0xb",
+      "evaluation_points": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "input_value_range": [
+        0,
+        7
+      ],
+      "four_sample_inputs_checked": 4096,
+      "distinct_factorized_labels": 4096,
+      "distinct_four_word_payloads": 3200,
+      "conflict_edges": [
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          9
+        ],
+        [
+          2,
+          10
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          7,
+          10
+        ],
+        [
+          7,
+          12
+        ],
+        [
+          8,
+          12
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          10,
+          12
+        ]
+      ],
+      "minimum_shape_colors": 3,
+      "minimum_tag_bits": 2,
+      "gf8_shape_map_conflicts": 0,
+      "first_gf8_map_conflict": null
+    },
+    {
+      "field": "GF(16), exhaustive",
+      "degree": 4,
+      "modulus": "0x13",
+      "evaluation_points": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "input_value_range": [
+        0,
+        15
+      ],
+      "four_sample_inputs_checked": 65536,
+      "distinct_factorized_labels": 65536,
+      "distinct_four_word_payloads": 54728,
+      "conflict_edges": [
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          9
+        ],
+        [
+          2,
+          10
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          7,
+          10
+        ],
+        [
+          7,
+          12
+        ],
+        [
+          8,
+          12
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          10,
+          12
+        ]
+      ],
+      "minimum_shape_colors": 3,
+      "minimum_tag_bits": 2,
+      "gf8_shape_map_conflicts": 0,
+      "first_gf8_map_conflict": null
+    },
+    {
+      "field": "GF(2^12), low-nibble subset",
+      "degree": 12,
+      "modulus": "0x1053",
+      "evaluation_points": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "input_value_range": [
+        0,
+        15
+      ],
+      "four_sample_inputs_checked": 65536,
+      "distinct_factorized_labels": 65536,
+      "distinct_four_word_payloads": 65361,
+      "conflict_edges": [
+        [
+          2,
+          9
+        ],
+        [
+          2,
+          10
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          7,
+          10
+        ],
+        [
+          7,
+          12
+        ],
+        [
+          8,
+          12
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          10,
+          12
+        ]
+      ],
+      "minimum_shape_colors": 3,
+      "minimum_tag_bits": 2,
+      "gf8_shape_map_conflicts": 0,
+      "first_gf8_map_conflict": null
+    }
+  ],
+  "transformed_block_runs": [
+    {
+      "field": "GF(8), exhaustive",
+      "left_points": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "right_points": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "left_input": [
+        1,
+        6,
+        1,
+        6
+      ],
+      "start_ranks_from_left_block": [
+        4,
+        5
+      ],
+      "right_input_value_range": [
+        0,
+        7
+      ],
+      "right_inputs_checked": 4096,
+      "factorized_states_outside_current_catalog": 29,
+      "first_out_of_catalog_input": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "distinct_factorized_labels": 4067,
+      "distinct_four_word_payloads": 2920,
+      "conflict_edges": 22,
+      "minimum_shape_colors": 5,
+      "minimum_tag_bits": 3,
+      "existing_gf8_map_same_color_collisions": 274,
+      "first_same_color_collision": {
+        "payload": [
+          5,
+          7,
+          0,
+          0
+        ],
+        "shape_ids": [
+          10,
+          4
+        ],
+        "inputs": [
+          [
+            0,
+            0,
+            0,
+            5
+          ],
+          [
+            0,
+            1,
+            7,
+            7
+          ]
+        ],
+        "color": 0
+      },
+      "contextual_sample_round_trip_errors": 0
+    },
+    {
+      "field": "GF(2^12), low-nibble subset",
+      "left_points": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "right_points": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "left_input": [
+        1,
+        6,
+        1,
+        6
+      ],
+      "start_ranks_from_left_block": [
+        4,
+        5
+      ],
+      "right_input_value_range": [
+        0,
+        15
+      ],
+      "right_inputs_checked": 65536,
+      "factorized_states_outside_current_catalog": 61,
+      "first_out_of_catalog_input": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "distinct_factorized_labels": 65475,
+      "distinct_four_word_payloads": 65475,
+      "conflict_edges": 0,
+      "minimum_shape_colors": 1,
+      "minimum_tag_bits": 0,
+      "existing_gf8_map_same_color_collisions": 0,
+      "first_same_color_collision": null,
+      "contextual_sample_round_trip_errors": 0
+    }
+  ],
+  "scope": "The first two runs exhaust pristine four-sample domains with g=1. The third uses competition GF(2^12) arithmetic and points, but checks only 16^4 inputs. The transformed-block runs use one exact 4+4 left-basis context; the GF(2^12) run again checks only 16^4 right inputs. None measures a reversible decoder circuit or exhausts all GF(2^12) contexts."
+}
