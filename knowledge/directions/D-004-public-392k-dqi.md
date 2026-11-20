@@ -3,7 +3,7 @@ id: D-004
 title: Improve the source-owned DQI decoder with a new key-equation algorithm
 status: active
 tasks: dqi, all
-last_checked: 2026-11-19
+last_checked: 2026-11-20
 ---
 
 # D-004: improve the source-owned DQI decoder
@@ -16,10 +16,21 @@ reproduces it. Existing product-retention variants have already been screened.
 The active path is a source-owned DQI decoder with a genuinely different
 key-equation algorithm. Keep the official verifier's salted failure rate in
 the score model, and require the full `R × Q² × T` budget before building a
-candidate. The latest score-equivalence estimate is `242.451e9`; at
-`R=1.1912605` and `Q=890`, the DQI gate is `T <= 256,943` (see the current
+candidate. The latest score-equivalence estimate is `224.406e9`; at
+`R=1.1912605` and `Q=890`, the DQI gate is `T <= 237,820` (see the current
 leaderboard refresh below and the saved score model in the mid-competition
 milestone).
+
+## 2026-11-20 live leaderboard refresh
+
+The full Kaggle leaderboard snapshot at `17:14:49Z` contains 3,464 unique
+teams. `Accelra` is rank 1,079 at `28.14028`; the leader is Rithvik Redrouthu
+at `32.56892`, a `4.42864` point gap. Holding the other submitted task costs
+fixed, matching this score requires DQI cost at or below `224.406e9`, about a
+`35.50%` reduction from `347.904e9`, or mean `T <= 237,820` for `Q=890` and
+`R=1.1912605`. This is score-equivalence math, not a measured leader cost or
+a candidate. The exact leaderboard CSV, SHA-256, and score model are recorded
+in [`evals/2026-11-20-live-leaderboard-171449Z.json`](../../evals/2026-11-20-live-leaderboard-171449Z.json).
 
 ## 2026-11-19 update — packed BM transition screen
 

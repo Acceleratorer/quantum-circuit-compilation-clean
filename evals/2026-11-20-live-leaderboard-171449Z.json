@@ -1,0 +1,62 @@
+{
+  "captured_utc": "2026-11-20T17:14:49Z",
+  "competition": "google-verifiable-quantum-circuit-compilation",
+  "source": "Kaggle CLI API paginated public leaderboard, page size 200",
+  "snapshot": {
+    "path": "kaggle/snapshots/2026-11-20/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-20T17-14-49.csv",
+    "csv_sha256": "b479dae2c409086a4debbd2a05df7fd3a25a69d199ec87ff070f7bc479774328",
+    "team_rows": 3464,
+    "unique_team_ids": 3464,
+    "scores_sorted_descending": true
+  },
+  "own_team": {
+    "team": "Accelra",
+    "team_id": 17349145,
+    "public_score": 28.14028,
+    "rank": 1079,
+    "best_submission": 58479383
+  },
+  "leader": {
+    "rank": 1,
+    "team": "Rithvik Redrouthu",
+    "team_id": 17306554,
+    "score": 32.56892,
+    "last_submission_utc": "2026-11-20T16:29:44.610Z"
+  },
+  "runner_up": {
+    "rank": 2,
+    "team": "Entangled Team",
+    "team_id": 17180610,
+    "score": 32.55651,
+    "last_submission_utc": "2026-11-20T16:43:16.046Z"
+  },
+  "score_gap": 4.428643161717012,
+  "score_equivalence_estimate": {
+    "method": "Scale the product of the three task costs by (own_local_geometric_mean / leader_public_score)^3.",
+    "own_local_geometric_mean": 28.140276838282986,
+    "required_product_cost_multiplier": 0.6450227383331758,
+    "single_task_cost_reduction_if_other_two_are_fixed": 0.3549772616668242,
+    "equal_reduction_in_each_of_two_tasks": 0.19686692364641345,
+    "current_costs": {
+      "invsqrt": 74560.90687312803,
+      "dqi": 347904227555.5428,
+      "dfthcsos": 294642305.5649051
+    },
+    "single_task_targets_if_other_costs_are_held_fixed": {
+      "dqi": 224406137535.5645
+    },
+    "dqi_target_at_Q890_zero_failure": {
+      "qubits": 890,
+      "repetition_factor": 1.1912605,
+      "maximum_mean_toffoli": 237819.78154586127
+    },
+    "status": "estimate, not a circuit result"
+  },
+  "latest_own_submission": {
+    "ref": 58479383,
+    "status": "COMPLETE",
+    "public_score": 28.14028,
+    "submitted_at_utc": "2026-11-17T18:57:30.857000"
+  },
+  "notes": "Read-only refresh. The full leaderboard contains 3,464 unique team rows and is sorted by score. No circuit was built or submitted."
+}
