@@ -459,6 +459,16 @@ GF(2^12) circuit, a 70-symbol bound, or a Q/T schedule. The next gate is to
 translate the sample recovery and history replay into a reversible schedule
 that fits the `4+66` state and remaining resource budget.
 
+### 2026-11-20 arithmetic cost screen
+
+The cost screen now separates branch-history recovery from complementary-row
+reconstruction. Across all 4,096 arbitrary GF(8) four-sample inputs, low-row
+normalization/factorization, sample recovery, and branch replay use at most four
+factorized words and have a 5,118T arithmetic-only proxy (median 4,488T). The
+full block transform still needs the complementary row; adding its separate
+6,138T proxy and 252T low-row composition gives an 11,508T screen. Even if
+charged additively, this is below the current 54,868T projected margin, but the
+count can overlap the FMA ledger and excludes controls, live scratch, phase,
 ## 2026-11-19 18:37 UTC Kaggle leaderboard refresh
 
 The read-only Kaggle CLI top-20 query still shows `Z³C¹oherence` first at

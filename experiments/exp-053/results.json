@@ -5,6 +5,19 @@
       "reconstructed complementary row satisfies the basis constraints",
       "branch history matches direct replay"
     ],
+    "compact_history_round_trip": {
+      "description": "Normalize and factor the low row, recover the four samples from the factorized state, then replay the four-point branch history. This omits complementary-row reconstruction.",
+      "maximum_arithmetic_only_t_proxy": 5118,
+      "maximum_component_t_proxy": {
+        "factorize_low_row": 2286,
+        "normalize_low_row": 348,
+        "recover_samples": 1728,
+        "replay_branch_history": 756
+      },
+      "maximum_factorized_state_words": 4,
+      "median_arithmetic_only_t_proxy": 4488,
+      "scope": "All 4,096 arbitrary GF(8) four-sample inputs. Every counted multiply call is charged 42T and every inverse 138T, including constant-coefficient multiplies that can be linear gates. This is a conservative arithmetic proxy, not a compiled reversible circuit or full 4+66 schedule."
+    },
     "field": "GF(8)",
     "four_sample_inputs_checked": 4096,
     "gf12_cost_assumptions": {
@@ -39,12 +52,20 @@
     },
     "maximum": {
       "arithmetic_only_t_proxy": 8430,
+      "compact_history_components": {
+        "factorize_low_row": 1866,
+        "normalize_low_row": 306,
+        "recover_samples": 1560,
+        "replay_branch_history": 756
+      },
+      "compact_history_t_proxy": 4488,
       "components": {
         "compose_low_row": 168,
         "decode_samples": 1560,
         "reconstruct_complement": 5946,
         "replay_branch_history": 756
       },
+      "factorized_state_words": 3,
       "field_multiply_calls": 158,
       "input": [
         1,
@@ -62,6 +83,13 @@
     },
     "median_arithmetic_only_t_proxy": 5904,
     "scope": "Counts classical arithmetic calls for decode, complementary-row reconstruction, and four-point branch replay. Every multiply call is charged 42T, including fixed-coefficient calls. It does not compile a circuit and excludes control, degree framing, phase, scratch, and cleanup costs."
+  },
+  "compact_history_budget_screen": {
+    "current_projected_margin_toffolis": 54868,
+    "current_projected_total_toffolis": 202075,
+    "margin_if_proxy_is_charged_additively": 49750,
+    "round_trip_arithmetic_proxy_toffolis": 5118,
+    "scope": "The round-trip proxy includes low-row normalization/factorization, sample recovery, and four-point branch replay, but excludes complementary-row reconstruction. It conservatively charges all field multiply calls at 42T and may overlap the existing projection; this is a budget screen, not a circuit count."
   },
   "compiled_pair_cell": {
     "branches": 2,
@@ -209,7 +237,7 @@
     "row_ranks_match_reference": true
   },
   "resource_screen": {
-    "branch_rank_toffolis": 4830,
+    "branch_rank_toffolis": 5530,
     "controlled_swap_toffolis_per_pair_update": 12,
     "controlled_swap_toffolis_per_pivot": 24,
     "fma_arithmetic_toffolis": 147630,
@@ -220,8 +248,8 @@
     "naive_pair_bank_over_limit": 778,
     "pair_updates": 2415,
     "points": 70,
-    "projected_margin": 55568,
-    "projected_total_toffolis": 201375,
+    "projected_margin": 54868,
+    "projected_total_toffolis": 202075,
     "qubit_limit": 890,
     "ratio_inversions": 70,
     "ratio_products_to_compute_and_clear": 140,

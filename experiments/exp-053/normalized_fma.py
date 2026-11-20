@@ -12,8 +12,10 @@ from random import Random
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / "experiments" / "exp-053"))
 sys.path.insert(0, str(ROOT / "experiments" / "exp-049"))
 import fma_state_compression as fma
+import compact_basis_cost
 
 
 def normalized_state(
@@ -568,7 +570,7 @@ def resource_screen(pair_cell):
         + pair_updates * pair_cswaps_t
         + inversions * (inverse_forward_t + inverse_restore_t + pivot_cswaps_t)
     )
-    scan_t, branch_rank_t = 45_045, 4_830
+    scan_t, branch_rank_t = 45_045, 5_530
     reconstruction_t = 71 * product_t + 8 * 111
     gate_t = 256_943
     naive_pair_bank_q = 70 * 12 + 69 * 12  # g_0=1 is a constant
@@ -606,6 +608,11 @@ def main():
     gf8 = screen_gf8_four_samples()
     gf12 = screen_gf12_dqi_samples()
     pair_cell = check_normalized_pair_cell()
+    compact_basis = compact_basis_cost.screen()
+    resources = resource_screen(pair_cell)
+    compact_history_proxy = compact_basis["compact_history_round_trip"][
+        "maximum_arithmetic_only_t_proxy"
+    ]
     result = {
         "experiment": "exp-053",
         "result": "PASS",
@@ -623,8 +630,24 @@ def main():
             "row_ranks_match_reference": True,
             "normalized_low_row_matches_reference": True,
         },
+        "compact_basis_recovery_screen": compact_basis,
+        "compact_history_budget_screen": {
+            "current_projected_total_toffolis": resources["projected_total_toffolis"],
+            "current_projected_margin_toffolis": resources["projected_margin"],
+            "round_trip_arithmetic_proxy_toffolis": compact_history_proxy,
+            "margin_if_proxy_is_charged_additively": (
+                resources["projected_margin"] - compact_history_proxy
+            ),
+            "scope": (
+                "The round-trip proxy includes low-row normalization/factorization, "
+                "sample recovery, and four-point branch replay, but excludes "
+                "complementary-row reconstruction. It conservatively charges "
+                "all field multiply calls at 42T and may overlap the existing "
+                "projection; this is a budget screen, not a circuit count."
+            ),
+        },
         "compiled_pair_cell": pair_cell,
-        "resource_screen": resource_screen(pair_cell),
+        "resource_screen": resources,
         "scope": (
             "Classical recurrence plus one compiled normalized pair cell. This is not a complete "
             "70-symbol reversible schedule, and the naive full pair bank exceeds Q=890."

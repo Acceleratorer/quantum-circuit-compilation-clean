@@ -145,7 +145,9 @@ sampled pivots. The exact branch/rank gate now projects at `Q=863`; its general
 cell is `Q=55, T=83`, and the rank-sum specialization is `Q=47, T=69` per step.
 The latter passed 19,880 valid rank/zero-class cases, while the general branch
 cell passed 262,144 rank/zero-class cases; both had clean scratch and no phase
-flips. The cost projection remains `201,375T`, leaving `55,568T` before the
+flips. The earlier projection was `201,375T`, leaving `55,568T`. The later
+rank-invariant comparator raises the branch/rank cell from `4,830T` to
+`5,530T`, revising the projection to `202,075T` with `54,868T` before the
 still-unbuilt width, phase, and cleanup schedule.
 
 The updated GF(8) screen found that ratio plus full branch history uniquely
@@ -161,13 +163,16 @@ for each of 17 blocks would raise the pair-cell projection from `Q=871` to
 `Q=905`, 15 qubits over the limit. The blockwise tag schedule or an in-place
 encoding that fits the tags into the 840-qubit payload remains unbuilt.
 
-The focused four-point compact-state recovery screen now exhausts all 4,096
-GF(8) inputs and reproduces the source samples, a valid complementary row,
-and branch history. Its largest arithmetic-call proxy is 8,430T at GF(2^12)
-unit costs. This is not a compiled circuit, overlaps part of the FMA arithmetic
-ledger, and omits controls, workspace, phase, and cleanup; do not adjust the
-projected margin from it. The next gate is a reversible implementation with a
-measured width and Toffoli count.
+The focused four-point compact-state recovery screen exhausts all 4,096 GF(8)
+inputs and reproduces the source samples, a valid complementary row, and branch
+history. A branch-history-only round trip normalizes/factors the low row,
+recovers the four samples, and replays their history; it peaks at 5,118T with at
+most four factorized words (median 4,488T). The full block transform still
+needs the complementary row. A crude additive screen for both paths is
+11,508T, leaving 43,360T of the current 54,868T projection before other omitted
+work. These are arithmetic proxies, not circuit counts; they can overlap the
+FMA ledger and omit controls, live scratch, phase, and cleanup. The next gate
+is a reversible encoder/decoder with measured width and Toffoli count.
 
 The same GF(8) sweep finds an 11-word full four-point basis on one input.
 Replacing the four source words with those coefficients projects the payload

@@ -119,20 +119,30 @@ cleanup. It is a width lead, not a full schedule.
 The corrected 70-symbol FMA count is 2,415 pair products, 140 ratio products,
 70 in-place inversions at 138T each, 28,980T for pair input swaps, and 1,680T
 for pivot-orientation swaps: 147,630T. Adding the existing sampled
-reconstruction ledger, 45,045T scan, and 4,830T branch/rank cell projects
-201,375T, leaving 55,568T under the 256,943T screen gate. This count still
-excludes the 4+66 width schedule and uncounted phase work.
+reconstruction ledger, 45,045T scan, and 5,530T rank-invariant branch cell
+projects 202,075T, leaving 54,868T under the 256,943T screen gate. This count
+still excludes the 4+66 width schedule and uncounted phase work.
 
 ### Four-point compact-state recovery cost screen
 
 `compact_basis_cost.py` exhausts all 4,096 four-sample GF(8) inputs. It recovers
 the original samples, reconstructs a valid complementary row with matching
-row ranks, and reproduces branch history. In the most
-expensive counted input, the arithmetic-call proxy is 8,430T: 1,560T for sample
-recovery, 168T to compose the low row, 5,946T for the complementary row, and
-756T for branch replay. The proxy charges every field-multiplication call at
-42T and every inverse call at 138T, including operations that may simplify to
-linear gates.
+row ranks, and reproduces branch history. The full arithmetic-call proxy peaks
+at 8,430T: 1,560T for sample recovery, 168T to compose the low row, 5,946T for
+the complementary row, and 756T for branch replay.
+
+A branch-history-only round trip does not need the complementary row. It
+normalizes and factors the low row, recovers the four samples from the
+factorized state, and replays their branch history. Across the same exhaustive
+GF(8) domain, the factorized state uses at most four field words; this path
+peaks at 5,118T (median 4,488T). The proxy charges every field-multiplication
+call at 42T and every inverse call at 138T, including operations that may
+simplify to linear gates. The full block transform still needs a complementary
+row; adding the separate 252T low-row composition and 6,138T complement-row
+maxima gives an 11,508T arithmetic-only screen. Charged additively against the
+54,868T projected margin, that leaves 43,360T before other omitted work. This
+is only a feasibility screen: it may overlap the FMA ledger and is not a
+compiled reversible circuit or a width, phase, or cleanup bound.
 
 The same exhaustive sweep finds a full four-point basis with 11 polynomial
 coefficient words (`3/2` and `3/3` across the two rows). Replacing the four
@@ -162,7 +172,7 @@ direct sequential state holds 70 `d` words and up to 69 variable `g` words, or
 1,668 qubits before ratio workspace. A complete 4+66 schedule must generate
 and consume each pair from the compact 840-qubit payload, keep ratio and rank
 state live within Q=890, and account for all cleanup and phase work. The
-55,568T margin is only a projection; no full circuit or submission exists.
+54,868T margin is only a projection; no full circuit or submission exists.
 
 ## Reproduce
 
