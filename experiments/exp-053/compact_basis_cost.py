@@ -37,6 +37,24 @@ def factorized_word_count(shape):
     return 2 * gcd_degree + degree_a + max(0, degree_b + 1)
 
 
+def poly_divmod_monic(numerator, denominator, mul):
+    """Divide by a monic polynomial without variable work for its leading 1."""
+    remainder = fma.trim(list(numerator))
+    denominator = fma.trim(list(denominator))
+    if denominator == [0] or denominator[-1] != 1:
+        raise ValueError("the divisor must be nonzero and monic")
+    quotient = [0] * max(1, len(remainder) - len(denominator) + 1)
+    while remainder != [0] and len(remainder) >= len(denominator):
+        shift = len(remainder) - len(denominator)
+        factor = remainder[-1]
+        quotient[shift] = factor
+        for index, coefficient in enumerate(denominator[:-1]):
+            remainder[shift + index] ^= mul(factor, coefficient)
+        remainder[-1] = 0
+        fma.trim(remainder)
+    return fma.trim(quotient), remainder
+
+
 def pack_factorized_state(gcd, cofactor_w, cofactor_n, root_samples):
     """Pack the factorized polynomials and root values into four field words."""
     gcd = fma.trim(list(gcd))
@@ -165,7 +183,7 @@ def screen_gf12_codec(samples=2048):
 
 
 def screen_gf12_dqi_cost_proxy():
-    """Count the factorized-state branch-recovery proxy on DQI samples."""
+    """Count raw and constant-aware recovery proxies on DQI samples."""
     import normalized_fma
 
     degree, modulus = 12, 0x1053
@@ -173,6 +191,7 @@ def screen_gf12_dqi_cost_proxy():
     multiply = lambda left, right: fma.gf_mul(left, right, modulus, degree)
     rng = Random(0xF1A053)
     original_mul, original_inv = fma.gf_mul, fma.gf_inv
+    original_poly_eval = fma.poly_eval
     inverse_body = original_inv.__wrapped__
     records = []
 
@@ -237,6 +256,7 @@ def screen_gf12_dqi_cost_proxy():
                 shape_id, words = pack_factorized_state(
                     gcd, cofactor_w, cofactor_n, roots
                 )
+                raw_factorized_state = (gcd, cofactor_w, cofactor_n, roots)
                 factorize = dict(counts)
 
                 counts = {"field_multiply_calls": 0, "inverse_calls": 0}
@@ -248,13 +268,82 @@ def screen_gf12_dqi_cost_proxy():
                 recover = dict(counts)
 
                 counts = {"field_multiply_calls": 0, "inverse_calls": 0}
-                normalized_fma.replayed_ratios(data, points, modulus, degree)
+                raw_replay_result = normalized_fma.replayed_ratios(
+                    data, points, modulus, degree
+                )
                 replay = dict(counts)
             finally:
                 fma.gf_mul, fma.gf_inv = original_mul, original_inv
 
             stages = {"factorize": factorize, "recover": recover, "replay": replay}
             stage_t = {name: proxy(count) for name, count in stages.items()}
+
+            # Each evaluation point and the monic gcd leading coefficient are
+            # constants. Treat these known-linear operations as zero-T work.
+            def evaluate_at_public_point(poly, point, _mul):
+                value = 0
+                for coefficient in reversed(poly):
+                    value = original_mul(value, point, modulus, degree) ^ coefficient
+                return value
+
+            counts = {"field_multiply_calls": 0, "inverse_calls": 0}
+            fma.gf_mul, fma.gf_inv = counted_mul, counted_inv
+            fma.poly_eval = evaluate_at_public_point
+            try:
+                gcd, _, _ = fma.poly_xgcd(
+                    row[0], row[1], multiply, modulus, degree
+                )
+                assert gcd[-1] == 1
+                cofactor_w, remainder = poly_divmod_monic(
+                    row[0], gcd, multiply
+                )
+                assert remainder == [0]
+                cofactor_n, remainder = poly_divmod_monic(
+                    row[1], gcd, multiply
+                )
+                assert remainder == [0]
+                roots = tuple(
+                    data[index]
+                    for index, point in enumerate(points)
+                    if fma.poly_eval(gcd, point, multiply) == 0
+                )
+                shape_id, words = pack_factorized_state(
+                    gcd, cofactor_w, cofactor_n, roots
+                )
+                assert (gcd, cofactor_w, cofactor_n, roots) == raw_factorized_state
+                optimized_factorize = dict(counts)
+
+                counts = {"field_multiply_calls": 0, "inverse_calls": 0}
+                decoded = unpack_factorized_state(words, shape_id)
+                optimized_recovered = recover_factorized_samples(
+                    *decoded, points, multiply, modulus, degree
+                )
+                assert optimized_recovered == list(data)
+                assert optimized_recovered == recovered
+                optimized_recover = dict(counts)
+
+                counts = {"field_multiply_calls": 0, "inverse_calls": 0}
+                optimized_replay = normalized_fma.replayed_ratios(
+                    data,
+                    points,
+                    modulus,
+                    degree,
+                    mul_const=original_mul,
+                )
+                assert optimized_replay == raw_replay_result
+                optimized_branch_replay = dict(counts)
+            finally:
+                fma.gf_mul, fma.gf_inv = original_mul, original_inv
+                fma.poly_eval = original_poly_eval
+
+            optimized_stages = {
+                "factorize": optimized_factorize,
+                "recover": optimized_recover,
+                "replay": optimized_branch_replay,
+            }
+            optimized_stage_t = {
+                name: proxy(count) for name, count in optimized_stages.items()
+            }
             records.append(
                 {
                     "weight": weight,
@@ -263,6 +352,18 @@ def screen_gf12_dqi_cost_proxy():
                     "sample_recovery_t_proxy": stage_t["recover"],
                     "branch_replay_t_proxy": stage_t["replay"],
                     "total_t_proxy": sum(stage_t.values()),
+                    "linear_constants_factorization_t_proxy": (
+                        optimized_stage_t["factorize"]
+                    ),
+                    "linear_constants_recovery_t_proxy": (
+                        optimized_stage_t["recover"]
+                    ),
+                    "linear_constants_replay_t_proxy": (
+                        optimized_stage_t["replay"]
+                    ),
+                    "linear_constants_total_t_proxy": sum(
+                        optimized_stage_t.values()
+                    ),
                 }
             )
 
@@ -291,13 +392,36 @@ def screen_gf12_dqi_cost_proxy():
                 "total_t_proxy",
             )
         },
+        "linear_constants_mean_t_proxy": {
+            name: sum(record[name] for record in records) / len(records)
+            for name in (
+                "linear_constants_factorization_t_proxy",
+                "linear_constants_recovery_t_proxy",
+                "linear_constants_replay_t_proxy",
+                "linear_constants_total_t_proxy",
+            )
+        },
+        "linear_constants_maximum_t_proxy": {
+            name: max(record[name] for record in records)
+            for name in (
+                "linear_constants_factorization_t_proxy",
+                "linear_constants_recovery_t_proxy",
+                "linear_constants_replay_t_proxy",
+                "linear_constants_total_t_proxy",
+            )
+        },
+        "linear_constant_optimizations": [
+            "public evaluation-point multipliers are linear maps over GF(2)",
+            "multiplication by the monic gcd leading coefficient 1 is omitted",
+            "both paths produce identical factors, samples, ratios, and branches",
+        ],
         "scope": (
             "Arithmetic-only GF(2^12) proxy over 48 seeded valid 70-symbol DQI "
-            "samples. The low row is formed classically, then factorization, "
-            "sample recovery, and branch replay are counted separately. Each "
-            "field multiply is charged 42T and each inverse 138T; multipliers "
-            "inside an inverse are not double-counted. This is not a compiled "
-            "circuit or a full 4+66 resource bound."
+            "samples. Both paths start after low-row formation and normalization. "
+            "The raw path charges every field multiply 42T and inverse 138T; "
+            "the constant-aware path treats public point multipliers and the "
+            "monic leading 1 as linear. Inverse internals are not double-counted. "
+            "Neither path counts CNOTs or compiles a full 4+66 schedule."
         ),
     }
 

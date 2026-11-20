@@ -64,11 +64,12 @@ def normalized_state(
     return d, g, history, rank_exceptions, basis, tuple(ratios), (rank1, rank2)
 
 
-def replayed_ratios(data, points, modulus, degree):
-    """Overwrite each sample with its ratio and replay prior branch updates."""
+def replayed_ratios(data, points, modulus, degree, mul_const=None):
+    """Overwrite samples with ratios; optionally specialize public deltas."""
     state, branches = list(data), []
     rank1, rank2 = 0, 1
     pair_products, rank_exceptions = 0, 0
+    mul_const = fma.gf_mul if mul_const is None else mul_const
 
     for j, point in enumerate(points):
         d, g = state[j], 1
@@ -78,10 +79,10 @@ def replayed_ratios(data, points, modulus, degree):
             old_d = d
             if branches[k]:
                 d = fma.gf_mul(ratio, old_d, modulus, degree) ^ g
-                g = fma.gf_mul(delta, old_d, modulus, degree)
+                g = mul_const(delta, old_d, modulus, degree)
             else:
                 d ^= fma.gf_mul(ratio, g, modulus, degree)
-                g = fma.gf_mul(delta, g, modulus, degree)
+                g = mul_const(delta, g, modulus, degree)
             pair_products += 1
 
         assert d or g

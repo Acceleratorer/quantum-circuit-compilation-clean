@@ -357,6 +357,23 @@
         "branch_replay_t_proxy": 1224,
         "total_t_proxy": 5238
       },
+      "linear_constants_mean_t_proxy": {
+        "linear_constants_factorization_t_proxy": 1184.125,
+        "linear_constants_recovery_t_proxy": 720.0,
+        "linear_constants_replay_t_proxy": 972.0,
+        "linear_constants_total_t_proxy": 2876.125
+      },
+      "linear_constants_maximum_t_proxy": {
+        "linear_constants_factorization_t_proxy": 1422,
+        "linear_constants_recovery_t_proxy": 720,
+        "linear_constants_replay_t_proxy": 972,
+        "linear_constants_total_t_proxy": 3114
+      },
+      "linear_constant_optimizations": [
+        "multiplication by each public evaluation point is a linear map over GF(2)",
+        "multiplication by the monic gcd leading coefficient 1 is omitted",
+        "both paths are checked to produce identical samples, ratios, and branches"
+      ],
       "scope": "Arithmetic-only GF(2^12) proxy over 48 seeded valid 70-symbol DQI samples. The low row is formed classically, then factorization, sample recovery, and branch replay are counted separately. Each field multiply is charged 42T and each inverse 138T; multipliers inside an inverse are not double-counted. This is not a compiled circuit or a full 4+66 resource bound."
     }
   },

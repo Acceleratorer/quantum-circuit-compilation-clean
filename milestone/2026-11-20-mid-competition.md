@@ -196,3 +196,14 @@ a reversible encoder. Close the generic transition-count encoding route; keep
 the FMA work on a direct oracle or the 4+66 schedule. See
 [`exp-054`](../experiments/exp-054/README.md) and the
 [official-status digest](../kaggle/digests/2026-11-20-status.md).
+
+## 2026-11-20 constant-aware four-point recovery screen
+
+`exp-053` recounted 48 seeded GF(2^12) DQI prefixes. Charging every
+multiplication 42T and inverse 138T gives mean/max 4,822.25/5,238T for
+factorization, sample recovery, and branch replay after low-row formation.
+Treating public-point multiplication and the monic gcd's leading `1` as linear
+operations reduces this arithmetic proxy to 2,876.125/3,114T; both paths
+produce the same factors, samples, ratios, and branches. This omits low-row
+construction, CNOTs, circuit liveness, and the full 4+66 schedule. It is a
+cost-screen refinement, not a candidate or a compiled-circuit result.

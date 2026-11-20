@@ -6,7 +6,10 @@ tests: exhaustive GF(8) four-sample inputs; all 97,119 valid GF(8) eight-point p
 direction: D-004
 status: in_place_ratio_screen
 date: 2026-11-20
-result: full-input four-pivot encoder is Q=902, T=3,200; sentinel labels are locally bijective but a fixed-determinant transition collision means they do not alone erase branch history
+result: >-
+  The full-input four-pivot encoder is Q=902, T=3,200. The constant-aware
+  factorized-state proxy peaks at 3,114T across 48 seeded prefixes. Sentinel
+  labels alone do not erase branch history.
 ---
 
 # Pivot-normalized FMA recurrence
@@ -154,13 +157,16 @@ is only a feasibility screen: it may overlap the FMA ledger and is not a
 compiled reversible circuit or a width, phase, or cleanup bound.
 
 The seeded GF(2^12) DQI screen samples 48 valid four-symbol prefixes from
-weight-1, weight-31, and weight-35 errors. After the low row is formed and
-normalized, factorization, sample recovery, and branch replay cost a mean
-4,822.25T and a maximum 5,238T under the same arithmetic-only proxy. The
-maximum is close to the earlier 5,282T headroom estimate, so this path has
-little room for omitted gates. The low-row construction is excluded; this is
-not a compiled circuit or a full 4+66 resource bound. The reproducible result
-is stored as `gf12_dqi_cost_proxy` in `results.json`.
+weight-1, weight-31, and weight-35 errors. The raw arithmetic proxy charges
+every field multiply 42T and every inverse 138T; after the low row is formed
+and normalized, factorization, sample recovery, and branch replay cost a mean
+4,822.25T and a maximum 5,238T. A constant-aware pass treats multiplication by
+the public evaluation points as a linear map and divides by the monic gcd
+without variable work for its leading `1`. It returns the same factorization,
+samples, ratios, and branches at a mean 2,876.125T and maximum 3,114T. This
+pass does not count CNOTs, excludes low-row construction, and is not a compiled
+circuit or a full 4+66 resource bound. Both results are stored as
+`gf12_dqi_cost_proxy` in `results.json`.
 
 The factorized tuple has at most 14 degree layouts and packs into four field
 words plus a four-bit shape tag. The tag fits in the unused high bits of the

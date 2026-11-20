@@ -682,3 +682,15 @@ open. None of these GF(8) screens bounds GF(2^12).
 Keep the next gate on the source-owned in-place four-pivot ratio/history map,
 then integrate it into the complete 4+66 width, Toffoli, phase, and cleanup
 schedule. The current evidence proves classical reversibility, not a circuit.
+
+## 2026-11-20 constant-aware four-point recovery cost
+
+The same 48 seeded GF(2^12) DQI prefixes were recounted after specializing
+operations whose operands are public constants. Multiplication by the four
+evaluation points is a GF(2)-linear map, and division by the monic gcd can
+skip its fixed leading coefficient. The raw mean/max was 4,822.25/5,238T;
+the constant-aware mean/max is 2,876.125/3,114T. Both paths recovered the same
+factorization, four samples, ratios, and branches. These costs begin after the
+low row is formed and normalized, omit CNOTs and circuit liveness, and do not
+establish a reversible encoder or the full 4+66 schedule. See
+[`exp-053`](../../experiments/exp-053/README.md) for the reproducible screen.
