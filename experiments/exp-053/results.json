@@ -213,6 +213,32 @@
     "toffoli_like_gates": 300
   },
   "experiment": "exp-053",
+  "fixed_shape_out_of_place_decoder": {
+    "cases": 32,
+    "clean_scratch_qubits": 55,
+    "compiled_qubits": 952,
+    "field_helper_sha256": "c1b8b2ff583ffd5997856605c35d37f7116aa5811e52a3ce04a1ae7215d381c3",
+    "kernel": "accelra/exp053-fixed-shape-decoder",
+    "kernel_version": 5,
+    "phase_flips": 0,
+    "qubit_breakdown": {
+      "branch": 1,
+      "fresh_sample_outputs": 48,
+      "payload": 840,
+      "rank": 8,
+      "scratch": 55
+    },
+    "qubit_limit": 890,
+    "qubits_over_limit": 62,
+    "round_trip_errors": 0,
+    "scope": "Out-of-place fixed-shape sample decoder only; not a full 4+66 schedule.",
+    "shape": {
+      "cofactor_a_degree": 2,
+      "cofactor_b_degree": 1,
+      "gcd_degree": 0
+    },
+    "toffoli_like_gates": 612
+  },
   "gf8_eight_point_branch_label_screen": {
     "ambiguous_ratio_plus_final_rank_states": 7306,
     "distinct_ratio_plus_final_rank_states": 85445,
@@ -373,5 +399,5 @@
     "variable_products": 2555
   },
   "result": "PASS",
-  "scope": "Classical recurrence plus one compiled normalized pair cell. This is not a complete 70-symbol reversible schedule, and the naive full pair bank exceeds Q=890."
+  "scope": "Classical recurrence, one compiled normalized pair cell, and one compiled fixed-shape out-of-place sample decoder. This is not a complete 70-symbol reversible schedule, and the naive full pair bank exceeds Q=890."
 }

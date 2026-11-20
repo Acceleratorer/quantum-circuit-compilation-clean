@@ -173,6 +173,21 @@ Reproduce the focused screen with:
 python -I .\experiments\exp-053\compact_basis_cost.py
 ```
 
+### Fixed-shape decoder circuit screen
+
+The private Kaggle run of [`fixed_shape_decoder.py`](fixed_shape_decoder.py)
+measured the out-of-place decoder for `G=1`, `deg(A)=2`, `deg(B)=1`. Across 32
+valid coefficient cases, it recovered all four samples, preserved the inputs
+and rank/branch registers, cleared all scratch, and produced no phase flips.
+It compiled at `Q=952`, `T=612`, which is 62 qubits over the `Q=890` gate.
+The breakdown is 840 payload + 8 rank + 1 branch + 48 fresh output + 55
+scratch qubits. This closes the out-of-place layout only; an in-place or
+streamed decoder is still needed.
+
+The gate helper is the unchanged Apache-2.0 port documented in
+[`src/dqi/NOTICE`](../../src/dqi/NOTICE); gate code must run only in a private
+Kaggle kernel. The measured run is [kernel version 5](https://www.kaggle.com/code/accelra/exp053-fixed-shape-decoder).
+
 ## Limit
 
 The compiled one-pair cell does not solve width for the full recurrence. The
@@ -184,6 +199,6 @@ state live within Q=890, and account for all cleanup and phase work. The
 
 ## Reproduce
 
-```powershell
-python -I .\experiments\exp-053\normalized_fma.py
-```
+`normalized_fma.py` also imports the ported gate arithmetic from `src/dqi`;
+run its circuit checks only in a private Kaggle kernel. Its classical screens
+and the compiled fixed-shape result are recorded in `results.json`.

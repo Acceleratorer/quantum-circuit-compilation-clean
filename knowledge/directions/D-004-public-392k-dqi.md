@@ -633,3 +633,18 @@ Close the generic transition-count encoding route; do not spend another screen
 on transition histograms unless a structural bound appears. Keep the FMA path
 focused on a direct branch oracle or a reversible 4+66 compact-state schedule
 with a complete width, Toffoli, and phase ledger.
+
+## 2026-11-20 fixed-shape sample decoder width gate
+
+`exp-053/fixed_shape_decoder.py` compiled the out-of-place decoder for
+`G=1`, `deg(A)=2`, `deg(B)=1` in private Kaggle kernel version 5. All 32
+generated valid cases recovered the four samples, preserved the coefficient,
+rank, and branch inputs, left 55 scratch qubits clean, and had zero phase
+flips. The cell costs `Q=952`, `T=612`: 840 payload + 8 rank + 1 branch + 48
+fresh output + 55 scratch, exceeding the `Q=890` gate by 62.
+
+Close the out-of-place decoder layout. This does not rule out an in-place
+permutation or a streamed schedule that reuses payload words. Continue only
+with such a layout and include its tag, phase, and cleanup costs in the full
+4+66 ledger. The helper is the unchanged Apache-2.0 port attributed in
+`src/dqi/NOTICE`; the run was private and the helper hash matched its manifest.

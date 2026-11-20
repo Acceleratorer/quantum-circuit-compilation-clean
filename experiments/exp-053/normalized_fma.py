@@ -428,6 +428,8 @@ def screen_gf12_dqi_samples():
 
 
 def load_gate_arithmetic():
+    if not Path("/kaggle/working").is_dir():
+        raise RuntimeError("Ported gate arithmetic may run only in a private Kaggle kernel")
     import kickmix as km
 
     # Load the in-tree arithmetic helpers only; this does not build the decoder.
