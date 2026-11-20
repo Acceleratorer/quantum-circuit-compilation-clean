@@ -240,8 +240,29 @@ physical wires as clean arithmetic workspace, then restores rank1. The
 Toffoli-like counts for pivots 0 through 3 are 208, 320, 432, and 540. Results
 come from [private Kaggle kernel version 9](https://www.kaggle.com/code/accelra/exp053-inplace-ratio-history).
 
-This closes only the sample-erasure half of the 4-pivot label map. It does not
-compute the forward ratios/history or establish the full 4+66 schedule.
+Kernel version 9 closes only the sample-erasure half of the 4-pivot label map.
+Version 14 composes that eraser with the forward computation, as recorded
+below; neither version establishes the full 4+66 schedule.
+
+### Compiled 4-pivot prefix encoder
+
+[`inplace_ratio_history.py`](inplace_ratio_history.py) now composes the forward
+ratio/history calculation with the verified sample eraser. Starting with four
+samples in payload words 4 through 7 and four clean ratio words in slots 0
+through 3, it computes each normalized pivot update, records the branch bit,
+writes the ratio, and clears that source sample. The branch-based rank1 state
+and the other 62 payload words are preserved.
+
+Private Kaggle kernel version 14 checked 32 arbitrary GF(2^12) four-sample
+vectors, including the all-zero vector. Ratios and history matched the
+classical recurrence; samples and scratch were cleared; untouched payload was
+preserved; and no phase flips occurred. It compiled at `Q=890` with 42 clean
+scratch qubits and 3,200 Toffoli-like gates. Use
+[`build_private_kernel.py`](build_private_kernel.py) to package the source and
+the unchanged arithmetic helper for the private kernel.
+
+This verifies only the four-pivot prefix. The remaining 66-point schedule,
+complete circuit resource ledger, and competition submission are still open.
 
 ## Limit
 

@@ -104,17 +104,239 @@ def reflect_rank1(builder, rank1, step, branch):
         builder.iadd(increment, target=rank1, control=branch)
 
 
-def build_sample_eraser(pivot):
-    """Build sample_j ^= decode(r_0..r_j, b_0..b_j)."""
+def xor_zero_flag(builder, value, target):
+    """Toggle target by [value == 0], using and then clearing a ladder."""
+    builder.x(value)
+    ladder = builder.alloc_qubits(len(value) - 1)
+    builder.init_and(value[0], value[1], ladder[0])
+    for index in range(1, len(value) - 1):
+        builder.init_and(ladder[index - 1], value[index + 1], ladder[index])
+    builder.cx(ladder[-1], target)
+    for index in reversed(range(1, len(value) - 1)):
+        builder.del_and(ladder[index - 1], value[index + 1], ladder[index])
+    builder.del_and(value[0], value[1], ladder[0])
+    builder.x(value)
+    builder.free(ladder)
+
+
+def xor_rank_order(builder, rank1, step, target):
+    """Toggle target by [rank1 < rank2] before this pivot.
+
+    The rank sum before pivot ``step`` is ``2*step + 1``, so the comparison is
+    equivalent to ``rank1 <= step``. The expressions below cover all 3-bit
+    rank values, including states not reached by the prefix recurrence.
+    """
+    if step == 0:
+        xor_zero_flag(builder, rank1, target)
+    elif step == 1:
+        xor_zero_flag(builder, rank1[1:], target)
+    elif step == 2:
+        both_low = builder.alloc_qubits(1)[0]
+        builder.init_and(rank1[1], rank1[0], both_low)
+        builder.x(rank1[2])
+        builder.x(both_low)
+        builder.ccx(rank1[2], both_low, target)
+        builder.x(both_low)
+        builder.x(rank1[2])
+        builder.del_and(rank1[1], rank1[0], both_low)
+        builder.free([both_low])
+    elif step == 3:
+        builder.x(target)
+        builder.cx(rank1[2], target)
+    else:
+        raise ValueError("the prefix encoder supports four pivots")
+
+
+def append_branch_bit(builder, pair_d, pair_g, rank1, step, branch):
+    """Compute the FMA branch bit from the pivot pair and rank state."""
+    g_zero = builder.alloc_qubits(1)[0]
+    d_zero = builder.alloc_qubits(1)[0]
+    order = builder.alloc_qubits(1)[0]
+    both = builder.alloc_qubits(1)[0]
+    xor_zero_flag(builder, pair_g, g_zero)
+    xor_zero_flag(builder, pair_d, d_zero)
+    xor_rank_order(builder, rank1, step, order)
+
+    # swap = (g == 0) OR ((d != 0) AND (rank1 < rank2)). The second term is
+    # gated by g != 0 so the two contributions never overlap.
+    builder.cx(g_zero, branch)
+    builder.x(d_zero)
+    builder.init_and(d_zero, order, both)
+    builder.x(g_zero)
+    builder.ccx(both, g_zero, branch)
+    builder.x(g_zero)
+    builder.del_and(d_zero, order, both)
+    builder.x(d_zero)
+
+    xor_rank_order(builder, rank1, step, order)
+    xor_zero_flag(builder, pair_d, d_zero)
+    xor_zero_flag(builder, pair_g, g_zero)
+    builder.free([g_zero, d_zero, order, both])
+
+
+def build_prefix_encoder():
+    """Build the four-pivot map: four samples -> ratios plus branch history."""
     km, ar = load_gate_arithmetic()
     builder = km.CircuitBuilder()
     payload = builder.alloc_qubits(840)
     rank_history = builder.alloc_qubits(8)
-    rank_low = list(rank_history[:3])
-    branches = [rank_history[RANK_HISTORY_OFFSET + index]
-                for index in range(pivot + 1)]
+    rank1 = list(rank_history[:3])
+    branches = list(rank_history[RANK_HISTORY_OFFSET : RANK_HISTORY_OFFSET + 4])
     spare_rank_bit = rank_history[7]
+    ratios = [payload[index * FIELD_BITS : (index + 1) * FIELD_BITS]
+              for index in range(4)]
+    samples = [payload[(4 + index) * FIELD_BITS : (5 + index) * FIELD_BITS]
+               for index in range(4)]
+    one = ar.field(FIELD_BITS)
 
+    for pivot, point in enumerate(POINTS):
+        pair_d = builder.alloc_qubits(FIELD_BITS)
+        pair_g = builder.alloc_qubits(FIELD_BITS)
+        builder.cx(samples[pivot], pair_d)
+        builder.x(pair_g[0])
+
+        # Replay the earlier normalized FMA updates on (sample_j, 1).
+        for previous in range(pivot):
+            delta = point ^ POINTS[previous]
+            builder.cswap(branches[previous], pair_d, pair_g)
+            ar.mul_xor(builder, ratios[previous], pair_g, pair_d)
+            builder.gf2_imul(delta, target=pair_g, field=one)
+
+        append_branch_bit(builder, pair_d, pair_g, rank1, pivot, branches[pivot])
+        reflect_rank1(builder, rank1, pivot, branches[pivot])
+
+        # Rank1 is determined by the branch prefix. Clear its three bits and
+        # borrow them, plus the unused high bit, for the in-place inverse.
+        for step in reversed(range(pivot + 1)):
+            reflect_rank1(builder, rank1, step, branches[step])
+        builder.free(rank1)
+        builder.free([spare_rank_bit])
+
+        builder.cswap(branches[pivot], pair_d, pair_g)
+        inverse_transcript = ar.inverse_inplace_forward(builder, pair_g)
+        ar.mul_xor0(builder, pair_d, pair_g, ratios[pivot])
+        ar.inverse_inplace_reverse(builder, pair_g, inverse_transcript)
+        builder.cswap(branches[pivot], pair_d, pair_g)
+
+        rank1 = list(builder.alloc_qubits(3))
+        spare_rank_bit = builder.alloc_qubits(1)[0]
+        for step in range(pivot + 1):
+            reflect_rank1(builder, rank1, step, branches[step])
+
+        # Undo the replay and clear this temporary copy of the sample.
+        for previous in reversed(range(pivot)):
+            delta = point ^ POINTS[previous]
+            inverse_delta = ar.field(FIELD_DEGREE).invert(delta)
+            builder.gf2_imul(inverse_delta, target=pair_g, field=one)
+            ar.mul_xor(builder, ratios[previous], pair_g, pair_d)
+            builder.cswap(branches[previous], pair_d, pair_g)
+        builder.cx(samples[pivot], pair_d)
+        builder.x(pair_g[0])
+        builder.free(pair_d)
+        builder.free(pair_g)
+        append_sample_eraser(
+            builder, payload, rank1, branches, spare_rank_bit, pivot, ar
+        )
+
+    rank_register = rank1 + branches + [spare_rank_bit]
+    circuit = builder.finish_circuit()
+    return km, circuit, {
+        "payload": payload,
+        "rank1": rank1,
+        "branches": branches,
+        "spare_rank_bit": spare_rank_bit,
+        "rank_register": rank_register,
+        "ratios": ratios,
+        "samples": samples,
+    }
+
+
+def screen_prefix_encoder(case_count=32):
+    km, circuit, registers = build_prefix_encoder()
+    field = km.GF2Field(FIELD_BITS)
+    rng = Random(0xF1A05304)
+    cases = [
+        (0, 0, 0, 0)
+        if index == 0
+        else tuple(rng.randrange(1 << FIELD_BITS) for _ in POINTS)
+        for index in range(case_count)
+    ]
+    labels = [replayed_ratios(data, field) for data in cases]
+    word_values = [[0] * len(cases) for _ in range(70)]
+    for index, data in enumerate(cases):
+        for pivot, value in enumerate(data):
+            word_values[4 + pivot][index] = value
+        for word in range(8, 70):
+            word_values[word][index] = rng.randrange(1 << FIELD_BITS)
+
+    sim = km.Simulator(batch_size=len(cases), debug_print=False, seed=0)
+    sim.use_same_registers_as(circuit)
+    for word in range(70):
+        sim.write_across_shots(
+            registers["payload"][word * FIELD_BITS : (word + 1) * FIELD_BITS],
+            bit_columns(word_values[word], FIELD_BITS),
+        )
+    rank_values = [rank1_after(branches) for _, branches in labels]
+    sim.write_across_shots(
+        registers["rank1"], bit_columns([0] * len(cases), 3)
+    )
+    for pivot in range(4):
+        sim.write_across_shots(
+            registers["branches"][pivot],
+            np.zeros(len(cases), dtype=np.bool_),
+        )
+    sim.write_across_shots(
+        registers["spare_rank_bit"], np.zeros(len(cases), dtype=np.bool_)
+    )
+    sim.do(circuit)
+
+    for pivot in range(4):
+        assert np.array_equal(
+            sim.read_across_shots(registers["ratios"][pivot]),
+            bit_columns([ratios[pivot] for ratios, _ in labels], FIELD_BITS),
+        )
+        assert not np.any(sim.read_across_shots(registers["samples"][pivot]))
+        assert np.array_equal(
+            sim.read_across_shots(registers["branches"][pivot]),
+            np.asarray([bool(branches[pivot]) for _, branches in labels], dtype=np.bool_),
+        )
+    for word in range(8, 70):
+        assert np.array_equal(
+            sim.read_across_shots(
+                registers["payload"][word * FIELD_BITS : (word + 1) * FIELD_BITS]
+            ),
+            bit_columns(word_values[word], FIELD_BITS),
+        )
+    assert np.array_equal(
+        sim.read_across_shots(registers["rank1"]),
+        bit_columns(rank_values, 3),
+    )
+    assert not np.any(sim.read_across_shots(registers["spare_rank_bit"]))
+
+    live = set(list(registers["payload"]) + registers["rank_register"])
+    scratch = [
+        km.q(index)
+        for index in range(circuit.num_qubits)
+        if km.q(index) not in live
+    ]
+    if scratch:
+        assert not np.any(sim.read_across_shots(km.array(scratch)))
+    assert not np.any(sim.read_phase_flipped_across_shots())
+    return {
+        "cases": len(cases),
+        "compiled_qubits": circuit.num_qubits,
+        "toffoli_like_gates": circuit.operation_statistics().num_toffoli_like,
+        "clean_scratch_qubits": len(scratch),
+        "ratios_match_reference": True,
+        "branch_history_matches_reference": True,
+        "samples_cleared": True,
+        "other_payload_preserved": True,
+        "phase_flips": 0,
+    }
+
+
+def append_sample_eraser(builder, payload, rank_low, branches, spare_rank_bit, pivot, ar):
+    """Append sample_j ^= decode(r_0..r_j, b_0..b_j) to an existing circuit."""
     # At the four-point split, rank1 is determined by branch history. Restore
     # its three low bits to zero and borrow them plus the unused high bit as
     # clean arithmetic workspace; rank1 is recomputed before returning.
@@ -131,6 +353,7 @@ def build_sample_eraser(pivot):
         raise RuntimeError("Kickmix did not reuse the four released rank workspace wires")
     ratios = [payload[index * FIELD_BITS : (index + 1) * FIELD_BITS]
               for index in range(pivot + 1)]
+    branches = branches[: pivot + 1]
     sample = payload[(4 + pivot) * FIELD_BITS : (5 + pivot) * FIELD_BITS]
     one = ar.field(FIELD_BITS)
 
@@ -166,6 +389,24 @@ def build_sample_eraser(pivot):
     builder.free(reusable_pair)
     for step in range(pivot + 1):
         reflect_rank1(builder, rank_low, step, branches[step])
+
+
+def build_sample_eraser(pivot):
+    """Build sample_j ^= decode(r_0..r_j, b_0..b_j)."""
+    km, ar = load_gate_arithmetic()
+    builder = km.CircuitBuilder()
+    payload = builder.alloc_qubits(840)
+    rank_history = builder.alloc_qubits(8)
+    rank_low = list(rank_history[:3])
+    branches = [rank_history[RANK_HISTORY_OFFSET + index]
+                for index in range(pivot + 1)]
+    spare_rank_bit = rank_history[7]
+    append_sample_eraser(
+        builder, payload, rank_low, branches, spare_rank_bit, pivot, ar
+    )
+    ratios = [payload[index * FIELD_BITS : (index + 1) * FIELD_BITS]
+              for index in range(pivot + 1)]
+    sample = payload[(4 + pivot) * FIELD_BITS : (5 + pivot) * FIELD_BITS]
     rank_register = list(rank_history)
 
     circuit = builder.finish_circuit()
@@ -258,14 +499,16 @@ def screen_pivot(pivot, case_count=32):
 
 
 def run_screen():
-    results = [screen_pivot(pivot) for pivot in range(4)]
+    result = screen_prefix_encoder()
     return {
-        "experiment": "exp-053-inplace-ratio-history-decoder",
+        "experiment": "exp-053-inplace-ratio-history-prefix-encoder",
         "result": "PASS",
-        "pivots": results,
+        "prefix_encoder": result,
         "scope": (
-            "Compiled decoder/eraser for each four-point pivot. It verifies the reverse map and clean "
-            "workspace; it does not compute the ratio/history labels or establish the full 4+66 schedule."
+            "Compiled the four-pivot ratio/history encoder for 32 arbitrary GF(2^12) "
+            "four-sample inputs. It checks label values, branch history, sample "
+            "erasure, untouched payload, phase, and scratch. It does not establish "
+            "the complete 4+66 schedule."
         ),
     }
 

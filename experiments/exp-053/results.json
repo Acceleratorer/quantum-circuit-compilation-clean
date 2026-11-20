@@ -396,6 +396,22 @@
     "ratios_and_history_preserved": true,
     "scope": "The decoder/eraser for each pivot was compiled and simulated on 32 arbitrary GF(2^12) four-sample vectors. It XORs the decoded sample into the input sample register and cleans all scratch. The forward ratio/history computation and complete 4+66 schedule are not included."
   },
+  "inplace_ratio_history_prefix_encoder": {
+    "branch_history_matches_reference": true,
+    "cases": 32,
+    "clean_scratch_qubits": 42,
+    "compiled_qubits": 890,
+    "kernel": "accelra/exp053-inplace-ratio-history",
+    "kernel_version": 14,
+    "other_payload_preserved": true,
+    "phase_flips": 0,
+    "qubit_limit": 890,
+    "ratios_match_reference": true,
+    "result": "PASS",
+    "samples_cleared": true,
+    "scope": "Compiled four-pivot ratio/history encoder for 32 arbitrary GF(2^12) four-sample inputs, including the all-zero vector. It writes four ratios and branch history, clears the four source samples, preserves the rest of the payload, and clears scratch. It does not establish the complete 4+66 schedule.",
+    "toffoli_like_gates": 3200
+  },
   "gf8_eight_point_branch_label_screen": {
     "ambiguous_ratio_plus_final_rank_states": 7306,
     "distinct_ratio_plus_final_rank_states": 85445,
