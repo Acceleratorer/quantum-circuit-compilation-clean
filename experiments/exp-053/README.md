@@ -6,7 +6,7 @@ tests: exhaustive GF(8) four-sample inputs; 48 seeded GF(2^12) 70-symbol DQI sam
 direction: D-004
 status: branch_label_screen
 date: 2026-11-20
-result: ratio plus history is injective on GF(8); sampled rank-default branch masks are not width-safe; pair cell compiles at Q=888, T=300
+result: ratio plus history is injective on GF(8); sampled rank-default branch masks are not width-safe; pair cell compiles at Q=880, T=300
 ---
 
 # Pivot-normalized FMA recurrence
@@ -46,8 +46,8 @@ The shared update uses one GF(2^12) product and no clean output field register;
 the controlled input swap costs 12T per pair. The swap branch leaves the update
 in FMA output order, so there is no output swap. The ratio needs one product
 to compute and one to clear. A compiled one-pair cell uses the existing
-in-place GF(2^12) inverse (66T forward, 72T restore), preserves 16 rank bits
-and the branch bit, compiles at Q=888 and 300T. Kickmix simulated 32 valid
+in-place GF(2^12) inverse (66T forward, 72T restore), preserves 8 rank bits
+and the branch bit, compiles at Q=880 and 300T. Kickmix simulated 32 valid
 pivot cases across both branches; the pivot was restored, all 31 scratch qubits were
 clean, and there were no phase flips.
 
@@ -87,8 +87,8 @@ cleanup. It is a width lead, not a full schedule.
 The corrected 70-symbol FMA count is 2,415 pair products, 140 ratio products,
 70 in-place inversions at 138T each, 28,980T for pair input swaps, and 1,680T
 for pivot-orientation swaps: 147,630T. Adding the existing sampled
-reconstruction ledger, 45,045T scan, and 5,530T branch/rank cell projects
-202,075T, leaving 54,868T under the 256,943T screen gate. This count still
+reconstruction ledger, 45,045T scan, and 4,830T branch/rank cell projects
+201,375T, leaving 55,568T under the 256,943T screen gate. This count still
 excludes the 4+66 width schedule and uncounted phase work.
 
 ## Limit
@@ -98,7 +98,7 @@ direct sequential state holds 70 `d` words and up to 69 variable `g` words, or
 1,668 qubits before ratio workspace. A complete 4+66 schedule must generate
 and consume each pair from the compact 840-qubit payload, keep ratio and rank
 state live within Q=890, and account for all cleanup and phase work. The
-54,868T margin is only a projection; no full circuit or submission exists.
+55,568T margin is only a projection; no full circuit or submission exists.
 
 ## Reproduce
 

@@ -139,8 +139,9 @@ circuit or submission is ready.
 
 The same screen caught and fixed an output-order bug in the swap branch of the
 compiled pair cell. The corrected cell now matches the classical recurrence at
-`Q=888, T=300`; the cost projection falls to `202,075T`, leaving `54,868T`
-before the still-unbuilt width, phase, and cleanup schedule.
+`Q=880, T=300`; with the corrected 4,830T rank gate, the cost projection is
+`201,375T`, leaving `55,568T` before the still-unbuilt width, phase, and cleanup
+schedule.
 
 The updated GF(8) screen found that ratio plus full branch history uniquely
 labels all 4,096 four-sample inputs. A rank-comparison default still needs up to

@@ -266,7 +266,7 @@ def build_normalized_pair_cell(delta):
     km, ar = load_gate_arithmetic()
     builder = km.CircuitBuilder()
     payload = builder.alloc_qubits(840)
-    rank = builder.alloc_qubits(16)
+    rank = builder.alloc_qubits(8)
     branch_register = builder.alloc_qubits(1)
     branch = branch_register[0]
     ratio = builder.alloc_qubits(12)
@@ -332,7 +332,7 @@ def check_normalized_pair_cell():
         sim.write_across_shots(regs[name], bit_columns(symbols, degree))
     branch_values = [int(case[0]) for case in cases]
     sim.write_across_shots(regs["branch"], bit_columns(branch_values, 1))
-    sim.write_across_shots(regs["rank"], np.zeros((16, len(cases)), dtype=np.bool_))
+    sim.write_across_shots(regs["rank"], np.zeros((8, len(cases)), dtype=np.bool_))
     sim.do(circuit)
 
     expected_d, expected_g = [], []
@@ -352,7 +352,7 @@ def check_normalized_pair_cell():
         )
     assert np.array_equal(sim.read_across_shots(regs["pair_d"]), bit_columns(expected_d, degree))
     assert np.array_equal(sim.read_across_shots(regs["pair_g"]), bit_columns(expected_g, degree))
-    assert np.array_equal(sim.read_across_shots(regs["rank"]), np.zeros((16, len(cases)), dtype=np.bool_))
+    assert np.array_equal(sim.read_across_shots(regs["rank"]), np.zeros((8, len(cases)), dtype=np.bool_))
     assert np.array_equal(sim.read_across_shots(regs["branch"]), bit_columns(branch_values, 1))
     assert not np.any(sim.read_phase_flipped_across_shots())
 
@@ -386,7 +386,7 @@ def resource_screen(pair_cell):
         + pair_updates * pair_cswaps_t
         + inversions * (inverse_forward_t + inverse_restore_t + pivot_cswaps_t)
     )
-    scan_t, branch_rank_t = 45_045, 5_530
+    scan_t, branch_rank_t = 45_045, 4_830
     reconstruction_t = 71 * product_t + 8 * 111
     gate_t = 256_943
     naive_pair_bank_q = 70 * 12 + 69 * 12  # g_0=1 is a constant

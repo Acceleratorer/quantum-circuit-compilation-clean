@@ -9,7 +9,12 @@
       "pivots": 1024,
       "inverse_checks": 1280,
       "zero_pivots": 0,
-      "distinct_full_states_after_each_step": [256, 256, 256, 256],
+      "distinct_full_states_after_each_step": [
+        256,
+        256,
+        256,
+        256
+      ],
       "full_state_injective_on_domain": true
     },
     {
@@ -19,7 +24,16 @@
       "pivots": 776952,
       "inverse_checks": 1262547,
       "zero_pivots": 0,
-      "distinct_full_states_after_each_step": [97119, 97119, 97119, 97119, 97119, 97119, 97119, 97119],
+      "distinct_full_states_after_each_step": [
+        97119,
+        97119,
+        97119,
+        97119,
+        97119,
+        97119,
+        97119,
+        97119
+      ],
       "full_state_injective_on_domain": true
     },
     {
@@ -89,8 +103,17 @@
   },
   "exception_sidecar_width_screen": {
     "split": "4+66",
-    "left_fma_points": [0, 1, 2, 3],
-    "possible_nonzero_error_points_in_left_block": [1, 2, 3],
+    "left_fma_points": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "possible_nonzero_error_points_in_left_block": [
+      1,
+      2,
+      3
+    ],
     "arbitrary_gf8_four_sample_cases": 4096,
     "arbitrary_gf8_four_sample_recovered_inputs": 4096,
     "arbitrary_gf8_four_sample_distinct_compact_states": 4096,
@@ -124,22 +147,27 @@
     "payload_plus_sorted_sidecar_qubits": 867,
     "payload_plus_dense_sidecar_qubits": 866,
     "payload_plus_simple_sidecar_qubits": 879,
-    "branch_cell_peak_qubits_including_pivot": 72,
+    "branch_cell_peak_qubits_including_pivot": 64,
     "pivot_pair_qubits_already_in_payload": 24,
-    "branch_cell_additional_live_workspace_qubits": 48,
-    "projected_peak_if_sorted_sidecar_live_through_branch_cell": 915,
-    "projected_peak_if_dense_sidecar_live_through_branch_cell": 914,
-    "projected_peak_if_fixed_sidecar_live_through_branch_cell": 927,
+    "branch_cell_additional_live_workspace_qubits": 40,
+    "projected_peak_if_sorted_sidecar_live_through_branch_cell": 907,
+    "projected_peak_if_dense_sidecar_live_through_branch_cell": 906,
+    "projected_peak_if_fixed_sidecar_live_through_branch_cell": 919,
     "qubit_limit": 890,
-    "sorted_sidecar_over_limit_qubits": 25,
-    "dense_sidecar_over_limit_qubits": 24,
-    "fixed_sidecar_over_limit_qubits": 37,
+    "sorted_sidecar_over_limit_qubits": 17,
+    "dense_sidecar_over_limit_qubits": 16,
+    "fixed_sidecar_over_limit_qubits": 29,
     "result": "explicit_sidecar_formats_exceed_width_gate; fused_factorized_state_is_the_width_lead",
     "scope": "The 2-exception maximum is supported by a field-independent degree bound and exhaustive recovery of all 4,096 arbitrary GF(8) four-sample inputs. These separate-sidecar formats are fallback capacity counts; the fused factorized state is recorded separately."
   },
   "fused_factorized_state_screen": {
     "field": "GF(8)",
-    "points": [0, 1, 2, 3],
+    "points": [
+      0,
+      1,
+      2,
+      3
+    ],
     "input_domain": "all arbitrary pristine four-sample d vectors; g_i=1",
     "cases": 4096,
     "distinct_states": 4096,
@@ -170,13 +198,13 @@
     "fixed_width_sample_label_bits": 48,
     "fixed_width_sample_label": "four recovered sample values in point order",
     "persistent_payload_qubits_if_encoded_in_place": 840,
-    "branch_cell_additional_workspace_qubits": 48,
-    "conditional_projected_peak_if_pivot_is_in_payload": 888,
+    "branch_cell_additional_workspace_qubits": 40,
+    "conditional_projected_peak_if_pivot_is_in_payload": 880,
     "qubit_limit": 890,
-    "conditional_width_margin": 2,
+    "conditional_width_margin": 10,
     "in_place_reversible_mapping": "not designed",
     "result": "factorized_row_and_root_samples_are_injective_on_screened_domain",
-    "scope": "The factorized representation reconstructs each four-sample input; the exhaustive GF(8) screen confirms 4,096 distinct states and fixed-width sample labels. For GF(2^12), the label is four 12-bit samples in point order. This avoids serializing the variable-length polynomial tuple, but the in-place reversible mapping, scratch liveness, phase cleanup, and Toffoli cost remain unproven. The Q=888 projection is conditional on the existing branch-cell pivot-liveness assumption."
+    "scope": "The factorized representation reconstructs each four-sample input; the exhaustive GF(8) screen confirms 4,096 distinct states and fixed-width sample labels. For GF(2^12), the label is four 12-bit samples in point order. This avoids serializing the variable-length polynomial tuple, but the in-place reversible mapping, scratch liveness, phase cleanup, and Toffoli cost remain unproven. The Q=880 projection is conditional on the existing branch-cell pivot-liveness assumption."
   },
   "exception_extraction_ledger": {
     "common_root_zero_tests": 3,
@@ -214,17 +242,18 @@
     "compiled_kernel_phase_flips": 0,
     "scope": "One base-case branch predicate and rank update with a one-bit selector for the sparse leaf-matrix lower-row column; excludes compact-state extraction, FMA-tree composition, and selector liveness through recursive composition",
     "constant_rank_invariant_specialization": {
-      "toffoli_like_gates_per_step": 79,
+      "toffoli_like_gates_per_step": 69,
       "steps": 70,
       "valid_rank_zero_class_cases": 19880,
-      "total_toffoli_like_gates": 5530,
-      "saved_vs_general_comparator": 1120,
-      "remaining_of_9788T": 4258,
-      "max_qubits_per_step": 72,
-      "projected_Q_if_pivot_pair_is_in_840q_payload": 888,
+      "total_toffoli_like_gates": 4830,
+      "saved_vs_general_comparator": 1820,
+      "remaining_of_9788T": 4958,
+      "max_qubits_per_step": 64,
+      "projected_Q_if_pivot_pair_is_in_840q_payload": 880,
       "scratch_qubits_per_step": 31,
       "phase_flips": 0,
-      "scope": "All valid rank pairs r1+r2=2j+1 and all four d/g zero classes for j=0..69. Excludes pivot generation, recursive FMA composition, selector liveness, and all other omitted costs."
+      "scope": "All valid rank pairs r1+r2=2j+1 and all four d/g zero classes for j=0..69. Only r1 is retained; r2 is derived by reflection on the swap branch. Excludes pivot generation, recursive FMA composition, selector liveness, and all other omitted costs.",
+      "rank_register_qubits": 8
     }
   },
   "structural_invariant": "Before point j, the FMA basis determinant is a nonzero scalar multiple of the product of previous point factors. At a distinct next point its evaluated basis is invertible. Applying it to a pristine pair (d,1) cannot produce a zero pivot. The branch rule then selects a nonsingular sample-update matrix. A processed pivot pair is never changed by later steps, so the full pivot sequence remains available in the expanded classical state.",

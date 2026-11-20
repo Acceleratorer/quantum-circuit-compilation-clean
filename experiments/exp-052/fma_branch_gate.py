@@ -118,6 +118,19 @@ def increment_two(b, word):
     b.x(word[1])
 
 
+def add_controlled_constant(b, word, constant, control):
+    """Add a controlled even constant modulo 2**len(word), reversibly."""
+    assert constant % 2 == 0 and len(word) >= 3
+    b.iadd(constant, target=word, control=control)
+
+
+def controlled_reflect_rank(b, rank, step, branch):
+    """When branch is set, replace r by (2*step+1-r) modulo 2**8."""
+    for bit in rank:
+        b.cx(branch, bit)
+    add_controlled_constant(b, rank, 2 * (step + 1), branch)
+
+
 def controlled_rank_update(b, rank1, rank2, branch):
     # Fredkin = CNOT, CCX, CNOT; then always add 2 to the new rank2.
     for left, right in zip(rank1, rank2):
@@ -279,22 +292,15 @@ def check_constant_rank_steps():
         g_nonzero = (zero_class & 1).astype(np.uint32)
         branch = (g_nonzero == 0) | ((d_nonzero != 0) & (rank1 <= step))
         expected_rank1 = np.where(branch, rank2, rank1)
-        expected_rank2 = np.where(
-            branch,
-            (rank1 + 2) & ((1 << RANK_BITS) - 1),
-            (rank2 + 2) & ((1 << RANK_BITS) - 1),
-        )
 
         sim = km.Simulator(batch_size=len(rank1), debug_print=False, seed=step)
         sim.use_same_registers_as(circuit)
         d_bits = bit_columns(d_nonzero, FIELD_BITS)
         g_bits = bit_columns(g_nonzero, FIELD_BITS)
         rank1_bits = bit_columns(rank1, RANK_BITS)
-        rank2_bits = bit_columns(rank2, RANK_BITS)
         sim.write_across_shots(regs["d"], d_bits)
         sim.write_across_shots(regs["g"], g_bits)
         sim.write_across_shots(regs["rank1"], rank1_bits)
-        sim.write_across_shots(regs["rank2"], rank2_bits)
         sim.do(circuit)
 
         assert np.array_equal(sim.read_across_shots(regs["d"]), d_bits)
@@ -302,10 +308,6 @@ def check_constant_rank_steps():
         assert np.array_equal(
             sim.read_across_shots(regs["rank1"]),
             bit_columns(expected_rank1, RANK_BITS),
-        )
-        assert np.array_equal(
-            sim.read_across_shots(regs["rank2"]),
-            bit_columns(expected_rank2, RANK_BITS),
         )
         assert np.array_equal(
             sim.read_across_shots(regs["leaf_selector"])[0], branch
@@ -316,7 +318,6 @@ def check_constant_rank_steps():
             list(regs["d"])
             + list(regs["g"])
             + list(regs["rank1"])
-            + list(regs["rank2"])
             + list(regs["leaf_selector"])
         )
         outputs = set(output_qubits)
@@ -351,9 +352,11 @@ def check_constant_rank_steps():
         "scratch_qubits_per_step": sorted(scratch_qubits),
         "step_toffoli_counts": step_costs,
         "phase_flips": 0,
+        "rank_register_qubits": RANK_BITS,
         "scope": (
             "All valid rank pairs r1+r2=2j+1 and all four d/g zero classes "
-            "for j=0..69; the rank-sum invariant reduces r1<r2 to r1<=j."
+            "for j=0..69. Only r1 is retained; r2 is derived, and the rank "
+            "update reflects r1 to 2j+1-r1 on the swap branch."
         ),
     }
 
@@ -363,7 +366,7 @@ def build_one_step(step=None):
     d = b.alloc_qubits(FIELD_BITS)
     g = b.alloc_qubits(FIELD_BITS)
     rank1 = b.alloc_qubits(RANK_BITS)
-    rank2 = b.alloc_qubits(RANK_BITS)
+    rank2 = b.alloc_qubits(RANK_BITS) if step is None else None
     branch = b.alloc_qubits(1)[0]
 
     d_zero = zero_tree(b, d)
@@ -397,7 +400,10 @@ def build_one_step(step=None):
     undo_zero_tree(b, g, g_zero)
     undo_zero_tree(b, d, d_zero)
 
-    controlled_rank_update(b, rank1, rank2, branch)
+    if step is None:
+        controlled_rank_update(b, rank1, rank2, branch)
+    else:
+        controlled_reflect_rank(b, rank1, step, branch)
 
     # Algorithm 6's leaf matrix puts the same fixed nonzero polynomial in one
     # lower-row column or the other. The selector compactly represents that
@@ -408,13 +414,15 @@ def build_one_step(step=None):
     b.cx(selector, branch)
     b.free(branch)
 
-    return b.finish_circuit(), {
+    registers = {
         "d": d,
         "g": g,
         "rank1": rank1,
-        "rank2": rank2,
         "leaf_selector": selector_register,
     }
+    if rank2 is not None:
+        registers["rank2"] = rank2
+    return b.finish_circuit(), registers
 
 
 def compile_one_step():

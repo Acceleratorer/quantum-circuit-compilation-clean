@@ -176,7 +176,7 @@ remain undesigned.
 The existing 840-qubit payload can therefore remain the width target if the
 four-sample factorization is implemented in-place. Under the existing branch
 cell assumption that its pivot pair is already in the payload, the branch
-projection is `Q=888`, leaving two qubits. This is an information-width lead,
+projection is `Q=880`, leaving ten qubits. This is an information-width lead,
 not a verified schedule: the factorization's scratch, Toffoli cost, phase
 cleanup, and pivot liveness are still uncounted.
 
@@ -197,19 +197,19 @@ For four left constraints, the two row ranks sum to 9, so the normalized
 minimum-rank row has rank at most 4 and at most four stored field coefficients
 after omitting its fixed leading 1. Together with the 66 untouched right
 samples, that gives the existing 840-qubit persistent payload. The 27-bit
-sorted sidecar projects to `Q=915` while live through the branch cell; the
-26-bit dense capacity projects to `Q=914`, and the 39-bit fixed-position
-sidecar to `Q=927`. The rank-invariant branch cell has 48 additional live
+sorted sidecar projects to `Q=907` while live through the branch cell; the
+26-bit dense capacity projects to `Q=906`, and the 39-bit fixed-position
+sidecar to `Q=919`. The rank-invariant branch cell has 40 additional live
 workspace qubits after its 24-qubit pivot pair is counted inside the payload.
-All three projections exceed the 890 limit. The 27-bit sorted format is 25
+All three projections exceed the 890 limit. The 27-bit sorted format is 17
 qubits over the gate; its routing cost and liveness are still unproved.
 
 **Decision:** keep explicit sidecars closed while they exceed the width gate.
 Pursue the fused four-point factorization as the width lead, but do not count it
 as a circuit until an in-place reversible encoder, decoder, and liveness/phase
 ledger exist. This does not close the 4+66 FMA path.
-At the latest 2,048-shot sample maximum of 246,831T, adding the 5,530T local
-branch gate leaves 4,582T below the 256,943T gate for all still-unaccounted
+At the latest 2,048-shot sample maximum of 246,831T, adding the 4,830T local
+branch gate leaves 5,282T below the 256,943T gate for all still-unaccounted
 work.
 
 The explicit sidecar extractor has a six-test shape: three tests for `G(i)=0` and
@@ -262,13 +262,14 @@ not its recursive composition or the data-pair matrix update.
 ### Rank-sum specialization
 
 At step `j`, the rank invariant is `r1+r2=2j+1`, so `r1<r2` is equivalent to
-`r1<=j`. Comparing `r1` to the public constant `j+1` specializes the branch
-gate to 79 Toffoli-like gates and 72 qubits per step. The exhaustive check
-covers all 19,880 valid rank/zero-class cases across `j=0..69`; the ranks and
-selector match, all 31 scratch qubits return to zero, and there are no phase
-flips. Across 70 steps this is 5,530T, saving 1,120T against the general cell
-and leaving 4,258T of the previous 9,788T margin. The projected total is
-`Q=888` if the 24-bit pivot pair is already part of the 840-qubit payload.
+`r1<=j`. Comparing `r1` to the public constant `j+1` and deriving `r2` by
+reflection on the swap branch leaves one 8-bit rank register. The gate uses 69
+Toffoli-like gates and 64 qubits per step. The exhaustive check covers all
+19,880 valid rank/zero-class cases across `j=0..69`; the rank and selector
+match, all 31 scratch qubits return to zero, and there are no phase flips.
+Across 70 steps this is 4,830T, saving 1,820T against the general cell and
+leaving 4,958T of the previous 9,788T margin. The projected total is `Q=880`
+if the 24-bit pivot pair is already part of the 840-qubit payload.
 
 This remains a local count. It excludes generating the pivot pairs, recursive
 FMA composition, selector liveness, and other omitted work; it does not prove
