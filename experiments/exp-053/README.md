@@ -6,7 +6,7 @@ tests: exhaustive GF(8) four-sample inputs; all 97,119 valid GF(8) eight-point p
 direction: D-004
 status: branch_label_screen
 date: 2026-11-20
-result: ratio plus history is injective on GF(8); sampled rank-default branch masks are not width-safe; pair cell compiles at Q=880, T=300
+result: ratio plus history is injective on GF(8); sampled rank-default branch masks are not width-safe; pair cell compiles at Q=871, T=300
 ---
 
 # Pivot-normalized FMA recurrence
@@ -45,11 +45,12 @@ update:   d_i ^= r*g_i; g_i *= delta
 The shared update uses one GF(2^12) product and no clean output field register;
 the controlled input swap costs 12T per pair. The swap branch leaves the update
 in FMA output order, so there is no output swap. The ratio needs one product
-to compute and one to clear. A compiled one-pair cell uses the existing
-in-place GF(2^12) inverse (66T forward, 72T restore), preserves 8 rank bits
-and the branch bit, compiles at Q=880 and 300T. Kickmix simulated 32 valid
-pivot cases across both branches; the pivot was restored, all 31 scratch qubits were
-clean, and there were no phase flips.
+to compute and one to clear. The ratio register is allocated after the
+in-place GF(2^12) inverse's temporary output is freed, so those wires are
+reused. A compiled one-pair cell uses the existing inverse (66T forward, 72T
+restore), preserves 8 rank bits and the branch bit, and compiles at Q=871 and
+300T. Kickmix simulated 32 valid pivot cases across both branches; the pivot
+was restored, all 22 scratch qubits were clean, and there were no phase flips.
 
 The classical screen exhaustively checked all 4,096 four-sample GF(8) vectors
 and 48 seeded valid GF(2^12), 70-symbol DQI samples. Branch histories, row
@@ -106,8 +107,9 @@ collision across these setups, but two fixed parities do; their masks are
 `[1,2]`, which correspond to retaining the first two local branch bits. A
 one-bit tag per four-point block therefore does not extend to these transformed
 right blocks. This remains a GF(8) screen, not a GF(2^12) bound. Repeating two
-tag bits across 17 blocks would add about 34 qubits to the current `Q=880`
-projection, so this encoding still needs a width reduction.
+tag bits across 17 blocks would add about 34 qubits to the current `Q=871`
+projection, giving `Q=905`, 15 qubits over the limit. This encoding still
+needs a width reduction or a schedule that does not keep all tags live.
 
 This avoids materializing all `(d,g)` pairs only if the branch/phase label can
 also be retained and replayed within the 50-qubit workspace. Its bound and

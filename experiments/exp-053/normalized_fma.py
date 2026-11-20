@@ -449,7 +449,6 @@ def build_normalized_pair_cell(delta):
     rank = builder.alloc_qubits(8)
     branch_register = builder.alloc_qubits(1)
     branch = branch_register[0]
-    ratio = builder.alloc_qubits(12)
 
     pivot_d, pivot_g = payload[:12], payload[12:24]
     pair_d, pair_g = payload[24:36], payload[36:48]
@@ -457,6 +456,9 @@ def build_normalized_pair_cell(delta):
     # Canonicalize either FMA branch to (d, g), compute d/g, then restore it.
     builder.cswap(branch, pivot_d, pivot_g)
     inverse_transcript = ar.inverse_inplace_forward(builder, pivot_g)
+    # The inverse's temporary output is freed here; allocate ratio afterward so
+    # Kickmix can reuse those wires instead of keeping both 12-bit registers live.
+    ratio = builder.alloc_qubits(12)
     ar.mul_xor(builder, pivot_d, pivot_g, ratio)
 
     # The swap branch pre-swaps the input pair so the shared update returns

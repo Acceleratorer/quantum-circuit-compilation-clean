@@ -2,8 +2,8 @@
   "compiled_pair_cell": {
     "branches": 2,
     "cases": 32,
-    "clean_scratch_qubits": 31,
-    "compiled_qubits": 880,
+    "clean_scratch_qubits": 22,
+    "compiled_qubits": 871,
     "delta": 17,
     "phase_flips": 0,
     "toffoli_like_gates": 300
@@ -164,7 +164,7 @@
     "root_scan_toffolis": 45045,
     "sampled_reconstruction_toffolis_assumption": 3870,
     "scope": "Count projection includes ratio cleanup, branch-controlled pair input swaps, and the measured in-place inverse cell. It assumes the existing sampled reconstruction, scan, and branch/rank costs. It excludes the 4+66 width schedule and any uncounted phase work.",
-    "single_pair_cell_qubits": 880,
+    "single_pair_cell_qubits": 871,
     "single_pair_cell_toffolis": 300,
     "variable_products": 2555
   },
