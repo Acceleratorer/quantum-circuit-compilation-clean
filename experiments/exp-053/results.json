@@ -377,6 +377,25 @@
     },
     "toffoli_like_gates": 612
   },
+  "inplace_ratio_history_sample_eraser": {
+    "cases_per_pivot": 32,
+    "clean_scratch_qubits": 42,
+    "compiled_qubits": 890,
+    "field_helper_sha256": "c1b8b2ff583ffd5997856605c35d37f7116aa5811e52a3ce04a1ae7215d381c3",
+    "kernel": "accelra/exp053-inplace-ratio-history",
+    "kernel_version": 9,
+    "phase_flips": 0,
+    "pivots": [
+      {"pivot": 0, "toffoli_like_gates": 208, "sample_cleared": true},
+      {"pivot": 1, "toffoli_like_gates": 320, "sample_cleared": true},
+      {"pivot": 2, "toffoli_like_gates": 432, "sample_cleared": true},
+      {"pivot": 3, "toffoli_like_gates": 540, "sample_cleared": true}
+    ],
+    "qubit_limit": 890,
+    "rank_workspace_borrowed_qubits": 4,
+    "ratios_and_history_preserved": true,
+    "scope": "The decoder/eraser for each pivot was compiled and simulated on 32 arbitrary GF(2^12) four-sample vectors. It XORs the decoded sample into the input sample register and cleans all scratch. The forward ratio/history computation and complete 4+66 schedule are not included."
+  },
   "gf8_eight_point_branch_label_screen": {
     "ambiguous_ratio_plus_final_rank_states": 7306,
     "distinct_ratio_plus_final_rank_states": 85445,
@@ -541,5 +560,5 @@
     "variable_products": 2555
   },
   "result": "PASS",
-  "scope": "Classical recurrence, one compiled normalized pair cell, and one compiled fixed-shape out-of-place sample decoder. This is not a complete 70-symbol reversible schedule, and the naive full pair bank exceeds Q=890."
+  "scope": "Classical recurrence, one compiled normalized pair cell, one compiled fixed-shape out-of-place decoder, and the in-place ratio/history sample eraser. This is not a complete 70-symbol reversible schedule, and the naive full pair bank exceeds Q=890."
 }

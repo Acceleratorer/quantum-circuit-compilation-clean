@@ -202,9 +202,11 @@ two-bit projection to vary with the key; none works in any layout. Arbitrary
 GF(2)-linear or nonlinear kernels, higher-degree tags, another residual
 representation, and a GF(2^12) circuit remain open.
 
-The next 4+66 gate is the source-owned in-place reversible map from four
-samples to this factorized state, followed by a full width, Toffoli, phase, and
-cleanup ledger.
+The source-owned in-place encoder for four pivot ratios and their branch
+history remains unbuilt. The inverse label is classically reversible, and its
+sample eraser now fits the Q=890 width gate; the forward computation and the
+complete 4+66 schedule still need a measured width, Toffoli, phase, and cleanup
+ledger.
 
 ### Fixed-shape decoder circuit screen
 
@@ -220,6 +222,26 @@ streamed decoder is still needed.
 The gate helper is the unchanged Apache-2.0 port documented in
 [`src/dqi/NOTICE`](../../src/dqi/NOTICE); gate code must run only in a private
 Kaggle kernel. The measured run is [kernel version 5](https://www.kaggle.com/code/accelra/exp053-fixed-shape-decoder).
+
+### In-place ratio/history sample eraser
+
+[`inplace_ratio_history.py`](inplace_ratio_history.py) compiles the inverse
+label step for pivots 0 through 3. For each pivot, it initializes projective
+coordinates from the ratio and branch bit, reverses the earlier normalized
+updates, and XORs the recovered sample into its existing payload word. It
+then uncomputes the field-pair workspace. The test preserves all ratio/history
+bits and rank state, clears all scratch, and reports zero phase flips for 32
+arbitrary GF(2^12) four-sample vectors per pivot.
+
+Each circuit compiles at `Q=890` with 42 clean scratch qubits. The three low
+rank bits and one unused high rank bit are temporarily borrowed: branch
+history determines rank1, so the circuit resets those bits, uses the same
+physical wires as clean arithmetic workspace, then restores rank1. The
+Toffoli-like counts for pivots 0 through 3 are 208, 320, 432, and 540. Results
+come from [private Kaggle kernel version 9](https://www.kaggle.com/code/accelra/exp053-inplace-ratio-history).
+
+This closes only the sample-erasure half of the 4-pivot label map. It does not
+compute the forward ratios/history or establish the full 4+66 schedule.
 
 ## Limit
 
