@@ -173,6 +173,24 @@ Reproduce the focused screen with:
 python -I .\experiments\exp-053\compact_basis_cost.py
 ```
 
+### In-place coordinate-label screen
+
+The source-owned `screen_fixed_shape_streaming_labels()` exhausts all 1,568
+GF(8) states for monic irreducible quadratic `A` and degree-1 `B`. It checks
+every choice of three sample points and either retained `A` coefficient. Each
+three-samples-plus-coefficient key has a maximum fiber of four. Branch history
+has same-history collisions in every layout, and any side label that depends
+only on the discarded coefficient needs at least three bits (the conflict
+graphs have chromatic numbers 6 or 7).
+
+This closes the simple branch-history and coefficient-only tags for this
+coordinate layout. A second exhaustive screen checked all 4,096 GF(8)-linear
+forms of the three retained samples and retained coefficient, with every
+possible fixed 2-bit linear projection of `discarded * u(key)`. None labels
+the collision fibers in any of the eight layouts. This only closes that
+bilinear tag family; it does not rule out key-dependent projections,
+higher-degree tags, another residual representation, or a GF(2^12) circuit.
+
 ### Fixed-shape decoder circuit screen
 
 The private Kaggle run of [`fixed_shape_decoder.py`](fixed_shape_decoder.py)

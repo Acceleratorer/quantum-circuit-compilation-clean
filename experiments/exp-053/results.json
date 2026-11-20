@@ -194,7 +194,29 @@
       "replay_branch_history": 756
     },
     "median_arithmetic_only_t_proxy": 5904,
-    "scope": "Counts classical arithmetic calls for decode, complementary-row reconstruction, and four-point branch replay. Every multiply call is charged 42T, including fixed-coefficient calls. It does not compile a circuit and excludes control, degree framing, phase, scratch, and cleanup costs."
+    "scope": "Counts classical arithmetic calls for decode, complementary-row reconstruction, and four-point branch replay. Every multiply call is charged 42T, including fixed-coefficient calls. It does not compile a circuit and excludes control, degree framing, phase, scratch, and cleanup costs.",
+    "fixed_shape_streaming_label": {
+      "coefficient_conflict_graph_chromatic_numbers": [
+        6,
+        7
+      ],
+      "maximum_fiber": 4,
+      "minimum_coefficient_only_tag_bits": 3,
+      "options_checked": 8,
+      "same_branch_history_pairs_min": 105,
+      "same_branch_history_pairs_max": 231,
+      "sample_and_coefficient_keys_injective": false,
+      "bilinear_key_multiplier_tag": {
+        "field_linear_forms_checked_per_layout": 4096,
+        "layouts_checked": 8,
+        "layouts_with_two_bit_tag": 0,
+        "projection_kernels_checked_per_form": 7,
+        "scope": "Exhausts all GF(8)-linear forms u of the three retained samples and retained A coefficient, and all rank-2 GF(2)-linear projections (enumerated by their seven possible 1-D kernels). This does not test key-dependent projections, higher-degree tags, or GF(2^12).",
+        "tag_form": "fixed 2-bit GF(2)-linear projection of d * u(key)"
+      },
+      "scope": "Exhaustive GF(8) screen of all monic irreducible quadratic A and degree-1 B. Rejects branch-history, coefficient-only, and fixed-projection bilinear tags d*u(key) for the tested three-samples-plus-one-A-coefficient layouts. Key-dependent projections, higher-degree tags, and GF(2^12) remain untested.",
+      "shape_states": 1568
+    }
   },
   "compact_history_budget_screen": {
     "current_projected_margin_toffolis": 54868,

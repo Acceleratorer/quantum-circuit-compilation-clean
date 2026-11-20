@@ -8,7 +8,7 @@ workspace, control, phase, or cleanup costs.
 
 from __future__ import annotations
 
-from itertools import product
+from itertools import combinations, product
 import json
 from pathlib import Path
 from random import Random
@@ -161,6 +161,171 @@ def screen_gf12_codec(samples=2048):
         "rank1_unused_high_bits": rank1_headroom,
         "shape_tag_fits_rank1_headroom": True,
         "scope": "Seeded sample only; not an exhaustive GF(2^12) proof or a reversible circuit.",
+    }
+
+
+def chromatic_number(adjacency):
+    """Return the exact chromatic number of the small GF(8) conflict graph."""
+    order = sorted(range(len(adjacency)), key=lambda vertex: len(adjacency[vertex]), reverse=True)
+    colors = [-1] * len(adjacency)
+
+    def colorable(limit, index=0, maximum=-1):
+        if index == len(order):
+            return True
+        vertex = order[index]
+        for color in range(min(limit - 1, maximum + 1) + 1):
+            if all(colors[neighbor] != color for neighbor in adjacency[vertex]):
+                colors[vertex] = color
+                if colorable(limit, index + 1, max(maximum, color)):
+                    return True
+                colors[vertex] = -1
+        return False
+
+    return next(limit for limit in range(1, len(adjacency) + 1) if colorable(limit))
+
+
+def screen_fixed_shape_streaming_labels():
+    """Screen three samples plus one retained A coefficient on valid GF(8) states.
+
+    A coefficient-only side label must color the conflict graph induced by
+    states that agree on the three outputs and retained coefficient.
+    """
+    degree, modulus, points = 3, 0b1011, tuple(range(4))
+    size = 1 << degree
+    mul = lambda left, right: fma.gf_mul(left, right, modulus, degree)
+    states = []
+    for a0, a1 in product(range(size), repeat=2):
+        denominator = [a0, a1, 1]
+        if any(fma.poly_eval(denominator, value, mul) == 0 for value in range(size)):
+            continue
+        for b0 in range(size):
+            for b1 in range(1, size):
+                numerator = [b0, b1]
+                samples = tuple(
+                    mul(
+                        fma.poly_eval(numerator, point, mul),
+                        fma.gf_inv(
+                            fma.poly_eval(denominator, point, mul), modulus, degree
+                        ),
+                    )
+                    for point in points
+                )
+                history = fma.sequential_state(samples, points, mul)[2]
+                states.append((a0, a1, samples, history))
+
+    assert len(states) == 1568
+    assert len({state[2] for state in states}) == len(states)
+    options = []
+    for sample_points in combinations(points, 3):
+        for retained_index in (0, 1):
+            fibers = {}
+            for a0, a1, samples, history in states:
+                retained = (a0, a1)[retained_index]
+                discarded = (a1, a0)[retained_index]
+                key = tuple(samples[index] for index in sample_points) + (retained,)
+                fibers.setdefault(key, []).append((discarded, history))
+
+            adjacency = [set() for _ in range(size)]
+            same_history_pairs = 0
+            for fiber in fibers.values():
+                for left, right in combinations(fiber, 2):
+                    if left[0] != right[0]:
+                        adjacency[left[0]].add(right[0])
+                        adjacency[right[0]].add(left[0])
+                    if left[1] == right[1]:
+                        same_history_pairs += 1
+
+            chromatic = chromatic_number(adjacency)
+            options.append(
+                {
+                    "sample_points": list(sample_points),
+                    "retained_cofactor_a_coefficient": retained_index,
+                    "distinct_keys": len(fibers),
+                    "keys_with_collisions": sum(len(fiber) > 1 for fiber in fibers.values()),
+                    "maximum_fiber": max(map(len, fibers.values())),
+                    "same_branch_history_pairs": same_history_pairs,
+                    "minimum_coefficient_only_tag_bits": (chromatic - 1).bit_length(),
+                    "coefficient_conflict_graph_chromatic_number": chromatic,
+                }
+            )
+
+    multiplier_tag_screens = []
+    for sample_points in combinations(points, 3):
+        for retained_index in (0, 1):
+            fibers = {}
+            for a0, a1, samples, _ in states:
+                retained = (a0, a1)[retained_index]
+                discarded = (a1, a0)[retained_index]
+                key = tuple(samples[index] for index in sample_points) + (retained,)
+                fibers.setdefault(key, []).append(discarded)
+
+            collision_fibers = [values for values in fibers.values() if len(values) > 1]
+            candidate = None
+            forms_checked = 0
+            for coefficients in product(range(size), repeat=4):
+                forms_checked += 1
+                excluded_kernels = set()
+                valid = True
+                for key, values in fibers.items():
+                    if len(values) < 2:
+                        continue
+                    multiplier = 0
+                    for coefficient, key_value in zip(coefficients, key):
+                        multiplier ^= mul(coefficient, key_value)
+                    if multiplier == 0:
+                        valid = False
+                        break
+                    for left, right in combinations(values, 2):
+                        excluded_kernels.add(mul(multiplier, left ^ right))
+                kernels = set(range(1, size)) - excluded_kernels if valid else set()
+                if kernels:
+                    candidate = {
+                        "field_linear_key_coefficients": list(coefficients),
+                        "valid_projection_kernels": sorted(kernels),
+                    }
+                    break
+            multiplier_tag_screens.append(
+                {
+                    "sample_points": list(sample_points),
+                    "retained_cofactor_a_coefficient": retained_index,
+                    "collision_keys": len(collision_fibers),
+                    "field_linear_forms_checked": forms_checked,
+                    "candidate": candidate,
+                }
+            )
+
+    assert all(option["maximum_fiber"] == 4 for option in options)
+    assert all(option["minimum_coefficient_only_tag_bits"] >= 3 for option in options)
+    assert all(option["same_branch_history_pairs"] > 0 for option in options)
+    assert all(screen["candidate"] is None for screen in multiplier_tag_screens)
+    return {
+        "shape_states": len(states),
+        "sample_and_coefficient_keys_injective": False,
+        "options_checked": len(options),
+        "options": options,
+        "bilinear_key_multiplier_tag": {
+            "layouts_checked": len(multiplier_tag_screens),
+            "layouts_with_two_bit_tag": sum(
+                screen["candidate"] is not None for screen in multiplier_tag_screens
+            ),
+            "field_linear_forms_checked_per_layout": size ** 4,
+            "projection_kernels_checked_per_form": size - 1,
+            "tag_form": "fixed 2-bit GF(2)-linear projection of d * u(key)",
+            "layout_results": multiplier_tag_screens,
+            "scope": (
+                "Exhausts all GF(8)-linear forms u of the three retained samples and "
+                "retained A coefficient, and all rank-2 GF(2)-linear projections "
+                "(enumerated by their seven possible 1-D kernels). This does not test "
+                "key-dependent projections, higher-degree tags, or GF(2^12)."
+            ),
+        },
+        "scope": (
+            "All monic irreducible quadratic A and degree-1 B over GF(8), with four "
+            "public points. Rejects only a coefficient-only side label and branch-history "
+            "label for the three-samples-plus-one-A-coefficient layouts, plus fixed-projection "
+            "bilinear tags d * u(key). Key-dependent projections, higher-degree tags, and "
+            "GF(2^12) remain untested."
+        ),
     }
 
 
@@ -455,6 +620,7 @@ def screen() -> dict[str, object]:
                 "circuit or full 4+66 schedule."
             ),
         },
+        "fixed_shape_streaming_label": screen_fixed_shape_streaming_labels(),
         "median_arithmetic_only_t_proxy": costs[len(costs) // 2],
         "scope": (
             "Counts classical arithmetic calls for decode, complementary-row "

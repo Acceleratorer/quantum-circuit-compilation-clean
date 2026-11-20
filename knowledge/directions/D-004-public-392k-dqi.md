@@ -648,3 +648,21 @@ permutation or a streamed schedule that reuses payload words. Continue only
 with such a layout and include its tag, phase, and cleanup costs in the full
 4+66 ledger. The helper is the unchanged Apache-2.0 port attributed in
 `src/dqi/NOTICE`; the run was private and the helper hash matched its manifest.
+
+### Three-sample streaming-label screen
+
+The source-owned `screen_fixed_shape_streaming_labels()` exhaustively checked
+1,568 GF(8) states for `G=1`, monic irreducible `A` of degree 2, and `B` of
+degree 1. Across all eight layouts formed by choosing three sample points and
+retaining either `A` coefficient, each key has a maximum fiber of four.
+Every layout has collisions with identical four-point branch history. A tag
+depending only on the discarded coefficient needs at least three bits, since
+the induced conflict graphs need 6 or 7 colors.
+
+The follow-up screen checked every GF(8)-linear form `u` of the three retained
+samples and retained coefficient, then every fixed rank-2 GF(2)-linear
+projection of `discarded * u(key)`. No two-bit label exists in this family for
+any of the eight layouts. Close the coordinate encoding, its branch-history
+and coefficient-only tags, and this fixed-projection bilinear family. A
+key-dependent projection, higher-degree tag, or different residual
+representation remains open; none of these GF(8) screens bounds GF(2^12).
