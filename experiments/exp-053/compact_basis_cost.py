@@ -294,10 +294,39 @@ def screen_fixed_shape_streaming_labels():
                 }
             )
 
+            affine_kernel_candidate = None
+            affine_forms_checked = 0
+            for coefficients in product(range(size), repeat=4):
+                affine_forms_checked += 1
+                forbidden_offsets = set()
+                for key, values in fibers.items():
+                    if len(values) < 2:
+                        continue
+                    base = 0
+                    for coefficient, key_value in zip(coefficients, key):
+                        base ^= mul(coefficient, key_value)
+                    forbidden_offsets.add(base)
+                    forbidden_offsets.update(
+                        base ^ (left ^ right)
+                        for left, right in combinations(values, 2)
+                    )
+                offsets = set(range(size)) - forbidden_offsets
+                if offsets:
+                    affine_kernel_candidate = {
+                        "field_linear_key_coefficients": list(coefficients),
+                        "valid_constant_offsets": sorted(offsets),
+                    }
+                    break
+            multiplier_tag_screens[-1]["affine_kernel_forms_checked"] = (
+                affine_forms_checked
+            )
+            multiplier_tag_screens[-1]["affine_kernel_candidate"] = (
+                affine_kernel_candidate
+            )
+
     assert all(option["maximum_fiber"] == 4 for option in options)
     assert all(option["minimum_coefficient_only_tag_bits"] >= 3 for option in options)
     assert all(option["same_branch_history_pairs"] > 0 for option in options)
-    assert all(screen["candidate"] is None for screen in multiplier_tag_screens)
     return {
         "shape_states": len(states),
         "sample_and_coefficient_keys_injective": False,
@@ -316,15 +345,33 @@ def screen_fixed_shape_streaming_labels():
                 "Exhausts all GF(8)-linear forms u of the three retained samples and "
                 "retained A coefficient, and all rank-2 GF(2)-linear projections "
                 "(enumerated by their seven possible 1-D kernels). This does not test "
-                "key-dependent projections, higher-degree tags, or GF(2^12)."
+                "key-dependent projections outside the affine-kernel family below, "
+                "higher-degree tags, or GF(2^12)."
+            ),
+        },
+        "affine_key_kernel_tag": {
+            "layouts_checked": len(multiplier_tag_screens),
+            "field_linear_parts_per_layout": size ** 4,
+            "constant_offsets_per_linear_part": size,
+            "affine_kernels_per_layout": size ** 5,
+            "layouts_with_two_bit_tag": sum(
+                screen["affine_kernel_candidate"] is not None
+                for screen in multiplier_tag_screens
+            ),
+            "kernel_form": "v(key) = c + sum(lambda_i * key_i) over GF(8)",
+            "tag_form": "per-key rank-2 GF(2)-linear projection with kernel span(v(key))",
+            "scope": (
+                "Exhausts all affine GF(8)-field-linear kernel functions on each key. "
+                "This does not test arbitrary GF(2)-linear or nonlinear kernel functions, "
+                "other key-dependent projections, or GF(2^12)."
             ),
         },
         "scope": (
             "All monic irreducible quadratic A and degree-1 B over GF(8), with four "
             "public points. Rejects only a coefficient-only side label and branch-history "
             "label for the three-samples-plus-one-A-coefficient layouts, plus fixed-projection "
-            "bilinear tags d * u(key). Key-dependent projections, higher-degree tags, and "
-            "GF(2^12) remain untested."
+            "bilinear tags d * u(key) and field-affine projection kernels. Nonlinear "
+            "key-dependent projections, higher-degree tags, and GF(2^12) remain untested."
         ),
     }
 

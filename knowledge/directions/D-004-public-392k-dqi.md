@@ -664,5 +664,12 @@ samples and retained coefficient, then every fixed rank-2 GF(2)-linear
 projection of `discarded * u(key)`. No two-bit label exists in this family for
 any of the eight layouts. Close the coordinate encoding, its branch-history
 and coefficient-only tags, and this fixed-projection bilinear family. A
-key-dependent projection, higher-degree tag, or different residual
-representation remains open; none of these GF(8) screens bounds GF(2^12).
+follow-up also exhausted all 32,768 affine GF(8)-field-linear kernel functions
+`v(key)=c+sum(lambda_i*key_i)`, allowing a different rank-2 projection per
+key; none labels the collision fibers. Arbitrary GF(2)-linear/nonlinear
+kernels, higher-degree tags, or a different residual representation remain
+open. None of these GF(8) screens bounds GF(2^12).
+
+Keep the next gate on the source-owned in-place four-sample factorization and
+its complete 4+66 width, Toffoli, phase, and cleanup schedule; the information
+screens are not circuit evidence.

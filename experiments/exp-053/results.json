@@ -207,14 +207,130 @@
       "same_branch_history_pairs_max": 231,
       "sample_and_coefficient_keys_injective": false,
       "bilinear_key_multiplier_tag": {
-        "field_linear_forms_checked_per_layout": 4096,
         "layouts_checked": 8,
         "layouts_with_two_bit_tag": 0,
+        "field_linear_forms_checked_per_layout": 4096,
         "projection_kernels_checked_per_form": 7,
-        "scope": "Exhausts all GF(8)-linear forms u of the three retained samples and retained A coefficient, and all rank-2 GF(2)-linear projections (enumerated by their seven possible 1-D kernels). This does not test key-dependent projections, higher-degree tags, or GF(2^12).",
-        "tag_form": "fixed 2-bit GF(2)-linear projection of d * u(key)"
+        "tag_form": "fixed 2-bit GF(2)-linear projection of d * u(key)",
+        "layout_results": [
+          {
+            "sample_points": [
+              0,
+              1,
+              2
+            ],
+            "retained_cofactor_a_coefficient": 0,
+            "collision_keys": 49,
+            "field_linear_forms_checked": 4096,
+            "candidate": null,
+            "affine_kernel_forms_checked": 4096,
+            "affine_kernel_candidate": null
+          },
+          {
+            "sample_points": [
+              0,
+              1,
+              2
+            ],
+            "retained_cofactor_a_coefficient": 1,
+            "collision_keys": 49,
+            "field_linear_forms_checked": 4096,
+            "candidate": null,
+            "affine_kernel_forms_checked": 4096,
+            "affine_kernel_candidate": null
+          },
+          {
+            "sample_points": [
+              0,
+              1,
+              3
+            ],
+            "retained_cofactor_a_coefficient": 0,
+            "collision_keys": 49,
+            "field_linear_forms_checked": 4096,
+            "candidate": null,
+            "affine_kernel_forms_checked": 4096,
+            "affine_kernel_candidate": null
+          },
+          {
+            "sample_points": [
+              0,
+              1,
+              3
+            ],
+            "retained_cofactor_a_coefficient": 1,
+            "collision_keys": 49,
+            "field_linear_forms_checked": 4096,
+            "candidate": null,
+            "affine_kernel_forms_checked": 4096,
+            "affine_kernel_candidate": null
+          },
+          {
+            "sample_points": [
+              0,
+              2,
+              3
+            ],
+            "retained_cofactor_a_coefficient": 0,
+            "collision_keys": 49,
+            "field_linear_forms_checked": 4096,
+            "candidate": null,
+            "affine_kernel_forms_checked": 4096,
+            "affine_kernel_candidate": null
+          },
+          {
+            "sample_points": [
+              0,
+              2,
+              3
+            ],
+            "retained_cofactor_a_coefficient": 1,
+            "collision_keys": 49,
+            "field_linear_forms_checked": 4096,
+            "candidate": null,
+            "affine_kernel_forms_checked": 4096,
+            "affine_kernel_candidate": null
+          },
+          {
+            "sample_points": [
+              1,
+              2,
+              3
+            ],
+            "retained_cofactor_a_coefficient": 0,
+            "collision_keys": 49,
+            "field_linear_forms_checked": 4096,
+            "candidate": null,
+            "affine_kernel_forms_checked": 4096,
+            "affine_kernel_candidate": null
+          },
+          {
+            "sample_points": [
+              1,
+              2,
+              3
+            ],
+            "retained_cofactor_a_coefficient": 1,
+            "collision_keys": 49,
+            "field_linear_forms_checked": 4096,
+            "candidate": null,
+            "affine_kernel_forms_checked": 4096,
+            "affine_kernel_candidate": null
+          }
+        ],
+        "scope": "Exhausts all GF(8)-linear forms u of the three retained samples and retained A coefficient, and all rank-2 GF(2)-linear projections (enumerated by their seven possible 1-D kernels). This does not test key-dependent projections, higher-degree tags, or GF(2^12)."
       },
-      "scope": "Exhaustive GF(8) screen of all monic irreducible quadratic A and degree-1 B. Rejects branch-history, coefficient-only, and fixed-projection bilinear tags d*u(key) for the tested three-samples-plus-one-A-coefficient layouts. Key-dependent projections, higher-degree tags, and GF(2^12) remain untested.",
+      "affine_key_kernel_tag": {
+        "layouts_checked": 8,
+        "field_linear_parts_per_layout": 4096,
+        "constant_offsets_per_linear_part": 8,
+        "affine_kernels_per_layout": 32768,
+        "layouts_with_two_bit_tag": 0,
+        "kernel_form": "v(key) = c + sum(lambda_i * key_i) over GF(8)",
+        "tag_form": "per-key rank-2 GF(2)-linear projection with kernel span(v(key))",
+        "scope": "Exhausts all affine GF(8)-field-linear kernel functions on each key. This does not test arbitrary GF(2)-linear or nonlinear kernel functions, other key-dependent projections, or GF(2^12)."
+      },
+      "scope": "All monic irreducible quadratic A and degree-1 B over GF(8), with four public points. Rejects only a coefficient-only side label and branch-history label for the three-samples-plus-one-A-coefficient layouts, plus fixed-projection bilinear tags d * u(key) and field-affine projection kernels. Nonlinear key-dependent projections, higher-degree tags, and GF(2^12) remain untested.",
       "shape_states": 1568
     }
   },

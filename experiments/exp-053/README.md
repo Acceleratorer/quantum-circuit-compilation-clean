@@ -187,9 +187,15 @@ This closes the simple branch-history and coefficient-only tags for this
 coordinate layout. A second exhaustive screen checked all 4,096 GF(8)-linear
 forms of the three retained samples and retained coefficient, with every
 possible fixed 2-bit linear projection of `discarded * u(key)`. None labels
-the collision fibers in any of the eight layouts. This only closes that
-bilinear tag family; it does not rule out key-dependent projections,
-higher-degree tags, another residual representation, or a GF(2^12) circuit.
+the collision fibers in any of the eight layouts. I also searched all 32,768
+affine GF(8)-field-linear kernel functions `v(key)=c+Σ λᵢ keyᵢ`, allowing the
+two-bit projection to vary with the key; none works in any layout. Arbitrary
+GF(2)-linear or nonlinear kernels, higher-degree tags, another residual
+representation, and a GF(2^12) circuit remain open.
+
+The next 4+66 gate is the source-owned in-place reversible map from four
+samples to this factorized state, followed by a full width, Toffoli, phase, and
+cleanup ledger.
 
 ### Fixed-shape decoder circuit screen
 
