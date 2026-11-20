@@ -68,6 +68,26 @@ def advance_rank(rank1, rank2, branch):
     return (rank2, rank1 + 2) if branch else (rank1, rank2 + 2)
 
 
+def encode_step(matrix, sample, order, mul=multiply, inv=inverse):
+    a, b, c, d = matrix
+    numerator = mul(a, sample) ^ b
+    denominator = mul(c, sample) ^ d
+    branch = denominator == 0 or (numerator != 0 and order)
+    if branch:
+        assert numerator != 0
+        ratio = mul(denominator, inv(numerator))
+    else:
+        assert denominator != 0
+        ratio = mul(numerator, inv(denominator))
+    sentinel = sentinel_for(matrix, order, mul, inv)
+    label = (
+        sentinel
+        if sentinel is not None and numerator == 0 and not branch
+        else ratio
+    )
+    return label, ratio, branch
+
+
 def encode(samples, points=POINTS, mul=multiply, inv=inverse):
     if len(samples) != len(points):
         raise ValueError("samples and points must have equal length")
@@ -78,25 +98,8 @@ def encode(samples, points=POINTS, mul=multiply, inv=inverse):
 
     for pivot, sample in enumerate(samples):
         matrix = prefix_matrix(pivot, ratios, branches, points, mul)
-        a, b, c, d = matrix
-        numerator = mul(a, sample) ^ b
-        denominator = mul(c, sample) ^ d
         order = rank1 < rank2
-
-        branch = denominator == 0 or (numerator != 0 and order)
-        if branch:
-            assert numerator != 0
-            ratio = mul(denominator, inv(numerator))
-        else:
-            assert denominator != 0
-            ratio = mul(numerator, inv(denominator))
-
-        sentinel = sentinel_for(matrix, order, mul, inv)
-        label = (
-            sentinel
-            if sentinel is not None and numerator == 0 and not branch
-            else ratio
-        )
+        label, ratio, branch = encode_step(matrix, sample, order, mul, inv)
         labels.append(label)
         ratios.append(ratio)
         branches.append(branch)
@@ -264,10 +267,46 @@ def screen_gf12_dqi():
     }
 
 
+def screen_transition_collision():
+    identity = (1, 0, 0, 1)
+    row_swap = (0, 1, 1, 0)
+    order, delta, sample = False, 1, 0
+    left_label, left_ratio, left_branch = encode_step(identity, sample, order)
+    right_label, right_ratio, right_branch = encode_step(row_swap, sample, order)
+    left = (
+        apply_pivot(identity, left_ratio, left_branch, delta),
+        left_label,
+    )
+    right = (
+        apply_pivot(row_swap, right_ratio, right_branch, delta),
+        right_label,
+    )
+    assert left == right == (identity, 0)
+    return {
+        "field": "GF(8)",
+        "rank_order": order,
+        "delta": delta,
+        "input_states": [
+            {"matrix": list(identity), "sample": sample},
+            {"matrix": list(row_swap), "sample": sample},
+        ],
+        "common_output_matrix": list(identity),
+        "common_label": 0,
+        "joint_update_injective": False,
+        "result": "COLLISION",
+        "scope": (
+            "A single fixed-determinant counterexample shows that the local "
+            "per-prefix label bijection does not make the joint matrix/sample "
+            "update reversible without additional state."
+        ),
+    }
+
+
 def screen():
     return {
         "gf8_exhaustive": screen_gf8(),
         "gf12_dqi_samples": screen_gf12_dqi(),
+        "joint_update_collision": screen_transition_collision(),
     }
 
 

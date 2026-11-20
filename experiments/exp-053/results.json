@@ -616,7 +616,20 @@
       "round_trip_errors": 0,
       "valid_dqi_samples": 48
     },
-    "scope": "Classical bijection only: exhaustive four-sample GF(8) plus 48 valid 70-symbol GF(2^12) DQI samples. No reversible circuit, full schedule, or resource count is established."
+    "joint_update_collision": {
+      "common_label": 0,
+      "common_output_matrix": [1, 0, 0, 1],
+      "delta": 1,
+      "field": "GF(8)",
+      "input_states": [
+        {"matrix": [1, 0, 0, 1], "sample": 0},
+        {"matrix": [0, 1, 1, 0], "sample": 0}
+      ],
+      "joint_update_injective": false,
+      "rank_order": false,
+      "result": "COLLISION"
+    },
+    "scope": "Local classical bijection only: exhaustive four-sample GF(8) plus 48 valid 70-symbol GF(2^12) DQI samples. The joint matrix/sample transition has a fixed-determinant collision, so no reversible branch-free circuit or resource count is established."
   },
   "result": "PASS",
   "scope": "Classical recurrence, one compiled normalized pair cell, one compiled fixed-shape out-of-place decoder, the in-place ratio/history sample eraser, and a full-input-compatible four-pivot prefix. This is not a complete 70-symbol reversible schedule, and the naive full pair bank exceeds Q=890."

@@ -2,11 +2,11 @@
 id: exp-053
 title: Pivot-normalized FMA recurrence screen
 task: dqi
-tests: exhaustive GF(8) four-sample inputs; all 97,119 valid GF(8) eight-point patterns; 655,360 transformed GF(8) block states; 48 seeded GF(2^12) DQI samples; 32 compiled pair-cell cases; exhaustive GF(8) and 48 GF(2^12) projective sentinel cases
+tests: exhaustive GF(8) four-sample inputs; all 97,119 valid GF(8) eight-point patterns; 655,360 transformed GF(8) block states; 48 seeded GF(2^12) DQI samples; 32 compiled pair-cell cases; exhaustive GF(8) and 48 GF(2^12) sentinel-label cases; fixed-determinant transition counterexample
 direction: D-004
 status: in_place_ratio_screen
 date: 2026-11-20
-result: full-input four-pivot encoder is Q=902, T=3,200; projective sentinel labels round-trip 4,096 GF(8) vectors and 48 valid 70-symbol GF(2^12) samples; the reversible circuit is unbuilt
+result: full-input four-pivot encoder is Q=902, T=3,200; sentinel labels are locally bijective but a fixed-determinant transition collision means they do not alone erase branch history
 ---
 
 # Pivot-normalized FMA recurrence
@@ -293,6 +293,12 @@ were bijective. A further 48 valid 70-symbol GF(2^12) DQI samples round-tripped;
 their raw ratios and branch histories matched the independent direct recurrence.
 This is classical evidence only; the reversible circuit, branch oracle, and
 full resource schedule remain unbuilt. Results are in [`results.json`](results.json).
+
+The local bijection does not prove that branch bits can be erased after the
+prefix matrix advances. In GF(8), with rank order false and `delta=1`, both
+`(I, x=0)` and `(swap-rows(I), x=0)` update to the same matrix `I` and label
+zero. This collision shows that the sentinel label alone does not make the
+joint matrix/sample update reversible. It is not a circuit candidate.
 
 ## Limit
 
