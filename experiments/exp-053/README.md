@@ -153,6 +153,15 @@ maxima gives an 11,508T arithmetic-only screen. Charged additively against the
 is only a feasibility screen: it may overlap the FMA ledger and is not a
 compiled reversible circuit or a width, phase, or cleanup bound.
 
+The seeded GF(2^12) DQI screen samples 48 valid four-symbol prefixes from
+weight-1, weight-31, and weight-35 errors. After the low row is formed and
+normalized, factorization, sample recovery, and branch replay cost a mean
+4,822.25T and a maximum 5,238T under the same arithmetic-only proxy. The
+maximum is close to the earlier 5,282T headroom estimate, so this path has
+little room for omitted gates. The low-row construction is excluded; this is
+not a compiled circuit or a full 4+66 resource bound. The reproducible result
+is stored as `gf12_dqi_cost_proxy` in `results.json`.
+
 The factorized tuple has at most 14 degree layouts and packs into four field
 words plus a four-bit shape tag. The tag fits in the unused high bits of the
 8-bit rank1 register at the four-point split (rank1 is at most 7), with one

@@ -164,6 +164,144 @@ def screen_gf12_codec(samples=2048):
     }
 
 
+def screen_gf12_dqi_cost_proxy():
+    """Count the factorized-state branch-recovery proxy on DQI samples."""
+    import normalized_fma
+
+    degree, modulus = 12, 0x1053
+    points, all_points = list(range(4)), list(range(70))
+    multiply = lambda left, right: fma.gf_mul(left, right, modulus, degree)
+    rng = Random(0xF1A053)
+    original_mul, original_inv = fma.gf_mul, fma.gf_inv
+    inverse_body = original_inv.__wrapped__
+    records = []
+
+    def proxy(counts):
+        return counts["field_multiply_calls"] * 42 + counts["inverse_calls"] * 138
+
+    for weight in (1, 31, 35):
+        for _ in range(16):
+            locations = rng.sample(range(1, 1 << degree), weight)
+            magnitudes = [rng.randrange(1, 1 << degree) for _ in locations]
+            syndrome = [0] * len(all_points)
+            for location, magnitude in zip(locations, magnitudes):
+                power = location
+                for index in range(len(all_points)):
+                    syndrome[index] ^= multiply(magnitude, power)
+                    power = multiply(power, location)
+            data = tuple(
+                fma.syndrome_to_fma_samples(syndrome, all_points, multiply)[:4]
+            )
+
+            basis = fma.modular_basis(data, points, multiply)
+            low_index = min(range(2), key=lambda i: fma.row_rank(basis, i))
+            row = [fma.trim(list(poly)) for poly in basis[low_index]]
+            pivot = row[0][-1] if row[0] != [0] else row[1][-1]
+            scale = fma.gf_inv(pivot, modulus, degree)
+            row = tuple(
+                tuple(fma.trim([multiply(scale, value) for value in poly]))
+                for poly in row
+            )
+
+            counts = {"field_multiply_calls": 0, "inverse_calls": 0}
+
+            def counted_mul(left, right, mod, bits):
+                counts["field_multiply_calls"] += 1
+                return original_mul(left, right, mod, bits)
+
+            def counted_inv(value, mod, bits):
+                counts["inverse_calls"] += 1
+                current_mul = fma.gf_mul
+                fma.gf_mul = original_mul
+                try:
+                    return inverse_body(value, mod, bits)
+                finally:
+                    fma.gf_mul = current_mul
+
+            fma.gf_mul, fma.gf_inv = counted_mul, counted_inv
+            try:
+                gcd, _, _ = fma.poly_xgcd(row[0], row[1], multiply, modulus, degree)
+                cofactor_w, remainder = fma.poly_divmod(
+                    row[0], gcd, multiply, modulus, degree
+                )
+                assert remainder == [0]
+                cofactor_n, remainder = fma.poly_divmod(
+                    row[1], gcd, multiply, modulus, degree
+                )
+                assert remainder == [0]
+                roots = tuple(
+                    data[index]
+                    for index, point in enumerate(points)
+                    if fma.poly_eval(gcd, point, multiply) == 0
+                )
+                shape_id, words = pack_factorized_state(
+                    gcd, cofactor_w, cofactor_n, roots
+                )
+                factorize = dict(counts)
+
+                counts = {"field_multiply_calls": 0, "inverse_calls": 0}
+                decoded = unpack_factorized_state(words, shape_id)
+                recovered = recover_factorized_samples(
+                    *decoded, points, multiply, modulus, degree
+                )
+                assert recovered == list(data)
+                recover = dict(counts)
+
+                counts = {"field_multiply_calls": 0, "inverse_calls": 0}
+                normalized_fma.replayed_ratios(data, points, modulus, degree)
+                replay = dict(counts)
+            finally:
+                fma.gf_mul, fma.gf_inv = original_mul, original_inv
+
+            stages = {"factorize": factorize, "recover": recover, "replay": replay}
+            stage_t = {name: proxy(count) for name, count in stages.items()}
+            records.append(
+                {
+                    "weight": weight,
+                    "shape": FACTOR_SHAPES[shape_id],
+                    "factorization_t_proxy": stage_t["factorize"],
+                    "sample_recovery_t_proxy": stage_t["recover"],
+                    "branch_replay_t_proxy": stage_t["replay"],
+                    "total_t_proxy": sum(stage_t.values()),
+                }
+            )
+
+    return {
+        "cases": len(records),
+        "weights": [1, 31, 35],
+        "shape_counts": {
+            str(shape): sum(record["shape"] == shape for record in records)
+            for shape in sorted({record["shape"] for record in records})
+        },
+        "mean_t_proxy": {
+            name: sum(record[name] for record in records) / len(records)
+            for name in (
+                "factorization_t_proxy",
+                "sample_recovery_t_proxy",
+                "branch_replay_t_proxy",
+                "total_t_proxy",
+            )
+        },
+        "maximum_t_proxy": {
+            name: max(record[name] for record in records)
+            for name in (
+                "factorization_t_proxy",
+                "sample_recovery_t_proxy",
+                "branch_replay_t_proxy",
+                "total_t_proxy",
+            )
+        },
+        "scope": (
+            "Arithmetic-only GF(2^12) proxy over 48 seeded valid 70-symbol DQI "
+            "samples. The low row is formed classically, then factorization, "
+            "sample recovery, and branch replay are counted separately. Each "
+            "field multiply is charged 42T and each inverse 138T; multipliers "
+            "inside an inverse are not double-counted. This is not a compiled "
+            "circuit or a full 4+66 resource bound."
+        ),
+    }
+
+
 def chromatic_number(adjacency):
     """Return the exact chromatic number of the small GF(8) conflict graph."""
     order = sorted(range(len(adjacency)), key=lambda vertex: len(adjacency[vertex]), reverse=True)
@@ -626,6 +764,7 @@ def screen() -> dict[str, object]:
             "field_multiply_call_t": 42,
             "inverse_call_t": 138,
         },
+        "gf12_dqi_cost_proxy": screen_gf12_dqi_cost_proxy(),
         "maximum": records[0],
         "materialized_basis": {
             "maximum_coefficient_words": max_basis_words,

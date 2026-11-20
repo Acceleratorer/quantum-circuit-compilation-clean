@@ -332,6 +332,32 @@
       },
       "scope": "All monic irreducible quadratic A and degree-1 B over GF(8), with four public points. Rejects only a coefficient-only side label and branch-history label for the three-samples-plus-one-A-coefficient layouts, plus fixed-projection bilinear tags d * u(key) and field-affine projection kernels. Nonlinear key-dependent projections, higher-degree tags, and GF(2^12) remain untested.",
       "shape_states": 1568
+    },
+    "gf12_dqi_cost_proxy": {
+      "cases": 48,
+      "weights": [
+        1,
+        31,
+        35
+      ],
+      "shape_counts": {
+        "(0, 0, -1)": 1,
+        "(0, 1, 0)": 15,
+        "(0, 2, 1)": 32
+      },
+      "mean_t_proxy": {
+        "factorization_t_proxy": 1985.75,
+        "sample_recovery_t_proxy": 1612.5,
+        "branch_replay_t_proxy": 1224.0,
+        "total_t_proxy": 4822.25
+      },
+      "maximum_t_proxy": {
+        "factorization_t_proxy": 2286,
+        "sample_recovery_t_proxy": 1728,
+        "branch_replay_t_proxy": 1224,
+        "total_t_proxy": 5238
+      },
+      "scope": "Arithmetic-only GF(2^12) proxy over 48 seeded valid 70-symbol DQI samples. The low row is formed classically, then factorization, sample recovery, and branch replay are counted separately. Each field multiply is charged 42T and each inverse 138T; multipliers inside an inverse are not double-counted. This is not a compiled circuit or a full 4+66 resource bound."
     }
   },
   "compact_history_budget_screen": {
@@ -386,10 +412,26 @@
     "kernel_version": 9,
     "phase_flips": 0,
     "pivots": [
-      {"pivot": 0, "toffoli_like_gates": 208, "sample_cleared": true},
-      {"pivot": 1, "toffoli_like_gates": 320, "sample_cleared": true},
-      {"pivot": 2, "toffoli_like_gates": 432, "sample_cleared": true},
-      {"pivot": 3, "toffoli_like_gates": 540, "sample_cleared": true}
+      {
+        "pivot": 0,
+        "toffoli_like_gates": 208,
+        "sample_cleared": true
+      },
+      {
+        "pivot": 1,
+        "toffoli_like_gates": 320,
+        "sample_cleared": true
+      },
+      {
+        "pivot": 2,
+        "toffoli_like_gates": 432,
+        "sample_cleared": true
+      },
+      {
+        "pivot": 3,
+        "toffoli_like_gates": 540,
+        "sample_cleared": true
+      }
     ],
     "qubit_limit": 890,
     "rank_workspace_borrowed_qubits": 4,
@@ -608,7 +650,11 @@
     },
     "gf12_dqi_samples": {
       "branch_history_matches_reference": true,
-      "error_weights": [1, 31, 35],
+      "error_weights": [
+        1,
+        31,
+        35
+      ],
       "field": "GF(2^12)",
       "points": 70,
       "raw_ratios_match_reference": true,
@@ -618,12 +664,33 @@
     },
     "joint_update_collision": {
       "common_label": 0,
-      "common_output_matrix": [1, 0, 0, 1],
+      "common_output_matrix": [
+        1,
+        0,
+        0,
+        1
+      ],
       "delta": 1,
       "field": "GF(8)",
       "input_states": [
-        {"matrix": [1, 0, 0, 1], "sample": 0},
-        {"matrix": [0, 1, 1, 0], "sample": 0}
+        {
+          "matrix": [
+            1,
+            0,
+            0,
+            1
+          ],
+          "sample": 0
+        },
+        {
+          "matrix": [
+            0,
+            1,
+            1,
+            0
+          ],
+          "sample": 0
+        }
       ],
       "joint_update_injective": false,
       "rank_order": false,
