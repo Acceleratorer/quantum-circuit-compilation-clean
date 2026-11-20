@@ -126,3 +126,25 @@ building it.
   salts and targeted checks for known counterexamples.
 - The candidate beats `28.14028` before replacing the current submission.
 - Record the completed Kaggle submission and a dated public leaderboard rank.
+
+## 2026-11-20 FMA pivot-replay update
+
+`exp-053` verifies that each pivot can be recomputed from its pristine sample
+and prior normalized ratios with the same 2,415 variable products as the direct
+suffix update. This is a pair-bank liveness lead only. The ratio sequence is
+non-injective in the exhaustive GF(8) screen (maximum fiber 8), and the valid
+70-symbol sample screen saw up to 69 zero ratios at weight 1. A reversible
+branch/phase label and final basis-generation schedule remain open; no full
+circuit or submission is ready.
+
+The same screen caught and fixed an output-order bug in the swap branch of the
+compiled pair cell. The corrected cell now matches the classical recurrence at
+`Q=888, T=300`; the cost projection falls to `202,075T`, leaving `54,868T`
+before the still-unbuilt width, phase, and cleanup schedule.
+
+The updated GF(8) screen found that ratio plus full branch history uniquely
+labels all 4,096 four-sample inputs. A rank-comparison default still needs up to
+69 exception bits in the sampled GF(2^12) weight-one case, so it does not
+resolve the 50-qubit history/workspace limit. Across 16 samples per weight, the
+screen saw 2/1/3 distinct exception masks for weights 1/31/35; the final rank
+pair did not distinguish masks at weights 1 or 35.

@@ -539,25 +539,52 @@ they preserve row rank and pivot zero classes. Exhaustive GF(8), four-sample
 inputs and 48 seeded GF(2^12), 70-symbol DQI samples matched the reference
 branch history, row ranks, and normalized low row.
 
-Canonicalizing the pivot and each data pair with branch-controlled swaps gives
-one shared update: swap `(d,g)` when the branch is swap, apply
-`d ^= r*g; g *= delta`, then swap back. The two pair swaps cost 24T per suffix
+For a swap branch, one controlled input swap followed by the shared update
+`d ^= r*g; g *= delta` yields the FMA-ordered output pair; a second pair swap
+would incorrectly reverse the output. The one input swap costs 12T per suffix
 update. The ratio is computed and uncomputed with two products per pivot. The
 existing in-place inverse uses 66T forward and 72T to restore the pivot; pivot
 orientation adds 24T. Thus the 70-symbol arithmetic ledger is 2,415 pair
-products, 140 ratio products, 70 inverse/restore pairs, 57,960T of pair swaps,
-and 1,680T of pivot swaps: 176,610T.
+products, 140 ratio products, 70 inverse/restore pairs, 28,980T of pair input
+swaps, and 1,680T of pivot swaps: 147,630T.
 
-`exp-053` compiled this one-pair cell at `Q=888, T=312`, preserving 16 rank
+`exp-053` compiled the corrected one-pair cell at `Q=888, T=300`, preserving 16 rank
 bits and a branch bit. Kickmix simulated 32 valid pivot cases across both
 branches; pivot values were restored, all 31 scratch qubits were clean, and no
 phase flips occurred. This cell does not build the 4+66 state schedule. Adding
 the existing sampled reconstruction ledger, 45,045T scan, and 5,530T
-branch/rank cell projects 231,055T, leaving 25,888T under the saved gate. The
-previous 166,585T projection omitted ratio cleanup and controlled swaps.
+branch/rank cell projects 202,075T, leaving 54,868T under the saved gate. This
+still excludes the 4+66 width schedule and uncounted phase work.
 
 The direct pair bank remains 1,668 qubits before ratio workspace, 778 above
 `Q=890`. The remaining gate is a complete 4+66 schedule that generates and
 consumes each pair from the compact payload and proves ratio, branch, rank,
 phase, and workspace liveness. The corrected count is still a projection; no
 full circuit or submission exists.
+
+### Pivot replay from one-word samples
+
+`exp-053` now checks a streamed pivot calculation: for pivot `j`, replay the
+prior normalized updates from pristine `d_j` using the earlier ratios and
+branches. The exact variable-product count is `sum(j)=2,415`, equal to the
+direct suffix-update count, so this avoids keeping the expanded pair bank if
+the ratios can replace the consumed samples. Replay matched the direct
+recurrence on all 4,096 arbitrary GF(8) four-sample inputs and 48 valid
+GF(2^12), 70-symbol DQI samples.
+
+The ratio sequence alone is not a reversible encoding: the GF(8) screen has
+3,052 ratio vectors for 4,096 inputs, with a maximum fiber of 8 and up to 8
+branch histories per vector. In the 48 sampled DQI cases, weight-one inputs
+had as many as 69 zero ratios. The branch/phase label therefore cannot be
+handled as a zero-ratio bitmask without a stronger bound. No circuit liveness
+or output-generation schedule has been established; the remaining task is a
+compact reversible label and its cleanup within the 50-qubit workspace.
+
+The screen now also shows that ratios plus the complete branch history label
+all 4,096 GF(8) four-sample inputs uniquely. A rank-comparison default does not
+make that history sparse: the sampled GF(2^12) cases had up to 69 branch
+exceptions at weight 1, 8 at weight 31, and 1 at weight 35. This is not a
+bound for all valid inputs and does not supply the reversible encoder. Across
+16 samples per weight, the screen saw 2, 1, and 3 distinct exception masks at
+weights 1, 31, and 35. The final rank pair did not identify the mask at weights
+1 or 35, so the small sample does not reduce the history to rank state alone.

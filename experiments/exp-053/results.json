@@ -6,14 +6,54 @@
     "compiled_qubits": 888,
     "delta": 17,
     "phase_flips": 0,
-    "toffoli_like_gates": 312
+    "toffoli_like_gates": 300
   },
   "experiment": "exp-053",
   "normalized_fma_screen": {
     "branch_history_matches_reference": true,
     "gf12_valid_70_symbol_samples": {
       "cases": 48,
+      "distinct_final_rank_pairs_by_weight": {
+        "1": 1,
+        "31": 1,
+        "35": 1
+      },
+      "distinct_rank_rule_exception_masks_by_weight": {
+        "1": 2,
+        "31": 1,
+        "35": 3
+      },
+      "exception_mask_unique_for_final_rank_by_weight": {
+        "1": false,
+        "31": true,
+        "35": false
+      },
+      "max_rank_rule_exceptions_by_weight": {
+        "1": 69,
+        "31": 8,
+        "35": 1
+      },
+      "max_zero_ratios_by_weight": {
+        "1": 69,
+        "31": 8,
+        "35": 1
+      },
       "per_error_weight": 16,
+      "rank_rule_exception_masks_hex_by_weight": {
+        "1": [
+          "0x3ffffffffbffffffff",
+          "0x3ffffffffffffffffc"
+        ],
+        "31": [
+          "0x3fc000000000000000"
+        ],
+        "35": [
+          "0x0",
+          "0x4000000",
+          "0x200000000000000"
+        ]
+      },
+      "replayed_pair_products_per_case": 2415,
       "weights": [
         1,
         31,
@@ -21,14 +61,33 @@
       ]
     },
     "gf8_all_four_sample_vectors": 4096,
+    "gf8_ratio_replay": {
+      "cases": 4096,
+      "distinct_ratio_history_pairs": 4096,
+      "distinct_ratio_vectors": 3052,
+      "max_rank_rule_exceptions": 4,
+      "maximum_branch_histories_per_ratio_vector": 8,
+      "maximum_input_fiber": 8,
+      "maximum_input_fiber_from_ratio_history": 1,
+      "rank_rule_exception_histogram": {
+        "0": 2492,
+        "1": 1302,
+        "2": 273,
+        "3": 28,
+        "4": 1
+      },
+      "ratio_and_history_are_injective": true,
+      "ratio_vector_is_injective": false,
+      "replayed_pair_products_per_case": 6
+    },
     "normalized_low_row_matches_reference": true,
     "row_ranks_match_reference": true
   },
   "resource_screen": {
     "branch_rank_toffolis": 5530,
-    "controlled_swap_toffolis_per_pair_update": 24,
+    "controlled_swap_toffolis_per_pair_update": 12,
     "controlled_swap_toffolis_per_pivot": 24,
-    "fma_arithmetic_toffolis": 176610,
+    "fma_arithmetic_toffolis": 147630,
     "gate_toffolis": 256943,
     "inverse_forward_toffolis": 66,
     "inverse_restore_toffolis": 72,
@@ -36,16 +95,16 @@
     "naive_pair_bank_over_limit": 778,
     "pair_updates": 2415,
     "points": 70,
-    "projected_margin": 25888,
-    "projected_total_toffolis": 231055,
+    "projected_margin": 54868,
+    "projected_total_toffolis": 202075,
     "qubit_limit": 890,
     "ratio_inversions": 70,
     "ratio_products_to_compute_and_clear": 140,
     "root_scan_toffolis": 45045,
     "sampled_reconstruction_toffolis_assumption": 3870,
-    "scope": "Count projection includes ratio cleanup, branch-controlled canonicalizing swaps, and the measured in-place inverse cell. It assumes the existing sampled reconstruction, scan, and branch/rank costs. It excludes the 4+66 width schedule and any uncounted phase work.",
+    "scope": "Count projection includes ratio cleanup, branch-controlled pair input swaps, and the measured in-place inverse cell. It assumes the existing sampled reconstruction, scan, and branch/rank costs. It excludes the 4+66 width schedule and any uncounted phase work.",
     "single_pair_cell_qubits": 888,
-    "single_pair_cell_toffolis": 312,
+    "single_pair_cell_toffolis": 300,
     "variable_products": 2555
   },
   "result": "PASS",

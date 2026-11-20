@@ -19,18 +19,21 @@ import fma_state_compression as fma
 def normalized_state(data, points, mul, modulus, degree):
     d, g = list(data), [1] * len(data)
     basis = [[[1], [0]], [[0], [1]]]
-    rank1, rank2, history = 0, 1, 0
+    rank1, rank2, history, rank_exceptions = 0, 1, 0, 0
+    ratios = []
 
     for j, point in enumerate(points):
         dj, gj = d[j], g[j]
         swap = gj == 0 or (dj != 0 and rank1 < rank2)
         history |= int(swap) << j
+        rank_exceptions |= int(swap != (rank1 < rank2)) << j
 
         if swap:
             assert dj != 0
             ratio = fma.gf_mul(
                 gj, fma.gf_inv(dj, modulus, degree), modulus, degree
             )
+            ratios.append(ratio)
             step = [[[ratio], [1]], [[point, 1], [0]]]
             for i in range(j + 1, len(points)):
                 old_d, old_g = d[i], g[i]
@@ -42,6 +45,7 @@ def normalized_state(data, points, mul, modulus, degree):
             ratio = fma.gf_mul(
                 dj, fma.gf_inv(gj, modulus, degree), modulus, degree
             )
+            ratios.append(ratio)
             step = [[[1], [ratio]], [[0], [point, 1]]]
             for i in range(j + 1, len(points)):
                 old_d, old_g = d[i], g[i]
@@ -51,7 +55,48 @@ def normalized_state(data, points, mul, modulus, degree):
 
         basis = fma.matrix_mul(step, basis, mul)
 
-    return d, g, history, basis
+    return d, g, history, rank_exceptions, basis, tuple(ratios), (rank1, rank2)
+
+
+def replayed_ratios(data, points, modulus, degree):
+    """Overwrite each sample with its ratio and replay prior branch updates."""
+    state, branches = list(data), []
+    rank1, rank2 = 0, 1
+    pair_products, rank_exceptions = 0, 0
+
+    for j, point in enumerate(points):
+        d, g = state[j], 1
+        for k in range(j):
+            ratio = state[k]
+            delta = points[j] ^ points[k]
+            old_d = d
+            if branches[k]:
+                d = fma.gf_mul(ratio, old_d, modulus, degree) ^ g
+                g = fma.gf_mul(delta, old_d, modulus, degree)
+            else:
+                d ^= fma.gf_mul(ratio, g, modulus, degree)
+                g = fma.gf_mul(delta, g, modulus, degree)
+            pair_products += 1
+
+        assert d or g
+        swap = g == 0 or (d != 0 and rank1 < rank2)
+        rank_exceptions |= int(swap != (rank1 < rank2)) << j
+        if swap:
+            assert d != 0
+            ratio = fma.gf_mul(
+                g, fma.gf_inv(d, modulus, degree), modulus, degree
+            )
+            rank1, rank2 = rank2, rank1 + 2
+        else:
+            assert g != 0
+            ratio = fma.gf_mul(
+                d, fma.gf_inv(g, modulus, degree), modulus, degree
+            )
+            rank2 += 2
+        state[j] = ratio
+        branches.append(swap)
+
+    return tuple(state), tuple(branches), pair_products, rank_exceptions
 
 
 def normalized_low_row(basis, mul, modulus, degree):
@@ -67,9 +112,17 @@ def normalized_low_row(basis, mul, modulus, degree):
 
 def compare_to_reference(data, points, mul, modulus, degree):
     reference = fma.modular_basis(data, points, mul)
-    _, _, history, candidate = normalized_state(
-        data, points, mul, modulus, degree
+    (
+        _, _, history, rank_exceptions, candidate, ratios, final_ranks
+    ) = normalized_state(data, points, mul, modulus, degree)
+    replay, replay_history, pair_products, replay_exceptions = replayed_ratios(
+        data, points, modulus, degree
     )
+    assert (replay, replay_history) == (ratios, tuple(
+        (history >> j) & 1 for j in range(len(points))
+    ))
+    assert pair_products == len(points) * (len(points) - 1) // 2
+    assert rank_exceptions == replay_exceptions
     assert history == fma.sequential_state(data, points, mul)[2]
     fma.assert_basis(data, [1] * len(points), points, candidate, mul)
     assert sorted(fma.row_rank(reference, row) for row in range(2)) == sorted(
@@ -78,16 +131,51 @@ def compare_to_reference(data, points, mul, modulus, degree):
     assert normalized_low_row(reference, mul, modulus, degree) == (
         normalized_low_row(candidate, mul, modulus, degree)
     )
+    return ratios, replay_history, rank_exceptions, final_ranks
 
 
 def screen_gf8_four_samples():
     degree, modulus, points = 3, 0b1011, list(range(4))
     mul = lambda a, b: fma.gf_mul(a, b, modulus, degree)
     cases = 0
+    ratio_fibers = {}
+    ratio_history_fibers = {}
+    exception_histogram = {}
     for data in product(range(1 << degree), repeat=len(points)):
-        compare_to_reference(data, points, mul, modulus, degree)
+        ratios, history, exception_mask, _ = compare_to_reference(
+            data, points, mul, modulus, degree
+        )
+        fiber = ratio_fibers.setdefault(ratios, [0, set()])
+        fiber[0] += 1
+        fiber[1].add(history)
+        ratio_history_fibers[(ratios, history)] = (
+            ratio_history_fibers.get((ratios, history), 0) + 1
+        )
+        exception_count = exception_mask.bit_count()
+        exception_histogram[exception_count] = (
+            exception_histogram.get(exception_count, 0) + 1
+        )
         cases += 1
-    return cases
+    return {
+        "cases": cases,
+        "distinct_ratio_vectors": len(ratio_fibers),
+        "maximum_input_fiber": max(fiber[0] for fiber in ratio_fibers.values()),
+        "maximum_branch_histories_per_ratio_vector": max(
+            len(fiber[1]) for fiber in ratio_fibers.values()
+        ),
+        "ratio_vector_is_injective": len(ratio_fibers) == cases,
+        "distinct_ratio_history_pairs": len(ratio_history_fibers),
+        "maximum_input_fiber_from_ratio_history": max(
+            ratio_history_fibers.values()
+        ),
+        "ratio_and_history_are_injective": len(ratio_history_fibers) == cases,
+        "max_rank_rule_exceptions": max(exception_histogram),
+        "rank_rule_exception_histogram": {
+            str(count): exception_histogram[count]
+            for count in sorted(exception_histogram)
+        },
+        "replayed_pair_products_per_case": len(points) * (len(points) - 1) // 2,
+    }
 
 
 def screen_gf12_dqi_samples():
@@ -96,6 +184,9 @@ def screen_gf12_dqi_samples():
     rng = Random(0xF1A053)
     cases = 0
     per_weight = 16
+    zero_ratios_by_weight = {}
+    rank_exceptions_by_weight = {}
+    exception_masks_by_final_rank = {}
 
     for weight in (1, 31, 35):
         for _ in range(per_weight):
@@ -108,10 +199,50 @@ def screen_gf12_dqi_samples():
                     syndrome[index] ^= mul(magnitude, power)
                     power = mul(power, beta)
             data = fma.syndrome_to_fma_samples(syndrome, points, mul)
-            compare_to_reference(data, points, mul, modulus, degree)
+            ratios, _, rank_exception_mask, final_ranks = compare_to_reference(
+                data, points, mul, modulus, degree
+            )
+            zero_ratios_by_weight.setdefault(weight, []).append(
+                sum(ratio == 0 for ratio in ratios)
+            )
+            rank_exceptions_by_weight.setdefault(weight, set()).add(
+                rank_exception_mask
+            )
+            exception_masks_by_final_rank.setdefault(weight, {}).setdefault(
+                final_ranks, set()
+            ).add(rank_exception_mask)
             cases += 1
 
-    return {"cases": cases, "per_error_weight": per_weight, "weights": [1, 31, 35]}
+    return {
+        "cases": cases,
+        "per_error_weight": per_weight,
+        "weights": [1, 31, 35],
+        "replayed_pair_products_per_case": len(points) * (len(points) - 1) // 2,
+        "max_zero_ratios_by_weight": {
+            str(weight): max(counts)
+            for weight, counts in zero_ratios_by_weight.items()
+        },
+        "max_rank_rule_exceptions_by_weight": {
+            str(weight): max(mask.bit_count() for mask in masks)
+            for weight, masks in rank_exceptions_by_weight.items()
+        },
+        "distinct_rank_rule_exception_masks_by_weight": {
+            str(weight): len(masks)
+            for weight, masks in rank_exceptions_by_weight.items()
+        },
+        "distinct_final_rank_pairs_by_weight": {
+            str(weight): len(by_rank)
+            for weight, by_rank in exception_masks_by_final_rank.items()
+        },
+        "exception_mask_unique_for_final_rank_by_weight": {
+            str(weight): all(len(masks) == 1 for masks in by_rank.values())
+            for weight, by_rank in exception_masks_by_final_rank.items()
+        },
+        "rank_rule_exception_masks_hex_by_weight": {
+            str(weight): [hex(mask) for mask in sorted(masks)]
+            for weight, masks in rank_exceptions_by_weight.items()
+        },
+    }
 
 
 def load_gate_arithmetic():
@@ -148,12 +279,11 @@ def build_normalized_pair_cell(delta):
     inverse_transcript = ar.inverse_inplace_forward(builder, pivot_g)
     ar.mul_xor(builder, pivot_d, pivot_g, ratio)
 
-    # Both branches now use d ^= ratio*g; the controlled swaps select the
-    # matching input and output orientation.
+    # The swap branch pre-swaps the input pair so the shared update returns
+    # the FMA-ordered output without a second swap.
     builder.cswap(branch, pair_d, pair_g)
     ar.mul_xor(builder, ratio, pair_g, pair_d)
     builder.gf2_imul(delta, target=pair_g, field=ar.field(12))
-    builder.cswap(branch, pair_d, pair_g)
 
     # The pivot is unchanged, so recompute its ratio to clear the workspace.
     ar.mul_xor(builder, pivot_d, pivot_g, ratio)
@@ -210,8 +340,8 @@ def check_normalized_pair_cell():
         numerator, denominator = (pivot_g, pivot_d) if branch else (pivot_d, pivot_g)
         ratio = mul(numerator, fma.gf_inv(denominator, modulus, degree))
         if branch:
-            expected_d.append(mul(delta, pair_d))
-            expected_g.append(pair_g ^ mul(ratio, pair_d))
+            expected_d.append(pair_g ^ mul(ratio, pair_d))
+            expected_g.append(mul(delta, pair_d))
         else:
             expected_d.append(pair_d ^ mul(ratio, pair_g))
             expected_g.append(mul(delta, pair_g))
@@ -241,7 +371,7 @@ def check_normalized_pair_cell():
     }
 
 
-def resource_screen():
+def resource_screen(pair_cell):
     points = 70
     pair_updates = points * (points - 1) // 2
     ratio_products = points
@@ -250,7 +380,7 @@ def resource_screen():
     products = pair_updates + ratio_products + ratio_cleanup_products
     product_t = 42
     inverse_forward_t, inverse_restore_t = 66, 72
-    pair_cswaps_t, pivot_cswaps_t = 24, 24
+    pair_cswaps_t, pivot_cswaps_t = 12, 24
     fma_t = (
         products * product_t
         + pair_updates * pair_cswaps_t
@@ -280,10 +410,10 @@ def resource_screen():
         "naive_full_pair_bank_qubits": naive_pair_bank_q,
         "qubit_limit": 890,
         "naive_pair_bank_over_limit": naive_pair_bank_q - 890,
-        "single_pair_cell_qubits": 888,
-        "single_pair_cell_toffolis": 312,
+        "single_pair_cell_qubits": pair_cell["compiled_qubits"],
+        "single_pair_cell_toffolis": pair_cell["toffoli_like_gates"],
         "scope": (
-            "Count projection includes ratio cleanup, branch-controlled canonicalizing swaps, and the "
+            "Count projection includes ratio cleanup, branch-controlled pair input swaps, and the "
             "measured in-place inverse cell. It assumes the existing sampled reconstruction, scan, and "
             "branch/rank costs. It excludes the 4+66 width schedule and any uncounted phase work."
         ),
@@ -291,21 +421,22 @@ def resource_screen():
 
 
 def main():
-    gf8_cases = screen_gf8_four_samples()
+    gf8 = screen_gf8_four_samples()
     gf12 = screen_gf12_dqi_samples()
     pair_cell = check_normalized_pair_cell()
     result = {
         "experiment": "exp-053",
         "result": "PASS",
         "normalized_fma_screen": {
-            "gf8_all_four_sample_vectors": gf8_cases,
+            "gf8_all_four_sample_vectors": gf8["cases"],
+            "gf8_ratio_replay": gf8,
             "gf12_valid_70_symbol_samples": gf12,
             "branch_history_matches_reference": True,
             "row_ranks_match_reference": True,
             "normalized_low_row_matches_reference": True,
         },
         "compiled_pair_cell": pair_cell,
-        "resource_screen": resource_screen(),
+        "resource_screen": resource_screen(pair_cell),
         "scope": (
             "Classical recurrence plus one compiled normalized pair cell. This is not a complete "
             "70-symbol reversible schedule, and the naive full pair bank exceeds Q=890."
