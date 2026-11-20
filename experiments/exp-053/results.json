@@ -9,6 +9,15 @@
     "toffoli_like_gates": 300
   },
   "experiment": "exp-053",
+  "gf8_eight_point_branch_label_screen": {
+    "ambiguous_ratio_plus_final_rank_states": 7306,
+    "distinct_ratio_plus_final_rank_states": 85445,
+    "maximum_inputs_per_ratio_plus_final_rank": 10,
+    "minimum_fixed_tag_bits_from_maximum_fiber": 4,
+    "patterns": 97119,
+    "ratio_plus_full_history_is_injective": true,
+    "single_branch_bits_that_resolve_all_collisions": []
+  },
   "normalized_fma_screen": {
     "branch_history_matches_reference": true,
     "gf12_valid_70_symbol_samples": {
@@ -62,6 +71,7 @@
     },
     "gf8_all_four_sample_vectors": 4096,
     "gf8_ratio_replay": {
+      "branch_bit_1_resolves_all_ratio_plus_rank_collisions": true,
       "cases": 4096,
       "distinct_ratio_history_pairs": 4096,
       "distinct_ratio_vectors": 3052,
@@ -69,6 +79,7 @@
       "maximum_branch_histories_per_ratio_vector": 8,
       "maximum_input_fiber": 8,
       "maximum_input_fiber_from_ratio_history": 1,
+      "maximum_inputs_per_ratio_plus_final_rank": 2,
       "rank_rule_exception_histogram": {
         "0": 2492,
         "1": 1302,
@@ -77,6 +88,8 @@
         "4": 1
       },
       "ratio_and_history_are_injective": true,
+      "ratio_plus_final_rank_ambiguous_states": 306,
+      "ratio_plus_final_rank_states": 3790,
       "ratio_vector_is_injective": false,
       "replayed_pair_products_per_case": 6
     },

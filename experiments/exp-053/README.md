@@ -2,7 +2,7 @@
 id: exp-053
 title: Pivot-normalized FMA recurrence screen
 task: dqi
-tests: exhaustive GF(8) four-sample inputs; 48 seeded GF(2^12) 70-symbol DQI samples; 32 compiled pair-cell cases
+tests: exhaustive GF(8) four-sample inputs; all 97,119 valid GF(8) eight-point patterns; 48 seeded GF(2^12) DQI samples; 32 compiled pair-cell cases
 direction: D-004
 status: branch_label_screen
 date: 2026-11-20
@@ -78,6 +78,25 @@ GF(2^12) DQI cases (weight 1; 8 at weight 31 and 1 at weight 35). The
 screen saw 2, 1, and 3 distinct exception masks at weights 1, 31, and 35;
 the final rank pair did not distinguish the masks at weights 1 or 35. This is
 sample evidence only. A compact reversible encoding remains unbuilt.
+
+### Rank-assisted branch labels
+
+For all 4,096 arbitrary four-sample GF(8) inputs, the ratio vector plus final
+rank has 3,790 distinct labels; 306 labels have two preimages. The second
+branch bit separates every colliding pair, so one tag bit suffices on this
+four-point screen.
+
+The exhaustive valid eight-point GF(8) screen gives a larger fiber: among
+97,119 error patterns through weight four, ratio plus final rank has 85,445
+labels, with a maximum of ten inputs per label. At least four extra bits are
+needed to distinguish the largest fiber, and no single branch bit resolves
+all collisions. Ratio plus the full branch history is injective on this
+screened domain.
+
+This rejects extending the four-point one-bit result directly to longer FMA
+sequences. It is still small-field information evidence; it gives no
+GF(2^12), 70-point bound or reversible history decoder. Exact counts are in
+[`results.json`](results.json).
 
 This avoids materializing all `(d,g)` pairs only if the branch/phase label can
 also be retained and replayed within the 50-qubit workspace. Its bound and

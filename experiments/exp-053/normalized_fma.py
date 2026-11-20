@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 import importlib.util
-from itertools import product
+from itertools import combinations, product
 from pathlib import Path
 import sys
 from random import Random
@@ -140,9 +140,10 @@ def screen_gf8_four_samples():
     cases = 0
     ratio_fibers = {}
     ratio_history_fibers = {}
+    ratio_rank_fibers = {}
     exception_histogram = {}
     for data in product(range(1 << degree), repeat=len(points)):
-        ratios, history, exception_mask, _ = compare_to_reference(
+        ratios, history, exception_mask, final_ranks = compare_to_reference(
             data, points, mul, modulus, degree
         )
         fiber = ratio_fibers.setdefault(ratios, [0, set()])
@@ -151,11 +152,21 @@ def screen_gf8_four_samples():
         ratio_history_fibers[(ratios, history)] = (
             ratio_history_fibers.get((ratios, history), 0) + 1
         )
+        ratio_rank_fibers.setdefault((ratios, final_ranks[0]), []).append(history)
         exception_count = exception_mask.bit_count()
         exception_histogram[exception_count] = (
             exception_histogram.get(exception_count, 0) + 1
         )
         cases += 1
+    ambiguous_ratio_rank_states = [
+        values for values in ratio_rank_fibers.values() if len(values) > 1
+    ]
+    bit_one_resolves_all = all(
+        len({history[1] for history in values}) == len(values)
+        for values in ratio_rank_fibers.values()
+    )
+    assert max(map(len, ratio_rank_fibers.values())) == 2
+    assert bit_one_resolves_all
     return {
         "cases": cases,
         "distinct_ratio_vectors": len(ratio_fibers),
@@ -169,12 +180,78 @@ def screen_gf8_four_samples():
             ratio_history_fibers.values()
         ),
         "ratio_and_history_are_injective": len(ratio_history_fibers) == cases,
+        "ratio_plus_final_rank_states": len(ratio_rank_fibers),
+        "ratio_plus_final_rank_ambiguous_states": len(
+            ambiguous_ratio_rank_states
+        ),
+        "maximum_inputs_per_ratio_plus_final_rank": max(
+            len(values) for values in ratio_rank_fibers.values()
+        ),
+        "branch_bit_1_resolves_all_ratio_plus_rank_collisions": (
+            bit_one_resolves_all
+        ),
         "max_rank_rule_exceptions": max(exception_histogram),
         "rank_rule_exception_histogram": {
             str(count): exception_histogram[count]
             for count in sorted(exception_histogram)
         },
         "replayed_pair_products_per_case": len(points) * (len(points) - 1) // 2,
+    }
+
+
+def screen_gf8_valid_eight_point_patterns():
+    """Measure branch-label multiplicity on every valid GF(8), n=8 error."""
+    degree, modulus, points = 3, 0b1011, list(range(8))
+    q = 1 << degree
+    mul = lambda a, b: fma.gf_mul(a, b, modulus, degree)
+    ratio_rank_fibers = {}
+    ratio_history_states = set()
+    patterns = 0
+
+    for weight in range(len(points) // 2 + 1):
+        for locations in combinations(range(1, q), weight):
+            for magnitudes in product(range(1, q), repeat=weight):
+                syndrome = [0] * len(points)
+                for location, magnitude in zip(locations, magnitudes):
+                    power = location
+                    for index in range(len(points)):
+                        syndrome[index] ^= mul(magnitude, power)
+                        power = mul(power, location)
+                data = fma.syndrome_to_fma_samples(syndrome, points, mul)
+                _, _, history, _, _, ratios, final_ranks = normalized_state(
+                    data, points, mul, modulus, degree
+                )
+                key = (tuple(ratios), final_ranks[0])
+                ratio_rank_fibers.setdefault(key, []).append(history)
+                ratio_history_states.add((tuple(ratios), history))
+                patterns += 1
+
+    maximum_fiber = max(map(len, ratio_rank_fibers.values()))
+    ambiguous_states = sum(
+        len(values) > 1 for values in ratio_rank_fibers.values()
+    )
+    single_branch_bits_that_resolve_all = [
+        bit
+        for bit in range(len(points))
+        if all(
+            len({(history >> bit) & 1 for history in values}) == len(values)
+            for values in ratio_rank_fibers.values()
+        )
+    ]
+    assert patterns == 97_119
+    assert len(ratio_history_states) == patterns
+    return {
+        "patterns": patterns,
+        "distinct_ratio_plus_final_rank_states": len(ratio_rank_fibers),
+        "ambiguous_ratio_plus_final_rank_states": ambiguous_states,
+        "maximum_inputs_per_ratio_plus_final_rank": maximum_fiber,
+        "minimum_fixed_tag_bits_from_maximum_fiber": (maximum_fiber - 1).bit_length(),
+        "single_branch_bits_that_resolve_all_collisions": (
+            single_branch_bits_that_resolve_all
+        ),
+        "ratio_plus_full_history_is_injective": (
+            len(ratio_history_states) == patterns
+        ),
     }
 
 
@@ -427,6 +504,9 @@ def main():
     result = {
         "experiment": "exp-053",
         "result": "PASS",
+        "gf8_eight_point_branch_label_screen": (
+            screen_gf8_valid_eight_point_patterns()
+        ),
         "normalized_fma_screen": {
             "gf8_all_four_sample_vectors": gf8["cases"],
             "gf8_ratio_replay": gf8,
