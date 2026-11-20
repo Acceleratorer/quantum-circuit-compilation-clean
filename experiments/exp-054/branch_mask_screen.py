@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from math import ceil, comb, log2
 from pathlib import Path
-from random import Random
 import json
 import sys
 
@@ -123,42 +122,84 @@ def screen_all_single_error_locations(table, multiply):
     ]
 
 
-def make_syndrome(locations, magnitudes, multiply):
-    syndrome = [0] * len(POINTS)
-    for beta, magnitude in zip(locations, magnitudes):
-        power = beta
-        for index in range(len(POINTS)):
-            syndrome[index] ^= multiply(magnitude, power)
-            power = multiply(power, beta)
-    return syndrome
+def screen_random_weight(table, weight, sample_count, seed):
+    rng = np.random.default_rng(seed)
+    supports = np.arange(1, Q, dtype=np.uint16)
+    locations = np.stack(
+        [rng.choice(supports, size=weight, replace=False) for _ in range(sample_count)]
+    )
+    magnitudes = rng.integers(1, Q, size=(sample_count, weight), dtype=np.uint16)
+
+    syndrome = np.zeros((sample_count, len(POINTS)), dtype=np.uint16)
+    powers = locations.copy()
+    for index in range(len(POINTS)):
+        syndrome[:, index] = np.bitwise_xor.reduce(
+            table[magnitudes, powers], axis=1
+        )
+        powers = table[powers, locations]
+
+    node = [1]
+    for point in POINTS:
+        node = fma.poly_mul(node, [point, 1], lambda a, b: int(table[a, b]))
+    quotients = list(fma._quotients(node, POINTS, lambda a, b: int(table[a, b])))
+    d = np.zeros((sample_count, len(POINTS)), dtype=np.uint16)
+    for index, quotient in enumerate(quotients):
+        for power, coefficient in enumerate(quotient):
+            if coefficient:
+                d[:, index] ^= table[coefficient, syndrome[:, power]]
+    initial_d = d.copy()
+
+    g = np.ones_like(d)
+    rank1 = np.zeros(sample_count, dtype=np.int16)
+    rank2 = np.ones(sample_count, dtype=np.int16)
+    mask_low = np.zeros(sample_count, dtype=np.uint64)
+    mask_high = np.zeros(sample_count, dtype=np.uint16)
+    for pivot_index, point in enumerate(POINTS):
+        pivot_d = d[:, pivot_index].copy()
+        pivot_g = g[:, pivot_index].copy()
+        default = rank1 < rank2
+        swap = (pivot_g == 0) | ((pivot_d != 0) & default)
+        exception = swap != default
+        if pivot_index < 64:
+            mask_low |= exception.astype(np.uint64) << pivot_index
+        else:
+            mask_high |= exception.astype(np.uint16) << (pivot_index - 64)
+        rank1, rank2 = np.where(swap, rank2, rank1), np.where(
+            swap, rank1 + 2, rank2 + 2
+        )
+        for index in range(pivot_index + 1, len(POINTS)):
+            old_d = d[:, index].copy()
+            old_g = g[:, index].copy()
+            delta = point ^ POINTS[index]
+            d[:, index] = table[pivot_g, old_d] ^ table[pivot_d, old_g]
+            g[:, index] = table[delta, np.where(swap, old_d, old_g)]
+
+    masks = [
+        int(low) | (int(high) << 64)
+        for low, high in zip(mask_low, mask_high)
+    ]
+    checks = 0
+    multiply = lambda left, right: int(table[left, right])
+    for row in sorted({0, sample_count // 2, sample_count - 1}):
+        _, _, scalar_mask, _ = compare_to_reference(
+            initial_d[row].tolist(), POINTS, multiply, MODULUS, DEGREE
+        )
+        assert scalar_mask == masks[row]
+        checks += 1
+    return {
+        "seed": hex(seed),
+        "scalar_reference_checks": checks,
+        **summarize_masks(masks),
+    }, masks
 
 
-def screen_sampled_weights(multiply, sample_count=256):
+def screen_sampled_weights(table, sample_count=50_000):
     results = {}
-    masks_by_weight = {1: [], 31: [], 35: []}
-    seeds = ((0xF1A054, (31, 35)), (0xF1A055, (1, 31, 35)))
-    for seed, weights in seeds:
-        rng = Random(seed)
-        per_seed = {}
-        for weight in weights:
-            masks = []
-            for _ in range(sample_count):
-                locations = rng.sample(range(1, Q), weight)
-                magnitudes = [rng.randrange(1, Q) for _ in locations]
-                syndrome = make_syndrome(locations, magnitudes, multiply)
-                data = fma.syndrome_to_fma_samples(syndrome, POINTS, multiply)
-                _, _, exception_mask, _ = compare_to_reference(
-                    data, POINTS, multiply, MODULUS, DEGREE
-                )
-                masks.append(exception_mask)
-            per_seed[str(weight)] = summarize_masks(masks)
-            masks_by_weight[weight].extend(masks)
-        results[hex(seed)] = per_seed
-    results["combined_by_weight"] = {
-        str(weight): summarize_masks(masks)
-        for weight, masks in masks_by_weight.items()
-        if masks
-    }
+    masks_by_weight = {}
+    for weight, seed in ((31, 0xF1A056), (35, 0xF1A057)):
+        results[str(weight)], masks_by_weight[weight] = screen_random_weight(
+            table, weight, sample_count, seed
+        )
     return results, masks_by_weight
 
 
@@ -166,7 +207,11 @@ def check_scalar_reference(multiply, single_masks):
     checks = 0
     for beta in (1, 2, 17, 68, 69, 70, 4095):
         for magnitude in (1, 13, 0xABC):
-            syndrome = make_syndrome([beta], [magnitude], multiply)
+            syndrome = [0] * len(POINTS)
+            power = beta
+            for index in range(len(POINTS)):
+                syndrome[index] = multiply(magnitude, power)
+                power = multiply(power, beta)
             data = fma.syndrome_to_fma_samples(syndrome, POINTS, multiply)
             _, _, scalar_mask, _ = compare_to_reference(
                 data, POINTS, multiply, MODULUS, DEGREE
@@ -194,7 +239,7 @@ def main():
     try:
         single_masks = screen_all_single_error_locations(table, multiply)
         scalar_checks = check_scalar_reference(multiply, single_masks)
-        sampled, masks_by_weight = screen_sampled_weights(multiply)
+        sampled, masks_by_weight = screen_sampled_weights(table)
     finally:
         fma.gf_mul = original_multiply
 
@@ -209,7 +254,7 @@ def main():
         },
         "sampled_error_weights": sampled,
         "sampled_masks_across_weights": summarize_masks(
-            masks_by_weight[1] + masks_by_weight[31] + masks_by_weight[35]
+            masks_by_weight[31] + masks_by_weight[35]
         ),
         "width_screen": {
             "compiled_pair_cell_qubits": PAIR_CELL_Q,

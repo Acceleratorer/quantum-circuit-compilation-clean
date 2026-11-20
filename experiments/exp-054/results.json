@@ -8,119 +8,57 @@
   ],
   "points": 70,
   "sampled_error_weights": {
-    "0xf1a054": {
-      "31": {
-        "cases": 256,
-        "distinct_exception_masks": 6,
-        "fixed_bits_for_any_70_bit_mask_with_at_most_sampled_max_transitions": 17,
-        "max_transitions": 3,
-        "sampled_unique_label_bits": 3,
-        "transition_histogram": {
-          "1": 244,
-          "3": 12
-        }
-      },
-      "35": {
-        "cases": 256,
-        "distinct_exception_masks": 5,
-        "fixed_bits_for_any_70_bit_mask_with_at_most_sampled_max_transitions": 13,
-        "max_transitions": 2,
-        "sampled_unique_label_bits": 3,
-        "transition_histogram": {
-          "0": 252,
-          "2": 4
-        }
+    "31": {
+      "cases": 50000,
+      "distinct_exception_masks": 171,
+      "fixed_bits_for_any_70_bit_mask_with_at_most_sampled_max_transitions": 37,
+      "max_transitions": 9,
+      "sampled_unique_label_bits": 8,
+      "scalar_reference_checks": 3,
+      "seed": "0xf1a056",
+      "transition_histogram": {
+        "1": 46004,
+        "2": 359,
+        "3": 3473,
+        "4": 28,
+        "5": 131,
+        "6": 2,
+        "7": 2,
+        "9": 1
       }
     },
-    "0xf1a055": {
-      "1": {
-        "cases": 256,
-        "distinct_exception_masks": 6,
-        "fixed_bits_for_any_70_bit_mask_with_at_most_sampled_max_transitions": 13,
-        "max_transitions": 2,
-        "sampled_unique_label_bits": 3,
-        "transition_histogram": {
-          "1": 250,
-          "2": 6
-        }
-      },
-      "31": {
-        "cases": 256,
-        "distinct_exception_masks": 10,
-        "fixed_bits_for_any_70_bit_mask_with_at_most_sampled_max_transitions": 25,
-        "max_transitions": 5,
-        "sampled_unique_label_bits": 4,
-        "transition_histogram": {
-          "1": 238,
-          "2": 2,
-          "3": 14,
-          "5": 2
-        }
-      },
-      "35": {
-        "cases": 256,
-        "distinct_exception_masks": 12,
-        "fixed_bits_for_any_70_bit_mask_with_at_most_sampled_max_transitions": 13,
-        "max_transitions": 2,
-        "sampled_unique_label_bits": 4,
-        "transition_histogram": {
-          "0": 245,
-          "1": 1,
-          "2": 10
-        }
-      }
-    },
-    "combined_by_weight": {
-      "1": {
-        "cases": 256,
-        "distinct_exception_masks": 6,
-        "fixed_bits_for_any_70_bit_mask_with_at_most_sampled_max_transitions": 13,
-        "max_transitions": 2,
-        "sampled_unique_label_bits": 3,
-        "transition_histogram": {
-          "1": 250,
-          "2": 6
-        }
-      },
-      "31": {
-        "cases": 512,
-        "distinct_exception_masks": 12,
-        "fixed_bits_for_any_70_bit_mask_with_at_most_sampled_max_transitions": 25,
-        "max_transitions": 5,
-        "sampled_unique_label_bits": 4,
-        "transition_histogram": {
-          "1": 482,
-          "2": 2,
-          "3": 26,
-          "5": 2
-        }
-      },
-      "35": {
-        "cases": 512,
-        "distinct_exception_masks": 15,
-        "fixed_bits_for_any_70_bit_mask_with_at_most_sampled_max_transitions": 13,
-        "max_transitions": 2,
-        "sampled_unique_label_bits": 4,
-        "transition_histogram": {
-          "0": 497,
-          "1": 1,
-          "2": 14
-        }
+    "35": {
+      "cases": 50000,
+      "distinct_exception_masks": 87,
+      "fixed_bits_for_any_70_bit_mask_with_at_most_sampled_max_transitions": 21,
+      "max_transitions": 4,
+      "sampled_unique_label_bits": 7,
+      "scalar_reference_checks": 3,
+      "seed": "0xf1a057",
+      "transition_histogram": {
+        "0": 48712,
+        "1": 19,
+        "2": 1249,
+        "4": 20
       }
     }
   },
   "sampled_masks_across_weights": {
-    "cases": 1280,
-    "distinct_exception_masks": 33,
-    "fixed_bits_for_any_70_bit_mask_with_at_most_sampled_max_transitions": 25,
-    "max_transitions": 5,
-    "sampled_unique_label_bits": 6,
+    "cases": 100000,
+    "distinct_exception_masks": 258,
+    "fixed_bits_for_any_70_bit_mask_with_at_most_sampled_max_transitions": 37,
+    "max_transitions": 9,
+    "sampled_unique_label_bits": 9,
     "transition_histogram": {
-      "0": 497,
-      "1": 733,
-      "2": 22,
-      "3": 26,
-      "5": 2
+      "0": 48712,
+      "1": 46023,
+      "2": 1608,
+      "3": 3473,
+      "4": 48,
+      "5": 131,
+      "6": 2,
+      "7": 2,
+      "9": 1
     }
   },
   "single_error_supports": {

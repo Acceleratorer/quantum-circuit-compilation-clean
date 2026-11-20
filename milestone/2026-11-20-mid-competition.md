@@ -177,10 +177,12 @@ the basis evaluations or prove a smaller valid-domain representation.
 ## 2026-11-20 rank-exception transition screen
 
 `exp-054` found 70 rank-default exception masks across all 4,095 nonzero
-single-error locations at magnitude 1; each has at most two transitions. In
-two seeded screens of 256 samples per weight, weight 31 reached five
-transitions in two cases and weight 35 reached two. A generic enumerative code
-at the observed five-transition cap needs 25 qubits, six above the remaining
-19 after the `Q=871` pair-cell projection. This is a sampled width lead, not a
-proof or a submission candidate. See [`exp-054`](../experiments/exp-054/README.md)
-and the [official-status digest](../kaggle/digests/2026-11-20-status.md).
+single-error locations at magnitude 1; each has at most two transitions. Across
+50,000 samples at each of weights 31 and 35, it found 258 masks. Weight 31
+reached nine transitions once; weight 35 reached four. A generic enumerative
+code for that nine-transition cap needs 37 qubits, 18 above the remaining 19
+after the `Q=871` pair-cell projection. A codebook for the observed masks would
+fit in nine bits, but the sample does not establish a valid-domain bound. This
+is a width lead, not a proof or submission candidate. See
+[`exp-054`](../experiments/exp-054/README.md) and the
+[official-status digest](../kaggle/digests/2026-11-20-status.md).

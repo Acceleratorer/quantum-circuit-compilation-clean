@@ -594,12 +594,12 @@ weights 1, 31, and 35. The final rank pair did not identify the mask at weights
 `exp-054` checked whether rank-default exceptions have a low-transition mask.
 Across all 4,095 nonzero error locations at magnitude 1, it found 70 masks with
 at most two transitions; 21 scalar checks across selected magnitudes matched.
-Across two fixed seeds of 256 valid samples each at weights 31 and 35, the
-weight-31 mask reached five transitions (two cases) and weight 35 reached two.
+Across 50,000 valid samples at each of weights 31 and 35, it found 258 masks.
+Weight 31 reached nine transitions once; weight 35 reached four.
 
-An enumerative code for masks with at most five transitions requires 25 bits,
-six above the optimistic 19-qubit room left by the `Q=871` pair-cell
-projection. The sampled masks have low cardinality, but that does not bound
-the full valid domain. Keep this as a width lead. The next gate is an exact
-valid-domain encoding or a proof that an equally compact reversible branch
-oracle uses the FMA payload directly.
+An enumerative code for masks with at most nine transitions requires 37 bits,
+18 above the optimistic 19-qubit room left by the `Q=871` pair-cell
+projection. A codebook for the 258 observed masks needs nine bits, but the
+sample does not bound the full valid domain. Keep this as a width lead. The
+next gate is an exact valid-domain encoding or a proof that an equally compact
+reversible branch oracle uses the FMA payload directly.

@@ -2,11 +2,11 @@
 id: exp-054
 title: FMA rank-default exception-mask width screen
 task: dqi
-tests: all 4,095 single-error locations at magnitude 1; 21 scalar magnitude cross-checks; 1,280 seeded valid DQI samples at weights 1, 31, and 35
+tests: all 4,095 single-error locations at magnitude 1; 21 scalar magnitude cross-checks; 100,000 seeded valid DQI samples at weights 31 and 35
 direction: D-004
 status: width_screen
 date: 2026-11-20
-result: single-error masks have 70 values and at most 2 transitions; sampled weight-31 masks reach 5 transitions
+result: single-error masks have 70 values and at most 2 transitions; 100,000 dense samples show 258 masks and up to 9 transitions
 ---
 
 # FMA rank-default exception-mask screen
@@ -24,17 +24,15 @@ screen cross-checked seven locations at three nonzero magnitudes each against
 the scalar recurrence; those checks matched. This covers the enumerated
 locations at magnitude 1 and selected magnitudes, not all single-error inputs.
 
-For two seeded sets of 256 samples each at weights 31 and 35, the combined
-sample has 12 distinct weight-31 masks and 15 distinct weight-35 masks. The
-weight-31 sample includes two masks with five transitions; the weight-35
-sample has at most two. One additional 256-case weight-1 screen gives 33
-distinct masks across all 1,280 sampled errors. These counts are sample
-evidence, not a bound on the valid DQI domain.
+For 50,000 seeded samples at each of weights 31 and 35, the screen found 171
+weight-31 masks and 87 weight-35 masks, with 258 distinct masks across both
+weights. Weight 31 reached nine transitions once; weight 35 reached four.
+These counts are sample evidence, not a bound on the valid DQI domain.
 
-An enumerative code for any 70-bit mask with at most five transitions takes
-25 bits. That is six bits above the current optimistic 19-qubit headroom after
-the `Q=871` pair-cell projection. A sampled-mask lookup would need far fewer
-bits, but no exact encoder for all valid DQI inputs is known. No reversible
+An enumerative code for any 70-bit mask with at most nine transitions takes
+37 bits, 18 above the current optimistic 19-qubit headroom after the `Q=871`
+pair-cell projection. A lookup for the 258 sampled masks would need nine bits,
+but no exact codebook for all valid DQI inputs is known. No reversible
 encoding, decoder, or full-circuit liveness schedule was built.
 
 ## Reproduce
