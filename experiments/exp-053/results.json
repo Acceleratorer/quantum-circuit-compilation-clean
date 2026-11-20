@@ -196,6 +196,75 @@
         ],
         "scope": "Exhaustive over all 4,096 arbitrary GF(8) four-sample inputs. This reduces the shape label from four bits to two on that domain; it does not prove the same conflict graph over GF(2^12) or compile a reversible color decoder.",
         "colored_label_collisions": 0
+      },
+      "generic_packer_tag_upper_bound": {
+        "support_patterns_checked": 16,
+        "labels_over_support_patterns": 68,
+        "payload_collision_fibers": 16,
+        "maximum_shape_fiber": 7,
+        "conflict_graph_edges": 49,
+        "minimum_shape_colors": 7,
+        "minimum_tag_bits": 3,
+        "shape_color_map": [
+          {
+            "shape_id": 0,
+            "color": 5
+          },
+          {
+            "shape_id": 1,
+            "color": 5
+          },
+          {
+            "shape_id": 2,
+            "color": 5
+          },
+          {
+            "shape_id": 3,
+            "color": 4
+          },
+          {
+            "shape_id": 4,
+            "color": 6
+          },
+          {
+            "shape_id": 5,
+            "color": 3
+          },
+          {
+            "shape_id": 6,
+            "color": 2
+          },
+          {
+            "shape_id": 7,
+            "color": 5
+          },
+          {
+            "shape_id": 8,
+            "color": 1
+          },
+          {
+            "shape_id": 9,
+            "color": 3
+          },
+          {
+            "shape_id": 10,
+            "color": 4
+          },
+          {
+            "shape_id": 11,
+            "color": 1
+          },
+          {
+            "shape_id": 12,
+            "color": 2
+          },
+          {
+            "shape_id": 13,
+            "color": 0
+          }
+        ],
+        "tagged_label_collisions": 0,
+        "scope": "Enumerates all zero/nonzero support patterns admitted by the four-word packer, enforcing exact nonzero degree for B. It does not enforce gcd, node-root, coprimality, or modular-basis constraints, so it is a field-size-independent upper bound on the generic packer domain, not the image of the DQI encoder."
       }
     },
     "field": "GF(8)",

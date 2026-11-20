@@ -214,3 +214,8 @@ four-bit shape ID can be replaced by a three-color, two-bit label: 802 of the
 all collisions. The map also has no collisions in the 48 seeded GF(2^12)
 prefixes, but that is sample evidence only. Building the reversible color
 decoder and proving its use in the full schedule remain open.
+
+The generic packer support-pattern audit requires seven colors, or three tag
+bits, when it ignores the arithmetic constraints of valid FMA states. That is
+a conservative format bound; the two-bit color map only applies to the
+exhaustively screened GF(8) image and the 48 GF(2^12) samples.

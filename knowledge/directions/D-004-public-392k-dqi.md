@@ -704,3 +704,10 @@ on that exhaustive domain. The same map had zero collisions across 48 seeded
 GF(2^12) DQI prefixes. This can save two tag qubits per live block if the
 color decoder is built; it is not a GF(2^12) proof or an in-place circuit.
 The 4+66 width and phase schedule remain open.
+
+A conservative audit of all four-word support patterns accepted by the generic
+packer has chromatic number 7, requiring a three-bit tag. It deliberately
+ignores gcd, node-root, coprimality, and modular-basis constraints, so it is an
+upper bound for arbitrary packed tuples rather than the true DQI image. The
+two-bit color code is usable only after proving those constraints reduce the
+GF(2^12) image conflict graph.

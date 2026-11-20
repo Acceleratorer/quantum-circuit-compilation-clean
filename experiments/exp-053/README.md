@@ -176,7 +176,11 @@ factorized labels with zero collisions. That color map also had zero collisions
 on the 48 seeded GF(2^12) DQI prefixes. The GF(2^12) check is sample-only, and
 the two-bit decoder has not been built as a reversible circuit. The direct
 four-bit pack/unpack still round-trips all 4,096 GF(8) inputs and 2,048 seeded
-GF(2^12) inputs; neither check proves the full 4+66 schedule.
+GF(2^12) inputs; neither check proves the full 4+66 schedule. A conservative
+support-pattern audit of every shape accepted by the generic packer needs
+seven colors (three bits). It ignores the arithmetic restrictions on actual
+FMA states, so the two-bit map remains an image-specific lead, not a safe
+GF(2^12) width reduction.
 
 The same exhaustive sweep finds a full four-point basis with 11 polynomial
 coefficient words (`3/2` and `3/3` across the two rows). Replacing the four

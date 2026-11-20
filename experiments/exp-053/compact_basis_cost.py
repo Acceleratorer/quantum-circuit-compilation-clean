@@ -506,6 +506,60 @@ def color_graph(adjacency, color_count):
     return colors
 
 
+def screen_factorized_packer_tag_upper_bound():
+    """Color all shape overlaps allowed by the four-word packer format."""
+    payload_shapes = {}
+    for shape_id, (gcd_degree, degree_a, degree_b) in enumerate(FACTOR_SHAPES):
+        payload_words = (
+            2 * gcd_degree + degree_a + max(0, degree_b + 1)
+        )
+        for values in product((0, 1), repeat=payload_words):
+            if degree_b >= 0 and values[gcd_degree + degree_a + degree_b] == 0:
+                continue
+            words = tuple(values) + (0,) * (4 - payload_words)
+            payload_shapes.setdefault(words, set()).add(shape_id)
+
+    adjacency = [set() for _ in FACTOR_SHAPES]
+    for shape_ids in payload_shapes.values():
+        for left, right in combinations(shape_ids, 2):
+            adjacency[left].add(right)
+            adjacency[right].add(left)
+    color_count = chromatic_number(adjacency)
+    colors = color_graph(adjacency, color_count)
+    state_count = sum(len(shape_ids) for shape_ids in payload_shapes.values())
+    tagged_label_count = len(
+        {
+            (colors[shape_id], words)
+            for words, shape_ids in payload_shapes.items()
+            for shape_id in shape_ids
+        }
+    )
+    assert state_count == tagged_label_count
+    return {
+        "support_patterns_checked": len(payload_shapes),
+        "labels_over_support_patterns": state_count,
+        "payload_collision_fibers": sum(
+            len(shape_ids) > 1 for shape_ids in payload_shapes.values()
+        ),
+        "maximum_shape_fiber": max(map(len, payload_shapes.values())),
+        "conflict_graph_edges": sum(map(len, adjacency)) // 2,
+        "minimum_shape_colors": color_count,
+        "minimum_tag_bits": (color_count - 1).bit_length(),
+        "shape_color_map": [
+            {"shape_id": index, "color": color}
+            for index, color in enumerate(colors)
+        ],
+        "tagged_label_collisions": state_count - tagged_label_count,
+        "scope": (
+            "Enumerates all zero/nonzero support patterns admitted by the four-word "
+            "packer, enforcing exact nonzero degree for B. It does not enforce "
+            "gcd, node-root, coprimality, or modular-basis constraints, so it is a "
+            "field-size-independent upper bound on the generic packer domain, not "
+            "the image of the DQI encoder."
+        ),
+    }
+
+
 def screen_fixed_shape_streaming_labels():
     """Screen three samples plus one retained A coefficient on valid GF(8) states.
 
@@ -966,6 +1020,9 @@ def screen() -> dict[str, object]:
             "shape_catalog_size": len(FACTOR_SHAPES),
             "shape_tag_bits": shape_tag_bits,
             "compressed_shape_tag": color_tag_screen,
+            "generic_packer_tag_upper_bound": (
+                screen_factorized_packer_tag_upper_bound()
+            ),
             "shape_catalog": [
                 {"id": index, "gcd_degree": shape[0], "cofactor_w_degree": shape[1], "cofactor_n_degree": shape[2]}
                 for index, shape in enumerate(FACTOR_SHAPES)
