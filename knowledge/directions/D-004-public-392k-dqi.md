@@ -726,5 +726,20 @@ the independent recurrence; the prior 48 valid DQI cases also pass.
 The fixed-determinant collision only rejects `(matrix, sample) ->
 (updated_matrix, label)` when the matrix is treated as independent input. It
 does not contradict the full triangular map. The reversible gate circuit,
-workspace liveness, phase cleanup, and 4+66 cost remain unbuilt, so this is a
-mathematical route to test rather than a scoring candidate.
+workspace liveness, phase cleanup, and 4+66 cost remain unbuilt for the full
+70-symbol map.
+
+## 2026-11-20 four-pivot sentinel gate result
+
+Private Kaggle kernel version 21 compiled the in-place sentinel relabeling for
+the first four pivots. It matched the classical codec on 32 arbitrary
+GF(2^12) four-sample inputs, preserved the explicit branch history and other
+66 payload words, cleaned all 71 scratch qubits, and had zero phase flips.
+
+The measured circuit is `Q=919`, `T=5,902`, versus `Q=902`, `T=3,200` for the
+ratio/history encoder. The sentinel transform adds 17 qubits and 2,702
+Toffoli-like gates while retaining all four branch bits; it exceeds the
+`Q=890` gate by 29 qubits. Do not carry this explicit-history layout into the
+full 4+66 schedule. The useful next gate is a reversible branch-history eraser
+with a width projection under 890 before another full-path build. Results and
+limits are in [`exp-053`](../../experiments/exp-053/README.md).
