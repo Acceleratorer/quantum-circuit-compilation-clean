@@ -420,8 +420,10 @@ def append_sentinel_label(builder, ratios, branches, pivot, ar):
     builder.free(sentinel)
 
 
-def build_prefix_encoder(in_place=False, sentinel_labels=False):
+def build_prefix_encoder(in_place=False, sentinel_labels=False, measurement_erase=False):
     """Build the four-pivot map: four samples -> ratios plus branch history."""
+    if measurement_erase and (not in_place or sentinel_labels):
+        raise ValueError("measurement erasure requires the in-place ratio/history map")
     km, ar = load_gate_arithmetic()
     builder = km.CircuitBuilder()
     payload = builder.alloc_qubits(840)
@@ -491,17 +493,30 @@ def build_prefix_encoder(in_place=False, sentinel_labels=False):
         builder.free(pair_d)
         builder.free(pair_g)
         if in_place:
-            append_sample_eraser(
-                builder,
-                payload,
-                rank1,
-                branches,
-                spare_rank_bit,
-                pivot,
-                ar,
-                sample=samples[pivot],
-                ratio_words=ratios[:pivot] + [ratio_temp],
-            )
+            if measurement_erase:
+                append_sample_eraser_mbu(
+                    builder,
+                    payload,
+                    rank1,
+                    branches,
+                    spare_rank_bit,
+                    pivot,
+                    ar,
+                    sample=samples[pivot],
+                    ratio_words=ratios[:pivot] + [ratio_temp],
+                )
+            else:
+                append_sample_eraser(
+                    builder,
+                    payload,
+                    rank1,
+                    branches,
+                    spare_rank_bit,
+                    pivot,
+                    ar,
+                    sample=samples[pivot],
+                    ratio_words=ratios[:pivot] + [ratio_temp],
+                )
             builder.swap(ratio_temp, samples[pivot])
         else:
             append_sample_eraser(
@@ -541,9 +556,16 @@ def build_inplace_prefix_encoder():
     return build_prefix_encoder(in_place=True)
 
 
-def screen_prefix_encoder(case_count=32, in_place=False, use_sentinel_labels=False):
+def screen_prefix_encoder(
+    case_count=32,
+    in_place=False,
+    use_sentinel_labels=False,
+    measurement_erase=False,
+):
     km, circuit, registers = build_prefix_encoder(
-        in_place=in_place, sentinel_labels=use_sentinel_labels
+        in_place=in_place,
+        sentinel_labels=use_sentinel_labels,
+        measurement_erase=measurement_erase,
     )
     field = km.GF2Field(FIELD_BITS)
     rng = Random(0xF1A05304)
@@ -670,6 +692,7 @@ def screen_prefix_encoder(case_count=32, in_place=False, use_sentinel_labels=Fal
         "branch_registers_erased": use_sentinel_labels,
         "original_ratio_words_overwritten_in_place": in_place,
         "sentinel_labels": use_sentinel_labels,
+        "measurement_erase": measurement_erase,
         "samples_cleared": not in_place,
         "other_payload_preserved": True,
         "scratch_clean": not dirty_scratch,
@@ -678,9 +701,14 @@ def screen_prefix_encoder(case_count=32, in_place=False, use_sentinel_labels=Fal
     }
 
 
-def screen_inplace_prefix_encoder(case_count=32, use_sentinel_labels=False):
+def screen_inplace_prefix_encoder(
+    case_count=32, use_sentinel_labels=False, measurement_erase=False
+):
     return screen_prefix_encoder(
-        case_count, in_place=True, use_sentinel_labels=use_sentinel_labels
+        case_count,
+        in_place=True,
+        use_sentinel_labels=use_sentinel_labels,
+        measurement_erase=measurement_erase,
     )
 
 
@@ -754,6 +782,58 @@ def append_sample_eraser(
     builder.free(reusable_pair)
     for step in range(pivot + 1):
         reflect_rank1(builder, rank_low, step, branches[step])
+
+
+def append_sample_eraser_mbu(
+    builder,
+    payload,
+    rank_low,
+    branches,
+    spare_rank_bit,
+    pivot,
+    ar,
+    *,
+    sample,
+    ratio_words,
+):
+    """Measure the redundant source sample and correct its phase from ratios."""
+    sample_ids = [str(qubit) for qubit in sample]
+    mask = builder.alloc_bits(FIELD_BITS)
+    builder.hmr(sample, mask)
+    builder.free(sample)
+
+    reused = list(builder.alloc_qubits(FIELD_BITS))
+    by_id = {str(qubit): qubit for qubit in reused}
+    if set(by_id) != set(sample_ids):
+        raise RuntimeError("sample measurement did not release its original qubits")
+    target = [by_id[qubit_id] for qubit_id in sample_ids]
+
+    # Reconstruct the measured value, apply (-1)^(mask . sample), then clear it.
+    append_sample_eraser(
+        builder,
+        payload,
+        rank_low,
+        branches,
+        spare_rank_bit,
+        pivot,
+        ar,
+        sample=target,
+        ratio_words=ratio_words,
+    )
+    for bit in range(FIELD_BITS):
+        builder.cz(target[bit], mask[bit])
+    append_sample_eraser(
+        builder,
+        payload,
+        rank_low,
+        branches,
+        spare_rank_bit,
+        pivot,
+        ar,
+        sample=target,
+        ratio_words=ratio_words,
+    )
+    builder.free(mask)
 
 
 def build_sample_eraser(pivot):
@@ -867,7 +947,13 @@ def run_screen():
     clean_slot_result = screen_prefix_encoder()
     inplace_result = screen_inplace_prefix_encoder()
     sentinel_inplace_result = screen_inplace_prefix_encoder(use_sentinel_labels=True)
-    results = (clean_slot_result, inplace_result, sentinel_inplace_result)
+    mbu_inplace_result = screen_inplace_prefix_encoder(measurement_erase=True)
+    results = (
+        clean_slot_result,
+        inplace_result,
+        sentinel_inplace_result,
+        mbu_inplace_result,
+    )
     return {
         "experiment": "exp-053-inplace-ratio-history-prefix-encoder",
         "result": (
@@ -883,6 +969,7 @@ def run_screen():
         "clean_slot_prefix_encoder": clean_slot_result,
         "full_input_inplace_prefix_encoder": inplace_result,
         "full_input_sentinel_label_encoder": sentinel_inplace_result,
+        "full_input_mbu_prefix_encoder": mbu_inplace_result,
         "scope": (
             "Compiled the explicit ratio/history baseline and a four-pivot "
             "sentinel-label variant with branch erasure for 32 arbitrary "

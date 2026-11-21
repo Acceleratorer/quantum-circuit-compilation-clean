@@ -53,6 +53,10 @@ or cover the full verifier input distribution.
 
 A second seeded screen tried one valid error pattern at each weight from 0 to
 35. The supported shape held for the sampled weights 2 through 35; the
-weight-0 case was unsupported and the weight-1 case hit zero division. These
-are real missing branches, so this cell cannot serve as the only prefix path.
-This is one case per weight, not exhaustive coverage.
+weight-0 case was unsupported and the weight-1 case hit zero division. This is
+one case per weight, not exhaustive coverage. Under the official default DQI
+sampler, the corresponding weight probabilities are `2.78e-26` and
+`3.22e-24` (`m=4095`, `n=70`, `degree=12`, `r=2016`), or about `3.32e-19`
+combined expected draws in 102,400 shots. The edge cases are not the current
+optimization bottleneck; integrating and measuring the full decoder comes
+first.

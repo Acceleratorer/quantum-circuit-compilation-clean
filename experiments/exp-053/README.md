@@ -2,11 +2,11 @@
 id: exp-053
 title: Pivot-normalized FMA recurrence screen
 task: dqi
-tests: prior GF(8) and GF(2^12) screens; 32 compiled four-pivot branch-erasure cases in private kernel version 22
+tests: prior GF(8) and GF(2^12) screens; 32-case private Kaggle kernel screens through version 23
 direction: D-004
-status: branch_erasure_width_no_go
-date: 2026-11-21
-result: Kernel v22 erases four branch bits but peaks at Q=928, 38 above the Q=890 gate; no candidate.
+status: measurement_erasure_width_no_go
+date: 2026-11-22
+result: Kernel v23 measurement erasure leaves the full-input prefix at Q=902 and raises cost to T=4,700; no candidate.
 ---
 
 # Pivot-normalized FMA recurrence
@@ -366,6 +366,22 @@ qubits. Close this explicit all-fields-live layout as a scoring candidate;
 carry forward only the reversible label/branch relation if a complete schedule
 can reuse payload wires to fit the width gate. This result does not prove the
 4+66 schedule.
+
+### In-place measurement erasure — kernel version 23
+
+The measurement-based sample eraser was tested on the full-input ratio/history
+prefix in private [kernel version 23](https://www.kaggle.com/code/accelra/exp053-inplace-ratio-history/versions/23).
+Across 32 arbitrary GF(2^12) cases, labels and branch history matched the
+reference, the other 66 payload words were preserved, scratch was clean, and
+there were no phase flips.
+
+The circuit measured `Q=902`, `T=4,700`: the same 12-qubit overage as the
+unitary prefix and 1,500 more Toffoli-like gates. The sample is measured only
+after the forward ratio workspace is live, so this eraser does not lower peak
+width. Close this variant; the next width work belongs in the forward prefix
+schedule. The full screen output and receipt are in
+[`logs/kernel-v23-output.json`](logs/kernel-v23-output.json) and
+[`evals/2026-11-22-exp053-mbu-prefix-v23.json`](../../evals/2026-11-22-exp053-mbu-prefix-v23.json).
 
 ## Limit
 

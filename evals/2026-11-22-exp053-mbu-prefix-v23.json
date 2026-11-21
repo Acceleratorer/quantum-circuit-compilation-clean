@@ -1,0 +1,35 @@
+{
+  "captured_date": "2026-11-22",
+  "experiment": "exp-053",
+  "kernel": {
+    "id": "accelra/exp053-inplace-ratio-history",
+    "version": 23,
+    "visibility": "private",
+    "url": "https://www.kaggle.com/code/accelra/exp053-inplace-ratio-history/versions/23"
+  },
+  "source": {
+    "python_source_sha256": "E19CBD52242D34A207C891A603BA4A1BD939E0D1EA3B42395AE063E90B7CDBFF",
+    "built_kernel_source_sha256": "2DBE3F0D392405B8708A2FC41733F844F2747E143E1CC04BDFD74B9D853681BD"
+  },
+  "scope": "Full-input four-pivot prefix with measurement-based sample erasure; not the integrated 4+66 decoder and not an official verifier run.",
+  "kernel_output": "experiments/exp-053/logs/kernel-v23-output.json",
+  "checks": {
+    "cases": 32,
+    "output_labels_match_reference": true,
+    "branch_history_matches_reference": true,
+    "other_payload_preserved": true,
+    "scratch_clean": true,
+    "phase_flips": 0
+  },
+  "resources": {
+    "compiled_qubits": 902,
+    "qubit_limit": 890,
+    "qubits_over_limit": 12,
+    "toffoli_like_gates": 4700,
+    "baseline_toffoli_like_gates": 3200,
+    "toffoli_increase": 1500
+  },
+  "result": "PASS_SCREEN",
+  "decision": "Measurement erasure runs after the ratio workspace is live, so it does not reduce peak width. Close this variant; target the forward ratio-workspace schedule.",
+  "competition_submission": null
+}

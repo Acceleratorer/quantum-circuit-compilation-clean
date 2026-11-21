@@ -19,8 +19,11 @@ The top-leaderboard goal remains open; no competition submission was made.
 
 ## Next gate
 
-Add correct prefix handling for the sampled weight-0 and weight-1 shapes, then
-integrate the supported path into the full 4+66 schedule. Prove all 70 syndrome
-inputs and ancillas satisfy the official verifier, and measure the complete
-DQI cost against the existing `Q <= 890` and `T <= 221,529` target before
-preparing any submission.
+Do not spend the next cycle on weight-0/1 shape patches: their combined default
+sampler probability is about `3.25e-24`, or `3.32e-19` expected draws in
+102,400 shots. First remove the 12-qubit overage from the general in-place
+prefix in exp-053 by changing the forward ratio-workspace schedule; the
+measurement-based eraser left peak width unchanged. Then integrate one prefix
+path with the remaining 66 symbols and measure the full `Q <= 890`,
+`T <= 221,529`, cleanup, phase, and official-verifier gates before preparing
+any submission.
