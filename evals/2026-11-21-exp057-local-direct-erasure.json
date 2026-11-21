@@ -1,0 +1,34 @@
+{
+  "captured_utc": "2026-11-21T16:19:52Z",
+  "experiment": "exp-057-streaming-prefix-state",
+  "runtime": "Local Kickmix simulator",
+  "source_change": "Erase the swapped inverse scratch directly, using the involution property of field inversion.",
+  "scope": "Source-owned four-word coefficient-to-prefix-state cell for G=1, deg(A)=2, deg(B)=1; not an integrated 4+66 schedule.",
+  "checks": {
+    "cases": 32,
+    "pivot_coverage": {
+      "a0": 31,
+      "a1": 1
+    },
+    "round_trip_errors": 0,
+    "clean_scratch_qubits": 56,
+    "phase_flips": 0
+  },
+  "resources": {
+    "compiled_qubits": 905,
+    "width_gate": 890,
+    "qubits_over_gate": 15,
+    "toffoli_like_gates": 6993
+  },
+  "reference": {
+    "private_kaggle_kernel": "accelra/exp057-streaming-prefix-state",
+    "private_kaggle_version": 2,
+    "private_kaggle_resources": {
+      "compiled_qubits": 909,
+      "toffoli_like_gates": 7125
+    },
+    "note": "The current direct-erasure edit has not been run on Kaggle."
+  },
+  "decision": "Local functional screen passes; width gate fails by 15 qubits. Do not integrate or submit this cell.",
+  "submission": null
+}

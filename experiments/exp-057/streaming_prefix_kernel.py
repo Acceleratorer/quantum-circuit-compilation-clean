@@ -109,21 +109,17 @@ def xor_zero_flag(builder, value, target):
     builder.free(ladder)
 
 
-def controlled_inverse_inplace(controlled, value, borrowed, ar):
-    """Use inversion's involution to conditionally replace one field word."""
+def controlled_inverse_inplace(controlled, value, ar):
+    """Replace one field word conditionally and erase the inverse scratch."""
     builder = controlled.base
     encoded_inverse = builder.alloc_qubits(FIELD_BITS)
     ar.inverse(builder, value, target=encoded_inverse)
     controlled.swap(value, encoded_inverse)
 
-    extra = builder.alloc_qubits(FIELD_BITS - len(borrowed))
-    inverse_of_new_value = list(borrowed) + list(extra)
-    ar.inverse(builder, value, target=inverse_of_new_value)
-    identity = [1 << bit for bit in range(FIELD_BITS)]
-    ar.linear_xor(builder, inverse_of_new_value, encoded_inverse, identity)
-    ar.erase_inverse(builder, value, inverse_of_new_value)
+    # On either control branch, encoded_inverse equals inverse(value) after
+    # the swap, so erase it directly without a second inverse output register.
+    ar.erase_inverse(builder, value, encoded_inverse)
     builder.free(encoded_inverse)
-    builder.free(extra)
 
 
 def scale_inplace(builder, value, factor, inverse_factor, borrowed, ar):
@@ -233,7 +229,7 @@ def build_decoder():
     def update_a0(controlled):
         ar.linear_xor(controlled, a1, a0, columns[2])
         xor_constant(controlled, a0, 4)
-        controlled_inverse_inplace(controlled, a0, borrowed, ar)
+        controlled_inverse_inplace(controlled, a0, ar)
         scale_inplace(
             controlled, a0, determinant0, inverse_determinant0, borrowed, ar
         )
@@ -264,7 +260,7 @@ def build_decoder():
         ar.linear_inplace(controlled, a1, columns[2])
         ar.linear_xor(controlled, a0, a1, columns[1])
         xor_constant(controlled, a1, 4)
-        controlled_inverse_inplace(controlled, a1, borrowed, ar)
+        controlled_inverse_inplace(controlled, a1, ar)
         scale_inplace(
             controlled, a1, determinant1, inverse_scale1, borrowed, ar
         )
