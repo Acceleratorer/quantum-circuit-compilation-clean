@@ -2,23 +2,22 @@
 
 This directory separates local verifier estimates from Kaggle results.
 
-## Latest live status (`2026-11-20T17:14:49Z`)
+## Latest live status (`2026-11-21T12:55:34Z`)
 
-- Candidate: Bori 44Q inverse + Bori chemistry + previously scored Asterios DQI
-- Best own public score: `28.14028`, submission `58479383`
-- Latest leader: `Rithvik Redrouthu`, `32.56892`; Kaggle API snapshot at
-  `2026-11-20T17:14:49Z`
-- Own rank: `1079 / 3464` in the full snapshot; see
-  [its metadata](2026-11-20-live-leaderboard-171449Z.json) and CSV
-- Local zero-error geometric mean: `28.1402768383` (not a leaderboard result)
-- DQI-only target to match the latest leader with other costs fixed: about
-  `224.406e9`, or mean `T <= 237,820` at `Q=890`
-  (score-equivalence estimate, not the leader's measured cost)
-- Full member hashes, verifier evidence, and submission: [2026-11-18-bori-frontier-hybrid.json](2026-11-18-bori-frontier-hybrid.json)
-- External portfolio screen: its published receipt reports all three tasks
-  PASS and local score `28.23163`; not submitted because it has no generator
-  of our own. See [the receipt and decision](2026-11-18-ozertuu-282316.json)
-- Current public-candidate screen and decoder budget: [2026-11-20-mid-competition.md](../milestone/2026-11-20-mid-competition.md)
+- Best own public score: `28.14028`, submission `58479383`.
+- Latest leader: `Z³C¹oherence`, `33.34845`; score gap `5.20817`.
+- Own rank: `1202 / 3519` in the full snapshot; see
+  [metadata](2026-11-21-live-leaderboard-125534Z.json) and the retained CSV.
+- Local zero-error geometric mean: `28.1402768383` (not a leaderboard result).
+- DQI-only target with other task costs fixed: `209.035e9`, or mean
+  `T <= 221,529` at `Q=890` and `R=1.1912605`. This is score-equivalence
+  math, not the leader's measured circuit cost.
+- Current source-owned FMA projection: `202,075T`, leaving `19,454T` for
+  omitted work. Width, phase, and cleanup are unproven; this is not a candidate.
+- Full member hashes, verifier evidence, and submission:
+  [2026-11-18 hybrid evaluation](2026-11-18-bori-frontier-hybrid.json).
 
-The saved leaderboard CSVs are retained under `kaggle/snapshots/` so historical
-ranks can be checked later. Refresh the live leader before every submission.
+The leaderboard CSV is retained under `kaggle/snapshots/`. Its SHA-256 is
+recorded in the metadata file. The redundant downloaded ZIP was removed after
+the CSV hash, row count, leader, and own-team rank were confirmed. Refresh the
+leaderboard before every submission.

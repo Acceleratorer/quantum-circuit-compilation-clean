@@ -3,10 +3,34 @@
 ## Target
 
 Reach the top public leaderboard position with a source-complete portfolio.
-The latest persisted full Kaggle CLI snapshot is at `2026-11-20T01:43:00Z`;
-refresh the target before every submission.
+The latest persisted full Kaggle CLI snapshot is at `2026-11-21T12:55:34Z`;
+refresh the target before every submission. The dated frontier below supersedes
+older score and rank figures in this historical milestone.
 
-## Current frontier
+## 2026-11-21 live frontier
+
+- Best own completed submission: `58479383`, score `28.14028`, rank `1202 / 3519`.
+- Leader: `Z³C¹oherence`, score `33.34845`; gap `5.20817`.
+- Holding inverse and chemistry costs fixed, the DQI gate is `209.035e9`, or
+  mean `T <= 221,529` at `Q=890`, `R=1.1912605`.
+- The source-owned FMA projection is `202,075T`, leaving `19,454T` for all
+  omitted work. The complete 4+66 width, phase, and cleanup schedule is still
+  unproven, so this is not a candidate.
+- One active path remains: prove that schedule under the 890-qubit and
+  221,529-Toffoli gates. No submission is ready.
+- Snapshot, CSV hash, and score calculation:
+  [evaluation](../evals/2026-11-21-live-leaderboard-125534Z.json).
+
+### 2026-11-21 branch-history width screen
+
+Kernel version 22 erased the four branch bits from the source-owned sentinel
+label state, with matching labels/rank, clean scratch, and no phase flips.
+However, the measured prefix is `Q=928`, `T=6,212`, exceeding the 890-qubit
+gate by 38. Close this explicit layout; the only open DQI path is a full
+4+66 schedule that reuses payload wires and proves both `Q <= 890` and
+`T <= 221,529`. See [exp-053](../experiments/exp-053/README.md).
+
+## Historical frontier (2026-11-20T01:43:00Z)
 
 - Best own completed submission: `58479383`, public score `28.14028`.
 - Current public leader: `Z³C¹oherence`, `31.74002`; gap: `3.59974` points.

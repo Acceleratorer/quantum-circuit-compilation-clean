@@ -1,0 +1,55 @@
+{
+  "captured_utc": "2026-11-21T12:55:34Z",
+  "competition": "google-verifiable-quantum-circuit-compilation",
+  "source": "Kaggle CLI API paginated public leaderboard, page size 200",
+  "snapshot": {
+    "path": "kaggle/snapshots/2026-11-21/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-21T12-55-34.csv",
+    "csv_sha256": "cc993aab7ea9ef2c45ed96333a545d34201ac35c22051c198d37abe7d4da164c",
+    "team_rows": 3519,
+    "unique_team_ids": 3519,
+    "scores_sorted_descending": true
+  },
+  "own_team": {
+    "team": "Accelra",
+    "team_id": 17349145,
+    "public_score": 28.14028,
+    "rank": 1202,
+    "best_submission": 58479383
+  },
+  "leader": {
+    "rank": 1,
+    "team": "Z³C¹oherence",
+    "team_id": 17182480,
+    "score": 33.34845,
+    "last_submission_display": "2026-11-21 01:08:21"
+  },
+  "runner_up": {
+    "rank": 2,
+    "team": "Maciej Sypetkowski",
+    "team_id": 17210537,
+    "score": 33.31568,
+    "last_submission_display": "2026-11-21 11:07:58"
+  },
+  "score_gap": 5.208169999999999,
+  "score_equivalence_estimate": {
+    "method": "Scale the product of the three task costs by (own public score / leader public score)^3.",
+    "own_local_geometric_mean": 28.14028,
+    "required_product_cost_multiplier": 0.6008392338988243,
+    "current_dqi_cost": 347904227555.5428,
+    "dqi_target_if_other_costs_are_fixed": 209034509554.63458,
+    "dqi_reduction_if_other_costs_are_fixed": 0.3991607661011757,
+    "dqi_target_at_Q890_zero_failure": {
+      "qubits": 890,
+      "repetition_factor": 1.1912605,
+      "maximum_mean_toffoli": 221529.33045314264
+    },
+    "status": "score-equivalence estimate, not a measured leader cost or a candidate"
+  },
+  "latest_own_submission": {
+    "ref": 58479383,
+    "status": "COMPLETE",
+    "public_score": 28.14028,
+    "submitted_at_utc": "2026-11-17T18:57:30.857000"
+  },
+  "notes": "Read-only leaderboard refresh. No circuit was built or submitted."
+}

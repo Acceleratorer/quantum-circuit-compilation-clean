@@ -1,0 +1,183 @@
+{
+  "experiment": "exp-056",
+  "audited_utc": "2026-11-21T13:33:59Z",
+  "handling": "Notebook and dataset files were inspected as text/JSON only; none were executed.",
+  "files": [
+    {
+      "path": "maoxin123/qcc-33-135-3375-loader/kernel-metadata.json",
+      "bytes": 766,
+      "sha256": "e300b353e2d55e7f62d55dd8f71a2ebc9461b1dbe03a06b2f345e3fd79732360",
+      "source": "https://www.kaggle.com/code/maoxin123/qcc-33-135-3-375-toffoli-chemistry-loaders",
+      "version": "numeric revision unavailable in downloaded metadata; exact bytes pinned by SHA-256"
+    },
+    {
+      "path": "maoxin123/qcc-33-135-3375-loader/qcc-33-135-3-375-toffoli-chemistry-loaders.ipynb",
+      "bytes": 679193,
+      "sha256": "403988e85cf72e5aa100d38e328a232417542fe5532d15f44fd5bfbff8339b92",
+      "source": "https://www.kaggle.com/code/maoxin123/qcc-33-135-3-375-toffoli-chemistry-loaders",
+      "version": "numeric revision unavailable in downloaded metadata; exact bytes pinned by SHA-256"
+    },
+    {
+      "path": "rithvikredrouthu/shut-up-and-calculate/kernel-metadata.json",
+      "bytes": 738,
+      "sha256": "3e3fb7b20849b33c92f0711107613a4b7f6160884275b7e7a5d41622870e7a22",
+      "source": "https://www.kaggle.com/code/rithvikredrouthu/shut-up-and-calculate-vqcc-32-86114",
+      "version": "numeric revision unavailable in downloaded metadata; exact bytes pinned by SHA-256"
+    },
+    {
+      "path": "rithvikredrouthu/shut-up-and-calculate/shut-up-and-calculate-vqcc-32-86114.ipynb",
+      "bytes": 17708,
+      "sha256": "efe66b9c8c4a331b654ff0d75db44680afae37747e99dfaca12f8a32f411e747",
+      "source": "https://www.kaggle.com/code/rithvikredrouthu/shut-up-and-calculate-vqcc-32-86114",
+      "version": "numeric revision unavailable in downloaded metadata; exact bytes pinned by SHA-256"
+    },
+    {
+      "path": "syed3000/vqcc-own-circuit-portfolio/kernel-metadata.json",
+      "bytes": 831,
+      "sha256": "1d54ff907d907c1ff35cb4848189ab86f8b85bdc2820434fc686db49db707e48",
+      "source": "https://www.kaggle.com/code/syed3000/vqcc-own-circuit-portfolio-notebook",
+      "version": "numeric revision unavailable in downloaded metadata; exact bytes pinned by SHA-256"
+    },
+    {
+      "path": "syed3000/vqcc-own-circuit-portfolio/vqcc-own-circuit-portfolio-notebook.ipynb",
+      "bytes": 2921,
+      "sha256": "f7e1aba1fe201c281c577d75339d32202c3d8dc5a024e5346980b0535c40d8b3",
+      "source": "https://www.kaggle.com/code/syed3000/vqcc-own-circuit-portfolio-notebook",
+      "version": "numeric revision unavailable in downloaded metadata; exact bytes pinned by SHA-256"
+    },
+    {
+      "path": "tonylica/quantum-ai-32-85306/kernel-metadata.json",
+      "bytes": 708,
+      "sha256": "0a509c91c6203422581366eea9c611e945433cc4c28d868799e768b3bbaafb87",
+      "source": "https://www.kaggle.com/code/tonylica/quantum-ai-32-85306-ready",
+      "version": "numeric revision unavailable in downloaded metadata; exact bytes pinned by SHA-256"
+    },
+    {
+      "path": "tonylica/quantum-ai-32-85306/quantum-ai-32-85306-ready.ipynb",
+      "bytes": 4110,
+      "sha256": "dc6a37a9721e74e54420cda70ab9f2b3381ec76c3ddaecf84f089f32cf677cd6",
+      "source": "https://www.kaggle.com/code/tonylica/quantum-ai-32-85306-ready",
+      "version": "numeric revision unavailable in downloaded metadata; exact bytes pinned by SHA-256"
+    },
+    {
+      "path": "tonylica/task-generators-v2/chemistry/build.py",
+      "bytes": 3066,
+      "sha256": "3c44bceb68d3b16adef31f6ed857b68469d6704baae030b1711512ed77d2bfb4",
+      "source": "https://www.kaggle.com/datasets/tonylica/quantum-ai-32-85306-task-generators",
+      "version": "numeric revision unavailable in downloaded metadata; exact bytes pinned by SHA-256"
+    },
+    {
+      "path": "tonylica/task-generators-v2/chemistry/README.md",
+      "bytes": 3018,
+      "sha256": "3ae2f543cf51eb602277ae9e1e26f1051e381eb24c97276888df9e5c4614ef5b",
+      "source": "https://www.kaggle.com/datasets/tonylica/quantum-ai-32-85306-task-generators",
+      "version": "numeric revision unavailable in downloaded metadata; exact bytes pinned by SHA-256"
+    },
+    {
+      "path": "tonylica/task-generators-v2/dataset-metadata.json",
+      "bytes": 670,
+      "sha256": "c4cc585e32ac1b9ccf87fc0a03e44eea6cce19bf5957665459c361d44735f6f6",
+      "source": "https://www.kaggle.com/datasets/tonylica/quantum-ai-32-85306-task-generators",
+      "version": "numeric revision unavailable in downloaded metadata; exact bytes pinned by SHA-256"
+    },
+    {
+      "path": "tonylica/task-generators-v2/dqi/arithmetic.py",
+      "bytes": 1815,
+      "sha256": "8414f94028b78af05663fdf4019158e8849827e69d656296150d51287efe9b32",
+      "source": "https://www.kaggle.com/datasets/tonylica/quantum-ai-32-85306-task-generators",
+      "version": "numeric revision unavailable in downloaded metadata; exact bytes pinned by SHA-256"
+    },
+    {
+      "path": "tonylica/task-generators-v2/dqi/build.py",
+      "bytes": 3396,
+      "sha256": "0fe25ad1c92dabcbfae116e11181a0103c24e33ac4af56ca6ec046b998ef2b3f",
+      "source": "https://www.kaggle.com/datasets/tonylica/quantum-ai-32-85306-task-generators",
+      "version": "numeric revision unavailable in downloaded metadata; exact bytes pinned by SHA-256"
+    },
+    {
+      "path": "tonylica/task-generators-v2/dqi/README.md",
+      "bytes": 2243,
+      "sha256": "3d28b8ee4174c9807030aef15fc98d3f0996a165145c28d60511e89876f2f33c",
+      "source": "https://www.kaggle.com/datasets/tonylica/quantum-ai-32-85306-task-generators",
+      "version": "numeric revision unavailable in downloaded metadata; exact bytes pinned by SHA-256"
+    },
+    {
+      "path": "tonylica/task-generators-v2/dqi/selector.py",
+      "bytes": 6635,
+      "sha256": "b8449157b11e8b97aebfd0079d5e5a3d629250353515e317e171bc4208f2c4d7",
+      "source": "https://www.kaggle.com/datasets/tonylica/quantum-ai-32-85306-task-generators",
+      "version": "numeric revision unavailable in downloaded metadata; exact bytes pinned by SHA-256"
+    },
+    {
+      "path": "tonylica/task-generators-v2/generate.py",
+      "bytes": 3928,
+      "sha256": "1f3c08d1cf061035ab994077288a9b325204f2f54a7a2690cb8b8035801aa87c",
+      "source": "https://www.kaggle.com/datasets/tonylica/quantum-ai-32-85306-task-generators",
+      "version": "numeric revision unavailable in downloaded metadata; exact bytes pinned by SHA-256"
+    },
+    {
+      "path": "tonylica/task-generators-v2/invsqrt/build.py",
+      "bytes": 2282,
+      "sha256": "c864bdb2b542453ba859436cdaa084196b50579eac0ffe0f7b150757c647af05",
+      "source": "https://www.kaggle.com/datasets/tonylica/quantum-ai-32-85306-task-generators",
+      "version": "numeric revision unavailable in downloaded metadata; exact bytes pinned by SHA-256"
+    },
+    {
+      "path": "tonylica/task-generators-v2/invsqrt/carry.py",
+      "bytes": 2207,
+      "sha256": "ef7b1b7b41f2f3fec467cbc2b1fb1793ae9fb550dc55b511f16e5b57eab489fa",
+      "source": "https://www.kaggle.com/datasets/tonylica/quantum-ai-32-85306-task-generators",
+      "version": "numeric revision unavailable in downloaded metadata; exact bytes pinned by SHA-256"
+    },
+    {
+      "path": "tonylica/task-generators-v2/invsqrt/divider.py",
+      "bytes": 3909,
+      "sha256": "6e66a01ca406c02eb5364594bb6af032ee9f3f80e32c6419c4a3f7d3d41f4a1e",
+      "source": "https://www.kaggle.com/datasets/tonylica/quantum-ai-32-85306-task-generators",
+      "version": "numeric revision unavailable in downloaded metadata; exact bytes pinned by SHA-256"
+    },
+    {
+      "path": "tonylica/task-generators-v2/invsqrt/lend29.py",
+      "bytes": 2234,
+      "sha256": "abfa6d99405cf990774cf97739276960490f793a86b17ec9f18ec375718ec70a",
+      "source": "https://www.kaggle.com/datasets/tonylica/quantum-ai-32-85306-task-generators",
+      "version": "numeric revision unavailable in downloaded metadata; exact bytes pinned by SHA-256"
+    },
+    {
+      "path": "tonylica/task-generators-v2/invsqrt/README.md",
+      "bytes": 2380,
+      "sha256": "f174cbadbc72c87f44b99ee189c7e90bc4ab256698ddacca449b4b957cea5bd0",
+      "source": "https://www.kaggle.com/datasets/tonylica/quantum-ai-32-85306-task-generators",
+      "version": "numeric revision unavailable in downloaded metadata; exact bytes pinned by SHA-256"
+    },
+    {
+      "path": "tonylica/task-generators-v2/invsqrt/v50/apply_best.py",
+      "bytes": 8382,
+      "sha256": "6dd588a77c999792a3a1e831e5dcfa95527cef23001e828d331a3b5e0634f070",
+      "source": "https://www.kaggle.com/datasets/tonylica/quantum-ai-32-85306-task-generators",
+      "version": "numeric revision unavailable in downloaded metadata; exact bytes pinned by SHA-256"
+    },
+    {
+      "path": "tonylica/task-generators-v2/notices/RELEASE_NOTICES.txt",
+      "bytes": 81473,
+      "sha256": "158949a59441706f43ccd10261f72a8021db852be3b1f8335835955d0f41dfd3",
+      "source": "https://www.kaggle.com/datasets/tonylica/quantum-ai-32-85306-task-generators",
+      "version": "numeric revision unavailable in downloaded metadata; exact bytes pinned by SHA-256"
+    },
+    {
+      "path": "tonylica/task-generators-v2/README.md",
+      "bytes": 1411,
+      "sha256": "71980b0452f1e922d0b2e251d9e39772b313fd9d8ac668b58b48178f57a0308e",
+      "source": "https://www.kaggle.com/datasets/tonylica/quantum-ai-32-85306-task-generators",
+      "version": "numeric revision unavailable in downloaded metadata; exact bytes pinned by SHA-256"
+    },
+    {
+      "path": "tonylica/task-generators-v2/requirements.txt",
+      "bytes": 13,
+      "sha256": "738071c1d9633f276433ad6738de256d2bf0d22f66dc4bd3179012bebb63bdd1",
+      "source": "https://www.kaggle.com/datasets/tonylica/quantum-ai-32-85306-task-generators",
+      "version": "numeric revision unavailable in downloaded metadata; exact bytes pinned by SHA-256"
+    }
+  ],
+  "version_note": "The downloaded Kaggle kernel/dataset metadata does not include a numeric revision for these artifacts. No revision was inferred; each exact local file is pinned by SHA-256."
+}

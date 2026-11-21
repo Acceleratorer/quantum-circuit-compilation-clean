@@ -220,6 +220,90 @@ def xor_equal_flag(builder, left, right, target):
     builder.free(difference)
 
 
+def erase_branch_from_label(
+    builder, label, branch, matrix_a, matrix_c, sentinel, order
+):
+    """Uncompute one branch from its injective projective label."""
+    zero = builder.alloc_qubits(1)[0]
+    equal_sentinel = builder.alloc_qubits(1)[0]
+    a_zero = builder.alloc_qubits(1)[0]
+    c_zero = builder.alloc_qubits(1)[0]
+    has_sentinel = builder.alloc_qubits(1)[0]
+    ordinary = builder.alloc_qubits(1)[0]
+    zero_branch = builder.alloc_qubits(1)[0]
+    decoded_branch = builder.alloc_qubits(1)[0]
+
+    xor_zero_flag(builder, label, zero)
+    xor_equal_flag(builder, label, sentinel, equal_sentinel)
+    xor_zero_flag(builder, matrix_a, a_zero)
+    xor_zero_flag(builder, matrix_c, c_zero)
+
+    # A sentinel exists exactly when both projective coordinates are nonzero.
+    builder.x(a_zero)
+    builder.x(c_zero)
+    builder.init_and(a_zero, c_zero, has_sentinel)
+    builder.x(c_zero)
+    builder.x(a_zero)
+
+    # Nonzero labels other than the sentinel retain the rank-order branch.
+    builder.x(zero)
+    builder.x(equal_sentinel)
+    builder.init_and(zero, equal_sentinel, ordinary)
+    builder.x(equal_sentinel)
+    builder.x(zero)
+
+    # A zero label selects the zero-pivot branch when a sentinel exists;
+    # without one, the first matrix coordinate decides the zero case.
+    builder.ccx(zero, has_sentinel, zero_branch)
+    builder.ccx(zero, a_zero, zero_branch)
+    builder.ccx(ordinary, order, decoded_branch)
+    builder.cx(zero_branch, decoded_branch)
+    builder.cx(decoded_branch, branch)
+
+    builder.cx(zero_branch, decoded_branch)
+    builder.ccx(ordinary, order, decoded_branch)
+    builder.x(zero)
+    builder.x(equal_sentinel)
+    builder.del_and(zero, equal_sentinel, ordinary)
+    builder.x(equal_sentinel)
+    builder.x(zero)
+    builder.ccx(zero, a_zero, zero_branch)
+    builder.ccx(zero, has_sentinel, zero_branch)
+
+    builder.x(a_zero)
+    builder.x(c_zero)
+    builder.del_and(a_zero, c_zero, has_sentinel)
+    builder.x(c_zero)
+    builder.x(a_zero)
+    xor_zero_flag(builder, matrix_c, c_zero)
+    xor_zero_flag(builder, matrix_a, a_zero)
+    xor_equal_flag(builder, label, sentinel, equal_sentinel)
+    xor_zero_flag(builder, label, zero)
+    builder.free(
+        [
+            zero,
+            equal_sentinel,
+            a_zero,
+            c_zero,
+            has_sentinel,
+            ordinary,
+            zero_branch,
+            decoded_branch,
+        ]
+    )
+
+
+def erase_first_branch_from_ratio(builder, ratio, branch):
+    """At pivot zero, the raw ratio is nonzero exactly on the swap branch."""
+    zero = builder.alloc_qubits(1)[0]
+    xor_zero_flag(builder, ratio, zero)
+    builder.x(zero)
+    builder.cx(zero, branch)
+    builder.x(zero)
+    xor_zero_flag(builder, ratio, zero)
+    builder.free([zero])
+
+
 def xor_prefix_order(builder, branches, pivot, target):
     """Toggle target by the rank-order bit before one of the first four pivots."""
     if pivot in (0, 1):
@@ -318,6 +402,10 @@ def append_sentinel_label(builder, ratios, branches, pivot, ar):
     ar.mul_xor0(builder, matrix_a, matrix_c, sentinel)
     ar.inverse_inplace_reverse(builder, matrix_c, inverse_transcript)
     builder.cswap(order, matrix_a, matrix_c)
+    erase_branch_from_label(
+        builder, ratios[pivot], branches[pivot],
+        matrix_a, matrix_c, sentinel, order
+    )
     for previous in reversed(range(pivot)):
         delta = POINTS[pivot] ^ POINTS[previous]
         inverse_delta = ar.field(FIELD_DEGREE).invert(delta)
@@ -422,18 +510,25 @@ def build_prefix_encoder(in_place=False, sentinel_labels=False):
 
     if sentinel_labels:
         # Descending order keeps every earlier ratio in its raw form while its
-        # prefix matrix is reconstructed.
+        # prefix matrix is reconstructed. Each branch is then erased from its
+        # injective label and its wire becomes reusable workspace.
         for pivot in reversed(range(1, len(POINTS))):
             append_sentinel_label(builder, ratios, branches, pivot, ar)
+            builder.free([branches[pivot]])
+        erase_first_branch_from_ratio(builder, ratios[0], branches[0])
+        builder.free([branches[0]])
+        output_branches = []
+    else:
+        output_branches = branches
 
     if in_place:
         builder.free(ratio_temp)
-    rank_register = rank1 + branches + [spare_rank_bit]
+    rank_register = rank1 + output_branches + [spare_rank_bit]
     circuit = builder.finish_circuit()
     return km, circuit, {
         "payload": payload,
         "rank1": rank1,
-        "branches": branches,
+        "branches": output_branches,
         "spare_rank_bit": spare_rank_bit,
         "rank_register": rank_register,
         "ratios": ratios,
@@ -493,7 +588,7 @@ def screen_prefix_encoder(case_count=32, in_place=False, use_sentinel_labels=Fal
     sim.write_across_shots(
         registers["rank1"], bit_columns([0] * len(cases), 3)
     )
-    for pivot in range(4):
+    for pivot in range(len(registers["branches"])):
         sim.write_across_shots(
             registers["branches"][pivot],
             np.zeros(len(cases), dtype=np.bool_),
@@ -532,10 +627,11 @@ def screen_prefix_encoder(case_count=32, in_place=False, use_sentinel_labels=Fal
             )
         if not in_place:
             assert not np.any(sim.read_across_shots(registers["samples"][pivot]))
-        assert np.array_equal(
-            sim.read_across_shots(registers["branches"][pivot]),
-            np.asarray([bool(branches[pivot]) for branches in expected_branches], dtype=np.bool_),
-        )
+        if not use_sentinel_labels:
+            assert np.array_equal(
+                sim.read_across_shots(registers["branches"][pivot]),
+                np.asarray([bool(branches[pivot]) for branches in expected_branches], dtype=np.bool_),
+            )
     for word in range(untouched_start, 70):
         assert np.array_equal(
             sim.read_across_shots(
@@ -570,7 +666,8 @@ def screen_prefix_encoder(case_count=32, in_place=False, use_sentinel_labels=Fal
         "clean_scratch_qubits": len(scratch),
         "output_labels_match_reference": not output_mismatches,
         "output_mismatches": output_mismatches,
-        "branch_history_matches_reference": True,
+        "branch_history_matches_reference": None if use_sentinel_labels else True,
+        "branch_registers_erased": use_sentinel_labels,
         "original_ratio_words_overwritten_in_place": in_place,
         "sentinel_labels": use_sentinel_labels,
         "samples_cleared": not in_place,
@@ -788,11 +885,10 @@ def run_screen():
         "full_input_sentinel_label_encoder": sentinel_inplace_result,
         "scope": (
             "Compiled the explicit ratio/history baseline and a four-pivot "
-            "sentinel-label variant for 32 arbitrary GF(2^12) four-sample inputs. "
-            "The sentinel variant keeps explicit branch history as a comparison, "
-            "checks label agreement, sample cleanup, payload preservation, phase, "
-            "and scratch. It does not establish the complete 4+66 schedule or "
-            "erase branch history."
+            "sentinel-label variant with branch erasure for 32 arbitrary "
+            "GF(2^12) four-sample inputs. It checks label agreement, final rank, "
+            "sample cleanup, payload preservation, phase, and scratch. It does "
+            "not establish the complete 4+66 schedule."
         ),
     }
 

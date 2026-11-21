@@ -3,7 +3,7 @@ id: D-004
 title: Improve the source-owned DQI decoder with a new key-equation algorithm
 status: active
 tasks: dqi, all
-last_checked: 2026-11-20
+last_checked: 2026-11-21
 ---
 
 # D-004: improve the source-owned DQI decoder
@@ -16,10 +16,35 @@ reproduces it. Existing product-retention variants have already been screened.
 The active path is a source-owned DQI decoder with a genuinely different
 key-equation algorithm. Keep the official verifier's salted failure rate in
 the score model, and require the full `R × Q² × T` budget before building a
-candidate. The latest score-equivalence estimate is `224.406e9`; at
-`R=1.1912605` and `Q=890`, the DQI gate is `T <= 237,820` (see the current
-leaderboard refresh below and the saved score model in the mid-competition
-milestone).
+candidate. The latest score-equivalence estimate is `209.035e9`; at
+`R=1.1912605` and `Q=890`, the DQI gate is `T <= 221,529`. The FMA projection
+is `202,075T`, but its complete width, phase, and cleanup schedule remains
+unproven (see the current leaderboard refresh below).
+
+## 2026-11-21 live leaderboard refresh
+
+The full Kaggle snapshot at `2026-11-21T12:55:34Z` has 3,519 teams.
+`Accelra` is rank 1,202 at `28.14028`; `Z³C¹oherence` leads at `33.34845`,
+a `5.20817`-point gap. With the other submitted task costs fixed, matching the
+leader requires DQI cost at or below `209.035e9`, about a `39.92%` reduction
+from `347.904e9`, or mean `T <= 221,529` at `Q=890` and `R=1.1912605`.
+The projected FMA count is `202,075T`, leaving `19,454T` before omitted work.
+That projection is not a circuit result: the complete 4+66 width, phase, and
+cleanup schedule is still open. No candidate or submission is ready. The
+snapshot and exact score model are in
+[`evals/2026-11-21-live-leaderboard-125534Z.json`](../../evals/2026-11-21-live-leaderboard-125534Z.json).
+
+## 2026-11-21 branch-history erasure screen — width gate missed
+
+Private kernel version 22 compiles the four-pivot sentinel label with all four
+branch bits erased. Across 32 arbitrary GF(2^12) four-sample inputs, labels and
+final rank matched, scratch was clean, and phase flips were zero. The circuit
+measured `Q=928`, `T=6,212`: it removes four persistent branch bits but peaks
+nine qubits wider and 310T higher than version 21, and exceeds `Q=890` by 38.
+Close this all-fields-live layout as a candidate. The reversible label relation
+is useful only if the full 4+66 schedule reuses payload wires enough to fit the
+width gate. The complete schedule remains open; see
+[`exp-053`](../../experiments/exp-053/README.md).
 
 ## 2026-11-20 live leaderboard refresh
 

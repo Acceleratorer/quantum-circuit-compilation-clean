@@ -2,14 +2,11 @@
 id: exp-053
 title: Pivot-normalized FMA recurrence screen
 task: dqi
-tests: exhaustive GF(8) four-sample inputs; all 97,119 valid GF(8) eight-point patterns; 655,360 transformed GF(8) block states; 48 seeded GF(2^12) DQI samples; 64 arbitrary GF(2^12) 70-symbol sentinel-label vectors; 32 compiled pair-cell cases; 32 compiled four-pivot sentinel-label cases; fixed-determinant transition counterexample
+tests: prior GF(8) and GF(2^12) screens; 32 compiled four-pivot branch-erasure cases in private kernel version 22
 direction: D-004
-status: sentinel_4pivot_gate_screen
-date: 2026-11-20
-result: >-
-  The full-input ratio/history encoder is Q=902, T=3,200. Its measured
-  four-pivot sentinel-label variant is Q=919, T=5,902 with branch history
-  retained, so it exceeds the Q=890 gate and is not a scoring candidate.
+status: branch_erasure_width_no_go
+date: 2026-11-21
+result: Kernel v22 erases four branch bits but peaks at Q=928, 38 above the Q=890 gate; no candidate.
 ---
 
 # Pivot-normalized FMA recurrence
@@ -325,8 +322,8 @@ vectors and verified all 585 local prefix contexts. In GF(2^12), 48 valid
 70-symbol DQI vectors and 64 seeded arbitrary 70-symbol vectors round-tripped;
 ratios and branches matched the independent direct recurrence. These checks
 support the proof and exercise the implementation; they do not compile the
-full 70-symbol permutation. The four-pivot gate result is recorded below. The
-branch-history eraser and full 4+66 resource schedule remain unbuilt. Results are in
+full 70-symbol permutation. The four-pivot branch eraser is measured below;
+the complete 4+66 resource schedule remains unbuilt. Results are in
 [`results.json`](results.json).
 
 The fixed-determinant GF(8) counterexample remains a real local collision:
@@ -353,6 +350,23 @@ qubits. This proves the four-pivot relabeling circuit works, but this layout is
 not a scoring candidate. It does not establish branch-history erasure or the
 complete 4+66 schedule; see [`results.json`](results.json).
 
+### Four-pivot branch erasure — kernel version 22
+
+The source-owned encoder now derives each branch back from its sentinel label,
+clears the branch bit, and frees that wire as reusable workspace. Private
+[Kaggle kernel version 22](https://www.kaggle.com/code/accelra/exp053-inplace-ratio-history/versions/22)
+simulated 32 arbitrary GF(2^12) four-sample inputs. All labels and final ranks
+matched; the four branch registers were erased; the other 66 payload words were
+preserved; all scratch was clean; and there were zero phase flips.
+
+This version measured `Q=928`, `T=6,212`, with 84 clean scratch qubits. It
+eliminates the four stored branch bits, but its peak is 9 qubits wider and 310T
+higher than the version 21 explicit sentinel circuit. It misses `Q=890` by 38
+qubits. Close this explicit all-fields-live layout as a scoring candidate;
+carry forward only the reversible label/branch relation if a complete schedule
+can reuse payload wires to fit the width gate. This result does not prove the
+4+66 schedule.
+
 ## Limit
 
 The compiled one-pair cell does not solve width for the full recurrence. The
@@ -360,7 +374,8 @@ direct sequential state holds 70 `d` words and up to 69 variable `g` words, or
 1,668 qubits before ratio workspace. A complete 4+66 schedule must generate
 and consume each pair from the compact 840-qubit payload, keep ratio and rank
 state live within Q=890, and account for all cleanup and phase work. The
-54,868T margin is only a projection; no full circuit or submission exists.
+19,454T margin is only a projection under the latest score gate; no full circuit
+or submission exists.
 
 ## Reproduce
 
