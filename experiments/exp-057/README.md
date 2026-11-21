@@ -2,7 +2,7 @@
 id: exp-057
 title: Four-word streaming decoder for quadratic-over-linear FMA
 task: dqi
-tests: exhaustive GF(8); 2,048 seeded GF(2^12); 32-case private gate screen including a1=0; 32 verifier-form prefix-shape cases
+tests: exhaustive GF(8); 2,048 seeded GF(2^12); 32-case private gate screen including a1=0; 32 verifier-form prefix-shape cases; one verifier-form case per weight 0..35
 direction: D-004
 status: prefix_cell_width_gate_passed_integration_pending
 date: 2026-11-22
@@ -50,3 +50,9 @@ and checked that the first four samples decode to the cell's supported
 division. Seed: `0x4A66057`. This only checks sampled classical input
 compatibility; it does not implement the reversible sample-to-coefficient map
 or cover the full verifier input distribution.
+
+A second seeded screen tried one valid error pattern at each weight from 0 to
+35. The supported shape held for the sampled weights 2 through 35; the
+weight-0 case was unsupported and the weight-1 case hit zero division. These
+are real missing branches, so this cell cannot serve as the only prefix path.
+This is one case per weight, not exhaustive coverage.

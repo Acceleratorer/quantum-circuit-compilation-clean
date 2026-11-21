@@ -41,6 +41,15 @@
       "reconstruction_errors": 0,
       "zero_divisions": 0,
       "scope": "Sampled classical input compatibility only; no reversible sample-to-coefficient circuit or full-distribution coverage."
+    },
+    "verifier_form_weight_edge_screen": {
+      "cases": 36,
+      "weights_tested": "0..35, one valid error pattern per weight",
+      "seed": "0x4A66058",
+      "supported_sampled_weights": "2..35",
+      "weight_0": "unsupported_shape",
+      "weight_1": "zero_division",
+      "scope": "Classical counterexamples only; not exhaustive per weight and not a circuit or official-verifier result."
     }
   },
   "resources": {

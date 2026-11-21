@@ -19,7 +19,8 @@ The top-leaderboard goal remains open; no competition submission was made.
 
 ## Next gate
 
-Integrate the current cell into the full 4+66 schedule, prove all 70 syndrome
+Add correct prefix handling for the sampled weight-0 and weight-1 shapes, then
+integrate the supported path into the full 4+66 schedule. Prove all 70 syndrome
 inputs and ancillas satisfy the official verifier, and measure the complete
 DQI cost against the existing `Q <= 890` and `T <= 221,529` target before
 preparing any submission.
