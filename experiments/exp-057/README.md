@@ -2,11 +2,11 @@
 id: exp-057
 title: Four-word streaming decoder for quadratic-over-linear FMA
 task: dqi
-tests: exhaustive valid GF(8) shape; 2,048 seeded GF(2^12) cases
+tests: exhaustive GF(8); 2,048 seeded GF(2^12); 32-case private gate screen
 direction: D-004
-status: local_transition_feasibility
+status: width_gate_failed
 date: 2026-11-21
-result: The four-sample map reconstructs all 2,016 valid GF(8) states and 2,048 sampled GF(2^12) states using four live field words; no gate circuit or resource estimate yet.
+result: The gate screen passes its functional checks but compiles to 909 qubits, 19 over the 890-qubit gate; this layout is closed.
 ---
 
 # exp-057: four-word streaming decoder
@@ -24,6 +24,14 @@ The bounded screen passed:
 
 Run with `python experiments/exp-057/streaming_fixed_shape_decoder.py`. GF(8) exhausts the valid coefficient domain. GF(2^12) rejection-samples the same coprime, finite-denominator domain with seed `0xA466057`; one valid pivot-`a1` case is deliberately included so both inverse branches are exercised. The screen found that sample values need not be pairwise distinct; only the full four-sample vector must distinguish valid coefficient states.
 
-## Boundary
+## Gate screen
 
-This is not a quantum circuit, a complete DQI schedule, or a submission candidate. It does not measure width, Toffoli count, phase, cleanup, or cover other factorization shapes. The next decision is whether this four-word relation can be realized inside the existing 4+66 schedule within its `Q <= 890` and `T <= 221,529` gates; if not, stop this direction.
+The source-owned Kickmix circuit compiled and passed its bounded checks on 32
+seeded GF(2^12) states, including both pivot paths. It reconstructed all four
+words, restored the rank tag, left 60 scratch qubits clean, and produced no
+phase flips. The private Kaggle run measured `Q=909` and `T=7,125`.
+
+This is only the four-word prefix-state cell, not the integrated 4+66 DQI
+schedule. It misses the 890-qubit width gate by 19 qubits, so this layout is
+closed and was not submitted. The full run receipt is in
+[`evals/2026-11-21-exp057-gate-screen.json`](../../evals/2026-11-21-exp057-gate-screen.json).

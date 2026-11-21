@@ -1,0 +1,30 @@
+{
+  "captured_utc": "2026-11-21T15:36:00Z",
+  "experiment": "exp-057",
+  "kernel": {
+    "id": "accelra/exp057-streaming-prefix-state",
+    "version": 2,
+    "visibility": "private",
+    "status": "COMPLETE",
+    "url": "https://www.kaggle.com/code/accelra/exp057-streaming-prefix-state"
+  },
+  "scope": "Source-owned four-word coefficient-to-prefix-state cell for G=1, deg(A)=2, deg(B)=1; not an integrated 4+66 schedule.",
+  "checks": {
+    "cases": 32,
+    "pivot_coverage": {
+      "a0": 31,
+      "a1": 1
+    },
+    "round_trip_errors": 0,
+    "clean_scratch_qubits": 60,
+    "phase_flips": 0
+  },
+  "resources": {
+    "compiled_qubits": 909,
+    "width_gate": 890,
+    "qubits_over_gate": 19,
+    "toffoli_like_gates": 7125
+  },
+  "decision": "Functional screen passes, but this layout misses the 890-qubit gate. Close the four-word prefix-state layout; do not integrate or submit it.",
+  "submission": null
+}
