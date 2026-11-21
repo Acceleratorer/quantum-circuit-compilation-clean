@@ -1,0 +1,39 @@
+{
+  "captured_date": "2026-11-22",
+  "experiment": "exp-053",
+  "kernel": {
+    "id": "accelra/exp053-inplace-ratio-history",
+    "version": 30,
+    "visibility": "private",
+    "url": "https://www.kaggle.com/code/accelra/exp053-inplace-ratio-history/versions/30"
+  },
+  "source": {
+    "python_source_sha256": "08F6872E647793C4EE0DE9ED4A4E51630FDE7B1CD3F1EFDBCFD1C21930B3F977",
+    "built_kernel_source_sha256": "08D2FE326874171DED5E31786F93BFE69565A50F9FD9E260F3ACE49F2D8DEC8B",
+    "arithmetic_helper_sha256": "C1B8B2FF583FFD5997856605C35D37F7116AA5811E52A3CE04A1AE7215D381C3"
+  },
+  "scope": "Full-input four-pivot prefix; measured source wires are reused for ratio outputs. The 4+66 schedule and official DQI verifier are not covered.",
+  "kernel_output": "experiments/exp-053/logs/kernel-v30-output.json",
+  "checks": {
+    "cases": 32,
+    "output_labels_match_reference": true,
+    "branch_history_matches_reference": true,
+    "other_payload_preserved": true,
+    "ratio_words_overwritten_in_place": true,
+    "scratch_clean": true,
+    "clean_scratch_qubits": 42,
+    "phase_flips": 0
+  },
+  "resources": {
+    "compiled_qubits": 890,
+    "qubit_limit": 890,
+    "qubits_over_limit": 0,
+    "toffoli_like_gates": 3032,
+    "baseline_toffoli_like_gates": 3200,
+    "toffoli_gate_reduction": 168
+  },
+  "official_verifier_run": false,
+  "competition_submission": null,
+  "result": "PASS_SCREEN",
+  "decision": "Keep this as the single exp-053 prefix path to integrate next. The four-pivot screen now meets Q=890 and reduces T by 168 versus the unitary full-input prefix; it is not a competition candidate until the complete 4+66 circuit passes verifier and resource gates."
+}

@@ -420,10 +420,19 @@ def append_sentinel_label(builder, ratios, branches, pivot, ar):
     builder.free(sentinel)
 
 
-def build_prefix_encoder(in_place=False, sentinel_labels=False, measurement_erase=False):
+def build_prefix_encoder(
+    in_place=False,
+    sentinel_labels=False,
+    measurement_erase=False,
+    measurement_recycle=False,
+):
     """Build the four-pivot map: four samples -> ratios plus branch history."""
     if measurement_erase and (not in_place or sentinel_labels):
         raise ValueError("measurement erasure requires the in-place ratio/history map")
+    if measurement_recycle and (
+        not in_place or sentinel_labels or measurement_erase
+    ):
+        raise ValueError("measurement recycling requires the in-place ratio/history map")
     km, ar = load_gate_arithmetic()
     builder = km.CircuitBuilder()
     payload = builder.alloc_qubits(840)
@@ -439,7 +448,11 @@ def build_prefix_encoder(in_place=False, sentinel_labels=False, measurement_eras
         else [payload[(4 + index) * FIELD_BITS : (5 + index) * FIELD_BITS]
               for index in range(4)]
     )
-    ratio_temp = builder.alloc_qubits(FIELD_BITS) if in_place else None
+    ratio_temp = (
+        builder.alloc_qubits(FIELD_BITS)
+        if in_place and not measurement_recycle
+        else None
+    )
     one = ar.field(FIELD_BITS)
 
     for pivot, point in enumerate(POINTS):
@@ -455,6 +468,17 @@ def build_prefix_encoder(in_place=False, sentinel_labels=False, measurement_eras
             ar.mul_xor(builder, ratios[previous], pair_g, pair_d)
             builder.gf2_imul(delta, target=pair_g, field=one)
 
+        measurement_mask = None
+        if measurement_recycle:
+            source_ids = {str(qubit) for qubit in samples[pivot]}
+            measurement_mask = builder.alloc_bits(FIELD_BITS)
+            builder.hmr(samples[pivot], measurement_mask)
+            builder.free(samples[pivot])
+            ratio_slot = list(builder.alloc_qubits(FIELD_BITS))
+            if {str(qubit) for qubit in ratio_slot} != source_ids:
+                raise RuntimeError("measured sample wires were not reused for the ratio")
+            samples[pivot] = ratio_slot
+
         append_branch_bit(builder, pair_d, pair_g, rank1, pivot, branches[pivot])
         reflect_rank1(builder, rank1, pivot, branches[pivot])
 
@@ -467,11 +491,16 @@ def build_prefix_encoder(in_place=False, sentinel_labels=False, measurement_eras
 
         builder.cswap(branches[pivot], pair_d, pair_g)
         inverse_transcript = ar.inverse_inplace_forward(builder, pair_g)
+        ratio_target = (
+            samples[pivot]
+            if measurement_recycle
+            else ratio_temp if in_place else ratios[pivot]
+        )
         ar.mul_xor0(
             builder,
             pair_d,
             pair_g,
-            ratio_temp if in_place else ratios[pivot],
+            ratio_target,
         )
         ar.inverse_inplace_reverse(builder, pair_g, inverse_transcript)
         builder.cswap(branches[pivot], pair_d, pair_g)
@@ -488,11 +517,33 @@ def build_prefix_encoder(in_place=False, sentinel_labels=False, measurement_eras
             builder.gf2_imul(inverse_delta, target=pair_g, field=one)
             ar.mul_xor(builder, ratios[previous], pair_g, pair_d)
             builder.cswap(branches[previous], pair_d, pair_g)
-        builder.cx(samples[pivot], pair_d)
-        builder.x(pair_g[0])
-        builder.free(pair_d)
-        builder.free(pair_g)
-        if in_place:
+        if measurement_recycle:
+            builder.x(pair_g[0])
+            builder.free(pair_g)
+            ratio_words = ratios[:pivot] + [samples[pivot]]
+            clear_mask = builder.alloc_bits(FIELD_BITS)
+            builder.hmr(pair_d, clear_mask)
+            builder.free(pair_d)
+            builder.cx(clear_mask, measurement_mask)
+            builder.free(clear_mask)
+            append_sample_eraser(
+                builder,
+                payload,
+                rank1,
+                branches,
+                spare_rank_bit,
+                pivot,
+                ar,
+                ratio_words=ratio_words,
+                phase_mask=measurement_mask,
+                phase_only=True,
+            )
+            builder.free(measurement_mask)
+        elif in_place:
+            builder.cx(samples[pivot], pair_d)
+            builder.x(pair_g[0])
+            builder.free(pair_d)
+            builder.free(pair_g)
             if measurement_erase:
                 append_sample_eraser_mbu(
                     builder,
@@ -519,6 +570,10 @@ def build_prefix_encoder(in_place=False, sentinel_labels=False, measurement_eras
                 )
             builder.swap(ratio_temp, samples[pivot])
         else:
+            builder.cx(samples[pivot], pair_d)
+            builder.x(pair_g[0])
+            builder.free(pair_d)
+            builder.free(pair_g)
             append_sample_eraser(
                 builder, payload, rank1, branches, spare_rank_bit, pivot, ar
             )
@@ -536,7 +591,7 @@ def build_prefix_encoder(in_place=False, sentinel_labels=False, measurement_eras
     else:
         output_branches = branches
 
-    if in_place:
+    if ratio_temp is not None:
         builder.free(ratio_temp)
     rank_register = rank1 + output_branches + [spare_rank_bit]
     circuit = builder.finish_circuit()
@@ -561,11 +616,13 @@ def screen_prefix_encoder(
     in_place=False,
     use_sentinel_labels=False,
     measurement_erase=False,
+    measurement_recycle=False,
 ):
     km, circuit, registers = build_prefix_encoder(
         in_place=in_place,
         sentinel_labels=use_sentinel_labels,
         measurement_erase=measurement_erase,
+        measurement_recycle=measurement_recycle,
     )
     field = km.GF2Field(FIELD_BITS)
     rng = Random(0xF1A05304)
@@ -650,10 +707,17 @@ def screen_prefix_encoder(
         if not in_place:
             assert not np.any(sim.read_across_shots(registers["samples"][pivot]))
         if not use_sentinel_labels:
-            assert np.array_equal(
-                sim.read_across_shots(registers["branches"][pivot]),
-                np.asarray([bool(branches[pivot]) for branches in expected_branches], dtype=np.bool_),
+            actual_branch = sim.read_across_shots(registers["branches"][pivot])
+            expected_branch = np.asarray(
+                [bool(branches[pivot]) for branches in expected_branches],
+                dtype=np.bool_,
             )
+            assert np.array_equal(actual_branch, expected_branch), {
+                "pivot": pivot,
+                "bad_shots": np.flatnonzero(actual_branch != expected_branch)[
+                    :8
+                ].tolist(),
+            }
     for word in range(untouched_start, 70):
         assert np.array_equal(
             sim.read_across_shots(
@@ -693,6 +757,7 @@ def screen_prefix_encoder(
         "original_ratio_words_overwritten_in_place": in_place,
         "sentinel_labels": use_sentinel_labels,
         "measurement_erase": measurement_erase,
+        "measurement_recycle": measurement_recycle,
         "samples_cleared": not in_place,
         "other_payload_preserved": True,
         "scratch_clean": not dirty_scratch,
@@ -702,13 +767,17 @@ def screen_prefix_encoder(
 
 
 def screen_inplace_prefix_encoder(
-    case_count=32, use_sentinel_labels=False, measurement_erase=False
+    case_count=32,
+    use_sentinel_labels=False,
+    measurement_erase=False,
+    measurement_recycle=False,
 ):
     return screen_prefix_encoder(
         case_count,
         in_place=True,
         use_sentinel_labels=use_sentinel_labels,
         measurement_erase=measurement_erase,
+        measurement_recycle=measurement_recycle,
     )
 
 
@@ -723,6 +792,8 @@ def append_sample_eraser(
     *,
     sample=None,
     ratio_words=None,
+    phase_mask=None,
+    phase_only=False,
 ):
     """Append sample_j ^= decode(r_0..r_j, b_0..b_j) to an existing circuit."""
     # At the four-point split, rank1 is determined by branch history. Restore
@@ -746,7 +817,9 @@ def append_sample_eraser(
         ]
     ratios = ratio_words
     branches = branches[: pivot + 1]
-    if sample is None:
+    if phase_only and (sample is not None or phase_mask is None):
+        raise ValueError("phase-only erasure requires a phase mask and no sample target")
+    if sample is None and not phase_only:
         sample = payload[(4 + pivot) * FIELD_BITS : (5 + pivot) * FIELD_BITS]
     one = ar.field(FIELD_BITS)
 
@@ -764,7 +837,10 @@ def append_sample_eraser(
         builder.cswap(branches[previous], pair_d, pair_g)
 
     inverse_transcript = ar.inverse_inplace_forward(builder, pair_g)
-    ar.mul_xor0(builder, pair_d, pair_g, sample)
+    if phase_mask is not None:
+        ar.phase_product(builder, pair_d, pair_g, phase_mask)
+    if not phase_only:
+        ar.mul_xor0(builder, pair_d, pair_g, sample)
     ar.inverse_inplace_reverse(builder, pair_g, inverse_transcript)
 
     # Reverse the decoder so its field-pair workspace is clean.
@@ -948,11 +1024,15 @@ def run_screen():
     inplace_result = screen_inplace_prefix_encoder()
     sentinel_inplace_result = screen_inplace_prefix_encoder(use_sentinel_labels=True)
     mbu_inplace_result = screen_inplace_prefix_encoder(measurement_erase=True)
+    measurement_recycle_result = screen_inplace_prefix_encoder(
+        measurement_recycle=True
+    )
     results = (
         clean_slot_result,
         inplace_result,
         sentinel_inplace_result,
         mbu_inplace_result,
+        measurement_recycle_result,
     )
     return {
         "experiment": "exp-053-inplace-ratio-history-prefix-encoder",
@@ -970,6 +1050,7 @@ def run_screen():
         "full_input_inplace_prefix_encoder": inplace_result,
         "full_input_sentinel_label_encoder": sentinel_inplace_result,
         "full_input_mbu_prefix_encoder": mbu_inplace_result,
+        "full_input_measurement_recycle_prefix_encoder": measurement_recycle_result,
         "scope": (
             "Compiled the explicit ratio/history baseline and a four-pivot "
             "sentinel-label variant with branch erasure for 32 arbitrary "

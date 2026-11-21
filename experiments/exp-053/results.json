@@ -610,7 +610,7 @@
     "phase_flips": 0,
     "qubit_limit": 890,
     "ratios_match_reference": true,
-    "result": "PASS",
+    "result": "PASS_SCREEN",
     "samples_cleared": true,
     "scope": "Compiled four-pivot ratio/history encoder for 32 arbitrary GF(2^12) four-sample inputs, including the all-zero vector. It writes four ratios and branch history, clears the four source samples, preserves the rest of the payload, and clears scratch. It does not establish the complete 4+66 schedule.",
     "toffoli_like_gates": 3200
@@ -1016,5 +1016,37 @@
     "official_verifier_run": false,
     "competition_submission": null,
     "decision": "Reject the direct sample-output layout because it fails payload preservation before resource accounting."
+  },
+  "measurement_recycle_kernel_v30": {
+    "captured_date": "2026-11-22",
+    "kernel_version": 30,
+    "kernel_url": "https://www.kaggle.com/code/accelra/exp053-inplace-ratio-history/versions/30",
+    "python_source_sha256": "08F6872E647793C4EE0DE9ED4A4E51630FDE7B1CD3F1EFDBCFD1C21930B3F977",
+    "built_kernel_source_sha256": "08D2FE326874171DED5E31786F93BFE69565A50F9FD9E260F3ACE49F2D8DEC8B",
+    "cases": 32,
+    "full_input_result": {
+      "branch_history_matches_reference": true,
+      "branch_registers_erased": false,
+      "cases": 32,
+      "clean_scratch_qubits": 42,
+      "compiled_qubits": 890,
+      "dirty_scratch_qubits": [],
+      "measurement_erase": false,
+      "measurement_recycle": true,
+      "original_ratio_words_overwritten_in_place": true,
+      "other_payload_preserved": true,
+      "output_labels_match_reference": true,
+      "output_mismatches": [],
+      "phase_flips": 0,
+      "samples_cleared": false,
+      "scratch_clean": true,
+      "sentinel_labels": false,
+      "toffoli_like_gates": 3032
+    },
+    "official_verifier_run": false,
+    "competition_submission": null,
+    "result": "PASS_SCREEN",
+    "scope": "Full-input four-pivot prefix; measured source wires are reused for ratio outputs. The 4+66 schedule and official DQI verifier are not covered.",
+    "decision": "Passes the prefix Q=890 gate; integrate this path with the remaining 66 symbols before evaluating the complete candidate."
   }
 }

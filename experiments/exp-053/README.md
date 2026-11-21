@@ -2,11 +2,11 @@
 id: exp-053
 title: Pivot-normalized FMA recurrence screen
 task: dqi
-tests: prior GF(8) and GF(2^12) screens; private Kaggle kernel screens through version 26
+tests: prior GF(8) and GF(2^12) screens; private Kaggle kernel screens through version 30
 direction: D-004
-status: direct_sample_output_failed_payload_preservation
+status: four_pivot_prefix_meets_qubit_gate
 date: 2026-11-22
-result: Kernel v23 MBU stays at Q=902; direct sample output corrupts payload word 4 with or without MBU; no candidate.
+result: Kernel v30 measurement-recycle prefix passes 32 cases at Q=890, T=3,032; integrated 4+66 schedule and official verifier remain open.
 ---
 
 # Pivot-normalized FMA recurrence
@@ -395,15 +395,29 @@ The failure receipt and raw log are in
 [`evals/2026-11-22-exp053-direct-output-v25.json`](../../evals/2026-11-22-exp053-direct-output-v25.json)
 and [`logs/kernel-v25-direct-output-failure.log`](logs/kernel-v25-direct-output-failure.log).
 
+### In-place measurement recycling — kernel version 30
+
+Kernel [version 30](https://www.kaggle.com/code/accelra/exp053-inplace-ratio-history/versions/30)
+measures each source word before ratio generation and reuses those wires for
+the ratio outputs. On 32 arbitrary GF(2^12) inputs, labels and branch history
+matched the recurrence, the other 66 payload words were preserved, all 42
+scratch qubits were clean, and there were no phase flips. The prefix compiled
+at `Q=890`, `T=3,032`, down 12 qubits and 168 Toffoli-like gates from the
+full-input unitary prefix.
+
+This closes the prefix width gate only. The full 4+66 schedule, cumulative
+resource count, and official verifier remain untested; there is no candidate
+submission. See the [evaluation receipt](../../evals/2026-11-22-exp053-measurement-recycle-prefix-v30.json)
+and [captured output](logs/kernel-v30-output.json).
+
 ## Limit
 
 The compiled one-pair cell does not solve width for the full recurrence. The
 direct sequential state holds 70 `d` words and up to 69 variable `g` words, or
-1,668 qubits before ratio workspace. A complete 4+66 schedule must generate
-and consume each pair from the compact 840-qubit payload, keep ratio and rank
-state live within Q=890, and account for all cleanup and phase work. The
-19,454T margin is only a projection under the latest score gate; no full circuit
-or submission exists.
+1,668 qubits before ratio workspace. A complete 4+66 schedule must integrate
+the measured prefix, generate and consume each pair from the compact 840-qubit
+payload, and stay within `Q=890`, `T=221,529` with cleanup and phase included.
+No full circuit or submission exists.
 
 ## Reproduce
 

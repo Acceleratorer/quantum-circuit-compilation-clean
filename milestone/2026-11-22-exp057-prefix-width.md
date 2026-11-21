@@ -19,13 +19,10 @@ The top-leaderboard goal remains open; no competition submission was made.
 
 ## Next gate
 
-Do not spend the next cycle on weight-0/1 shape patches: their combined default
-sampler probability is about `3.25e-24`, or `3.32e-19` expected draws in
-102,400 shots. First remove the 12-qubit overage from the general in-place
-prefix in exp-053 by changing the forward ratio-workspace schedule; the
-measurement-based eraser left peak width unchanged, and direct sample output
-failed spectator preservation both with and without measurement erasure. Then
-integrate one prefix path with the
-remaining 66 symbols and measure the full `Q <= 890`,
-`T <= 221,529`, cleanup, phase, and official-verifier gates before preparing
-any submission.
+Exp-053 kernel version 30 now passes the four-pivot prefix width gate at
+`Q=890`, `T=3,032` using measurement recycling. Its 32-case screen preserves
+the spectator payload and phase, but does not cover the remaining 66 symbols.
+Integrate this single path with those symbols and measure the full
+`Q <= 890`, `T <= 221,529`, cleanup, phase, and official-verifier gates before
+preparing any submission. See the [exp-053 receipt](../evals/2026-11-22-exp053-measurement-recycle-prefix-v30.json)
+and [experiment notes](../experiments/exp-053/README.md).
