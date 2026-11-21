@@ -2,11 +2,11 @@
 id: exp-053
 title: Pivot-normalized FMA recurrence screen
 task: dqi
-tests: prior GF(8) and GF(2^12) screens; 32-case private Kaggle kernel screens through version 23
+tests: prior GF(8) and GF(2^12) screens; private Kaggle kernel screens through version 25
 direction: D-004
-status: measurement_erasure_width_no_go
+status: direct_sample_output_failed_payload_preservation
 date: 2026-11-22
-result: Kernel v23 measurement erasure leaves the full-input prefix at Q=902 and raises cost to T=4,700; no candidate.
+result: Kernel v23 MBU stays at Q=902; v25 direct sample output corrupts a spectator payload word; no candidate.
 ---
 
 # Pivot-normalized FMA recurrence
@@ -382,6 +382,17 @@ width. Close this variant; the next width work belongs in the forward prefix
 schedule. The full screen output and receipt are in
 [`logs/kernel-v23-output.json`](logs/kernel-v23-output.json) and
 [`evals/2026-11-22-exp053-mbu-prefix-v23.json`](../../evals/2026-11-22-exp053-mbu-prefix-v23.json).
+
+### Direct sample output attempt — kernel version 25
+
+The next width attempt wrote the ratio into its source payload word, then tried
+to erase the duplicate sample from the temporary FMA pair. Private kernel
+version 24 failed the spectator-preservation assertion; version 25 identified
+payload word 4 as changed in shots 1 through 8. This fails correctness before
+resource accounting, so the source change was discarded. The failure receipt
+and raw log are in
+[`evals/2026-11-22-exp053-direct-output-v25.json`](../../evals/2026-11-22-exp053-direct-output-v25.json)
+and [`logs/kernel-v25-direct-output-failure.log`](logs/kernel-v25-direct-output-failure.log).
 
 ## Limit
 

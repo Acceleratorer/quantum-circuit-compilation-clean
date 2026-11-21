@@ -1,0 +1,23 @@
+{
+  "captured_date": "2026-11-22",
+  "experiment": "exp-053",
+  "kernel": {
+    "id": "accelra/exp053-inplace-ratio-history",
+    "version": 25,
+    "visibility": "private",
+    "url": "https://www.kaggle.com/code/accelra/exp053-inplace-ratio-history/versions/25"
+  },
+  "built_kernel_source_sha256": "C825AD22D39FCA1F1A499790CA751BB62F9595C74F07FF692325A6E0D561BF9D",
+  "scope": "Experimental direct ratio output into the source payload word; local simulator screen only.",
+  "kernel_output": "experiments/exp-053/logs/kernel-v25-direct-output-failure.log",
+  "failure": {
+    "assertion": "spectator_payload_preserved",
+    "payload_word": 4,
+    "bad_shots": "1..8"
+  },
+  "resource_result": null,
+  "official_verifier_run": false,
+  "competition_submission": null,
+  "result": "FAIL_SCREEN",
+  "decision": "Reject this layout before resource accounting; it corrupts an untouched payload word."
+}

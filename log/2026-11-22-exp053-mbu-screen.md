@@ -22,3 +22,8 @@ Evidence: [evaluation receipt](../evals/2026-11-22-exp053-mbu-prefix-v23.json),
 [private kernel version 23](https://www.kaggle.com/code/accelra/exp053-inplace-ratio-history/versions/23).
 
 Next: remove the ratio-workspace peak in the forward prefix schedule.
+
+The direct-output attempt in kernel version 25 failed the spectator-payload
+check: payload word 4 changed in shots 1 through 8. It produced no resource
+result and was dropped. See the
+[failure receipt](../evals/2026-11-22-exp053-direct-output-v25.json).

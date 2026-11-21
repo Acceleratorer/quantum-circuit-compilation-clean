@@ -23,7 +23,8 @@ Do not spend the next cycle on weight-0/1 shape patches: their combined default
 sampler probability is about `3.25e-24`, or `3.32e-19` expected draws in
 102,400 shots. First remove the 12-qubit overage from the general in-place
 prefix in exp-053 by changing the forward ratio-workspace schedule; the
-measurement-based eraser left peak width unchanged. Then integrate one prefix
-path with the remaining 66 symbols and measure the full `Q <= 890`,
+measurement-based eraser left peak width unchanged, and direct sample output
+failed spectator preservation. Then integrate one prefix path with the
+remaining 66 symbols and measure the full `Q <= 890`,
 `T <= 221,529`, cleanup, phase, and official-verifier gates before preparing
 any submission.
