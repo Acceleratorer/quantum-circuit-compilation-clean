@@ -119,20 +119,15 @@ def coefficients_from_samples(samples, mul, div):
     return coefficients
 
 
-def field_trace(value, degree, mul):
-    trace = 0
-    conjugate = value
-    for _ in range(degree):
-        trace ^= conjugate
-        conjugate = mul(conjugate, conjugate)
-    return trace
-
-
-def is_irreducible_quadratic(a0, a1, degree, mul, div):
-    if a1 == 0:
+def valid_shape(coefficients, mul, div):
+    a0, a1, b0, b1 = coefficients
+    if b1 == 0:
         return False
-    normalized = div(a0, mul(a1, a1))
-    return field_trace(normalized, degree, mul) == 1
+    denominator = lambda x: mul(x, x) ^ mul(a1, x) ^ a0
+    if any(denominator(point) == 0 for point in POINTS):
+        return False
+    root_b = div(b0, b1)
+    return denominator(root_b) != 0
 
 
 def exhaustive_gf8():
@@ -140,21 +135,18 @@ def exhaustive_gf8():
     states = 0
     outputs = {}
     pivots = [0, 0]
-    for a0, a1 in product(range(8), repeat=2):
-        if not is_irreducible_quadratic(a0, a1, 3, mul, div):
+    for coefficients in product(range(8), range(8), range(8), range(1, 8)):
+        if not valid_shape(coefficients, mul, div):
             continue
-        for b0 in range(8):
-            for b1 in range(1, 8):
-                coefficients = (a0, a1, b0, b1)
-                samples = sample_words(coefficients, mul, div)
-                state, pivot = prefix_state_from_coefficients(coefficients, mul, div)
-                assert len(state) == 4
-                assert samples_from_prefix_state(state, mul, div) == samples
-                assert coefficients_from_samples(samples, mul, div) == coefficients
-                previous = outputs.setdefault(samples, coefficients)
-                assert previous == coefficients
-                states += 1
-                pivots[pivot] += 1
+        samples = sample_words(coefficients, mul, div)
+        state, pivot = prefix_state_from_coefficients(coefficients, mul, div)
+        assert len(state) == 4
+        assert samples_from_prefix_state(state, mul, div) == samples
+        assert coefficients_from_samples(samples, mul, div) == coefficients
+        previous = outputs.setdefault(samples, coefficients)
+        assert previous == coefficients
+        states += 1
+        pivots[pivot] += 1
     return {
         "field": "GF(8)",
         "valid_coefficients": states,
@@ -170,31 +162,32 @@ def sampled_gf12(count=2048):
     degree, modulus = 12, 0x1053
     mul, _, div = ops(degree, modulus)
     rng = Random(0xA466057)
-    checked = 0
-    pivots = [0, 0]
-    for _ in range(count):
-        a1 = rng.randrange(1, 1 << degree)
-        while True:
-            normalized_c = rng.randrange(1 << degree)
-            if field_trace(normalized_c, degree, mul) == 1:
-                break
-        a0 = mul(mul(a1, a1), normalized_c)
-        assert is_irreducible_quadratic(a0, a1, degree, mul, div)
-        coefficients = (
-            a0,
-            a1,
-            rng.randrange(1 << degree),
+    cases = []
+    pivot_one_case = None
+    while len(cases) < count - 1 or pivot_one_case is None:
+        coefficients = tuple(rng.randrange(1 << degree) for _ in range(3)) + (
             rng.randrange(1, 1 << degree),
         )
+        if not valid_shape(coefficients, mul, div):
+            continue
         samples = sample_words(coefficients, mul, div)
         state, pivot = prefix_state_from_coefficients(coefficients, mul, div)
+        case = (coefficients, samples, state, pivot)
+        if pivot == 1 and pivot_one_case is None:
+            pivot_one_case = case
+            continue
+        if len(cases) < count - 1:
+            cases.append(case)
+    cases.append(pivot_one_case)
+
+    pivots = [0, 0]
+    for coefficients, samples, state, pivot in cases:
         assert samples_from_prefix_state(state, mul, div) == samples
         assert coefficients_from_samples(samples, mul, div) == coefficients
         pivots[pivot] += 1
-        checked += 1
     return {
         "field": "GF(2^12)",
-        "valid_coefficients": checked,
+        "valid_coefficients": len(cases),
         "pivot_counts": {"a0": pivots[0], "a1": pivots[1]},
         "maximum_live_field_words": 4,
         "result": "PASS",
@@ -207,9 +200,9 @@ def run_screen():
         "gf8": exhaustive_gf8(),
         "gf12": sampled_gf12(),
         "scope": (
-            "Classical reversible-state screen for A monic irreducible quadratic "
-            "and B linear with nonzero leading coefficient. It does not compile "
-            "the gate circuit or cover the other factorization shapes."
+            "Classical reversible-state screen for coprime monic quadratic A "
+            "and degree-1 B, with A nonzero at all four sample points. It does "
+            "not compile the gate circuit or cover the other factorization shapes."
         ),
     }
 
