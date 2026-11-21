@@ -1001,12 +1001,15 @@
     "result": "PASS_SCREEN",
     "decision": "Measurement erasure runs after the ratio workspace is live, so it does not reduce peak width. Close this variant and target the forward ratio-workspace schedule."
   },
-  "direct_sample_output_kernel_v25": {
+  "direct_sample_output_layout_v25_v26": {
     "captured_date": "2026-11-22",
     "kernel": "accelra/exp053-inplace-ratio-history",
     "kernel_version": 25,
     "kernel_url": "https://www.kaggle.com/code/accelra/exp053-inplace-ratio-history/versions/25",
     "built_kernel_source_sha256": "C825AD22D39FCA1F1A499790CA751BB62F9595C74F07FF692325A6E0D561BF9D",
+    "follow_up_kernel_version": 26,
+    "follow_up_built_kernel_source_sha256": "607F65ACD97B341E3C83CC2F1D28E265F0D86E6172545F9384B58A9974B9E064",
+    "measurement_erasure_follow_up": true,
     "screen_status": "FAIL",
     "failure": "Untouched payload word 4 changed in shots 1 through 8.",
     "resource_result": null,

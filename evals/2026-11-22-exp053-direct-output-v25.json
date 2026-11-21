@@ -15,6 +15,13 @@
     "payload_word": 4,
     "bad_shots": "1..8"
   },
+  "follow_up": {
+    "kernel_version": 26,
+    "url": "https://www.kaggle.com/code/accelra/exp053-inplace-ratio-history/versions/26",
+    "built_kernel_source_sha256": "607F65ACD97B341E3C83CC2F1D28E265F0D86E6172545F9384B58A9974B9E064",
+    "measurement_erasure": true,
+    "failure": "The same untouched payload word 4 changed in shots 1 through 8."
+  },
   "resource_result": null,
   "official_verifier_run": false,
   "competition_submission": null,
