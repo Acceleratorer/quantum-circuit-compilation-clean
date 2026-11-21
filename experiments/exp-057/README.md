@@ -2,7 +2,7 @@
 id: exp-057
 title: Four-word streaming decoder for quadratic-over-linear FMA
 task: dqi
-tests: exhaustive GF(8); 2,048 seeded GF(2^12); 32-case private gate screen including a1=0
+tests: exhaustive GF(8); 2,048 seeded GF(2^12); 32-case private gate screen including a1=0; 32 verifier-form prefix-shape cases
 direction: D-004
 status: prefix_cell_width_gate_passed_integration_pending
 date: 2026-11-22
@@ -42,3 +42,11 @@ words are checked for preservation; this cell does not decode them and is not
 the integrated 4+66 schedule. No competition submission was made. The full
 schedule and official verifier remain required before a candidate can be
 considered.
+
+A seeded local spot-check generated 32 valid verifier-form GF(2^12) inputs
+(16 each at error weights 31 and 35), mapped all 70 syndromes to FMA samples,
+and checked that the first four samples decode to the cell's supported
+`G=1, deg(A)=2, deg(B)=1` shape. All 32 reconstructed exactly with no zero
+division. Seed: `0x4A66057`. This only checks sampled classical input
+compatibility; it does not implement the reversible sample-to-coefficient map
+or cover the full verifier input distribution.

@@ -29,7 +29,19 @@
     "rank_tag_restored": true,
     "preserved_spectator_words": 66,
     "clean_scratch_qubits": 36,
-    "phase_flips": 0
+    "phase_flips": 0,
+    "verifier_form_prefix_shape_spot_check": {
+      "cases": 32,
+      "error_weights": {
+        "31": 16,
+        "35": 16
+      },
+      "seed": "0x4A66057",
+      "shape_matches": 32,
+      "reconstruction_errors": 0,
+      "zero_divisions": 0,
+      "scope": "Sampled classical input compatibility only; no reversible sample-to-coefficient circuit or full-distribution coverage."
+    }
   },
   "resources": {
     "compiled_qubits": 885,
