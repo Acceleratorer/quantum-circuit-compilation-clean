@@ -11,6 +11,7 @@ import json
 from pathlib import Path
 import subprocess
 import sys
+import tempfile
 from random import Random
 
 import numpy as np
@@ -34,6 +35,53 @@ def load_gate_arithmetic():
     if ARITHMETIC is None:
         raise RuntimeError("The private-kernel bundle did not embed field.py")
     return km, ARITHMETIC
+
+
+def load_width_helpers(km):
+    """Load the zero-aware inverse and pivoted inverse eraser."""
+    sys.modules.setdefault("circ", km)
+    local_root = (
+        Path(__file__).resolve().parents[2]
+        / "src"
+        / "dqi"
+        / "pro_q2_897"
+    )
+    helper_root = (
+        local_root
+        if local_root.is_dir()
+        else Path(tempfile.gettempdir()) / "exp057_helpers"
+    )
+    if not helper_root.is_dir():
+        archive = globals().get("HELPER_ARCHIVE_B64")
+        if archive is None:
+            raise RuntimeError("Missing bundled DQI arithmetic helpers")
+        import base64
+        from io import BytesIO
+        from zipfile import ZipFile
+
+        helper_root.mkdir(parents=True, exist_ok=True)
+        with ZipFile(BytesIO(base64.b64decode(archive))) as bundle:
+            members = [Path(name) for name in bundle.namelist()]
+            if any(path.is_absolute() or ".." in path.parts for path in members):
+                raise RuntimeError("Invalid path in bundled DQI arithmetic helpers")
+            bundle.extractall(helper_root)
+    if not (helper_root / "exp").is_dir():
+        raise RuntimeError(f"Missing bundled DQI arithmetic helpers: {helper_root}")
+    if str(helper_root) not in sys.path:
+        sys.path.insert(0, str(helper_root))
+    arithmetic_root = helper_root / "exp" / "arithmetic"
+    if str(arithmetic_root) not in sys.path:
+        sys.path.insert(0, str(arithmetic_root))
+    inverse_zero = importlib.import_module(
+        "exp.inverse12_escape.zero1"
+    ).inverse_zero
+    phase_inverse36_zero = importlib.import_module(
+        "exp.safe_scalar.phase"
+    ).phase_inverse36_zero
+    phase_inverse36_pivot = importlib.import_module(
+        "exp.mul99.phase36"
+    ).phase_inverse36_pivot
+    return inverse_zero, phase_inverse36_zero, phase_inverse36_pivot
 
 
 def bit_columns(values, width):
@@ -85,6 +133,50 @@ class QubitControlledBuilder:
         self.base.cx(left, right)
 
 
+class BorrowedScratchBuilder:
+    """Route temporary allocations through known-clean qubits first."""
+
+    def __init__(self, builder, borrowed, km):
+        self.base = builder
+        self.array = km.array
+        self.borrowed = set(borrowed)
+        self.available = list(borrowed)
+        self.in_use = set()
+
+    def alloc_qubits(self, count):
+        take = min(count, len(self.available))
+        qubits = self.available[:take]
+        del self.available[:take]
+        self.in_use.update(qubits)
+        if take < count:
+            qubits.extend(list(self.base.alloc_qubits(count - take)))
+        return self.array(qubits)
+
+    def free(self, qubits):
+        try:
+            items = list(qubits)
+        except TypeError:
+            items = [qubits]
+        owned = []
+        for qubit in items:
+            if qubit in self.borrowed:
+                if qubit not in self.in_use:
+                    raise RuntimeError(f"Invalid borrowed-qubit free: {qubit}")
+                self.in_use.remove(qubit)
+                self.available.append(qubit)
+            else:
+                owned.append(qubit)
+        if owned:
+            self.base.free(self.array(owned))
+
+    def assert_released(self):
+        if self.in_use:
+            raise RuntimeError(f"Borrowed workspace leaked: {self.in_use}")
+
+    def __getattr__(self, name):
+        return getattr(self.base, name)
+
+
 def apply_controlled(builder, control, when_one, operation):
     if not when_one:
         builder.x(control)
@@ -109,17 +201,32 @@ def xor_zero_flag(builder, value, target):
     builder.free(ladder)
 
 
-def controlled_inverse_inplace(controlled, value, ar):
-    """Replace one field word conditionally and erase the inverse scratch."""
+def controlled_inverse_inplace(
+    controlled,
+    value,
+    borrowed,
+    inverse_zero,
+    phase_inverse36_zero,
+    phase_inverse36_pivot,
+    km,
+):
+    """Replace one field word and clean its inverse using borrowed zeros."""
     builder = controlled.base
-    encoded_inverse = builder.alloc_qubits(FIELD_BITS)
-    ar.inverse(builder, value, target=encoded_inverse)
+    workspace = BorrowedScratchBuilder(
+        builder, list(borrowed) + [controlled.and_scratch], km
+    )
+    encoded_inverse, zero_flag = inverse_zero(workspace, value)
     controlled.swap(value, encoded_inverse)
-
-    # On either control branch, encoded_inverse equals inverse(value) after
-    # the swap, so erase it directly without a second inverse output register.
-    ar.erase_inverse(builder, value, encoded_inverse)
-    builder.free(encoded_inverse)
+    mask = workspace.alloc_bits(FIELD_BITS)
+    zero_mask = workspace.alloc_bits(1)
+    workspace.hmr(encoded_inverse, mask)
+    workspace.hmr(zero_flag, zero_mask[0])
+    workspace.free(encoded_inverse)
+    workspace.free(zero_flag)
+    phase_inverse36_zero(workspace, value, mask, zero_mask[0])
+    workspace.free(mask)
+    workspace.free(zero_mask)
+    workspace.assert_released()
 
 
 def scale_inplace(builder, value, factor, inverse_factor, borrowed, ar):
@@ -131,11 +238,19 @@ def scale_inplace(builder, value, factor, inverse_factor, borrowed, ar):
     builder.free(extra)
 
 
-def divide_inplace(builder, numerator, denominator, borrowed, ar):
+def divide_inplace(
+    builder, numerator, denominator, borrowed, pivot, ar, phase_inverse36_pivot, km
+):
     reciprocal = builder.alloc_qubits(FIELD_BITS)
-    ar.inverse(builder, denominator, target=reciprocal)
+    workspace = BorrowedScratchBuilder(builder, list(borrowed) + [pivot], km)
+    ar.inverse(workspace, denominator, target=reciprocal)
+    workspace.assert_released()
     scale_inplace(builder, numerator, reciprocal, denominator, borrowed, ar)
-    ar.erase_inverse(builder, denominator, reciprocal)
+    mask = workspace.alloc_bits(FIELD_BITS)
+    workspace.hmr(reciprocal, mask)
+    phase_inverse36_pivot(workspace, denominator, mask)
+    workspace.free(mask)
+    workspace.assert_released()
     builder.free(reciprocal)
 
 
@@ -180,6 +295,7 @@ def toggle_pivot_zero(builder, d0, d1, d2, target, ar, columns):
 
 def build_decoder():
     km, ar = load_gate_arithmetic()
+    inverse_zero, phase_inverse36_zero, phase_inverse36_pivot = load_width_helpers(km)
     builder = km.CircuitBuilder()
     payload = builder.alloc_qubits(70 * FIELD_BITS)
     rank = builder.alloc_qubits(8)
@@ -198,14 +314,25 @@ def build_decoder():
     # clean arithmetic space, then restored before the circuit returns.
     xor_constant(builder, rank, RANK_TAG)
 
-    divide_inplace(builder, b0, a0, borrowed, ar)
+    divide_inplace(
+        builder, b0, a0, borrowed, pivot_one, ar, phase_inverse36_pivot, km
+    )
 
     ar.mul_xor0(builder, b0, a0, b1)
     denominator1 = builder.alloc_qubits(FIELD_BITS)
     ar.linear_xor(builder, a0, denominator1, columns[1])
     ar.linear_xor(builder, a1, denominator1, columns[1])
     xor_constant(builder, denominator1, 1)
-    divide_inplace(builder, b1, denominator1, borrowed, ar)
+    divide_inplace(
+        builder,
+        b1,
+        denominator1,
+        borrowed,
+        pivot_one,
+        ar,
+        phase_inverse36_pivot,
+        km,
+    )
     ar.linear_xor(builder, a0, denominator1, columns[1])
     ar.linear_xor(builder, a1, denominator1, columns[1])
     xor_constant(builder, denominator1, 1)
@@ -217,36 +344,68 @@ def build_decoder():
     toggle_delta0(builder, b0, b1, a1, delta, ar, columns, inverse_columns)
     builder.free(delta)
 
-    # Compute branch zero's factor before its update. Its in-place inverse uses
-    # clean out-of-place inverse/erase operations around a controlled swap.
+    # Invert a0 first; delta0 does not depend on a0, so its factors can be
+    # allocated after the inverse cleanup's peak-width phase.
+    def prepare_a0(controlled):
+        ar.linear_xor(controlled, a1, a0, columns[2])
+        xor_constant(controlled, a0, 4)
+        controlled_inverse_inplace(
+            controlled,
+            a0,
+            borrowed,
+            inverse_zero,
+            phase_inverse36_zero,
+            phase_inverse36_pivot,
+            km,
+        )
+
+    apply_controlled(builder, pivot_one, False, prepare_a0)
+
     determinant0 = builder.alloc_qubits(FIELD_BITS)
     inverse_determinant0 = builder.alloc_qubits(FIELD_BITS)
     toggle_delta0(
         builder, b0, b1, a1, determinant0, ar, columns, inverse_columns
     )
-    ar.inverse(builder, determinant0, target=inverse_determinant0)
+    determinant_workspace = BorrowedScratchBuilder(builder, borrowed, km)
+    ar.inverse(determinant_workspace, determinant0, target=inverse_determinant0)
+    determinant_workspace.assert_released()
 
-    def update_a0(controlled):
-        ar.linear_xor(controlled, a1, a0, columns[2])
-        xor_constant(controlled, a0, 4)
-        controlled_inverse_inplace(controlled, a0, ar)
+    def finish_a0(controlled):
         scale_inplace(
             controlled, a0, determinant0, inverse_determinant0, borrowed, ar
         )
         ar.linear_xor(controlled, b1, a0, columns[2])
         ar.linear_xor(controlled, b0, a0, columns[3])
 
-    apply_controlled(builder, pivot_one, False, update_a0)
+    apply_controlled(builder, pivot_one, False, finish_a0)
 
     # Branch zero changes a0 but leaves the inputs to delta1 alone. Compute
     # delta1 only after branch zero has had a chance to run, then clean it before
     # any later operation changes its inputs.
-    ar.erase_inverse(builder, determinant0, inverse_determinant0)
+    determinant_workspace = BorrowedScratchBuilder(builder, borrowed, km)
+    ar.erase_inverse(determinant_workspace, determinant0, inverse_determinant0)
+    determinant_workspace.assert_released()
     toggle_delta0(
         builder, b0, b1, a1, determinant0, ar, columns, inverse_columns
     )
     builder.free(determinant0)
     builder.free(inverse_determinant0)
+
+    def prepare_a1(controlled):
+        ar.linear_inplace(controlled, a1, columns[2])
+        ar.linear_xor(controlled, a0, a1, columns[1])
+        xor_constant(controlled, a1, 4)
+        controlled_inverse_inplace(
+            controlled,
+            a1,
+            borrowed,
+            inverse_zero,
+            phase_inverse36_zero,
+            phase_inverse36_pivot,
+            km,
+        )
+
+    apply_controlled(builder, pivot_one, True, prepare_a1)
 
     determinant1 = builder.alloc_qubits(FIELD_BITS)
     inverse_scale1 = builder.alloc_qubits(FIELD_BITS)
@@ -254,22 +413,22 @@ def build_decoder():
         builder, b0, b1, a0, determinant1, ar, columns, inverse_columns
     )
     ar.linear_inplace(builder, determinant1, inverse_columns[2])
-    ar.inverse(builder, determinant1, target=inverse_scale1)
+    determinant_workspace = BorrowedScratchBuilder(builder, borrowed, km)
+    ar.inverse(determinant_workspace, determinant1, target=inverse_scale1)
+    determinant_workspace.assert_released()
 
-    def update_a1(controlled):
-        ar.linear_inplace(controlled, a1, columns[2])
-        ar.linear_xor(controlled, a0, a1, columns[1])
-        xor_constant(controlled, a1, 4)
-        controlled_inverse_inplace(controlled, a1, ar)
+    def finish_a1(controlled):
         scale_inplace(
             controlled, a1, determinant1, inverse_scale1, borrowed, ar
         )
         ar.linear_xor(controlled, b1, a1, columns[1])
 
-    apply_controlled(builder, pivot_one, True, update_a1)
+    apply_controlled(builder, pivot_one, True, finish_a1)
 
     # Branch one changes a1 but leaves the inputs to delta1 alone.
-    ar.erase_inverse(builder, determinant1, inverse_scale1)
+    determinant_workspace = BorrowedScratchBuilder(builder, borrowed, km)
+    ar.erase_inverse(determinant_workspace, determinant1, inverse_scale1)
+    determinant_workspace.assert_released()
     ar.linear_inplace(builder, determinant1, columns[2])
     toggle_delta1(
         builder, b0, b1, a0, determinant1, ar, columns, inverse_columns
@@ -277,7 +436,12 @@ def build_decoder():
     builder.free(determinant1)
     builder.free(inverse_scale1)
 
-    apply_controlled(builder, pivot_one, True, lambda controlled: controlled.swap(a0, a1))
+    apply_controlled(
+        builder,
+        pivot_one,
+        True,
+        lambda controlled: controlled.swap(a0, a1),
+    )
 
     xor_constant(builder, rank, RANK_TAG)
     builder.swap(a0, b0)
@@ -315,6 +479,36 @@ def sample_coefficients(field, rng):
         return coefficients, (d0, d1, d2, remaining), int(c0 == 0)
 
 
+def sample_zero_a1_case(field, rng):
+    while True:
+        a0 = rng.randrange(1 << FIELD_BITS)
+        a1 = 0
+        b0 = rng.randrange(1 << FIELD_BITS)
+        b1 = rng.randrange(1, 1 << FIELD_BITS)
+
+        def denominator(point):
+            return field.mul(point, point) ^ field.mul(a1, point) ^ a0
+
+        if any(denominator(point) == 0 for point in POINTS):
+            continue
+        root_b = field.mul(b0, field.invert(b1))
+        if denominator(root_b) == 0:
+            continue
+        coefficients = (a0, a1, b0, b1)
+        samples = tuple(
+            field.mul(
+                field.mul(b1, point) ^ b0,
+                field.invert(denominator(point)),
+            )
+            for point in POINTS
+        )
+        d0, d1, d2, _ = samples
+        c0 = d2 ^ field.mul(2, d1) ^ field.mul(3, d0)
+        if c0 == 0:
+            continue
+        return coefficients, (d0, d1, d2, a1), 0
+
+
 def generate_cases(field, count=32):
     rng = Random(0xA466057)
     cases = []
@@ -327,6 +521,7 @@ def generate_cases(field, count=32):
         if len(cases) < count - 1:
             cases.append(case)
     cases.append(pivot_one)
+    cases[0] = sample_zero_a1_case(field, Random(0xA466058))
     return cases
 
 
@@ -340,10 +535,24 @@ def run_screen():
     sim.use_same_registers_as(circuit)
     inputs = np.asarray([case[0] for case in cases], dtype=np.uint32)
     expected = np.asarray([case[1] for case in cases], dtype=np.uint32)
+    spectator_rng = Random(0xA466066)
+    spectators = np.asarray(
+        [
+            [spectator_rng.randrange(1 << FIELD_BITS) for _ in range(66)]
+            for _ in cases
+        ],
+        dtype=np.uint32,
+    )
     for word in range(4):
         sim.write_across_shots(
             registers["payload"][word * FIELD_BITS : (word + 1) * FIELD_BITS],
             bit_columns(inputs[:, word], FIELD_BITS),
+        )
+    for word in range(66):
+        offset = (word + 4) * FIELD_BITS
+        sim.write_across_shots(
+            registers["payload"][offset : offset + FIELD_BITS],
+            bit_columns(spectators[:, word], FIELD_BITS),
         )
     rank_value = np.full(len(cases), RANK_TAG, dtype=np.uint32)
     sim.write_across_shots(registers["rank"], bit_columns(rank_value, 8))
@@ -357,7 +566,12 @@ def run_screen():
             registers["payload"][word * FIELD_BITS : (word + 1) * FIELD_BITS]
         )
         assert np.array_equal(actual, bit_columns(expected[:, word], FIELD_BITS))
-    assert not np.any(sim.read_across_shots(registers["payload"][4 * FIELD_BITS :]))
+    for word in range(66):
+        offset = (word + 4) * FIELD_BITS
+        actual = sim.read_across_shots(
+            registers["payload"][offset : offset + FIELD_BITS]
+        )
+        assert np.array_equal(actual, bit_columns(spectators[:, word], FIELD_BITS))
     assert np.array_equal(
         sim.read_across_shots(registers["rank"]), bit_columns(rank_value, 8)
     )
@@ -374,6 +588,7 @@ def run_screen():
         "cases": len(cases),
         "pivot_coverage": {"a0": sum(not case[2] for case in cases), "a1": sum(case[2] for case in cases)},
         "round_trip_errors": 0,
+        "preserved_spectator_words": 66,
         "compiled_qubits": circuit.num_qubits,
         "qubits_over_890": circuit.num_qubits - 890,
         "toffoli_like_gates": circuit.operation_statistics().num_toffoli_like,

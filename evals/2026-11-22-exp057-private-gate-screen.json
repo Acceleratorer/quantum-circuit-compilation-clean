@@ -1,0 +1,42 @@
+{
+  "captured_utc": "2026-11-21T17:24:18Z",
+  "experiment": "exp-057",
+  "kernel": {
+    "id": "accelra/exp057-streaming-prefix-state",
+    "version": 4,
+    "visibility": "private",
+    "status": "COMPLETE",
+    "url": "https://www.kaggle.com/code/accelra/exp057-streaming-prefix-state/versions/4"
+  },
+  "source": {
+    "git_head_before_changes": "4de97d15028b551f958aa8ccd910a87023b49dc0",
+    "streaming_prefix_kernel_sha256": "8de97fafe169a84867f163018b88cc777926a76dd77b42240bd71d8312188341",
+    "private_kernel_script_sha256": "381bf48b8c0dbaac2d88cf6a1b9b8b7a6e02b4226e055b8fba477fafa6ec3e58",
+    "helper_bundle_includes": [
+      "src/dqi/NOTICE",
+      "src/dqi/LICENSE"
+    ]
+  },
+  "scope": "Four-word in-place coefficient-to-prefix-state cell only; not an integrated 4+66 DQI schedule.",
+  "checks": {
+    "cases": 32,
+    "pivot_coverage": {
+      "a0": 31,
+      "a1": 1
+    },
+    "includes_a1_zero_inactive_branch": true,
+    "round_trip_errors": 0,
+    "rank_tag_restored": true,
+    "preserved_spectator_words": 66,
+    "clean_scratch_qubits": 36,
+    "phase_flips": 0
+  },
+  "resources": {
+    "compiled_qubits": 885,
+    "width_gate": 890,
+    "qubits_below_gate": 5,
+    "toffoli_like_gates": 7483
+  },
+  "decision": "Prefix-cell width gate passes. Integrate the full 4+66 schedule and pass the official verifier before considering a submission.",
+  "submission": null
+}

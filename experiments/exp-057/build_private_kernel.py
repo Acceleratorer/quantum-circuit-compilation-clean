@@ -3,14 +3,31 @@
 from __future__ import annotations
 
 import argparse
+import base64
+from io import BytesIO
 import json
 from pathlib import Path
+from zipfile import ZIP_DEFLATED, ZipFile
 
 
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE = Path(__file__).with_name("streaming_prefix_kernel.py")
 ARITHMETIC = ROOT / "src" / "dqi" / "pro_q2_897" / "exp" / "arithmetic" / "field.py"
+HELPER_ROOT = ROOT / "src" / "dqi" / "pro_q2_897"
+NOTICE = ROOT / "src" / "dqi" / "NOTICE"
+LICENSE = ROOT / "src" / "dqi" / "LICENSE"
 ENTRYPOINT = 'if __name__ == "__main__":'
+
+
+def helper_archive() -> str:
+    buffer = BytesIO()
+    with ZipFile(buffer, "w", ZIP_DEFLATED, compresslevel=9) as archive:
+        for path in sorted((HELPER_ROOT / "exp").rglob("*")):
+            if path.is_file() and path.suffix in {".py", ".json"}:
+                archive.write(path, Path("exp") / path.relative_to(HELPER_ROOT / "exp"))
+        archive.write(NOTICE, "NOTICE")
+        archive.write(LICENSE, "LICENSE")
+    return base64.b64encode(buffer.getvalue()).decode("ascii")
 
 
 def build(out_dir: Path) -> None:
@@ -28,7 +45,11 @@ def build(out_dir: Path) -> None:
         f"exec({arithmetic!r}, _arithmetic.__dict__)\n"
         "ARITHMETIC = _arithmetic\n\n"
     )
-    script = body.rstrip() + setup + ENTRYPOINT + main
+    helpers = (
+        "# Embedded helper source archive; Apache-2.0 attribution is in NOTICE.\n"
+        f"HELPER_ARCHIVE_B64 = {helper_archive()!r}\n\n"
+    )
+    script = body.rstrip() + setup + helpers + ENTRYPOINT + main
     metadata = {
         "id": "accelra/exp057-streaming-prefix-state",
         "title": "exp057 streaming prefix state",

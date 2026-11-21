@@ -2,11 +2,11 @@
 id: exp-057
 title: Four-word streaming decoder for quadratic-over-linear FMA
 task: dqi
-tests: exhaustive GF(8); 2,048 seeded GF(2^12); 32-case private gate screen
+tests: exhaustive GF(8); 2,048 seeded GF(2^12); 32-case private gate screen including a1=0
 direction: D-004
-status: width_gate_failed
-date: 2026-11-21
-result: The current direct-erasure edit passes a 32-case local screen at Q=905 and T=6,993, but remains 15 qubits over the 890-qubit gate; no submission.
+status: prefix_cell_width_gate_passed_integration_pending
+date: 2026-11-22
+result: Local and private Kaggle screens pass at Q=885 and T=7,483; this is not the integrated 4+66 decoder and was not submitted.
 ---
 
 # exp-057: four-word streaming decoder
@@ -26,17 +26,19 @@ Run with `python experiments/exp-057/streaming_fixed_shape_decoder.py`. GF(8) ex
 
 ## Gate screen
 
-The current direct-erasure edit compiled and passed its bounded local screen on
-32 seeded GF(2^12) states, including both pivot paths. It reconstructed all
-four words, restored the rank tag, left 56 scratch qubits clean, and produced
-no phase flips. The local run measured `Q=905` and `T=6,993`.
+The current source passes the 32-case local Kickmix screen and private Kaggle
+kernel version 4 at `Q=885`, `T=7,483`: five qubits under the cell's 890-qubit
+gate. Both pivot paths are covered, including a valid `a1=0` case where the
+`a1` update branch is inactive. All four output words round-trip, the rank tag
+is restored, all 66 arbitrary spectator words are preserved, 36 scratch
+qubits are clean, and there are no phase flips.
 
-The last private Kaggle run was version 2 of the earlier source and measured
-`Q=909` and `T=7,125`; the current edit has not been run on Kaggle.
+The private-kernel builder embeds the helper source with its Apache `LICENSE`
+and `NOTICE`; the exact kernel source hash and run receipt are in
+[`evals/2026-11-22-exp057-private-gate-screen.json`](../../evals/2026-11-22-exp057-private-gate-screen.json).
 
-This is only the four-word prefix-state cell, not the integrated 4+66 DQI
-schedule. The current edit still misses the 890-qubit width gate by 15 qubits,
-so it is not ready to integrate or submit. The private Kaggle receipt is in
-[`evals/2026-11-21-exp057-gate-screen.json`](../../evals/2026-11-21-exp057-gate-screen.json).
-The local direct-erasure screen is in
-[`evals/2026-11-21-exp057-local-direct-erasure.json`](../../evals/2026-11-21-exp057-local-direct-erasure.json).
+This proves only the in-place four-word prefix-state cell. The 66 spectator
+words are checked for preservation; this cell does not decode them and is not
+the integrated 4+66 schedule. No competition submission was made. The full
+schedule and official verifier remain required before a candidate can be
+considered.
