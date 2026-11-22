@@ -6,7 +6,7 @@ tests: prior GF(8) and GF(2^12) screens; private Kaggle kernel screens through v
 direction: D-004
 status: four_pivot_prefix_meets_qubit_gate
 date: 2026-11-22
-result: v30 four-pivot prefix passes at Q=890/T=3,032. v31 five-pivot history prefix passes 32 cases at Q=891/T=4,500. v32 sentinel/recycle erasure misses width at four pivots and fails cleanup/phase at five; the compact tag eraser remains open.
+result: v30 four-pivot prefix passes at Q=890/T=3,032. v31 five-pivot history prefix passes 32 cases at Q=891/T=4,500. v32 sentinel/recycle erasure misses width and fails cleanup/phase. v33 compacts two history bits correctly but leaves Q/T unchanged at 891/4,500, so the prefix still misses the width gate.
 ---
 
 # Pivot-normalized FMA recurrence
@@ -438,11 +438,27 @@ decoded and forward-replayed using only ratios, ranks, and tag; one history
 matched each input. This does not prove uniqueness for the full DQI domain or
 provide a reversible circuit.
 
-This is an information result only. It does not establish a GF(2^12) inverse,
-compile the tag/eraser, measure resources, or pass the official verifier.
-The score-equivalence gate is now `Q <= 890` and mean `T <= 215,175.99` at
+The v31 information result did not establish a GF(2^12) inverse or a reversible
+tag eraser. Version 33 compiles a partial two-bit history compaction, but it
+still does not establish the complete schedule or pass the official verifier.
+The score-equivalence gate is `Q <= 890` and mean `T <= 215,175.99` at
 `R=1.1912605`. See the [evaluation](../../evals/2026-11-22-exp053-fifth-pivot-state.json)
 and [dated log](../../log/2026-11-22-exp053-fifth-pivot-state.md).
+
+### Five-pivot history compaction — kernel version 33
+
+The compiled rank identity erases branch pivots 2 and 3, retaining pivots 0,
+1, and 4. All 32 arbitrary GF(2^12) cases preserved labels, branch history,
+and spectator payload; scratch was clean and phase flips were zero. The
+identity itself was checked over all 32 branch histories.
+
+Compaction occurs after the prefix peak, so the circuit remains `Q=891`,
+`T=4,500`, unchanged from v31. It misses the `Q=890` gate by one qubit and is
+closed as a standalone scoring candidate. The identity is useful only if a
+complete schedule can reuse the freed wires before its own peak. See the
+[evaluation](../../evals/2026-11-22-exp053-compact-history-v33.json),
+[dated log](../../log/2026-11-22-exp053-compact-history-v33.md), and
+[captured output](logs/kernel-v33-output.json).
 
 ## Limit
 

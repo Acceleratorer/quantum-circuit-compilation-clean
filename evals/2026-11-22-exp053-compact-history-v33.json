@@ -1,0 +1,53 @@
+{
+  "captured_utc": "2026-11-22T11:46:28Z",
+  "experiment": "exp-053",
+  "kernel": {
+    "id": "accelra/exp053-inplace-ratio-history",
+    "version": 33,
+    "visibility": "private",
+    "url": "https://www.kaggle.com/code/accelra/exp053-inplace-ratio-history/versions/33",
+    "status": "COMPLETE"
+  },
+  "execution": {
+    "local_source": "experiments/exp-053/inplace_ratio_history.py",
+    "local_source_sha256": "da5af63cfdc41c41593f15ddb4d5abba507eafe16fcb4aba00d243f2576763e6",
+    "built_kernel_source": "kaggle/staging/exp053-compact-history-v33/exp053-inplace-ratio-history.py",
+    "built_kernel_source_sha256": "fdefbb4df87de16211823fff9e172d063c2e2ebf265dc46876845df9a1eaa4bf",
+    "arithmetic_helper": "src/dqi/pro_q2_897/exp/arithmetic/field.py",
+    "arithmetic_helper_sha256": "c1b8b2ff583ffd5997856605c35d37f7116aa5811e52a3ce04a1ae7215d381c3",
+    "push_command": "kaggle kernels push -p kaggle/staging/exp053-compact-history-v33",
+    "raw_kernel_log": "kaggle/staging/exp053-compact-history-v33/output/exp053-inplace-ratio-history.log",
+    "raw_kernel_log_sha256": "a02768d91f299dc1b3a17e1aea3fc5953c06aaff7e9e9b3dd56a6eeedbddf737",
+    "normalized_kernel_output": "experiments/exp-053/logs/kernel-v33-output.json",
+    "normalized_kernel_output_sha256": "e9701df32c5ec2b59a57c653e21ec0408c72a943a9555f345be35db2c24a704f"
+  },
+  "scope": "Compacted the five-pivot branch history using final rank bits, retaining pivots 0, 1, and 4 while erasing pivots 2 and 3. The circuit still does not establish the complete 4+66 schedule.",
+  "checks": {
+    "cases": 32,
+    "history_identity_cases": 32,
+    "output_labels_match_reference": true,
+    "branch_history_matches_reference": true,
+    "other_payload_preserved": true,
+    "scratch_clean": true,
+    "clean_scratch_qubits": 43,
+    "phase_flips": 0
+  },
+  "resources": {
+    "five_pivot_baseline": {
+      "compiled_qubits": 891,
+      "toffoli_like_gates": 4500
+    },
+    "five_pivot_compacted": {
+      "compiled_qubits": 891,
+      "qubit_limit": 890,
+      "qubits_over_limit": 1,
+      "toffoli_like_gates": 4500,
+      "retained_branch_pivots": [0, 1, 4],
+      "erased_branch_pivots": [2, 3]
+    }
+  },
+  "official_verifier_run": false,
+  "competition_submission": null,
+  "result": "PASS_SCREEN_Q_FAIL",
+  "decision": "The compiled relation is correct and clean on the 32-case screen, but compaction occurs after the prefix peak: Q and T are unchanged from v31, and Q=891 misses the 890 gate. Close this as a scoring candidate; retain the identity only if a complete schedule can reuse the freed wires before its own peak."
+}

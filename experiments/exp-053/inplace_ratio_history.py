@@ -446,6 +446,7 @@ def build_prefix_encoder(
     sentinel_labels=False,
     measurement_erase=False,
     measurement_recycle=False,
+    compact_history=False,
 ):
     """Build a short prefix map: samples -> ratios plus branch history."""
     if measurement_erase and (not in_place or sentinel_labels):
@@ -454,6 +455,8 @@ def build_prefix_encoder(
         not in_place or measurement_erase
     ):
         raise ValueError("measurement recycling requires the in-place ratio/history map")
+    if compact_history and (sentinel_labels or len(POINTS) != 5):
+        raise ValueError("compact history is defined for the five-pivot history map")
     km, ar = load_gate_arithmetic()
     builder = km.CircuitBuilder()
     if len(POINTS) > 5:
@@ -604,7 +607,19 @@ def build_prefix_encoder(
                 builder, payload, rank1, branches, spare_rank_bit, pivot, ar
             )
 
-    if sentinel_labels:
+    if compact_history:
+        # For all 32 five-pivot histories, final rank r1 gives
+        # b2 = b0 XOR b4 XOR r1[0] XOR r1[1], and b3 = b1 XOR r1[1].
+        builder.cx(branches[0], branches[2])
+        builder.cx(branches[4], branches[2])
+        builder.cx(rank1[0], branches[2])
+        builder.cx(rank1[1], branches[2])
+        builder.cx(branches[1], branches[3])
+        builder.cx(rank1[1], branches[3])
+        builder.free([branches[2], branches[3]])
+        output_branches = [branches[0], branches[1], branches[4]]
+        branch_pivots = (0, 1, 4)
+    elif sentinel_labels:
         # Descending order keeps every earlier ratio in its raw form while its
         # prefix matrix is reconstructed. Each branch is then erased from its
         # injective label and its wire becomes reusable workspace.
@@ -614,8 +629,10 @@ def build_prefix_encoder(
         erase_first_branch_from_ratio(builder, ratios[0], branches[0])
         builder.free([branches[0]])
         output_branches = []
+        branch_pivots = ()
     else:
         output_branches = branches
+        branch_pivots = tuple(range(len(branches)))
 
     if ratio_temp is not None:
         builder.free(ratio_temp)
@@ -630,6 +647,8 @@ def build_prefix_encoder(
         "ratios": ratios,
         "samples": samples,
         "sentinel_labels": sentinel_labels,
+        "compact_history": compact_history,
+        "branch_pivots": branch_pivots,
     }
 
 
@@ -643,12 +662,24 @@ def screen_prefix_encoder(
     use_sentinel_labels=False,
     measurement_erase=False,
     measurement_recycle=False,
+    compact_history=False,
 ):
+    history_compaction_identity_cases = 0
+    if compact_history:
+        for history in range(1 << len(POINTS)):
+            bits = tuple(bool(history >> pivot & 1) for pivot in range(len(POINTS)))
+            final_rank = rank1_after(bits)
+            assert bits[2] == (
+                bits[0] ^ bits[4] ^ bool(final_rank & 1) ^ bool(final_rank & 2)
+            )
+            assert bits[3] == (bits[1] ^ bool(final_rank & 2))
+            history_compaction_identity_cases += 1
     km, circuit, registers = build_prefix_encoder(
         in_place=in_place,
         sentinel_labels=use_sentinel_labels,
         measurement_erase=measurement_erase,
         measurement_recycle=measurement_recycle,
+        compact_history=compact_history,
     )
     field = km.GF2Field(FIELD_BITS)
     rng = Random(0xF1A05304)
@@ -694,9 +725,9 @@ def screen_prefix_encoder(
         registers["rank1"],
         bit_columns([0] * len(cases), len(registers["rank1"])),
     )
-    for pivot in range(len(registers["branches"])):
+    for branch_index in range(len(registers["branches"])):
         sim.write_across_shots(
-            registers["branches"][pivot],
+            registers["branches"][branch_index],
             np.zeros(len(cases), dtype=np.bool_),
         )
     sim.write_across_shots(
@@ -734,7 +765,12 @@ def screen_prefix_encoder(
         if not in_place:
             assert not np.any(sim.read_across_shots(registers["samples"][pivot]))
         if not use_sentinel_labels:
-            actual_branch = sim.read_across_shots(registers["branches"][pivot])
+            if compact_history and pivot not in registers["branch_pivots"]:
+                continue
+            branch_index = registers["branch_pivots"].index(pivot)
+            actual_branch = sim.read_across_shots(
+                registers["branches"][branch_index]
+            )
             expected_branch = np.asarray(
                 [bool(branches[pivot]) for branches in expected_branches],
                 dtype=np.bool_,
@@ -781,6 +817,13 @@ def screen_prefix_encoder(
         "output_mismatches": output_mismatches,
         "branch_history_matches_reference": None if use_sentinel_labels else True,
         "branch_registers_erased": use_sentinel_labels,
+        "branch_registers_compacted": compact_history,
+        "history_compaction_identity_cases": history_compaction_identity_cases,
+        "retained_branch_pivots": list(registers["branch_pivots"]),
+        "erased_branch_pivots": (
+            [pivot for pivot in range(len(POINTS))
+             if pivot not in registers["branch_pivots"]]
+        ),
         "original_ratio_words_overwritten_in_place": in_place,
         "sentinel_labels": use_sentinel_labels,
         "measurement_erase": measurement_erase,
@@ -799,6 +842,7 @@ def screen_inplace_prefix_encoder(
     measurement_erase=False,
     measurement_recycle=False,
     point_count=None,
+    compact_history=False,
 ):
     global POINTS
     original_points = POINTS
@@ -813,6 +857,7 @@ def screen_inplace_prefix_encoder(
             use_sentinel_labels=use_sentinel_labels,
             measurement_erase=measurement_erase,
             measurement_recycle=measurement_recycle,
+            compact_history=compact_history,
         )
     finally:
         POINTS = original_points
@@ -1078,6 +1123,11 @@ def run_screen():
         measurement_recycle=True,
         point_count=5,
     )
+    five_pivot_compact_history_result = screen_inplace_prefix_encoder(
+        measurement_recycle=True,
+        point_count=5,
+        compact_history=True,
+    )
     results = (
         clean_slot_result,
         inplace_result,
@@ -1087,6 +1137,7 @@ def run_screen():
         five_pivot_measurement_recycle_result,
         recycled_sentinel_result,
         five_pivot_recycled_sentinel_result,
+        five_pivot_compact_history_result,
     )
     return {
         "experiment": "exp-053-inplace-ratio-history-prefix-encoder",
@@ -1112,12 +1163,17 @@ def run_screen():
         "five_pivot_recycled_sentinel_prefix_encoder": (
             five_pivot_recycled_sentinel_result
         ),
+        "five_pivot_compact_history_prefix_encoder": (
+            five_pivot_compact_history_result
+        ),
         "scope": (
             "Compiled four- and five-pivot ratio/history prefixes for 32 "
             "arbitrary GF(2^12) inputs. Checks labels, branch history, final "
             "rank, payload, scratch, and phase. Also combines measurement "
             "recycling with sentinel-label branch erasure for four and five "
-            "pivots. It does not establish the complete 4+66 schedule."
+            "pivots. The five-pivot compact-history identity keeps branch "
+            "pivots 0, 1, and 4, and erases 2 and 3 from final rank bits. It "
+            "does not establish the complete 4+66 schedule."
         ),
     }
 
