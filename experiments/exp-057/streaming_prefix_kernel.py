@@ -1585,7 +1585,6 @@ def build_compact_prefix_tail_action(km=None, ar=None, point=4):
     payload = builder.alloc_qubits(70 * FIELD_BITS)
     rank = builder.alloc_qubits(8)
     pivot = builder.alloc_qubits(1)[0]
-    outputs = builder.alloc_qubits(2 * FIELD_BITS)
     words = [
         payload[index * FIELD_BITS : (index + 1) * FIELD_BITS]
         for index in range(4)
@@ -1593,6 +1592,7 @@ def build_compact_prefix_tail_action(km=None, ar=None, point=4):
     prefix_to_coefficients_inplace(
         builder, words, rank, pivot, ar, phase_inverse36_pivot, km
     )
+    outputs = builder.alloc_qubits(2 * FIELD_BITS)
     append_bezout_tail_action(
         builder, payload, rank, pivot, outputs, ar, km, point
     )
