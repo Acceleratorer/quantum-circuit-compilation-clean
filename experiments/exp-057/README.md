@@ -117,6 +117,23 @@ This verifies classical algebra only. The prefix-to-matrix gate circuit, the
 compiled 66-symbol schedule, and the official verifier remain open. Receipt:
 [`exp-057 full tail transition`](../../evals/2026-11-22-exp057-tail-transition-classical.json).
 
+## Streaming matrix recurrence
+
+For matrix values `(A,B;C,D)` at point `x`, carry `K=D/b1` plus the `a1` and
+`b1` tags. At the next point `y`, let `delta=x+y` and
+`scale=P(y)/P(x)`, where `P` is the four-point node polynomial. Then
+`A'=A+delta*a1+delta^2`, `B'=B+delta*b1`,
+`C'=scale*(C+delta*K)`, `D'=scale*D`, and `K'=scale*K`. Since each multiplier
+is a fixed field constant, these updates use only CNOT gates once the tags and
+initial matrix are available.
+
+The recurrence matches direct matrix evaluation on all 8,064 supported GF(8)
+tail cases and 2,112 seeded GF(2^12) verifier-form cases. This is classical
+evidence; the quantum recurrence, its live workspace, and its composition with
+the 84T action have not yet been compiled. See the
+[`recurrence receipt`](../../evals/2026-11-23-exp057-matrix-stream-recurrence.json)
+and [run log](../../log/2026-11-23-exp057-matrix-stream-recurrence.md).
+
 ## Precomputed-matrix action gate
 
 Private Kaggle kernel version 5 compiles the out-of-place action

@@ -190,6 +190,45 @@ def apply_tail_symbol(state, pair, point, mul, div, modulus, degree):
     return apply_matrix(rows, point, pair, mul)
 
 
+def bezout_matrix_stream_state(coefficients, point, mul, div, modulus, degree):
+    """Encode one evaluated Bezout matrix and the tags needed to advance it."""
+    prefix, _ = prefix_state_from_coefficients(coefficients, mul, div)
+    rows, _ = bezout_complementary_matrix_from_prefix_state(
+        prefix, mul, div, modulus, degree
+    )
+    matrix = tuple(
+        fma.poly_eval(polynomial, point, mul)
+        for row in rows
+        for polynomial in row
+    )
+    a0, a1, b0, b1 = coefficients
+    a, b, c, d = matrix
+    return (a, b, c, d, div(d, b1), b1, a1)
+
+
+def advance_bezout_matrix_stream(state, point, next_point, mul, div):
+    """Advance the evaluated matrix with constant-field linear operations."""
+    a, b, c, d, k, b1, a1 = state
+    delta = point ^ next_point
+
+    def node(value):
+        product = 1
+        for prefix_point in POINTS:
+            product = mul(product, value ^ prefix_point)
+        return product
+
+    scale = div(node(next_point), node(point))
+    return (
+        a ^ mul(delta, a1) ^ mul(delta, delta),
+        b ^ mul(delta, b1),
+        mul(scale, c ^ mul(delta, k)),
+        mul(scale, d),
+        mul(scale, k),
+        b1,
+        a1,
+    )
+
+
 def inverse_matrix_pair(rows, point, pair, mul, inverse):
     a = fma.poly_eval(rows[0][0], point, mul)
     b = fma.poly_eval(rows[0][1], point, mul)
@@ -216,6 +255,8 @@ def screen_gf8_tail_transition():
     matrix_b1_keys = set()
     matrix_b1_collisions = 0
     discriminator_reconstruction_errors = 0
+    matrix_recurrence_checks = 0
+    matrix_recurrence_errors = 0
     tail_round_trip_checks = 0
     tail_round_trip_errors = 0
     first_row_zero_slopes = 0
@@ -264,12 +305,26 @@ def screen_gf8_tail_transition():
 
         tail_input = (checked % 8, 1)
         a0, a1, b0, b1 = coefficients
-        for tail_point in tail_points:
+        stream_state = bezout_matrix_stream_state(
+            coefficients, tail_points[0], mul, div, modulus, degree
+        )
+        for tail_index, tail_point in enumerate(tail_points):
+            if tail_index:
+                stream_state = advance_bezout_matrix_stream(
+                    stream_state,
+                    tail_points[tail_index - 1],
+                    tail_point,
+                    mul,
+                    div,
+                )
             point_matrix = tuple(
                 fma.poly_eval(polynomial, tail_point, mul)
                 for row in rows
                 for polynomial in row
             )
+            if stream_state[:4] != point_matrix:
+                matrix_recurrence_errors += 1
+            matrix_recurrence_checks += 1
             a, b, c, d = point_matrix
             if a == 0:
                 first_row_zero_slopes += 1
@@ -313,6 +368,8 @@ def screen_gf8_tail_transition():
         ).bit_length(),
         "matrix_and_b1_collisions": matrix_b1_collisions,
         "b1_discriminator_reconstruction_errors": discriminator_reconstruction_errors,
+        "matrix_recurrence_checks": matrix_recurrence_checks,
+        "matrix_recurrence_errors": matrix_recurrence_errors,
         "result": "PASS",
     }
 
@@ -331,6 +388,8 @@ def screen_gf12_verifier_tail_transition(count_per_weight=16):
     checked = 0
     pivot_counts = [0, 0]
     matrix_b1_reconstruction_errors = 0
+    matrix_recurrence_checks = 0
+    matrix_recurrence_errors = 0
     tail_round_trip_checks = 0
     tail_round_trip_errors = 0
     first_row_zero_slopes = 0
@@ -386,12 +445,27 @@ def screen_gf12_verifier_tail_transition(count_per_weight=16):
             for index, sample in enumerate(prefix_samples):
                 assert apply_matrix(rows, points[index], (sample, 1), mul) == (0, 0)
             a0, a1, b0, b1 = coefficients
-            for tail_point in points[4:]:
+            tail_points = points[4:]
+            stream_state = bezout_matrix_stream_state(
+                coefficients, tail_points[0], mul, div, modulus, degree
+            )
+            for tail_index, tail_point in enumerate(tail_points):
+                if tail_index:
+                    stream_state = advance_bezout_matrix_stream(
+                        stream_state,
+                        tail_points[tail_index - 1],
+                        tail_point,
+                        mul,
+                        div,
+                    )
                 a, b, c, d = tuple(
                     fma.poly_eval(polynomial, tail_point, mul)
                     for row in rows
                     for polynomial in row
                 )
+                if stream_state[:4] != (a, b, c, d):
+                    matrix_recurrence_errors += 1
+                matrix_recurrence_checks += 1
                 if a == 0:
                     first_row_zero_slopes += 1
                     if c == 0:
@@ -426,6 +500,8 @@ def screen_gf12_verifier_tail_transition(count_per_weight=16):
         "alternate_row_zero_errors": alternate_row_zero_errors,
         "bezout_complementary_rows": checked,
         "matrix_b1_reconstruction_errors": matrix_b1_reconstruction_errors,
+        "matrix_recurrence_checks": matrix_recurrence_checks,
+        "matrix_recurrence_errors": matrix_recurrence_errors,
         "tail_points": {
             "start": 4,
             "end": 69,

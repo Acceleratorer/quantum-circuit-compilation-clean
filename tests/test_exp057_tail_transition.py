@@ -33,6 +33,8 @@ class TailTransitionTests(unittest.TestCase):
         self.assertEqual(result["minimum_b1_discriminator_bits"], 3)
         self.assertEqual(result["matrix_and_b1_collisions"], 0)
         self.assertEqual(result["b1_discriminator_reconstruction_errors"], 0)
+        self.assertEqual(result["matrix_recurrence_checks"], 2016 * 4)
+        self.assertEqual(result["matrix_recurrence_errors"], 0)
         self.assertEqual(result["tail_points"], {"start": 4, "end": 7, "count": 4})
         self.assertEqual(result["result"], "PASS")
 
@@ -47,5 +49,7 @@ class TailTransitionTests(unittest.TestCase):
         self.assertEqual(result["alternate_row_zero_errors"], 0)
         self.assertEqual(result["bezout_complementary_rows"], 32)
         self.assertEqual(result["matrix_b1_reconstruction_errors"], 0)
+        self.assertEqual(result["matrix_recurrence_checks"], 32 * 66)
+        self.assertEqual(result["matrix_recurrence_errors"], 0)
         self.assertEqual(result["tail_points"], {"start": 4, "end": 69, "count": 66})
         self.assertEqual(result["result"], "PASS")

@@ -1,0 +1,39 @@
+{
+  "captured_utc": "2026-11-22T20:03:08Z",
+  "experiment": "exp-057-bezout-matrix-stream-recurrence",
+  "method": "classical finite-field screen",
+  "stream_state": ["A(x)", "B(x)", "C(x)", "D(x)", "K(x)=D(x)/b1", "b1", "a1"],
+  "transition": {
+    "delta": "x XOR y",
+    "scale": "P(y)/P(x), P(z)=product(z XOR j) for j in 0..3",
+    "A_y": "A_x + delta*a1 + delta^2",
+    "B_y": "B_x + delta*b1",
+    "C_y": "scale*(C_x + delta*K_x)",
+    "D_y": "scale*D_x",
+    "K_y": "scale*K_x",
+    "nonlinear_variable_products_per_step": 0,
+    "gate_interpretation": "Each update is multiplication by fixed field constants and XOR, so the update is CNOT-only once the stream state is available; the quantum circuit is not yet compiled."
+  },
+  "checks": {
+    "gf8": {
+      "supported_prefixes": 2016,
+      "tail_points_per_prefix": 4,
+      "matrix_recurrence_checks": 8064,
+      "matrix_recurrence_errors": 0,
+      "result": "PASS"
+    },
+    "gf2_12": {
+      "verifier_form_samples": 32,
+      "error_weights": {"31": 16, "35": 16},
+      "pivot_counts": {"a0": 32, "a1": 0},
+      "tail_points_per_sample": 66,
+      "matrix_recurrence_checks": 2112,
+      "matrix_recurrence_errors": 0,
+      "result": "PASS"
+    }
+  },
+  "quantum_circuit": "NOT_COMPILED",
+  "integrated_schedule": "NOT_COMPILED",
+  "official_verifier": "NOT_RUN",
+  "competition_submission": null
+}
