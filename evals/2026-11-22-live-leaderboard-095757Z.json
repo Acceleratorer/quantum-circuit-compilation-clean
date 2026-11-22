@@ -1,0 +1,55 @@
+{
+  "captured_utc": "2026-11-22T09:57:57Z",
+  "competition": "google-verifiable-quantum-circuit-compilation",
+  "source": "Kaggle CLI full public leaderboard download (competitions leaderboard --download --page-size 200)",
+  "snapshot": {
+    "path": "kaggle/snapshots/2026-11-22/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-22T09-57-57.csv",
+    "csv_sha256": "a3f7d08ec9081e4ebf35c66b54913dd8a33e6c0b27f6f9db4268b4ab2502dc56",
+    "team_rows": 3555,
+    "unique_team_ids": 3555,
+    "scores_sorted_descending": true
+  },
+  "own_team": {
+    "team": "Accelra",
+    "team_id": 17349145,
+    "public_score": 28.14028,
+    "rank": 1291,
+    "latest_best_submission": 58479383
+  },
+  "leader": {
+    "rank": 1,
+    "team": "Maciej Sypetkowski",
+    "team_id": 17210537,
+    "score": 33.67349
+  },
+  "runner_up": {
+    "rank": 2,
+    "team": "Two-Qubit Gate",
+    "score": 33.51863
+  },
+  "score_gap": 5.53321,
+  "score_equivalence_estimate": {
+    "method": "Scale the product of the three task costs by (own public score / leader public score)^3.",
+    "own_local_geometric_mean": 28.14028,
+    "required_product_cost_multiplier": 0.5836074848784413,
+    "current_dqi_cost": 347904227555.5428,
+    "dqi_target_if_other_costs_are_fixed": 203039511222.26724,
+    "dqi_reduction_if_other_costs_are_fixed": 0.4163925151215587,
+    "dqi_target_at_q890_zero_failure": {
+      "qubits": 890,
+      "repetition_factor": 1.1912605,
+      "maximum_mean_toffoli": 215175.9873163247
+    },
+    "current_fma_projection_toffoli": 202075,
+    "remaining_toffoli_margin_before_omitted_work": 13100.987316324696,
+    "status": "Score-equivalence estimate, not measured leader costs or a candidate.",
+    "current_dqi_cost_source": "evals/2026-11-21-live-leaderboard-125534Z.json"
+  },
+  "latest_own_submission": {
+    "ref": 58479383,
+    "status": "COMPLETE",
+    "public_score": 28.14028,
+    "submitted_at_utc": "2026-11-17T18:57:30.857000"
+  },
+  "notes": "Read-only Kaggle CLI refresh. No circuit was built or submitted."
+}

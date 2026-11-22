@@ -3,7 +3,7 @@ id: D-004
 title: Improve the source-owned DQI decoder with a new key-equation algorithm
 status: active
 tasks: dqi, all
-last_checked: 2026-11-21
+last_checked: 2026-11-22
 ---
 
 # D-004: improve the source-owned DQI decoder
@@ -16,10 +16,30 @@ reproduces it. Existing product-retention variants have already been screened.
 The active path is a source-owned DQI decoder with a genuinely different
 key-equation algorithm. Keep the official verifier's salted failure rate in
 the score model, and require the full `R × Q² × T` budget before building a
-candidate. The latest score-equivalence estimate is `209.035e9`; at
-`R=1.1912605` and `Q=890`, the DQI gate is `T <= 221,529`. The FMA projection
-is `202,075T`, but its complete width, phase, and cleanup schedule remains
-unproven (see the current leaderboard refresh below).
+candidate. The latest score-equivalence estimate is `203.040e9`; at
+`R=1.1912605` and `Q=890`, the DQI gate is `T <= 215,175.99`. The FMA projection
+is `202,075T`, leaving only `13,101T` for omitted work; its complete width,
+phase, and cleanup schedule remains unproven.
+
+## 2026-11-22 live leaderboard and focused gate
+
+The full Kaggle CLI snapshot at `2026-11-22T09:57:57Z` has 3,555 teams.
+`Accelra` is rank 1,291 at `28.14028`; Maciej Sypetkowski leads at `33.67349`,
+a `5.53321`-point gap. Holding the other two submitted task costs fixed,
+matching that score requires DQI cost at or below `203.040e9`, or mean
+`T <= 215,175.99` at `Q=890` and `R=1.1912605`. The `202,075T` FMA projection
+leaves only `13,101T` for all omitted work. This is score-equivalence math,
+not a measured leader cost or a candidate. The snapshot and calculation are in
+[`evals/2026-11-22-live-leaderboard-095757Z.json`](../../evals/2026-11-22-live-leaderboard-095757Z.json).
+
+The only new lead kept open is exp-053's fifth-pivot information screen: one
+Boolean tag removed every collision in exhaustive GF(8), and 64 sampled valid
+GF(2^12) inputs had no collisions. There is no tag circuit or GF(2^12)
+injectivity proof. Next, test this one tag against a reversible encoder and the
+full resource gate; close it if the proof, `Q <= 890`, `T <= 215,175.99`, or
+official-verifier gate fails. No submission is ready.
+See [`experiments/exp-053`](../../experiments/exp-053/README.md) and the
+[screen receipt](../../evals/2026-11-22-exp053-fifth-pivot-state.json).
 
 ## 2026-11-21 live leaderboard refresh
 

@@ -6,7 +6,7 @@ tests: prior GF(8) and GF(2^12) screens; private Kaggle kernel screens through v
 direction: D-004
 status: four_pivot_prefix_meets_qubit_gate
 date: 2026-11-22
-result: Kernel v30 measurement-recycle prefix passes 32 cases at Q=890, T=3,032; integrated 4+66 schedule and official verifier remain open.
+result: Kernel v30 four-pivot prefix passes 32 cases at Q=890, T=3,032. A fifth-pivot tag resolves exhaustive GF(8) state collisions and has zero collisions in 64 sampled GF(2^12) cases; its circuit and full 4+66 integration remain open.
 ---
 
 # Pivot-normalized FMA recurrence
@@ -129,8 +129,8 @@ The corrected 70-symbol FMA count is 2,415 pair products, 140 ratio products,
 70 in-place inversions at 138T each, 28,980T for pair input swaps, and 1,680T
 for pivot-orientation swaps: 147,630T. Adding the existing sampled
 reconstruction ledger, 45,045T scan, and 5,530T rank-invariant branch cell
-projects 202,075T, leaving 54,868T under the 256,943T screen gate. This count
-still excludes the 4+66 width schedule and uncounted phase work.
+projects 202,075T, leaving 13,101T under the latest 215,175.99T score-equivalence
+gate. This count still excludes the 4+66 width schedule and uncounted phase work.
 
 ### Four-point compact-state recovery cost screen
 
@@ -149,7 +149,7 @@ call at 42T and every inverse call at 138T, including operations that may
 simplify to linear gates. The full block transform still needs a complementary
 row; adding the separate 252T low-row composition and 6,138T complement-row
 maxima gives an 11,508T arithmetic-only screen. Charged additively against the
-54,868T projected margin, that leaves 43,360T before other omitted work. This
+13,101T projected margin, that leaves 1,593T before other omitted work. This
 is only a feasibility screen: it may overlap the FMA ledger and is not a
 compiled reversible circuit or a width, phase, or cleanup bound.
 
@@ -410,13 +410,28 @@ resource count, and official verifier remain untested; there is no candidate
 submission. See the [evaluation receipt](../../evals/2026-11-22-exp053-measurement-recycle-prefix-v30.json)
 and [captured output](logs/kernel-v30-output.json).
 
+## Fifth-pivot compact-state screen
+
+The standalone screen in [fifth_pivot_state.py](fifth_pivot_state.py)
+exhausts all 32,768 five-word GF(8) inputs. The key made from five ratios,
+normalized low row, and final ranks has 46 collision groups, each of size two.
+The Boolean tag `branch[1] AND NOT branch[4]` makes all labels unique; no
+single branch bit or fixed parity does. A seeded sample of 32 valid
+GF(2^12) DQI inputs at each of weights 31 and 35 found no collisions.
+
+This is an information result only. It does not establish a GF(2^12) inverse,
+compile the tag/eraser, measure resources, or pass the official verifier.
+The score-equivalence gate is now `Q <= 890` and mean `T <= 215,175.99` at
+`R=1.1912605`. See the [evaluation](../../evals/2026-11-22-exp053-fifth-pivot-state.json)
+and [dated log](../../log/2026-11-22-exp053-fifth-pivot-state.md).
+
 ## Limit
 
 The compiled one-pair cell does not solve width for the full recurrence. The
 direct sequential state holds 70 `d` words and up to 69 variable `g` words, or
 1,668 qubits before ratio workspace. A complete 4+66 schedule must integrate
 the measured prefix, generate and consume each pair from the compact 840-qubit
-payload, and stay within `Q=890`, `T=221,529` with cleanup and phase included.
+payload, and stay within `Q=890`, `T=215,175.99` with cleanup and phase included.
 No full circuit or submission exists.
 
 ## Reproduce

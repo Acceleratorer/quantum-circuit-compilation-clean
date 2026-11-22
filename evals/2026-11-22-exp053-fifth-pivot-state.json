@@ -1,0 +1,52 @@
+{
+  "captured_utc": "2026-11-22T10:01:24Z",
+  "decision": "The one-bit tag branch[1] AND NOT branch[4] resolves the GF(8) compact-state collisions. This is an information lead only; no reversible eraser, gate count, width schedule, or official verifier result is established.",
+  "execution": {
+    "captured_output_sha256_before_receipt_metadata": "beffc50805cfc2536c648a100530d682ebef0d4687af9a076b3b649eb006c83b",
+    "command": "..\\..\\.venv\\Scripts\\python.exe -I experiments/exp-053/fifth_pivot_state.py",
+    "source": "experiments/exp-053/fifth_pivot_state.py",
+    "source_sha256": "75402093db3b1adcbed2a247bd45b25a02de2934a52962c7af2d62818d003c65"
+  },
+  "experiment": "exp-053-fifth-pivot-state",
+  "gf12_dqi_sample": {
+    "field": "GF(2^12)",
+    "per_weight": {
+      "31": {
+        "ambiguous_history_keys": 0,
+        "distinct_compact_states": 32,
+        "noninjective_state_keys": 0,
+        "samples": 32
+      },
+      "35": {
+        "ambiguous_history_keys": 0,
+        "distinct_compact_states": 32,
+        "noninjective_state_keys": 0,
+        "samples": 32
+      }
+    },
+    "scope": "64 sampled valid error patterns at weights 31 and 35; compatibility evidence only, not a full-domain proof.",
+    "seed": "0x5A7E5"
+  },
+  "gf8_exhaustive": {
+    "ambiguous_history_groups": 46,
+    "collision_groups": 46,
+    "collisions_after_one_history_tag": 0,
+    "compact_state_labels": 32722,
+    "existing_rank_history_register_bits": 8,
+    "field": "GF(8)",
+    "history_conflict_edges": 4,
+    "history_graph_bipartite": true,
+    "input_vectors": 32768,
+    "labels_after_one_history_tag": 32768,
+    "max_inputs_after_one_history_tag": 1,
+    "max_inputs_per_label": 2,
+    "max_rank1_after_five_pivots": 9,
+    "one_bit_history_tag": "branch[1] AND NOT branch[4] (zero-based pivots)",
+    "rank1_bits_observed": 4,
+    "rank_plus_one_tag_bits": 5,
+    "scope": "Exhaustive classical information check over all five-word GF(8) inputs.",
+    "single_branch_bits_that_resolve_all": [],
+    "single_fixed_parity_masks_that_resolve_all": []
+  },
+  "promotion_gate": "Do not integrate or submit from this screen alone. Require a GF(2^12) reversibility argument or proof, compiled correctness/phase/cleanup checks, Q <= 890, mean T <= 215175.987 at R=1.1912605, and a PASS from the official verifier."
+}
