@@ -1,16 +1,18 @@
-# 2026-11-22 — exp-057 one-symbol tail algebra
+# 2026-11-22 — exp-057 full tail algebra
 
 Reconstructed the canonical complementary row from the four-word prefix
-state, applied the resulting 2x2 polynomial matrix at point 4, and verified
-the determinant, four-point annihilation, and inverse action.
+state, then checked its matrix and inverse action across the tail schedule.
 
-The classical gate passes all 2,016 supported GF(8) prefixes and 32 seeded
-verifier-form GF(2^12) cases (16 each at error weights 31 and 35). The GF(2^12)
-cases all took the `a0` pivot; exhaustive GF(8) includes both pivots.
+All 2,016 supported GF(8) prefixes passed at the four distinct tail points
+4–7: 8,064 matrix/tag reconstructions and pair round-trips, including both
+pivot branches. Thirty-two seeded verifier-form GF(2^12) cases (16 each at
+error weights 31 and 35) passed at every tail point 4–69: 2,112 checks with
+zero reconstruction or round-trip errors. All sampled GF(2^12) cases used the
+`a0` pivot.
 
-This is not a compiled circuit or a 66-symbol schedule. The next gate is a
-single-symbol Kickmix implementation with `Q <= 890`, a measured Toffoli count,
-clean scratch, zero phase errors, and arbitrary spectator preservation.
+This is classical algebra evidence, not a compiled circuit or a verifier pass.
+The next gate remains the compact-prefix-to-matrix circuit, then measured reuse
+across all 66 symbols.
 
 Receipt: [classical tail evaluation](../evals/2026-11-22-exp057-tail-transition-classical.json).
 Code and tests: [exp-057 decoder](../experiments/exp-057/streaming_fixed_shape_decoder.py),

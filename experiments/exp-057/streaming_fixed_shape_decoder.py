@@ -211,11 +211,13 @@ def screen_gf8_tail_transition():
     mul, inverse, div = ops(degree, modulus)
     checked = 0
     pivot_counts = [0, 0]
-    tail_point = 4
+    tail_points = tuple(range(4, 8))
     matrix_fibers = {}
     matrix_b1_keys = set()
     matrix_b1_collisions = 0
     discriminator_reconstruction_errors = 0
+    tail_round_trip_checks = 0
+    tail_round_trip_errors = 0
     for coefficients in product(range(8), range(8), range(8), range(1, 8)):
         if not valid_shape(coefficients, mul, div):
             continue
@@ -248,7 +250,7 @@ def screen_gf8_tail_transition():
         for index, sample in enumerate(prefix_samples):
             assert apply_matrix(rows, POINTS[index], (sample, 1), mul) == (0, 0)
         matrix = tuple(
-            fma.poly_eval(polynomial, tail_point, mul)
+            fma.poly_eval(polynomial, tail_points[0], mul)
             for row in rows
             for polynomial in row
         )
@@ -258,21 +260,28 @@ def screen_gf8_tail_transition():
             matrix_b1_collisions += 1
         matrix_b1_keys.add(matrix_b1_key)
 
-        a, b, c, d = matrix
-        a0, a1, _, b1 = coefficients
-        recovered_a1 = mul(div(c, d), b1) ^ div(b, b1)
-        recovered_b0 = b ^ mul(tail_point, b1)
-        recovered_a0 = (
-            a ^ mul(tail_point, recovered_a1) ^ mul(tail_point, tail_point)
-        )
-        if (recovered_a0, recovered_a1, recovered_b0, b1) != coefficients:
-            discriminator_reconstruction_errors += 1
-
         tail_input = (checked % 8, 1)
-        tail_output = apply_matrix(rows, tail_point, tail_input, mul)
-        assert inverse_matrix_pair(
-            rows, tail_point, tail_output, mul, inverse
-        ) == tail_input
+        a0, a1, b0, b1 = coefficients
+        for tail_point in tail_points:
+            point_matrix = tuple(
+                fma.poly_eval(polynomial, tail_point, mul)
+                for row in rows
+                for polynomial in row
+            )
+            a, b, c, d = point_matrix
+            recovered_a1 = mul(div(c, d), b1) ^ div(b, b1)
+            recovered_b0 = b ^ mul(tail_point, b1)
+            recovered_a0 = (
+                a ^ mul(tail_point, recovered_a1) ^ mul(tail_point, tail_point)
+            )
+            if (recovered_a0, recovered_a1, recovered_b0, b1) != coefficients:
+                discriminator_reconstruction_errors += 1
+            tail_output = apply_matrix(rows, tail_point, tail_input, mul)
+            if inverse_matrix_pair(
+                rows, tail_point, tail_output, mul, inverse
+            ) != tail_input:
+                tail_round_trip_errors += 1
+            tail_round_trip_checks += 1
         checked += 1
         pivot_counts[pivot] += 1
     return {
@@ -280,9 +289,14 @@ def screen_gf8_tail_transition():
         "supported_prefixes": checked,
         "pivot_counts": {"a0": pivot_counts[0], "a1": pivot_counts[1]},
         "prefix_annihilation_errors": 0,
-        "tail_round_trip_errors": 0,
+        "tail_round_trip_checks": tail_round_trip_checks,
+        "tail_round_trip_errors": tail_round_trip_errors,
         "bezout_complementary_rows": checked,
-        "tail_point": 4,
+        "tail_points": {
+            "start": tail_points[0],
+            "end": tail_points[-1],
+            "count": len(tail_points),
+        },
         "distinct_tail_matrices": len(matrix_fibers),
         "matrix_only_collisions": checked - len(matrix_fibers),
         "maximum_coefficients_per_tail_matrix": max(matrix_fibers.values()),
@@ -304,11 +318,13 @@ def screen_gf12_verifier_tail_transition(count_per_weight=16):
     node = [1]
     for point in points:
         node = fma.poly_mul(node, [point, 1], mul)
-    quotients = tuple(fma._quotients(node, points, mul))[:5]
+    quotients = tuple(fma._quotients(node, points, mul))
 
     checked = 0
     pivot_counts = [0, 0]
     matrix_b1_reconstruction_errors = 0
+    tail_round_trip_checks = 0
+    tail_round_trip_errors = 0
     for weight in (31, 35):
         for _ in range(count_per_weight):
             locations = rng.sample(range(1, 1 << degree), weight)
@@ -359,29 +375,29 @@ def screen_gf12_verifier_tail_transition(count_per_weight=16):
             )
             for index, sample in enumerate(prefix_samples):
                 assert apply_matrix(rows, points[index], (sample, 1), mul) == (0, 0)
-            matrix = tuple(
-                fma.poly_eval(polynomial, points[4], mul)
-                for row in rows
-                for polynomial in row
-            )
-            a, b, c, d = matrix
             a0, a1, b0, b1 = coefficients
-            recovered_a1 = mul(div(c, d), b1) ^ div(b, b1)
-            recovered_b0 = b ^ mul(points[4], b1)
-            recovered_a0 = (
-                a
-                ^ mul(points[4], recovered_a1)
-                ^ mul(points[4], points[4])
-            )
-            if (recovered_a0, recovered_a1, recovered_b0, b1) != coefficients:
-                matrix_b1_reconstruction_errors += 1
-            tail_input = (samples[4], 1)
-            tail_output = apply_tail_symbol(
-                state, tail_input, points[4], mul, div, modulus, degree
-            )
-            assert inverse_matrix_pair(
-                rows, points[4], tail_output, mul, inverse
-            ) == tail_input
+            for tail_point in points[4:]:
+                a, b, c, d = tuple(
+                    fma.poly_eval(polynomial, tail_point, mul)
+                    for row in rows
+                    for polynomial in row
+                )
+                recovered_a1 = mul(div(c, d), b1) ^ div(b, b1)
+                recovered_b0 = b ^ mul(tail_point, b1)
+                recovered_a0 = (
+                    a
+                    ^ mul(tail_point, recovered_a1)
+                    ^ mul(tail_point, tail_point)
+                )
+                if (recovered_a0, recovered_a1, recovered_b0, b1) != coefficients:
+                    matrix_b1_reconstruction_errors += 1
+                tail_input = (samples[tail_point], 1)
+                tail_output = apply_matrix(rows, tail_point, tail_input, mul)
+                if inverse_matrix_pair(
+                    rows, tail_point, tail_output, mul, inverse
+                ) != tail_input:
+                    tail_round_trip_errors += 1
+                tail_round_trip_checks += 1
             checked += 1
             pivot_counts[pivot] += 1
     return {
@@ -390,12 +406,17 @@ def screen_gf12_verifier_tail_transition(count_per_weight=16):
         "error_weights": {"31": count_per_weight, "35": count_per_weight},
         "pivot_counts": {"a0": pivot_counts[0], "a1": pivot_counts[1]},
         "prefix_annihilation_errors": 0,
-        "tail_round_trip_errors": 0,
+        "tail_round_trip_checks": tail_round_trip_checks,
+        "tail_round_trip_errors": tail_round_trip_errors,
         "bezout_complementary_rows": checked,
         "matrix_b1_reconstruction_errors": matrix_b1_reconstruction_errors,
-        "tail_point": 4,
+        "tail_points": {
+            "start": 4,
+            "end": 69,
+            "count": len(points[4:]),
+        },
         "result": "PASS",
-        "scope": "Seeded classical one-symbol transition only; no gate circuit or 66-symbol schedule.",
+        "scope": "Seeded classical transition across all 66 tail symbols; no gate circuit.",
     }
 
 

@@ -4,9 +4,9 @@ title: Four-word streaming decoder for quadratic-over-linear FMA
 task: dqi
 tests: exhaustive GF(8) prefix and tail state and matrix encoding; 2,048 seeded GF(2^12); 32-case private prefix gate screen including a1=0; 32 verifier-form prefix and tail cases; 64-case private precomputed-matrix action; 64-case coefficient-derived tail action; 64-case in-place matrix setup
 direction: D-004
-status: coefficient-to-matrix-b1-setup-gate-passed_compact-prefix-and-66-symbol-schedule-pending
+status: matrix-state-gate-passed_classical-66-tail-schedule-passed_prefix-to-matrix-gate-and-official-verifier-pending
 date: 2026-11-22
-result: Prefix gate passes at Q=885 and T=7,483; precomputed-matrix action at Q=873 and T=84; coefficient-derived one-symbol action at Q=889 and T=822; in-place matrix setup at Q=889 and T=558. The GF(8) matrix-only encoding has 1,572 collisions; adding b1 distinguishes all GF(8) states and reconstructs 32 seeded GF(2^12) cases. Compact-prefix input, 66-symbol integration, and the official verifier remain open.
+result: Prefix gate passes at Q=885 and T=7,483; precomputed-matrix action at Q=873 and T=84; coefficient-derived one-symbol action at Q=889 and T=822; in-place matrix setup at Q=889 and T=558. Classical tail algebra now passes all 66 GF(2^12) points on 32 seeded verifier-form cases and all four non-prefix GF(8) points on 2,016 supported states. Compact-prefix input to a compiled matrix state, the compiled 66-symbol schedule, and the official verifier remain open.
 ---
 
 # exp-057: four-word streaming decoder
@@ -61,26 +61,26 @@ combined expected draws in 102,400 shots. The edge cases are not the current
 optimization bottleneck; integrating and measuring the full decoder comes
 first.
 
-## One-symbol tail transition
+## Full 66-symbol tail algebra
 
 The four-word compact state reconstructs the normalized low row of the
-four-point FMA basis. For the next symbol, the screen reconstructs the
-canonical complementary row, applies the resulting 2x2 polynomial matrix at
-point 4, and checks that the matrix determinant is the four-point node
-polynomial. Both rows annihilate the original four samples, the tail-point
-matrix is invertible, and its inverse recovers the input pair.
+four-point FMA basis and canonical complementary row. For each later symbol,
+the screen evaluates the 2x2 polynomial matrix and checks coefficient
+reconstruction from its entries plus `b1`, as well as invertibility and pair
+round-trip.
 
-The transition passed all 2,016 supported GF(8) coefficient states and 32
-seeded verifier-form GF(2^12) cases (16 each at error weights 31 and 35).
-The GF(2^12) sample used the `a0` pivot in all 32 cases; the `a1` pivot is
-covered exhaustively by GF(8). Reproduction:
+The screen passed all 2,016 supported GF(8) states at the four distinct tail
+points 4–7, plus 32 seeded verifier-form GF(2^12) cases (16 each at error
+weights 31 and 35) across all 66 tail points 4–69. That is 8,064 GF(8) and
+2,112 GF(2^12) matrix/tag reconstructions and pair round-trips with zero
+errors. The GF(2^12) sample used the `a0` pivot in all 32 cases; exhaustive
+GF(8) includes both pivots. Reproduction:
 `python experiments/exp-057/streaming_fixed_shape_decoder.py` and
-`python -m pytest tests/test_exp057_tail_transition.py`.
+`python -m unittest discover -s tests -p test_exp057_tail_transition.py -v`.
 
-This is a classical algebra gate only. It does not compile matrix generation
-from the prefix state, cover all 66 later symbols, or pass the official
-verifier. The separate precomputed-matrix Kickmix action screen is recorded
-below.
+This verifies classical algebra only. The prefix-to-matrix gate circuit, the
+compiled 66-symbol schedule, and the official verifier remain open. Receipt:
+[`exp-057 full tail transition`](../../evals/2026-11-22-exp057-tail-transition-classical.json).
 
 ## Precomputed-matrix action gate
 
@@ -92,8 +92,8 @@ Receipt: [`exp-057 tail matrix action`](../../evals/2026-11-22-exp057-tail-matri
 
 The four matrix entries are independent precomputed inputs in this screen. It
 does not generate them from the compact prefix state, erase generation
-workspace, implement an in-place 66-symbol schedule, or run the official DQI
-verifier. The 66-symbol `84T` multiplication is only a sensitivity estimate;
+workspace, implement a compiled in-place 66-symbol schedule, or run the
+official DQI verifier. The 66-symbol `84T` multiplication is only a sensitivity estimate;
 it may overlap with the existing `202,075T` FMA projection. The next gate is a
 reversible prefix-state-to-matrix cell, measured together with its cleanup and
 the existing prefix cell before extending the schedule.
