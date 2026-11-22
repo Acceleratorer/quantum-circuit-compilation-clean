@@ -1905,6 +1905,180 @@ def generate_cases(field, count=32):
     return cases
 
 
+def syndrome_to_fma_samples(syndrome, field):
+    """Apply the verifier's exact 70-syndrome to FMA-sample linear map."""
+    points = tuple(range(70))
+    node = [1]
+    for point in points:
+        product = [0] * (len(node) + 1)
+        for index, coefficient in enumerate(node):
+            product[index] ^= field.mul(point, coefficient)
+            product[index + 1] ^= coefficient
+        node = product
+
+    samples = []
+    for point in points:
+        quotient = [0] * len(points)
+        quotient[-1] = node[-1]
+        for index in reversed(range(len(points) - 1)):
+            quotient[index] = node[index + 1] ^ field.mul(
+                point, quotient[index + 1]
+            )
+        if node[0] ^ field.mul(point, quotient[0]):
+            raise ValueError("synthetic division did not recover the FMA quotient")
+        value = 0
+        for coefficient, syndrome_value in zip(quotient, syndrome):
+            value ^= field.mul(coefficient, syndrome_value)
+        samples.append(value)
+    return tuple(samples)
+
+
+def prefix_pivot_data(d0, d1, d2, mul):
+    """Return the fixed four-point prefix pivot and its affine coefficients."""
+    c0 = d2 ^ mul(2, d1) ^ mul(3, d0)
+    c1 = mul(2, d2 ^ d1)
+    constant = mul(4, d2) ^ mul(2, d1)
+    if c0:
+        return 0, c0, c1, constant
+    if c1:
+        return 1, c0, c1, constant
+    raise ValueError("the first three samples do not determine a pivot")
+
+
+def coefficients_from_prefix_classical(d0, d1, d2, remaining, field):
+    pivot, c0, c1, constant = prefix_pivot_data(d0, d1, d2, field.mul)
+    divide = lambda numerator, denominator: field.mul(
+        numerator, field.invert(denominator)
+    )
+    if pivot == 0:
+        a1 = remaining
+        a0 = divide(constant ^ field.mul(c1, a1), c0)
+    else:
+        a0 = remaining
+        a1 = divide(constant, c1)
+    b0 = field.mul(d0, a0)
+    b1 = (
+        d1
+        ^ field.mul(d0 ^ d1, a0)
+        ^ field.mul(d1, a1)
+    )
+    return (a0, a1, b0, b1), pivot
+
+
+def coefficients_from_four_samples(samples, field):
+    """Recover the supported monic quadratic/linear row from four FMA samples."""
+    d0, d1, d2, d3 = samples
+    pivot, c0, c1, constant = prefix_pivot_data(d0, d1, d2, field.mul)
+    divide = lambda numerator, denominator: field.mul(
+        numerator, field.invert(denominator)
+    )
+    point = 3
+    point_square = field.mul(point, point)
+    if pivot == 0:
+        alpha = divide(constant, c0)
+        beta = divide(c1, c0)
+        d0d1 = d0 ^ d1
+        denominator_0 = point_square ^ alpha
+        denominator_1 = point ^ beta
+        numerator_0 = field.mul(d0, alpha) ^ field.mul(
+            point, d1 ^ field.mul(d0d1, alpha)
+        )
+        numerator_1 = field.mul(d0, beta) ^ field.mul(
+            point, field.mul(d0d1, beta) ^ d1
+        )
+    else:
+        alpha = divide(constant, c1)
+        denominator_0 = point_square ^ field.mul(point, alpha)
+        denominator_1 = 1
+        numerator_0 = field.mul(point, d1 ^ field.mul(d1, alpha))
+        numerator_1 = d0 ^ field.mul(point, d0 ^ d1)
+    remaining = divide(
+        numerator_0 ^ field.mul(d3, denominator_0),
+        numerator_1 ^ field.mul(d3, denominator_1),
+    )
+    coefficients, checked_pivot = coefficients_from_prefix_classical(
+        d0, d1, d2, remaining, field
+    )
+    if checked_pivot != pivot:
+        raise ValueError("the four-sample pivot changed during reconstruction")
+    return coefficients
+
+
+def coefficients_have_supported_shape(coefficients, field):
+    """Check the nonzero/coprime domain required by the current prefix cell."""
+    a0, a1, b0, b1 = coefficients
+    if b1 == 0:
+        return False
+
+    def denominator(point):
+        return field.mul(point, point) ^ field.mul(a1, point) ^ a0
+
+    if any(denominator(point) == 0 for point in POINTS):
+        return False
+    root_b = field.mul(b0, field.invert(b1))
+    return denominator(root_b) != 0
+
+
+def generate_verifier_form_cases(field, count, seed=0xA6605F):
+    """Sample valid DQI error words, then transform their syndromes to FMA form."""
+    rng = Random(seed)
+    cases = []
+    attempts = 0
+    while len(cases) < count:
+        attempts += 1
+        if attempts > count * 100:
+            raise RuntimeError("too few verifier-form samples fit the prefix shape")
+        weight = 29 + rng.randrange(7)
+        locations = rng.sample(range(1, 1 << FIELD_BITS), weight)
+        magnitudes = [rng.randrange(1, 1 << FIELD_BITS) for _ in locations]
+        syndrome = [0] * 70
+        for location, magnitude in zip(locations, magnitudes):
+            power = location
+            for index in range(70):
+                syndrome[index] ^= field.mul(magnitude, power)
+                power = field.mul(power, location)
+        samples = syndrome_to_fma_samples(syndrome, field)
+        try:
+            coefficients = coefficients_from_four_samples(samples[:4], field)
+            if not coefficients_have_supported_shape(coefficients, field):
+                continue
+            pivot, _, _, _ = prefix_pivot_data(*samples[:3], field.mul)
+            a0, a1, _, _ = coefficients
+            prefix_state = (*samples[:3], a1 if pivot == 0 else a0)
+            reconstructed, checked_pivot = coefficients_from_prefix_classical(
+                *prefix_state, field
+            )
+            if reconstructed != coefficients or checked_pivot != pivot:
+                continue
+            a0, a1, b0, b1 = coefficients
+            reconstructed_samples = tuple(
+                field.mul(
+                    field.mul(b1, point) ^ b0,
+                    field.invert(
+                        field.mul(point, point)
+                        ^ field.mul(a1, point)
+                        ^ a0
+                    ),
+                )
+                for point in POINTS
+            )
+            if reconstructed_samples != samples[:4]:
+                continue
+        except (ValueError, ZeroDivisionError):
+            continue
+        cases.append(
+            {
+                "coefficients": coefficients,
+                "prefix_state": prefix_state,
+                "pivot": pivot,
+                "samples": samples,
+                "weight": weight,
+                "verifier_form": True,
+            }
+        )
+    return cases
+
+
 def append_bezout_matrix_stream_step(builder, matrix, tags, ar, point, next_point):
     """Advance evaluated Bezout rows with fixed linear field maps."""
     a, b, c, d = matrix
@@ -2223,20 +2397,40 @@ def build_compact_prefix_matrix_stream_checksum(km=None, ar=None):
 def run_compact_prefix_matrix_stream_checksum_screen(
     case_count=32, km=None, ar=None
 ):
-    """Screen compact-prefix decoding and the complete 66-symbol stream."""
+    """Screen verifier-form inputs plus one synthetic alternate-pivot case."""
+    if case_count < 2:
+        raise ValueError("the screen needs at least one verifier and one pivot case")
     km, ar, circuit, registers = build_compact_prefix_matrix_stream_checksum(
         km, ar
     )
     field = ar.field(FIELD_BITS)
-    cases = generate_cases(field, case_count)
-    rng = Random(0xA6605F)
-    input_words = np.asarray(
-        [[rng.randrange(1 << FIELD_BITS) for _ in range(70)] for _ in cases],
-        dtype=np.uint32,
+    verifier_cases = generate_verifier_form_cases(field, case_count - 1)
+    synthetic_pivot_case = next(
+        case for case in generate_cases(field, 32) if case[2]
     )
+    cases = list(verifier_cases)
+    cases.append(
+        {
+            "coefficients": synthetic_pivot_case[0],
+            "prefix_state": synthetic_pivot_case[1],
+            "pivot": synthetic_pivot_case[2],
+            "samples": None,
+            "weight": None,
+            "verifier_form": False,
+        }
+    )
+    rng = Random(0xA6605F)
+    input_words = np.asarray([
+        case["samples"]
+        if case["verifier_form"]
+        else [rng.randrange(1 << FIELD_BITS) for _ in range(70)]
+        for case in cases
+    ], dtype=np.uint32)
     expected_checksum = np.zeros(case_count, dtype=np.uint32)
     expected_matrix = np.zeros((case_count, 4), dtype=np.uint32)
-    for shot, (coefficients, prefix_state, _) in enumerate(cases):
+    for shot, case in enumerate(cases):
+        coefficients = case["coefficients"]
+        prefix_state = case["prefix_state"]
         input_words[shot, :4] = prefix_state
         stream_state = bezout_stream_state_from_coefficients(ar, coefficients, 4)
         expected_matrix[shot] = (*stream_state[:3], stream_state[4])
@@ -2296,11 +2490,15 @@ def run_compact_prefix_matrix_stream_checksum_screen(
         )
     assert np.array_equal(
         sim.read_across_shots(registers["b1_tag"]),
-        bit_columns(np.asarray([case[0][3] for case in cases]), FIELD_BITS),
+        bit_columns(
+            np.asarray([case["coefficients"][3] for case in cases]), FIELD_BITS
+        ),
     )
     assert np.array_equal(
         sim.read_across_shots(registers["a1_tag"]),
-        bit_columns(np.asarray([case[0][1] for case in cases]), FIELD_BITS),
+        bit_columns(
+            np.asarray([case["coefficients"][1] for case in cases]), FIELD_BITS
+        ),
     )
     assert np.array_equal(
         sim.read_across_shots(registers["checksum"]),
@@ -2325,9 +2523,16 @@ def run_compact_prefix_matrix_stream_checksum_screen(
     return {
         "cases": case_count,
         "prefix_pivot_coverage": {
-            "a0": sum(not case[2] for case in cases),
-            "a1": sum(case[2] for case in cases),
+            "a0": sum(not case["pivot"] for case in cases),
+            "a1": sum(case["pivot"] for case in cases),
         },
+        "verifier_form_cases": sum(case["verifier_form"] for case in cases),
+        "verifier_form_weights": sorted(
+            case["weight"] for case in cases if case["verifier_form"]
+        ),
+        "synthetic_alternate_pivot_cases": sum(
+            not case["verifier_form"] for case in cases
+        ),
         "tail_symbols": 66,
         "matrix_errors": 0,
         "tag_errors": 0,

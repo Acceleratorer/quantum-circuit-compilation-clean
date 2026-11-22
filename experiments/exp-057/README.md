@@ -202,6 +202,16 @@ no phase flips. It measured `Q=889`, `T=19,004`, one qubit under the width gate.
 The fourth matrix word stores `K=D/b1`; each tail action reconstructs its `D`
 term as `K*b1`. Rank workspace is reused to fit the width.
 
+Private kernel v16 reran this same checksum circuit on 31 verifier-form
+syndrome cases at weights 29–35 and one synthetic alternate-pivot case. All
+matrix, tag, and checksum checks passed at the same `Q=889`, `T=19,004`.
+Verifier-form cases were resampled to fit the current prefix shape, so this is
+not an error-rate estimate. The circuit still does not consume the tail pairs
+with the key-equation solver or implement the DQI output, phase, cleanup, or
+official verifier. See the [v16 receipt](../../evals/2026-11-23-exp057-verifier-form-v16.json)
+and [run log](../../log/2026-11-23-exp057-verifier-form-v16.md), plus the
+[raw Kaggle output](kaggle-v16-output.log).
+
 This is an integrated resource screen, not a DQI candidate. It outputs only a
 checksum, reuses the rank register, and does not restore the prefix/matrix
 state, generate the DQI phase/output, or run the official verifier. See the

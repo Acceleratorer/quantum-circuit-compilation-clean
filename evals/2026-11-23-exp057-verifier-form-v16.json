@@ -1,0 +1,57 @@
+{
+  "captured_utc": "2026-11-22T21:50:06Z",
+  "experiment": "exp-057-verifier-form-prefix-matrix-stream-v16",
+  "kernel": {
+    "id": "accelra/exp057-streaming-prefix-state",
+    "version": 16,
+    "visibility": "private",
+    "status": "COMPLETE",
+    "url": "https://www.kaggle.com/code/accelra/exp057-streaming-prefix-state/versions/16"
+  },
+  "source": {
+    "git_head_before_run": "98b4089",
+    "working_tree_dirty": true,
+    "streaming_prefix_kernel_sha256": "4F8FD03AC8D6B74C649FA3A91AC606878FDE27DB85A88C6CFDD838BF7D813026",
+    "private_kernel_script_sha256": "CD6C0E11703E6CA637E13A22F389D890C2C418DE4A205B9394E57D628310674D",
+    "kernel_log_sha256": "BD97D23BF8C208C14AA79C775F0F887D7F03490A4A170BD61AAC377C3CE47DC7"
+  },
+  "checks": {
+    "cases": 32,
+    "verifier_form_cases": 31,
+    "verifier_form_error_weights": {
+      "29": 7,
+      "30": 6,
+      "31": 3,
+      "32": 5,
+      "33": 2,
+      "34": 2,
+      "35": 6
+    },
+    "synthetic_alternate_pivot_cases": 1,
+    "prefix_pivot_coverage": {
+      "a0": 31,
+      "a1": 1
+    },
+    "matrix_errors": 0,
+    "tag_errors": 0,
+    "checksum_errors": 0,
+    "preserved_tail_words": 66,
+    "clean_scratch_qubits": 12,
+    "phase_flips": 0,
+    "sample_selection": "Verifier-form cases were resampled until their first-four prefix fit the supported G=1, deg(A)=2, deg(B)=1 cell; this is not an error-rate estimate."
+  },
+  "resources": {
+    "compiled_qubits": 889,
+    "width_gate": 890,
+    "qubits_below_gate": 1,
+    "toffoli_like_gates": 19004
+  },
+  "local_validation": {
+    "unittest": "PASS: 4 tests in tests/test_exp057_tail_transition.py",
+    "py_compile": "PASS",
+    "git_diff_check": "PASS"
+  },
+  "official_verifier": "NOT_RUN",
+  "competition_submission": null,
+  "scope": "Checks the compact prefix, point-4 matrix setup, and 66 streamed tail actions on valid DQI-shaped syndrome samples. The circuit still outputs only a checksum; it does not solve the full tail key equation, emit the DQI phase/output, restore the prefix/matrix state, or pass the official verifier."
+}

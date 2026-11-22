@@ -71,6 +71,16 @@ reversible cleanup before running the official verifier. See the
 [log](../../log/2026-11-23-exp057-prefix-matrix-stream-v15.md), and
 [milestone](../../milestone/2026-11-23-exp057-prefix-matrix-stream-v15.md).
 
+Private kernel v16 reran the same `Q=889`, `T=19,004` checksum cell on 31
+verifier-form syndrome samples at error weights 29–35, plus one synthetic
+alternate-pivot case. Matrix, tag, and checksum errors remained zero. The
+verifier-form cases were conditioned on the supported four-point prefix shape;
+they do not measure decoder coverage or failure rate. This closes only the
+input-domain check for the checksum component. The tail key-equation solve,
+phase/output, cleanup, full resource ledger, and official verifier remain open.
+See the [v16 receipt](../../evals/2026-11-23-exp057-verifier-form-v16.json)
+and [run log](../../log/2026-11-23-exp057-verifier-form-v16.md).
+
 ## 2026-11-21 live leaderboard refresh
 
 The full Kaggle snapshot at `2026-11-21T12:55:34Z` has 3,519 teams.
