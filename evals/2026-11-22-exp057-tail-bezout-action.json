@@ -1,0 +1,58 @@
+{
+  "captured_utc": "2026-11-22T14:40:33Z",
+  "experiment": "exp-057-tail-bezout-action",
+  "kernel": {
+    "id": "accelra/exp057-streaming-prefix-state",
+    "status": "COMPLETE",
+    "url": "https://www.kaggle.com/code/accelra/exp057-streaming-prefix-state/versions/6",
+    "version": 6,
+    "visibility": "private"
+  },
+  "checks": {
+    "prefix_cell": {
+      "cases": 32,
+      "clean_scratch_qubits": 36,
+      "compiled_qubits": 885,
+      "phase_flips": 0,
+      "pivot_coverage": {
+        "a0": 31,
+        "a1": 1
+      },
+      "preserved_spectator_words": 66,
+      "round_trip_errors": 0,
+      "toffoli_like_gates": 7483
+    },
+    "tail_matrix_action": {
+      "cases": 64,
+      "clean_scratch_qubits": 0,
+      "compiled_qubits": 873,
+      "invertible_matrices": 64,
+      "output_errors": 0,
+      "phase_flips": 0,
+      "preserved_payload_words": 70,
+      "preserved_rank_and_pivot": true,
+      "qubits_over_890": -17,
+      "toffoli_like_gates": 84,
+      "zero_determinants": 0
+    },
+    "tail_action_from_coefficients": {
+      "cases": 64,
+      "clean_scratch_qubits": 16,
+      "compiled_qubits": 889,
+      "output_errors": 0,
+      "phase_flips": 0,
+      "point": 4,
+      "preserved_payload_words": 70,
+      "preserved_rank_and_pivot": true,
+      "qubits_over_890": -1,
+      "toffoli_like_gates": 822
+    }
+  },
+  "scope": "One tail-symbol action from four supplied polynomial coefficients. It does not generate those coefficients from the compact prefix state, amortize setup across symbols, implement the 66-symbol schedule, or run the official verifier.",
+  "source": {
+    "builder_sha256": "8bb4349c8b6dde3010380ec11ab2055fd6886cd4797b15d8c83f3c6999cb065e",
+    "private_kernel_script_sha256": "698e9c6189c4b19f5bcabada428ca08344ee4ce8a21bc5ec469c567ba9c1bc0f5",
+    "streaming_prefix_kernel_sha256": "d4fab29468c5d3ec948a1fc72007633b83d7c86d7e8a4f0cbd1d414fc818eb80"
+  },
+  "submission": null
+}

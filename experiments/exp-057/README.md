@@ -2,11 +2,11 @@
 id: exp-057
 title: Four-word streaming decoder for quadratic-over-linear FMA
 task: dqi
-tests: exhaustive GF(8) prefix and tail state; 2,048 seeded GF(2^12); 32-case private prefix gate screen including a1=0; 32 verifier-form prefix and tail cases; 64-case private precomputed-matrix action
+tests: exhaustive GF(8) prefix and tail state; 2,048 seeded GF(2^12); 32-case private prefix gate screen including a1=0; 32 verifier-form prefix and tail cases; 64-case private precomputed-matrix action; 64-case coefficient-derived tail action
 direction: D-004
-status: prefix_and_one-symbol-precomputed-matrix-gates-passed_matrix-generation-pending
+status: coefficient-derived-one-symbol-gate-passed_prefix-state-setup-and-66-symbol-schedule-pending
 date: 2026-11-22
-result: Prefix gate passes at Q=885 and T=7,483; the one-symbol action with precomputed matrix entries passes at Q=873 and T=84. Matrix generation, 66-symbol integration, and the official verifier remain open.
+result: Prefix gate passes at Q=885 and T=7,483; precomputed-matrix action at Q=873 and T=84; coefficient-derived one-symbol action at Q=889 and T=822. Prefix-state setup, 66-symbol integration, and the official verifier remain open.
 ---
 
 # exp-057: four-word streaming decoder
@@ -97,3 +97,19 @@ verifier. The 66-symbol `84T` multiplication is only a sensitivity estimate;
 it may overlap with the existing `202,075T` FMA projection. The next gate is a
 reversible prefix-state-to-matrix cell, measured together with its cleanup and
 the existing prefix cell before extending the schedule.
+
+## Coefficient-derived tail action gate
+
+Private Kaggle kernel version 6 derives and applies the one-symbol action from
+four supplied polynomial coefficients. Across 64 cases at point 4, it passed
+at `Q=889`, `T=822`; the 70-word payload, rank, and pivot were preserved, all
+16 scratch qubits were clean, and there were no output errors or phase flips.
+The run also repeated the prefix and precomputed-matrix gates. Receipt:
+[`exp-057 coefficient-derived tail action`](../../evals/2026-11-22-exp057-tail-bezout-action.json).
+
+The coefficients are still direct inputs, so this is not yet a compact-state
+to-action circuit or a 66-symbol schedule. The next gate is to isolate and
+retain coefficient-dependent setup once, measure its generation from the
+compact prefix state with clean workspace, and then account for reuse across
+the remaining symbols. The one-symbol `822T` result is not a full-schedule
+cost estimate.

@@ -159,9 +159,32 @@ def complementary_matrix_from_prefix_state(state, mul, div, modulus, degree):
     return (low, complementary), prefix_samples
 
 
+def bezout_complementary_matrix_from_prefix_state(state, mul, div, modulus, degree):
+    """Build an unreduced complementary row directly from the prefix state."""
+    coefficients, _ = coefficients_from_prefix(*state[:3], state[3], mul, div)
+    a0, a1, b0, b1 = coefficients
+    inverse_b1 = div(1, b1)
+    quotient = [
+        mul(inverse_b1, a1 ^ mul(inverse_b1, b0)),
+        inverse_b1,
+    ]
+    gcd = a0 ^ mul(quotient[0], b0)
+    if gcd == 0:
+        raise ValueError("the prefix low row is not coprime")
+
+    node = [1]
+    for point in POINTS:
+        node = fma.poly_mul(node, [point, 1], mul)
+    scaled_node = [mul(div(1, gcd), value) for value in node]
+    complementary_numerator = fma.poly_mul(quotient, scaled_node, mul)
+    low = ([a0, a1, 1], [b0, b1])
+    prefix_samples = samples_from_prefix_state(state, mul, div)
+    return (low, (complementary_numerator, scaled_node)), prefix_samples
+
+
 def apply_tail_symbol(state, pair, point, mul, div, modulus, degree):
-    """Apply the four-point FMA basis to one later symbol."""
-    rows, _ = complementary_matrix_from_prefix_state(
+    """Apply the Bezout form of the four-point FMA basis to one later symbol."""
+    rows, _ = bezout_complementary_matrix_from_prefix_state(
         state, mul, div, modulus, degree
     )
     return apply_matrix(rows, point, pair, mul)
@@ -192,8 +215,21 @@ def screen_gf8_tail_transition():
         if not valid_shape(coefficients, mul, div):
             continue
         state, pivot = prefix_state_from_coefficients(coefficients, mul, div)
-        rows, prefix_samples = complementary_matrix_from_prefix_state(
+        canonical_rows, prefix_samples = complementary_matrix_from_prefix_state(
             state, mul, div, modulus, degree
+        )
+        rows, bezout_samples = bezout_complementary_matrix_from_prefix_state(
+            state, mul, div, modulus, degree
+        )
+        assert bezout_samples == prefix_samples
+        assert_same_row_module(
+            canonical_rows,
+            prefix_samples,
+            POINTS,
+            mul,
+            inverse,
+            modulus,
+            degree,
         )
         assert_same_row_module(
             rows,
@@ -220,6 +256,7 @@ def screen_gf8_tail_transition():
         "pivot_counts": {"a0": pivot_counts[0], "a1": pivot_counts[1]},
         "prefix_annihilation_errors": 0,
         "tail_round_trip_errors": 0,
+        "bezout_complementary_rows": checked,
         "tail_point": 4,
         "result": "PASS",
     }
@@ -260,10 +297,23 @@ def screen_gf12_verifier_tail_transition(count_per_weight=16):
                 coefficients, mul, div
             )
             assert samples_from_prefix_state(state, mul, div) == samples[:4]
-            rows, prefix_samples = complementary_matrix_from_prefix_state(
+            canonical_rows, prefix_samples = complementary_matrix_from_prefix_state(
+                state, mul, div, modulus, degree
+            )
+            rows, bezout_samples = bezout_complementary_matrix_from_prefix_state(
                 state, mul, div, modulus, degree
             )
             assert prefix_samples == samples[:4]
+            assert bezout_samples == prefix_samples
+            assert_same_row_module(
+                canonical_rows,
+                prefix_samples,
+                POINTS,
+                mul,
+                inverse,
+                modulus,
+                degree,
+            )
             assert_same_row_module(
                 rows,
                 prefix_samples,
@@ -291,6 +341,7 @@ def screen_gf12_verifier_tail_transition(count_per_weight=16):
         "pivot_counts": {"a0": pivot_counts[0], "a1": pivot_counts[1]},
         "prefix_annihilation_errors": 0,
         "tail_round_trip_errors": 0,
+        "bezout_complementary_rows": checked,
         "tail_point": 4,
         "result": "PASS",
         "scope": "Seeded classical one-symbol transition only; no gate circuit or 66-symbol schedule.",

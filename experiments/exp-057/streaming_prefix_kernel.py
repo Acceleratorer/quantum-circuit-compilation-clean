@@ -590,6 +590,211 @@ def run_tail_matrix_action_screen(case_count=64, km=None, ar=None):
     }
 
 
+def build_bezout_tail_action(km=None, ar=None, point=4):
+    """Generate the Bezout tail action from a quadratic/linear row."""
+    if km is None or ar is None:
+        km, ar = load_gate_arithmetic()
+    builder = km.CircuitBuilder()
+    payload = builder.alloc_qubits(70 * FIELD_BITS)
+    rank = builder.alloc_qubits(8)
+    pivot = builder.alloc_qubits(1)
+    outputs = builder.alloc_qubits(2 * FIELD_BITS)
+    xor_constant(builder, rank, RANK_TAG)
+    scratch_pool = builder.alloc_qubits(16)
+    borrowed = list(rank) + [pivot[0]] + list(scratch_pool)
+    workspace = BorrowedScratchBuilder(builder, borrowed, km)
+
+    a0, a1, b0, b1, sample = [
+        payload[index * FIELD_BITS : (index + 1) * FIELD_BITS]
+        for index in range(5)
+    ]
+    first, second = outputs[:FIELD_BITS], outputs[FIELD_BITS:]
+    field = ar.field(FIELD_BITS)
+    identity = [1 << bit for bit in range(FIELD_BITS)]
+    square = [field.mul(value, value) for value in identity]
+    point_columns = [field.mul(point, value) for value in identity]
+    first, second = outputs[:FIELD_BITS], outputs[FIELD_BITS:]
+
+    # D = a0*b1^2 + a1*b0*b1 + b0^2 is nonzero for a coprime row.
+    b1_square = workspace.alloc_qubits(FIELD_BITS)
+    ar.linear_xor(workspace, b1, b1_square, square)
+    b0b1 = workspace.alloc_qubits(FIELD_BITS)
+    ar.mul_xor0(workspace, b0, b1, b0b1)
+    ar.mul_xor0(workspace, a0, b1_square, first)
+    ar.mul_xor0(workspace, a1, b0b1, first)
+    ar.linear_xor(workspace, b0, first, square)
+    ar.mul_xor0(workspace, b0, b1, b0b1)
+    workspace.free(b0b1)
+    ar.linear_xor(workspace, b1, b1_square, square)
+    workspace.free(b1_square)
+    _, _, phase_inverse36_pivot = load_width_helpers(km)
+    ar.inverse(workspace, first, target=second)
+
+    def toggle_quotient_numerator(target):
+        ar.mul_xor0(workspace, a1, b1, target)
+        ar.linear_xor(workspace, b1, target, point_columns)
+        ar.linear_xor(workspace, b0, target, identity)
+
+    quotient_numerator = workspace.alloc_qubits(FIELD_BITS)
+    toggle_quotient_numerator(quotient_numerator)
+    high_numerator = workspace.alloc_qubits(FIELD_BITS)
+    ar.mul_xor0(workspace, quotient_numerator, sample, high_numerator)
+    ar.linear_xor(workspace, b1, high_numerator, square)
+    toggle_quotient_numerator(quotient_numerator)
+    workspace.free(quotient_numerator)
+
+    node_value = 1
+    for prefix_point in POINTS:
+        node_value = field.mul(node_value, point ^ prefix_point)
+    node_columns = [field.mul(node_value, value) for value in identity]
+    product_target = workspace.alloc_qubits(FIELD_BITS)
+    ar.mul_xor0(workspace, high_numerator, second, product_target)
+    workspace.swap(high_numerator, product_target)
+    ar.mul_xor0(workspace, high_numerator, first, product_target)
+    workspace.free(product_target)
+    ar.linear_inplace(builder, high_numerator, node_columns)
+
+    mask = workspace.alloc_bits(FIELD_BITS)
+    workspace.hmr(second, mask)
+    phase_inverse36_pivot(workspace, first, mask)
+    workspace.free(mask)
+    builder.swap(second, high_numerator)
+    workspace.free(high_numerator)
+
+    b1_square = workspace.alloc_qubits(FIELD_BITS)
+    ar.linear_xor(workspace, b1, b1_square, square)
+    b0b1 = workspace.alloc_qubits(FIELD_BITS)
+    ar.mul_xor0(workspace, b0, b1, b0b1)
+    ar.linear_xor(workspace, b0, first, square)
+    ar.mul_xor0(workspace, a1, b0b1, first)
+    ar.mul_xor0(workspace, a0, b1_square, first)
+    ar.mul_xor0(workspace, b0, b1, b0b1)
+    ar.linear_xor(workspace, b1, b1_square, square)
+    workspace.free(b0b1)
+    workspace.free(b1_square)
+
+    low_denominator = workspace.alloc_qubits(FIELD_BITS)
+    ar.linear_xor(workspace, a1, low_denominator, point_columns)
+    ar.linear_xor(workspace, a0, low_denominator, identity)
+    xor_constant(builder, low_denominator, field.mul(point, point))
+    ar.linear_xor(workspace, b1, first, point_columns)
+    ar.linear_xor(workspace, b0, first, identity)
+    ar.mul_xor0(workspace, low_denominator, sample, first)
+    xor_constant(builder, low_denominator, field.mul(point, point))
+    ar.linear_xor(workspace, a0, low_denominator, identity)
+    ar.linear_xor(workspace, a1, low_denominator, point_columns)
+    workspace.free(low_denominator)
+
+    workspace.assert_released()
+    xor_constant(builder, rank, RANK_TAG)
+
+    circuit = builder.finish_circuit()
+    return km, ar, circuit, {
+        "payload": payload,
+        "rank": rank,
+        "pivot": pivot[0],
+        "outputs": outputs,
+    }
+
+
+def run_bezout_tail_action_screen(case_count=64, point=4, km=None, ar=None):
+    """Measure one tail action whose entries are generated from the FMA row."""
+    km, ar, circuit, registers = build_bezout_tail_action(km, ar, point)
+    field = ar.field(FIELD_BITS)
+    rng = Random(0xA466059)
+    input_words = np.asarray(
+        [
+            [rng.randrange(1 << FIELD_BITS) for _ in range(70)]
+            for _ in range(case_count)
+        ],
+        dtype=np.uint32,
+    )
+    expected = np.zeros((case_count, 2), dtype=np.uint32)
+    for shot in range(case_count):
+        coefficients, _, _ = sample_coefficients(field, rng)
+        a0, a1, b0, b1 = coefficients
+        input_words[shot, :4] = coefficients
+        sample = int(input_words[shot, 4])
+        inverse_b1 = field.invert(b1)
+        q0 = field.mul(inverse_b1, a1 ^ field.mul(inverse_b1, b0))
+        gcd = a0 ^ field.mul(q0, b0)
+        assert gcd
+        inverse_gcd = field.invert(gcd)
+        w = field.mul(point, point) ^ field.mul(a1, point) ^ a0
+        n = field.mul(b1, point) ^ b0
+        p = 1
+        for prefix_point in POINTS:
+            p = field.mul(p, point ^ prefix_point)
+        scale = field.mul(p, inverse_gcd)
+        q_at_point = q0 ^ field.mul(inverse_b1, point)
+        expected[shot, 0] = field.mul(w, sample) ^ n
+        expected[shot, 1] = field.mul(
+            scale, field.mul(q_at_point, sample) ^ 1
+        )
+
+    rank_values = np.full(case_count, RANK_TAG, dtype=np.uint32)
+    pivot_values = np.zeros(case_count, dtype=np.uint32)
+    sim = km.Simulator(batch_size=case_count, debug_print=False, seed=0)
+    sim.use_same_registers_as(circuit)
+    for word in range(70):
+        sim.write_across_shots(
+            registers["payload"][word * FIELD_BITS : (word + 1) * FIELD_BITS],
+            bit_columns(input_words[:, word], FIELD_BITS),
+        )
+    sim.write_across_shots(registers["rank"], bit_columns(rank_values, 8))
+    sim.write_across_shots(registers["pivot"], bit_columns(pivot_values, 1)[0])
+    sim.do(circuit)
+
+    actual = np.stack(
+        [
+            sim.read_across_shots(
+                registers["outputs"][index * FIELD_BITS : (index + 1) * FIELD_BITS]
+            )
+            for index in range(2)
+        ],
+        axis=0,
+    ).transpose(2, 0, 1)
+    expected_bits = np.stack(
+        [bit_columns(expected[:, index], FIELD_BITS).T for index in range(2)],
+        axis=1,
+    )
+    assert np.array_equal(actual, expected_bits)
+    for word in range(70):
+        actual_word = sim.read_across_shots(
+            registers["payload"][word * FIELD_BITS : (word + 1) * FIELD_BITS]
+        )
+        assert np.array_equal(actual_word, bit_columns(input_words[:, word], FIELD_BITS))
+    assert np.array_equal(
+        sim.read_across_shots(registers["rank"]), bit_columns(rank_values, 8)
+    )
+    assert np.array_equal(
+        sim.read_across_shots(registers["pivot"]), bit_columns(pivot_values, 1)[0]
+    )
+    live = (
+        set(registers["payload"])
+        | set(registers["rank"])
+        | {registers["pivot"]}
+        | set(registers["outputs"])
+    )
+    scratch = [km.q(i) for i in range(circuit.num_qubits) if km.q(i) not in live]
+    if scratch:
+        assert not np.any(sim.read_across_shots(km.array(scratch)))
+    assert not np.any(sim.read_phase_flipped_across_shots())
+    return {
+        "cases": case_count,
+        "point": point,
+        "output_errors": 0,
+        "preserved_payload_words": 70,
+        "preserved_rank_and_pivot": True,
+        "compiled_qubits": circuit.num_qubits,
+        "qubits_over_890": circuit.num_qubits - 890,
+        "toffoli_like_gates": circuit.operation_statistics().num_toffoli_like,
+        "clean_scratch_qubits": len(scratch),
+        "phase_flips": 0,
+        "scope": "One tail action from four polynomial coefficients; it does not accept the compact prefix state or implement a 66-symbol schedule.",
+    }
+
+
 def sample_coefficients(field, rng):
     while True:
         a0, a1, b0 = (rng.randrange(1 << FIELD_BITS) for _ in range(3))
@@ -734,6 +939,7 @@ def run_screen():
         "phase_flips": 0,
         "scope": "In-place four-word coefficient-to-prefix-state map only; not an integrated 4+66 schedule.",
         "tail_matrix_action": run_tail_matrix_action_screen(km=km, ar=ar),
+        "tail_matrix_from_coefficients": run_bezout_tail_action_screen(km=km, ar=ar),
     }
 
 

@@ -40,11 +40,18 @@ when its four matrix entries are precomputed: private version 5 measured
 pivot, and zero phase flips. See the
 [matrix-action receipt](../evals/2026-11-22-exp057-tail-matrix-gate.json).
 
-Next, generate those four entries reversibly from the compact prefix state and
-erase the generation workspace. Then combine the prefix and tail cells in an
-accounted 66-symbol schedule. Require `Q <= 890`, a complete Toffoli count,
-clean workspace, zero phase errors, and a pass from the official DQI verifier
-before any submission.
+The follow-up cell derives and applies the action from four supplied
+polynomial coefficients. Private version 6 measured `Q=889`, `T=822` across
+64 cases at point 4, with clean scratch, preserved payload/rank/pivot, and no
+output or phase errors. It still does not generate coefficients from the
+compact prefix state or amortize setup across symbols. See the
+[coefficient-derived action receipt](../evals/2026-11-22-exp057-tail-bezout-action.json).
+
+Next, split coefficient-dependent setup from the per-symbol action, generate
+the setup reversibly from the compact prefix state, and measure clean-workspace
+reuse across an accounted 66-symbol schedule. Require `Q <= 890`, a complete
+Toffoli count, zero phase errors, and a pass from the official DQI verifier
+before any competition submission.
 
 For branch-history compression, ratios, ranks, retained bits `b0/b4`, and the
 one-bit tag still leave 1,920 ambiguous keys in the exhaustive five-word GF(8)

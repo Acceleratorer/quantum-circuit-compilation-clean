@@ -23,6 +23,7 @@ class TailTransitionTests(unittest.TestCase):
         self.assertEqual(result["supported_prefixes"], 2016)
         self.assertEqual(result["prefix_annihilation_errors"], 0)
         self.assertEqual(result["tail_round_trip_errors"], 0)
+        self.assertEqual(result["bezout_complementary_rows"], 2016)
         self.assertEqual(result["result"], "PASS")
 
     def test_tail_transition_matches_seeded_gf12_verifier_samples(self):
@@ -31,4 +32,5 @@ class TailTransitionTests(unittest.TestCase):
         self.assertEqual(result["pivot_counts"], {"a0": 32, "a1": 0})
         self.assertEqual(result["prefix_annihilation_errors"], 0)
         self.assertEqual(result["tail_round_trip_errors"], 0)
+        self.assertEqual(result["bezout_complementary_rows"], 32)
         self.assertEqual(result["result"], "PASS")
