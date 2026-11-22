@@ -16,21 +16,21 @@ reproduces it. Existing product-retention variants have already been screened.
 The active path is a source-owned DQI decoder with a genuinely different
 key-equation algorithm. Keep the official verifier's salted failure rate in
 the score model, and require the full `R × Q² × T` budget before building a
-candidate. The latest score-equivalence estimate is `201.889e9`; at
-`R=1.1912605` and `Q=890`, the DQI gate is `T <= 213,956.98`. The FMA
-projection is `202,075T`, leaving only `11,881.98T` for omitted work; its complete width,
-phase, and cleanup schedule remains unproven.
+candidate. The latest score-equivalence estimate is `200.147e9`; at
+`R=1.1912605` and `Q=890`, the DQI gate is `T <= 212,110.59`. The FMA
+projection is `202,075T`, leaving only `10,035.59T` for omitted work; its
+complete width, phase, and cleanup schedule remains unproven.
 
-## 2026-11-22 live leaderboard and focused gate
+## 2026-11-23 live leaderboard and focused gate
 
-The latest full Kaggle CLI snapshot at `2026-11-22T12:26:26Z` has 3,560 teams.
-`Accelra` is rank 1,306 at `28.14028`; Entangled Team leads at `33.73732`, a
-`5.59704`-point gap. Holding the other two submitted task costs fixed,
-matching that score requires DQI cost at or below `201.889e9`, or mean
-`T <= 213,956.98` at `Q=890` and `R=1.1912605`. The `202,075T` FMA projection
-leaves only `11,881.98T` for all omitted work. This is score-equivalence math,
+The latest full Kaggle CLI snapshot at `2026-11-22T23:05:56Z` has 3,596 teams.
+`Accelra` is rank 1,353 at `28.14028`; Entangled Team leads at `33.83493`, a
+`5.69465`-point gap. Holding the other two submitted task costs fixed,
+matching that score requires DQI cost at or below `200.147e9`, or mean
+`T <= 212,110.59` at `Q=890` and `R=1.1912605`. The `202,075T` FMA projection
+leaves only `10,035.59T` for all omitted work. This is score-equivalence math,
 not a measured leader cost or a candidate. The snapshot and calculation are in
-[`evals/2026-11-22-live-leaderboard-122626Z.json`](../../evals/2026-11-22-live-leaderboard-122626Z.json).
+[`evals/2026-11-22-live-leaderboard-230556Z.json`](../../evals/2026-11-22-live-leaderboard-230556Z.json).
 
 The valid eight-point GF(8) screen finds that ratios alone need a six-bit
 fixed branch projection; ratio plus final rank needs four bits, with nine
@@ -93,7 +93,7 @@ targets reduced this cell from 60 to 48 scratch qubits and from 252T to 210T.
 This component receives the pivot inverse as input; it does not build the
 70-symbol key-equation solve. The FMA recurrence has 2,415 pair updates, so
 repeating this 210T cell would cost 507,150T before setup or cleanup, over
-twice the complete DQI gate of `213,956.98T`. Close the repeated-cell layout;
+twice the complete DQI gate of `212,110.59T`. Close the repeated-cell layout;
 its correctness and width result do not make it a competitive schedule. Keep
 the active exp-057 lane on the streamed key-equation output, phase, and cleanup
 under the complete resource limit. The update count comes from the

@@ -1,0 +1,58 @@
+{
+  "captured_utc": "2026-11-22T23:05:56Z",
+  "competition": "google-verifiable-quantum-circuit-compilation",
+  "source": "Kaggle CLI full public leaderboard download (competitions leaderboard --download)",
+  "snapshot": {
+    "path": "kaggle/snapshots/2026-11-23/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-22T23-05-56.csv",
+    "csv_sha256": "bdce33b7f3e63631aa7b396dc32c684347172c98e5f06dd9b4b4e4e6260a8736",
+    "archive_sha256": "10499bf51961ce38516d962d37716fcf2568fc1d1bb227e3973614e9f9475b99",
+    "team_rows": 3596,
+    "unique_team_ids": 3596,
+    "scores_sorted_descending": true
+  },
+  "own_team": {
+    "team": "Accelra",
+    "team_id": 17349145,
+    "public_score": 28.14028,
+    "rank": 1353,
+    "latest_best_submission": 58479383
+  },
+  "leader": {
+    "rank": 1,
+    "team": "Entangled Team",
+    "team_id": 17180610,
+    "score": 33.83493,
+    "last_submission_utc": "2026-11-22T22:35:38Z"
+  },
+  "runner_up": {
+    "rank": 2,
+    "team": "codebeforework",
+    "team_id": 17238733,
+    "score": 33.54018
+  },
+  "score_gap": 5.694649999999999,
+  "score_equivalence_estimate": {
+    "method": "Scale the product of the three task costs by (own public score / leader public score)^3.",
+    "own_local_geometric_mean": 28.14028,
+    "required_product_cost_multiplier": 0.5752934061298552,
+    "current_dqi_cost": 347904227555.5428,
+    "dqi_target_if_other_task_costs_are_fixed": 200147008077.40445,
+    "dqi_reduction_if_other_task_costs_are_fixed": 0.4247065938701448,
+    "dqi_target_at_q890_zero_failure": {
+      "qubits": 890,
+      "repetition_factor": 1.1912605,
+      "maximum_mean_toffoli": 212110.5877974592
+    },
+    "current_fma_projection_toffoli": 202075,
+    "remaining_toffoli_margin_before_omitted_work": 10035.5877974592,
+    "status": "Score-equivalence estimate from own prior cost and current public scores; not measured leader costs or a candidate.",
+    "current_dqi_cost_source": "evals/2026-11-21-live-leaderboard-125534Z.json"
+  },
+  "latest_own_submission": {
+    "ref": 58479383,
+    "status": "COMPLETE",
+    "public_score": 28.14028,
+    "submitted_at_utc": "2026-11-17T18:57:30.857000"
+  },
+  "notes": "Read-only full leaderboard refresh with Kaggle CLI. The current FMA count remains a projection; no circuit was built or submitted in this refresh."
+}

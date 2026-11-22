@@ -2,7 +2,9 @@
 
 ## Score target
 
-The current rank-1-equivalent DQI target is `T <= 213,956.98` at `Q=890` and
+The previously saved rank-1-equivalent DQI target was `T <= 213,956.98` at
+`Q=890`. The latest leaderboard audit now sets the target to
+`T <= 212,110.59` at `Q=890` and
 `R=1.1912605`. The 70-symbol circuit must fit this complete resource bound;
 the new component count is not a circuit estimate.
 
@@ -22,7 +24,8 @@ Evidence: [v17 evaluation receipt](../evals/2026-11-23-exp057-fma-pair-update-v1
 The cell receives the pivot inverse as input and updates one pair at a fixed
 `delta`. The 70-symbol FMA recurrence has 2,415 pair updates, so repeating this
 cell would cost `507,150T` before setup or cleanup, above the full DQI target
-of `213,956.98T`. Do not use this implementation unchanged in the schedule.
+of `212,110.59T` (latest leaderboard audit at `2026-11-22T23:05:56Z`). Do not
+use this implementation unchanged in the schedule.
 
 The competition gate remains open: a candidate still needs the complete
 key-equation solve, `Q <= 890`, the full `R × Q² × T` ledger, DQI output/phase,

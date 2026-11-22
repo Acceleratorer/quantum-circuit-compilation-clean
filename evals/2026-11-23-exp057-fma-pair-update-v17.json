@@ -46,9 +46,11 @@
     "git_diff_check": "PASS"
   },
   "cost_audit": {
+    "audited_utc": "2026-11-22T23:05:56Z",
     "70_symbol_fma_pair_updates": 2415,
     "naive_repeated_cell_toffoli_like_gates": 507150,
-    "full_dqi_toffoli_gate": 213956.98,
+    "full_dqi_toffoli_gate": 212110.5877974592,
+    "leaderboard_reference": "evals/2026-11-22-live-leaderboard-230556Z.json",
     "decision": "NO_GO_FOR_REPEATING_THIS_CELL_UNCHANGED"
   },
   "official_verifier": "NOT_RUN",
