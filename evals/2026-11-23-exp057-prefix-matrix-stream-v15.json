@@ -1,0 +1,38 @@
+{
+  "captured_utc": "2026-11-22T20:55:25Z",
+  "experiment": "exp-057-compact-prefix-66-matrix-stream-checksum",
+  "kernel": {
+    "id": "accelra/exp057-streaming-prefix-state",
+    "version": 15,
+    "visibility": "private",
+    "status": "COMPLETE",
+    "url": "https://www.kaggle.com/code/accelra/exp057-streaming-prefix-state/versions/15"
+  },
+  "source": {
+    "git_head_before_run": "da484b5",
+    "working_tree_dirty": true,
+    "streaming_prefix_kernel_sha256": "60A05B715AFDA63823E66ADE26F12A84EAF9F8BDD699A601744556EDA20CEC05",
+    "private_kernel_script_sha256": "9C29BB68D1A67A2793619767C2A3F3603F9C603D085C88C3F2BE32C32C7FD3F7",
+    "kernel_log_sha256": "A8C77B81625F2E560EAB2B20D75FD7FEE22AA894475F9E3F4FDF0FFE77D57A6E"
+  },
+  "checks": {
+    "cases": 32,
+    "prefix_pivot_coverage": {"a0": 31, "a1": 1},
+    "tail_symbols": 66,
+    "matrix_errors": 0,
+    "tag_errors": 0,
+    "checksum_errors": 0,
+    "preserved_tail_words": 66,
+    "clean_scratch_qubits": 12,
+    "phase_flips": 0
+  },
+  "resources": {
+    "compiled_qubits": 889,
+    "width_gate": 890,
+    "qubits_below_gate": 1,
+    "toffoli_like_gates": 19004
+  },
+  "scope": "Compact-prefix decode, point-4 matrix setup, and 66 tail actions. The fourth matrix word stores K=D/b1; D terms are reconstructed as K*b1. Rank is reused as workspace. This screen outputs a checksum and omits DQI output/phase, reversible cleanup, and the official verifier.",
+  "official_verifier": "NOT_RUN",
+  "competition_submission": null
+}

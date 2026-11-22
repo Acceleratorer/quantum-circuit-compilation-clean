@@ -248,7 +248,9 @@ def divide_inplace(
     workspace = BorrowedScratchBuilder(builder, list(borrowed) + [pivot], km)
     ar.inverse(workspace, denominator, target=reciprocal)
     workspace.assert_released()
-    scale_inplace(builder, numerator, reciprocal, denominator, borrowed, ar)
+    scale_inplace(
+        builder, numerator, reciprocal, denominator, list(borrowed)[:FIELD_BITS], ar
+    )
     mask = workspace.alloc_bits(FIELD_BITS)
     workspace.hmr(reciprocal, mask)
     phase_inverse36_pivot(workspace, denominator, mask)
@@ -1265,19 +1267,13 @@ def run_tail_matrix_action_screen(case_count=64, km=None, ar=None):
     }
 
 
-def build_bezout_matrix_state(km=None, ar=None, point=4):
+def append_bezout_matrix_state(builder, payload, rank, pivot, ar, km, point=4):
     """Replace four coefficients with their tail matrix and retain b1."""
-    if km is None or ar is None:
-        km, ar = load_gate_arithmetic()
-    builder = km.CircuitBuilder()
-    payload = builder.alloc_qubits(70 * FIELD_BITS)
-    rank = builder.alloc_qubits(8)
-    pivot = builder.alloc_qubits(1)
     outputs = builder.alloc_qubits(2 * FIELD_BITS)
     scratch_pool = builder.alloc_qubits(16)
     b1_tag = scratch_pool[:FIELD_BITS]
     square_b1 = b1_tag
-    borrowed = list(rank) + [pivot[0]] + list(scratch_pool)
+    borrowed = list(rank) + [pivot] + list(scratch_pool)
     workspace = BorrowedScratchBuilder(builder, borrowed, km)
     first = outputs[:FIELD_BITS]
     second = outputs[FIELD_BITS:]
@@ -1323,7 +1319,7 @@ def build_bezout_matrix_state(km=None, ar=None, point=4):
 
     matrix_workspace = BorrowedScratchBuilder(
         builder,
-        list(rank) + [pivot[0]] + list(scratch_pool[FIELD_BITS:]) + list(first),
+        list(rank) + [pivot] + list(scratch_pool[FIELD_BITS:]) + list(first),
         km,
     )
     ar.inverse(matrix_workspace, b1, target=second)
@@ -1339,7 +1335,7 @@ def build_bezout_matrix_state(km=None, ar=None, point=4):
     ar.mul_xor0(builder, a1, first, second)
     determinant_workspace = BorrowedScratchBuilder(
         builder,
-        list(rank) + [pivot[0]] + list(scratch_pool[FIELD_BITS:]) + list(second),
+        list(rank) + [pivot] + list(scratch_pool[FIELD_BITS:]) + list(second),
         km,
     )
     ar.erase_inverse(determinant_workspace, b1, first)
@@ -1347,14 +1343,28 @@ def build_bezout_matrix_state(km=None, ar=None, point=4):
 
     builder.swap(a1, b0)
     xor_constant(builder, rank, RANK_TAG)
+    return b1_tag, outputs, scratch_pool[FIELD_BITS:]
+
+
+def build_bezout_matrix_state(km=None, ar=None, point=4):
+    """Build the in-place coefficient-to-matrix setup cell."""
+    if km is None or ar is None:
+        km, ar = load_gate_arithmetic()
+    builder = km.CircuitBuilder()
+    payload = builder.alloc_qubits(70 * FIELD_BITS)
+    rank = builder.alloc_qubits(8)
+    pivot = builder.alloc_qubits(1)[0]
+    b1_tag, outputs, scratch = append_bezout_matrix_state(
+        builder, payload, rank, pivot, ar, km, point
+    )
     circuit = builder.finish_circuit()
     return km, ar, circuit, {
         "payload": payload,
         "rank": rank,
-        "pivot": pivot[0],
+        "pivot": pivot,
         "b1_tag": b1_tag,
         "outputs": outputs,
-        "scratch": scratch_pool[FIELD_BITS:],
+        "scratch": scratch,
     }
 
 
@@ -1922,6 +1932,55 @@ def append_bezout_matrix_stream_step(builder, matrix, tags, ar, point, next_poin
     ar.linear_inplace(builder, k, scale_columns)
 
 
+def append_bezout_matrix_stream_step_with_k(
+    builder, matrix, b1, a1, ar, point, next_point
+):
+    """Advance a stream whose fourth matrix word stores K=D/b1."""
+    a, b, c, k = matrix
+    field = ar.field(FIELD_BITS)
+    identity = [1 << bit for bit in range(FIELD_BITS)]
+    delta = point ^ next_point
+    delta_columns = [field.mul(delta, bit) for bit in identity]
+
+    def node(value):
+        product = 1
+        for prefix_point in POINTS:
+            product = field.mul(product, value ^ prefix_point)
+        return product
+
+    scale = field.mul(node(next_point), field.invert(node(point)))
+    scale_columns = [field.mul(scale, bit) for bit in identity]
+    ar.linear_xor(builder, a1, a, delta_columns)
+    xor_constant(builder, a, field.mul(delta, delta))
+    ar.linear_xor(builder, b1, b, delta_columns)
+    ar.linear_xor(builder, k, c, delta_columns)
+    ar.linear_inplace(builder, c, scale_columns)
+    ar.linear_inplace(builder, k, scale_columns)
+
+
+def erase_inverse_zero(builder, value, inverse, zero_flag, workspace, phase_zero):
+    mask = workspace.alloc_bits(FIELD_BITS)
+    zero_mask = workspace.alloc_bits(1)
+    workspace.hmr(inverse, mask)
+    workspace.hmr(zero_flag, zero_mask[0])
+    workspace.free(inverse)
+    workspace.free(zero_flag)
+    phase_zero(workspace, value, mask, zero_mask[0])
+    workspace.free(mask)
+    workspace.free(zero_mask)
+    workspace.assert_released()
+
+
+def append_inverse_product_xor(
+    builder, value, numerator, target, workspace, ar, inverse_zero, phase_zero
+):
+    inverse, zero_flag = inverse_zero(workspace, value)
+    ar.mul_xor0(builder, numerator, inverse, target)
+    erase_inverse_zero(
+        builder, value, inverse, zero_flag, workspace, phase_zero
+    )
+
+
 def bezout_stream_state_from_coefficients(ar, coefficients, point):
     """Classically initialize the point matrix and its recurrence tags."""
     a0, a1, b0, b1 = coefficients
@@ -2065,6 +2124,224 @@ def run_bezout_matrix_stream_checksum_screen(case_count=32, km=None, ar=None):
     }
 
 
+def build_compact_prefix_matrix_stream_checksum(km=None, ar=None):
+    """Decode the prefix, prepare K=D/b1, and stream all 66 tail symbols."""
+    if km is None or ar is None:
+        km, ar = load_gate_arithmetic()
+    inverse_zero, phase_inverse36_zero, phase_inverse36_pivot = load_width_helpers(km)
+    builder = km.CircuitBuilder()
+    payload = builder.alloc_qubits(70 * FIELD_BITS)
+    rank = builder.alloc_qubits(8)
+    pivot = builder.alloc_qubits(1)[0]
+    words = [
+        payload[index * FIELD_BITS : (index + 1) * FIELD_BITS]
+        for index in range(4)
+    ]
+    prefix_to_coefficients_inplace(
+        builder, words, rank, pivot, ar, phase_inverse36_pivot, km
+    )
+    b1_tag, outputs, matrix_scratch = append_bezout_matrix_state(
+        builder, payload, rank, pivot, ar, km, 4
+    )
+
+    # Recycle clean setup qubits and the known rank tag for the stream tags.
+    xor_constant(builder, rank, RANK_TAG)
+    builder.free(rank)
+    builder.free(outputs)
+    builder.free(matrix_scratch)
+
+    matrix = [payload[index * FIELD_BITS : (index + 1) * FIELD_BITS] for index in range(4)]
+    division_workspace = builder.alloc_qubits(24)
+    divide_inplace(
+        builder,
+        matrix[3],
+        b1_tag,
+        list(division_workspace),
+        pivot,
+        ar,
+        phase_inverse36_pivot,
+        km,
+    )
+    builder.free(division_workspace)
+
+    a1_tag = builder.alloc_qubits(FIELD_BITS)
+    tag_workspace_qubits = builder.alloc_qubits(24)
+    tag_workspace = BorrowedScratchBuilder(
+        builder, list(tag_workspace_qubits) + [pivot], km
+    )
+    append_inverse_product_xor(
+        builder,
+        matrix[3],
+        matrix[2],
+        a1_tag,
+        tag_workspace,
+        ar,
+        inverse_zero,
+        phase_inverse36_zero,
+    )
+    append_inverse_product_xor(
+        builder,
+        b1_tag,
+        matrix[1],
+        a1_tag,
+        tag_workspace,
+        ar,
+        inverse_zero,
+        phase_inverse36_zero,
+    )
+    tag_workspace.assert_released()
+    builder.free(tag_workspace_qubits)
+
+    checksum = builder.alloc_qubits(FIELD_BITS)
+    identity = [1 << bit for bit in range(FIELD_BITS)]
+    for point in range(4, 70):
+        sample = payload[point * FIELD_BITS : (point + 1) * FIELD_BITS]
+        ar.mul_xor0(builder, matrix[0], sample, checksum)
+        ar.linear_xor(builder, matrix[1], checksum, identity)
+        ar.mul_xor0(builder, matrix[2], sample, checksum)
+        ar.mul_xor0(builder, matrix[3], b1_tag, checksum)
+        if point < 69:
+            append_bezout_matrix_stream_step_with_k(
+                builder, matrix, b1_tag, a1_tag, ar, point, point + 1
+            )
+    for point in reversed(range(5, 70)):
+        append_bezout_matrix_stream_step_with_k(
+            builder, matrix, b1_tag, a1_tag, ar, point, point - 1
+        )
+
+    circuit = builder.finish_circuit()
+    return km, ar, circuit, {
+        "payload": payload,
+        "reused_rank": rank,
+        "pivot": pivot,
+        "b1_tag": b1_tag,
+        "a1_tag": a1_tag,
+        "checksum": checksum,
+    }
+
+
+def run_compact_prefix_matrix_stream_checksum_screen(
+    case_count=32, km=None, ar=None
+):
+    """Screen compact-prefix decoding and the complete 66-symbol stream."""
+    km, ar, circuit, registers = build_compact_prefix_matrix_stream_checksum(
+        km, ar
+    )
+    field = ar.field(FIELD_BITS)
+    cases = generate_cases(field, case_count)
+    rng = Random(0xA6605F)
+    input_words = np.asarray(
+        [[rng.randrange(1 << FIELD_BITS) for _ in range(70)] for _ in cases],
+        dtype=np.uint32,
+    )
+    expected_checksum = np.zeros(case_count, dtype=np.uint32)
+    expected_matrix = np.zeros((case_count, 4), dtype=np.uint32)
+    for shot, (coefficients, prefix_state, _) in enumerate(cases):
+        input_words[shot, :4] = prefix_state
+        stream_state = bezout_stream_state_from_coefficients(ar, coefficients, 4)
+        expected_matrix[shot] = (*stream_state[:3], stream_state[4])
+        a0, a1, b0, b1 = coefficients
+        inverse_b1 = field.invert(b1)
+        quotient0 = field.mul(inverse_b1, a1 ^ field.mul(inverse_b1, b0))
+        inverse_gcd = field.invert(a0 ^ field.mul(quotient0, b0))
+        checksum = 0
+        for point in range(4, 70):
+            node = 1
+            for prefix_point in POINTS:
+                node = field.mul(node, point ^ prefix_point)
+            d = field.mul(node, inverse_gcd)
+            quotient = quotient0 ^ field.mul(point, inverse_b1)
+            a = field.mul(point, point) ^ field.mul(a1, point) ^ a0
+            b = field.mul(b1, point) ^ b0
+            c = field.mul(quotient, d)
+            sample = int(input_words[shot, point])
+            checksum ^= field.mul(a, sample) ^ b ^ field.mul(c, sample) ^ d
+        expected_checksum[shot] = checksum
+
+    sim = km.Simulator(batch_size=case_count, debug_print=False, seed=0)
+    sim.use_same_registers_as(circuit)
+    for word in range(70):
+        sim.write_across_shots(
+            registers["payload"][word * FIELD_BITS : (word + 1) * FIELD_BITS],
+            bit_columns(input_words[:, word], FIELD_BITS),
+        )
+    sim.write_across_shots(
+        registers["reused_rank"], bit_columns(np.full(case_count, RANK_TAG), 8)
+    )
+    sim.write_across_shots(
+        registers["pivot"], bit_columns(np.zeros(case_count), 1)[0]
+    )
+    sim.do(circuit)
+
+    actual_matrix = np.stack(
+        [
+            sim.read_across_shots(
+                registers["payload"][index * FIELD_BITS : (index + 1) * FIELD_BITS]
+            )
+            for index in range(4)
+        ],
+        axis=0,
+    ).transpose(2, 0, 1)
+    expected_matrix_bits = np.stack(
+        [bit_columns(expected_matrix[:, index], FIELD_BITS).T for index in range(4)],
+        axis=1,
+    )
+    assert np.array_equal(actual_matrix, expected_matrix_bits)
+    for word in range(4, 70):
+        assert np.array_equal(
+            sim.read_across_shots(
+                registers["payload"][word * FIELD_BITS : (word + 1) * FIELD_BITS]
+            ),
+            bit_columns(input_words[:, word], FIELD_BITS),
+        )
+    assert np.array_equal(
+        sim.read_across_shots(registers["b1_tag"]),
+        bit_columns(np.asarray([case[0][3] for case in cases]), FIELD_BITS),
+    )
+    assert np.array_equal(
+        sim.read_across_shots(registers["a1_tag"]),
+        bit_columns(np.asarray([case[0][1] for case in cases]), FIELD_BITS),
+    )
+    assert np.array_equal(
+        sim.read_across_shots(registers["checksum"]),
+        bit_columns(expected_checksum, FIELD_BITS),
+    )
+    assert not np.any(sim.read_across_shots(registers["pivot"]))
+
+    live = (
+        set(registers["payload"])
+        | set(registers["reused_rank"])
+        | {registers["pivot"]}
+        | set(registers["b1_tag"])
+        | set(registers["a1_tag"])
+        | set(registers["checksum"])
+    )
+    scratch = [
+        km.q(index) for index in range(circuit.num_qubits) if km.q(index) not in live
+    ]
+    if scratch:
+        assert not np.any(sim.read_across_shots(km.array(scratch)))
+    assert not np.any(sim.read_phase_flipped_across_shots())
+    return {
+        "cases": case_count,
+        "prefix_pivot_coverage": {
+            "a0": sum(not case[2] for case in cases),
+            "a1": sum(case[2] for case in cases),
+        },
+        "tail_symbols": 66,
+        "matrix_errors": 0,
+        "tag_errors": 0,
+        "checksum_errors": 0,
+        "preserved_tail_words": 66,
+        "compiled_qubits": circuit.num_qubits,
+        "width_gate": 890,
+        "toffoli_like_gates": circuit.operation_statistics().num_toffoli_like,
+        "clean_scratch_qubits": len(scratch),
+        "phase_flips": 0,
+        "scope": "Compact-prefix decode and all 66 matrix actions; the fourth matrix word stores K=D/b1, rank is reused as workspace, and DQI cleanup/output plus the official verifier are omitted.",
+    }
+
+
 def run_screen():
     km, ar, circuit, registers = build_decoder()
     field = ar.field(FIELD_BITS)
@@ -2141,6 +2418,7 @@ def run_screen():
         "prefix_to_one_tail_action": run_compact_prefix_tail_action_screen(km=km, ar=ar),
         "tail_matrix_state_encoding": run_bezout_matrix_state_screen(km=km, ar=ar),
         "streaming_matrix_checksum": run_bezout_matrix_stream_checksum_screen(km=km, ar=ar),
+        "compact_prefix_matrix_stream_checksum": run_compact_prefix_matrix_stream_checksum_screen(km=km, ar=ar),
     }
 
 

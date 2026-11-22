@@ -2,9 +2,9 @@
 id: exp-057
 title: Four-word streaming decoder for quadratic-over-linear FMA
 task: dqi
-tests: exhaustive GF(8) prefix and tail state and matrix encoding; 2,048 seeded GF(2^12); 256 seeded GF(2^12) tail-matrix factorization cases; 32-case private coefficient-to-prefix and prefix-to-coefficient screens including a1=0; 32-case private integrated prefix-plus-tail action across both pivots; 32-case private 66-symbol matrix-stream checksum across both pivots; 32 verifier-form prefix and tail cases; 64-case private precomputed-matrix action; 64-case coefficient-derived tail action; 64-case in-place matrix setup
+tests: exhaustive GF(8) prefix and tail state and matrix encoding; 2,048 seeded GF(2^12); 256 seeded GF(2^12) tail-matrix factorization cases; 32-case private coefficient-to-prefix and prefix-to-coefficient screens including a1=0; 32-case private integrated prefix-plus-tail action across both pivots; 32-case private 66-symbol matrix-stream checksum across both pivots; 32-case private compact-prefix-to-matrix 66-symbol checksum v15; 32 verifier-form prefix and tail cases; 64-case private precomputed-matrix action; 64-case coefficient-derived tail action; 64-case in-place matrix setup
 direction: D-004
-status: coefficient-prefix-component-gates-passed_classical-66-tail-schedule-passed_branchless-prefix-inverse-v11-passed_integrated-prefix-plus-one-tail-v13-passed_precomputed-state-66-symbol-matrix-stream-checksum-v14-passed_prefix-to-matrix-integration-and-official-verifier-pending
+status: coefficient-prefix-component-gates-passed_classical-66-tail-schedule-passed_branchless-prefix-inverse-v11-passed_integrated-prefix-plus-one-tail-v13-passed_precomputed-state-66-symbol-matrix-stream-checksum-v14-passed_compact-prefix-matrix-66-stream-v15-passed_dqi-output-cleanup-and-official-verifier-pending
 date: 2026-11-23
 result: Coefficient-to-prefix gate passes at Q=885 and T=7,483; branchless inverse prefix-to-coefficient gate passes at Q=888 and T=9,262; integrated compact-prefix decode plus one coefficient-derived tail action passes at Q=889 and T=10,084; precomputed-state 66-symbol matrix stream checksum passes at Q=888 and T=5,544; precomputed-matrix action at Q=873 and T=84; coefficient-derived one-symbol action at Q=889 and T=822; in-place matrix setup at Q=889 and T=558. Classical tail algebra passes all 66 GF(2^12) points on 32 seeded verifier-form cases and all four non-prefix GF(8) points on 2,016 supported states. Prefix-to-matrix integration, DQI output, and the official verifier remain open.
 ---
@@ -113,8 +113,10 @@ cases and one of the 2,112 GF(2^12) tail cases. The second row's coefficient
 was nonzero in every such case, as the nonzero matrix determinant requires.
 The in-place 66-symbol circuit therefore needs a dynamic row pivot.
 
-This verifies classical algebra only. The prefix-to-matrix gate circuit, the
-compiled 66-symbol schedule, and the official verifier remain open. Receipt:
+This receipt verifies classical algebra only. The integrated private gate
+passed later in v15; DQI output/cleanup and the official verifier remain open.
+See the [v15 screen](../../evals/2026-11-23-exp057-prefix-matrix-stream-v15.json).
+Receipt:
 [`exp-057 full tail transition`](../../evals/2026-11-22-exp057-tail-transition-classical.json).
 
 ## Streaming matrix recurrence
@@ -148,13 +150,11 @@ all outputs matched; the 70-word payload, rank, and pivot were preserved, with
 no phase flips and no dirty scratch. The cell measured `Q=873`, `T=84`.
 Receipt: [`exp-057 tail matrix action`](../../evals/2026-11-22-exp057-tail-matrix-gate.json).
 
-The four matrix entries are independent precomputed inputs in this screen. It
-does not generate them from the compact prefix state, erase generation
-workspace, implement a compiled in-place 66-symbol schedule, or run the
-official DQI verifier. The 66-symbol `84T` multiplication is only a sensitivity estimate;
-it may overlap with the existing `202,075T` FMA projection. The next gate is a
-reversible prefix-state-to-matrix cell, measured together with its cleanup and
-the existing prefix cell before extending the schedule.
+The four matrix entries are independent precomputed inputs in this early
+screen. Private v15 later composed prefix decoding, matrix setup, and the
+66-symbol checksum stream at `Q=889`, `T=19,004`. DQI output/cleanup and the
+official verifier remain open; see the
+[`v15 receipt`](../../evals/2026-11-23-exp057-prefix-matrix-stream-v15.json).
 
 ## Coefficient-derived tail action gate
 
@@ -165,12 +165,9 @@ at `Q=889`, `T=822`; the 70-word payload, rank, and pivot were preserved, all
 The run also repeated the prefix and precomputed-matrix gates. Receipt:
 [`exp-057 coefficient-derived tail action`](../../evals/2026-11-22-exp057-tail-bezout-action.json).
 
-The coefficients are still direct inputs, so this is not yet a compact-state
-to-action circuit or a 66-symbol schedule. The next gate is to isolate and
-retain coefficient-dependent setup once, measure its generation from the
-compact prefix state with clean workspace, and then account for reuse across
-the remaining symbols. The one-symbol `822T` result is not a full-schedule
-cost estimate.
+The coefficients are direct inputs in this one-symbol screen. The later v15
+screen covers prefix decoding and all 66 matrix actions, but its checksum is
+not the DQI output and it omits reversible cleanup and verification.
 
 ## Tail-matrix state encoding screen
 
@@ -183,8 +180,9 @@ verifier-form cases (16 each at error weights 31 and 35). Receipt:
 [`exp-057 tail-matrix encoding`](../../evals/2026-11-22-exp057-tail-matrix-encoding.json).
 
 This is not a compact-prefix input or an exhaustive GF(2^12) injectivity
-result. Next, feed the compact prefix state into the measured `b1`-tagged
-setup, then test reuse across the tail schedule.
+result. Private v15 later composed the compact prefix, `b1`-tagged setup, and
+the 66-symbol stream; see the
+[`v15 receipt`](../../evals/2026-11-23-exp057-prefix-matrix-stream-v15.json).
 
 ## In-place coefficient-to-matrix setup gate
 
@@ -196,6 +194,23 @@ had no matrix errors, tag errors, or phase flips. The same counts passed a
 local 64-case point-69 screen. Receipt:
 [`exp-057 tail-matrix state gate`](../../evals/2026-11-22-exp057-tail-matrix-state-gate.json).
 
-The setup still starts from four coefficients. Next, connect it to the compact
-prefix representation and measure reuse over the actual 66-symbol schedule,
-then run the official verifier as the final correctness gate.
+Private kernel v15 composes the compact-prefix decoder, matrix setup, and all
+66 tail actions in one circuit. Across 32 cases covering both prefix pivots
+(`a0`: 31, `a1`: 1), the matrix and tags matched, the checksum had zero errors,
+all 66 tail words were preserved, 12 scratch qubits were clean, and there were
+no phase flips. It measured `Q=889`, `T=19,004`, one qubit under the width gate.
+The fourth matrix word stores `K=D/b1`; each tail action reconstructs its `D`
+term as `K*b1`. Rank workspace is reused to fit the width.
+
+This is an integrated resource screen, not a DQI candidate. It outputs only a
+checksum, reuses the rank register, and does not restore the prefix/matrix
+state, generate the DQI phase/output, or run the official verifier. See the
+[`v15 receipt`](../../evals/2026-11-23-exp057-prefix-matrix-stream-v15.json),
+[run log](../../log/2026-11-23-exp057-prefix-matrix-stream-v15.md), and
+[milestone](../../milestone/2026-11-23-exp057-prefix-matrix-stream-v15.md),
+plus the [raw Kaggle output](kaggle-v15-output.log).
+
+Next gate: connect the 66-symbol actions to the DQI output/phase, uncompute
+the setup while preserving the required input registers, measure the complete
+resource count, then run the official verifier. No competition submission was
+made.
