@@ -1,0 +1,46 @@
+{
+  "captured_utc": "2026-11-22T15:23:45Z",
+  "experiment": "exp-057-tail-matrix-state-encoding",
+  "kernel": {
+    "id": "accelra/exp057-streaming-prefix-state",
+    "status": "COMPLETE",
+    "url": "https://www.kaggle.com/code/accelra/exp057-streaming-prefix-state/versions/7",
+    "version": 7,
+    "visibility": "private"
+  },
+  "checks": {
+    "kaggle_point_4": {
+      "cases": 64,
+      "clean_scratch_qubits": 28,
+      "compiled_qubits": 889,
+      "matrix_errors": 0,
+      "b1_tag_errors": 0,
+      "preserved_payload_words": 66,
+      "preserved_rank_and_pivot": true,
+      "qubits_over_890": -1,
+      "toffoli_like_gates": 558,
+      "phase_flips": 0,
+      "result": "PASS"
+    },
+    "local_point_69": {
+      "cases": 64,
+      "clean_scratch_qubits": 28,
+      "compiled_qubits": 889,
+      "matrix_errors": 0,
+      "b1_tag_errors": 0,
+      "preserved_payload_words": 66,
+      "preserved_rank_and_pivot": true,
+      "qubits_over_890": -1,
+      "toffoli_like_gates": 558,
+      "phase_flips": 0,
+      "simulator": "local Kickmix"
+    }
+  },
+  "scope": "In-place one-time matrix setup from four supplied coefficients, retaining b1 for reversible recovery. It does not accept the compact prefix state, reuse the setup across 66 symbols, or run the official verifier.",
+  "source": {
+    "builder_sha256": "8bb4349c8b6dde3010380ec11ab2055fd6886cd4797b15d8c83f3c6999cb065e",
+    "private_kernel_script_sha256": "8bde41b8d7397edbf437bd2a7c238769a71191ca804f96cdc5bc85fbe92a01a9",
+    "streaming_prefix_kernel_sha256": "e7a8fc9f411cdae75bf87fed8fcf5dff717b09bfb60516f9b0363c8e61f91235"
+  },
+  "submission": null
+}

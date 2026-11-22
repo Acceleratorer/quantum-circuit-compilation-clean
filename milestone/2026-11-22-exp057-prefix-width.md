@@ -53,11 +53,17 @@ field-word discriminator restores all 2,016 states, and the same recovery had
 zero errors on 32 seeded GF(2^12) verifier-form samples. See the
 [tail-matrix encoding receipt](../evals/2026-11-22-exp057-tail-matrix-encoding.json).
 
-Next, preserve `b1` while generating the matrix reversibly from the compact
-prefix state, then reverse that setup after reuse across an accounted
-66-symbol schedule. Measure `Q <= 890`, the full Toffoli count, clean workspace,
-zero phase errors, and a pass from the official DQI verifier before any
-competition submission.
+Next, connect the compact prefix state to the `b1`-tagged setup, then reverse
+that setup after reuse across an accounted 66-symbol schedule. Measure
+`Q <= 890`, the full Toffoli count, clean workspace, zero phase errors, and a
+pass from the official DQI verifier before any competition submission.
+
+The coefficient-fed in-place setup now passes separately: private version 7
+measured `Q=889`, `T=558` on 64 point-4 cases, with the `b1` tag and all 66
+spectator words preserved, clean scratch, and zero phase errors. A local
+64-case point-69 screen matched. The remaining gate is connecting this setup
+to the compact prefix state and accounting for reuse across the schedule; see
+the [matrix-state receipt](../evals/2026-11-22-exp057-tail-matrix-state-gate.json).
 
 For branch-history compression, ratios, ranks, retained bits `b0/b4`, and the
 one-bit tag still leave 1,920 ambiguous keys in the exhaustive five-word GF(8)

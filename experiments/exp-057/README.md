@@ -2,11 +2,11 @@
 id: exp-057
 title: Four-word streaming decoder for quadratic-over-linear FMA
 task: dqi
-tests: exhaustive GF(8) prefix and tail state and matrix encoding; 2,048 seeded GF(2^12); 32-case private prefix gate screen including a1=0; 32 verifier-form prefix and tail cases; 64-case private precomputed-matrix action; 64-case coefficient-derived tail action
+tests: exhaustive GF(8) prefix and tail state and matrix encoding; 2,048 seeded GF(2^12); 32-case private prefix gate screen including a1=0; 32 verifier-form prefix and tail cases; 64-case private precomputed-matrix action; 64-case coefficient-derived tail action; 64-case in-place matrix setup
 direction: D-004
-status: gf8-and-seeded-gf12-matrix-state-encoding-screen-passed_reversible-circuit-and-66-symbol-schedule-pending
+status: coefficient-to-matrix-b1-setup-gate-passed_compact-prefix-and-66-symbol-schedule-pending
 date: 2026-11-22
-result: Prefix gate passes at Q=885 and T=7,483; precomputed-matrix action at Q=873 and T=84; coefficient-derived one-symbol action at Q=889 and T=822. The GF(8) matrix-only encoding has 1,572 collisions; adding b1 distinguishes all GF(8) states and reconstructs 32 seeded GF(2^12) cases. The reversible circuit, 66-symbol integration, and official verifier remain open.
+result: Prefix gate passes at Q=885 and T=7,483; precomputed-matrix action at Q=873 and T=84; coefficient-derived one-symbol action at Q=889 and T=822; in-place matrix setup at Q=889 and T=558. The GF(8) matrix-only encoding has 1,572 collisions; adding b1 distinguishes all GF(8) states and reconstructs 32 seeded GF(2^12) cases. Compact-prefix input, 66-symbol integration, and the official verifier remain open.
 ---
 
 # exp-057: four-word streaming decoder
@@ -124,6 +124,20 @@ coefficients in this domain. The same formula reconstructs 32 seeded GF(2^12)
 verifier-form cases (16 each at error weights 31 and 35). Receipt:
 [`exp-057 tail-matrix encoding`](../../evals/2026-11-22-exp057-tail-matrix-encoding.json).
 
-This is not a compiled map or an exhaustive GF(2^12) injectivity result. Next,
-preserve `b1` while generating the matrix reversibly from the compact prefix
-state, measure the setup and cleanup, then test reuse across the tail schedule.
+This is not a compact-prefix input or an exhaustive GF(2^12) injectivity
+result. Next, feed the compact prefix state into the measured `b1`-tagged
+setup, then test reuse across the tail schedule.
+
+## In-place coefficient-to-matrix setup gate
+
+Private Kaggle kernel version 7 now maps the four supplied coefficient words
+in place to `(A(x), B(x), C(x), D(x))` and retains `b1` for reversible
+recovery. The point-4 screen passed 64 cases at `Q=889`, `T=558`; it preserved
+the other 66 payload words and rank/pivot, left 28 scratch qubits clean, and
+had no matrix errors, tag errors, or phase flips. The same counts passed a
+local 64-case point-69 screen. Receipt:
+[`exp-057 tail-matrix state gate`](../../evals/2026-11-22-exp057-tail-matrix-state-gate.json).
+
+The setup still starts from four coefficients. Next, connect it to the compact
+prefix representation and measure reuse over the actual 66-symbol schedule,
+then run the official verifier as the final correctness gate.
