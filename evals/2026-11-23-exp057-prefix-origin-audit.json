@@ -1,0 +1,506 @@
+{
+  "discovery": {
+    "best_origin": 24,
+    "best_origin_by_seed": [
+      8,
+      20,
+      32
+    ],
+    "direct_fma_map_crosscheck": "PASS",
+    "distribution": "Exact official DQI weight probabilities; positions and nonzero magnitudes are uniform, with beta values sampled uniformly from GF(2^12)^*.",
+    "experiment": "exp-057-translated-prefix-support-audit",
+    "field": "GF(2^12), modulus 0x1053, primitive element 2",
+    "prefix_origins": [
+      {
+        "per_seed_unsupported": [
+          13,
+          17,
+          10
+        ],
+        "pivot_counts": {
+          "a0": 24572,
+          "a1": 4
+        },
+        "plug_in_repetition_overhead": 1.2752386006089187,
+        "prefix_origin": 0,
+        "unsupported": 40,
+        "unsupported_by_reason": {
+          "b1_zero": 11,
+          "gcd_failure": 24,
+          "no_pivot": 0,
+          "prefix_root": 24,
+          "zero_division": 5
+        },
+        "unsupported_rate": 0.0016276041666666667
+      },
+      {
+        "per_seed_unsupported": [
+          10,
+          18,
+          12
+        ],
+        "pivot_counts": {
+          "a0": 24572,
+          "a1": 4
+        },
+        "plug_in_repetition_overhead": 1.2752386006089187,
+        "prefix_origin": 4,
+        "unsupported": 40,
+        "unsupported_by_reason": {
+          "b1_zero": 7,
+          "gcd_failure": 22,
+          "no_pivot": 0,
+          "prefix_root": 22,
+          "zero_division": 11
+        },
+        "unsupported_rate": 0.0016276041666666667
+      },
+      {
+        "per_seed_unsupported": [
+          9,
+          17,
+          10
+        ],
+        "pivot_counts": {
+          "a0": 24574,
+          "a1": 2
+        },
+        "plug_in_repetition_overhead": 1.258667516703054,
+        "prefix_origin": 8,
+        "unsupported": 36,
+        "unsupported_by_reason": {
+          "b1_zero": 10,
+          "gcd_failure": 21,
+          "no_pivot": 0,
+          "prefix_root": 21,
+          "zero_division": 5
+        },
+        "unsupported_rate": 0.00146484375
+      },
+      {
+        "per_seed_unsupported": [
+          17,
+          15,
+          12
+        ],
+        "pivot_counts": {
+          "a0": 24569,
+          "a1": 7
+        },
+        "plug_in_repetition_overhead": 1.2912963279892489,
+        "prefix_origin": 12,
+        "unsupported": 44,
+        "unsupported_by_reason": {
+          "b1_zero": 5,
+          "gcd_failure": 29,
+          "no_pivot": 0,
+          "prefix_root": 29,
+          "zero_division": 10
+        },
+        "unsupported_rate": 0.0017903645833333333
+      },
+      {
+        "per_seed_unsupported": [
+          18,
+          22,
+          9
+        ],
+        "pivot_counts": {
+          "a0": 24568,
+          "a1": 8
+        },
+        "plug_in_repetition_overhead": 1.3107615501104406,
+        "prefix_origin": 16,
+        "unsupported": 49,
+        "unsupported_by_reason": {
+          "b1_zero": 10,
+          "gcd_failure": 34,
+          "no_pivot": 0,
+          "prefix_root": 34,
+          "zero_division": 5
+        },
+        "unsupported_rate": 0.0019938151041666665
+      },
+      {
+        "per_seed_unsupported": [
+          15,
+          9,
+          10
+        ],
+        "pivot_counts": {
+          "a0": 24574,
+          "a1": 2
+        },
+        "plug_in_repetition_overhead": 1.2501597622096587,
+        "prefix_origin": 20,
+        "unsupported": 34,
+        "unsupported_by_reason": {
+          "b1_zero": 9,
+          "gcd_failure": 20,
+          "no_pivot": 0,
+          "prefix_root": 20,
+          "zero_division": 5
+        },
+        "unsupported_rate": 0.0013834635416666667
+      },
+      {
+        "per_seed_unsupported": [
+          10,
+          12,
+          8
+        ],
+        "pivot_counts": {
+          "a0": 24569,
+          "a1": 7
+        },
+        "plug_in_repetition_overhead": 1.2326242917349526,
+        "prefix_origin": 24,
+        "unsupported": 30,
+        "unsupported_by_reason": {
+          "b1_zero": 6,
+          "gcd_failure": 22,
+          "no_pivot": 0,
+          "prefix_root": 22,
+          "zero_division": 2
+        },
+        "unsupported_rate": 0.001220703125
+      },
+      {
+        "per_seed_unsupported": [
+          16,
+          17,
+          19
+        ],
+        "pivot_counts": {
+          "a0": 24573,
+          "a1": 3
+        },
+        "plug_in_repetition_overhead": 1.3221619646551606,
+        "prefix_origin": 28,
+        "unsupported": 52,
+        "unsupported_by_reason": {
+          "b1_zero": 8,
+          "gcd_failure": 32,
+          "no_pivot": 0,
+          "prefix_root": 32,
+          "zero_division": 12
+        },
+        "unsupported_rate": 0.0021158854166666665
+      },
+      {
+        "per_seed_unsupported": [
+          19,
+          15,
+          7
+        ],
+        "pivot_counts": {
+          "a0": 24575,
+          "a1": 1
+        },
+        "plug_in_repetition_overhead": 1.2792978528835235,
+        "prefix_origin": 32,
+        "unsupported": 41,
+        "unsupported_by_reason": {
+          "b1_zero": 8,
+          "gcd_failure": 30,
+          "no_pivot": 0,
+          "prefix_root": 30,
+          "zero_division": 3
+        },
+        "unsupported_rate": 0.0016682942708333333
+      },
+      {
+        "per_seed_unsupported": [
+          18,
+          15,
+          13
+        ],
+        "pivot_counts": {
+          "a0": 24569,
+          "a1": 7
+        },
+        "plug_in_repetition_overhead": 1.2991572587985245,
+        "prefix_origin": 36,
+        "unsupported": 46,
+        "unsupported_by_reason": {
+          "b1_zero": 3,
+          "gcd_failure": 34,
+          "no_pivot": 0,
+          "prefix_root": 34,
+          "zero_division": 9
+        },
+        "unsupported_rate": 0.0018717447916666667
+      },
+      {
+        "per_seed_unsupported": [
+          12,
+          14,
+          11
+        ],
+        "pivot_counts": {
+          "a0": 24569,
+          "a1": 7
+        },
+        "plug_in_repetition_overhead": 1.2628633509820115,
+        "prefix_origin": 40,
+        "unsupported": 37,
+        "unsupported_by_reason": {
+          "b1_zero": 8,
+          "gcd_failure": 22,
+          "no_pivot": 0,
+          "prefix_root": 22,
+          "zero_division": 7
+        },
+        "unsupported_rate": 0.0015055338541666667
+      },
+      {
+        "per_seed_unsupported": [
+          12,
+          15,
+          10
+        ],
+        "pivot_counts": {
+          "a0": 24572,
+          "a1": 4
+        },
+        "plug_in_repetition_overhead": 1.2628633509820115,
+        "prefix_origin": 44,
+        "unsupported": 37,
+        "unsupported_by_reason": {
+          "b1_zero": 4,
+          "gcd_failure": 28,
+          "no_pivot": 0,
+          "prefix_root": 28,
+          "zero_division": 5
+        },
+        "unsupported_rate": 0.0015055338541666667
+      },
+      {
+        "per_seed_unsupported": [
+          20,
+          12,
+          11
+        ],
+        "pivot_counts": {
+          "a0": 24571,
+          "a1": 5
+        },
+        "plug_in_repetition_overhead": 1.2873255318620511,
+        "prefix_origin": 48,
+        "unsupported": 43,
+        "unsupported_by_reason": {
+          "b1_zero": 4,
+          "gcd_failure": 36,
+          "no_pivot": 0,
+          "prefix_root": 36,
+          "zero_division": 3
+        },
+        "unsupported_rate": 0.0017496744791666667
+      },
+      {
+        "per_seed_unsupported": [
+          15,
+          15,
+          13
+        ],
+        "pivot_counts": {
+          "a0": 24571,
+          "a1": 5
+        },
+        "plug_in_repetition_overhead": 1.2873255318620511,
+        "prefix_origin": 52,
+        "unsupported": 43,
+        "unsupported_by_reason": {
+          "b1_zero": 10,
+          "gcd_failure": 27,
+          "no_pivot": 0,
+          "prefix_root": 27,
+          "zero_division": 6
+        },
+        "unsupported_rate": 0.0017496744791666667
+      },
+      {
+        "per_seed_unsupported": [
+          13,
+          12,
+          17
+        ],
+        "pivot_counts": {
+          "a0": 24570,
+          "a1": 6
+        },
+        "plug_in_repetition_overhead": 1.28332642325278,
+        "prefix_origin": 56,
+        "unsupported": 42,
+        "unsupported_by_reason": {
+          "b1_zero": 5,
+          "gcd_failure": 29,
+          "no_pivot": 0,
+          "prefix_root": 29,
+          "zero_division": 8
+        },
+        "unsupported_rate": 0.001708984375
+      },
+      {
+        "per_seed_unsupported": [
+          9,
+          13,
+          14
+        ],
+        "pivot_counts": {
+          "a0": 24573,
+          "a1": 3
+        },
+        "plug_in_repetition_overhead": 1.258667516703054,
+        "prefix_origin": 60,
+        "unsupported": 36,
+        "unsupported_by_reason": {
+          "b1_zero": 6,
+          "gcd_failure": 23,
+          "no_pivot": 0,
+          "prefix_root": 23,
+          "zero_division": 7
+        },
+        "unsupported_rate": 0.00146484375
+      },
+      {
+        "per_seed_unsupported": [
+          15,
+          15,
+          12
+        ],
+        "pivot_counts": {
+          "a0": 24568,
+          "a1": 8
+        },
+        "plug_in_repetition_overhead": 1.28332642325278,
+        "prefix_origin": 64,
+        "unsupported": 42,
+        "unsupported_by_reason": {
+          "b1_zero": 7,
+          "gcd_failure": 28,
+          "no_pivot": 0,
+          "prefix_root": 28,
+          "zero_division": 7
+        },
+        "unsupported_rate": 0.001708984375
+      }
+    ],
+    "probability_mass_weights_29_35": 0.8744204297646206,
+    "scalar_crosschecks_per_origin_per_seed": 40,
+    "scope": "Classical prefix-shape support audit only; it does not run a quantum circuit or official verifier.",
+    "seeds": [
+      20261123,
+      20261124,
+      20261125
+    ],
+    "shots_per_seed": 8192,
+    "total_shots": 24576,
+    "weight_counts": {
+      "18": 1,
+      "20": 1,
+      "21": 5,
+      "22": 12,
+      "23": 27,
+      "24": 83,
+      "25": 213,
+      "26": 424,
+      "27": 834,
+      "28": 1530,
+      "29": 2405,
+      "30": 3577,
+      "31": 4293,
+      "32": 4523,
+      "33": 3730,
+      "34": 2213,
+      "35": 705
+    }
+  },
+  "experiment": "exp-057-translated-prefix-support",
+  "holdout": {
+    "best_origin": 24,
+    "best_origin_by_seed": [
+      24,
+      24,
+      0
+    ],
+    "direct_fma_map_crosscheck": "PASS",
+    "distribution": "Exact official DQI weight probabilities; positions and nonzero magnitudes are uniform, with beta values sampled uniformly from GF(2^12)^*.",
+    "experiment": "exp-057-translated-prefix-support-audit",
+    "field": "GF(2^12), modulus 0x1053, primitive element 2",
+    "prefix_origins": [
+      {
+        "per_seed_unsupported": [
+          14,
+          12,
+          9
+        ],
+        "pivot_counts": {
+          "a0": 24570,
+          "a1": 6
+        },
+        "plug_in_repetition_overhead": 1.2544335893645813,
+        "prefix_origin": 0,
+        "unsupported": 35,
+        "unsupported_by_reason": {
+          "b1_zero": 5,
+          "gcd_failure": 23,
+          "no_pivot": 0,
+          "prefix_root": 23,
+          "zero_division": 7
+        },
+        "unsupported_rate": 0.0014241536458333333
+      },
+      {
+        "per_seed_unsupported": [
+          9,
+          7,
+          9
+        ],
+        "pivot_counts": {
+          "a0": 24573,
+          "a1": 3
+        },
+        "plug_in_repetition_overhead": 1.2095214176731293,
+        "prefix_origin": 24,
+        "unsupported": 25,
+        "unsupported_by_reason": {
+          "b1_zero": 1,
+          "gcd_failure": 17,
+          "no_pivot": 0,
+          "prefix_root": 17,
+          "zero_division": 7
+        },
+        "unsupported_rate": 0.0010172526041666667
+      }
+    ],
+    "probability_mass_weights_29_35": 0.8744204297646206,
+    "scalar_crosschecks_per_origin_per_seed": 40,
+    "scope": "Classical prefix-shape support audit only; it does not run a quantum circuit or official verifier.",
+    "seeds": [
+      20261126,
+      20261127,
+      20261128
+    ],
+    "shots_per_seed": 8192,
+    "total_shots": 24576,
+    "weight_counts": {
+      "20": 1,
+      "21": 6,
+      "22": 11,
+      "23": 26,
+      "24": 61,
+      "25": 209,
+      "26": 433,
+      "27": 824,
+      "28": 1461,
+      "29": 2416,
+      "30": 3557,
+      "31": 4368,
+      "32": 4437,
+      "33": 3783,
+      "34": 2268,
+      "35": 715
+    }
+  }
+}

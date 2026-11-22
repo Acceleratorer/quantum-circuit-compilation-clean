@@ -212,6 +212,16 @@ official verifier. See the [v16 receipt](../../evals/2026-11-23-exp057-verifier-
 and [run log](../../log/2026-11-23-exp057-verifier-form-v16.md), plus the
 [raw Kaggle output](kaggle-v16-output.log).
 
+A separate classical support audit compared 17 four-point prefix blocks using
+the official DQI distribution, then checked origins 0 and 24 on fresh seeds.
+Origin 24 had 55 unsupported shapes in 49,152 shots versus 75 for origin 0,
+but this is only a modest pre-circuit estimate. The integrated gate path assumes
+prefix points 0–3; changing that requires coordinated updates to the reversible
+prefix decoder and all 66 tail actions. Keep the circuit unchanged until the
+full output and cleanup path can validate that choice. See the
+[audit receipt](../../evals/2026-11-23-exp057-prefix-origin-audit.json) and
+[run log](../../log/2026-11-23-exp057-prefix-origin-audit.md).
+
 This is an integrated resource screen, not a DQI candidate. It outputs only a
 checksum, reuses the rank register, and does not restore the prefix/matrix
 state, generate the DQI phase/output, or run the official verifier. See the
