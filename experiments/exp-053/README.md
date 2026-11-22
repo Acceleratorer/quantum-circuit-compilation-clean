@@ -6,7 +6,7 @@ tests: prior GF(8) and GF(2^12) screens; private Kaggle kernel screens through v
 direction: D-004
 status: four_pivot_prefix_meets_qubit_gate
 date: 2026-11-22
-result: v30 four-pivot prefix passes at Q=890/T=3,032. v31 five-pivot history prefix passes 32 cases at Q=891/T=4,500. v32 sentinel/recycle erasure misses width and fails cleanup/phase. v33 compacts two history bits correctly but leaves Q/T unchanged at 891/4,500, so the prefix still misses the width gate.
+result: v30 four-pivot prefix passes at Q=890/T=3,032. v34 compacts one history bit at the 4+66 handoff, leaving 43 clean scratch qubits at Q=890/T=3,032. The 66-point tail remains unbuilt. v32 sentinel/recycle erasure misses width and fails cleanup/phase; v33 five-pivot compaction leaves Q/T unchanged at 891/4,500.
 ---
 
 # Pivot-normalized FMA recurrence
@@ -459,6 +459,21 @@ complete schedule can reuse the freed wires before its own peak. See the
 [evaluation](../../evals/2026-11-22-exp053-compact-history-v33.json),
 [dated log](../../log/2026-11-22-exp053-compact-history-v33.md), and
 [captured output](logs/kernel-v33-output.json).
+
+### Four-pivot handoff compaction — kernel version 34
+
+After four pivots, final rank gives `b1 = b3 XOR rank1[1]` for every one of
+the 16 branch histories. The compiled transform erases `b1` and retains branch
+pivots 0, 2, and 3. On 32 arbitrary GF(2^12) cases, labels and retained
+history matched, spectator payload was preserved, scratch was clean, and
+phase flips were zero.
+
+The prefix remains `Q=890`, `T=3,032`, but returns 43 clean scratch qubits
+instead of 42. That gives the next 66-point stage one more clean wire at the
+4+66 handoff; the tail itself remains unbuilt and unmeasured. See the
+[evaluation](../../evals/2026-11-22-exp053-four-pivot-compaction-v34.json),
+[dated log](../../log/2026-11-22-exp053-four-pivot-compaction-v34.md), and
+[captured output](logs/kernel-v34-output.json).
 
 ## Limit
 

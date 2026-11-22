@@ -1,0 +1,54 @@
+{
+  "captured_utc": "2026-11-22T12:00:51Z",
+  "experiment": "exp-053",
+  "kernel": {
+    "id": "accelra/exp053-inplace-ratio-history",
+    "version": 34,
+    "visibility": "private",
+    "url": "https://www.kaggle.com/code/accelra/exp053-inplace-ratio-history/versions/34",
+    "status": "COMPLETE"
+  },
+  "execution": {
+    "local_source": "experiments/exp-053/inplace_ratio_history.py",
+    "local_source_sha256": "3fdf1cca8a35c205d10828792775661584283b222b281df64fa0cdfd22de2053",
+    "built_kernel_source": "kaggle/staging/exp053-four-pivot-compaction-v34/exp053-inplace-ratio-history.py",
+    "built_kernel_source_sha256": "e3d48ad684eb003a9850751e983ba93956641fd127e32aaf0ddbe3c0c6c4db27",
+    "arithmetic_helper": "src/dqi/pro_q2_897/exp/arithmetic/field.py",
+    "arithmetic_helper_sha256": "c1b8b2ff583ffd5997856605c35d37f7116aa5811e52a3ce04a1ae7215d381c3",
+    "push_command": "kaggle kernels push -p kaggle/staging/exp053-four-pivot-compaction-v34",
+    "raw_kernel_log": "kaggle/staging/exp053-four-pivot-compaction-v34/output/exp053-inplace-ratio-history.log",
+    "raw_kernel_log_sha256": "91d5bc808dd1a371c7a6149ee2b79bfb38ada1422293bcaf61eae08bce81ece1",
+    "normalized_kernel_output": "experiments/exp-053/logs/kernel-v34-output.json",
+    "normalized_kernel_output_sha256": "51903e3fd26dfad6a5d58fb9c9696e6f8f3ebd4694d791aa6eb139946f51ea1a"
+  },
+  "scope": "Four-pivot 4+66 handoff state. The final rank identity erases branch pivot 1 while retaining 0, 2, and 3. The remaining 66-point tail has not been integrated.",
+  "checks": {
+    "cases": 32,
+    "history_identity_cases": 16,
+    "output_labels_match_reference": true,
+    "branch_history_matches_reference": true,
+    "other_payload_preserved": true,
+    "scratch_clean": true,
+    "clean_scratch_qubits": 43,
+    "phase_flips": 0
+  },
+  "resources": {
+    "four_pivot_baseline": {
+      "compiled_qubits": 890,
+      "toffoli_like_gates": 3032,
+      "clean_scratch_qubits": 42
+    },
+    "four_pivot_compacted": {
+      "compiled_qubits": 890,
+      "toffoli_like_gates": 3032,
+      "clean_scratch_qubits": 43,
+      "qubit_limit": 890,
+      "retained_branch_pivots": [0, 2, 3],
+      "erased_branch_pivots": [1]
+    }
+  },
+  "official_verifier_run": false,
+  "competition_submission": null,
+  "result": "PASS_PREFIX_AND_HANDOFF_STATE",
+  "decision": "The four-pivot state passes the 32-case screen at Q=890/T=3,032 and returns 43 clean scratch qubits, one more than the explicit-history baseline. This makes one additional wire available at the 4+66 handoff; it does not prove the 66-point tail fits. Keep the full-schedule resource and verifier gates open."
+}
