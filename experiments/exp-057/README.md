@@ -2,11 +2,11 @@
 id: exp-057
 title: Four-word streaming decoder for quadratic-over-linear FMA
 task: dqi
-tests: exhaustive GF(8) prefix and tail state; 2,048 seeded GF(2^12); 32-case private prefix gate screen including a1=0; 32 verifier-form prefix and tail cases; 64-case private precomputed-matrix action; 64-case coefficient-derived tail action
+tests: exhaustive GF(8) prefix and tail state and matrix encoding; 2,048 seeded GF(2^12); 32-case private prefix gate screen including a1=0; 32 verifier-form prefix and tail cases; 64-case private precomputed-matrix action; 64-case coefficient-derived tail action
 direction: D-004
-status: coefficient-derived-one-symbol-gate-passed_prefix-state-setup-and-66-symbol-schedule-pending
+status: gf8-and-seeded-gf12-matrix-state-encoding-screen-passed_reversible-circuit-and-66-symbol-schedule-pending
 date: 2026-11-22
-result: Prefix gate passes at Q=885 and T=7,483; precomputed-matrix action at Q=873 and T=84; coefficient-derived one-symbol action at Q=889 and T=822. Prefix-state setup, 66-symbol integration, and the official verifier remain open.
+result: Prefix gate passes at Q=885 and T=7,483; precomputed-matrix action at Q=873 and T=84; coefficient-derived one-symbol action at Q=889 and T=822. The GF(8) matrix-only encoding has 1,572 collisions; adding b1 distinguishes all GF(8) states and reconstructs 32 seeded GF(2^12) cases. The reversible circuit, 66-symbol integration, and official verifier remain open.
 ---
 
 # exp-057: four-word streaming decoder
@@ -113,3 +113,17 @@ retain coefficient-dependent setup once, measure its generation from the
 compact prefix state with clean workspace, and then account for reuse across
 the remaining symbols. The one-symbol `822T` result is not a full-schedule
 cost estimate.
+
+## Tail-matrix state encoding screen
+
+The four evaluated matrix entries are not a reversible replacement for the
+four-word coefficient state: the exhaustive GF(8) screen maps 2,016 supported
+states to 444 matrix keys, with 1,572 collisions and a maximum fiber of 7.
+Retaining the full `b1` field word removes all collisions and reconstructs the
+coefficients in this domain. The same formula reconstructs 32 seeded GF(2^12)
+verifier-form cases (16 each at error weights 31 and 35). Receipt:
+[`exp-057 tail-matrix encoding`](../../evals/2026-11-22-exp057-tail-matrix-encoding.json).
+
+This is not a compiled map or an exhaustive GF(2^12) injectivity result. Next,
+preserve `b1` while generating the matrix reversibly from the compact prefix
+state, measure the setup and cleanup, then test reuse across the tail schedule.

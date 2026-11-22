@@ -24,6 +24,12 @@ class TailTransitionTests(unittest.TestCase):
         self.assertEqual(result["prefix_annihilation_errors"], 0)
         self.assertEqual(result["tail_round_trip_errors"], 0)
         self.assertEqual(result["bezout_complementary_rows"], 2016)
+        self.assertEqual(result["distinct_tail_matrices"], 444)
+        self.assertEqual(result["matrix_only_collisions"], 1572)
+        self.assertEqual(result["maximum_coefficients_per_tail_matrix"], 7)
+        self.assertEqual(result["minimum_b1_discriminator_bits"], 3)
+        self.assertEqual(result["matrix_and_b1_collisions"], 0)
+        self.assertEqual(result["b1_discriminator_reconstruction_errors"], 0)
         self.assertEqual(result["result"], "PASS")
 
     def test_tail_transition_matches_seeded_gf12_verifier_samples(self):
@@ -33,4 +39,5 @@ class TailTransitionTests(unittest.TestCase):
         self.assertEqual(result["prefix_annihilation_errors"], 0)
         self.assertEqual(result["tail_round_trip_errors"], 0)
         self.assertEqual(result["bezout_complementary_rows"], 32)
+        self.assertEqual(result["matrix_b1_reconstruction_errors"], 0)
         self.assertEqual(result["result"], "PASS")

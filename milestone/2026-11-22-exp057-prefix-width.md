@@ -47,11 +47,17 @@ output or phase errors. It still does not generate coefficients from the
 compact prefix state or amortize setup across symbols. See the
 [coefficient-derived action receipt](../evals/2026-11-22-exp057-tail-bezout-action.json).
 
-Next, split coefficient-dependent setup from the per-symbol action, generate
-the setup reversibly from the compact prefix state, and measure clean-workspace
-reuse across an accounted 66-symbol schedule. Require `Q <= 890`, a complete
-Toffoli count, zero phase errors, and a pass from the official DQI verifier
-before any competition submission.
+An exhaustive GF(8) screen found that the four evaluated matrix entries alone
+collapse 2,016 supported coefficient states to 444 keys. Keeping `b1` as a
+field-word discriminator restores all 2,016 states, and the same recovery had
+zero errors on 32 seeded GF(2^12) verifier-form samples. See the
+[tail-matrix encoding receipt](../evals/2026-11-22-exp057-tail-matrix-encoding.json).
+
+Next, preserve `b1` while generating the matrix reversibly from the compact
+prefix state, then reverse that setup after reuse across an accounted
+66-symbol schedule. Measure `Q <= 890`, the full Toffoli count, clean workspace,
+zero phase errors, and a pass from the official DQI verifier before any
+competition submission.
 
 For branch-history compression, ratios, ranks, retained bits `b0/b4`, and the
 one-bit tag still leave 1,920 ambiguous keys in the exhaustive five-word GF(8)

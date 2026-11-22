@@ -1,0 +1,39 @@
+{
+  "captured_utc": "2026-11-22T14:53:13Z",
+  "experiment": "exp-057-tail-matrix-encoding",
+  "checks": {
+    "gf8": {
+      "field": "GF(8)",
+      "supported_coefficient_states": 2016,
+      "distinct_matrix_keys": 444,
+      "matrix_only_collisions": 1572,
+      "maximum_states_per_matrix": 7,
+      "minimum_discriminator_bits_in_gf8": 3,
+      "distinct_matrix_and_b1_keys": 2016,
+      "matrix_and_b1_collisions": 0,
+      "coefficient_reconstruction_errors": 0,
+      "tail_point": 4,
+      "result": "PASS"
+    },
+    "gf12_verifier_form": {
+      "field": "GF(2^12)",
+      "samples": 32,
+      "error_weights": {
+        "31": 16,
+        "35": 16
+      },
+      "pivot_counts": {
+        "a0": 32,
+        "a1": 0
+      },
+      "matrix_b1_reconstruction_errors": 0,
+      "result": "PASS"
+    }
+  },
+  "scope": "Exhaustive classical representation screen over the supported GF(8) coefficient states and a seeded 32-case GF(2^12) verifier-form reconstruction check at point 4. It does not compile an in-place map, integrate 66 symbols, or run the official verifier.",
+  "source": {
+    "path": "experiments/exp-057/streaming_fixed_shape_decoder.py",
+    "sha256": "ec3e080659e8bc496f96d363538d8da680c49dfa8784b58a79a98681f4ad2472"
+  },
+  "submission": null
+}

@@ -211,6 +211,11 @@ def screen_gf8_tail_transition():
     mul, inverse, div = ops(degree, modulus)
     checked = 0
     pivot_counts = [0, 0]
+    tail_point = 4
+    matrix_fibers = {}
+    matrix_b1_keys = set()
+    matrix_b1_collisions = 0
+    discriminator_reconstruction_errors = 0
     for coefficients in product(range(8), range(8), range(8), range(1, 8)):
         if not valid_shape(coefficients, mul, div):
             continue
@@ -242,7 +247,27 @@ def screen_gf8_tail_transition():
         )
         for index, sample in enumerate(prefix_samples):
             assert apply_matrix(rows, POINTS[index], (sample, 1), mul) == (0, 0)
-        tail_point = 4
+        matrix = tuple(
+            fma.poly_eval(polynomial, tail_point, mul)
+            for row in rows
+            for polynomial in row
+        )
+        matrix_fibers[matrix] = matrix_fibers.get(matrix, 0) + 1
+        matrix_b1_key = (matrix, coefficients[3])
+        if matrix_b1_key in matrix_b1_keys:
+            matrix_b1_collisions += 1
+        matrix_b1_keys.add(matrix_b1_key)
+
+        a, b, c, d = matrix
+        a0, a1, _, b1 = coefficients
+        recovered_a1 = mul(div(c, d), b1) ^ div(b, b1)
+        recovered_b0 = b ^ mul(tail_point, b1)
+        recovered_a0 = (
+            a ^ mul(tail_point, recovered_a1) ^ mul(tail_point, tail_point)
+        )
+        if (recovered_a0, recovered_a1, recovered_b0, b1) != coefficients:
+            discriminator_reconstruction_errors += 1
+
         tail_input = (checked % 8, 1)
         tail_output = apply_matrix(rows, tail_point, tail_input, mul)
         assert inverse_matrix_pair(
@@ -258,6 +283,14 @@ def screen_gf8_tail_transition():
         "tail_round_trip_errors": 0,
         "bezout_complementary_rows": checked,
         "tail_point": 4,
+        "distinct_tail_matrices": len(matrix_fibers),
+        "matrix_only_collisions": checked - len(matrix_fibers),
+        "maximum_coefficients_per_tail_matrix": max(matrix_fibers.values()),
+        "minimum_b1_discriminator_bits": (
+            max(matrix_fibers.values()) - 1
+        ).bit_length(),
+        "matrix_and_b1_collisions": matrix_b1_collisions,
+        "b1_discriminator_reconstruction_errors": discriminator_reconstruction_errors,
         "result": "PASS",
     }
 
@@ -275,6 +308,7 @@ def screen_gf12_verifier_tail_transition(count_per_weight=16):
 
     checked = 0
     pivot_counts = [0, 0]
+    matrix_b1_reconstruction_errors = 0
     for weight in (31, 35):
         for _ in range(count_per_weight):
             locations = rng.sample(range(1, 1 << degree), weight)
@@ -325,6 +359,22 @@ def screen_gf12_verifier_tail_transition(count_per_weight=16):
             )
             for index, sample in enumerate(prefix_samples):
                 assert apply_matrix(rows, points[index], (sample, 1), mul) == (0, 0)
+            matrix = tuple(
+                fma.poly_eval(polynomial, points[4], mul)
+                for row in rows
+                for polynomial in row
+            )
+            a, b, c, d = matrix
+            a0, a1, b0, b1 = coefficients
+            recovered_a1 = mul(div(c, d), b1) ^ div(b, b1)
+            recovered_b0 = b ^ mul(points[4], b1)
+            recovered_a0 = (
+                a
+                ^ mul(points[4], recovered_a1)
+                ^ mul(points[4], points[4])
+            )
+            if (recovered_a0, recovered_a1, recovered_b0, b1) != coefficients:
+                matrix_b1_reconstruction_errors += 1
             tail_input = (samples[4], 1)
             tail_output = apply_tail_symbol(
                 state, tail_input, points[4], mul, div, modulus, degree
@@ -342,6 +392,7 @@ def screen_gf12_verifier_tail_transition(count_per_weight=16):
         "prefix_annihilation_errors": 0,
         "tail_round_trip_errors": 0,
         "bezout_complementary_rows": checked,
+        "matrix_b1_reconstruction_errors": matrix_b1_reconstruction_errors,
         "tail_point": 4,
         "result": "PASS",
         "scope": "Seeded classical one-symbol transition only; no gate circuit or 66-symbol schedule.",
