@@ -162,6 +162,7 @@ def screen_gf8():
     points = tuple(range(5))
     multiply = lambda a, b: fma.gf_mul(a, b, modulus, degree)
     fibers = defaultdict(set)
+    ratio_rank_tag_b1_fibers = defaultdict(set)
     max_rank1 = 0
     for data in product(range(1 << degree), repeat=len(points)):
         result = nf.normalized_state(data, points, multiply, modulus, degree)
@@ -169,6 +170,10 @@ def screen_gf8():
         max_rank1 = max(max_rank1, ranks[0])
         key = (ratios, low_row_key(basis, multiply, modulus, degree), ranks)
         fibers[key].add((data, history))
+        b0, b1, b4 = history & 1, history >> 1 & 1, history >> 4 & 1
+        ratio_rank_tag_b1_fibers[
+            (ratios, ranks, b0, b4, history_tag(history))
+        ].add(b1)
 
     ambiguous = []
     conflict_edges = set()
@@ -255,6 +260,20 @@ def screen_gf8():
         "max_inputs_after_one_history_tag": max(
             map(len, tagged_fibers.values())
         ),
+        "ratio_rank_tag_retained_b0_b4": {
+            "keys": len(ratio_rank_tag_b1_fibers),
+            "ambiguous_b1_keys": sum(
+                len(values) > 1 for values in ratio_rank_tag_b1_fibers.values()
+            ),
+            "maximum_b1_fiber": max(
+                len(values) for values in ratio_rank_tag_b1_fibers.values()
+            ),
+            "scope": (
+                "Exact over every five-word GF(8) input. Ratios, final ranks, "
+                "retained branch bits b0/b4, and tag do not always recover b1; "
+                "the compact-state low row is needed by this decoder route."
+            ),
+        },
         "scope": "Exhaustive classical information check over all five-word GF(8) inputs.",
     }
 
@@ -400,6 +419,16 @@ def run_screen():
     assert gf8["collisions_after_one_history_tag"] == 0
     assert gf8["classical_inverse_pass"]
     assert gf8["classical_inverse_cases"] == 92
+    assert gf8["ratio_rank_tag_retained_b0_b4"] == {
+        "keys": 30848,
+        "ambiguous_b1_keys": 1920,
+        "maximum_b1_fiber": 2,
+        "scope": (
+            "Exact over every five-word GF(8) input. Ratios, final ranks, "
+            "retained branch bits b0/b4, and tag do not always recover b1; "
+            "the compact-state low row is needed by this decoder route."
+        ),
+    }
     assert gf8["rank_tag_candidate_bound"] == {
         "signatures": 14,
         "max_histories_per_signature": 4,

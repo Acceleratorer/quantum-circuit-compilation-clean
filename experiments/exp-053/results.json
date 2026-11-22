@@ -1148,5 +1148,14 @@
       }
     },
     "scope": "Exhaustive valid RS error patterns over GF(8), not a GF(2^12) bound or a reversible encoder. A fixed branch projection is an information screen only."
+  },
+  "fifth_pivot_ratio_rank_tag_retained_b0_b4_screen": {
+    "experiment": "exp-053-fifth-pivot-state-followup",
+    "input_domain": "all 32,768 five-word GF(8) sample vectors",
+    "ambiguous_b1_keys": 1920,
+    "keys": 30848,
+    "maximum_b1_fiber": 2,
+    "scope": "Exact over every five-word GF(8) input. Ratios, final ranks, retained branch bits b0/b4, and tag do not always recover b1; the compact-state low row is needed by this decoder route.",
+    "result": "PASS_SCREEN"
   }
 }

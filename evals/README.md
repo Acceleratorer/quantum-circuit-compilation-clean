@@ -2,18 +2,20 @@
 
 This directory separates local verifier estimates from Kaggle results.
 
-## Latest live status (`2026-11-21T12:55:34Z`)
+## Latest live status (`2026-11-22T12:26:26Z`)
 
 - Best own public score: `28.14028`, submission `58479383`.
-- Latest leader: `Z³C¹oherence`, `33.34845`; score gap `5.20817`.
-- Own rank: `1202 / 3519` in the full snapshot; see
-  [metadata](2026-11-21-live-leaderboard-125534Z.json) and the retained CSV.
+- Latest leader: `Entangled Team`, `33.73732`; score gap `5.59704`.
+- Own rank: `1306 / 3560` in the full snapshot; see
+  [metadata](2026-11-22-live-leaderboard-122626Z.json) and the
+  [retained CSV](../kaggle/snapshots/2026-11-22/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-22T12-26-26.csv).
 - Local zero-error geometric mean: `28.1402768383` (not a leaderboard result).
-- DQI-only target with other task costs fixed: `209.035e9`, or mean
-  `T <= 221,529` at `Q=890` and `R=1.1912605`. This is score-equivalence
+- DQI-only target with other task costs fixed: `201.889e9`, or mean
+  `T <= 213,956.98` at `Q=890` and `R=1.1912605`. This is score-equivalence
   math, not the leader's measured circuit cost.
-- Current source-owned FMA projection: `202,075T`, leaving `19,454T` for
-  omitted work. Width, phase, and cleanup are unproven; this is not a candidate.
+- Current source-owned FMA projection: `202,075T`, leaving only `11,881.98T`
+  for omitted work. Width, phase, cleanup, and tail integration are unproven;
+  this is not a candidate.
 - Full member hashes, verifier evidence, and submission:
   [2026-11-18 hybrid evaluation](2026-11-18-bori-frontier-hybrid.json).
 

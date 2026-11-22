@@ -1,0 +1,17 @@
+{
+  "captured_utc": "2026-11-22T12:42:05Z",
+  "experiment": "exp-053-fifth-pivot-state-followup",
+  "command": "& ..\\..\\.venv\\Scripts\\python.exe -I experiments/exp-053/fifth_pivot_state.py",
+  "source_sha256": "451b59d1b4ec44f342eec30c7725e8c55ae99c06ef591aad567b236bcd82ddc4",
+  "input_domain": "all 32,768 five-word GF(8) sample vectors",
+  "check": {
+    "ambiguous_b1_keys": 1920,
+    "keys": 30848,
+    "maximum_b1_fiber": 2,
+    "scope": "Exact over every five-word GF(8) input. Ratios, final ranks, retained branch bits b0/b4, and tag do not always recover b1; the compact-state low row is needed by this decoder route."
+  },
+  "result": "PASS_SCREEN",
+  "decision": "The ratios, final ranks, retained branch bits b0/b4, and one-bit tag do not determine b1. The candidate eraser must use the compact-state low row or a different reversible state.",
+  "official_verifier_run": false,
+  "competition_submission": null
+}

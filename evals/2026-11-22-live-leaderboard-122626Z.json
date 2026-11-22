@@ -1,0 +1,56 @@
+{
+  "captured_utc": "2026-11-22T12:26:26Z",
+  "competition": "google-verifiable-quantum-circuit-compilation",
+  "source": "Kaggle CLI full public leaderboard download (competitions leaderboard --download)",
+  "snapshot": {
+    "path": "kaggle/snapshots/2026-11-22/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-22T12-26-26.csv",
+    "csv_sha256": "9271acbc058caaa85c81e68e02acb8580f3e5fefa5560d88a701820db8cdef87",
+    "archive_sha256": "a62a83fb3720e32efff9f9eb289145333bf67a1a6e9e80178c7f93bd7ec67a2d",
+    "team_rows": 3560,
+    "unique_team_ids": 3560,
+    "scores_sorted_descending": true
+  },
+  "own_team": {
+    "team": "Accelra",
+    "team_id": 17349145,
+    "public_score": 28.14028,
+    "rank": 1306,
+    "latest_best_submission": 58479383
+  },
+  "leader": {
+    "rank": 1,
+    "team": "Entangled Team",
+    "team_id": 17180610,
+    "score": 33.73732
+  },
+  "runner_up": {
+    "rank": 2,
+    "team": "Two-Qubit Gate",
+    "team_id": 17194321,
+    "score": 33.51863
+  },
+  "score_gap": 5.597039999999996,
+  "score_equivalence_estimate": {
+    "method": "Scale the product of the three task costs by (own public score / leader public score)^3.",
+    "required_product_cost_multiplier": 0.580301244385346,
+    "current_dqi_cost": 347904227555.5428,
+    "dqi_target_if_other_task_costs_are_fixed": 201889256177.40408,
+    "dqi_reduction_if_other_task_costs_are_fixed": 0.419698755614654,
+    "dqi_target_at_q890_zero_failure": {
+      "qubits": 890,
+      "repetition_factor": 1.1912605,
+      "maximum_mean_toffoli": 213956.97696974705
+    },
+    "current_fma_projection_toffoli": 202075,
+    "remaining_toffoli_margin_before_omitted_work": 11881.976969747047,
+    "status": "Score-equivalence estimate from own prior cost and current public scores; not measured leader costs or a candidate.",
+    "current_dqi_cost_source": "evals/2026-11-21-live-leaderboard-125534Z.json"
+  },
+  "latest_own_submission": {
+    "ref": 58479383,
+    "status": "COMPLETE",
+    "public_score": 28.14028,
+    "submitted_at_utc": "2026-11-17T18:57:30.857000"
+  },
+  "notes": "Read-only Kaggle CLI refresh. No circuit was built or submitted."
+}

@@ -16,35 +16,41 @@ reproduces it. Existing product-retention variants have already been screened.
 The active path is a source-owned DQI decoder with a genuinely different
 key-equation algorithm. Keep the official verifier's salted failure rate in
 the score model, and require the full `R × Q² × T` budget before building a
-candidate. The latest score-equivalence estimate is `203.040e9`; at
-`R=1.1912605` and `Q=890`, the DQI gate is `T <= 215,175.99`. The FMA projection
-is `202,075T`, leaving only `13,101T` for omitted work; its complete width,
+candidate. The latest score-equivalence estimate is `201.889e9`; at
+`R=1.1912605` and `Q=890`, the DQI gate is `T <= 213,956.98`. The FMA
+projection is `202,075T`, leaving only `11,881.98T` for omitted work; its complete width,
 phase, and cleanup schedule remains unproven.
 
 ## 2026-11-22 live leaderboard and focused gate
 
-The full Kaggle CLI snapshot at `2026-11-22T09:57:57Z` has 3,555 teams.
-`Accelra` is rank 1,291 at `28.14028`; Maciej Sypetkowski leads at `33.67349`,
-a `5.53321`-point gap. Holding the other two submitted task costs fixed,
-matching that score requires DQI cost at or below `203.040e9`, or mean
-`T <= 215,175.99` at `Q=890` and `R=1.1912605`. The `202,075T` FMA projection
-leaves only `13,101T` for all omitted work. This is score-equivalence math,
+The latest full Kaggle CLI snapshot at `2026-11-22T12:26:26Z` has 3,560 teams.
+`Accelra` is rank 1,306 at `28.14028`; Entangled Team leads at `33.73732`, a
+`5.59704`-point gap. Holding the other two submitted task costs fixed,
+matching that score requires DQI cost at or below `201.889e9`, or mean
+`T <= 213,956.98` at `Q=890` and `R=1.1912605`. The `202,075T` FMA projection
+leaves only `11,881.98T` for all omitted work. This is score-equivalence math,
 not a measured leader cost or a candidate. The snapshot and calculation are in
-[`evals/2026-11-22-live-leaderboard-095757Z.json`](../../evals/2026-11-22-live-leaderboard-095757Z.json).
+[`evals/2026-11-22-live-leaderboard-122626Z.json`](../../evals/2026-11-22-live-leaderboard-122626Z.json).
 
-The only live follow-up is the compact-state tag eraser. Its information
+The valid eight-point GF(8) screen finds that ratios alone need a six-bit
+fixed branch projection; ratio plus final rank needs four bits, with nine
+four-position choices. This is a block-tag lead only, not a GF(2^12) bound or a
+reversible eraser. See the
+[`exp-053 projection receipt`](../../evals/2026-11-22-exp053-valid-ratio-history.json).
+
+The live circuit path remains the compact-state tag eraser. Its five-pivot
 screen resolves all 46 collision groups in exhaustive GF(8) and found no
 collisions in 64 sampled valid GF(2^12) inputs, but there is no GF(2^12)
 injectivity proof or tag circuit. Final ranks plus tag leave at most four of
 the 32 possible histories, independent of field values; the reversible
-candidate check remains uncompiled. A classical ratios/ranks/tag replay checked
-all four candidates and found one matching history for each of 64 sampled
-valid GF(2^12) DQI inputs. This is sample evidence only. Kernel v31 compiled a five-pivot prefix
-retaining branch history: Q=891, T=4,500, with correct labels, clean scratch,
-and zero phase flips on 32 cases. The sentinel/recycle eraser was a no-go:
-four pivots used Q=916/T=6,044; five pivots failed scratch/phase at Q=917 and
-T=7,512. Next, build the tag-driven eraser and keep it only if the full
-resource gate and official verifier pass. No submission is ready.
+candidate check remains uncompiled. The new eight-point screen suggests a
+four-bit tag only on its GF(8) valid-pattern domain. Neither result is a
+full-tail proof. The next implementation gate is one reversible block eraser,
+using the compact-state low row to resolve candidates; an exact five-word
+GF(8) follow-up found 1,920 ambiguous `b1` keys when that row is omitted. Then
+require the integrated `Q <= 890`, `T <= 213,956.98`, cleanup, phase, and
+official-verifier gates. No submission is ready. See the
+[ratio/rank/tag screen](../../evals/2026-11-22-exp053-fifth-pivot-ratio-tag-screen.json).
 See the [exp-053 record](../../experiments/exp-053/README.md),
 [fifth-pivot state receipt](../../evals/2026-11-22-exp053-fifth-pivot-state.json),
 [v31 receipt](../../evals/2026-11-22-exp053-five-pivot-prefix-v31.json), and

@@ -441,6 +441,14 @@ decoded and forward-replayed using only ratios, ranks, and tag; one history
 matched each input. This does not prove uniqueness for the full DQI domain or
 provide a reversible circuit.
 
+An exact five-word GF(8) follow-up asks whether `b1` can be erased using only
+the ratios, final ranks, retained bits `b0/b4`, and the one-bit tag. It finds
+1,920 ambiguous keys among 30,848, so this reduced key is insufficient; the
+compact-state low row or a different reversible state is required. This is
+still an information screen, not a GF(2^12) bound or a gate circuit. See the
+[follow-up receipt](../../evals/2026-11-22-exp053-fifth-pivot-ratio-tag-screen.json)
+and [dated log](../../log/2026-11-22-exp053-fifth-pivot-ratio-tag-screen.md).
+
 The v31 information result did not establish a GF(2^12) inverse or a reversible
 tag eraser. Version 33 compiles a partial two-bit history compaction, but it
 still does not establish the complete schedule or pass the official verifier.

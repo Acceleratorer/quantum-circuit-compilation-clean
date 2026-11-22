@@ -23,6 +23,12 @@ Exp-053 kernel version 30 now passes the four-pivot prefix width gate at
 `Q=890`, `T=3,032` using measurement recycling. Its 32-case screen preserves
 the spectator payload and phase, but does not cover the remaining 66 symbols.
 Integrate this single path with those symbols and measure the full
-`Q <= 890`, `T <= 221,529`, cleanup, phase, and official-verifier gates before
+`Q <= 890`, `T <= 213,956.98`, cleanup, phase, and official-verifier gates before
 preparing any submission. See the [exp-053 receipt](../evals/2026-11-22-exp053-measurement-recycle-prefix-v30.json)
 and [experiment notes](../experiments/exp-053/README.md).
+
+For branch-history compression, ratios, ranks, retained bits `b0/b4`, and the
+one-bit tag still leave 1,920 ambiguous keys in the exhaustive five-word GF(8)
+screen. The block eraser must include the compact-state low row or use a
+different reversible state; see the
+[screen receipt](../evals/2026-11-22-exp053-fifth-pivot-ratio-tag-screen.json).
