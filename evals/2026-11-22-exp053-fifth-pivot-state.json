@@ -1,19 +1,29 @@
 {
-  "captured_utc": "2026-11-22T10:46:44Z",
+  "captured_utc": "2026-11-22T11:00:55Z",
   "classical_inverse": {
-    "algorithm": "Search all 32 branch histories, rebuild the normalized basis and ranks, decode the samples, then accept only a history whose forward recurrence reproduces the supplied compact state.",
+    "algorithm": "Filter 32 histories by final rank pair and one-bit tag (14 signatures; at most four candidates), rebuild each remaining basis, decode samples, and accept only a history whose forward recurrence reproduces the supplied compact state.",
     "gf12_sample_cases": 64,
     "gf12_sample_cases_passed": true,
     "gf8_collision_cases": 92,
     "gf8_collision_cases_passed": true,
-    "scope": "Tests the constructive classical decoder on all GF(8) collision inputs and 64 sampled valid GF(2^12) inputs; it does not prove all GF(2^12) states."
+    "rank_tag_candidate_bound": {
+      "candidate_count_distribution": {
+        "1": 4,
+        "2": 6,
+        "4": 4
+      },
+      "max_histories_per_signature": 4,
+      "scope": "All 32 possible five-pivot histories; this combinatorial bound depends only on rank updates and the tag, not field elements.",
+      "signatures": 14
+    },
+    "scope": "Tests the constructive classical decoder on all GF(8) collision inputs and 64 sampled valid GF(2^12) inputs, and bounds rank/tag candidates across all five-pivot histories; it does not prove all GF(2^12) states or provide a reversible circuit."
   },
-  "decision": "The one-bit tag resolves the GF(8) compact-state collisions, and a classical five-pivot inverse decodes all collision cases plus the sampled GF(2^12) cases. This remains classical evidence; no reversible tag eraser, resource schedule, or official verifier result is established.",
+  "decision": "The one-bit tag resolves the GF(8) compact-state collisions. Final ranks plus tag reduce 32 histories to at most four candidates; a classical inverse decodes all collision cases and the sampled GF(2^12) cases. No reversible eraser, resource schedule, or official verifier result is established.",
   "execution": {
-    "captured_output_sha256_before_receipt_metadata": "826a1b7b68df2345fd9c431f5a58adecdb0e92aaff39068da3f45be16ce0ab65",
+    "captured_output_sha256_before_receipt_metadata": "918082397bcf0e3076d59c0655f2af1c36a6c9a26a0880d4e4a19a8b3e32d5ba",
     "command": "..\\..\\.venv\\Scripts\\python.exe -I experiments/exp-053/fifth_pivot_state.py",
     "source": "experiments/exp-053/fifth_pivot_state.py",
-    "source_sha256": "0cd57dfc6babc13d46c6f6304994ea4d9a4eb3cc8e0354fa84925e544496810c"
+    "source_sha256": "ab35474fe980fec51f8f8a82d9c8276484aa3124ad2a4c364a50c2ad80d69240"
   },
   "experiment": "exp-053-fifth-pivot-state",
   "gf12_dqi_sample": {
@@ -58,9 +68,18 @@
     "one_bit_history_tag": "branch[1] AND NOT branch[4] (zero-based pivots)",
     "rank1_bits_observed": 4,
     "rank_plus_one_tag_bits": 5,
+    "rank_tag_candidate_bound": {
+      "candidate_count_distribution": {
+        "1": 4,
+        "2": 6,
+        "4": 4
+      },
+      "max_histories_per_signature": 4,
+      "signatures": 14
+    },
     "scope": "Exhaustive classical information check over all five-word GF(8) inputs.",
     "single_branch_bits_that_resolve_all": [],
     "single_fixed_parity_masks_that_resolve_all": []
   },
-  "promotion_gate": "The inverse is classical only. Build its reversible circuit and compact-state/tag eraser, then require Q <= 890, mean T <= 215175.987 at R=1.1912605, the complete 4+66 schedule, and official-verifier PASS."
+  "promotion_gate": "The inverse and four-candidate bound are classical only. Compile a reversible candidate check and tag eraser, then require a GF(2^12) correctness argument, Q <= 890, mean T <= 215175.987 at R=1.1912605, the complete 4+66 schedule, and official-verifier PASS."
 }

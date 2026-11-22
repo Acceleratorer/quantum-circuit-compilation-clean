@@ -52,6 +52,42 @@ def history_tag(history):
     return ((history >> 1) & 1) & (1 - ((history >> 4) & 1))
 
 
+def ranks_for_history(history, point_count):
+    rank1, rank2 = 0, 1
+    for pivot in range(point_count):
+        if (history >> pivot) & 1:
+            rank1, rank2 = rank2, rank1 + 2
+        else:
+            rank2 += 2
+    return rank1, rank2
+
+
+def histories_for_rank_tag(ranks, tag, point_count):
+    return tuple(
+        history
+        for history in range(1 << point_count)
+        if ranks_for_history(history, point_count) == ranks
+        and history_tag(history) == tag
+    )
+
+
+def rank_tag_candidate_summary(point_count):
+    counts = defaultdict(int)
+    for history in range(1 << point_count):
+        signature = (ranks_for_history(history, point_count), history_tag(history))
+        counts[signature] += 1
+    distribution = defaultdict(int)
+    for candidate_count in counts.values():
+        distribution[candidate_count] += 1
+    return {
+        "signatures": len(counts),
+        "max_histories_per_signature": max(counts.values()),
+        "candidate_count_distribution": {
+            str(size): distribution[size] for size in sorted(distribution)
+        },
+    }
+
+
 def basis_for_history(ratios, history, points, multiply):
     basis = [[[1], [0]], [[0], [1]]]
     rank1, rank2 = 0, 1
@@ -73,14 +109,11 @@ def decode_compact_state(ratios, low_row, ranks, tag, points, multiply, modulus,
         raise ValueError("the compact tag decoder is defined for five pivots")
 
     matches = []
-    for history in range(1 << len(points)):
-        if history_tag(history) != tag:
-            continue
+    for history in histories_for_rank_tag(ranks, tag, len(points)):
         basis, candidate_ranks = basis_for_history(
             ratios, history, points, multiply
         )
-        if candidate_ranks != ranks:
-            continue
+        assert candidate_ranks == ranks
         if low_row_key(basis, multiply, modulus, degree) == low_row:
             branches = tuple(bool(history >> pivot & 1) for pivot in range(len(points)))
             try:
@@ -185,6 +218,7 @@ def screen_gf8():
         "rank1_bits_observed": max_rank1.bit_length(),
         "rank_plus_one_tag_bits": max_rank1.bit_length() + 1,
         "existing_rank_history_register_bits": 8,
+        "rank_tag_candidate_bound": rank_tag_candidate_summary(len(points)),
         "ambiguous_history_groups": len(ambiguous),
         "history_conflict_edges": len(conflict_edges),
         "history_graph_bipartite": history_colors is not None,
@@ -313,16 +347,22 @@ def run_screen():
     assert gf8["collisions_after_one_history_tag"] == 0
     assert gf8["classical_inverse_pass"]
     assert gf8["classical_inverse_cases"] == 92
+    assert gf8["rank_tag_candidate_bound"] == {
+        "signatures": 14,
+        "max_histories_per_signature": 4,
+        "candidate_count_distribution": {"1": 4, "2": 6, "4": 4},
+    }
     return {
         "experiment": "exp-053-fifth-pivot-state",
         "gf8_exhaustive": gf8,
         "gf12_dqi_sample": screen_gf12_dqi_samples(),
         "decision": (
             "The one-bit tag resolves the GF(8) compact-state collisions, and "
-            "a classical five-pivot inverse decodes all collision cases plus "
-            "the sampled GF(2^12) cases. This remains classical evidence; no "
-            "reversible tag eraser, resource schedule, or official verifier "
-            "result is established."
+            "the final ranks plus tag reduce 32 histories to at most four "
+            "candidates. A classical five-pivot inverse decodes all collision "
+            "cases plus the sampled GF(2^12) cases. This remains classical "
+            "evidence; no reversible eraser, resource schedule, or official "
+            "verifier result is established."
         ),
     }
 

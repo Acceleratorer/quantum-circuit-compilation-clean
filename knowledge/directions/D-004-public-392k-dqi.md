@@ -35,13 +35,16 @@ not a measured leader cost or a candidate. The snapshot and calculation are in
 The only live follow-up is the compact-state tag eraser. Its information
 screen resolves all 46 collision groups in exhaustive GF(8) and found no
 collisions in 64 sampled valid GF(2^12) inputs, but there is no GF(2^12)
-injectivity proof or tag circuit. Kernel v31 compiled a five-pivot prefix
+injectivity proof or tag circuit. Final ranks plus tag leave at most four of
+the 32 possible histories, independent of field values; the reversible
+candidate check remains uncompiled. Kernel v31 compiled a five-pivot prefix
 retaining branch history: Q=891, T=4,500, with correct labels, clean scratch,
 and zero phase flips on 32 cases. The sentinel/recycle eraser was a no-go:
 four pivots used Q=916/T=6,044; five pivots failed scratch/phase at Q=917 and
 T=7,512. Next, build the tag-driven eraser and keep it only if the full
 resource gate and official verifier pass. No submission is ready.
 See the [exp-053 record](../../experiments/exp-053/README.md),
+[fifth-pivot state receipt](../../evals/2026-11-22-exp053-fifth-pivot-state.json),
 [v31 receipt](../../evals/2026-11-22-exp053-five-pivot-prefix-v31.json), and
 [v32 no-go receipt](../../evals/2026-11-22-exp053-sentinel-recycle-v32.json).
 

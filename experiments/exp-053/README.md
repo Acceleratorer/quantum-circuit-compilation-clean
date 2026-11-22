@@ -428,6 +428,11 @@ flips in 32 cases. Receipts:
 [v31](../../evals/2026-11-22-exp053-five-pivot-prefix-v31.json),
 [v32](../../evals/2026-11-22-exp053-sentinel-recycle-v32.json).
 
+Final ranks plus the one-bit tag reduce the 32 possible histories to at most
+four candidates across 14 signatures (candidate counts 1, 2, or 4). This
+combinatorial bound is independent of field values and narrows a reversible
+decoder design; it does not establish its gate cost or correctness.
+
 This is an information result only. It does not establish a GF(2^12) inverse,
 compile the tag/eraser, measure resources, or pass the official verifier.
 The score-equivalence gate is now `Q <= 890` and mean `T <= 215,175.99` at
