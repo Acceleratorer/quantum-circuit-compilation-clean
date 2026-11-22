@@ -2,11 +2,11 @@
 id: exp-057
 title: Four-word streaming decoder for quadratic-over-linear FMA
 task: dqi
-tests: exhaustive GF(8) prefix and tail state and matrix encoding; 2,048 seeded GF(2^12); 32-case private prefix gate screen including a1=0; 32 verifier-form prefix and tail cases; 64-case private precomputed-matrix action; 64-case coefficient-derived tail action; 64-case in-place matrix setup
+tests: exhaustive GF(8) prefix and tail state and matrix encoding; 2,048 seeded GF(2^12); 32-case private coefficient-to-prefix and prefix-to-coefficient screens including a1=0; 32 verifier-form prefix and tail cases; 64-case private precomputed-matrix action; 64-case coefficient-derived tail action; 64-case in-place matrix setup
 direction: D-004
-status: matrix-state-gate-passed_classical-66-tail-schedule-passed_prefix-to-matrix-gate-and-official-verifier-pending
-date: 2026-11-22
-result: Prefix gate passes at Q=885 and T=7,483; precomputed-matrix action at Q=873 and T=84; coefficient-derived one-symbol action at Q=889 and T=822; in-place matrix setup at Q=889 and T=558. Classical tail algebra now passes all 66 GF(2^12) points on 32 seeded verifier-form cases and all four non-prefix GF(8) points on 2,016 supported states. Compact-prefix input to a compiled matrix state, the compiled 66-symbol schedule, and the official verifier remain open.
+status: coefficient-prefix-component-gates-passed_classical-66-tail-schedule-passed_integrated-4-plus-66-schedule-and-official-verifier-pending
+date: 2026-11-23
+result: Coefficient-to-prefix gate passes at Q=885 and T=7,483; inverse prefix-to-coefficient gate passes at Q=889 and T=22,954; precomputed-matrix action at Q=873 and T=84; coefficient-derived one-symbol action at Q=889 and T=822; in-place matrix setup at Q=889 and T=558. Classical tail algebra passes all 66 GF(2^12) points on 32 seeded verifier-form cases and all four non-prefix GF(8) points on 2,016 supported states. The integrated 4+66 schedule and official verifier remain open.
 ---
 
 # exp-057: four-word streaming decoder
@@ -26,20 +26,26 @@ Run with `python experiments/exp-057/streaming_fixed_shape_decoder.py`. GF(8) ex
 
 ## Gate screen
 
-The current source passes the 32-case local Kickmix screen and private Kaggle
-kernel version 4 at `Q=885`, `T=7,483`: five qubits under the cell's 890-qubit
-gate. Both pivot paths are covered, including a valid `a1=0` case where the
-`a1` update branch is inactive. All four output words round-trip, the rank tag
-is restored, all 66 arbitrary spectator words are preserved, 36 scratch
-qubits are clean, and there are no phase flips.
+The coefficient-to-compact-prefix decoder passes the 32-case screen in
+private Kaggle kernel version 10 at `Q=885`, `T=7,483`. Both pivot paths are
+covered, including a valid `a1=0` inactive-branch case. All four output words
+round-trip, the rank tag is restored, all 66 arbitrary spectator words are
+preserved, 36 scratch qubits are clean, and there are no phase flips.
 
 The private-kernel builder embeds the helper source with its Apache `LICENSE`
 and `NOTICE`; the exact kernel source hash and run receipt are in
 [`evals/2026-11-22-exp057-private-gate-screen.json`](../../evals/2026-11-22-exp057-private-gate-screen.json).
 
-This proves only the in-place four-word prefix-state cell. The 66 spectator
-words are checked for preservation; this cell does not decode them and is not
-the integrated 4+66 schedule. No competition submission was made. The full
+The inverse compact-prefix-to-coefficient cell also passes in private kernel
+version 10 at `Q=889`, `T=22,954`, one qubit under the 890-qubit gate. It
+covers 32 cases across both pivot paths, reconstructs all four coefficients,
+preserves the rank/pivot and 66 arbitrary spectator words, leaves 40 scratch
+qubits clean, and has zero phase flips. Its receipt is
+[`exp-057 prefix-to-coefficient v10`](../../evals/2026-11-23-exp057-prefix-coefficient-v10.json).
+
+These are separate four-word/component screens. The 66 spectator words are
+checked for preservation; the cells do not decode them and are not the
+integrated 4+66 schedule. No competition submission was made. The full
 schedule and official verifier remain required before a candidate can be
 considered.
 

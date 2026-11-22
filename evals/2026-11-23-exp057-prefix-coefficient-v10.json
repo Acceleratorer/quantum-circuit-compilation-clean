@@ -1,0 +1,112 @@
+{
+  "captured_utc": "2026-11-22T17:32:47Z",
+  "experiment": "exp-057-prefix-coefficient-state",
+  "kernel": {
+    "id": "accelra/exp057-streaming-prefix-state",
+    "version": 10,
+    "visibility": "private",
+    "status": "COMPLETE",
+    "url": "https://www.kaggle.com/code/accelra/exp057-streaming-prefix-state/versions/10"
+  },
+  "source": {
+    "git_head_before_changes": "45cde24",
+    "streaming_prefix_kernel_sha256": "5BB97B4AED357BABA7A96A1CA1D4EF549B2CC6F27F9A17432A1ABA769DC501E5",
+    "private_kernel_script_sha256": "3622C7F11347F53E572F8EADE5945180941F6BDEC394A42C56CDD11CA486A774",
+    "helper_bundle_includes": [
+      "src/dqi/NOTICE",
+      "src/dqi/LICENSE"
+    ]
+  },
+  "scope": "Private component screens only. The prefix-to-coefficient cell, decoder round trip, and tail cells are not one integrated 4+66 schedule.",
+  "checks": {
+    "decoder_round_trip": {
+      "cases": 32,
+      "pivot_coverage": {
+        "a0": 31,
+        "a1": 1
+      },
+      "round_trip_errors": 0,
+      "preserved_spectator_words": 66,
+      "clean_scratch_qubits": 36,
+      "phase_flips": 0
+    },
+    "prefix_to_coefficients": {
+      "cases": 32,
+      "pivot_coverage": {
+        "c0_nonzero": 31,
+        "c0_zero": 1
+      },
+      "coefficient_errors": 0,
+      "preserved_spectator_words": 66,
+      "preserved_rank_and_pivot": true,
+      "clean_scratch_qubits": 40,
+      "phase_flips": 0
+    },
+    "tail_matrix_action": {
+      "cases": 64,
+      "output_errors": 0,
+      "preserved_payload_words": 70,
+      "preserved_rank_and_pivot": true,
+      "clean_scratch_qubits": 0,
+      "phase_flips": 0
+    },
+    "coefficient_derived_tail_action": {
+      "cases": 64,
+      "point": 4,
+      "output_errors": 0,
+      "preserved_payload_words": 70,
+      "preserved_rank_and_pivot": true,
+      "clean_scratch_qubits": 16,
+      "phase_flips": 0
+    },
+    "in_place_matrix_setup": {
+      "cases": 64,
+      "point": 4,
+      "matrix_errors": 0,
+      "b1_tag_errors": 0,
+      "preserved_payload_words": 66,
+      "preserved_rank_and_pivot": true,
+      "clean_scratch_qubits": 28,
+      "phase_flips": 0
+    },
+    "official_verifier": "NOT_RUN",
+    "competition_submission": null
+  },
+  "resources": {
+    "decoder_round_trip": {
+      "compiled_qubits": 885,
+      "width_gate": 890,
+      "toffoli_like_gates": 7483
+    },
+    "prefix_to_coefficients": {
+      "compiled_qubits": 889,
+      "width_gate": 890,
+      "qubits_below_gate": 1,
+      "toffoli_like_gates": 22954
+    },
+    "tail_matrix_action": {
+      "compiled_qubits": 873,
+      "toffoli_like_gates": 84
+    },
+    "coefficient_derived_tail_action": {
+      "compiled_qubits": 889,
+      "toffoli_like_gates": 822
+    },
+    "in_place_matrix_setup": {
+      "compiled_qubits": 889,
+      "toffoli_like_gates": 558
+    }
+  },
+  "optimization": {
+    "change": "Reuse the clean temporary field word as borrowed inverse workspace, then reuse the remaining clean borrowed words for the scale operation.",
+    "before": {
+      "compiled_qubits": 893,
+      "toffoli_like_gates": 23188
+    },
+    "after": {
+      "compiled_qubits": 889,
+      "toffoli_like_gates": 22954
+    }
+  },
+  "decision": "The prefix-to-coefficient component passes the 890-qubit gate with one qubit of margin. Integrate and verify the full 4+66 schedule with the official verifier before considering any competition submission."
+}
