@@ -1,0 +1,127 @@
+{
+  "captured_utc": "2026-11-22T18:49:48Z",
+  "experiment": "exp-057-prefix-coefficient-state",
+  "kernel": {
+    "id": "accelra/exp057-streaming-prefix-state",
+    "version": 11,
+    "visibility": "private",
+    "status": "COMPLETE",
+    "url": "https://www.kaggle.com/code/accelra/exp057-streaming-prefix-state/versions/11"
+  },
+  "source": {
+    "git_head_before_changes": "7248d9d",
+    "streaming_prefix_kernel_sha256": "921BE6DC62A39E4F14CF2818DBE78C7811A0975EC7F33F174CCF84ED18A5F197",
+    "private_kernel_script_sha256": "3882D3DA43B7A59D5476088BCC2AF4EAAB56384DE2137CA66CCD290CA0CCDE9B",
+    "helper_bundle_includes": [
+      "src/dqi/NOTICE",
+      "src/dqi/LICENSE"
+    ]
+  },
+  "checks": {
+    "decoder_round_trip": {
+      "cases": 32,
+      "pivot_coverage": {
+        "a0": 31,
+        "a1": 1
+      },
+      "round_trip_errors": 0,
+      "preserved_spectator_words": 66,
+      "clean_scratch_qubits": 36,
+      "phase_flips": 0
+    },
+    "prefix_to_coefficients": {
+      "cases": 32,
+      "pivot_coverage": {
+        "c0_nonzero": 31,
+        "c0_zero": 1
+      },
+      "coefficient_errors": 0,
+      "preserved_spectator_words": 66,
+      "preserved_rank_and_pivot": true,
+      "clean_scratch_qubits": 39,
+      "phase_flips": 0
+    },
+    "tail_matrix_action": {
+      "cases": 64,
+      "output_errors": 0,
+      "preserved_payload_words": 70,
+      "preserved_rank_and_pivot": true,
+      "clean_scratch_qubits": 0,
+      "phase_flips": 0
+    },
+    "coefficient_derived_tail_action": {
+      "cases": 64,
+      "point": 4,
+      "output_errors": 0,
+      "preserved_payload_words": 70,
+      "preserved_rank_and_pivot": true,
+      "clean_scratch_qubits": 16,
+      "phase_flips": 0
+    },
+    "in_place_matrix_setup": {
+      "cases": 64,
+      "point": 4,
+      "matrix_errors": 0,
+      "b1_tag_errors": 0,
+      "preserved_payload_words": 66,
+      "preserved_rank_and_pivot": true,
+      "clean_scratch_qubits": 28,
+      "phase_flips": 0
+    },
+    "official_verifier": "NOT_RUN",
+    "competition_submission": null
+  },
+  "resources": {
+    "decoder_round_trip": {
+      "compiled_qubits": 885,
+      "width_gate": 890,
+      "toffoli_like_gates": 7483
+    },
+    "prefix_to_coefficients": {
+      "compiled_qubits": 888,
+      "width_gate": 890,
+      "qubits_below_gate": 2,
+      "toffoli_like_gates": 9262
+    },
+    "tail_matrix_action": {
+      "compiled_qubits": 873,
+      "toffoli_like_gates": 84
+    },
+    "coefficient_derived_tail_action": {
+      "compiled_qubits": 889,
+      "toffoli_like_gates": 822
+    },
+    "in_place_matrix_setup": {
+      "compiled_qubits": 889,
+      "toffoli_like_gates": 558
+    }
+  },
+  "optimization": {
+    "change": "Replace the pivoted 2x2 inverse with a branchless fixed-pivot factorization of N/20; reuse the clean scratch field as inverse and phase-cleanup workspace.",
+    "algebra": {
+      "W0": "a0",
+      "W1": "a0+a1+1",
+      "W2": "a0+2a1+4",
+      "N00": "6*a0^2+12*a0",
+      "N01": "a0*(6*a1+10)",
+      "N11": "6*a0+6*a1^2+10*a1+12",
+      "determinant": "det(N)=20*W0*W1*W2",
+      "fixed_pivot": "u=(N00+N01)/20=6*a0*W1/20"
+    },
+    "local_factorization_screen": {
+      "seed": "0xA66057",
+      "cases": 256,
+      "determinant_errors": 0,
+      "matrix_factorization_errors": 0
+    },
+    "before": {
+      "compiled_qubits": 889,
+      "toffoli_like_gates": 22954
+    },
+    "after": {
+      "compiled_qubits": 888,
+      "toffoli_like_gates": 9262
+    }
+  },
+  "decision": "The branchless prefix-to-coefficient component passes its width, output, scratch, and phase gates. It is not an integrated 4+66 schedule; the official verifier remains required before any competition submission."
+}

@@ -357,7 +357,7 @@ def prefix_to_coefficients_inplace(
 
     xor_zero_flag(builder, d0, pivot)
     xor_constant(builder, rank, RANK_TAG)
-    tail_b_pair_map_inplace(
+    tail_b_pair_map_inplace_factored(
         builder, words, rank, pivot, ar, phase_inverse36_pivot, km
     )
 
@@ -379,6 +379,7 @@ def tail_b_pair_map_inplace(
         field.mul(field.invert(3), bit) for bit in identity
     ]
     xor_constant(builder, rank, RANK_TAG)
+
 
     first = builder.alloc_qubits(FIELD_BITS)
     temp = builder.alloc_qubits(FIELD_BITS)
@@ -665,6 +666,151 @@ def tail_b_pair_map_inplace(
     builder.free(first)
     xor_constant(builder, rank, RANK_TAG)
 
+
+def tail_b_pair_map_inplace_factored(
+    builder, words, rank, pivot, ar, phase_inverse36_pivot, km
+):
+    """Use a fixed nonzero pivot to apply the 2x2 inverse matrix branchlessly."""
+    c0, c1, a0, a1 = words
+    field = ar.field(FIELD_BITS)
+    identity = [1 << bit for bit in range(FIELD_BITS)]
+
+    def columns(value):
+        return [field.mul(value, bit) for bit in identity]
+
+    scale_u = field.mul(6, field.invert(20))
+    inverse_scale_u = field.invert(scale_u)
+    inverse_six_columns = columns(field.invert(6))
+    inverse_twenty_columns = columns(field.invert(20))
+    twenty_columns = columns(20)
+    six_columns = columns(6)
+    ten_columns = columns(10)
+    square_six_columns = [
+        field.mul(6, field.mul(bit, bit)) for bit in identity
+    ]
+
+    xor_constant(builder, rank, RANK_TAG)
+    extra = builder.alloc_qubits(3)
+    borrowed = list(rank) + [pivot] + list(extra)
+
+    def toggle_w1(target):
+        ar.linear_xor(builder, a0, target, identity)
+        ar.linear_xor(builder, a1, target, identity)
+        xor_constant(builder, target, 1)
+
+    def toggle_w2(target):
+        ar.linear_xor(builder, a0, target, identity)
+        ar.linear_xor(builder, a1, target, columns(2))
+        xor_constant(builder, target, 4)
+
+    def compute_inverse(value, target, extra_workspace=()):
+        workspace = BorrowedScratchBuilder(
+            builder, borrowed + list(extra_workspace), km
+        )
+        ar.inverse(workspace, value, target=target)
+        workspace.assert_released()
+
+    def erase_inverse(value, inverse, extra_workspace=()):
+        mask = builder.alloc_bits(FIELD_BITS)
+        workspace = BorrowedScratchBuilder(
+            builder, borrowed + list(extra_workspace), km
+        )
+        workspace.hmr(inverse, mask)
+        workspace.free(inverse)
+        phase_inverse36_pivot(workspace, value, mask)
+        workspace.free(mask)
+        workspace.assert_released()
+
+    def toggle_n01(target):
+        ar.linear_xor(builder, a1, borrowed, six_columns)
+        xor_constant(builder, borrowed, 10)
+        ar.mul_xor0(builder, a0, borrowed, target)
+        ar.linear_xor(builder, a1, borrowed, six_columns)
+        xor_constant(builder, borrowed, 10)
+
+    def toggle_n11(target):
+        ar.linear_xor(builder, a0, target, six_columns)
+        ar.linear_xor(builder, a1, target, square_six_columns)
+        ar.linear_xor(builder, a1, target, ten_columns)
+        xor_constant(builder, target, 12)
+
+    def build_u(target):
+        toggle_w1(borrowed)
+        ar.mul_xor0(builder, a0, borrowed, target)
+        ar.linear_inplace(builder, target, columns(scale_u))
+        toggle_w1(borrowed)
+
+    def unbuild_u(target):
+        ar.linear_inplace(builder, target, columns(inverse_scale_u))
+        toggle_w1(borrowed)
+        ar.mul_xor0(builder, a0, borrowed, target)
+        toggle_w1(borrowed)
+
+    # First apply the upper row factor. q=(6*a1+10)/(6*W1).
+    u = builder.alloc_qubits(FIELD_BITS)
+    inverse_u = builder.alloc_qubits(FIELD_BITS)
+    q = builder.alloc_qubits(FIELD_BITS)
+    build_u(u)
+    compute_inverse(u, inverse_u, q)
+    builder.cx(c0, c1)
+    ar.linear_xor(builder, a1, borrowed, six_columns)
+    xor_constant(builder, borrowed, 10)
+    ar.mul_xor0(builder, a0, borrowed, q)
+    ar.linear_xor(builder, a1, borrowed, six_columns)
+    xor_constant(builder, borrowed, 10)
+    scale_inplace(builder, q, inverse_u, u, borrowed, ar)
+    ar.linear_inplace(builder, q, inverse_twenty_columns)
+    ar.mul_xor0(builder, q, c1, c0)
+    ar.linear_inplace(builder, q, twenty_columns)
+    scale_inplace(builder, q, u, inverse_u, borrowed, ar)
+    ar.linear_xor(builder, a1, borrowed, six_columns)
+    xor_constant(builder, borrowed, 10)
+    ar.mul_xor0(builder, a0, borrowed, q)
+    ar.linear_xor(builder, a1, borrowed, six_columns)
+    xor_constant(builder, borrowed, 10)
+    erase_inverse(u, inverse_u, q)
+    unbuild_u(u)
+    builder.free(u)
+    builder.free(q)
+
+    # Reorder the lower factor through D: r'=z/d, where
+    # z=(N01+N11)/20, d=W2/6, and N11=6*a0+6*a1^2+10*a1+12.
+    d = builder.alloc_qubits(FIELD_BITS)
+    inverse_d = builder.alloc_qubits(FIELD_BITS)
+    r = builder.alloc_qubits(FIELD_BITS)
+    toggle_w2(d)
+    ar.linear_inplace(builder, d, inverse_six_columns)
+    compute_inverse(d, inverse_d, r)
+    toggle_n01(r)
+    toggle_n11(r)
+    scale_inplace(builder, r, inverse_d, d, borrowed, ar)
+    ar.linear_inplace(builder, r, inverse_twenty_columns)
+    ar.mul_xor0(builder, r, c0, c1)
+    ar.linear_inplace(builder, r, twenty_columns)
+    scale_inplace(builder, r, d, inverse_d, borrowed, ar)
+    toggle_n11(r)
+    toggle_n01(r)
+    scale_inplace(builder, c1, d, inverse_d, borrowed, ar)
+    erase_inverse(d, inverse_d, r)
+    ar.linear_inplace(builder, d, six_columns)
+    toggle_w2(d)
+    builder.free(d)
+
+    # Apply the first diagonal factor after both row factors.
+    u = builder.alloc_qubits(FIELD_BITS)
+    inverse_u = builder.alloc_qubits(FIELD_BITS)
+    build_u(u)
+    compute_inverse(u, inverse_u, r)
+    scale_inplace(builder, c0, u, inverse_u, borrowed, ar)
+    erase_inverse(u, inverse_u, r)
+    unbuild_u(u)
+    builder.free(u)
+    builder.free(r)
+
+    builder.swap(c0, a0)
+    builder.swap(c1, a1)
+    builder.free(extra)
+    xor_constant(builder, rank, RANK_TAG)
 
 def toggle_delta0(builder, d0, d1, a1, target, ar, columns, inverse_columns):
     ar.linear_xor(builder, d1, target, columns[10])

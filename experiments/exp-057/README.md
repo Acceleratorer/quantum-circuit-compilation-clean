@@ -2,11 +2,11 @@
 id: exp-057
 title: Four-word streaming decoder for quadratic-over-linear FMA
 task: dqi
-tests: exhaustive GF(8) prefix and tail state and matrix encoding; 2,048 seeded GF(2^12); 32-case private coefficient-to-prefix and prefix-to-coefficient screens including a1=0; 32 verifier-form prefix and tail cases; 64-case private precomputed-matrix action; 64-case coefficient-derived tail action; 64-case in-place matrix setup
+tests: exhaustive GF(8) prefix and tail state and matrix encoding; 2,048 seeded GF(2^12); 256 seeded GF(2^12) tail-matrix factorization cases; 32-case private coefficient-to-prefix and prefix-to-coefficient screens including a1=0; 32 verifier-form prefix and tail cases; 64-case private precomputed-matrix action; 64-case coefficient-derived tail action; 64-case in-place matrix setup
 direction: D-004
-status: coefficient-prefix-component-gates-passed_classical-66-tail-schedule-passed_integrated-4-plus-66-schedule-and-official-verifier-pending
+status: coefficient-prefix-component-gates-passed_classical-66-tail-schedule-passed_branchless-prefix-inverse-v11-passed_integrated-4-plus-66-schedule-and-official-verifier-pending
 date: 2026-11-23
-result: Coefficient-to-prefix gate passes at Q=885 and T=7,483; inverse prefix-to-coefficient gate passes at Q=889 and T=22,954; precomputed-matrix action at Q=873 and T=84; coefficient-derived one-symbol action at Q=889 and T=822; in-place matrix setup at Q=889 and T=558. Classical tail algebra passes all 66 GF(2^12) points on 32 seeded verifier-form cases and all four non-prefix GF(8) points on 2,016 supported states. The integrated 4+66 schedule and official verifier remain open.
+result: Coefficient-to-prefix gate passes at Q=885 and T=7,483; branchless inverse prefix-to-coefficient gate passes at Q=888 and T=9,262; precomputed-matrix action at Q=873 and T=84; coefficient-derived one-symbol action at Q=889 and T=822; in-place matrix setup at Q=889 and T=558. Classical tail algebra passes all 66 GF(2^12) points on 32 seeded verifier-form cases and all four non-prefix GF(8) points on 2,016 supported states. The integrated 4+66 schedule and official verifier remain open.
 ---
 
 # exp-057: four-word streaming decoder
@@ -36,12 +36,27 @@ The private-kernel builder embeds the helper source with its Apache `LICENSE`
 and `NOTICE`; the exact kernel source hash and run receipt are in
 [`evals/2026-11-22-exp057-private-gate-screen.json`](../../evals/2026-11-22-exp057-private-gate-screen.json).
 
-The inverse compact-prefix-to-coefficient cell also passes in private kernel
-version 10 at `Q=889`, `T=22,954`, one qubit under the 890-qubit gate. It
-covers 32 cases across both pivot paths, reconstructs all four coefficients,
-preserves the rank/pivot and 66 arbitrary spectator words, leaves 40 scratch
-qubits clean, and has zero phase flips. Its receipt is
-[`exp-057 prefix-to-coefficient v10`](../../evals/2026-11-23-exp057-prefix-coefficient-v10.json).
+The inverse compact-prefix-to-coefficient cell first passed in private kernel
+version 10 at `Q=889`, `T=22,954`. Version 11 replaces its pivoted 2x2 map
+with a branchless factorization and passes at `Q=888`, `T=9,262`, two qubits
+under the width gate. Across 32 cases, it reconstructs all four coefficients,
+preserves the rank/pivot and 66 arbitrary spectator words, leaves 39 scratch
+qubits clean, and has zero phase flips. The v10 baseline receipt is
+[`exp-057 prefix-to-coefficient v10`](../../evals/2026-11-23-exp057-prefix-coefficient-v10.json);
+the v11 result is
+[`exp-057 prefix-to-coefficient v11`](../../evals/2026-11-23-exp057-prefix-coefficient-v11.json).
+
+For `W0=a0`, `W1=a0+a1+1`, and `W2=a0+2a1+4`, the checked inverse matrix is
+`N/20`, where `N00=6a0^2+12a0`, `N01=a0(6a1+10)`, and
+`N11=6a0+6a1^2+10a1+12`. The factorization uses
+`u=(N00+N01)/20=6a0*W1/20`, which is nonzero on the supported domain because
+`A(0)` and `A(1)` are nonzero. A seeded local screen checked the determinant
+and factorization on 256 GF(2^12) cases; the unit test is
+[`test_exp057_tail_map_factorization.py`](../../tests/test_exp057_tail_map_factorization.py).
+
+This is still a four-word component screen. It does not implement the
+integrated 4+66 schedule or run the official DQI verifier. The complete v11
+receipt and run log record that scope explicitly.
 
 These are separate four-word/component screens. The 66 spectator words are
 checked for preservation; the cells do not decode them and are not the
