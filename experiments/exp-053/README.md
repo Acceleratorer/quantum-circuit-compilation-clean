@@ -6,7 +6,7 @@ tests: prior GF(8) and GF(2^12) screens; private Kaggle kernel screens through v
 direction: D-004
 status: four_pivot_prefix_meets_qubit_gate
 date: 2026-11-22
-result: Kernel v30 four-pivot prefix passes 32 cases at Q=890, T=3,032. A fifth-pivot tag resolves exhaustive GF(8) state collisions and has zero collisions in 64 sampled GF(2^12) cases; its circuit and full 4+66 integration remain open.
+result: v30 four-pivot prefix passes at Q=890/T=3,032. v31 five-pivot history prefix passes 32 cases at Q=891/T=4,500. v32 sentinel/recycle erasure misses width at four pivots and fails cleanup/phase at five; the compact tag eraser remains open.
 ---
 
 # Pivot-normalized FMA recurrence
@@ -418,6 +418,15 @@ normalized low row, and final ranks has 46 collision groups, each of size two.
 The Boolean tag `branch[1] AND NOT branch[4]` makes all labels unique; no
 single branch bit or fixed parity does. A seeded sample of 32 valid
 GF(2^12) DQI inputs at each of weights 31 and 35 found no collisions.
+
+The branch-retaining prefix compiled in private kernel v31: 32 arbitrary
+GF(2^12) cases matched the recurrence with clean scratch and zero phase flips,
+at Q=891 and T=4,500. It misses the Q gate by one qubit. The sentinel/recycle
+branch-erasure variant is closed: v32 measured Q=916/T=6,044 for four pivots;
+its five-pivot form had Q=917/T=7,512, two dirty scratch qubits, and 15 phase
+flips in 32 cases. Receipts:
+[v31](../../evals/2026-11-22-exp053-five-pivot-prefix-v31.json),
+[v32](../../evals/2026-11-22-exp053-sentinel-recycle-v32.json).
 
 This is an information result only. It does not establish a GF(2^12) inverse,
 compile the tag/eraser, measure resources, or pass the official verifier.

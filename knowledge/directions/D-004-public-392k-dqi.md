@@ -32,14 +32,18 @@ leaves only `13,101T` for all omitted work. This is score-equivalence math,
 not a measured leader cost or a candidate. The snapshot and calculation are in
 [`evals/2026-11-22-live-leaderboard-095757Z.json`](../../evals/2026-11-22-live-leaderboard-095757Z.json).
 
-The only new lead kept open is exp-053's fifth-pivot information screen: one
-Boolean tag removed every collision in exhaustive GF(8), and 64 sampled valid
-GF(2^12) inputs had no collisions. There is no tag circuit or GF(2^12)
-injectivity proof. Next, test this one tag against a reversible encoder and the
-full resource gate; close it if the proof, `Q <= 890`, `T <= 215,175.99`, or
-official-verifier gate fails. No submission is ready.
-See [`experiments/exp-053`](../../experiments/exp-053/README.md) and the
-[screen receipt](../../evals/2026-11-22-exp053-fifth-pivot-state.json).
+The only live follow-up is the compact-state tag eraser. Its information
+screen resolves all 46 collision groups in exhaustive GF(8) and found no
+collisions in 64 sampled valid GF(2^12) inputs, but there is no GF(2^12)
+injectivity proof or tag circuit. Kernel v31 compiled a five-pivot prefix
+retaining branch history: Q=891, T=4,500, with correct labels, clean scratch,
+and zero phase flips on 32 cases. The sentinel/recycle eraser was a no-go:
+four pivots used Q=916/T=6,044; five pivots failed scratch/phase at Q=917 and
+T=7,512. Next, build the tag-driven eraser and keep it only if the full
+resource gate and official verifier pass. No submission is ready.
+See the [exp-053 record](../../experiments/exp-053/README.md),
+[v31 receipt](../../evals/2026-11-22-exp053-five-pivot-prefix-v31.json), and
+[v32 no-go receipt](../../evals/2026-11-22-exp053-sentinel-recycle-v32.json).
 
 ## 2026-11-21 live leaderboard refresh
 

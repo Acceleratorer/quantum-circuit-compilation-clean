@@ -1,0 +1,54 @@
+{
+  "captured_utc": "2026-11-22T10:35:15Z",
+  "experiment": "exp-053",
+  "kernel": {
+    "id": "accelra/exp053-inplace-ratio-history",
+    "version": 31,
+    "visibility": "private",
+    "url": "https://www.kaggle.com/code/accelra/exp053-inplace-ratio-history/versions/31",
+    "status": "COMPLETE"
+  },
+  "execution": {
+    "local_source": "experiments/exp-053/inplace_ratio_history.py",
+    "local_source_sha256": "ba0aeca158fa6b68090411cc9b666d70e0ff76d5b338dad8498315e79657df7e",
+    "built_kernel_source": "tmp/exp053-v31-five-pivot/exp053-inplace-ratio-history.py",
+    "built_kernel_source_sha256": "a422fa6edd6695e4b60813cb8f726b18beff33415b2b0ac2c578e6b59862f1ae",
+    "arithmetic_helper": "src/dqi/pro_q2_897/exp/arithmetic/field.py",
+    "arithmetic_helper_sha256": "c1b8b2ff583ffd5997856605c35d37f7116aa5811e52a3ce04a1ae7215d381c3",
+    "push_command": "kaggle kernels push --path tmp/exp053-v31-five-pivot",
+    "output_command": "kaggle kernels output accelra/exp053-inplace-ratio-history/31 --path tmp/exp053-v31-output",
+    "raw_kernel_log": "tmp/exp053-v31-output/exp053-inplace-ratio-history.log",
+    "raw_kernel_log_sha256": "d3af9bbe1449528435a3094ad2b33c3dd1f7e7f117f35346223af7901361a58f",
+    "normalized_kernel_output": "experiments/exp-053/logs/kernel-v31-output.json",
+    "normalized_kernel_output_sha256": "68144bcd23f489475a384246266a3ea0c13d7e5348f908cc27adb34f2853029f"
+  },
+  "scope": "Compiled the five-pivot measurement-recycle prefix for arbitrary five-word GF(2^12) inputs. It retains the five branch-history bits and does not include a tag eraser or the full 4+66 schedule.",
+  "checks": {
+    "cases": 32,
+    "output_labels_match_reference": true,
+    "branch_history_matches_reference": true,
+    "other_payload_preserved": true,
+    "scratch_clean": true,
+    "clean_scratch_qubits": 41,
+    "phase_flips": 0
+  },
+  "resources": {
+    "four_pivot_baseline": {
+      "compiled_qubits": 890,
+      "toffoli_like_gates": 3032
+    },
+    "five_pivot_prefix": {
+      "compiled_qubits": 891,
+      "qubit_limit": 890,
+      "qubits_over_limit": 1,
+      "toffoli_like_gates": 4500,
+      "gate_to_gate_delta": 1468,
+      "mean_toffoli_score_gate": 215175.9873163247
+    },
+    "rank_history_register_bits": 10
+  },
+  "official_verifier_run": false,
+  "competition_submission": null,
+  "result": "PASS_SCREEN_Q_FAIL",
+  "decision": "The five-pivot prefix is reversible on the 32 simulated cases with clean scratch and no phase flips, but Q=891 exceeds the 890-qubit gate by one even before branch-history erasure. Keep it only as a baseline for the compact-state tag eraser; it is not a candidate."
+}

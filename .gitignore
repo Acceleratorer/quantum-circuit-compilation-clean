@@ -12,6 +12,7 @@ kaggle/.cache/
 kaggle/staging/
 /experiments/*/external/
 /tmp/exp057_streaming_prefix_private_*/
+/tmp/exp053-*
 
 # Python
 .venv/

@@ -1,11 +1,19 @@
 {
-  "captured_utc": "2026-11-22T10:01:24Z",
-  "decision": "The one-bit tag branch[1] AND NOT branch[4] resolves the GF(8) compact-state collisions. This is an information lead only; no reversible eraser, gate count, width schedule, or official verifier result is established.",
+  "captured_utc": "2026-11-22T10:46:44Z",
+  "classical_inverse": {
+    "algorithm": "Search all 32 branch histories, rebuild the normalized basis and ranks, decode the samples, then accept only a history whose forward recurrence reproduces the supplied compact state.",
+    "gf12_sample_cases": 64,
+    "gf12_sample_cases_passed": true,
+    "gf8_collision_cases": 92,
+    "gf8_collision_cases_passed": true,
+    "scope": "Tests the constructive classical decoder on all GF(8) collision inputs and 64 sampled valid GF(2^12) inputs; it does not prove all GF(2^12) states."
+  },
+  "decision": "The one-bit tag resolves the GF(8) compact-state collisions, and a classical five-pivot inverse decodes all collision cases plus the sampled GF(2^12) cases. This remains classical evidence; no reversible tag eraser, resource schedule, or official verifier result is established.",
   "execution": {
-    "captured_output_sha256_before_receipt_metadata": "beffc50805cfc2536c648a100530d682ebef0d4687af9a076b3b649eb006c83b",
+    "captured_output_sha256_before_receipt_metadata": "826a1b7b68df2345fd9c431f5a58adecdb0e92aaff39068da3f45be16ce0ab65",
     "command": "..\\..\\.venv\\Scripts\\python.exe -I experiments/exp-053/fifth_pivot_state.py",
     "source": "experiments/exp-053/fifth_pivot_state.py",
-    "source_sha256": "75402093db3b1adcbed2a247bd45b25a02de2934a52962c7af2d62818d003c65"
+    "source_sha256": "0cd57dfc6babc13d46c6f6304994ea4d9a4eb3cc8e0354fa84925e544496810c"
   },
   "experiment": "exp-053-fifth-pivot-state",
   "gf12_dqi_sample": {
@@ -13,12 +21,16 @@
     "per_weight": {
       "31": {
         "ambiguous_history_keys": 0,
+        "classical_inverse_cases": 32,
+        "classical_inverse_pass": true,
         "distinct_compact_states": 32,
         "noninjective_state_keys": 0,
         "samples": 32
       },
       "35": {
         "ambiguous_history_keys": 0,
+        "classical_inverse_cases": 32,
+        "classical_inverse_pass": true,
         "distinct_compact_states": 32,
         "noninjective_state_keys": 0,
         "samples": 32
@@ -29,6 +41,8 @@
   },
   "gf8_exhaustive": {
     "ambiguous_history_groups": 46,
+    "classical_inverse_cases": 92,
+    "classical_inverse_pass": true,
     "collision_groups": 46,
     "collisions_after_one_history_tag": 0,
     "compact_state_labels": 32722,
@@ -48,5 +62,5 @@
     "single_branch_bits_that_resolve_all": [],
     "single_fixed_parity_masks_that_resolve_all": []
   },
-  "promotion_gate": "Do not integrate or submit from this screen alone. Require a GF(2^12) reversibility argument or proof, compiled correctness/phase/cleanup checks, Q <= 890, mean T <= 215175.987 at R=1.1912605, and a PASS from the official verifier."
+  "promotion_gate": "The inverse is classical only. Build its reversible circuit and compact-state/tag eraser, then require Q <= 890, mean T <= 215175.987 at R=1.1912605, the complete 4+66 schedule, and official-verifier PASS."
 }

@@ -48,6 +48,63 @@ def history_graph_coloring(edges):
     return colors
 
 
+def history_tag(history):
+    return ((history >> 1) & 1) & (1 - ((history >> 4) & 1))
+
+
+def basis_for_history(ratios, history, points, multiply):
+    basis = [[[1], [0]], [[0], [1]]]
+    rank1, rank2 = 0, 1
+    for pivot, point in enumerate(points):
+        ratio = ratios[pivot]
+        if (history >> pivot) & 1:
+            step = [[[ratio], [1]], [[point, 1], [0]]]
+            rank1, rank2 = rank2, rank1 + 2
+        else:
+            step = [[[1], [ratio]], [[0], [point, 1]]]
+            rank2 += 2
+        basis = fma.matrix_mul(step, basis, multiply)
+    return basis, (rank1, rank2)
+
+
+def decode_compact_state(ratios, low_row, ranks, tag, points, multiply, modulus, degree):
+    """Recover samples by searching the 32 possible five-pivot histories."""
+    if len(points) != 5:
+        raise ValueError("the compact tag decoder is defined for five pivots")
+
+    matches = []
+    for history in range(1 << len(points)):
+        if history_tag(history) != tag:
+            continue
+        basis, candidate_ranks = basis_for_history(
+            ratios, history, points, multiply
+        )
+        if candidate_ranks != ranks:
+            continue
+        if low_row_key(basis, multiply, modulus, degree) == low_row:
+            branches = tuple(bool(history >> pivot & 1) for pivot in range(len(points)))
+            try:
+                samples = nf.decode_replayed_samples(
+                    ratios, branches, points, modulus, degree
+                )
+            except ValueError:
+                continue
+            state = nf.normalized_state(
+                samples, points, multiply, modulus, degree
+            )
+            if (
+                state[2] == history
+                and state[5] == ratios
+                and state[6] == ranks
+                and low_row_key(state[4], multiply, modulus, degree) == low_row
+            ):
+                matches.append((history, samples))
+
+    if len(matches) != 1:
+        raise ValueError(f"compact state has {len(matches)} matching histories")
+    return matches[0]
+
+
 def screen_gf8():
     degree, modulus = 3, 0b1011
     points = tuple(range(5))
@@ -72,10 +129,27 @@ def screen_gf8():
             )
     history_colors = history_graph_coloring(conflict_edges)
     tagged_fibers = defaultdict(set)
+    decoder_cases = 0
     for key, inputs in fibers.items():
         for data, history in inputs:
-            tag = ((history >> 1) & 1) & (1 - ((history >> 4) & 1))
+            tag = history_tag(history)
             tagged_fibers[(key, tag)].add(data)
+        if len(inputs) > 1:
+            ratios, low_row, ranks = key
+            for data, history in inputs:
+                decoded_history, decoded_data = decode_compact_state(
+                    ratios,
+                    low_row,
+                    ranks,
+                    history_tag(history),
+                    points,
+                    multiply,
+                    modulus,
+                    degree,
+                )
+                assert decoded_history == history
+                assert decoded_data == data
+                decoder_cases += 1
 
     single_branch_bits = [
         bit
@@ -114,6 +188,8 @@ def screen_gf8():
         "ambiguous_history_groups": len(ambiguous),
         "history_conflict_edges": len(conflict_edges),
         "history_graph_bipartite": history_colors is not None,
+        "classical_inverse_cases": decoder_cases,
+        "classical_inverse_pass": decoder_cases == 92,
         "one_bit_history_tag": "branch[1] AND NOT branch[4] (zero-based pivots)",
         "single_branch_bits_that_resolve_all": single_branch_bits,
         "single_fixed_parity_masks_that_resolve_all": [
@@ -159,6 +235,7 @@ def screen_gf12_dqi_samples(per_weight=32):
 
     for weight in (31, 35):
         fibers = defaultdict(set)
+        decoder_cases = 0
         for sample_index in range(per_weight):
             locations = rng.sample(range(1, 1 << degree), weight)
             magnitudes = [rng.randrange(1, 1 << degree) for _ in locations]
@@ -185,9 +262,24 @@ def screen_gf12_dqi_samples(per_weight=32):
                 state[6],
             )
             fibers[key].add((data, state[2]))
+            decoded_history, decoded_data = decode_compact_state(
+                key[0],
+                key[1],
+                key[2],
+                history_tag(state[2]),
+                points[:5],
+                multiply,
+                modulus,
+                degree,
+            )
+            assert decoded_history == state[2]
+            assert decoded_data == data
+            decoder_cases += 1
 
         results[str(weight)] = {
             "samples": per_weight,
+            "classical_inverse_cases": decoder_cases,
+            "classical_inverse_pass": decoder_cases == per_weight,
             "distinct_compact_states": len(fibers),
             "noninjective_state_keys": sum(
                 len(inputs) > 1 for inputs in fibers.values()
@@ -219,15 +311,18 @@ def run_screen():
     assert gf8["single_fixed_parity_masks_that_resolve_all"] == []
     assert gf8["labels_after_one_history_tag"] == 32768
     assert gf8["collisions_after_one_history_tag"] == 0
+    assert gf8["classical_inverse_pass"]
+    assert gf8["classical_inverse_cases"] == 92
     return {
         "experiment": "exp-053-fifth-pivot-state",
         "gf8_exhaustive": gf8,
         "gf12_dqi_sample": screen_gf12_dqi_samples(),
         "decision": (
-            "The one-bit tag branch[1] AND NOT branch[4] resolves the GF(8) "
-            "compact-state collisions. This is an information lead only; "
-            "no reversible eraser, gate count, width schedule, or official "
-            "verifier result is established."
+            "The one-bit tag resolves the GF(8) compact-state collisions, and "
+            "a classical five-pivot inverse decodes all collision cases plus "
+            "the sampled GF(2^12) cases. This remains classical evidence; no "
+            "reversible tag eraser, resource schedule, or official verifier "
+            "result is established."
         ),
     }
 

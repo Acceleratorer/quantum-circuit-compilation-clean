@@ -1,4 +1,4 @@
-"""Compile the in-place sample eraser for four pivot ratio/history labels.
+"""Compile the in-place sample eraser for normalized FMA prefix labels.
 
 Run the gate circuit only in a private Kaggle kernel.  The circuit consumes a
 sample word by XORing the sample decoded from the pivot ratios and branch
@@ -178,8 +178,29 @@ def xor_rank_order(builder, rank1, step, target):
     elif step == 3:
         builder.x(target)
         builder.cx(rank1[2], target)
+    elif step == 4:
+        if len(rank1) < 4:
+            raise ValueError("pivot 4 requires a four-bit rank register")
+        # Before pivot 4, rank1 + rank2 == 9, so rank1 < rank2 iff rank1 <= 4.
+        # Toggle for rank1 < 8, then cancel the values 5, 6, and 7.
+        builder.x(target)
+        builder.cx(rank1[3], target)
+        low_or = builder.alloc_qubits(1)[0]
+        builder.cx(rank1[0], low_or)
+        builder.cx(rank1[1], low_or)
+        builder.init_and(rank1[0], rank1[1], low_or)
+        high_and = builder.alloc_qubits(1)[0]
+        builder.x(rank1[3])
+        builder.init_and(rank1[3], rank1[2], high_and)
+        builder.ccx(high_and, low_or, target)
+        builder.del_and(rank1[3], rank1[2], high_and)
+        builder.x(rank1[3])
+        builder.del_and(rank1[0], rank1[1], low_or)
+        builder.cx(rank1[1], low_or)
+        builder.cx(rank1[0], low_or)
+        builder.free([low_or, high_and])
     else:
-        raise ValueError("the prefix encoder supports four pivots")
+        raise ValueError("the prefix encoder supports at most five pivots")
 
 
 def append_branch_bit(builder, pair_d, pair_g, rank1, step, branch):
@@ -426,27 +447,32 @@ def build_prefix_encoder(
     measurement_erase=False,
     measurement_recycle=False,
 ):
-    """Build the four-pivot map: four samples -> ratios plus branch history."""
+    """Build a short prefix map: samples -> ratios plus branch history."""
     if measurement_erase and (not in_place or sentinel_labels):
         raise ValueError("measurement erasure requires the in-place ratio/history map")
     if measurement_recycle and (
-        not in_place or sentinel_labels or measurement_erase
+        not in_place or measurement_erase
     ):
         raise ValueError("measurement recycling requires the in-place ratio/history map")
     km, ar = load_gate_arithmetic()
     builder = km.CircuitBuilder()
+    if len(POINTS) > 5:
+        raise ValueError("the compiled prefix encoder supports at most five pivots")
     payload = builder.alloc_qubits(840)
-    rank_history = builder.alloc_qubits(8)
-    rank1 = list(rank_history[:3])
-    branches = list(rank_history[RANK_HISTORY_OFFSET : RANK_HISTORY_OFFSET + 4])
-    spare_rank_bit = rank_history[7]
+    rank_bits = max(3, (2 * len(POINTS) - 1).bit_length())
+    rank_history = builder.alloc_qubits(rank_bits + len(POINTS) + 1)
+    rank1 = list(rank_history[:rank_bits])
+    branch_start = rank_bits
+    branches = list(rank_history[branch_start : branch_start + len(POINTS)])
+    spare_rank_bit = rank_history[branch_start + len(POINTS)]
     ratios = [payload[index * FIELD_BITS : (index + 1) * FIELD_BITS]
-              for index in range(4)]
+              for index in range(len(POINTS))]
     samples = (
         ratios
         if in_place
-        else [payload[(4 + index) * FIELD_BITS : (5 + index) * FIELD_BITS]
-              for index in range(4)]
+        else [payload[(len(POINTS) + index) * FIELD_BITS :
+                      (len(POINTS) + index + 1) * FIELD_BITS]
+              for index in range(len(POINTS))]
     )
     ratio_temp = (
         builder.alloc_qubits(FIELD_BITS)
@@ -482,8 +508,8 @@ def build_prefix_encoder(
         append_branch_bit(builder, pair_d, pair_g, rank1, pivot, branches[pivot])
         reflect_rank1(builder, rank1, pivot, branches[pivot])
 
-        # Rank1 is determined by the branch prefix. Clear its three bits and
-        # borrow them, plus the unused high bit, for the in-place inverse.
+        # Rank1 is determined by the branch prefix. Clear its bits and borrow
+        # them, plus the spare rank bit, for the in-place inverse.
         for step in reversed(range(pivot + 1)):
             reflect_rank1(builder, rank1, step, branches[step])
         builder.free(rank1)
@@ -505,7 +531,7 @@ def build_prefix_encoder(
         ar.inverse_inplace_reverse(builder, pair_g, inverse_transcript)
         builder.cswap(branches[pivot], pair_d, pair_g)
 
-        rank1 = list(builder.alloc_qubits(3))
+        rank1 = list(builder.alloc_qubits(rank_bits))
         spare_rank_bit = builder.alloc_qubits(1)[0]
         for step in range(pivot + 1):
             reflect_rank1(builder, rank1, step, branches[step])
@@ -627,7 +653,7 @@ def screen_prefix_encoder(
     field = km.GF2Field(FIELD_BITS)
     rng = Random(0xF1A05304)
     cases = [
-        (0, 0, 0, 0)
+        tuple(0 for _ in POINTS)
         if index == 0
         else tuple(rng.randrange(1 << FIELD_BITS) for _ in POINTS)
         for index in range(case_count)
@@ -646,15 +672,15 @@ def screen_prefix_encoder(
         for index, data in enumerate(cases):
             for pivot, value in enumerate(data):
                 word_values[pivot][index] = value
-        untouched_start = 4
+        untouched_start = len(POINTS)
     else:
         word_values = [[0] * len(cases) for _ in range(70)]
         for index, data in enumerate(cases):
             for pivot, value in enumerate(data):
-                word_values[4 + pivot][index] = value
-            for word in range(8, 70):
+                word_values[len(POINTS) + pivot][index] = value
+            for word in range(2 * len(POINTS), 70):
                 word_values[word][index] = rng.randrange(1 << FIELD_BITS)
-        untouched_start = 8
+        untouched_start = 2 * len(POINTS)
 
     sim = km.Simulator(batch_size=len(cases), debug_print=False, seed=0)
     sim.use_same_registers_as(circuit)
@@ -665,7 +691,8 @@ def screen_prefix_encoder(
         )
     rank_values = [rank1_after(branches) for branches in expected_branches]
     sim.write_across_shots(
-        registers["rank1"], bit_columns([0] * len(cases), 3)
+        registers["rank1"],
+        bit_columns([0] * len(cases), len(registers["rank1"])),
     )
     for pivot in range(len(registers["branches"])):
         sim.write_across_shots(
@@ -678,7 +705,7 @@ def screen_prefix_encoder(
     sim.do(circuit)
 
     output_mismatches = []
-    for pivot in range(4):
+    for pivot in range(len(registers["ratios"])):
         actual = sim.read_across_shots(registers["ratios"][pivot])
         expected = bit_columns(
             [words[pivot] for words in expected_output], FIELD_BITS
@@ -727,7 +754,7 @@ def screen_prefix_encoder(
         )
     assert np.array_equal(
         sim.read_across_shots(registers["rank1"]),
-        bit_columns(rank_values, 3),
+        bit_columns(rank_values, len(registers["rank1"])),
     )
     assert not np.any(sim.read_across_shots(registers["spare_rank_bit"]))
 
@@ -771,14 +798,24 @@ def screen_inplace_prefix_encoder(
     use_sentinel_labels=False,
     measurement_erase=False,
     measurement_recycle=False,
+    point_count=None,
 ):
-    return screen_prefix_encoder(
-        case_count,
-        in_place=True,
-        use_sentinel_labels=use_sentinel_labels,
-        measurement_erase=measurement_erase,
-        measurement_recycle=measurement_recycle,
-    )
+    global POINTS
+    original_points = POINTS
+    if point_count is not None:
+        if not 1 <= point_count <= 5:
+            raise ValueError("point_count must be between 1 and 5")
+        POINTS = tuple(range(point_count))
+    try:
+        return screen_prefix_encoder(
+            case_count,
+            in_place=True,
+            use_sentinel_labels=use_sentinel_labels,
+            measurement_erase=measurement_erase,
+            measurement_recycle=measurement_recycle,
+        )
+    finally:
+        POINTS = original_points
 
 
 def append_sample_eraser(
@@ -820,7 +857,8 @@ def append_sample_eraser(
     if phase_only and (sample is not None or phase_mask is None):
         raise ValueError("phase-only erasure requires a phase mask and no sample target")
     if sample is None and not phase_only:
-        sample = payload[(4 + pivot) * FIELD_BITS : (5 + pivot) * FIELD_BITS]
+        sample = payload[(len(POINTS) + pivot) * FIELD_BITS :
+                         (len(POINTS) + pivot + 1) * FIELD_BITS]
     one = ar.field(FIELD_BITS)
 
     # The branch bit chooses projective coordinates [r:1] or [1:r].
@@ -1027,12 +1065,28 @@ def run_screen():
     measurement_recycle_result = screen_inplace_prefix_encoder(
         measurement_recycle=True
     )
+    five_pivot_measurement_recycle_result = screen_inplace_prefix_encoder(
+        measurement_recycle=True,
+        point_count=5,
+    )
+    recycled_sentinel_result = screen_inplace_prefix_encoder(
+        use_sentinel_labels=True,
+        measurement_recycle=True,
+    )
+    five_pivot_recycled_sentinel_result = screen_inplace_prefix_encoder(
+        use_sentinel_labels=True,
+        measurement_recycle=True,
+        point_count=5,
+    )
     results = (
         clean_slot_result,
         inplace_result,
         sentinel_inplace_result,
         mbu_inplace_result,
         measurement_recycle_result,
+        five_pivot_measurement_recycle_result,
+        recycled_sentinel_result,
+        five_pivot_recycled_sentinel_result,
     )
     return {
         "experiment": "exp-053-inplace-ratio-history-prefix-encoder",
@@ -1051,12 +1105,19 @@ def run_screen():
         "full_input_sentinel_label_encoder": sentinel_inplace_result,
         "full_input_mbu_prefix_encoder": mbu_inplace_result,
         "full_input_measurement_recycle_prefix_encoder": measurement_recycle_result,
+        "five_pivot_measurement_recycle_prefix_encoder": (
+            five_pivot_measurement_recycle_result
+        ),
+        "four_pivot_recycled_sentinel_prefix_encoder": recycled_sentinel_result,
+        "five_pivot_recycled_sentinel_prefix_encoder": (
+            five_pivot_recycled_sentinel_result
+        ),
         "scope": (
-            "Compiled the explicit ratio/history baseline and a four-pivot "
-            "sentinel-label variant with branch erasure for 32 arbitrary "
-            "GF(2^12) four-sample inputs. It checks label agreement, final rank, "
-            "sample cleanup, payload preservation, phase, and scratch. It does "
-            "not establish the complete 4+66 schedule."
+            "Compiled four- and five-pivot ratio/history prefixes for 32 "
+            "arbitrary GF(2^12) inputs. Checks labels, branch history, final "
+            "rank, payload, scratch, and phase. Also combines measurement "
+            "recycling with sentinel-label branch erasure for four and five "
+            "pivots. It does not establish the complete 4+66 schedule."
         ),
     }
 

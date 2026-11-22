@@ -1,15 +1,12 @@
-# Exp-053 fifth-pivot state screen — 2026-11-22T10:01:24Z
+# Exp-053 fifth-pivot state and inverse screen — 2026-11-22T10:46:44Z
 
-## Result
+Exhaustive enumeration covers all 32,768 five-word GF(8) inputs. The compact key (five ratios, normalized low row, and final ranks) has 46 collision groups of size two. The tag `branch[1] AND NOT branch[4]` separates all of them.
 
-Exhaustive enumeration of all 32,768 five-word GF(8) inputs found 46 collision groups in the compact key (five ratios, normalized low row, and final ranks), with at most 2 inputs per key. The single Boolean tag branch[1] AND NOT branch[4] made all 32,768 labels unique; no single branch bit or fixed parity did so.
+A constructive classical inverse searches the 32 possible branch histories, rebuilds each candidate basis/rank state, decodes its samples, and accepts only a history whose forward recurrence reproduces the supplied state. It recovered all 92 inputs from the GF(8) collision groups.
 
-A seeded GF(2^12) check found no collisions in 32 valid weight-31 and 32 valid weight-35 DQI samples. This is sample compatibility evidence, not a full-field proof.
+The same decoder recovered 32 of 32 sampled valid GF(2^12) weight-31 inputs and 32 of 32 weight-35 inputs. This is not a GF(2^12) proof or a reversible circuit.
 
-## Gate
+The tag eraser, Q/T measurement, complete 4+66 schedule, and official verifier remain open. The current score-equivalence ceiling is Q=890 and mean T<=215,175.987 at R=1.1912605.
 
-This is an information screen only. There is no reversible tag/eraser circuit, resource measurement, integrated 4+66 schedule, or official-verifier run. Keep it as one lead; promote it only after those gates pass. The current score-equivalence ceiling is Q=890, mean T<=215,175.99 at R=1.1912605.
-
-Reproduce with the Python command recorded in the receipt.
-
-Receipt: [evals/2026-11-22-exp053-fifth-pivot-state.json](../evals/2026-11-22-exp053-fifth-pivot-state.json). Source SHA-256: 75402093db3b1adcbed2a247bd45b25a02de2934a52962c7af2d62818d003c65.
+Receipt: [evals/2026-11-22-exp053-fifth-pivot-state.json](../evals/2026-11-22-exp053-fifth-pivot-state.json)
+Source SHA-256: 0cd57dfc6babc13d46c6f6304994ea4d9a4eb3cc8e0354fa84925e544496810c
