@@ -3,7 +3,7 @@ id: D-004
 title: Improve the source-owned DQI decoder with a new key-equation algorithm
 status: active
 tasks: dqi, all
-last_checked: 2026-11-22
+last_checked: 2026-11-23
 ---
 
 # D-004: improve the source-owned DQI decoder
@@ -53,6 +53,23 @@ and the official verifier. No submission is ready. See the
 [matrix-action receipt](../../evals/2026-11-22-exp057-tail-matrix-gate.json),
 [exp-057 record](../../experiments/exp-057/README.md), and prior
 [exp-053 branch-tag record](../../experiments/exp-053/README.md).
+
+## 2026-11-23 exp-057 v15 integrated checksum screen
+
+Private kernel v15 composes the compact-prefix decoder, point-4 matrix setup,
+and all 66 tail actions at `Q=889`, `T=19,004`. Its 32 cases cover both
+prefix pivots; matrix/tag/checksum errors and phase flips are zero, all tail
+words are preserved, and 12 scratch qubits are clean. This verifies the
+integrated checksum cell only. It does not emit the full FMA basis or DQI
+phase, restore the prefix/matrix state, or pass the official verifier. The
+`202,075T` projection remains unvalidated as a complete circuit; v15's cost
+must not be treated as additive or overlapping without a composed gate ledger.
+Continue this single lane by turning the 66 streamed pair actions into the
+state consumed by the tail key-equation solve, then measure output/phase and
+reversible cleanup before running the official verifier. See the
+[v15 receipt](../../evals/2026-11-23-exp057-prefix-matrix-stream-v15.json),
+[log](../../log/2026-11-23-exp057-prefix-matrix-stream-v15.md), and
+[milestone](../../milestone/2026-11-23-exp057-prefix-matrix-stream-v15.md).
 
 ## 2026-11-21 live leaderboard refresh
 

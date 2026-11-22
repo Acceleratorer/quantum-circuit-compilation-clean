@@ -14,13 +14,13 @@ This directory separates local verifier estimates from Kaggle results.
   `T <= 213,956.98` at `Q=890` and `R=1.1912605`. This is score-equivalence
   math, not the leader's measured circuit cost.
 - Current source-owned FMA projection: `202,075T`, leaving only `11,881.98T`
-  under the score-equivalent gate before omitted work. Exp-057's classical
-  one-symbol transition passes, and its reversible one-symbol action measures
-  `Q=873`, `T=84` with precomputed matrix entries. Generating those entries,
-  full-width cleanup, and the 66-symbol integration remain unmeasured; the
-  `84T × 66` estimate may overlap the projection. This is not a candidate. See
-  the [classical tail receipt](2026-11-22-exp057-tail-transition-classical.json)
-  and [matrix-action receipt](2026-11-22-exp057-tail-matrix-gate.json).
+  under the score-equivalent gate before omitted work. Exp-057's private v15
+  screen now composes compact-prefix decoding, matrix setup, and 66 tail
+  actions at `Q=889`, `T=19,004`. It outputs a checksum and does not establish
+  the complete FMA projection, DQI output/phase, reversible cleanup, or
+  verifier pass; its cost cannot yet be safely added to or subtracted from the
+  projection. This is not a candidate. See the
+  [v15 receipt](2026-11-23-exp057-prefix-matrix-stream-v15.json).
 - Full member hashes, verifier evidence, and submission:
   [2026-11-18 hybrid evaluation](2026-11-18-bori-frontier-hybrid.json).
 
