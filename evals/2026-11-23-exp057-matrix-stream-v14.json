@@ -1,0 +1,37 @@
+{
+  "captured_utc": "2026-11-22T20:14:04Z",
+  "experiment": "exp-057-streaming-bezout-matrix-checksum",
+  "kernel": {
+    "id": "accelra/exp057-streaming-prefix-state",
+    "version": 14,
+    "visibility": "private",
+    "status": "COMPLETE",
+    "url": "https://www.kaggle.com/code/accelra/exp057-streaming-prefix-state/versions/14"
+  },
+  "source": {
+    "git_head": "b588d63",
+    "streaming_prefix_kernel_sha256": "759490820B7CA16BBD49432BC48D11F4B13C3ACFC569CE52D10F0D8CABB9A906",
+    "private_kernel_script_sha256": "D377F02561276671C828CA91F72711FCA878C42F99A51F103B5B8F870393DF77",
+    "kernel_log_sha256": "E97A6A72C7AFC9403A87634F56775FD7A79B4DBCCC1F46992DEC757CE63CB680"
+  },
+  "checks": {
+    "cases": 32,
+    "prefix_pivot_coverage": {"a0": 31, "a1": 1},
+    "tail_symbols": 66,
+    "checksum_errors": 0,
+    "preserved_payload_words": 70,
+    "preserved_stream_tags": 3,
+    "phase_flips": 0
+  },
+  "resources": {
+    "compiled_qubits": 888,
+    "width_gate": 890,
+    "qubits_below_gate": 2,
+    "toffoli_like_gates": 5544,
+    "per_tail_action_toffolis": 84,
+    "recurrence_update_toffolis": 0
+  },
+  "scope": "The point-4 matrix and three recurrence tags are supplied as inputs. All 66 actions are streamed and their two row outputs are accumulated into one 12-bit XOR checksum. Prefix decoding, reversible matrix setup, DQI output generation, and the official verifier are not included.",
+  "official_verifier": "NOT_RUN",
+  "competition_submission": null
+}

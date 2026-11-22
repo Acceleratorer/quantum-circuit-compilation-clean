@@ -2,11 +2,11 @@
 id: exp-057
 title: Four-word streaming decoder for quadratic-over-linear FMA
 task: dqi
-tests: exhaustive GF(8) prefix and tail state and matrix encoding; 2,048 seeded GF(2^12); 256 seeded GF(2^12) tail-matrix factorization cases; 32-case private coefficient-to-prefix and prefix-to-coefficient screens including a1=0; 32-case private integrated prefix-plus-tail action across both pivots; 32 verifier-form prefix and tail cases; 64-case private precomputed-matrix action; 64-case coefficient-derived tail action; 64-case in-place matrix setup
+tests: exhaustive GF(8) prefix and tail state and matrix encoding; 2,048 seeded GF(2^12); 256 seeded GF(2^12) tail-matrix factorization cases; 32-case private coefficient-to-prefix and prefix-to-coefficient screens including a1=0; 32-case private integrated prefix-plus-tail action across both pivots; 32-case private 66-symbol matrix-stream checksum across both pivots; 32 verifier-form prefix and tail cases; 64-case private precomputed-matrix action; 64-case coefficient-derived tail action; 64-case in-place matrix setup
 direction: D-004
-status: coefficient-prefix-component-gates-passed_classical-66-tail-schedule-passed_branchless-prefix-inverse-v11-passed_integrated-prefix-plus-one-tail-v13-passed_integrated-4-plus-66-schedule-and-official-verifier-pending
+status: coefficient-prefix-component-gates-passed_classical-66-tail-schedule-passed_branchless-prefix-inverse-v11-passed_integrated-prefix-plus-one-tail-v13-passed_precomputed-state-66-symbol-matrix-stream-checksum-v14-passed_prefix-to-matrix-integration-and-official-verifier-pending
 date: 2026-11-23
-result: Coefficient-to-prefix gate passes at Q=885 and T=7,483; branchless inverse prefix-to-coefficient gate passes at Q=888 and T=9,262; integrated compact-prefix decode plus one coefficient-derived tail action passes at Q=889 and T=10,084; precomputed-matrix action at Q=873 and T=84; coefficient-derived one-symbol action at Q=889 and T=822; in-place matrix setup at Q=889 and T=558. Classical tail algebra passes all 66 GF(2^12) points on 32 seeded verifier-form cases and all four non-prefix GF(8) points on 2,016 supported states. The integrated 4+66 schedule and official verifier remain open.
+result: Coefficient-to-prefix gate passes at Q=885 and T=7,483; branchless inverse prefix-to-coefficient gate passes at Q=888 and T=9,262; integrated compact-prefix decode plus one coefficient-derived tail action passes at Q=889 and T=10,084; precomputed-state 66-symbol matrix stream checksum passes at Q=888 and T=5,544; precomputed-matrix action at Q=873 and T=84; coefficient-derived one-symbol action at Q=889 and T=822; in-place matrix setup at Q=889 and T=558. Classical tail algebra passes all 66 GF(2^12) points on 32 seeded verifier-form cases and all four non-prefix GF(8) points on 2,016 supported states. Prefix-to-matrix integration, DQI output, and the official verifier remain open.
 ---
 
 # exp-057: four-word streaming decoder
@@ -128,11 +128,17 @@ is a fixed field constant, these updates use only CNOT gates once the tags and
 initial matrix are available.
 
 The recurrence matches direct matrix evaluation on all 8,064 supported GF(8)
-tail cases and 2,112 seeded GF(2^12) verifier-form cases. This is classical
-evidence; the quantum recurrence, its live workspace, and its composition with
-the 84T action have not yet been compiled. See the
-[`recurrence receipt`](../../evals/2026-11-23-exp057-matrix-stream-recurrence.json)
-and [run log](../../log/2026-11-23-exp057-matrix-stream-recurrence.md).
+tail cases and 2,112 seeded GF(2^12) verifier-form cases. Private kernel v14
+then compiled 66 matrix actions with this recurrence into a one-word XOR
+checksum: `Q=888`, `T=5,544`, 32 cases, zero checksum errors, and zero phase
+flips. The 70 payload words and three stream tags were preserved. The kernel
+starts from a supplied point-4 matrix and tags; it does not yet include the
+compact-prefix decode, reversible matrix setup, or DQI output. See the
+[`recurrence receipt`](../../evals/2026-11-23-exp057-matrix-stream-recurrence.json),
+[`v14 receipt`](../../evals/2026-11-23-exp057-matrix-stream-v14.json),
+[recurrence log](../../log/2026-11-23-exp057-matrix-stream-recurrence.md),
+[v14 run log](../../log/2026-11-23-exp057-matrix-stream-v14.md), and
+[v14 milestone](../../milestone/2026-11-23-exp057-matrix-stream-v14.md).
 
 ## Precomputed-matrix action gate
 

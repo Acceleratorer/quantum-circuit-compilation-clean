@@ -1895,6 +1895,176 @@ def generate_cases(field, count=32):
     return cases
 
 
+def append_bezout_matrix_stream_step(builder, matrix, tags, ar, point, next_point):
+    """Advance evaluated Bezout rows with fixed linear field maps."""
+    a, b, c, d = matrix
+    k, b1, a1 = tags
+    field = ar.field(FIELD_BITS)
+    identity = [1 << bit for bit in range(FIELD_BITS)]
+    delta = point ^ next_point
+    delta_columns = [field.mul(delta, bit) for bit in identity]
+
+    def node(value):
+        product = 1
+        for prefix_point in POINTS:
+            product = field.mul(product, value ^ prefix_point)
+        return product
+
+    scale = field.mul(node(next_point), field.invert(node(point)))
+    scale_columns = [field.mul(scale, bit) for bit in identity]
+
+    ar.linear_xor(builder, a1, a, delta_columns)
+    xor_constant(builder, a, field.mul(delta, delta))
+    ar.linear_xor(builder, b1, b, delta_columns)
+    ar.linear_xor(builder, k, c, delta_columns)
+    ar.linear_inplace(builder, c, scale_columns)
+    ar.linear_inplace(builder, d, scale_columns)
+    ar.linear_inplace(builder, k, scale_columns)
+
+
+def bezout_stream_state_from_coefficients(ar, coefficients, point):
+    """Classically initialize the point matrix and its recurrence tags."""
+    a0, a1, b0, b1 = coefficients
+    field = ar.field(FIELD_BITS)
+    inverse_b1 = field.invert(b1)
+    quotient0 = field.mul(inverse_b1, a1 ^ field.mul(inverse_b1, b0))
+    gcd = a0 ^ field.mul(quotient0, b0)
+    node = 1
+    for prefix_point in POINTS:
+        node = field.mul(node, point ^ prefix_point)
+    denominator = field.mul(node, field.invert(gcd))
+    quotient = quotient0 ^ field.mul(point, inverse_b1)
+    matrix = (
+        field.mul(point, point) ^ field.mul(a1, point) ^ a0,
+        field.mul(b1, point) ^ b0,
+        field.mul(quotient, denominator),
+        denominator,
+    )
+    return matrix + (field.mul(denominator, inverse_b1), b1, a1)
+
+
+def build_bezout_matrix_stream_checksum(km=None, ar=None):
+    """Apply all 66 matrix actions into one reversible field checksum."""
+    if km is None or ar is None:
+        km, ar = load_gate_arithmetic()
+    builder = km.CircuitBuilder()
+    payload = builder.alloc_qubits(70 * FIELD_BITS)
+    tags = builder.alloc_qubits(3 * FIELD_BITS)
+    checksum = builder.alloc_qubits(FIELD_BITS)
+    matrix = [payload[index * FIELD_BITS : (index + 1) * FIELD_BITS] for index in range(4)]
+    stream_tags = [tags[index * FIELD_BITS : (index + 1) * FIELD_BITS] for index in range(3)]
+    field = ar.field(FIELD_BITS)
+    identity = [1 << bit for bit in range(FIELD_BITS)]
+
+    for point in range(4, 70):
+        sample = payload[point * FIELD_BITS : (point + 1) * FIELD_BITS]
+        ar.mul_xor0(builder, matrix[0], sample, checksum)
+        ar.linear_xor(builder, matrix[1], checksum, identity)
+        ar.mul_xor0(builder, matrix[2], sample, checksum)
+        ar.linear_xor(builder, matrix[3], checksum, identity)
+        if point < 69:
+            append_bezout_matrix_stream_step(
+                builder, matrix, stream_tags, ar, point, point + 1
+            )
+
+    for point in reversed(range(5, 70)):
+        append_bezout_matrix_stream_step(
+            builder, matrix, stream_tags, ar, point, point - 1
+        )
+
+    circuit = builder.finish_circuit()
+    return km, ar, circuit, {
+        "payload": payload,
+        "tags": tags,
+        "checksum": checksum,
+    }
+
+
+def run_bezout_matrix_stream_checksum_screen(case_count=32, km=None, ar=None):
+    """Check the 66-action checksum against direct polynomial evaluation."""
+    km, ar, circuit, registers = build_bezout_matrix_stream_checksum(km, ar)
+    field = ar.field(FIELD_BITS)
+    cases = generate_cases(field, case_count)
+    rng = Random(0xA6605D)
+    input_words = np.zeros((case_count, 70), dtype=np.uint32)
+    input_tags = np.zeros((case_count, 3), dtype=np.uint32)
+    expected = np.zeros(case_count, dtype=np.uint32)
+
+    for shot, (coefficients, _, _) in enumerate(cases):
+        state = bezout_stream_state_from_coefficients(ar, coefficients, 4)
+        input_words[shot, :4] = state[:4]
+        input_tags[shot] = state[4:]
+        a0, a1, b0, b1 = coefficients
+        inverse_b1 = field.invert(b1)
+        quotient0 = field.mul(inverse_b1, a1 ^ field.mul(inverse_b1, b0))
+        gcd = a0 ^ field.mul(quotient0, b0)
+        inverse_gcd = field.invert(gcd)
+        for point in range(4, 70):
+            sample = rng.randrange(1 << FIELD_BITS)
+            input_words[shot, point] = sample
+            node = 1
+            for prefix_point in POINTS:
+                node = field.mul(node, point ^ prefix_point)
+            denominator = field.mul(node, inverse_gcd)
+            quotient = quotient0 ^ field.mul(point, inverse_b1)
+            a = field.mul(point, point) ^ field.mul(a1, point) ^ a0
+            b = field.mul(b1, point) ^ b0
+            c = field.mul(quotient, denominator)
+            expected[shot] ^= (
+                field.mul(a, sample)
+                ^ b
+                ^ field.mul(c, sample)
+                ^ denominator
+            )
+
+    sim = km.Simulator(batch_size=case_count, debug_print=False, seed=0)
+    sim.use_same_registers_as(circuit)
+    for word in range(70):
+        sim.write_across_shots(
+            registers["payload"][word * FIELD_BITS : (word + 1) * FIELD_BITS],
+            bit_columns(input_words[:, word], FIELD_BITS),
+        )
+    for tag in range(3):
+        sim.write_across_shots(
+            registers["tags"][tag * FIELD_BITS : (tag + 1) * FIELD_BITS],
+            bit_columns(input_tags[:, tag], FIELD_BITS),
+        )
+    sim.do(circuit)
+
+    for word in range(70):
+        actual = sim.read_across_shots(
+            registers["payload"][word * FIELD_BITS : (word + 1) * FIELD_BITS]
+        )
+        assert np.array_equal(actual, bit_columns(input_words[:, word], FIELD_BITS))
+    assert np.array_equal(
+        sim.read_across_shots(registers["tags"]),
+        np.concatenate(
+            [bit_columns(input_tags[:, tag], FIELD_BITS) for tag in range(3)], axis=0
+        ),
+    )
+    assert np.array_equal(
+        sim.read_across_shots(registers["checksum"]),
+        bit_columns(expected, FIELD_BITS),
+    )
+    assert not np.any(sim.read_phase_flipped_across_shots())
+
+    return {
+        "cases": case_count,
+        "prefix_pivot_coverage": {
+            "a0": sum(not case[2] for case in cases),
+            "a1": sum(case[2] for case in cases),
+        },
+        "tail_symbols": 66,
+        "checksum_errors": 0,
+        "preserved_payload_words": 70,
+        "preserved_stream_tags": 3,
+        "compiled_qubits": circuit.num_qubits,
+        "toffoli_like_gates": circuit.operation_statistics().num_toffoli_like,
+        "phase_flips": 0,
+        "scope": "66 precomputed-matrix actions streamed through a one-word XOR checksum; prefix setup and DQI output are not included.",
+    }
+
+
 def run_screen():
     km, ar, circuit, registers = build_decoder()
     field = ar.field(FIELD_BITS)
@@ -1970,6 +2140,7 @@ def run_screen():
         "tail_matrix_from_coefficients": run_bezout_tail_action_screen(km=km, ar=ar),
         "prefix_to_one_tail_action": run_compact_prefix_tail_action_screen(km=km, ar=ar),
         "tail_matrix_state_encoding": run_bezout_matrix_state_screen(km=km, ar=ar),
+        "streaming_matrix_checksum": run_bezout_matrix_stream_checksum_screen(km=km, ar=ar),
     }
 
 
