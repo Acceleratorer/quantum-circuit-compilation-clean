@@ -1048,5 +1048,105 @@
     "result": "PASS_SCREEN",
     "scope": "Full-input four-pivot prefix; measured source wires are reused for ratio outputs. The 4+66 schedule and official DQI verifier are not covered.",
     "decision": "Passes the prefix Q=890 gate; integrate this path with the remaining 66 symbols before evaluating the complete candidate."
+  },
+  "gf8_valid_ratio_history_projection_screen": {
+    "cases": 97119,
+    "error_locations": "nonzero field elements",
+    "error_weights": "0..4",
+    "experiment": "exp-053-valid-ratio-history-gf8",
+    "field": "GF(8)",
+    "points": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "ratio_only": {
+      "collision_groups": 10758,
+      "distinct_vectors": 69956,
+      "maximum_fiber": 42,
+      "minimum_fixed_branch_projection": {
+        "branch_bits": 6,
+        "position_sets": [
+          [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        ]
+      }
+    },
+    "ratio_plus_final_rank": {
+      "collision_groups": 7306,
+      "distinct_keys": 85445,
+      "maximum_fiber": 10,
+      "minimum_fixed_branch_projection": {
+        "branch_bits": 4,
+        "position_sets": [
+          [
+            2,
+            3,
+            4,
+            5
+          ],
+          [
+            2,
+            3,
+            4,
+            7
+          ],
+          [
+            2,
+            3,
+            5,
+            6
+          ],
+          [
+            2,
+            3,
+            6,
+            7
+          ],
+          [
+            2,
+            4,
+            5,
+            7
+          ],
+          [
+            2,
+            5,
+            6,
+            7
+          ],
+          [
+            3,
+            4,
+            5,
+            6
+          ],
+          [
+            3,
+            4,
+            6,
+            7
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ]
+        ]
+      }
+    },
+    "scope": "Exhaustive valid RS error patterns over GF(8), not a GF(2^12) bound or a reversible encoder. A fixed branch projection is an information screen only."
   }
 }

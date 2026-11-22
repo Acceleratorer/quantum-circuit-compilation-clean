@@ -97,11 +97,14 @@ branch bit separates every colliding pair, so one tag bit suffices on this
 four-point screen.
 
 The exhaustive valid eight-point GF(8) screen gives a larger fiber: among
-97,119 error patterns through weight four, ratio plus final rank has 85,445
-labels, with a maximum of ten inputs per label. At least four extra bits are
-needed to distinguish the largest fiber, and no single branch bit resolves
-all collisions. Ratio plus the full branch history is injective on this
-screened domain.
+97,119 error patterns through weight four, ratios alone have 69,956 distinct
+vectors and a maximum fiber of 42. Ratio plus final rank has 85,445 labels,
+with a maximum fiber of ten; no single branch bit resolves all collisions.
+The fixed-projection scan finds that six branch bits (positions 2–7) separate
+every ratio fiber, while four bits suffice alongside final rank (nine
+four-position sets work). Ratio plus the full branch history is injective on
+this screened domain. These are GF(8) information counts, not a GF(2^12)
+bound or a reversible decoder; see the [projection evaluation](../../evals/2026-11-22-exp053-valid-ratio-history.json).
 
 This rejects extending the four-point one-bit result directly to longer FMA
 sequences. It is still small-field information evidence; it gives no

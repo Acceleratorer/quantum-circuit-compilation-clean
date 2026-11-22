@@ -1,0 +1,114 @@
+{
+  "captured_utc": "2026-11-22T12:18:04Z",
+  "experiment": "exp-053-valid-ratio-history-gf8",
+  "command": "py -3.12 experiments/exp-053/valid_ratio_history.py",
+  "source_sha256": "507cee898299bf40ee674d3750883b2c7dc99bd181677a91fcf498422449d58e",
+  "reference_self_check": {
+    "cases": 32,
+    "check": "ratios and branch history match normalized_fma.replayed_ratios",
+    "result": "PASS"
+  },
+  "screen": {
+    "cases": 97119,
+    "error_locations": "nonzero field elements",
+    "error_weights": "0..4",
+    "experiment": "exp-053-valid-ratio-history-gf8",
+    "field": "GF(8)",
+    "points": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "ratio_only": {
+      "collision_groups": 10758,
+      "distinct_vectors": 69956,
+      "maximum_fiber": 42,
+      "minimum_fixed_branch_projection": {
+        "branch_bits": 6,
+        "position_sets": [
+          [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        ]
+      }
+    },
+    "ratio_plus_final_rank": {
+      "collision_groups": 7306,
+      "distinct_keys": 85445,
+      "maximum_fiber": 10,
+      "minimum_fixed_branch_projection": {
+        "branch_bits": 4,
+        "position_sets": [
+          [
+            2,
+            3,
+            4,
+            5
+          ],
+          [
+            2,
+            3,
+            4,
+            7
+          ],
+          [
+            2,
+            3,
+            5,
+            6
+          ],
+          [
+            2,
+            3,
+            6,
+            7
+          ],
+          [
+            2,
+            4,
+            5,
+            7
+          ],
+          [
+            2,
+            5,
+            6,
+            7
+          ],
+          [
+            3,
+            4,
+            5,
+            6
+          ],
+          [
+            3,
+            4,
+            6,
+            7
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ]
+        ]
+      }
+    },
+    "scope": "Exhaustive valid RS error patterns over GF(8), not a GF(2^12) bound or a reversible encoder. A fixed branch projection is an information screen only."
+  },
+  "official_verifier_run": false,
+  "competition_submission": null,
+  "result": "PASS_SCREEN"
+}
