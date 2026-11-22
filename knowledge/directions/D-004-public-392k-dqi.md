@@ -91,10 +91,14 @@ flips. The measured component is `Q=108`, `T=210` at `delta=37`, under the
 targets reduced this cell from 60 to 48 scratch qubits and from 252T to 210T.
 
 This component receives the pivot inverse as input; it does not build the
-70-symbol key-equation solve or establish a full-circuit resource total. Keep
-the active lane on composing this update into the existing streamed FMA
-schedule, then measure DQI output/phase and reversible cleanup before the
-official verifier. See the [v17 receipt](../../evals/2026-11-23-exp057-fma-pair-update-v17.json),
+70-symbol key-equation solve. The FMA recurrence has 2,415 pair updates, so
+repeating this 210T cell would cost 507,150T before setup or cleanup, over
+twice the complete DQI gate of `213,956.98T`. Close the repeated-cell layout;
+its correctness and width result do not make it a competitive schedule. Keep
+the active exp-057 lane on the streamed key-equation output, phase, and cleanup
+under the complete resource limit. The update count comes from the
+[exp-053 70-symbol ledger](../../experiments/exp-053/README.md#pivot-normalized-fma-recurrence).
+See the [v17 receipt](../../evals/2026-11-23-exp057-fma-pair-update-v17.json),
 [run log](../../log/2026-11-23-exp057-fma-pair-update-v17.md), and
 [exp-057 record](../../experiments/exp-057/README.md). No submission is ready.
 

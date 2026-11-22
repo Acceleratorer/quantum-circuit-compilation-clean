@@ -33,8 +33,11 @@ It fits the 50-qubit scratch ceiling as a standalone component.
 ## Scope and next gate
 
 The circuit receives the selected pivot inverse as input and covers only one
-pair update at one fixed `delta`. It is not the 70-symbol key-equation solve;
-its `T` count is not a full-circuit projection. Next, compose the pair update
-into the existing streamed FMA state, prove the complete width and gate
-ledger, produce DQI output/phase, clean all workspace, and run the official
-verifier. No competition submission was made.
+pair update at one fixed `delta`. The 70-symbol FMA recurrence has 2,415 pair
+updates; repeating this cell would cost `2,415 × 210T = 507,150T` before setup
+or cleanup, already above the full DQI target of `213,956.98T`. This closes the
+repeated-cell layout despite its correctness and width pass. Continue the
+existing exp-057 stream toward key-equation output/phase and reversible cleanup
+under the complete resource gate. The 2,415 count is from the
+[exp-053 70-symbol FMA ledger](../experiments/exp-053/README.md#pivot-normalized-fma-recurrence).
+No competition submission was made.

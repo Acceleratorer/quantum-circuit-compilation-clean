@@ -17,10 +17,13 @@ Evidence: [v17 evaluation receipt](../evals/2026-11-23-exp057-fma-pair-update-v1
 [run log](../log/2026-11-23-exp057-fma-pair-update-v17.md), and
 [private kernel v17](https://www.kaggle.com/code/accelra/exp057-streaming-prefix-state/versions/17).
 
-## Competition gate remains open
+## Resource decision
 
 The cell receives the pivot inverse as input and updates one pair at a fixed
-`delta`. A candidate still needs the complete 70-symbol key-equation solve,
-`Q <= 890`, the full `R × Q² × T` ledger, DQI output/phase, clean reversible
-workspace, and a passing official verifier. Publish the composed source and
-verifier evidence before treating this milestone as a submission candidate.
+`delta`. The 70-symbol FMA recurrence has 2,415 pair updates, so repeating this
+cell would cost `507,150T` before setup or cleanup, above the full DQI target
+of `213,956.98T`. Do not use this implementation unchanged in the schedule.
+
+The competition gate remains open: a candidate still needs the complete
+key-equation solve, `Q <= 890`, the full `R × Q² × T` ledger, DQI output/phase,
+clean reversible workspace, and a passing official verifier.

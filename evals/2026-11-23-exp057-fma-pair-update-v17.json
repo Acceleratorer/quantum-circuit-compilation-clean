@@ -45,6 +45,12 @@
     "py_compile": "PASS",
     "git_diff_check": "PASS"
   },
+  "cost_audit": {
+    "70_symbol_fma_pair_updates": 2415,
+    "naive_repeated_cell_toffoli_like_gates": 507150,
+    "full_dqi_toffoli_gate": 213956.98,
+    "decision": "NO_GO_FOR_REPEATING_THIS_CELL_UNCHANGED"
+  },
   "official_verifier": "NOT_RUN",
   "competition_submission": null,
   "scope": "One sequential-FMA future-pair update with the pivot inverse supplied as input. This does not implement the 70-symbol key-equation solve, DQI output/phase, reversible cleanup, or the official verifier."

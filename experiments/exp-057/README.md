@@ -246,9 +246,11 @@ Reusing the retained old-pair registers as XOR targets reduced the initial
 cell from 60 to 48 scratch qubits and from 252T to 210T.
 
 This is one pair cell with its pivot inverse supplied as input. It is not the
-70-symbol key-equation solve, and its cost is not a full-circuit projection.
-Next, integrate the pair update into the streamed FMA schedule and measure the
-composed width, Toffoli count, phase cleanup, and DQI output before invoking
-the official verifier. See the [v17 receipt](../../evals/2026-11-23-exp057-fma-pair-update-v17.json),
+70-symbol key-equation solve. The full FMA recurrence has 2,415 pair updates;
+repeating this 210T cell would cost 507,150T before setup or cleanup, already
+above the whole DQI gate. Keep it as a correctness/width result and do not
+repeat this implementation in the full schedule. The next gate remains the
+complete streamed key-equation output, phase, and cleanup at the full resource
+limit. See the [v17 receipt](../../evals/2026-11-23-exp057-fma-pair-update-v17.json),
 [run log](../../log/2026-11-23-exp057-fma-pair-update-v17.md), and
 [raw Kaggle output](kaggle-v17-output.log).
