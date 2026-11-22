@@ -1,0 +1,189 @@
+[{"stream_name":"stdout","time":11.777544021,"data":"{\n"}
+,{"stream_name":"stdout","time":11.777607899,"data":"  \"cases\": 32,\n"}
+,{"stream_name":"stdout","time":11.777614863,"data":"  \"clean_scratch_qubits\": 36,\n"}
+,{"stream_name":"stdout","time":11.777619228,"data":"  \"compact_prefix_matrix_stream_checksum\": {\n"}
+,{"stream_name":"stdout","time":11.777623993,"data":"    \"cases\": 32,\n"}
+,{"stream_name":"stdout","time":11.777628111,"data":"    \"checksum_errors\": 0,\n"}
+,{"stream_name":"stdout","time":11.777632109,"data":"    \"clean_scratch_qubits\": 12,\n"}
+,{"stream_name":"stdout","time":11.777636099,"data":"    \"compiled_qubits\": 889,\n"}
+,{"stream_name":"stdout","time":11.777640062,"data":"    \"matrix_errors\": 0,\n"}
+,{"stream_name":"stdout","time":11.77764402,"data":"    \"phase_flips\": 0,\n"}
+,{"stream_name":"stdout","time":11.777648032,"data":"    \"prefix_pivot_coverage\": {\n"}
+,{"stream_name":"stdout","time":11.777659067,"data":"      \"a0\": 31,\n"}
+,{"stream_name":"stdout","time":11.777662087,"data":"      \"a1\": 1\n"}
+,{"stream_name":"stdout","time":11.77766491,"data":"    },\n"}
+,{"stream_name":"stdout","time":11.777683364,"data":"    \"preserved_tail_words\": 66,\n"}
+,{"stream_name":"stdout","time":11.777688457,"data":"    \"scope\": \"Compact-prefix decode and all 66 matrix actions; the fourth matrix word stores K=D/b1, rank is reused as workspace, and DQI cleanup/output plus the official verifier are omitted.\",\n"}
+,{"stream_name":"stdout","time":11.777695305,"data":"    \"synthetic_alternate_pivot_cases\": 1,\n"}
+,{"stream_name":"stdout","time":11.777699854,"data":"    \"tag_errors\": 0,\n"}
+,{"stream_name":"stdout","time":11.777704439,"data":"    \"tail_symbols\": 66,\n"}
+,{"stream_name":"stdout","time":11.777709049,"data":"    \"toffoli_like_gates\": 19004,\n"}
+,{"stream_name":"stdout","time":11.777713096,"data":"    \"verifier_form_cases\": 31,\n"}
+,{"stream_name":"stdout","time":11.777716976,"data":"    \"verifier_form_weights\": [\n"}
+,{"stream_name":"stdout","time":11.777721169,"data":"      29,\n"}
+,{"stream_name":"stdout","time":11.777725014,"data":"      29,\n"}
+,{"stream_name":"stdout","time":11.777728797,"data":"      29,\n"}
+,{"stream_name":"stdout","time":11.777732543,"data":"      29,\n"}
+,{"stream_name":"stdout","time":11.777736253,"data":"      29,\n"}
+,{"stream_name":"stdout","time":11.777740065,"data":"      29,\n"}
+,{"stream_name":"stdout","time":11.77774381,"data":"      29,\n"}
+,{"stream_name":"stdout","time":11.777747618,"data":"      30,\n"}
+,{"stream_name":"stdout","time":11.777751377,"data":"      30,\n"}
+,{"stream_name":"stdout","time":11.777755178,"data":"      30,\n"}
+,{"stream_name":"stdout","time":11.777758916,"data":"      30,\n"}
+,{"stream_name":"stdout","time":11.777762774,"data":"      30,\n"}
+,{"stream_name":"stdout","time":11.777773633,"data":"      30,\n"}
+,{"stream_name":"stdout","time":11.777791264,"data":"      31,\n"}
+,{"stream_name":"stdout","time":11.777795744,"data":"      31,\n"}
+,{"stream_name":"stdout","time":11.777800122,"data":"      31,\n"}
+,{"stream_name":"stdout","time":11.77780451,"data":"      32,\n"}
+,{"stream_name":"stdout","time":11.777808924,"data":"      32,\n"}
+,{"stream_name":"stdout","time":11.777813365,"data":"      32,\n"}
+,{"stream_name":"stdout","time":11.7778172,"data":"      32,\n"}
+,{"stream_name":"stdout","time":11.777820939,"data":"      32,\n"}
+,{"stream_name":"stdout","time":11.777824669,"data":"      33,\n"}
+,{"stream_name":"stdout","time":11.777828398,"data":"      33,\n"}
+,{"stream_name":"stdout","time":11.777839764,"data":"      34,\n"}
+,{"stream_name":"stdout","time":11.777843643,"data":"      34,\n"}
+,{"stream_name":"stdout","time":11.77784737,"data":"      35,\n"}
+,{"stream_name":"stdout","time":11.777851119,"data":"      35,\n"}
+,{"stream_name":"stdout","time":11.777854904,"data":"      35,\n"}
+,{"stream_name":"stdout","time":11.777858638,"data":"      35,\n"}
+,{"stream_name":"stdout","time":11.777862406,"data":"      35,\n"}
+,{"stream_name":"stdout","time":11.777866367,"data":"      35\n"}
+,{"stream_name":"stdout","time":11.777872166,"data":"    ],\n"}
+,{"stream_name":"stdout","time":11.777894606,"data":"    \"width_gate\": 890\n"}
+,{"stream_name":"stdout","time":11.777899872,"data":"  },\n"}
+,{"stream_name":"stdout","time":11.777904282,"data":"  \"compiled_qubits\": 885,\n"}
+,{"stream_name":"stdout","time":11.777908675,"data":"  \"experiment\": \"exp-057-streaming-prefix-state\",\n"}
+,{"stream_name":"stdout","time":11.777913917,"data":"  \"phase_flips\": 0,\n"}
+,{"stream_name":"stdout","time":11.777918093,"data":"  \"pivot_coverage\": {\n"}
+,{"stream_name":"stdout","time":11.777922026,"data":"    \"a0\": 31,\n"}
+,{"stream_name":"stdout","time":11.777925875,"data":"    \"a1\": 1\n"}
+,{"stream_name":"stdout","time":11.777929726,"data":"  },\n"}
+,{"stream_name":"stdout","time":11.777933478,"data":"  \"prefix_coefficient_state\": {\n"}
+,{"stream_name":"stdout","time":11.777937463,"data":"    \"cases\": 32,\n"}
+,{"stream_name":"stdout","time":11.77794505,"data":"    \"clean_scratch_qubits\": 39,\n"}
+,{"stream_name":"stdout","time":11.77794906,"data":"    \"coefficient_errors\": 0,\n"}
+,{"stream_name":"stdout","time":11.777952993,"data":"    \"compiled_qubits\": 888,\n"}
+,{"stream_name":"stdout","time":11.77795692,"data":"    \"phase_flips\": 0,\n"}
+,{"stream_name":"stdout","time":11.77796088,"data":"    \"pivot_coverage\": {\n"}
+,{"stream_name":"stdout","time":11.777964807,"data":"      \"c0_nonzero\": 31,\n"}
+,{"stream_name":"stdout","time":11.777968826,"data":"      \"c0_zero\": 1\n"}
+,{"stream_name":"stdout","time":11.777974753,"data":"    },\n"}
+,{"stream_name":"stdout","time":11.777994456,"data":"    \"preserved_rank_and_pivot\": true,\n"}
+,{"stream_name":"stdout","time":11.777999228,"data":"    \"preserved_spectator_words\": 66,\n"}
+,{"stream_name":"stdout","time":11.778004039,"data":"    \"qubits_over_890\": -2,\n"}
+,{"stream_name":"stdout","time":11.778008702,"data":"    \"scope\": \"Compact prefix to four coefficients only; matrix setup and 66-symbol circuit are not included.\",\n"}
+,{"stream_name":"stdout","time":11.778013725,"data":"    \"toffoli_like_gates\": 9262\n"}
+,{"stream_name":"stdout","time":11.77801773,"data":"  },\n"}
+,{"stream_name":"stdout","time":11.778021458,"data":"  \"prefix_to_one_tail_action\": {\n"}
+,{"stream_name":"stdout","time":11.778025407,"data":"    \"cases\": 32,\n"}
+,{"stream_name":"stdout","time":11.778029377,"data":"    \"clean_scratch_qubits\": 16,\n"}
+,{"stream_name":"stdout","time":11.778033219,"data":"    \"coefficient_errors\": 0,\n"}
+,{"stream_name":"stdout","time":11.77803712,"data":"    \"compiled_qubits\": 889,\n"}
+,{"stream_name":"stdout","time":11.778040964,"data":"    \"phase_flips\": 0,\n"}
+,{"stream_name":"stdout","time":11.778054427,"data":"    \"point\": 4,\n"}
+,{"stream_name":"stdout","time":11.778058419,"data":"    \"prefix_pivot_coverage\": {\n"}
+,{"stream_name":"stdout","time":11.778062382,"data":"      \"a0\": 31,\n"}
+,{"stream_name":"stdout","time":11.778068308,"data":"      \"a1\": 1\n"}
+,{"stream_name":"stdout","time":11.778097335,"data":"    },\n"}
+,{"stream_name":"stdout","time":11.778102343,"data":"    \"preserved_rank_and_pivot\": true,\n"}
+,{"stream_name":"stdout","time":11.778107142,"data":"    \"preserved_tail_words\": 66,\n"}
+,{"stream_name":"stdout","time":11.778111809,"data":"    \"qubits_over_890\": -1,\n"}
+,{"stream_name":"stdout","time":11.778118244,"data":"    \"scope\": \"Compact-prefix-to-coefficients plus one coefficient-derived tail action; the integrated 66-symbol schedule remains open.\",\n"}
+,{"stream_name":"stdout","time":11.778122805,"data":"    \"tail_output_errors\": 0,\n"}
+,{"stream_name":"stdout","time":11.778126891,"data":"    \"toffoli_like_gates\": 10084\n"}
+,{"stream_name":"stdout","time":11.77813081,"data":"  },\n"}
+,{"stream_name":"stdout","time":11.778134555,"data":"  \"preserved_spectator_words\": 66,\n"}
+,{"stream_name":"stdout","time":11.778138497,"data":"  \"qubits_over_890\": -5,\n"}
+,{"stream_name":"stdout","time":11.778142409,"data":"  \"round_trip_errors\": 0,\n"}
+,{"stream_name":"stdout","time":11.778146409,"data":"  \"scope\": \"In-place four-word coefficient-to-prefix-state map only; not an integrated 4+66 schedule.\",\n"}
+,{"stream_name":"stdout","time":11.778150751,"data":"  \"sequential_fma_pair_update\": {\n"}
+,{"stream_name":"stdout","time":11.778154716,"data":"    \"control_errors\": 0,\n"}
+,{"stream_name":"stdout","time":11.778158619,"data":"    \"delta\": 37,\n"}
+,{"stream_name":"stdout","time":11.778162488,"data":"    \"pivot_cases\": {\n"}
+,{"stream_name":"stdout","time":11.778166344,"data":"      \"no_swap\": {\n"}
+,{"stream_name":"stdout","time":11.778170405000001,"data":"        \"cases\": 32,\n"}
+,{"stream_name":"stdout","time":11.778181134,"data":"        \"clean_scratch_qubits\": 48,\n"}
+,{"stream_name":"stdout","time":11.778198936999999,"data":"        \"compiled_qubits\": 108,\n"}
+,{"stream_name":"stdout","time":11.778203769,"data":"        \"phase_flips\": 0,\n"}
+,{"stream_name":"stdout","time":11.778208488,"data":"        \"toffoli_like_gates\": 210\n"}
+,{"stream_name":"stdout","time":11.778212668,"data":"      },\n"}
+,{"stream_name":"stdout","time":11.77821718,"data":"      \"swap\": {\n"}
+,{"stream_name":"stdout","time":11.778229451,"data":"        \"cases\": 32,\n"}
+,{"stream_name":"stdout","time":11.778233263,"data":"        \"clean_scratch_qubits\": 48,\n"}
+,{"stream_name":"stdout","time":11.778237168,"data":"        \"compiled_qubits\": 108,\n"}
+,{"stream_name":"stdout","time":11.778241032,"data":"        \"phase_flips\": 0,\n"}
+,{"stream_name":"stdout","time":11.778244982,"data":"        \"toffoli_like_gates\": 210\n"}
+,{"stream_name":"stdout","time":11.778248873999999,"data":"      }\n"}
+,{"stream_name":"stdout","time":11.77825267,"data":"    },\n"}
+,{"stream_name":"stdout","time":11.778256434,"data":"    \"pivot_update_errors\": 0,\n"}
+,{"stream_name":"stdout","time":11.778260363,"data":"    \"scope\": \"One sequential-FMA future-pair update for each pivot branch; not the 70-symbol key-equation solve.\"\n"}
+,{"stream_name":"stdout","time":11.778264678,"data":"  },\n"}
+,{"stream_name":"stdout","time":11.778268437,"data":"  \"shape\": \"G=1, deg(A)=2, deg(B)=1, gcd(A,B)=1\",\n"}
+,{"stream_name":"stdout","time":11.778272709,"data":"  \"streaming_matrix_checksum\": {\n"}
+,{"stream_name":"stdout","time":11.778278694,"data":"    \"cases\": 32,\n"}
+,{"stream_name":"stdout","time":11.778286743,"data":"    \"checksum_errors\": 0,\n"}
+,{"stream_name":"stdout","time":11.778304451,"data":"    \"compiled_qubits\": 888,\n"}
+,{"stream_name":"stdout","time":11.77831392,"data":"    \"phase_flips\": 0,\n"}
+,{"stream_name":"stdout","time":11.778318675,"data":"    \"prefix_pivot_coverage\": {\n"}
+,{"stream_name":"stdout","time":11.778323265000001,"data":"      \"a0\": 31,\n"}
+,{"stream_name":"stdout","time":11.778327265,"data":"      \"a1\": 1\n"}
+,{"stream_name":"stdout","time":11.778331237,"data":"    },\n"}
+,{"stream_name":"stdout","time":11.778335036,"data":"    \"preserved_payload_words\": 70,\n"}
+,{"stream_name":"stdout","time":11.77833903,"data":"    \"preserved_stream_tags\": 3,\n"}
+,{"stream_name":"stdout","time":11.778343034,"data":"    \"scope\": \"66 precomputed-matrix actions streamed through a one-word XOR checksum; prefix setup and DQI output are not included.\",\n"}
+,{"stream_name":"stdout","time":11.778347423,"data":"    \"tail_symbols\": 66,\n"}
+,{"stream_name":"stdout","time":11.77835129,"data":"    \"toffoli_like_gates\": 5544\n"}
+,{"stream_name":"stdout","time":11.778355263,"data":"  },\n"}
+,{"stream_name":"stdout","time":11.778359028,"data":"  \"tail_matrix_action\": {\n"}
+,{"stream_name":"stdout","time":11.778362996,"data":"    \"cases\": 64,\n"}
+,{"stream_name":"stdout","time":11.778366929,"data":"    \"clean_scratch_qubits\": 0,\n"}
+,{"stream_name":"stdout","time":11.778370918,"data":"    \"compiled_qubits\": 873,\n"}
+,{"stream_name":"stdout","time":11.778374794,"data":"    \"invertible_matrices\": 64,\n"}
+,{"stream_name":"stdout","time":11.778381051,"data":"    \"output_errors\": 0,\n"}
+,{"stream_name":"stdout","time":11.778389451,"data":"    \"phase_flips\": 0,\n"}
+,{"stream_name":"stdout","time":11.77840678,"data":"    \"preserved_payload_words\": 70,\n"}
+,{"stream_name":"stdout","time":11.778411774,"data":"    \"preserved_rank_and_pivot\": true,\n"}
+,{"stream_name":"stdout","time":11.778416396,"data":"    \"qubits_over_890\": -17,\n"}
+,{"stream_name":"stdout","time":11.778420847,"data":"    \"scope\": \"Out-of-place one-symbol action with precomputed matrix entries; matrix generation and 66-symbol integration are not included.\",\n"}
+,{"stream_name":"stdout","time":11.778425806,"data":"    \"toffoli_like_gates\": 84,\n"}
+,{"stream_name":"stdout","time":11.778429664,"data":"    \"zero_determinants\": 0\n"}
+,{"stream_name":"stdout","time":11.778433567,"data":"  },\n"}
+,{"stream_name":"stdout","time":11.778437391,"data":"  \"tail_matrix_from_coefficients\": {\n"}
+,{"stream_name":"stdout","time":11.778442115,"data":"    \"cases\": 64,\n"}
+,{"stream_name":"stdout","time":11.778461445,"data":"    \"clean_scratch_qubits\": 16,\n"}
+,{"stream_name":"stdout","time":11.778466973,"data":"    \"compiled_qubits\": 889,\n"}
+,{"stream_name":"stdout","time":11.778470822,"data":"    \"output_errors\": 0,\n"}
+,{"stream_name":"stdout","time":11.778474832,"data":"    \"phase_flips\": 0,\n"}
+,{"stream_name":"stdout","time":11.778482198,"data":"    \"point\": 4,\n"}
+,{"stream_name":"stdout","time":11.778486164,"data":"    \"preserved_payload_words\": 70,\n"}
+,{"stream_name":"stdout","time":11.778490162,"data":"    \"preserved_rank_and_pivot\": true,\n"}
+,{"stream_name":"stdout","time":11.778494125,"data":"    \"qubits_over_890\": -1,\n"}
+,{"stream_name":"stdout","time":11.778498129,"data":"    \"scope\": \"One tail action from four polynomial coefficients; it does not accept the compact prefix state or implement a 66-symbol schedule.\",\n"}
+,{"stream_name":"stdout","time":11.7785026,"data":"    \"toffoli_like_gates\": 822\n"}
+,{"stream_name":"stdout","time":11.778506526,"data":"  },\n"}
+,{"stream_name":"stdout","time":11.778510325,"data":"  \"tail_matrix_state_encoding\": {\n"}
+,{"stream_name":"stdout","time":11.778519328,"data":"    \"b1_tag_errors\": 0,\n"}
+,{"stream_name":"stdout","time":11.778525251,"data":"    \"cases\": 64,\n"}
+,{"stream_name":"stdout","time":11.778534268,"data":"    \"clean_scratch_qubits\": 28,\n"}
+,{"stream_name":"stdout","time":11.778553365,"data":"    \"compiled_qubits\": 889,\n"}
+,{"stream_name":"stdout","time":11.778557975,"data":"    \"matrix_errors\": 0,\n"}
+,{"stream_name":"stdout","time":11.778562547,"data":"    \"phase_flips\": 0,\n"}
+,{"stream_name":"stdout","time":11.778566926,"data":"    \"point\": 4,\n"}
+,{"stream_name":"stdout","time":11.778571501,"data":"    \"preserved_payload_words\": 66,\n"}
+,{"stream_name":"stdout","time":11.778575892,"data":"    \"preserved_rank_and_pivot\": true,\n"}
+,{"stream_name":"stdout","time":11.778580391,"data":"    \"qubits_over_890\": -1,\n"}
+,{"stream_name":"stdout","time":11.778584448,"data":"    \"scope\": \"In-place one-time matrix setup from four supplied coefficients, retaining b1 for reversible recovery; no compact prefix input or 66-symbol reuse.\",\n"}
+,{"stream_name":"stdout","time":11.778588922,"data":"    \"toffoli_like_gates\": 558\n"}
+,{"stream_name":"stdout","time":11.7785929,"data":"  },\n"}
+,{"stream_name":"stdout","time":11.778596788,"data":"  \"toffoli_like_gates\": 7483\n"}
+,{"stream_name":"stdout","time":11.778600803,"data":"}\n"}
+,{"stream_name":"stderr","time":14.557146799,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":14.557182956,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":14.888462302,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":14.888494131,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":16.073681914,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":17.895077459,"data":"[NbConvertApp] Writing 992000 bytes to __results__.html\n"}
+]

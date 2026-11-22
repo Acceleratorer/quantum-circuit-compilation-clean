@@ -1565,6 +1565,215 @@ def append_bezout_tail_action(builder, payload, rank, pivot, outputs, ar, km, po
     return scratch_pool
 
 
+def append_fma_tail_pair_update(
+    builder,
+    future_d,
+    future_g,
+    pivot_d,
+    pivot_g,
+    inverse_pivot,
+    *,
+    swap,
+    delta,
+    ar,
+):
+    """Apply one FMA pivot to a future ``(d,g)`` pair in place.
+
+    ``inverse_pivot`` is ``1/pivot_d`` for a row swap and ``1/pivot_g``
+    otherwise. The selected pivot and ``delta`` must be nonzero, making the
+    2x2 update invertible. Scratch is uncomputed by applying that inverse map.
+    """
+    field = ar.field(FIELD_BITS)
+    if not 0 < delta < (1 << FIELD_BITS):
+        raise ValueError("delta must be a nonzero GF(2^12) element")
+    identity = [1 << bit for bit in range(FIELD_BITS)]
+    delta_columns = [field.mul(delta, value) for value in identity]
+    inverse_delta_columns = [
+        field.mul(field.invert(delta), value) for value in identity
+    ]
+
+    new_d = builder.alloc_qubits(FIELD_BITS)
+    new_g = builder.alloc_qubits(FIELD_BITS)
+    ar.mul_xor0(builder, pivot_g, future_d, new_d)
+    ar.mul_xor0(builder, pivot_d, future_g, new_d)
+    ar.linear_xor(
+        builder, future_d if swap else future_g, new_g, delta_columns
+    )
+    builder.swap(future_d, new_d)
+    builder.swap(future_g, new_g)
+
+    old_first = builder.alloc_qubits(FIELD_BITS)
+    old_sum = builder.alloc_qubits(FIELD_BITS)
+    ar.linear_xor(builder, future_g, old_first, inverse_delta_columns)
+    ar.mul_xor0(
+        builder, pivot_g if swap else pivot_d, old_first, old_sum
+    )
+    ar.linear_xor(builder, future_d, old_sum, identity)
+
+    if swap:
+        ar.mul_xor0(builder, inverse_pivot, old_sum, new_g)
+        ar.linear_xor(builder, old_first, new_d, identity)
+    else:
+        ar.mul_xor0(builder, inverse_pivot, old_sum, new_d)
+        ar.linear_xor(builder, old_first, new_g, identity)
+
+    ar.linear_xor(builder, future_d, old_sum, identity)
+    ar.mul_xor0(
+        builder, pivot_g if swap else pivot_d, old_first, old_sum
+    )
+    ar.linear_xor(builder, future_g, old_first, inverse_delta_columns)
+
+    builder.free(old_first)
+    builder.free(old_sum)
+    builder.free(new_d)
+    builder.free(new_g)
+
+
+def build_fma_tail_pair_update(swap, delta, km=None, ar=None):
+    """Build one reversible sequential-FMA update for a future sample pair."""
+    if km is None or ar is None:
+        km, ar = load_gate_arithmetic()
+    builder = km.CircuitBuilder()
+    future_d = builder.alloc_qubits(FIELD_BITS)
+    future_g = builder.alloc_qubits(FIELD_BITS)
+    pivot_d = builder.alloc_qubits(FIELD_BITS)
+    pivot_g = builder.alloc_qubits(FIELD_BITS)
+    inverse_pivot = builder.alloc_qubits(FIELD_BITS)
+    append_fma_tail_pair_update(
+        builder,
+        future_d,
+        future_g,
+        pivot_d,
+        pivot_g,
+        inverse_pivot,
+        swap=swap,
+        delta=delta,
+        ar=ar,
+    )
+    circuit = builder.finish_circuit()
+    return km, ar, circuit, {
+        "future_d": future_d,
+        "future_g": future_g,
+        "pivot_d": pivot_d,
+        "pivot_g": pivot_g,
+        "inverse_pivot": inverse_pivot,
+    }
+
+
+def run_fma_tail_pair_update_screen(case_count=32, km=None, ar=None):
+    """Check both reversible FMA pivot updates on seeded GF(2^12) pairs."""
+    if km is None or ar is None:
+        km, ar = load_gate_arithmetic()
+    field = ar.field(FIELD_BITS)
+    rng = Random(0xA466057)
+    delta = 37
+    results = {}
+
+    for swap in (False, True):
+        km, ar, circuit, registers = build_fma_tail_pair_update(
+            swap, delta, km, ar
+        )
+        inputs = np.asarray(
+            [
+                [
+                    rng.randrange(1 << FIELD_BITS),
+                    rng.randrange(1 << FIELD_BITS),
+                    rng.randrange(1, 1 << FIELD_BITS)
+                    if swap
+                    else rng.randrange(1 << FIELD_BITS),
+                    rng.randrange(1 << FIELD_BITS)
+                    if swap
+                    else rng.randrange(1, 1 << FIELD_BITS),
+                ]
+                for _ in range(case_count)
+            ],
+            dtype=np.uint32,
+        )
+        future_d, future_g, pivot_d, pivot_g = inputs.T
+        inverse_pivot = np.asarray(
+            [
+                field.invert(int(pivot_d[i] if swap else pivot_g[i]))
+                for i in range(case_count)
+            ],
+            dtype=np.uint32,
+        )
+        expected_d = np.asarray(
+            [
+                field.mul(int(pivot_g[i]), int(future_d[i]))
+                ^ field.mul(int(pivot_d[i]), int(future_g[i]))
+                for i in range(case_count)
+            ],
+            dtype=np.uint32,
+        )
+        expected_g = np.asarray(
+            [
+                field.mul(
+                    delta,
+                    int(future_d[i] if swap else future_g[i]),
+                )
+                for i in range(case_count)
+            ],
+            dtype=np.uint32,
+        )
+
+        sim = km.Simulator(batch_size=case_count, debug_print=False, seed=0)
+        sim.use_same_registers_as(circuit)
+        for name, values in (
+            ("future_d", future_d),
+            ("future_g", future_g),
+            ("pivot_d", pivot_d),
+            ("pivot_g", pivot_g),
+            ("inverse_pivot", inverse_pivot),
+        ):
+            sim.write_across_shots(
+                registers[name], bit_columns(values, FIELD_BITS)
+            )
+        sim.do(circuit)
+
+        assert np.array_equal(
+            sim.read_across_shots(registers["future_d"]),
+            bit_columns(expected_d, FIELD_BITS),
+        )
+        assert np.array_equal(
+            sim.read_across_shots(registers["future_g"]),
+            bit_columns(expected_g, FIELD_BITS),
+        )
+        for name, values in (
+            ("pivot_d", pivot_d),
+            ("pivot_g", pivot_g),
+            ("inverse_pivot", inverse_pivot),
+        ):
+            assert np.array_equal(
+                sim.read_across_shots(registers[name]),
+                bit_columns(values, FIELD_BITS),
+            )
+
+        live = set().union(*(set(value) for value in registers.values()))
+        scratch = [
+            km.q(index)
+            for index in range(circuit.num_qubits)
+            if km.q(index) not in live
+        ]
+        if scratch:
+            assert not np.any(sim.read_across_shots(km.array(scratch)))
+        assert not np.any(sim.read_phase_flipped_across_shots())
+        results["swap" if swap else "no_swap"] = {
+            "cases": case_count,
+            "compiled_qubits": circuit.num_qubits,
+            "toffoli_like_gates": circuit.operation_statistics().num_toffoli_like,
+            "clean_scratch_qubits": len(scratch),
+            "phase_flips": 0,
+        }
+
+    return {
+        "delta": delta,
+        "pivot_update_errors": 0,
+        "control_errors": 0,
+        "pivot_cases": results,
+        "scope": "One sequential-FMA future-pair update for each pivot branch; not the 70-symbol key-equation solve.",
+    }
+
+
 def build_bezout_tail_action(km=None, ar=None, point=4):
     """Generate the Bezout tail action from a quadratic/linear row."""
     if km is None or ar is None:
@@ -2624,6 +2833,9 @@ def run_screen():
         "tail_matrix_state_encoding": run_bezout_matrix_state_screen(km=km, ar=ar),
         "streaming_matrix_checksum": run_bezout_matrix_stream_checksum_screen(km=km, ar=ar),
         "compact_prefix_matrix_stream_checksum": run_compact_prefix_matrix_stream_checksum_screen(km=km, ar=ar),
+        "sequential_fma_pair_update": run_fma_tail_pair_update_screen(
+            km=km, ar=ar
+        ),
     }
 
 

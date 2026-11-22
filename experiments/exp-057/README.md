@@ -2,11 +2,11 @@
 id: exp-057
 title: Four-word streaming decoder for quadratic-over-linear FMA
 task: dqi
-tests: exhaustive GF(8) prefix and tail state and matrix encoding; 2,048 seeded GF(2^12); 256 seeded GF(2^12) tail-matrix factorization cases; 32-case private coefficient-to-prefix and prefix-to-coefficient screens including a1=0; 32-case private integrated prefix-plus-tail action across both pivots; 32-case private 66-symbol matrix-stream checksum across both pivots; 32-case private compact-prefix-to-matrix 66-symbol checksum v15; 32 verifier-form prefix and tail cases; 64-case private precomputed-matrix action; 64-case coefficient-derived tail action; 64-case in-place matrix setup
+tests: exhaustive GF(8) prefix and tail state and matrix encoding; 2,048 seeded GF(2^12); 256 seeded GF(2^12) tail-matrix factorization cases; 32-case private coefficient-to-prefix and prefix-to-coefficient screens including a1=0; 32-case private integrated prefix-plus-tail action across both pivots; 32-case private 66-symbol matrix-stream checksum across both pivots; 32-case private compact-prefix-to-matrix 66-symbol checksum v15; 32 verifier-form prefix and tail cases; 32-case sequential FMA pair update across both pivots; 64-case private precomputed-matrix action; 64-case coefficient-derived tail action; 64-case in-place matrix setup
 direction: D-004
-status: coefficient-prefix-component-gates-passed_classical-66-tail-schedule-passed_branchless-prefix-inverse-v11-passed_integrated-prefix-plus-one-tail-v13-passed_precomputed-state-66-symbol-matrix-stream-checksum-v14-passed_compact-prefix-matrix-66-stream-v15-passed_dqi-output-cleanup-and-official-verifier-pending
+status: coefficient-prefix-component-gates-passed_classical-66-tail-schedule-passed_branchless-prefix-inverse-v11-passed_integrated-prefix-plus-one-tail-v13-passed_precomputed-state-66-symbol-matrix-stream-checksum-v14-passed_compact-prefix-matrix-66-stream-v15-passed_sequential-fma-pair-update-component-passed_dqi-output-cleanup-and-official-verifier-pending
 date: 2026-11-23
-result: Coefficient-to-prefix gate passes at Q=885 and T=7,483; branchless inverse prefix-to-coefficient gate passes at Q=888 and T=9,262; integrated compact-prefix decode plus one coefficient-derived tail action passes at Q=889 and T=10,084; precomputed-state 66-symbol matrix stream checksum passes at Q=888 and T=5,544; precomputed-matrix action at Q=873 and T=84; coefficient-derived one-symbol action at Q=889 and T=822; in-place matrix setup at Q=889 and T=558; integrated v15 compact-prefix, matrix setup, and 66-action checksum passes at Q=889 and T=19,004. DQI output/phase, reversible cleanup, and the official verifier remain open.
+result: Coefficient-to-prefix gate passes at Q=885 and T=7,483; branchless inverse prefix-to-coefficient gate passes at Q=888 and T=9,262; integrated compact-prefix decode plus one coefficient-derived tail action passes at Q=889 and T=10,084; precomputed-state 66-symbol matrix stream checksum passes at Q=888 and T=5,544; precomputed-matrix action at Q=873 and T=84; coefficient-derived one-symbol action at Q=889 and T=822; in-place matrix setup at Q=889 and T=558; integrated v15 compact-prefix, matrix setup, and 66-action checksum passes at Q=889 and T=19,004; one sequential FMA pair update passes both pivot branches at Q=108 and T=210 with 48 clean scratch qubits. DQI output/phase, reversible cleanup, and the official verifier remain open.
 ---
 
 # exp-057: four-word streaming decoder
@@ -234,3 +234,21 @@ Next gate: connect the 66-symbol actions to the DQI output/phase, uncompute
 the setup while preserving the required input registers, measure the complete
 resource count, then run the official verifier. No competition submission was
 made.
+
+## Sequential FMA future-pair update
+
+Private Kaggle kernel v17 checks one reversible sequential-FMA update on 32
+seeded pairs for each pivot branch. Both branches matched
+`d' = g_j*d + d_j*g` and the selected `g'` update, preserved the pivot inputs,
+cleaned 48 scratch qubits, and had no phase flips. The compiled cell is
+`Q=108`, `T=210` for `delta=37`; it remains below the 50-qubit scratch ceiling.
+Reusing the retained old-pair registers as XOR targets reduced the initial
+cell from 60 to 48 scratch qubits and from 252T to 210T.
+
+This is one pair cell with its pivot inverse supplied as input. It is not the
+70-symbol key-equation solve, and its cost is not a full-circuit projection.
+Next, integrate the pair update into the streamed FMA schedule and measure the
+composed width, Toffoli count, phase cleanup, and DQI output before invoking
+the official verifier. See the [v17 receipt](../../evals/2026-11-23-exp057-fma-pair-update-v17.json),
+[run log](../../log/2026-11-23-exp057-fma-pair-update-v17.md), and
+[raw Kaggle output](kaggle-v17-output.log).

@@ -81,6 +81,23 @@ phase/output, cleanup, full resource ledger, and official verifier remain open.
 See the [v16 receipt](../../evals/2026-11-23-exp057-verifier-form-v16.json)
 and [run log](../../log/2026-11-23-exp057-verifier-form-v16.md).
 
+## 2026-11-23 exp-057 sequential FMA pair update
+
+Private kernel v17 checks one reversible FMA future-pair update for each
+pivot branch on 32 seeded inputs. Both branches match the reference map, keep
+their pivot inputs unchanged, clean 48 scratch qubits, and have zero phase
+flips. The measured component is `Q=108`, `T=210` at `delta=37`, under the
+50-qubit scratch ceiling. Reusing the retained old-pair registers as XOR
+targets reduced this cell from 60 to 48 scratch qubits and from 252T to 210T.
+
+This component receives the pivot inverse as input; it does not build the
+70-symbol key-equation solve or establish a full-circuit resource total. Keep
+the active lane on composing this update into the existing streamed FMA
+schedule, then measure DQI output/phase and reversible cleanup before the
+official verifier. See the [v17 receipt](../../evals/2026-11-23-exp057-fma-pair-update-v17.json),
+[run log](../../log/2026-11-23-exp057-fma-pair-update-v17.md), and
+[exp-057 record](../../experiments/exp-057/README.md). No submission is ready.
+
 ## 2026-11-21 live leaderboard refresh
 
 The full Kaggle snapshot at `2026-11-21T12:55:34Z` has 3,519 teams.

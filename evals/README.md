@@ -21,6 +21,11 @@ This directory separates local verifier estimates from Kaggle results.
   verifier pass; its cost cannot yet be safely added to or subtracted from the
   projection. This is not a candidate. See the
   [v15 receipt](2026-11-23-exp057-prefix-matrix-stream-v15.json).
+- Exp-057 v17 also measures one reversible FMA pair update at `Q=108`, `T=210`
+  with 48 clean scratch qubits. It takes the pivot inverse as input and is not
+  integrated into the 70-symbol solve, so it does not update the full-circuit
+  projection. See the
+  [v17 receipt](2026-11-23-exp057-fma-pair-update-v17.json).
 - Full member hashes, verifier evidence, and submission:
   [2026-11-18 hybrid evaluation](2026-11-18-bori-frontier-hybrid.json).
 

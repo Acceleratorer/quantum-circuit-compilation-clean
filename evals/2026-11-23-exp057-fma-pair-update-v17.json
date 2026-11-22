@@ -1,0 +1,51 @@
+{
+  "captured_utc": "2026-11-22T22:49:45Z",
+  "experiment": "exp-057-sequential-fma-pair-update-v17",
+  "kernel": {
+    "id": "accelra/exp057-streaming-prefix-state",
+    "version": 17,
+    "visibility": "private",
+    "status": "COMPLETE",
+    "url": "https://www.kaggle.com/code/accelra/exp057-streaming-prefix-state/versions/17"
+  },
+  "source": {
+    "git_head_before_run": "8894f65",
+    "working_tree_dirty": true,
+    "streaming_prefix_kernel_sha256": "3086CBA21976A4439AE99873B05C0A9DD15C85C22228E113BA4FF79D852DCA3B",
+    "private_kernel_script_sha256": "74115014F1F65D2C9EA341298EE009BEB5576A0DF188D2DD925B71BCDAFC3938",
+    "kernel_log_sha256": "ACF35CDA5059CD0FDD6B75079E12951C69CAB774A998E1D3A020E954D659134E"
+  },
+  "checks": {
+    "cases_per_pivot_branch": 32,
+    "delta": 37,
+    "branches": {
+      "no_swap": {
+        "pivot_update_errors": 0,
+        "preserved_pivot_inputs": true,
+        "clean_scratch_qubits": 48,
+        "phase_flips": 0
+      },
+      "swap": {
+        "pivot_update_errors": 0,
+        "preserved_pivot_inputs": true,
+        "clean_scratch_qubits": 48,
+        "phase_flips": 0
+      }
+    },
+    "control_errors": 0
+  },
+  "resources": {
+    "compiled_qubits": 108,
+    "toffoli_like_gates": 210,
+    "scratch_qubits": 48,
+    "scratch_ceiling": 50
+  },
+  "local_validation": {
+    "kickmix_screen": "PASS: 32 seeded cases per pivot branch",
+    "py_compile": "PASS",
+    "git_diff_check": "PASS"
+  },
+  "official_verifier": "NOT_RUN",
+  "competition_submission": null,
+  "scope": "One sequential-FMA future-pair update with the pivot inverse supplied as input. This does not implement the 70-symbol key-equation solve, DQI output/phase, reversible cleanup, or the official verifier."
+}
