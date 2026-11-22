@@ -218,6 +218,8 @@ def screen_gf8_tail_transition():
     discriminator_reconstruction_errors = 0
     tail_round_trip_checks = 0
     tail_round_trip_errors = 0
+    first_row_zero_slopes = 0
+    alternate_row_zero_errors = 0
     for coefficients in product(range(8), range(8), range(8), range(1, 8)):
         if not valid_shape(coefficients, mul, div):
             continue
@@ -269,6 +271,10 @@ def screen_gf8_tail_transition():
                 for polynomial in row
             )
             a, b, c, d = point_matrix
+            if a == 0:
+                first_row_zero_slopes += 1
+                if c == 0:
+                    alternate_row_zero_errors += 1
             recovered_a1 = mul(div(c, d), b1) ^ div(b, b1)
             recovered_b0 = b ^ mul(tail_point, b1)
             recovered_a0 = (
@@ -291,6 +297,8 @@ def screen_gf8_tail_transition():
         "prefix_annihilation_errors": 0,
         "tail_round_trip_checks": tail_round_trip_checks,
         "tail_round_trip_errors": tail_round_trip_errors,
+        "first_row_zero_slopes": first_row_zero_slopes,
+        "alternate_row_zero_errors": alternate_row_zero_errors,
         "bezout_complementary_rows": checked,
         "tail_points": {
             "start": tail_points[0],
@@ -325,6 +333,8 @@ def screen_gf12_verifier_tail_transition(count_per_weight=16):
     matrix_b1_reconstruction_errors = 0
     tail_round_trip_checks = 0
     tail_round_trip_errors = 0
+    first_row_zero_slopes = 0
+    alternate_row_zero_errors = 0
     for weight in (31, 35):
         for _ in range(count_per_weight):
             locations = rng.sample(range(1, 1 << degree), weight)
@@ -382,6 +392,10 @@ def screen_gf12_verifier_tail_transition(count_per_weight=16):
                     for row in rows
                     for polynomial in row
                 )
+                if a == 0:
+                    first_row_zero_slopes += 1
+                    if c == 0:
+                        alternate_row_zero_errors += 1
                 recovered_a1 = mul(div(c, d), b1) ^ div(b, b1)
                 recovered_b0 = b ^ mul(tail_point, b1)
                 recovered_a0 = (
@@ -408,6 +422,8 @@ def screen_gf12_verifier_tail_transition(count_per_weight=16):
         "prefix_annihilation_errors": 0,
         "tail_round_trip_checks": tail_round_trip_checks,
         "tail_round_trip_errors": tail_round_trip_errors,
+        "first_row_zero_slopes": first_row_zero_slopes,
+        "alternate_row_zero_errors": alternate_row_zero_errors,
         "bezout_complementary_rows": checked,
         "matrix_b1_reconstruction_errors": matrix_b1_reconstruction_errors,
         "tail_points": {

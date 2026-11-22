@@ -99,6 +99,11 @@ GF(8) includes both pivots. Reproduction:
 `python experiments/exp-057/streaming_fixed_shape_decoder.py` and
 `python -m unittest discover -s tests -p test_exp057_tail_transition.py -v`.
 
+The first row's sample coefficient vanishes at 700 of the 8,064 GF(8) tail
+cases and one of the 2,112 GF(2^12) tail cases. The second row's coefficient
+was nonzero in every such case, as the nonzero matrix determinant requires.
+The in-place 66-symbol circuit therefore needs a dynamic row pivot.
+
 This verifies classical algebra only. The prefix-to-matrix gate circuit, the
 compiled 66-symbol schedule, and the official verifier remain open. Receipt:
 [`exp-057 full tail transition`](../../evals/2026-11-22-exp057-tail-transition-classical.json).

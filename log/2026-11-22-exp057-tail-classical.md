@@ -10,6 +10,10 @@ error weights 31 and 35) passed at every tail point 4–69: 2,112 checks with
 zero reconstruction or round-trip errors. All sampled GF(2^12) cases used the
 `a0` pivot.
 
+The tail matrix's first-row slope was zero in 700 of 8,064 exhaustive GF(8)
+cases and one of 2,112 sampled GF(2^12) cases. The second-row slope was
+nonzero in every case, so the integrated circuit needs a dynamic row pivot.
+
 This is classical algebra evidence, not a compiled circuit or a verifier pass.
 The next gate remains the compact-prefix-to-matrix circuit, then measured reuse
 across all 66 symbols.

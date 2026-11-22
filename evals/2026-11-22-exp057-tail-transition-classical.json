@@ -1,5 +1,5 @@
 {
-  "captured_utc": "2026-11-22T15:41:36Z",
+  "captured_utc": "2026-11-22T19:18:26Z",
   "checks": {
     "gf12_verifier_form": {
       "error_weights": {
@@ -21,7 +21,9 @@
       },
       "tail_round_trip_checks": 2112,
       "tail_round_trip_errors": 0,
-      "verifier_form_samples": 32
+      "verifier_form_samples": 32,
+      "first_row_zero_slopes": 1,
+      "alternate_row_zero_errors": 0
     },
     "gf8": {
       "field": "GF(8)",
@@ -39,14 +41,16 @@
         "start": 4
       },
       "tail_round_trip_checks": 8064,
-      "tail_round_trip_errors": 0
+      "tail_round_trip_errors": 0,
+      "first_row_zero_slopes": 700,
+      "alternate_row_zero_errors": 0
     }
   },
   "experiment": "exp-057-tail-transition-classical",
   "scope": "Classical tail algebra across all 66 GF(2^12) schedule points on seeded verifier-form samples, plus exhaustive supported GF(8) states over its four distinct tail points. No compiled 66-symbol schedule, full verifier run, or submission.",
   "source": {
     "path": "experiments/exp-057/streaming_fixed_shape_decoder.py",
-    "sha256": "6A35A2CF1129FFBDAFC5FF9149165D4BEFD4538CAF56B7DD7E2A515A67B460A7"
+    "sha256": "ECE4C94E8923860B7A7FCFCAD59FE29526AE436CE779EC29D919B986ABE61A06"
   },
   "submission": null,
   "unit_tests": {
