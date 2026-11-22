@@ -1,0 +1,50 @@
+{
+  "captured_utc": "2026-11-22T19:37:26Z",
+  "experiment": "exp-057-compact-prefix-plus-tail-action",
+  "kernel": {
+    "id": "accelra/exp057-streaming-prefix-state",
+    "version": 13,
+    "visibility": "private",
+    "status": "COMPLETE",
+    "url": "https://www.kaggle.com/code/accelra/exp057-streaming-prefix-state/versions/13"
+  },
+  "source": {
+    "git_head": "71370d2",
+    "streaming_prefix_kernel_sha256": "D5430C275F4832142AB2637F0D4D295597A739AEA4F8D699966528C9E6584E03",
+    "private_kernel_script_sha256": "8E6674A9142341239F5D941C9C7B0C47EAA6591EE8D8F0FB9EAB83C265D8D9BB",
+    "kernel_log_sha256": "1C060DF7EA2E61BAC263C723CC7839A06A78F9E3DFA7BD909B9790ECD30F2634"
+  },
+  "checks": {
+    "prefix_to_one_tail_action": {
+      "cases": 32,
+      "point": 4,
+      "prefix_pivot_coverage": {
+        "a0": 31,
+        "a1": 1
+      },
+      "coefficient_errors": 0,
+      "tail_output_errors": 0,
+      "preserved_tail_words": 66,
+      "preserved_rank_and_pivot": true,
+      "clean_scratch_qubits": 16,
+      "phase_flips": 0
+    },
+    "official_verifier": "NOT_RUN",
+    "competition_submission": null
+  },
+  "resources": {
+    "compiled_qubits": 889,
+    "width_gate": 890,
+    "qubits_below_gate": 1,
+    "toffoli_like_gates": 10084,
+    "prefix_decoder_component": {
+      "compiled_qubits": 888,
+      "toffoli_like_gates": 9262
+    },
+    "one_tail_action_component": {
+      "compiled_qubits": 889,
+      "toffoli_like_gates": 822
+    }
+  },
+  "decision": "The compact-prefix decoder and one coefficient-derived tail action compose at Q=889 with correct outputs, clean workspace, and zero phase flips. This is a 4+1 component gate only; the integrated 4+66 schedule and official DQI verifier remain required before submission."
+}

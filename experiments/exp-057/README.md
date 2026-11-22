@@ -2,11 +2,11 @@
 id: exp-057
 title: Four-word streaming decoder for quadratic-over-linear FMA
 task: dqi
-tests: exhaustive GF(8) prefix and tail state and matrix encoding; 2,048 seeded GF(2^12); 256 seeded GF(2^12) tail-matrix factorization cases; 32-case private coefficient-to-prefix and prefix-to-coefficient screens including a1=0; 32 verifier-form prefix and tail cases; 64-case private precomputed-matrix action; 64-case coefficient-derived tail action; 64-case in-place matrix setup
+tests: exhaustive GF(8) prefix and tail state and matrix encoding; 2,048 seeded GF(2^12); 256 seeded GF(2^12) tail-matrix factorization cases; 32-case private coefficient-to-prefix and prefix-to-coefficient screens including a1=0; 32-case private integrated prefix-plus-tail action across both pivots; 32 verifier-form prefix and tail cases; 64-case private precomputed-matrix action; 64-case coefficient-derived tail action; 64-case in-place matrix setup
 direction: D-004
-status: coefficient-prefix-component-gates-passed_classical-66-tail-schedule-passed_branchless-prefix-inverse-v11-passed_integrated-4-plus-66-schedule-and-official-verifier-pending
+status: coefficient-prefix-component-gates-passed_classical-66-tail-schedule-passed_branchless-prefix-inverse-v11-passed_integrated-prefix-plus-one-tail-v13-passed_integrated-4-plus-66-schedule-and-official-verifier-pending
 date: 2026-11-23
-result: Coefficient-to-prefix gate passes at Q=885 and T=7,483; branchless inverse prefix-to-coefficient gate passes at Q=888 and T=9,262; precomputed-matrix action at Q=873 and T=84; coefficient-derived one-symbol action at Q=889 and T=822; in-place matrix setup at Q=889 and T=558. Classical tail algebra passes all 66 GF(2^12) points on 32 seeded verifier-form cases and all four non-prefix GF(8) points on 2,016 supported states. The integrated 4+66 schedule and official verifier remain open.
+result: Coefficient-to-prefix gate passes at Q=885 and T=7,483; branchless inverse prefix-to-coefficient gate passes at Q=888 and T=9,262; integrated compact-prefix decode plus one coefficient-derived tail action passes at Q=889 and T=10,084; precomputed-matrix action at Q=873 and T=84; coefficient-derived one-symbol action at Q=889 and T=822; in-place matrix setup at Q=889 and T=558. Classical tail algebra passes all 66 GF(2^12) points on 32 seeded verifier-form cases and all four non-prefix GF(8) points on 2,016 supported states. The integrated 4+66 schedule and official verifier remain open.
 ---
 
 # exp-057: four-word streaming decoder
@@ -58,9 +58,18 @@ This is still a four-word component screen. It does not implement the
 integrated 4+66 schedule or run the official DQI verifier. The complete v11
 receipt and run log record that scope explicitly.
 
-These are separate four-word/component screens. The 66 spectator words are
-checked for preservation; the cells do not decode them and are not the
-integrated 4+66 schedule. No competition submission was made. The full
+Private kernel version 13 composes this decoder with one tail action in the
+same circuit. It passes 32 cases covering both prefix pivots at `Q=889`,
+`T=10,084`, with all 66 tail words and rank/pivot preserved, 16 clean scratch
+qubits, and zero phase flips. This is a measured 4+1 composition. The full
+66-symbol schedule remains open; see the
+[`v13 receipt`](../../evals/2026-11-23-exp057-prefix-tail-v13.json),
+[`run log`](../../log/2026-11-23-exp057-prefix-tail-v13.md), and
+[`milestone`](../../milestone/2026-11-23-exp057-prefix-tail-v13.md).
+
+The earlier component screens check that 66 spectator words are preserved.
+Version 13 adds one action at point 4, but it still does not decode all 66
+tail symbols. No competition submission was made. The integrated 4+66
 schedule and official verifier remain required before a candidate can be
 considered.
 
