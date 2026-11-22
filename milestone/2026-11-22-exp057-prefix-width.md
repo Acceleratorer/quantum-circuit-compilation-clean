@@ -34,10 +34,17 @@ cover the remaining 65 symbols. See the
 
 ## Next gate
 
-Compile the one-symbol tail matrix action as a reversible Kickmix cell. Require
-`Q <= 890`, the remaining Toffoli budget, clean workspace, zero phase errors,
-and preservation of all other payload words before extending it across the
-remaining 65 symbols. The official DQI verifier still gates any submission.
+The one-symbol matrix action has since passed as a reversible Kickmix cell
+when its four matrix entries are precomputed: private version 5 measured
+`Q=873`, `T=84`, 64/64 correct outputs, clean scratch, preserved payload/rank/
+pivot, and zero phase flips. See the
+[matrix-action receipt](../evals/2026-11-22-exp057-tail-matrix-gate.json).
+
+Next, generate those four entries reversibly from the compact prefix state and
+erase the generation workspace. Then combine the prefix and tail cells in an
+accounted 66-symbol schedule. Require `Q <= 890`, a complete Toffoli count,
+clean workspace, zero phase errors, and a pass from the official DQI verifier
+before any submission.
 
 For branch-history compression, ratios, ranks, retained bits `b0/b4`, and the
 one-bit tag still leave 1,920 ambiguous keys in the exhaustive five-word GF(8)

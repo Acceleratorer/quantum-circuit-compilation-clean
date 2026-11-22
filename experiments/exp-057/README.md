@@ -2,11 +2,11 @@
 id: exp-057
 title: Four-word streaming decoder for quadratic-over-linear FMA
 task: dqi
-tests: exhaustive GF(8) prefix and tail state; 2,048 seeded GF(2^12); 32-case private prefix gate screen including a1=0; 32 verifier-form prefix and tail cases
+tests: exhaustive GF(8) prefix and tail state; 2,048 seeded GF(2^12); 32-case private prefix gate screen including a1=0; 32 verifier-form prefix and tail cases; 64-case private precomputed-matrix action
 direction: D-004
-status: prefix_and_classical_tail_gates_passed_circuit_integration_pending
+status: prefix_and_one-symbol-precomputed-matrix-gates-passed_matrix-generation-pending
 date: 2026-11-22
-result: Prefix gate passes at Q=885 and T=7,483; the classical one-symbol tail transition passes exhaustive GF(8) and 32 seeded GF(2^12) verifier-form cases. No integrated 4+66 circuit or submission exists.
+result: Prefix gate passes at Q=885 and T=7,483; the one-symbol action with precomputed matrix entries passes at Q=873 and T=84. Matrix generation, 66-symbol integration, and the official verifier remain open.
 ---
 
 # exp-057: four-word streaming decoder
@@ -77,7 +77,23 @@ covered exhaustively by GF(8). Reproduction:
 `python experiments/exp-057/streaming_fixed_shape_decoder.py` and
 `python -m pytest tests/test_exp057_tail_transition.py`.
 
-This is a classical algebra gate only. It does not compile the tail matrix
-action, establish qubit or Toffoli cost, cover all 66 later symbols, or pass
-the official verifier. The next gate is a one-symbol Kickmix cell under the
-full `Q <= 890` and remaining Toffoli budget.
+This is a classical algebra gate only. It does not compile matrix generation
+from the prefix state, cover all 66 later symbols, or pass the official
+verifier. The separate precomputed-matrix Kickmix action screen is recorded
+below.
+
+## Precomputed-matrix action gate
+
+Private Kaggle kernel version 5 compiles the out-of-place action
+`(u,v) -> (a*u+b,c*u+d)` for one tail symbol. Across 64 invertible matrices,
+all outputs matched; the 70-word payload, rank, and pivot were preserved, with
+no phase flips and no dirty scratch. The cell measured `Q=873`, `T=84`.
+Receipt: [`exp-057 tail matrix action`](../../evals/2026-11-22-exp057-tail-matrix-gate.json).
+
+The four matrix entries are independent precomputed inputs in this screen. It
+does not generate them from the compact prefix state, erase generation
+workspace, implement an in-place 66-symbol schedule, or run the official DQI
+verifier. The 66-symbol `84T` multiplication is only a sensitivity estimate;
+it may overlap with the existing `202,075T` FMA projection. The next gate is a
+reversible prefix-state-to-matrix cell, measured together with its cleanup and
+the existing prefix cell before extending the schedule.

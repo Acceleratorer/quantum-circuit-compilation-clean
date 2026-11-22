@@ -1,0 +1,56 @@
+{
+  "captured_utc": "2026-11-22T13:49:56Z",
+  "checks": {
+    "prefix_cell": {
+      "cases": 32,
+      "clean_scratch_qubits": 36,
+      "compiled_qubits": 885,
+      "phase_flips": 0,
+      "pivot_coverage": {
+        "a0": 31,
+        "a1": 1
+      },
+      "preserved_spectator_words": 66,
+      "round_trip_errors": 0,
+      "toffoli_like_gates": 7483
+    },
+    "tail_matrix_action": {
+      "cases": 64,
+      "clean_scratch_qubits": 0,
+      "compiled_qubits": 873,
+      "invertible_matrices": 64,
+      "output_errors": 0,
+      "phase_flips": 0,
+      "preserved_payload_words": 70,
+      "preserved_rank_and_pivot": true,
+      "qubits_over_890": -17,
+      "scope": "Out-of-place one-symbol action with precomputed matrix entries; matrix generation and 66-symbol integration are not included.",
+      "toffoli_like_gates": 84,
+      "zero_determinants": 0
+    }
+  },
+  "conditional_budget_sensitivity": {
+    "fma_projection_t": 202075.0,
+    "hypothetical_66_action_t": 5544,
+    "measured_action_t_per_symbol": 84,
+    "remaining_if_added_after_projection_t": 6337.9800000000105,
+    "score_gate_t_at_q890": 213956.98,
+    "unmeasured_allowance_t": 11881.98000000001,
+    "warning": "The 202,075T FMA projection may already include these field products. This is sensitivity arithmetic only; matrix generation, cleanup, and a 66-symbol width schedule are unmeasured."
+  },
+  "experiment": "exp-057-tail-matrix-action",
+  "kernel": {
+    "id": "accelra/exp057-streaming-prefix-state",
+    "status": "COMPLETE",
+    "url": "https://www.kaggle.com/code/accelra/exp057-streaming-prefix-state/versions/5",
+    "version": 5,
+    "visibility": "private"
+  },
+  "scope": "Measured out-of-place action with four precomputed matrix entries and input pair (sample,1). Matrix generation from the compact prefix state, in-place cleanup, 66-symbol integration, full verifier, and submission are absent.",
+  "source": {
+    "builder_sha256": "8bb4349c8b6dde3010380ec11ab2055fd6886cd4797b15d8c83f3c6999cb065e",
+    "private_kernel_script_sha256": "5a7ed543b542dfa16ac2ef46419865f1fdf85076c635ec4c569836274388c1cd",
+    "streaming_prefix_kernel_sha256": "d81890015ad92d605e32e11db1c302df3a770e9a161f233411c63c970642def7"
+  },
+  "submission": null
+}

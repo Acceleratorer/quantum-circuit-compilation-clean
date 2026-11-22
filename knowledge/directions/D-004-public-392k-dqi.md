@@ -38,16 +38,20 @@ four-position choices. This is a block-tag lead only, not a GF(2^12) bound or a
 reversible eraser. See the
 [`exp-053 projection receipt`](../../evals/2026-11-22-exp053-valid-ratio-history.json).
 
-The active circuit path is now the four-word FMA prefix state in exp-057. The
-classical one-symbol tail transition reconstructs the canonical complementary
-row and passes exhaustive GF(8) plus 32 seeded verifier-form GF(2^12) cases.
-The reversible tail cell is still uncompiled; the 66-symbol schedule and full
-verifier remain open. The exp-053 branch-tag screens are retained as prior
-evidence, not parallel active work. The next gate is one Kickmix tail cell,
-then the integrated `Q <= 890`, Toffoli, cleanup, phase, and official-verifier
-checks. No submission is ready. See the
+The active circuit path is the four-word FMA prefix state in exp-057. Its
+classical one-symbol transition reconstructs the complementary row and passes
+exhaustive GF(8) plus 32 seeded verifier-form GF(2^12) cases. A private
+Kickmix screen also compiles one out-of-place tail action at `Q=873`, `T=84`
+for 64 cases, but takes all four matrix entries as precomputed inputs. Matrix
+generation from the prefix state, its workspace cleanup, and the 66-symbol
+schedule remain open. The `84T × 66` figure is only a sensitivity estimate
+because those field products may overlap the existing `202,075T` FMA
+projection. Continue this single lane through an integrated gate with
+`Q <= 890`, complete Toffoli accounting, clean workspace, zero phase errors,
+and the official verifier. No submission is ready. See the
 [classical tail receipt](../../evals/2026-11-22-exp057-tail-transition-classical.json),
-[exp-057 record](../../experiments/exp-057/README.md), and
+[matrix-action receipt](../../evals/2026-11-22-exp057-tail-matrix-gate.json),
+[exp-057 record](../../experiments/exp-057/README.md), and prior
 [exp-053 branch-tag record](../../experiments/exp-053/README.md).
 
 ## 2026-11-21 live leaderboard refresh

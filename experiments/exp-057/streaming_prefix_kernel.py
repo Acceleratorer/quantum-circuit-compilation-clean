@@ -452,6 +452,144 @@ def build_decoder():
     return km, ar, circuit, {"payload": payload, "rank": rank, "pivot": pivot_one}
 
 
+def build_tail_matrix_action(km=None, ar=None):
+    """Compute one tail pair from four precomputed matrix evaluations."""
+    if km is None or ar is None:
+        km, ar = load_gate_arithmetic()
+    builder = km.CircuitBuilder()
+    payload = builder.alloc_qubits(70 * FIELD_BITS)
+    rank = builder.alloc_qubits(8)
+    pivot = builder.alloc_qubits(1)
+    outputs = builder.alloc_qubits(2 * FIELD_BITS)
+
+    a, b, c, d, sample = [
+        payload[index * FIELD_BITS : (index + 1) * FIELD_BITS]
+        for index in range(5)
+    ]
+    first, second = outputs[:FIELD_BITS], outputs[FIELD_BITS:]
+    identity = [1 << bit for bit in range(FIELD_BITS)]
+
+    ar.mul_xor0(builder, a, sample, first)
+    ar.linear_xor(builder, b, first, identity)
+    ar.mul_xor0(builder, c, sample, second)
+    ar.linear_xor(builder, d, second, identity)
+
+    circuit = builder.finish_circuit()
+    return km, ar, circuit, {
+        "payload": payload,
+        "rank": rank,
+        "pivot": pivot[0],
+        "outputs": outputs,
+    }
+
+
+def run_tail_matrix_action_screen(case_count=64, km=None, ar=None):
+    """Measure the reversible, out-of-place matrix action for one tail symbol."""
+    km, ar, circuit, registers = build_tail_matrix_action(km, ar)
+    field = ar.field(FIELD_BITS)
+    rng = Random(0xA466058)
+    input_words = np.asarray(
+        [
+            [rng.randrange(1 << FIELD_BITS) for _ in range(70)]
+            for _ in range(case_count)
+        ],
+        dtype=np.uint32,
+    )
+    determinants = []
+    for shot in range(case_count):
+        while True:
+            matrix = [rng.randrange(1 << FIELD_BITS) for _ in range(4)]
+            a, b, c, d = matrix
+            determinant = field.mul(a, d) ^ field.mul(b, c)
+            if determinant:
+                break
+        input_words[shot, :4] = matrix
+        determinants.append(determinant)
+
+    samples = input_words[:, 4].copy()
+    expected = np.asarray(
+        [
+            (
+                field.mul(int(input_words[shot, 0]), int(samples[shot]))
+                ^ int(input_words[shot, 1]),
+                field.mul(int(input_words[shot, 2]), int(samples[shot]))
+                ^ int(input_words[shot, 3]),
+            )
+            for shot in range(case_count)
+        ],
+        dtype=np.uint32,
+    )
+    rank_values = np.asarray(
+        [rng.randrange(1 << 8) for _ in range(case_count)], dtype=np.uint32
+    )
+    pivot_values = np.asarray(
+        [rng.randrange(2) for _ in range(case_count)], dtype=np.uint32
+    )
+
+    sim = km.Simulator(batch_size=case_count, debug_print=False, seed=0)
+    sim.use_same_registers_as(circuit)
+    for word in range(70):
+        sim.write_across_shots(
+            registers["payload"][word * FIELD_BITS : (word + 1) * FIELD_BITS],
+            bit_columns(input_words[:, word], FIELD_BITS),
+        )
+    sim.write_across_shots(registers["rank"], bit_columns(rank_values, 8))
+    sim.write_across_shots(registers["pivot"], bit_columns(pivot_values, 1)[0])
+    sim.do(circuit)
+
+    actual = np.stack(
+        [
+            sim.read_across_shots(
+                registers["outputs"][index * FIELD_BITS : (index + 1) * FIELD_BITS]
+            )
+            for index in range(2)
+        ],
+        axis=0,
+    ).transpose(2, 0, 1)
+    expected_bits = np.stack(
+        [bit_columns(expected[:, index], FIELD_BITS).T for index in range(2)],
+        axis=1,
+    )
+    assert np.array_equal(actual, expected_bits)
+
+    for word in range(70):
+        actual_word = sim.read_across_shots(
+            registers["payload"][word * FIELD_BITS : (word + 1) * FIELD_BITS]
+        )
+        assert np.array_equal(actual_word, bit_columns(input_words[:, word], FIELD_BITS))
+    assert np.array_equal(
+        sim.read_across_shots(registers["rank"]), bit_columns(rank_values, 8)
+    )
+    assert np.array_equal(
+        sim.read_across_shots(registers["pivot"]), bit_columns(pivot_values, 1)[0]
+    )
+
+    live = (
+        set(registers["payload"])
+        | set(registers["rank"])
+        | {registers["pivot"]}
+        | set(registers["outputs"])
+    )
+    scratch = [km.q(index) for index in range(circuit.num_qubits) if km.q(index) not in live]
+    if scratch:
+        assert not np.any(sim.read_across_shots(km.array(scratch)))
+    assert not np.any(sim.read_phase_flipped_across_shots())
+    return {
+        "cases": case_count,
+        "invertible_matrices": len(determinants),
+        "zero_determinants": 0,
+        "output_errors": 0,
+        "preserved_payload_words": 70,
+        "preserved_rank_and_pivot": True,
+        "compiled_qubits": circuit.num_qubits,
+        "qubits_over_890": circuit.num_qubits - 890,
+        "toffoli_like_gates": circuit.operation_statistics().num_toffoli_like,
+        "clean_scratch_qubits": len(scratch),
+        "phase_flips": 0,
+        "scope": "Out-of-place one-symbol action with precomputed matrix entries; matrix generation and 66-symbol integration are not included.",
+    }
+
+
 def sample_coefficients(field, rng):
     while True:
         a0, a1, b0 = (rng.randrange(1 << FIELD_BITS) for _ in range(3))
@@ -595,6 +733,7 @@ def run_screen():
         "clean_scratch_qubits": len(scratch),
         "phase_flips": 0,
         "scope": "In-place four-word coefficient-to-prefix-state map only; not an integrated 4+66 schedule.",
+        "tail_matrix_action": run_tail_matrix_action_screen(km=km, ar=ar),
     }
 
 
