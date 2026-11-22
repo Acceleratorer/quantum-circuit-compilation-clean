@@ -47,6 +47,18 @@
       "erased_branch_pivots": [1]
     }
   },
+  "follow_up_rank_screen": {
+    "block_length": 4,
+    "block_starts_checked": "0..66",
+    "local_histories_per_start": 16,
+    "starting_rank1_values": "all values reachable after the given number of prior branch updates",
+    "erasable_local_branch_indices_from_final_rank_and_other_three": {
+      "start_0": [1, 3],
+      "start_1": [0, 2],
+      "starts_2_through_66": []
+    },
+    "scope": "Rank recurrence only. The first-block parity does not repeat across the remaining 66 points using only local branch bits and rank; ratio or other FMA state was not included."
+  },
   "official_verifier_run": false,
   "competition_submission": null,
   "result": "PASS_PREFIX_AND_HANDOFF_STATE",

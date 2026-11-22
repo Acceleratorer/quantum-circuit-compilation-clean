@@ -475,6 +475,11 @@ instead of 42. That gives the next 66-point stage one more clean wire at the
 [dated log](../../log/2026-11-22-exp053-four-pivot-compaction-v34.md), and
 [captured output](logs/kernel-v34-output.json).
 
+The same local rank identity does not repeat by itself: across four-branch
+blocks starting at points 2 through 66, exhaustive rank-state enumeration
+found no branch bit recoverable from final rank1 and the other three local
+bits. Tail compression must use the ratio or additional FMA state.
+
 ## Limit
 
 The compiled one-pair cell does not solve width for the full recurrence. The
