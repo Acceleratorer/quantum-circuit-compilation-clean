@@ -17,15 +17,27 @@ This gate covers only the four-word cell. It does not decode the 66 spectator
 words, prove the integrated 4+66 schedule, or pass the official DQI verifier.
 The top-leaderboard goal remains open; no competition submission was made.
 
+## One-symbol tail algebra gate
+
+The four-word prefix state now has a classical one-symbol continuation screen.
+The canonical complementary row reconstructs the four-point FMA basis; its
+matrix annihilates the four prefix samples, has determinant equal to the
+four-point node polynomial, and maps the next pair invertibly.
+
+The screen passes all 2,016 supported GF(8) prefixes and 32 seeded GF(2^12)
+verifier-form prefixes at error weights 31 and 35. This validates only the
+classical transition at point 4. It does not compile a Kickmix tail cell or
+cover the remaining 65 symbols. See the
+[evaluation receipt](../evals/2026-11-22-exp057-tail-transition-classical.json),
+[test](../tests/test_exp057_tail_transition.py), and
+[experiment notes](../experiments/exp-057/README.md).
+
 ## Next gate
 
-Exp-053 kernel version 30 now passes the four-pivot prefix width gate at
-`Q=890`, `T=3,032` using measurement recycling. Its 32-case screen preserves
-the spectator payload and phase, but does not cover the remaining 66 symbols.
-Integrate this single path with those symbols and measure the full
-`Q <= 890`, `T <= 213,956.98`, cleanup, phase, and official-verifier gates before
-preparing any submission. See the [exp-053 receipt](../evals/2026-11-22-exp053-measurement-recycle-prefix-v30.json)
-and [experiment notes](../experiments/exp-053/README.md).
+Compile the one-symbol tail matrix action as a reversible Kickmix cell. Require
+`Q <= 890`, the remaining Toffoli budget, clean workspace, zero phase errors,
+and preservation of all other payload words before extending it across the
+remaining 65 symbols. The official DQI verifier still gates any submission.
 
 For branch-history compression, ratios, ranks, retained bits `b0/b4`, and the
 one-bit tag still leave 1,920 ambiguous keys in the exhaustive five-word GF(8)

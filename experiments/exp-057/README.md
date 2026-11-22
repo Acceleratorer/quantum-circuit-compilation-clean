@@ -2,11 +2,11 @@
 id: exp-057
 title: Four-word streaming decoder for quadratic-over-linear FMA
 task: dqi
-tests: exhaustive GF(8); 2,048 seeded GF(2^12); 32-case private gate screen including a1=0; 32 verifier-form prefix-shape cases; one verifier-form case per weight 0..35
+tests: exhaustive GF(8) prefix and tail state; 2,048 seeded GF(2^12); 32-case private prefix gate screen including a1=0; 32 verifier-form prefix and tail cases
 direction: D-004
-status: prefix_cell_width_gate_passed_integration_pending
+status: prefix_and_classical_tail_gates_passed_circuit_integration_pending
 date: 2026-11-22
-result: Local and private Kaggle screens pass at Q=885 and T=7,483; this is not the integrated 4+66 decoder and was not submitted.
+result: Prefix gate passes at Q=885 and T=7,483; the classical one-symbol tail transition passes exhaustive GF(8) and 32 seeded GF(2^12) verifier-form cases. No integrated 4+66 circuit or submission exists.
 ---
 
 # exp-057: four-word streaming decoder
@@ -60,3 +60,24 @@ sampler, the corresponding weight probabilities are `2.78e-26` and
 combined expected draws in 102,400 shots. The edge cases are not the current
 optimization bottleneck; integrating and measuring the full decoder comes
 first.
+
+## One-symbol tail transition
+
+The four-word compact state reconstructs the normalized low row of the
+four-point FMA basis. For the next symbol, the screen reconstructs the
+canonical complementary row, applies the resulting 2x2 polynomial matrix at
+point 4, and checks that the matrix determinant is the four-point node
+polynomial. Both rows annihilate the original four samples, the tail-point
+matrix is invertible, and its inverse recovers the input pair.
+
+The transition passed all 2,016 supported GF(8) coefficient states and 32
+seeded verifier-form GF(2^12) cases (16 each at error weights 31 and 35).
+The GF(2^12) sample used the `a0` pivot in all 32 cases; the `a1` pivot is
+covered exhaustively by GF(8). Reproduction:
+`python experiments/exp-057/streaming_fixed_shape_decoder.py` and
+`python -m pytest tests/test_exp057_tail_transition.py`.
+
+This is a classical algebra gate only. It does not compile the tail matrix
+action, establish qubit or Toffoli cost, cover all 66 later symbols, or pass
+the official verifier. The next gate is a one-symbol Kickmix cell under the
+full `Q <= 890` and remaining Toffoli budget.

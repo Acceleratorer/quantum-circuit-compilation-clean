@@ -38,23 +38,17 @@ four-position choices. This is a block-tag lead only, not a GF(2^12) bound or a
 reversible eraser. See the
 [`exp-053 projection receipt`](../../evals/2026-11-22-exp053-valid-ratio-history.json).
 
-The live circuit path remains the compact-state tag eraser. Its five-pivot
-screen resolves all 46 collision groups in exhaustive GF(8) and found no
-collisions in 64 sampled valid GF(2^12) inputs, but there is no GF(2^12)
-injectivity proof or tag circuit. Final ranks plus tag leave at most four of
-the 32 possible histories, independent of field values; the reversible
-candidate check remains uncompiled. The new eight-point screen suggests a
-four-bit tag only on its GF(8) valid-pattern domain. Neither result is a
-full-tail proof. The next implementation gate is one reversible block eraser,
-using the compact-state low row to resolve candidates; an exact five-word
-GF(8) follow-up found 1,920 ambiguous `b1` keys when that row is omitted. Then
-require the integrated `Q <= 890`, `T <= 213,956.98`, cleanup, phase, and
-official-verifier gates. No submission is ready. See the
-[ratio/rank/tag screen](../../evals/2026-11-22-exp053-fifth-pivot-ratio-tag-screen.json).
-See the [exp-053 record](../../experiments/exp-053/README.md),
-[fifth-pivot state receipt](../../evals/2026-11-22-exp053-fifth-pivot-state.json),
-[v31 receipt](../../evals/2026-11-22-exp053-five-pivot-prefix-v31.json), and
-[v32 no-go receipt](../../evals/2026-11-22-exp053-sentinel-recycle-v32.json).
+The active circuit path is now the four-word FMA prefix state in exp-057. The
+classical one-symbol tail transition reconstructs the canonical complementary
+row and passes exhaustive GF(8) plus 32 seeded verifier-form GF(2^12) cases.
+The reversible tail cell is still uncompiled; the 66-symbol schedule and full
+verifier remain open. The exp-053 branch-tag screens are retained as prior
+evidence, not parallel active work. The next gate is one Kickmix tail cell,
+then the integrated `Q <= 890`, Toffoli, cleanup, phase, and official-verifier
+checks. No submission is ready. See the
+[classical tail receipt](../../evals/2026-11-22-exp057-tail-transition-classical.json),
+[exp-057 record](../../experiments/exp-057/README.md), and
+[exp-053 branch-tag record](../../experiments/exp-053/README.md).
 
 ## 2026-11-21 live leaderboard refresh
 

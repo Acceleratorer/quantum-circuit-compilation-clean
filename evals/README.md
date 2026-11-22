@@ -14,8 +14,10 @@ This directory separates local verifier estimates from Kaggle results.
   `T <= 213,956.98` at `Q=890` and `R=1.1912605`. This is score-equivalence
   math, not the leader's measured circuit cost.
 - Current source-owned FMA projection: `202,075T`, leaving only `11,881.98T`
-  for omitted work. Width, phase, cleanup, and tail integration are unproven;
-  this is not a candidate.
+  for omitted work. The exp-057 tail transition now passes a classical
+  one-symbol screen, but its gate cost, full width, phase, cleanup, and
+  66-symbol integration are unproven; this is not a candidate. See the
+  [tail receipt](2026-11-22-exp057-tail-transition-classical.json).
 - Full member hashes, verifier evidence, and submission:
   [2026-11-18 hybrid evaluation](2026-11-18-bori-frontier-hybrid.json).
 

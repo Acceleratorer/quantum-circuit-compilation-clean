@@ -1,0 +1,46 @@
+{
+  "captured_utc": "2026-11-22T13:31:50Z",
+  "checks": {
+    "gf12_verifier_form": {
+      "error_weights": {
+        "31": 16,
+        "35": 16
+      },
+      "field": "GF(2^12)",
+      "pivot_counts": {
+        "a0": 32,
+        "a1": 0
+      },
+      "prefix_annihilation_errors": 0,
+      "result": "PASS",
+      "scope": "Seeded classical one-symbol transition only; no gate circuit or 66-symbol schedule.",
+      "tail_point": 4,
+      "tail_round_trip_errors": 0,
+      "verifier_form_samples": 32
+    },
+    "gf8": {
+      "field": "GF(8)",
+      "pivot_counts": {
+        "a0": 1778,
+        "a1": 238
+      },
+      "prefix_annihilation_errors": 0,
+      "result": "PASS",
+      "supported_prefixes": 2016,
+      "tail_point": 4,
+      "tail_round_trip_errors": 0
+    }
+  },
+  "experiment": "exp-057-tail-transition-classical",
+  "scope": "Classical one-symbol action at point 4 only. No compiled Kickmix cell, 66-symbol schedule, full verifier run, or submission.",
+  "source": {
+    "path": "experiments/exp-057/streaming_fixed_shape_decoder.py",
+    "sha256": "4b6414d7919fb0cf2291002991896d6790b0e42d2f6f69206b1e6486c3ab37a7"
+  },
+  "submission": null,
+  "unit_tests": {
+    "command": "python -m unittest discover -s tests -p test_exp057_tail_transition.py -v",
+    "result": "PASS",
+    "tests": 2
+  }
+}

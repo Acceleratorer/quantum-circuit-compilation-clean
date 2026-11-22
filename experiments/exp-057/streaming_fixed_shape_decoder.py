@@ -82,6 +82,221 @@ def samples_from_prefix_state(state, mul, div):
     return (d0, d1, d2, d3)
 
 
+def apply_matrix(rows, point, pair, mul):
+    d_value, g_value = pair
+    return tuple(
+        mul(fma.poly_eval(w, point, mul), d_value)
+        ^ mul(fma.poly_eval(n, point, mul), g_value)
+        for w, n in rows
+    )
+
+
+def matrix_determinant(rows, mul):
+    return fma.poly_add(
+        fma.poly_mul(rows[0][0], rows[1][1], mul),
+        fma.poly_mul(rows[0][1], rows[1][0], mul),
+    )
+
+
+def assert_same_row_module(rows, samples, points, mul, inverse, modulus, degree):
+    basis = fma.modular_basis(samples, points, mul)
+    low_index = min(range(2), key=lambda index: fma.row_rank(basis, index))
+    direct_low = basis[low_index]
+    low_scale = inverse(direct_low[0][-1])
+    normalized_low = tuple(
+        tuple(mul(low_scale, value) for value in polynomial)
+        for polynomial in direct_low
+    )
+    assert normalized_low == tuple(tuple(polynomial) for polynomial in rows[0])
+
+    direct_complement = basis[1 - low_index]
+    determinant = matrix_determinant((rows[0], direct_complement), mul)
+    complement_scale = inverse(determinant[-1])
+    direct_complement = tuple(
+        tuple(mul(complement_scale, value) for value in polynomial)
+        for polynomial in direct_complement
+    )
+    node = [1]
+    for point in points:
+        node = fma.poly_mul(node, [point, 1], mul)
+    assert matrix_determinant((rows[0], direct_complement), mul) == node
+
+    differences = tuple(
+        fma.poly_add(left, right)
+        for left, right in zip(rows[1], direct_complement)
+    )
+    quotients = []
+    for difference, low_polynomial in zip(differences, rows[0]):
+        quotient, remainder = fma.poly_divmod(
+            difference, low_polynomial, mul, modulus, degree
+        )
+        assert remainder == [0]
+        quotients.append(tuple(quotient))
+    assert quotients[0] == quotients[1]
+
+
+def complementary_matrix_from_prefix_state(state, mul, div, modulus, degree):
+    """Recover the canonical four-point FMA matrix from its compact low row."""
+    coefficients, _ = coefficients_from_prefix(*state[:3], state[3], mul, div)
+    a0, a1, b0, b1 = coefficients
+    low_row = ([a0, a1, 1], [b0, b1])
+    prefix_samples = samples_from_prefix_state(state, mul, div)
+    low, complementary, exceptions = fma.reconstruct_complementary_row(
+        low_row,
+        prefix_samples,
+        POINTS,
+        mul,
+        modulus,
+        degree,
+    )
+    if exceptions:
+        raise ValueError("the prefix needs exceptional-sample labels")
+    node = [1]
+    for point in POINTS:
+        node = fma.poly_mul(node, [point, 1], mul)
+    if matrix_determinant((low, complementary), mul) != node:
+        raise ValueError("the reconstructed matrix has the wrong determinant")
+    return (low, complementary), prefix_samples
+
+
+def apply_tail_symbol(state, pair, point, mul, div, modulus, degree):
+    """Apply the four-point FMA basis to one later symbol."""
+    rows, _ = complementary_matrix_from_prefix_state(
+        state, mul, div, modulus, degree
+    )
+    return apply_matrix(rows, point, pair, mul)
+
+
+def inverse_matrix_pair(rows, point, pair, mul, inverse):
+    a = fma.poly_eval(rows[0][0], point, mul)
+    b = fma.poly_eval(rows[0][1], point, mul)
+    c = fma.poly_eval(rows[1][0], point, mul)
+    d = fma.poly_eval(rows[1][1], point, mul)
+    determinant = mul(a, d) ^ mul(b, c)
+    if determinant == 0:
+        raise ZeroDivisionError("the tail-point matrix is singular")
+    inverse_determinant = inverse(determinant)
+    out_d, out_g = pair
+    return (
+        mul(inverse_determinant, mul(d, out_d) ^ mul(b, out_g)),
+        mul(inverse_determinant, mul(c, out_d) ^ mul(a, out_g)),
+    )
+
+
+def screen_gf8_tail_transition():
+    degree, modulus = 3, 0b1011
+    mul, inverse, div = ops(degree, modulus)
+    checked = 0
+    pivot_counts = [0, 0]
+    for coefficients in product(range(8), range(8), range(8), range(1, 8)):
+        if not valid_shape(coefficients, mul, div):
+            continue
+        state, pivot = prefix_state_from_coefficients(coefficients, mul, div)
+        rows, prefix_samples = complementary_matrix_from_prefix_state(
+            state, mul, div, modulus, degree
+        )
+        assert_same_row_module(
+            rows,
+            prefix_samples,
+            POINTS,
+            mul,
+            inverse,
+            modulus,
+            degree,
+        )
+        for index, sample in enumerate(prefix_samples):
+            assert apply_matrix(rows, POINTS[index], (sample, 1), mul) == (0, 0)
+        tail_point = 4
+        tail_input = (checked % 8, 1)
+        tail_output = apply_matrix(rows, tail_point, tail_input, mul)
+        assert inverse_matrix_pair(
+            rows, tail_point, tail_output, mul, inverse
+        ) == tail_input
+        checked += 1
+        pivot_counts[pivot] += 1
+    return {
+        "field": "GF(8)",
+        "supported_prefixes": checked,
+        "pivot_counts": {"a0": pivot_counts[0], "a1": pivot_counts[1]},
+        "prefix_annihilation_errors": 0,
+        "tail_round_trip_errors": 0,
+        "tail_point": 4,
+        "result": "PASS",
+    }
+
+
+def screen_gf12_verifier_tail_transition(count_per_weight=16):
+    degree, modulus = 12, 0x1053
+    points = tuple(range(70))
+    mul, inverse, div = ops(degree, modulus)
+    rng = Random(0x4A66058)
+
+    node = [1]
+    for point in points:
+        node = fma.poly_mul(node, [point, 1], mul)
+    quotients = tuple(fma._quotients(node, points, mul))[:5]
+
+    checked = 0
+    pivot_counts = [0, 0]
+    for weight in (31, 35):
+        for _ in range(count_per_weight):
+            locations = rng.sample(range(1, 1 << degree), weight)
+            magnitudes = [rng.randrange(1, 1 << degree) for _ in locations]
+            syndrome = [0] * len(points)
+            for location, magnitude in zip(locations, magnitudes):
+                power = location
+                for index in range(len(points)):
+                    syndrome[index] ^= mul(magnitude, power)
+                    power = mul(power, location)
+            samples = tuple(
+                fma._xor(
+                    mul(coefficient, value)
+                    for coefficient, value in zip(quotient, syndrome)
+                )
+                for quotient in quotients
+            )
+            coefficients = coefficients_from_samples(samples[:4], mul, div)
+            state, pivot = prefix_state_from_coefficients(
+                coefficients, mul, div
+            )
+            assert samples_from_prefix_state(state, mul, div) == samples[:4]
+            rows, prefix_samples = complementary_matrix_from_prefix_state(
+                state, mul, div, modulus, degree
+            )
+            assert prefix_samples == samples[:4]
+            assert_same_row_module(
+                rows,
+                prefix_samples,
+                POINTS,
+                mul,
+                inverse,
+                modulus,
+                degree,
+            )
+            for index, sample in enumerate(prefix_samples):
+                assert apply_matrix(rows, points[index], (sample, 1), mul) == (0, 0)
+            tail_input = (samples[4], 1)
+            tail_output = apply_tail_symbol(
+                state, tail_input, points[4], mul, div, modulus, degree
+            )
+            assert inverse_matrix_pair(
+                rows, points[4], tail_output, mul, inverse
+            ) == tail_input
+            checked += 1
+            pivot_counts[pivot] += 1
+    return {
+        "field": "GF(2^12)",
+        "verifier_form_samples": checked,
+        "error_weights": {"31": count_per_weight, "35": count_per_weight},
+        "pivot_counts": {"a0": pivot_counts[0], "a1": pivot_counts[1]},
+        "prefix_annihilation_errors": 0,
+        "tail_round_trip_errors": 0,
+        "tail_point": 4,
+        "result": "PASS",
+        "scope": "Seeded classical one-symbol transition only; no gate circuit or 66-symbol schedule.",
+    }
+
+
 def coefficients_from_samples(samples, mul, div):
     d0, d1, d2, d3 = samples
     pivot, c0, c1, constant = pivot_data(d0, d1, d2, mul)
@@ -199,10 +414,15 @@ def run_screen():
         "experiment": "exp-057-streaming-fixed-shape-decoder",
         "gf8": exhaustive_gf8(),
         "gf12": sampled_gf12(),
+        "tail_transition": {
+            "gf8": screen_gf8_tail_transition(),
+            "gf12_verifier_form": screen_gf12_verifier_tail_transition(),
+        },
         "scope": (
             "Classical reversible-state screen for coprime monic quadratic A "
             "and degree-1 B, with A nonzero at all four sample points. It does "
-            "not compile the gate circuit or cover the other factorization shapes."
+            "not compile the gate circuit or cover the other factorization shapes. "
+            "The one-symbol tail transition is classical only."
         ),
     }
 
