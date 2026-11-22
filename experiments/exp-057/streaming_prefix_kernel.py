@@ -1462,18 +1462,11 @@ def run_bezout_matrix_state_screen(case_count=64, point=4, km=None, ar=None):
     }
 
 
-def build_bezout_tail_action(km=None, ar=None, point=4):
-    """Generate the Bezout tail action from a quadratic/linear row."""
-    if km is None or ar is None:
-        km, ar = load_gate_arithmetic()
-    builder = km.CircuitBuilder()
-    payload = builder.alloc_qubits(70 * FIELD_BITS)
-    rank = builder.alloc_qubits(8)
-    pivot = builder.alloc_qubits(1)
-    outputs = builder.alloc_qubits(2 * FIELD_BITS)
+def append_bezout_tail_action(builder, payload, rank, pivot, outputs, ar, km, point):
+    """Append one coefficient-derived Bezout action to an existing builder."""
     xor_constant(builder, rank, RANK_TAG)
     scratch_pool = builder.alloc_qubits(16)
-    borrowed = list(rank) + [pivot[0]] + list(scratch_pool)
+    borrowed = list(rank) + [pivot] + list(scratch_pool)
     workspace = BorrowedScratchBuilder(builder, borrowed, km)
 
     a0, a1, b0, b1, sample = [
@@ -1559,12 +1552,55 @@ def build_bezout_tail_action(km=None, ar=None, point=4):
 
     workspace.assert_released()
     xor_constant(builder, rank, RANK_TAG)
+    return scratch_pool
 
+
+def build_bezout_tail_action(km=None, ar=None, point=4):
+    """Generate the Bezout tail action from a quadratic/linear row."""
+    if km is None or ar is None:
+        km, ar = load_gate_arithmetic()
+    builder = km.CircuitBuilder()
+    payload = builder.alloc_qubits(70 * FIELD_BITS)
+    rank = builder.alloc_qubits(8)
+    pivot = builder.alloc_qubits(1)
+    outputs = builder.alloc_qubits(2 * FIELD_BITS)
+    append_bezout_tail_action(
+        builder, payload, rank, pivot[0], outputs, ar, km, point
+    )
     circuit = builder.finish_circuit()
     return km, ar, circuit, {
         "payload": payload,
         "rank": rank,
         "pivot": pivot[0],
+        "outputs": outputs,
+    }
+
+
+def build_compact_prefix_tail_action(km=None, ar=None, point=4):
+    """Decode the compact prefix and apply one tail action in the same circuit."""
+    if km is None or ar is None:
+        km, ar = load_gate_arithmetic()
+    _, _, phase_inverse36_pivot = load_width_helpers(km)
+    builder = km.CircuitBuilder()
+    payload = builder.alloc_qubits(70 * FIELD_BITS)
+    rank = builder.alloc_qubits(8)
+    pivot = builder.alloc_qubits(1)[0]
+    outputs = builder.alloc_qubits(2 * FIELD_BITS)
+    words = [
+        payload[index * FIELD_BITS : (index + 1) * FIELD_BITS]
+        for index in range(4)
+    ]
+    prefix_to_coefficients_inplace(
+        builder, words, rank, pivot, ar, phase_inverse36_pivot, km
+    )
+    append_bezout_tail_action(
+        builder, payload, rank, pivot, outputs, ar, km, point
+    )
+    circuit = builder.finish_circuit()
+    return km, ar, circuit, {
+        "payload": payload,
+        "rank": rank,
+        "pivot": pivot,
         "outputs": outputs,
     }
 
@@ -1664,6 +1700,125 @@ def run_bezout_tail_action_screen(case_count=64, point=4, km=None, ar=None):
         "clean_scratch_qubits": len(scratch),
         "phase_flips": 0,
         "scope": "One tail action from four polynomial coefficients; it does not accept the compact prefix state or implement a 66-symbol schedule.",
+    }
+
+
+def run_compact_prefix_tail_action_screen(case_count=32, point=4, km=None, ar=None):
+    """Measure the compact-prefix decoder and one coefficient-derived tail action together."""
+    km, ar, circuit, registers = build_compact_prefix_tail_action(km, ar, point)
+    field = ar.field(FIELD_BITS)
+    cases = generate_cases(field, case_count)
+    rng = Random(0xA6605C)
+    input_words = np.asarray(
+        [[rng.randrange(1 << FIELD_BITS) for _ in range(70)] for _ in cases],
+        dtype=np.uint32,
+    )
+    expected_coefficients = np.zeros((case_count, 4), dtype=np.uint32)
+    expected_outputs = np.zeros((case_count, 2), dtype=np.uint32)
+
+    for shot, (coefficients, prefix_state, _) in enumerate(cases):
+        a0, a1, b0, b1 = coefficients
+        input_words[shot, :4] = prefix_state
+        sample = int(input_words[shot, 4])
+        expected_coefficients[shot] = coefficients
+
+        inverse_b1 = field.invert(b1)
+        q0 = field.mul(inverse_b1, a1 ^ field.mul(inverse_b1, b0))
+        gcd = a0 ^ field.mul(q0, b0)
+        inverse_gcd = field.invert(gcd)
+        node = 1
+        for prefix_point in POINTS:
+            node = field.mul(node, point ^ prefix_point)
+        scale = field.mul(node, inverse_gcd)
+        q_at_point = q0 ^ field.mul(inverse_b1, point)
+        denominator = field.mul(point, point) ^ field.mul(a1, point) ^ a0
+        numerator = field.mul(b1, point) ^ b0
+        expected_outputs[shot] = (
+            field.mul(denominator, sample) ^ numerator,
+            field.mul(scale, field.mul(q_at_point, sample) ^ 1),
+        )
+
+    rank_values = np.full(case_count, RANK_TAG, dtype=np.uint32)
+    sim = km.Simulator(batch_size=case_count, debug_print=False, seed=0)
+    sim.use_same_registers_as(circuit)
+    for word in range(70):
+        sim.write_across_shots(
+            registers["payload"][word * FIELD_BITS : (word + 1) * FIELD_BITS],
+            bit_columns(input_words[:, word], FIELD_BITS),
+        )
+    sim.write_across_shots(registers["rank"], bit_columns(rank_values, 8))
+    sim.write_across_shots(
+        registers["pivot"], bit_columns(np.zeros(case_count, dtype=np.uint32), 1)[0]
+    )
+    sim.do(circuit)
+
+    actual_coefficients = np.stack(
+        [
+            sim.read_across_shots(
+                registers["payload"][index * FIELD_BITS : (index + 1) * FIELD_BITS]
+            )
+            for index in range(4)
+        ],
+        axis=0,
+    ).transpose(2, 0, 1)
+    expected_coefficient_bits = np.stack(
+        [bit_columns(expected_coefficients[:, index], FIELD_BITS).T for index in range(4)],
+        axis=1,
+    )
+    assert np.array_equal(actual_coefficients, expected_coefficient_bits)
+
+    actual_outputs = np.stack(
+        [
+            sim.read_across_shots(
+                registers["outputs"][index * FIELD_BITS : (index + 1) * FIELD_BITS]
+            )
+            for index in range(2)
+        ],
+        axis=0,
+    ).transpose(2, 0, 1)
+    expected_output_bits = np.stack(
+        [bit_columns(expected_outputs[:, index], FIELD_BITS).T for index in range(2)],
+        axis=1,
+    )
+    assert np.array_equal(actual_outputs, expected_output_bits)
+
+    for word in range(4, 70):
+        actual_word = sim.read_across_shots(
+            registers["payload"][word * FIELD_BITS : (word + 1) * FIELD_BITS]
+        )
+        assert np.array_equal(actual_word, bit_columns(input_words[:, word], FIELD_BITS))
+    assert np.array_equal(
+        sim.read_across_shots(registers["rank"]), bit_columns(rank_values, 8)
+    )
+    assert not np.any(sim.read_across_shots(registers["pivot"]))
+
+    live = (
+        set(registers["payload"])
+        | set(registers["rank"])
+        | {registers["pivot"]}
+        | set(registers["outputs"])
+    )
+    scratch = [km.q(index) for index in range(circuit.num_qubits) if km.q(index) not in live]
+    if scratch:
+        assert not np.any(sim.read_across_shots(km.array(scratch)))
+    assert not np.any(sim.read_phase_flipped_across_shots())
+    return {
+        "cases": case_count,
+        "point": point,
+        "prefix_pivot_coverage": {
+            "a0": sum(not case[2] for case in cases),
+            "a1": sum(case[2] for case in cases),
+        },
+        "coefficient_errors": 0,
+        "tail_output_errors": 0,
+        "preserved_tail_words": 66,
+        "preserved_rank_and_pivot": True,
+        "compiled_qubits": circuit.num_qubits,
+        "qubits_over_890": circuit.num_qubits - 890,
+        "toffoli_like_gates": circuit.operation_statistics().num_toffoli_like,
+        "clean_scratch_qubits": len(scratch),
+        "phase_flips": 0,
+        "scope": "Compact-prefix-to-coefficients plus one coefficient-derived tail action; the integrated 66-symbol schedule remains open.",
     }
 
 
@@ -1813,6 +1968,7 @@ def run_screen():
         "prefix_coefficient_state": run_prefix_coefficient_screen(km=km, ar=ar),
         "tail_matrix_action": run_tail_matrix_action_screen(km=km, ar=ar),
         "tail_matrix_from_coefficients": run_bezout_tail_action_screen(km=km, ar=ar),
+        "prefix_to_one_tail_action": run_compact_prefix_tail_action_screen(km=km, ar=ar),
         "tail_matrix_state_encoding": run_bezout_matrix_state_screen(km=km, ar=ar),
     }
 
