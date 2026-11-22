@@ -433,6 +433,11 @@ four candidates across 14 signatures (candidate counts 1, 2, or 4). This
 combinatorial bound is independent of field values and narrows a reversible
 decoder design; it does not establish its gate cost or correctness.
 
+On the 64 sampled valid GF(2^12) inputs, all four rank/tag candidates were
+decoded and forward-replayed using only ratios, ranks, and tag; one history
+matched each input. This does not prove uniqueness for the full DQI domain or
+provide a reversible circuit.
+
 This is an information result only. It does not establish a GF(2^12) inverse,
 compile the tag/eraser, measure resources, or pass the official verifier.
 The score-equivalence gate is now `Q <= 890` and mean `T <= 215,175.99` at

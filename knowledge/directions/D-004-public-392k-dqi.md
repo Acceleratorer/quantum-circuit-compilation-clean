@@ -37,7 +37,9 @@ screen resolves all 46 collision groups in exhaustive GF(8) and found no
 collisions in 64 sampled valid GF(2^12) inputs, but there is no GF(2^12)
 injectivity proof or tag circuit. Final ranks plus tag leave at most four of
 the 32 possible histories, independent of field values; the reversible
-candidate check remains uncompiled. Kernel v31 compiled a five-pivot prefix
+candidate check remains uncompiled. A classical ratios/ranks/tag replay checked
+all four candidates and found one matching history for each of 64 sampled
+valid GF(2^12) DQI inputs. This is sample evidence only. Kernel v31 compiled a five-pivot prefix
 retaining branch history: Q=891, T=4,500, with correct labels, clean scratch,
 and zero phase flips on 32 cases. The sentinel/recycle eraser was a no-go:
 four pivots used Q=916/T=6,044; five pivots failed scratch/phase at Q=917 and

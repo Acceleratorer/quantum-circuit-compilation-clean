@@ -1,9 +1,15 @@
 {
-  "captured_utc": "2026-11-22T11:00:55Z",
+  "captured_utc": "2026-11-22T11:07:51Z",
   "classical_inverse": {
-    "algorithm": "Filter 32 histories by final rank pair and one-bit tag (14 signatures; at most four candidates), rebuild each remaining basis, decode samples, and accept only a history whose forward recurrence reproduces the supplied compact state.",
+    "algorithm": "Filter histories by final rank pair and one-bit tag (14 signatures; at most four candidates). For the full compact state, rebuild each remaining basis and compare the normalized low row; on sampled DQI data, also decode and forward-replay candidates using only ratios, ranks, and tag.",
     "gf12_sample_cases": 64,
     "gf12_sample_cases_passed": true,
+    "gf12_ratio_rank_tag_replay": {
+      "candidate_histories_considered_per_case": 4,
+      "cases": 64,
+      "unique_replay_matches": 64,
+      "scope": "All four rank/tag candidates were checked by classical decode and forward recurrence for each sampled valid input. This is not a full-domain proof or a reversible circuit."
+    },
     "gf8_collision_cases": 92,
     "gf8_collision_cases_passed": true,
     "rank_tag_candidate_bound": {
@@ -18,12 +24,12 @@
     },
     "scope": "Tests the constructive classical decoder on all GF(8) collision inputs and 64 sampled valid GF(2^12) inputs, and bounds rank/tag candidates across all five-pivot histories; it does not prove all GF(2^12) states or provide a reversible circuit."
   },
-  "decision": "The one-bit tag resolves the GF(8) compact-state collisions. Final ranks plus tag reduce 32 histories to at most four candidates; a classical inverse decodes all collision cases and the sampled GF(2^12) cases. No reversible eraser, resource schedule, or official verifier result is established.",
+  "decision": "The one-bit tag resolves the GF(8) compact-state collisions, and the final ranks plus tag reduce 32 histories to at most four candidates. A classical five-pivot inverse decodes all collision cases plus the sampled GF(2^12) cases; ratio/rank/tag replay is unique on those 64 samples. This remains classical evidence; no reversible eraser, resource schedule, or official verifier result is established.",
   "execution": {
-    "captured_output_sha256_before_receipt_metadata": "918082397bcf0e3076d59c0655f2af1c36a6c9a26a0880d4e4a19a8b3e32d5ba",
+    "captured_output_sha256_before_receipt_metadata": "947a4bb9784c5928a23e490f2c34a01ab0f787665414a2012b56b1b42bbede50",
     "command": "..\\..\\.venv\\Scripts\\python.exe -I experiments/exp-053/fifth_pivot_state.py",
     "source": "experiments/exp-053/fifth_pivot_state.py",
-    "source_sha256": "ab35474fe980fec51f8f8a82d9c8276484aa3124ad2a4c364a50c2ad80d69240"
+    "source_sha256": "b086d0a2fe9bbc1bb0156a8ad51081bd3f9f699652a8743b26e7ea93c5e33327"
   },
   "experiment": "exp-053-fifth-pivot-state",
   "gf12_dqi_sample": {
@@ -35,6 +41,13 @@
         "classical_inverse_pass": true,
         "distinct_compact_states": 32,
         "noninjective_state_keys": 0,
+        "rank_tag_candidates_considered": {
+          "4": 32
+        },
+        "ratio_rank_tag_inverse_match_counts": {
+          "1": 32
+        },
+        "ratio_rank_tag_inverse_unique_cases": 32,
         "samples": 32
       },
       "35": {
@@ -43,6 +56,13 @@
         "classical_inverse_pass": true,
         "distinct_compact_states": 32,
         "noninjective_state_keys": 0,
+        "rank_tag_candidates_considered": {
+          "4": 32
+        },
+        "ratio_rank_tag_inverse_match_counts": {
+          "1": 32
+        },
+        "ratio_rank_tag_inverse_unique_cases": 32,
         "samples": 32
       }
     },

@@ -138,6 +138,25 @@ def decode_compact_state(ratios, low_row, ranks, tag, points, multiply, modulus,
     return matches[0]
 
 
+def matching_histories_from_ratios(ratios, ranks, tag, points, multiply, modulus, degree):
+    """Find rank/tag candidates that replay to the supplied ratio sequence."""
+    matches = []
+    for history in histories_for_rank_tag(ranks, tag, len(points)):
+        branches = tuple(bool(history >> pivot & 1) for pivot in range(len(points)))
+        try:
+            samples = nf.decode_replayed_samples(
+                ratios, branches, points, modulus, degree
+            )
+            state = nf.normalized_state(
+                samples, points, multiply, modulus, degree
+            )
+        except (AssertionError, ValueError, ZeroDivisionError):
+            continue
+        if state[2] == history and state[5] == ratios and state[6] == ranks:
+            matches.append((history, samples))
+    return tuple(matches)
+
+
 def screen_gf8():
     degree, modulus = 3, 0b1011
     points = tuple(range(5))
@@ -270,6 +289,8 @@ def screen_gf12_dqi_samples(per_weight=32):
     for weight in (31, 35):
         fibers = defaultdict(set)
         decoder_cases = 0
+        ratio_rank_tag_match_counts = defaultdict(int)
+        rank_tag_candidates_considered = defaultdict(int)
         for sample_index in range(per_weight):
             locations = rng.sample(range(1, 1 << degree), weight)
             magnitudes = [rng.randrange(1, 1 << degree) for _ in locations]
@@ -290,6 +311,26 @@ def screen_gf12_dqi_samples(per_weight=32):
             state = nf.normalized_state(
                 data, points[:5], multiply, modulus, degree
             )
+            ratio_rank_tag_matches = matching_histories_from_ratios(
+                state[5],
+                state[6],
+                history_tag(state[2]),
+                points[:5],
+                multiply,
+                modulus,
+                degree,
+            )
+            ratio_rank_tag_match_counts[len(ratio_rank_tag_matches)] += 1
+            rank_tag_candidates_considered[
+                len(histories_for_rank_tag(state[6], history_tag(state[2]), 5))
+            ] += 1
+            assert len(ratio_rank_tag_matches) == 1
+            assert ratio_rank_tag_matches[0] == (state[2], data)
+            assert len(
+                histories_for_rank_tag(
+                    state[6], history_tag(state[2]), len(points[:5])
+                )
+            ) <= 4
             key = (
                 state[5],
                 low_row_key(state[4], multiply, modulus, degree),
@@ -310,8 +351,20 @@ def screen_gf12_dqi_samples(per_weight=32):
             assert decoded_data == data
             decoder_cases += 1
 
+        assert ratio_rank_tag_match_counts == {1: per_weight}
         results[str(weight)] = {
             "samples": per_weight,
+            "ratio_rank_tag_inverse_match_counts": {
+                str(size): ratio_rank_tag_match_counts[size]
+                for size in sorted(ratio_rank_tag_match_counts)
+            },
+            "ratio_rank_tag_inverse_unique_cases": (
+                ratio_rank_tag_match_counts[1]
+            ),
+            "rank_tag_candidates_considered": {
+                str(size): rank_tag_candidates_considered[size]
+                for size in sorted(rank_tag_candidates_considered)
+            },
             "classical_inverse_cases": decoder_cases,
             "classical_inverse_pass": decoder_cases == per_weight,
             "distinct_compact_states": len(fibers),
@@ -360,7 +413,8 @@ def run_screen():
             "The one-bit tag resolves the GF(8) compact-state collisions, and "
             "the final ranks plus tag reduce 32 histories to at most four "
             "candidates. A classical five-pivot inverse decodes all collision "
-            "cases plus the sampled GF(2^12) cases. This remains classical "
+            "cases plus the sampled GF(2^12) cases; ratio/rank/tag replay is "
+            "unique on those 64 samples. This remains classical "
             "evidence; no reversible eraser, resource schedule, or official "
             "verifier result is established."
         ),
