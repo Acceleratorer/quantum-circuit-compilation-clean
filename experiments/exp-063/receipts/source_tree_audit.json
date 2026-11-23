@@ -1,0 +1,14 @@
+{
+  "status": "SOURCE_TREE_HASH_REVERIFIED",
+  "dataset": "syed3000/vqcc-own-circuit-portfolio",
+  "dataset_version": 17,
+  "license": "Apache-2.0",
+  "source_tree_files": 630,
+  "source_tree_bytes": 56594465,
+  "source_tree_sha256": "8907c2df2cf821fb1e232148d6b93d8b49f4f2f44a88e53c15b62a43be364ec1",
+  "compiled_circuit_inputs_read": false,
+  "profile": "paired-plain",
+  "published_output_sha256": "fc2564c61931a0b1c789d8857a78e54f88466b546870f0e99ad252b8c59183c5",
+  "official_verifier_sha256": "f14274bc0943fb9769ddb01131be6063191a15009fe1caf1d4bdd9fd25194e65",
+  "static_scan_executed_code": false
+}

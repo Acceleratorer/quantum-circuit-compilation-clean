@@ -8,7 +8,7 @@ Research log and reproducible tooling for the Google Quantum AI Verifiable Quant
 |---|---:|
 | Highest recorded account score (public archive; ineligible) | **33.17067**, submission `58771243` |
 | Source-owned submission with complete provenance | **None verified** |
-| Latest source-owned task member (not submitted) | **invsqrt Q=43, cost 72,440.35**, exp-062; full verifier PASS |
+| Verified source-owned members (not submitted) | **invsqrt Q=43** (exp-062); **DQI Q=890** (exp-063); both official verifier PASS |
 | Latest retained leaderboard snapshot | `Accelra` rank **221 / 3628**, score `33.17067`; submission `58771243`, public-circuit archive |
 | Rank 1 in that snapshot | **34.12081** (team `Entangled Team`) |
 
@@ -74,24 +74,20 @@ member, so this result is not treated as prize-ready. Future submissions must
 be built by our own attributed generators and accompanied by exact-output
 hashes.
 
-## DQI work still needed
+## Source-owned member progress
 
-The submitted DQI circuit (`46446af1`) passed the official verifier at
-102,400 shots with zero observed default-salt errors. A separate seven-salt
-audit of this same hash observed one value error on one salt, so the sampled
-PASS is not an exhaustive correctness proof. The newer DQI candidate in
-Bori's kernel was not selected: its own audit leaves weight-16/17
-counterexamples open.
+The exp-062 inverse-square-root member and exp-063 DQI member have both been
+rebuilt from attributed Apache-2.0 source and passed their official verifiers.
+The DQI candidate is Q=890, with cost `336,559,961,203.1761`; its 102,400-shot
+run had zero value and phase errors. This establishes source provenance and
+correctness for two task members, not a top-1 result or a leaderboard score.
 
-With the submitted inverse and chemistry held fixed, matching the current
-leader's `33.85279` requires DQI cost at or below `199.830e9`, a `42.56%`
-reduction from `347.904e9`. At `Q=890` and `R=1.1912605`, this means mean
-`T <= 211,775.05`. The FMA projection is `202,075T`, leaving `9,700.05T`
-before the still-unproven full schedule, width, phase, and cleanup.
-This is score-equivalence math, not a measured leader cost or candidate. See
-the [latest leaderboard evaluation](evals/2026-11-23-live-leaderboard-042724Z.json).
-The remaining high-value work is a reproducible candidate that clears its
-task's exact verifier and resource gates.
+The dfthcsos source rebuild remains open. Once all three members have exact
+hashes and verifier passes, build and score the complete archive, refresh the
+leaderboard, and compare with rank 1 before submitting. See the current
+[source-owned archive milestone](milestone/2026-11-23-source-owned-archive.md),
+[exp-062](experiments/exp-062/README.md), and
+[exp-063](experiments/exp-063/README.md).
 
 Rebuild the local archive with:
 

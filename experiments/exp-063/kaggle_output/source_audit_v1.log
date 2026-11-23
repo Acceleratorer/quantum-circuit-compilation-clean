@@ -1,0 +1,315 @@
+[{"stream_name":"stdout","time":59.219032544,"data":"{\n"}
+,{"stream_name":"stdout","time":59.219136306,"data":"  \"status\": \"SOURCE_STATIC_AUDIT_COMPLETE_NO_CODE_EXECUTED\",\n"}
+,{"stream_name":"stdout","time":59.219143514,"data":"  \"dataset\": \"syed3000/vqcc-own-circuit-portfolio\",\n"}
+,{"stream_name":"stdout","time":59.219148258,"data":"  \"dataset_version\": 17,\n"}
+,{"stream_name":"stdout","time":59.219152388,"data":"  \"license\": \"Apache-2.0\",\n"}
+,{"stream_name":"stdout","time":59.219156535,"data":"  \"package_hashes\": {\n"}
+,{"stream_name":"stdout","time":59.219160358,"data":"    \"README.md\": \"8c43097e3fa875365894d370e10e5ce79fb186a5c74bc76170f0e69250db974b\",\n"}
+,{"stream_name":"stdout","time":59.219169893,"data":"    \"build.py\": \"d400f69a899a7aac23d6abb5ed257c1cdbe96c192b964240d82e3022a4c497a9\",\n"}
+,{"stream_name":"stdout","time":59.219217389,"data":"    \"emit.py\": \"0e69f89841f30db5b2254ae4bfdf455ca0f2de3087f803b6f8fc5b6ec84ca11c\",\n"}
+,{"stream_name":"stdout","time":59.219222771,"data":"    \"lower_fredkin.py\": \"f7c9168e85490bd2747e13d0e7216c3ca5ebc0d47864827bf310984250d3ebfe\",\n"}
+,{"stream_name":"stdout","time":59.219228131,"data":"    \"manifest.json\": \"d6a8fa8169eacfa50bcc43f89affd64a9fc2368002a367477b21b8824bcd3483\",\n"}
+,{"stream_name":"stdout","time":59.219233062,"data":"    \"LICENSE\": \"cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30\",\n"}
+,{"stream_name":"stdout","time":59.219238342,"data":"    \"NOTICE\": \"b4e1cd477cca2cb53254e80ae35357b5609ddb61c4f10a0c724e107c1fdae042\"\n"}
+,{"stream_name":"stdout","time":59.219243216,"data":"  },\n"}
+,{"stream_name":"stdout","time":59.219246939,"data":"  \"source_archive_sha256_claim\": \"54fcce0d9846afae1fde0330e69803e4d9633a4e1ac4fcac49a7d1413ad20b45\",\n"}
+,{"stream_name":"stdout","time":59.219251408,"data":"  \"source_archive_present\": false,\n"}
+,{"stream_name":"stdout","time":59.219255425,"data":"  \"source_tree_files\": 630,\n"}
+,{"stream_name":"stdout","time":59.219259469,"data":"  \"source_tree_bytes\": 56594465,\n"}
+,{"stream_name":"stdout","time":59.219263446,"data":"  \"source_tree_sha256\": \"8907c2df2cf821fb1e232148d6b93d8b49f4f2f44a88e53c15b62a43be364ec1\",\n"}
+,{"stream_name":"stdout","time":59.219267807,"data":"  \"source_tree_digest\": \"sha256 over sorted relative path, NUL, file SHA-256, newline\",\n"}
+,{"stream_name":"stdout","time":59.219271999,"data":"  \"source_tree_suffixes\": {\n"}
+,{"stream_name":"stdout","time":59.21927618,"data":"    \".cpp\": 1,\n"}
+,{"stream_name":"stdout","time":59.219280117,"data":"    \".json\": 155,\n"}
+,{"stream_name":"stdout","time":59.219284108,"data":"    \".log\": 1,\n"}
+,{"stream_name":"stdout","time":59.219287937,"data":"    \".md\": 38,\n"}
+,{"stream_name":"stdout","time":59.219291917,"data":"    \".py\": 430,\n"}
+,{"stream_name":"stdout","time":59.219295875,"data":"    \".stdout\": 2,\n"}
+,{"stream_name":"stdout","time":59.219300052,"data":"    \".txt\": 1,\n"}
+,{"stream_name":"stdout","time":59.219319487,"data":"    \"[none]\": 2\n"}
+,{"stream_name":"stdout","time":59.219324569,"data":"  },\n"}
+,{"stream_name":"stdout","time":59.219329752,"data":"  \"compiled_circuit_inputs_read\": false,\n"}
+,{"stream_name":"stdout","time":59.219334351,"data":"  \"compiled_circuit_files_in_source_tree\": [],\n"}
+,{"stream_name":"stdout","time":59.219339166,"data":"  \"profile\": \"paired-plain\",\n"}
+,{"stream_name":"stdout","time":59.219343972,"data":"  \"published_output_sha256\": \"fc2564c61931a0b1c789d8857a78e54f88466b546870f0e99ad252b8c59183c5\",\n"}
+,{"stream_name":"stdout","time":59.219355939,"data":"  \"official_verifier_path\": \"/kaggle/input/competitions/google-verifiable-quantum-circuit-compilation/verifiers/dqi/verify_submission_dqi.py\",\n"}
+,{"stream_name":"stdout","time":59.219368738,"data":"  \"competition_root\": \"/kaggle/input/competitions/google-verifiable-quantum-circuit-compilation\",\n"}
+,{"stream_name":"stdout","time":59.219373779,"data":"  \"competition_input_files\": {\n"}
+,{"stream_name":"stdout","time":59.219378106,"data":"    \"antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/pkg/competition/kickmix/kickmix.so\": {\n"}
+,{"stream_name":"stdout","time":59.219382451,"data":"      \"host_path\": \"kickmix/kickmix.so\",\n"}
+,{"stream_name":"stdout","time":59.219386627,"data":"      \"sha256\": \"c66b3216c4029e0cdfd09054306aa0feadf53ab2f50c1164e37f752874e5005e\",\n"}
+,{"stream_name":"stdout","time":59.219393677,"data":"      \"bytes\": 3220392\n"}
+,{"stream_name":"stdout","time":59.219397795,"data":"    },\n"}
+,{"stream_name":"stdout","time":59.219406809,"data":"    \"antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/pkg/competition/verifiers/dqi/__init__.py\": {\n"}
+,{"stream_name":"stdout","time":59.219423124,"data":"      \"host_path\": \"verifiers/dqi/__init__.py\",\n"}
+,{"stream_name":"stdout","time":59.219428193,"data":"      \"sha256\": \"01c870aa9763f4e4357fc6654bff1d3296cec995bd0943f87b4a48946ada5b40\",\n"}
+,{"stream_name":"stdout","time":59.219433459,"data":"      \"bytes\": 87\n"}
+,{"stream_name":"stdout","time":59.219456556,"data":"    },\n"}
+,{"stream_name":"stdout","time":59.219461182,"data":"    \"antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/pkg/competition/verifiers/dqi/verify_submission_dqi.py\": {\n"}
+,{"stream_name":"stdout","time":59.219465592,"data":"      \"host_path\": \"verifiers/dqi/verify_submission_dqi.py\",\n"}
+,{"stream_name":"stdout","time":59.219469646,"data":"      \"sha256\": \"f14274bc0943fb9769ddb01131be6063191a15009fe1caf1d4bdd9fd25194e65\",\n"}
+,{"stream_name":"stdout","time":59.219473973,"data":"      \"bytes\": 20959\n"}
+,{"stream_name":"stdout","time":59.219477978,"data":"    },\n"}
+,{"stream_name":"stdout","time":59.219481826,"data":"    \"antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/pro1_controller_bundle/1_task/official/kickmix.so\": {\n"}
+,{"stream_name":"stdout","time":59.219486318,"data":"      \"host_path\": \"kickmix/kickmix.so\",\n"}
+,{"stream_name":"stdout","time":59.219490323,"data":"      \"sha256\": \"c66b3216c4029e0cdfd09054306aa0feadf53ab2f50c1164e37f752874e5005e\",\n"}
+,{"stream_name":"stdout","time":59.219494875,"data":"      \"bytes\": 3220392\n"}
+,{"stream_name":"stdout","time":59.21949882,"data":"    },\n"}
+,{"stream_name":"stdout","time":59.219502567,"data":"    \"antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/pro1_controller_bundle/1_task/verifiers/dqi/verify_submission_dqi.py\": {\n"}
+,{"stream_name":"stdout","time":59.219506993,"data":"      \"host_path\": \"verifiers/dqi/verify_submission_dqi.py\",\n"}
+,{"stream_name":"stdout","time":59.219511295,"data":"      \"sha256\": \"f14274bc0943fb9769ddb01131be6063191a15009fe1caf1d4bdd9fd25194e65\",\n"}
+,{"stream_name":"stdout","time":59.219520426,"data":"      \"bytes\": 20959\n"}
+,{"stream_name":"stdout","time":59.219535898,"data":"    }\n"}
+,{"stream_name":"stdout","time":59.219540568,"data":"  },\n"}
+,{"stream_name":"stdout","time":59.219544622,"data":"  \"python_source_files\": 430,\n"}
+,{"stream_name":"stdout","time":59.219549009,"data":"  \"static_scan_findings\": {\n"}
+,{"stream_name":"stdout","time":59.219553767,"data":"    \"network\": [\n"}
+,{"stream_name":"stdout","time":59.219558391,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.219567209,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/pro4_parts/designp4bl_full_source_core.py\",\n"}
+,{"stream_name":"stdout","time":59.219571803,"data":"        \"line\": 30,\n"}
+,{"stream_name":"stdout","time":59.219575799,"data":"        \"text\": \"self.requests = []\"\n"}
+,{"stream_name":"stdout","time":59.219579828,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.219583797,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.219587571,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/pro4_parts/designp4bl_full_source_core.py\",\n"}
+,{"stream_name":"stdout","time":59.219591916,"data":"        \"line\": 37,\n"}
+,{"stream_name":"stdout","time":59.219595868,"data":"        \"text\": \"self.requests.append(count)\"\n"}
+,{"stream_name":"stdout","time":59.219599938,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.219603699,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.219709859,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/pro4_parts/designp4bl_full_source_core.py\",\n"}
+,{"stream_name":"stdout","time":59.219720346,"data":"        \"line\": 54,\n"}
+,{"stream_name":"stdout","time":59.219735605,"data":"        \"text\": \"assert helper.requests == [1, 1, 10] and helper.peak == entry + 11\"\n"}
+,{"stream_name":"stdout","time":59.219740784,"data":"      }\n"}
+,{"stream_name":"stdout","time":59.219745095,"data":"    ],\n"}
+,{"stream_name":"stdout","time":59.219749157,"data":"    \"credentials\": [],\n"}
+,{"stream_name":"stdout","time":59.219753754,"data":"    \"shell_execution\": [\n"}
+,{"stream_name":"stdout","time":59.219758218,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.219762954,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/controller_work/after_c5/root/guard_wait.py\",\n"}
+,{"stream_name":"stdout","time":59.219767353,"data":"        \"line\": 77,\n"}
+,{"stream_name":"stdout","time":59.219771455,"data":"        \"text\": \"child = subprocess.Popen(command, cwd=a.cwd, start_new_session=True, stdout=out, stderr=subprocess.STDOUT if out else None)\"\n"}
+,{"stream_name":"stdout","time":59.219775878,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.219779647,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.219783508,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/controller_work/runtime/guard.py\",\n"}
+,{"stream_name":"stdout","time":59.219787699,"data":"        \"line\": 73,\n"}
+,{"stream_name":"stdout","time":59.219791626,"data":"        \"text\": \"child = subprocess.Popen(command, cwd=a.cwd, start_new_session=True, stdout=out, stderr=subprocess.STDOUT if out else None)\"\n"}
+,{"stream_name":"stdout","time":59.219795921,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.219799721,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.219803589,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/v9_build/native_stream.py\",\n"}
+,{"stream_name":"stdout","time":59.219807966,"data":"        \"line\": 77,\n"}
+,{"stream_name":"stdout","time":59.219811844,"data":"        \"text\": \"child = subprocess.Popen([sys.executable, '-B', str(Path(__file__).resolve()),\"\n"}
+,{"stream_name":"stdout","time":59.219821117,"data":"      }\n"}
+,{"stream_name":"stdout","time":59.219835441,"data":"    ],\n"}
+,{"stream_name":"stdout","time":59.219840341,"data":"    \"subprocess\": [\n"}
+,{"stream_name":"stdout","time":59.219844784,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.219854666,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/agents/padding_amplitude/submitted_affine_retained_norm_product.py\",\n"}
+,{"stream_name":"stdout","time":59.21985885,"data":"        \"line\": 221,\n"}
+,{"stream_name":"stdout","time":59.21986245,"data":"        \"text\": \"result=subprocess.run([sys.executable,'-B',str(supplied),str(source),str(target),str(report_path)],\"\n"}
+,{"stream_name":"stdout","time":59.21986657,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.219870183,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.21987377,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/carbon_d60/src/check_design60_component.py\",\n"}
+,{"stream_name":"stdout","time":59.219878091,"data":"        \"line\": 316,\n"}
+,{"stream_name":"stdout","time":59.219881772,"data":"        \"text\": \"subprocess.run(\"\n"}
+,{"stream_name":"stdout","time":59.219885545,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.219889188,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.219893525,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/carbon_d60/src/check_design60_component.py\",\n"}
+,{"stream_name":"stdout","time":59.219898537,"data":"        \"line\": 593,\n"}
+,{"stream_name":"stdout","time":59.219902354,"data":"        \"text\": \"res = subprocess.run(\"\n"}
+,{"stream_name":"stdout","time":59.219906378,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.219910195,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.219914025,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/carbon_d60/src/check_design60_component.py\",\n"}
+,{"stream_name":"stdout","time":59.219918224,"data":"        \"line\": 629,\n"}
+,{"stream_name":"stdout","time":59.21992211,"data":"        \"text\": \"subprocess.run(['g++', '-O2', '-std=c++17', str(cpp), '-lz', '-o', str(bin_out)], check=True)\"\n"}
+,{"stream_name":"stdout","time":59.219926483,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.219930286,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.219934124,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/carbon_d60/src/check_design60_component.py\",\n"}
+,{"stream_name":"stdout","time":59.219938443,"data":"        \"line\": 659,\n"}
+,{"stream_name":"stdout","time":59.219942331,"data":"        \"text\": \"subprocess.run([sys.executable, '-B', '-c', compress_py], check=True, env=env_sub)\"\n"}
+,{"stream_name":"stdout","time":59.219946609,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.219950381,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.219960591,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/carbon_d60/src/check_design60_component.py\",\n"}
+,{"stream_name":"stdout","time":59.219976131,"data":"        \"line\": 663,\n"}
+,{"stream_name":"stdout","time":59.219981038,"data":"        \"text\": \"subprocess.run([\"\n"}
+,{"stream_name":"stdout","time":59.219985674,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.219989685,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.219994161,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/carbon_d60/src/check_design60_component.py\",\n"}
+,{"stream_name":"stdout","time":59.219999012,"data":"        \"line\": 670,\n"}
+,{"stream_name":"stdout","time":59.220002991,"data":"        \"text\": \"subprocess.run([\"\n"}
+,{"stream_name":"stdout","time":59.220007051,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.2200108,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.22001463,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/carbon_d60/src/check_design60_component.py\",\n"}
+,{"stream_name":"stdout","time":59.220023653,"data":"        \"line\": 676,\n"}
+,{"stream_name":"stdout","time":59.22002765,"data":"        \"text\": \"subprocess.run([\"\n"}
+,{"stream_name":"stdout","time":59.220031629,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.220035378,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.220039185,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/carbon_d60/src/run_all_checks.py\",\n"}
+,{"stream_name":"stdout","time":59.220043373,"data":"        \"line\": 56,\n"}
+,{"stream_name":"stdout","time":59.220047277,"data":"        \"text\": \"proc = subprocess.run(cmd, cwd=ARCH_ROOT, text=True, capture_output=True, check=True)\"\n"}
+,{"stream_name":"stdout","time":59.220051683,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.220061045,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.22007527,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/controller_work/after_c5/integration/gen_dqi.py\",\n"}
+,{"stream_name":"stdout","time":59.220080205,"data":"        \"line\": 49,\n"}
+,{"stream_name":"stdout","time":59.220084729,"data":"        \"text\": \"return subprocess.run(command, check=False).returncode\"\n"}
+,{"stream_name":"stdout","time":59.220089403,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.220093819,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.220098224,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/controller_work/after_c5/integration_v2/gen_dqi.py\",\n"}
+,{"stream_name":"stdout","time":59.220102778,"data":"        \"line\": 52,\n"}
+,{"stream_name":"stdout","time":59.220106711,"data":"        \"text\": \"return subprocess.run(command, check=False).returncode\"\n"}
+,{"stream_name":"stdout","time":59.220110923,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.220114628,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.220118545,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/controller_work/after_c5/root/guard_wait.py\",\n"}
+,{"stream_name":"stdout","time":59.220128795,"data":"        \"line\": 77,\n"}
+,{"stream_name":"stdout","time":59.220132887,"data":"        \"text\": \"child = subprocess.Popen(command, cwd=a.cwd, start_new_session=True, stdout=out, stderr=subprocess.STDOUT if out else None)\"\n"}
+,{"stream_name":"stdout","time":59.220137386,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.220144463,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.22014848,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/controller_work/after_v3/integration_v4/gen_dqi.py\",\n"}
+,{"stream_name":"stdout","time":59.220157136,"data":"        \"line\": 33,\n"}
+,{"stream_name":"stdout","time":59.22016104,"data":"        \"text\": \"return subprocess.run(command,check=False).returncode\"\n"}
+,{"stream_name":"stdout","time":59.22017537,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.22017961,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.220185175,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/controller_work/after_v3/integration_v5/gen_dqi.py\",\n"}
+,{"stream_name":"stdout","time":59.220190544,"data":"        \"line\": 33,\n"}
+,{"stream_name":"stdout","time":59.22019621,"data":"        \"text\": \"return subprocess.run(command,check=False).returncode\"\n"}
+,{"stream_name":"stdout","time":59.220204551,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.220208488,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.220212503,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/controller_work/after_v3/integration_v5b/gen_dqi.py\",\n"}
+,{"stream_name":"stdout","time":59.220216947,"data":"        \"line\": 33,\n"}
+,{"stream_name":"stdout","time":59.22022089,"data":"        \"text\": \"return subprocess.run(command,check=False).returncode\"\n"}
+,{"stream_name":"stdout","time":59.220225078,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.220228885,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.220232767,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/controller_work/after_v3/integration_v6/gen_dqi.py\",\n"}
+,{"stream_name":"stdout","time":59.220237333,"data":"        \"line\": 33,\n"}
+,{"stream_name":"stdout","time":59.220242495,"data":"        \"text\": \"return subprocess.run(command,check=False).returncode\"\n"}
+,{"stream_name":"stdout","time":59.22024663,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.220250597,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.220258513,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/controller_work/after_v3/integration_v7/gen_dqi.py\",\n"}
+,{"stream_name":"stdout","time":59.220273867,"data":"        \"line\": 33,\n"}
+,{"stream_name":"stdout","time":59.220278401,"data":"        \"text\": \"return subprocess.run(command,check=False).returncode\"\n"}
+,{"stream_name":"stdout","time":59.220283157,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.220287444,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.220292002,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/controller_work/gen_dqi.py\",\n"}
+,{"stream_name":"stdout","time":59.220297183,"data":"        \"line\": 41,\n"}
+,{"stream_name":"stdout","time":59.220301249,"data":"        \"text\": \"return subprocess.run(command, check=False).returncode\"\n"}
+,{"stream_name":"stdout","time":59.220305547,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.220309265,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.220313053,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/controller_work/night_c27/census/validate.py\",\n"}
+,{"stream_name":"stdout","time":59.220317599,"data":"        \"line\": 29,\n"}
+,{"stream_name":"stdout","time":59.220321774,"data":"        \"text\": \"result = subprocess.run(list(map(str, command)), capture_output=True, text=True)\"\n"}
+,{"stream_name":"stdout","time":59.220326019,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.220329858,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.220333616,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/controller_work/runtime/guard.py\",\n"}
+,{"stream_name":"stdout","time":59.220338027,"data":"        \"line\": 73,\n"}
+,{"stream_name":"stdout","time":59.220341984,"data":"        \"text\": \"child = subprocess.Popen(command, cwd=a.cwd, start_new_session=True, stdout=out, stderr=subprocess.STDOUT if out else None)\"\n"}
+,{"stream_name":"stdout","time":59.220346446,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.220454658,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.220459928,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/v9_build/native_stream.py\",\n"}
+,{"stream_name":"stdout","time":59.220470964,"data":"        \"line\": 77,\n"}
+,{"stream_name":"stdout","time":59.220475741,"data":"        \"text\": \"child = subprocess.Popen([sys.executable, '-B', str(Path(__file__).resolve()),\"\n"}
+,{"stream_name":"stdout","time":59.220479982,"data":"      }\n"}
+,{"stream_name":"stdout","time":59.220484592,"data":"    ],\n"}
+,{"stream_name":"stdout","time":59.220488469,"data":"    \"dynamic_execution\": [\n"}
+,{"stream_name":"stdout","time":59.220492396,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.220496289,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/agents/padding_amplitude/submitted_d56_affine_norm_product_builder.py\",\n"}
+,{"stream_name":"stdout","time":59.220500864,"data":"        \"line\": 97,\n"}
+,{"stream_name":"stdout","time":59.220504939,"data":"        \"text\": \"exec(compile(ast.Module(body=[node], type_ignores=[]), str(OWNER), 'exec'), namespace)\"\n"}
+,{"stream_name":"stdout","time":59.220509188,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.220512887,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.220516739,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/agents/padding_amplitude/submitted_d56_affine_only_builder.py\",\n"}
+,{"stream_name":"stdout","time":59.220521211,"data":"        \"line\": 86,\n"}
+,{"stream_name":"stdout","time":59.220529882,"data":"        \"text\": \"exec(compile(ast.Module(body=[node], type_ignores=[]), str(OWNER), 'exec'), namespace)\"\n"}
+,{"stream_name":"stdout","time":59.220545857,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.220550433,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.220554804,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/agents/width_integration/submitted_packet_retimed_builder.py\",\n"}
+,{"stream_name":"stdout","time":59.220559859,"data":"        \"line\": 89,\n"}
+,{"stream_name":"stdout","time":59.22056613,"data":"        \"text\": \"exec(compile(ast.Module(body=[node], type_ignores=[]), str(ROOT/'agents/padding_amplitude/retimed_gap2_local.py'), 'exec'), namespace)\"\n"}
+,{"stream_name":"stdout","time":59.22057065,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.220574419,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.220578199,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/agents/width_integration/submitted_reciprocal_packet_binding.py\",\n"}
+,{"stream_name":"stdout","time":59.220582652,"data":"        \"line\": 47,\n"}
+,{"stream_name":"stdout","time":59.220586556,"data":"        \"text\": \"exec(compile(subset, str(path), 'exec'), module.__dict__)\"\n"}
+,{"stream_name":"stdout","time":59.220590894,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.220594685,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.220598444,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/pro4_parts/designp4d_early_padding_return.py\",\n"}
+,{"stream_name":"stdout","time":59.220602783,"data":"        \"line\": 192,\n"}
+,{"stream_name":"stdout","time":59.220606649,"data":"        \"text\": \"exec(compile(tree, '\u003cP4D private checked kept-AND factory\u003e', 'exec'), namespace)\"\n"}
+,{"stream_name":"stdout","time":59.220611352,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.22061517,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.220618944,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/pro4_parts/designp4p_inverse_graph_erasure.py\",\n"}
+,{"stream_name":"stdout","time":59.220628953,"data":"        \"line\": 83,\n"}
+,{"stream_name":"stdout","time":59.220649357,"data":"        \"text\": \"exec(compile(scaffold,__file__,'exec'),namespace)\"\n"}
+,{"stream_name":"stdout","time":59.220654867,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.220659612,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.22066397,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/pro4_parts/designp4r_first3_child_phase.py\",\n"}
+,{"stream_name":"stdout","time":59.220668559,"data":"        \"line\": 27,\n"}
+,{"stream_name":"stdout","time":59.220672582,"data":"        \"text\": \"exec(compile(new,graph.__file__,'exec'),ns)\"\n"}
+,{"stream_name":"stdout","time":59.220676772,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.220680743,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.220684576,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/pro4_parts/designp4r_first3_child_phase.py\",\n"}
+,{"stream_name":"stdout","time":59.220688822,"data":"        \"line\": 52,\n"}
+,{"stream_name":"stdout","time":59.220692428,"data":"        \"text\": \"exec(compile(revised,'\u003cP4R scoped first-three inverse return\u003e','exec'),ns)\"\n"}
+,{"stream_name":"stdout","time":59.220696856,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.220700659,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.220705109,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/root_audits/audit_submitted_affine_child_norm.py\",\n"}
+,{"stream_name":"stdout","time":59.220709396,"data":"        \"line\": 55,\n"}
+,{"stream_name":"stdout","time":59.220713262,"data":"        \"text\": \"exec(compile(ast.Module(body=[node],type_ignores=[]),str(OWNER),'exec'),namespace)\"\n"}
+,{"stream_name":"stdout","time":59.220717556,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.220721326,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.220731502,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/root_audits/audit_submitted_affine_child_norm_four_targets.py\",\n"}
+,{"stream_name":"stdout","time":59.220747523,"data":"        \"line\": 55,\n"}
+,{"stream_name":"stdout","time":59.220752282,"data":"        \"text\": \"exec(compile(ast.Module(body=[node],type_ignores=[]),str(OWNER),'exec'),namespace)\"\n"}
+,{"stream_name":"stdout","time":59.220757116,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.220761562,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.220766208,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/root_research/submitted_d53_retiming.py\",\n"}
+,{"stream_name":"stdout","time":59.220770587,"data":"        \"line\": 38,\n"}
+,{"stream_name":"stdout","time":59.220774638,"data":"        \"text\": \"exec(compile(ast.fix_missing_locations(ast.Module(body=[node],type_ignores=[])),str(RETIMING),'exec'),namespace)\"\n"}
+,{"stream_name":"stdout","time":59.220779437,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.220783194,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.220787065,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/algorithm/reopen_late_pair_controller_batched.py\",\n"}
+,{"stream_name":"stdout","time":59.22079157,"data":"        \"line\": 64,\n"}
+,{"stream_name":"stdout","time":59.220795467,"data":"        \"text\": \"exec(compile(body,str(Path(__file__)), 'exec'),Old.__dict__)\"\n"}
+,{"stream_name":"stdout","time":59.220799663,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.220803414,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.220807355,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/controller_work/night_c27/census/prepare_config.py\",\n"}
+,{"stream_name":"stdout","time":59.220816502,"data":"        \"line\": 86,\n"}
+,{"stream_name":"stdout","time":59.220821984,"data":"        \"text\": \"exec(compile(ast.Module(body=[function], type_ignores=[]), str(OFFICIAL), \\\"exec\\\"), namespace)\"\n"}
+,{"stream_name":"stdout","time":59.220832002,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.22084651,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.220850834,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/pro1_controller_bundle/1_task/tools/rare_cases.py\",\n"}
+,{"stream_name":"stdout","time":59.220856231,"data":"        \"line\": 128,\n"}
+,{"stream_name":"stdout","time":59.220860838,"data":"        \"text\": \"def eval(self, polynomial: list[int], x: int) -\u003e int:\"\n"}
+,{"stream_name":"stdout","time":59.22086584,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.220870481,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.220875209,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/pro1_controller_bundle/1_task/tools/rare_cases.py\",\n"}
+,{"stream_name":"stdout","time":59.220879776,"data":"        \"line\": 206,\n"}
+,{"stream_name":"stdout","time":59.220883615,"data":"        \"text\": \"divisor = f.eval(denominator, gamma)\"\n"}
+,{"stream_name":"stdout","time":59.220887768,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.220891525,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.220895443,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/pro1_controller_bundle/1_task/tools/rare_cases.py\",\n"}
+,{"stream_name":"stdout","time":59.220899931,"data":"        \"line\": 209,\n"}
+,{"stream_name":"stdout","time":59.22090463,"data":"        \"text\": \"value = f.emul(f.eval(numerator, gamma), f.einv(divisor))\"\n"}
+,{"stream_name":"stdout","time":59.220909125,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.220913092,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.220916897,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/pro1_controller_bundle/1_task/tools/rare_cases.py\",\n"}
+,{"stream_name":"stdout","time":59.220921287,"data":"        \"line\": 411,\n"}
+,{"stream_name":"stdout","time":59.22092521,"data":"        \"text\": \"evaluations = [f.eval(p, gamma) for p in d_basis]\"\n"}
+,{"stream_name":"stdout","time":59.220929047,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.22093811,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.220953406,"data":"        \"path\": \"antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/pro1_controller_bundle/1_task/tools/rare_cases.py\",\n"}
+,{"stream_name":"stdout","time":59.2209588,"data":"        \"line\": 421,\n"}
+,{"stream_name":"stdout","time":59.22096371,"data":"        \"text\": \"if actual_heads != heads or f.eval(reduced_d, gamma) != 0:\"\n"}
+,{"stream_name":"stdout","time":59.220968764,"data":"      },\n"}
+,{"stream_name":"stdout","time":59.220973208,"data":"      {\n"}
+,{"stream_name":"stdout","time":59.220977054,"data":"        \"path\": \"dqi_laneB_middle_arch/src/d70_laneB_builder.py\",\n"}
+,{"stream_name":"stdout","time":59.220981649,"data":"        \"line\": 66,\n"}
+,{"stream_name":"stdout","time":59.220985668,"data":"        \"text\": \"exec(compile(src, str(STRICT_P4BS), \\\"exec\\\"), mod.__dict__)\"\n"}
+,{"stream_name":"stdout","time":59.22099441,"data":"      }\n"}
+,{"stream_name":"stdout","time":59.220998317,"data":"    ],\n"}
+,{"stream_name":"stdout","time":59.221002157,"data":"    \"pickle\": []\n"}
+,{"stream_name":"stdout","time":59.221006005,"data":"  },\n"}
+,{"stream_name":"stdout","time":59.221009796,"data":"  \"static_scan_executed_code\": false\n"}
+,{"stream_name":"stdout","time":59.2210138,"data":"}\n"}
+,{"stream_name":"stderr","time":62.372198021,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":62.372237053,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":62.783621252,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":62.783674817,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":65.063749257,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":66.438005556,"data":"[NbConvertApp] Writing 306119 bytes to __results__.html\n"}
+]

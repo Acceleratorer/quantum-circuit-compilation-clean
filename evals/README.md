@@ -19,8 +19,8 @@ This directory separates local verifier estimates from Kaggle results.
 - Snapshot metadata and the retained CSV are in
   [the 13:23Z receipt](2026-11-23-live-leaderboard-132346Z.json) and
   [`kaggle/snapshots/`](../kaggle/snapshots/2026-11-23/).
-- The exp-062 source-built invsqrt candidate passed after this snapshot but
-  was not submitted, so it has no leaderboard score yet.
+- The exp-062 invsqrt and exp-063 DQI source-built candidates passed after this
+  snapshot. Neither was submitted, so neither has a leaderboard score yet.
 
 ## Previous live status (`2026-11-23T04:27:24Z`)
 
@@ -61,13 +61,12 @@ download archive hash are recorded in metadata. The ZIP remains ignored by the
 repository rules. Row count, ordering, leader, and own-team rank were checked.
 Refresh the leaderboard before every submission.
 
-## Active single direction
+## Active direction
 
-The attributed Syed v17 inverse-square-root generator has now been rebuilt
-from its published source tree and passed the full official verifier. The
-candidate is a verified task member, not a leaderboard submission; the full
-three-task archive remains open. See the [exp-062 evaluation receipt](2026-11-23-exp062-invsqrt.json),
-[experiment record](../experiments/exp-062/README.md), and
-[run log](../log/2026-11-23-exp062-invsqrt-rebuild.md). The earlier source
-lead and access limitation are preserved in the
-[lead receipt](2026-11-23-invsqrt-source-lead.json).
+One source-owned archive is still the goal. Invsqrt and DQI now have exact
+source-built candidates and official verifier passes; dfthcsos is the only
+member gate still open. Neither verified component has been submitted. See
+the [archive milestone](../milestone/2026-11-23-source-owned-archive.md),
+[exp-062 receipt](2026-11-23-exp062-invsqrt.json),
+[exp-063 receipt](2026-11-23-exp063-dqi.json), and
+[exp-063 run log](../log/2026-11-23-exp063-dqi-source-rebuild.md).

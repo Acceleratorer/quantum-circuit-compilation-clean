@@ -1,0 +1,308 @@
+{
+  "status": "SOURCE_STATIC_AUDIT_COMPLETE_NO_CODE_EXECUTED",
+  "dataset": "syed3000/vqcc-own-circuit-portfolio",
+  "dataset_version": 17,
+  "license": "Apache-2.0",
+  "package_hashes": {
+    "README.md": "8c43097e3fa875365894d370e10e5ce79fb186a5c74bc76170f0e69250db974b",
+    "build.py": "d400f69a899a7aac23d6abb5ed257c1cdbe96c192b964240d82e3022a4c497a9",
+    "emit.py": "0e69f89841f30db5b2254ae4bfdf455ca0f2de3087f803b6f8fc5b6ec84ca11c",
+    "lower_fredkin.py": "f7c9168e85490bd2747e13d0e7216c3ca5ebc0d47864827bf310984250d3ebfe",
+    "manifest.json": "d6a8fa8169eacfa50bcc43f89affd64a9fc2368002a367477b21b8824bcd3483",
+    "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "NOTICE": "b4e1cd477cca2cb53254e80ae35357b5609ddb61c4f10a0c724e107c1fdae042"
+  },
+  "source_archive_sha256_claim": "54fcce0d9846afae1fde0330e69803e4d9633a4e1ac4fcac49a7d1413ad20b45",
+  "source_archive_present": false,
+  "source_tree_files": 630,
+  "source_tree_bytes": 56594465,
+  "source_tree_sha256": "8907c2df2cf821fb1e232148d6b93d8b49f4f2f44a88e53c15b62a43be364ec1",
+  "source_tree_digest": "sha256 over sorted relative path, NUL, file SHA-256, newline",
+  "source_tree_suffixes": {
+    ".cpp": 1,
+    ".json": 155,
+    ".log": 1,
+    ".md": 38,
+    ".py": 430,
+    ".stdout": 2,
+    ".txt": 1,
+    "[none]": 2
+  },
+  "compiled_circuit_inputs_read": false,
+  "compiled_circuit_files_in_source_tree": [],
+  "profile": "paired-plain",
+  "published_output_sha256": "fc2564c61931a0b1c789d8857a78e54f88466b546870f0e99ad252b8c59183c5",
+  "official_verifier_path": "/kaggle/input/competitions/google-verifiable-quantum-circuit-compilation/verifiers/dqi/verify_submission_dqi.py",
+  "competition_root": "/kaggle/input/competitions/google-verifiable-quantum-circuit-compilation",
+  "competition_input_files": {
+    "antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/pkg/competition/kickmix/kickmix.so": {
+      "host_path": "kickmix/kickmix.so",
+      "sha256": "c66b3216c4029e0cdfd09054306aa0feadf53ab2f50c1164e37f752874e5005e",
+      "bytes": 3220392
+    },
+    "antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/pkg/competition/verifiers/dqi/__init__.py": {
+      "host_path": "verifiers/dqi/__init__.py",
+      "sha256": "01c870aa9763f4e4357fc6654bff1d3296cec995bd0943f87b4a48946ada5b40",
+      "bytes": 87
+    },
+    "antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/pkg/competition/verifiers/dqi/verify_submission_dqi.py": {
+      "host_path": "verifiers/dqi/verify_submission_dqi.py",
+      "sha256": "f14274bc0943fb9769ddb01131be6063191a15009fe1caf1d4bdd9fd25194e65",
+      "bytes": 20959
+    },
+    "antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/pro1_controller_bundle/1_task/official/kickmix.so": {
+      "host_path": "kickmix/kickmix.so",
+      "sha256": "c66b3216c4029e0cdfd09054306aa0feadf53ab2f50c1164e37f752874e5005e",
+      "bytes": 3220392
+    },
+    "antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/pro1_controller_bundle/1_task/verifiers/dqi/verify_submission_dqi.py": {
+      "host_path": "verifiers/dqi/verify_submission_dqi.py",
+      "sha256": "f14274bc0943fb9769ddb01131be6063191a15009fe1caf1d4bdd9fd25194e65",
+      "bytes": 20959
+    }
+  },
+  "python_source_files": 430,
+  "static_scan_findings": {
+    "network": [
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/pro4_parts/designp4bl_full_source_core.py",
+        "line": 30,
+        "text": "self.requests = []"
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/pro4_parts/designp4bl_full_source_core.py",
+        "line": 37,
+        "text": "self.requests.append(count)"
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/pro4_parts/designp4bl_full_source_core.py",
+        "line": 54,
+        "text": "assert helper.requests == [1, 1, 10] and helper.peak == entry + 11"
+      }
+    ],
+    "credentials": [],
+    "shell_execution": [
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/controller_work/after_c5/root/guard_wait.py",
+        "line": 77,
+        "text": "child = subprocess.Popen(command, cwd=a.cwd, start_new_session=True, stdout=out, stderr=subprocess.STDOUT if out else None)"
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/controller_work/runtime/guard.py",
+        "line": 73,
+        "text": "child = subprocess.Popen(command, cwd=a.cwd, start_new_session=True, stdout=out, stderr=subprocess.STDOUT if out else None)"
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/v9_build/native_stream.py",
+        "line": 77,
+        "text": "child = subprocess.Popen([sys.executable, '-B', str(Path(__file__).resolve()),"
+      }
+    ],
+    "subprocess": [
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/agents/padding_amplitude/submitted_affine_retained_norm_product.py",
+        "line": 221,
+        "text": "result=subprocess.run([sys.executable,'-B',str(supplied),str(source),str(target),str(report_path)],"
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/carbon_d60/src/check_design60_component.py",
+        "line": 316,
+        "text": "subprocess.run("
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/carbon_d60/src/check_design60_component.py",
+        "line": 593,
+        "text": "res = subprocess.run("
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/carbon_d60/src/check_design60_component.py",
+        "line": 629,
+        "text": "subprocess.run(['g++', '-O2', '-std=c++17', str(cpp), '-lz', '-o', str(bin_out)], check=True)"
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/carbon_d60/src/check_design60_component.py",
+        "line": 659,
+        "text": "subprocess.run([sys.executable, '-B', '-c', compress_py], check=True, env=env_sub)"
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/carbon_d60/src/check_design60_component.py",
+        "line": 663,
+        "text": "subprocess.run(["
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/carbon_d60/src/check_design60_component.py",
+        "line": 670,
+        "text": "subprocess.run(["
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/carbon_d60/src/check_design60_component.py",
+        "line": 676,
+        "text": "subprocess.run(["
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/carbon_d60/src/run_all_checks.py",
+        "line": 56,
+        "text": "proc = subprocess.run(cmd, cwd=ARCH_ROOT, text=True, capture_output=True, check=True)"
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/controller_work/after_c5/integration/gen_dqi.py",
+        "line": 49,
+        "text": "return subprocess.run(command, check=False).returncode"
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/controller_work/after_c5/integration_v2/gen_dqi.py",
+        "line": 52,
+        "text": "return subprocess.run(command, check=False).returncode"
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/controller_work/after_c5/root/guard_wait.py",
+        "line": 77,
+        "text": "child = subprocess.Popen(command, cwd=a.cwd, start_new_session=True, stdout=out, stderr=subprocess.STDOUT if out else None)"
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/controller_work/after_v3/integration_v4/gen_dqi.py",
+        "line": 33,
+        "text": "return subprocess.run(command,check=False).returncode"
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/controller_work/after_v3/integration_v5/gen_dqi.py",
+        "line": 33,
+        "text": "return subprocess.run(command,check=False).returncode"
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/controller_work/after_v3/integration_v5b/gen_dqi.py",
+        "line": 33,
+        "text": "return subprocess.run(command,check=False).returncode"
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/controller_work/after_v3/integration_v6/gen_dqi.py",
+        "line": 33,
+        "text": "return subprocess.run(command,check=False).returncode"
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/controller_work/after_v3/integration_v7/gen_dqi.py",
+        "line": 33,
+        "text": "return subprocess.run(command,check=False).returncode"
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/controller_work/gen_dqi.py",
+        "line": 41,
+        "text": "return subprocess.run(command, check=False).returncode"
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/controller_work/night_c27/census/validate.py",
+        "line": 29,
+        "text": "result = subprocess.run(list(map(str, command)), capture_output=True, text=True)"
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/controller_work/runtime/guard.py",
+        "line": 73,
+        "text": "child = subprocess.Popen(command, cwd=a.cwd, start_new_session=True, stdout=out, stderr=subprocess.STDOUT if out else None)"
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/v9_build/native_stream.py",
+        "line": 77,
+        "text": "child = subprocess.Popen([sys.executable, '-B', str(Path(__file__).resolve()),"
+      }
+    ],
+    "dynamic_execution": [
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/agents/padding_amplitude/submitted_d56_affine_norm_product_builder.py",
+        "line": 97,
+        "text": "exec(compile(ast.Module(body=[node], type_ignores=[]), str(OWNER), 'exec'), namespace)"
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/agents/padding_amplitude/submitted_d56_affine_only_builder.py",
+        "line": 86,
+        "text": "exec(compile(ast.Module(body=[node], type_ignores=[]), str(OWNER), 'exec'), namespace)"
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/agents/width_integration/submitted_packet_retimed_builder.py",
+        "line": 89,
+        "text": "exec(compile(ast.Module(body=[node], type_ignores=[]), str(ROOT/'agents/padding_amplitude/retimed_gap2_local.py'), 'exec'), namespace)"
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/agents/width_integration/submitted_reciprocal_packet_binding.py",
+        "line": 47,
+        "text": "exec(compile(subset, str(path), 'exec'), module.__dict__)"
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/pro4_parts/designp4d_early_padding_return.py",
+        "line": 192,
+        "text": "exec(compile(tree, '<P4D private checked kept-AND factory>', 'exec'), namespace)"
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/pro4_parts/designp4p_inverse_graph_erasure.py",
+        "line": 83,
+        "text": "exec(compile(scaffold,__file__,'exec'),namespace)"
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/pro4_parts/designp4r_first3_child_phase.py",
+        "line": 27,
+        "text": "exec(compile(new,graph.__file__,'exec'),ns)"
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/pro4_parts/designp4r_first3_child_phase.py",
+        "line": 52,
+        "text": "exec(compile(revised,'<P4R scoped first-three inverse return>','exec'),ns)"
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/root_audits/audit_submitted_affine_child_norm.py",
+        "line": 55,
+        "text": "exec(compile(ast.Module(body=[node],type_ignores=[]),str(OWNER),'exec'),namespace)"
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/root_audits/audit_submitted_affine_child_norm_four_targets.py",
+        "line": 55,
+        "text": "exec(compile(ast.Module(body=[node],type_ignores=[]),str(OWNER),'exec'),namespace)"
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/root_research/submitted_d53_retiming.py",
+        "line": 38,
+        "text": "exec(compile(ast.fix_missing_locations(ast.Module(body=[node],type_ignores=[])),str(RETIMING),'exec'),namespace)"
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/algorithm/reopen_late_pair_controller_batched.py",
+        "line": 64,
+        "text": "exec(compile(body,str(Path(__file__)), 'exec'),Old.__dict__)"
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/controller_work/night_c27/census/prepare_config.py",
+        "line": 86,
+        "text": "exec(compile(ast.Module(body=[function], type_ignores=[]), str(OFFICIAL), \"exec\"), namespace)"
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/pro1_controller_bundle/1_task/tools/rare_cases.py",
+        "line": 128,
+        "text": "def eval(self, polynomial: list[int], x: int) -> int:"
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/pro1_controller_bundle/1_task/tools/rare_cases.py",
+        "line": 206,
+        "text": "divisor = f.eval(denominator, gamma)"
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/pro1_controller_bundle/1_task/tools/rare_cases.py",
+        "line": 209,
+        "text": "value = f.emul(f.eval(numerator, gamma), f.einv(divisor))"
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/pro1_controller_bundle/1_task/tools/rare_cases.py",
+        "line": 411,
+        "text": "evaluations = [f.eval(p, gamma) for p in d_basis]"
+      },
+      {
+        "path": "antigravity_dqi_d69_own_20261119/stage/pro2/submitted_runtime/research/common/dqi_source/src/pro1_controller_bundle/1_task/tools/rare_cases.py",
+        "line": 421,
+        "text": "if actual_heads != heads or f.eval(reduced_d, gamma) != 0:"
+      },
+      {
+        "path": "dqi_laneB_middle_arch/src/d70_laneB_builder.py",
+        "line": 66,
+        "text": "exec(compile(src, str(STRICT_P4BS), \"exec\"), mod.__dict__)"
+      }
+    ],
+    "pickle": []
+  },
+  "static_scan_executed_code": false
+}

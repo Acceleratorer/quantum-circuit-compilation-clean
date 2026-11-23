@@ -1,0 +1,18 @@
+{"stage": "hybrid_adaptive_mask_gauge", "live_Q": 840, "seconds": 234.97304215600002}
+{"stage": "repeated_first3_prefix", "live_Q": 865, "seconds": 239.362671923}
+{"stage": "repeated_axis_prefix", "live_Q": 866, "seconds": 258.262587218}
+{"stage": "repeated_local_prefix", "live_Q": 865, "seconds": 259.394441276}
+{"stage": "odd_border_and_elimination", "live_Q": 865, "seconds": 282.886826219}
+outer4 quotients 75
+{"stage": "odd_full_preimage", "live_Q": 865, "seconds": 298.05355591399996}
+{"stage": "raw_boundary", "live_Q": 865, "seconds": 298.061177453}
+{"stage": "hybrid_finish_prefix", "live_Q": 865, "seconds": 299.68730712499996}
+{"stage": "hybrid_shared_finish_return", "live_Q": 877, "seconds": 332.57061998300003}
+{"stage": "shared_seam_undo_odd_full_preimage", "live_Q": 865, "seconds": 332.916989663}
+{"stage": "shared_seam_restored_raw_inputs", "live_Q": 865, "seconds": 353.28536179599996}
+{"stage": "repeated_local_return", "live_Q": 866, "seconds": 381.181428191}
+{"stage": "repeated_first3_return", "live_Q": 864, "seconds": 410.03581673200006}
+{"stage": "hybrid_all_original_inputs_restored", "live_Q": 840, "seconds": 418.327117013}
+{"d68_recorders": {"get_max_q": {"890": 13}, "can_hold": {"25:True": 1}, "masked_mul_max_helpers": {"11": 12}, "cspb_max_helpers": {"12": 1, "11": 1}, "recorders_restored": true}}
+{"source_sha256": "e491f6b18aefba9664327a1711d7f0655b4a1cc2c4edfacd49e81b948fd1dbbc", "parts": ["61A", "62A", "62B", "62C", "63A", "65A", "66A", "66B", "67A", "67B", "68A", "68B", "P4B", "P4O", "P4P", "P4R", "P4S", "P4V", "P4AD", "P4AE", "P4AI", "P4BL", "P4BM", "P4BN", "69H", "69I", "ALL183", "70B1", "70B2", "70B3", "70B4", "70B5", "70B6"], "actual_affine_static_cut_T": null, "probe_counts": {}, "status": "EMITTED_MERGED_RAW_PENDING_FINISH_AND_CHECKS", "raw_static_T": 359293, "Q": 890, "stream": {"notice": "Copyright 2026 Syed Asad Ali. Licensed under Apache-2.0. Credits: Syed Asad Ali, working with a team of AI agents (GPT-6 Astra Pro, Gemini 4 Argon, Fable 5.2, Mythos 5.2 and Opus 5.5), with Claude Science supporting the research.", "status": "PASS_EXACT_NATIVE_KMB_STREAM_TRANSFER", "mode": "compress", "uncompressed_sha256": "e33d5904bf10195254e24ba859ae497fb124f76388332e2297fad3569dab8300", "uncompressed_bytes": 828646064, "compressed_sha256": "8719a67600af7702b853f8b8f74d11ef4d6180bd1fd6ed28a189f5e99a2e06b1", "compressed_bytes": 132594995, "deterministic_gzip_header": true, "seconds": 10.498079923999967}, "raw_static_cut_vs_pro2_eeb4_raw": 5512, "seconds": 431.010666894}
+{"profile": "paired-plain", "sha256": "fc2564c61931a0b1c789d8857a78e54f88466b546870f0e99ad252b8c59183c5", "raw_sha256": "e33d5904bf10195254e24ba859ae497fb124f76388332e2297fad3569dab8300", "width": 890, "static_toffoli": 359293, "bytes": 828831824, "lowered_fredkin": 10320, "inline_guarded_fredkin": 0, "num_ops": 105687555}

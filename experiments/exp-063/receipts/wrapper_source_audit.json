@@ -1,0 +1,32 @@
+{
+  "dataset": "syed3000/vqcc-own-circuit-portfolio",
+  "dataset_version": 17,
+  "license": "Apache-2.0",
+  "profile": "paired-plain",
+  "used_runtime_files": {
+    "README.md": "8c43097e3fa875365894d370e10e5ce79fb186a5c74bc76170f0e69250db974b",
+    "build.py": "d400f69a899a7aac23d6abb5ed257c1cdbe96c192b964240d82e3022a4c497a9",
+    "emit.py": "0e69f89841f30db5b2254ae4bfdf455ca0f2de3087f803b6f8fc5b6ec84ca11c",
+    "lower_fredkin.py": "f7c9168e85490bd2747e13d0e7216c3ca5ebc0d47864827bf310984250d3ebfe",
+    "batch_dots.py": "a153d268800492fc31cf9ca0f734a46bb2252f5ec8edaaba1755512b742a80d3",
+    "deferred_bulk.py": "77365693bd25f93527dfc023bddaebef26d8b4e78ebffc2b588c934dabb87b2c",
+    "paired_converter.py": "87a3d3b6748a7e9786ed48249bd94ff118fe4c0594fba2f28378778797131d5f",
+    "plain_pairs.py": "19bd443224369504a693b6452b2a006d6c2c19a3b9dd8a19f608f427d256c04b",
+    "retained_head.py": "41dfe92a81782b81886408edf24ab355097fdd9102b663834af19c6dc9418fc6"
+  },
+  "review": {
+    "helper_keyword_scan": {
+      "files": 5,
+      "network_api_hits": 0,
+      "credential_hits": 0,
+      "subprocess_hits": 0,
+      "pickle_hits": 0
+    },
+    "build.py": "Reviewed; checks archive paths and source hashes, then invokes emit.py as a subprocess.",
+    "emit.py": "Reviewed; rebases the pinned builder paths, inserts fixed profile patches, then executes the resulting source.",
+    "retained_head.py and deferred_bulk.py": "Reviewed; use inspect.getsource and exec(compile(...)) to replace the pinned builder function for the selected profile.",
+    "internet": "Disabled in the private Kaggle kernel.",
+    "subprocess_environment": "Credential-like variables are removed before build and verifier subprocesses.",
+    "compiled_circuit_inputs_read": false
+  }
+}

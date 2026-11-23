@@ -1,0 +1,57 @@
+{
+  "date": "2026-11-23",
+  "experiment": "exp-063",
+  "task": "dqi",
+  "kernel": {
+    "slug": "accelra/exp-063-syed-v25-dqi-source-audit",
+    "version": 4,
+    "privacy": "private",
+    "script_sha256": "35245d906fb16faa1f142413330652e846fe4a6309294d1fc83ca2927f416c76"
+  },
+  "source": {
+    "dataset": "syed3000/vqcc-own-circuit-portfolio",
+    "dataset_version": 17,
+    "license": "Apache-2.0",
+    "source_tree_files": 630,
+    "source_tree_bytes": 56594465,
+    "source_tree_sha256": "8907c2df2cf821fb1e232148d6b93d8b49f4f2f44a88e53c15b62a43be364ec1",
+    "claimed_archive_sha256": "54fcce0d9846afae1fde0330e69803e4d9633a4e1ac4fcac49a7d1413ad20b45",
+    "upstream_archive_present": false,
+    "reconstructed_archive_sha256": "0e0a40cc7902600667f43dc00e0325cf496cc4d19e2ad91abf3248d588a186c9",
+    "compiled_circuit_inputs_read": false,
+    "static_audit_receipt": "../experiments/exp-063/receipts/static_source_audit.json",
+    "provenance_receipt": "../experiments/exp-063/receipts/provenance.json"
+  },
+  "build": {
+    "status": "PASS",
+    "seconds": 443.934724161,
+    "profile": "paired-plain",
+    "candidate_sha256": "fc2564c61931a0b1c789d8857a78e54f88466b546870f0e99ad252b8c59183c5",
+    "script_sha256": "35245d906fb16faa1f142413330652e846fe4a6309294d1fc83ca2927f416c76",
+    "receipt": "../experiments/exp-063/receipts/build.json"
+  },
+  "candidate": {
+    "sha256": "fc2564c61931a0b1c789d8857a78e54f88466b546870f0e99ad252b8c59183c5",
+    "qubits": 890,
+    "cost": 336559961203.1761,
+    "mean_toffoli_count": 356677.4941796875,
+    "max_toffoli_count": 359293,
+    "reaction_depth": 28266,
+    "num_ops": 105687555,
+    "bytes": 828831824
+  },
+  "verification": {
+    "status": "PASS",
+    "verifier_sha256": "f14274bc0943fb9769ddb01131be6063191a15009fe1caf1d4bdd9fd25194e65",
+    "verified_shots": 102400,
+    "value_errors": 0,
+    "phase_errors": 0,
+    "log2_delta": -128.0,
+    "seconds": 487.51744203500004,
+    "receipt": "../experiments/exp-063/receipts/verify_full.json"
+  },
+  "submission": {
+    "submitted": false,
+    "reason": "This is the DQI component only. The complete source-owned archive still needs dfthcsos alongside the verified invsqrt and DQI members."
+  }
+}

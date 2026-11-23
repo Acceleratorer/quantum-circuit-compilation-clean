@@ -1,0 +1,11 @@
+{
+  "profile": "paired-plain",
+  "sha256": "fc2564c61931a0b1c789d8857a78e54f88466b546870f0e99ad252b8c59183c5",
+  "raw_sha256": "e33d5904bf10195254e24ba859ae497fb124f76388332e2297fad3569dab8300",
+  "width": 890,
+  "static_toffoli": 359293,
+  "bytes": 828831824,
+  "lowered_fredkin": 10320,
+  "inline_guarded_fredkin": 0,
+  "num_ops": 105687555
+}

@@ -1,0 +1,21 @@
+{
+  "dataset": "syed3000/vqcc-own-circuit-portfolio",
+  "dataset_version": 17,
+  "license": "Apache-2.0",
+  "upstream_archive_sha256_claim": "54fcce0d9846afae1fde0330e69803e4d9633a4e1ac4fcac49a7d1413ad20b45",
+  "upstream_archive_present": false,
+  "reconstructed_archive_sha256": "0e0a40cc7902600667f43dc00e0325cf496cc4d19e2ad91abf3248d588a186c9",
+  "reconstructed_archive_contents_verified_against_manifest": true,
+  "source_tree_files": 630,
+  "source_tree_bytes": 56594465,
+  "source_tree_sha256": "8907c2df2cf821fb1e232148d6b93d8b49f4f2f44a88e53c15b62a43be364ec1",
+  "candidate_profile": "paired-plain",
+  "candidate_sha256_expected": "fc2564c61931a0b1c789d8857a78e54f88466b546870f0e99ad252b8c59183c5",
+  "competition_input_sha256": {
+    "kickmix/kickmix.so": "c66b3216c4029e0cdfd09054306aa0feadf53ab2f50c1164e37f752874e5005e",
+    "verifiers/dqi/__init__.py": "01c870aa9763f4e4357fc6654bff1d3296cec995bd0943f87b4a48946ada5b40",
+    "verifiers/dqi/verify_submission_dqi.py": "f14274bc0943fb9769ddb01131be6063191a15009fe1caf1d4bdd9fd25194e65"
+  },
+  "official_verifier_sha256": "f14274bc0943fb9769ddb01131be6063191a15009fe1caf1d4bdd9fd25194e65",
+  "public_circuit_binaries_read": false
+}
