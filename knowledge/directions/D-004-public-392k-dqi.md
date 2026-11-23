@@ -21,6 +21,12 @@ candidate. The latest score-equivalence estimate is `200.147e9`; at
 projection is `202,075T`, leaving only `10,035.59T` for omitted work; its
 complete width, phase, and cleanup schedule remains unproven.
 
+The static source audit in [exp-058](../../experiments/exp-058/README.md)
+found that the 33.17033 public reference uses other authors' circuits and
+offers no source-owned candidate. Its local gate-deletion and wire-reuse
+results are specific to those public files; they do not replace the active
+exp-057 algorithmic path.
+
 ## 2026-11-23 live leaderboard and focused gate
 
 The latest full Kaggle CLI snapshot at `2026-11-23T00:16:46Z` has 3,598 teams.

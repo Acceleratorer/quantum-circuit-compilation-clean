@@ -1,0 +1,47 @@
+{
+  "captured_utc": "2026-11-23T00:33:38Z",
+  "source": {
+    "platform": "Kaggle",
+    "kernel_ref": "asteriospanoras/qcc-33-1702-ablation-floors-human-vs-ai-next",
+    "url": "https://www.kaggle.com/code/asteriospanoras/qcc-33-1702-ablation-floors-human-vs-ai-next/versions/32",
+    "kernel_id": 144641091,
+    "version_number": 32,
+    "frozen": true,
+    "last_run_utc": "2026-11-20T00:31:17.761000",
+    "dataset_sources": [
+      "asteriospanoras/qcc-circuit-atlas"
+    ],
+    "kernel_sources": [
+      "evgendvorkin/google-quantum-ai-deep-eda-with-analogies"
+    ],
+    "competition_sources": [
+      "google-verifiable-quantum-circuit-compilation"
+    ],
+    "license_observation": "The notebook banner says Apache-2.0; Kaggle metadata exposes no license field. The circuit files are credited to other authors and are not reused."
+  },
+  "files": [
+    {
+      "path": "external/asterios-ablation/qcc-33-1702-ablation-floors-human-vs-ai-next.ipynb",
+      "bytes": 548899,
+      "sha256": "fb8d97fd13f3407e4ac7ab6575ceb546176fc5e681ebd337534779b96f315665"
+    },
+    {
+      "path": "external/asterios-ablation/kernel-metadata.json",
+      "bytes": 833,
+      "sha256": "ff1108c9878037ca097953d8d1202224b712eb748d8d3e964e37238678b9b7a4"
+    }
+  ],
+  "review": {
+    "method": "Static JSON/text inspection only",
+    "downloaded_code_executed": false,
+    "notebook_outputs_downloaded": false,
+    "circuit_files_copied": false,
+    "side_effect_found": "Cell 94 sets WRITE_SUBMISSION = True and writes /kaggle/working/submission.zip if a source archive is attached."
+  },
+  "result": {
+    "portfolio_score_reference": 33.17033,
+    "source_owned_candidate": false,
+    "decision": "measurement_reference_only"
+  }
+}
+
