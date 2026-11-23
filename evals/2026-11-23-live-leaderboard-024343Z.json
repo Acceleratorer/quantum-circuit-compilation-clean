@@ -1,0 +1,60 @@
+{
+  "captured_utc": "2026-11-23T02:43:43Z",
+  "competition": "google-verifiable-quantum-circuit-compilation",
+  "source": "Kaggle CLI full public leaderboard download (competitions leaderboard --download)",
+  "snapshot": {
+    "path": "kaggle/snapshots/2026-11-23/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-23T02-43-43.csv",
+    "csv_sha256": "e748530ff018bce431b87822112764aaccf15c0138cf0c3b95d9c1ea8de7a761",
+    "archive_sha256": "fdd962022848ef948ca9aeba63e5e0131e649fcbaa91ed5a5f840e555397d934",
+    "team_rows": 3604,
+    "unique_team_ids": 3604,
+    "scores_sorted_descending": true,
+    "ranked_team_rows": 3603,
+    "unranked_rows": 1
+  },
+  "own_team": {
+    "team": "Accelra",
+    "team_id": 17349145,
+    "public_score": 28.14028,
+    "rank": 1368,
+    "latest_best_submission": 58479383
+  },
+  "leader": {
+    "rank": 1,
+    "team": "Entangled Team",
+    "team_id": 17180610,
+    "score": 33.85279,
+    "last_submission_utc": "2026-11-23T00:13:38Z"
+  },
+  "runner_up": {
+    "rank": 2,
+    "team": "codebeforework",
+    "team_id": 17238733,
+    "score": 33.56726
+  },
+  "score_gap": 5.71251,
+  "score_equivalence_estimate": {
+    "method": "Scale the product of the three task costs by (own public score / leader public score)^3.",
+    "own_local_geometric_mean": 28.14028,
+    "required_product_cost_multiplier": 0.5743833493407995,
+    "current_dqi_cost": 347904227555.5428,
+    "dqi_target_if_other_task_costs_are_fixed": 199830395473.17633,
+    "dqi_reduction_if_other_task_costs_are_fixed": 0.4256166506592005,
+    "dqi_target_at_q890_zero_failure": {
+      "qubits": 890,
+      "repetition_factor": 1.1912605,
+      "maximum_mean_toffoli": 211775.05
+    },
+    "current_fma_projection_toffoli": 202075,
+    "remaining_toffoli_margin_before_omitted_work": 9700.05,
+    "status": "Score-equivalence estimate from own prior cost and current public scores; not measured leader costs or a candidate.",
+    "current_dqi_cost_source": "evals/2026-11-21-live-leaderboard-125534Z.json"
+  },
+  "latest_own_submission": {
+    "ref": 58479383,
+    "status": "COMPLETE",
+    "public_score": 28.14028,
+    "submitted_at_utc": "2026-11-17T18:57:30Z"
+  },
+  "notes": "The 3,604-row Kaggle CSV includes one rank-0 sample_submission.zip row; 3,603 teams have ranks 1\u20133,603. Snapshot was fetched read-only; no submission was made."
+}
