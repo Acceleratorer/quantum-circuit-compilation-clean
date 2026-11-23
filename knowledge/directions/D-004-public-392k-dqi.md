@@ -17,9 +17,11 @@ The active path is a source-owned DQI decoder with a genuinely different
 key-equation algorithm. Keep the official verifier's salted failure rate in
 the score model, and require the full `R × Q² × T` budget before building a
 candidate. The latest score-equivalence estimate is `200.147e9`; at
-`R=1.1912605` and `Q=890`, the DQI gate is `T <= 212,110.59`. The FMA
-projection is `202,075T`, leaving only `10,035.59T` for omitted work; its
-complete width, phase, and cleanup schedule remains unproven.
+`R=1.1912605` and `Q=890`, the DQI gate is `T <= 212,110.59`. The old
+`202,075T` FMA projection remains unvalidated. V18's 54T pair cell repeats to
+`130,410T` over 2,415 updates, leaving `81,700.59T` for omitted work only if
+this cell composes unchanged; ratio generation, width, output/phase, cleanup,
+and the official verifier are still unmeasured.
 
 The static source audit in [exp-058](../../experiments/exp-058/README.md)
 found that the 33.17033 public reference uses other authors' circuits and
@@ -95,23 +97,19 @@ and [run log](../../log/2026-11-23-exp057-verifier-form-v16.md).
 
 ## 2026-11-23 exp-057 sequential FMA pair update
 
-Private kernel v17 checks one reversible FMA future-pair update for each
-pivot branch on 32 seeded inputs. Both branches match the reference map, keep
-their pivot inputs unchanged, clean 48 scratch qubits, and have zero phase
-flips. The measured component is `Q=108`, `T=210` at `delta=37`, under the
-50-qubit scratch ceiling. Reusing the retained old-pair registers as XOR
-targets reduced this cell from 60 to 48 scratch qubits and from 252T to 210T.
+Private kernel v17's 210T implementation would cost 507,150T over the 2,415
+pair updates and is closed. V18 replaces the product cleanup with MBU and
+passes 64 cases (32 per branch) at `Q=50`, `T=54`, with 13 clean scratch
+qubits and zero phase flips. Repeating this cell gives `130,410T`, below the
+full DQI gate by `81,700.59T` before ratio generation and other omitted work.
 
-This component receives the pivot inverse as input; it does not build the
-70-symbol key-equation solve. The FMA recurrence has 2,415 pair updates, so
-repeating this 210T cell would cost 507,150T before setup or cleanup, over
-twice the complete DQI gate of `212,110.59T`. Close the repeated-cell layout;
-its correctness and width result do not make it a competitive schedule. Keep
-the active exp-057 lane on the streamed key-equation output, phase, and cleanup
-under the complete resource limit. The update count comes from the
-[exp-053 70-symbol ledger](../../experiments/exp-053/README.md#pivot-normalized-fma-recurrence).
-See the [v17 receipt](../../evals/2026-11-23-exp057-fma-pair-update-v17.json),
-[run log](../../log/2026-11-23-exp057-fma-pair-update-v17.md), and
+This is a component measurement only: the ratio and branch are inputs, and
+the full 70-symbol schedule, DQI output/phase, cleanup, and official verifier
+are not included. Build one composed schedule and measure its complete
+`Q`/`T` ledger; continue only if it fits the full gate. The update count comes
+from the [exp-053 70-symbol ledger](../../experiments/exp-053/README.md#pivot-normalized-fma-recurrence).
+See the [v18 receipt](../../evals/2026-11-23-exp057-fma-pair-update-mbu-v18.json),
+[run log](../../log/2026-11-23-exp057-fma-pair-update-mbu-v18.md), and
 [exp-057 record](../../experiments/exp-057/README.md). No submission is ready.
 
 ## 2026-11-21 live leaderboard refresh

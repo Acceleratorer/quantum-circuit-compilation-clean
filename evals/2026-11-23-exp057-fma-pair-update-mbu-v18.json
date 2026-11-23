@@ -1,0 +1,48 @@
+{
+  "captured_utc": "2026-11-23T01:01:28Z",
+  "experiment": "exp-057-fma-tail-pair-update-mbu-v18",
+  "kernel": {
+    "id": "accelra/exp057-streaming-prefix-state",
+    "version": 18,
+    "visibility": "private",
+    "status": "COMPLETE",
+    "url": "https://www.kaggle.com/code/accelra/exp057-streaming-prefix-state/versions/18"
+  },
+  "source": {
+    "git_head_before_run": "fd5a23118c94fcd6376eac7219ac300bb527d2f5",
+    "working_tree_dirty": true,
+    "streaming_prefix_kernel_sha256": "ADD41F6806CEAD8151C73DDFB91DCED98F3DC882C9CDD3479D499A90A073BA61",
+    "private_kernel_script_sha256": "CBDCDAA2BD092669ADAC76D9306968F7EFBAFF8E43EC4BF4C477B4AAF44E1BC6",
+    "kernel_log_sha256": "08D8ECA3320A7721D53BFE8DDBF063A7AC0BC69292651F0356DF41A4773C384E"
+  },
+  "checks": {
+    "cases": 64,
+    "cases_per_branch": 32,
+    "branches": {
+      "no_swap": 32,
+      "swap": 32
+    },
+    "output_errors": 0,
+    "preserved_ratio_and_branch": true,
+    "clean_scratch_qubits": 13,
+    "phase_flips": 0
+  },
+  "resources": {
+    "compiled_qubits": 50,
+    "toffoli_like_gates": 54,
+    "scratch_qubits": 13,
+    "scratch_ceiling": 50
+  },
+  "cost_audit": {
+    "fma_pair_updates": 2415,
+    "repeated_cell_toffoli_like_gates": 130410,
+    "previous_v17_cell_toffoli_like_gates": 210,
+    "previous_v17_repeated_cell_toffoli_like_gates": 507150,
+    "full_dqi_toffoli_gate": 212110.5877974592,
+    "remaining_after_repeated_cell_only": 81700.58779745921,
+    "decision": "PROMISING_COMPONENT_ONLY_FULL_SCHEDULE_UNMEASURED"
+  },
+  "official_verifier": "NOT_RUN",
+  "competition_submission": null,
+  "scope": "One normalized FMA pair update with supplied ratio and branch. The 130,410T figure simply repeats this 54T cell 2,415 times; it excludes ratio generation, the full 70-symbol circuit, DQI output/phase, reversible cleanup, and the official verifier. It is not a full-circuit estimate or candidate."
+}

@@ -21,12 +21,12 @@ This directory separates local verifier estimates from Kaggle results.
   verifier pass; its cost cannot yet be safely added to or subtracted from the
   projection. This is not a candidate. See the
   [v15 receipt](2026-11-23-exp057-prefix-matrix-stream-v15.json).
-- Exp-057 v17 also measures one reversible FMA pair update at `Q=108`, `T=210`
-  with 48 clean scratch qubits. It takes the pivot inverse as input and is not
-  integrated into the 70-symbol solve. Repeating it for 2,415 FMA pair updates
-  would cost `507,150T`, already above the whole DQI gate; do not use this cell
-  unchanged in the full schedule. See the
-  [v17 receipt](2026-11-23-exp057-fma-pair-update-v17.json).
+- Exp-057 v18 measures one normalized MBU FMA pair update at `Q=50`, `T=54`
+  with 13 clean scratch qubits. Repeating it for the 2,415 pair updates gives
+  `130,410T`, below the whole DQI gate by `81,700.59T`; the cell takes the ratio
+  and branch as inputs, so this remains a component sum, not a schedule or
+  candidate. Ratio generation, DQI output/phase, cleanup, and verifier cost
+  remain open. See the [v18 receipt](2026-11-23-exp057-fma-pair-update-mbu-v18.json).
 - Full member hashes, verifier evidence, and submission:
   [2026-11-18 hybrid evaluation](2026-11-18-bori-frontier-hybrid.json).
 

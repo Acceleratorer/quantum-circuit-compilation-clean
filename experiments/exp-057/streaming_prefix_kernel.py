@@ -1774,6 +1774,127 @@ def run_fma_tail_pair_update_screen(case_count=32, km=None, ar=None):
     }
 
 
+def build_fma_tail_pair_update_mbu(delta=37, km=None, ar=None):
+    """Build one normalized in-place FMA update with MBU product cleanup."""
+    if km is None or ar is None:
+        km, ar = load_gate_arithmetic()
+    if not 0 < delta < (1 << FIELD_BITS):
+        raise ValueError("delta must be a nonzero GF(2^12) element")
+
+    builder = km.CircuitBuilder()
+    future_d = builder.alloc_qubits(FIELD_BITS)
+    future_g = builder.alloc_qubits(FIELD_BITS)
+    ratio = builder.alloc_qubits(FIELD_BITS)
+    branch = builder.alloc_qubits(1)[0]
+
+    # The branch swap selects (d,g) or (g,d); the shared map is
+    # d ^= ratio*g, g *= delta. MBU erases the product target after use.
+    builder.cswap(branch, future_d, future_g)
+    product = builder.alloc_qubits(FIELD_BITS)
+    ar.mul_xor(builder, ratio, future_g, product)
+    builder.cx(product, future_d)
+    ar.erase_product(builder, ratio, future_g, product)
+    builder.free(product)
+    builder.gf2_imul(delta, target=future_g, field=ar.field(FIELD_BITS))
+
+    circuit = builder.finish_circuit()
+    return km, ar, circuit, {
+        "future_d": future_d,
+        "future_g": future_g,
+        "ratio": ratio,
+        "branch": branch,
+    }
+
+
+def run_fma_tail_pair_update_mbu_screen(case_count=64, km=None, ar=None):
+    """Verify the normalized MBU update for both branches on random field inputs."""
+    if case_count < 2 or case_count % 2:
+        raise ValueError("case_count must be an even number of at least two")
+    km, ar, circuit, registers = build_fma_tail_pair_update_mbu(km=km, ar=ar)
+    field = ar.field(FIELD_BITS)
+    rng = Random(0xA660059)
+    delta = 37
+    branches = np.asarray([index % 2 for index in range(case_count)], dtype=np.uint32)
+    old_d = np.asarray(
+        [rng.randrange(1 << FIELD_BITS) for _ in range(case_count)], dtype=np.uint32
+    )
+    old_g = np.asarray(
+        [rng.randrange(1 << FIELD_BITS) for _ in range(case_count)], dtype=np.uint32
+    )
+    ratios = np.asarray(
+        [rng.randrange(1 << FIELD_BITS) for _ in range(case_count)], dtype=np.uint32
+    )
+    expected_d = np.asarray(
+        [
+            int(old_g[i]) ^ field.mul(int(ratios[i]), int(old_d[i]))
+            if branches[i]
+            else int(old_d[i]) ^ field.mul(int(ratios[i]), int(old_g[i]))
+            for i in range(case_count)
+        ],
+        dtype=np.uint32,
+    )
+    expected_g = np.asarray(
+        [
+            field.mul(delta, int(old_d[i] if branches[i] else old_g[i]))
+            for i in range(case_count)
+        ],
+        dtype=np.uint32,
+    )
+
+    sim = km.Simulator(batch_size=case_count, debug_print=False, seed=0)
+    sim.use_same_registers_as(circuit)
+    sim.write_across_shots(
+        registers["future_d"], bit_columns(old_d, FIELD_BITS)
+    )
+    sim.write_across_shots(
+        registers["future_g"], bit_columns(old_g, FIELD_BITS)
+    )
+    sim.write_across_shots(registers["ratio"], bit_columns(ratios, FIELD_BITS))
+    sim.write_across_shots(
+        registers["branch"], bit_columns(branches, 1)[0]
+    )
+    sim.do(circuit)
+
+    assert np.array_equal(
+        sim.read_across_shots(registers["future_d"]),
+        bit_columns(expected_d, FIELD_BITS),
+    )
+    assert np.array_equal(
+        sim.read_across_shots(registers["future_g"]),
+        bit_columns(expected_g, FIELD_BITS),
+    )
+    assert np.array_equal(
+        sim.read_across_shots(registers["ratio"]), bit_columns(ratios, FIELD_BITS)
+    )
+    assert np.array_equal(
+        sim.read_across_shots(registers["branch"]), bit_columns(branches, 1)[0]
+    )
+
+    live = (
+        set(registers["future_d"])
+        | set(registers["future_g"])
+        | set(registers["ratio"])
+        | {registers["branch"]}
+    )
+    scratch = [km.q(index) for index in range(circuit.num_qubits) if km.q(index) not in live]
+    if scratch:
+        assert not np.any(sim.read_across_shots(km.array(scratch)))
+    assert not np.any(sim.read_phase_flipped_across_shots())
+    return {
+        "experiment": "exp-057-fma-tail-pair-update-mbu",
+        "cases": case_count,
+        "cases_per_branch": case_count // 2,
+        "branches": {"no_swap": case_count // 2, "swap": case_count // 2},
+        "output_errors": 0,
+        "preserved_ratio_and_branch": True,
+        "compiled_qubits": circuit.num_qubits,
+        "toffoli_like_gates": circuit.operation_statistics().num_toffoli_like,
+        "clean_scratch_qubits": len(scratch),
+        "phase_flips": 0,
+        "scope": "One normalized FMA pair update with supplied ratio; not the 70-symbol schedule.",
+    }
+
+
 def build_bezout_tail_action(km=None, ar=None, point=4):
     """Generate the Bezout tail action from a quadratic/linear row."""
     if km is None or ar is None:
@@ -2834,6 +2955,9 @@ def run_screen():
         "streaming_matrix_checksum": run_bezout_matrix_stream_checksum_screen(km=km, ar=ar),
         "compact_prefix_matrix_stream_checksum": run_compact_prefix_matrix_stream_checksum_screen(km=km, ar=ar),
         "sequential_fma_pair_update": run_fma_tail_pair_update_screen(
+            km=km, ar=ar
+        ),
+        "mbu_fma_tail_pair_update": run_fma_tail_pair_update_mbu_screen(
             km=km, ar=ar
         ),
     }

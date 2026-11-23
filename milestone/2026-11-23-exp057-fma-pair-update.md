@@ -8,25 +8,27 @@ The previously saved rank-1-equivalent DQI target was `T <= 213,956.98` at
 `R=1.1912605`. The 70-symbol circuit must fit this complete resource bound;
 the new component count is not a circuit estimate.
 
-## Gate achieved
+## V18 gate achieved
 
-Private Kaggle kernel v17 passed the one-pair sequential-FMA update for both
-pivot branches: 32 cases per branch, `Q=108`, `T=210`, 48 clean scratch
-qubits, preserved pivot inputs, and zero phase flips. This is below the
-50-qubit component scratch ceiling.
+Private Kaggle kernel v18 passed the one-pair normalized MBU update for both
+branches: 32 cases per branch, `Q=50`, `T=54`, 13 clean scratch qubits,
+preserved ratio and branch, and zero phase flips.
 
-Evidence: [v17 evaluation receipt](../evals/2026-11-23-exp057-fma-pair-update-v17.json),
-[run log](../log/2026-11-23-exp057-fma-pair-update-v17.md), and
-[private kernel v17](https://www.kaggle.com/code/accelra/exp057-streaming-prefix-state/versions/17).
+Evidence: [v18 evaluation receipt](../evals/2026-11-23-exp057-fma-pair-update-mbu-v18.json),
+[run log](../log/2026-11-23-exp057-fma-pair-update-mbu-v18.md),
+[raw output](../experiments/exp-057/kaggle-v18-output.log), and
+[private kernel v18](https://www.kaggle.com/code/accelra/exp057-streaming-prefix-state/versions/18).
 
 ## Resource decision
 
-The cell receives the pivot inverse as input and updates one pair at a fixed
-`delta`. The 70-symbol FMA recurrence has 2,415 pair updates, so repeating this
-cell would cost `507,150T` before setup or cleanup, above the full DQI target
-of `212,110.59T` (latest leaderboard audit at `2026-11-22T23:05:56Z`). Do not
-use this implementation unchanged in the schedule.
+The v17 `210T` implementation would cost `507,150T` across the 2,415 pair
+updates and is closed. Repeating the v18 `54T` component gives `130,410T`,
+leaving `81,700.59T` beneath the full DQI gate. V18 receives the ratio and
+branch as inputs, so ratio generation, full schedule integration, DQI
+output/phase, cleanup, and verifier cost remain unmeasured. Do not treat this
+component sum as a candidate cost.
 
-The competition gate remains open: a candidate still needs the complete
-key-equation solve, `Q <= 890`, the full `R × Q² × T` ledger, DQI output/phase,
-clean reversible workspace, and a passing official verifier.
+The next gate is one source-owned circuit for ratio generation and all 2,415
+updates, followed by exact full-resource accounting and the DQI output/phase,
+cleanup, and official verifier. Close this route if the composed circuit misses
+the gate; no new branch is justified by the one-cell result.
