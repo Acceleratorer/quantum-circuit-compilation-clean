@@ -2,15 +2,19 @@
 
 Research log and reproducible tooling for the Google Quantum AI Verifiable Quantum Circuit Compilation competition.
 
-## Current verified frontier
+## Current status (provenance corrected 2026-11-23)
 
 | Item | Value |
 |---|---:|
-| Best own Kaggle public score | **28.14028** |
-| Latest live rank | **1372 / 3606 ranked teams** (team `Accelra`, Kaggle CLI snapshot at 2026-11-23 04:27 UTC) |
-| Latest observed rank 1 public score | **33.85279** (team `Entangled Team`) |
-| Score gap to rank 1 | **5.71251** |
-| Current best submission members | `563d0583` / `46446af1` / `0bd9c68f` |
+| Highest recorded account score (public archive; ineligible) | **33.17067**, submission `58771243` |
+| Source-owned submission with complete provenance | **None verified** |
+| Latest retained leaderboard snapshot | `Accelra` rank **1372 / 3606**, score `28.14028`; submission `58479383`, public-circuit blend |
+| Rank 1 in that snapshot | **33.85279** (team `Entangled Team`) |
+
+Submissions `58771243` and `58479383` used public circuit archives, so their
+scores are historical Kaggle measurements only. Neither demonstrates our own
+generator or counts as eligible evidence for the source-owned goal; see the
+[provenance receipt](evals/2026-11-23-submission-58771243-provenance.json).
 
 The latest persisted full leaderboard snapshot is from `2026-11-23T04:27:24Z`;
 its CSV has 3,607 rows, including Kaggle's unranked sample row. Its hash is in

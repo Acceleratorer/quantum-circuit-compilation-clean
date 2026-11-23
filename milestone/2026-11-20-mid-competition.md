@@ -1,5 +1,13 @@
 # 2026-11-20 mid-competition gate
 
+## Provenance correction (2026-11-23)
+
+The `28.14028` score below belongs to submission `58479383`, a public-circuit
+blend. A later account submission, `58771243`, scored `33.17067` from a public
+circuit archive. These are historical account scores, not source-owned results;
+the source-owned submitted baseline remains unverified. See the
+[provenance receipt](../evals/2026-11-23-submission-58771243-provenance.json).
+
 ## Target
 
 Reach the top public leaderboard position with a source-complete portfolio.
@@ -9,7 +17,8 @@ older score and rank figures in this historical milestone.
 
 ## 2026-11-21 live frontier
 
-- Best own completed submission: `58479383`, score `28.14028`, rank `1202 / 3519`.
+- Account submission before the provenance audit: `58479383`, score `28.14028`,
+  rank `1202 / 3519`; public-circuit blend, ineligible.
 - Leader: `Z³C¹oherence`, score `33.34845`; gap `5.20817`.
 - Holding inverse and chemistry costs fixed, the DQI gate is `209.035e9`, or
   mean `T <= 221,529` at `Q=890`, `R=1.1912605`.
@@ -32,7 +41,8 @@ gate by 38. Close this explicit layout; the only open DQI path is a full
 
 ## Historical frontier (2026-11-20T01:43:00Z)
 
-- Best own completed submission: `58479383`, public score `28.14028`.
+- Account submission at this historical snapshot: `58479383`, public score
+  `28.14028`; public-circuit blend, ineligible.
 - Current public leader: `Z³C¹oherence`, `31.74002`; gap: `3.59974` points.
 - Own team rank is `981 / 3414` in the latest full snapshot; the previous
   `2026-11-19T13:59:41Z` snapshot recorded rank `917 / 3384`. See [the latest

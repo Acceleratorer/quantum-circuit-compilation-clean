@@ -1,0 +1,9 @@
+{
+  "submission_ref": 58771243,
+  "public_score": 33.17067,
+  "status": "COMPLETE",
+  "provenance": "The submitted portfolio used circuit binaries from a public archive; this repository does not establish a source-owned generator for those exact members.",
+  "source_owned_candidate": false,
+  "eligibility_for_source_owned_goal": "ineligible",
+  "handling": "Keep as a historical Kaggle measurement. Do not reuse or resubmit its public circuit binaries."
+}

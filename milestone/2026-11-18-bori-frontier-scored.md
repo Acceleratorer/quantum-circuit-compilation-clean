@@ -1,7 +1,11 @@
-# Milestone: 28.14028 public score
+# Historical public score — 28.14028 (ineligible)
 
-- **Target:** improve the `28.05962` public score without adopting a DQI member
-  whose audit lists unresolved counterexamples.
+This account result used public circuit files. Its score and verifier records
+remain useful as measurements, but it is not a source-owned candidate and
+does not count toward the rank-1 goal.
+
+- **Target at the time:** improve the `28.05962` account score without adopting
+  a DQI member whose audit lists unresolved counterexamples.
 - **Result:** Kaggle submission `58479383` scored `28.14028`.
 - **Local evidence:** zero-error geometric mean `28.1402768383`; all three
   task members have official verifier PASS receipts.

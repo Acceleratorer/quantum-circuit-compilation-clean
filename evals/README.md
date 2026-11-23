@@ -2,11 +2,21 @@
 
 This directory separates local verifier estimates from Kaggle results.
 
+## Provenance correction (2026-11-23)
+
+- Submission `58771243` scored `33.17067` using a public circuit archive.
+- Submission `58479383` scored `28.14028` and also used public circuits.
+- Both are historical account measurements, not source-owned candidates. No
+  source-owned submitted baseline with complete provenance is currently
+  verified. See the [58771243 receipt](2026-11-23-submission-58771243-provenance.json).
+
 ## Latest live status (`2026-11-23T04:27:24Z`)
 
-- Best own public score: `28.14028`, submission `58479383`.
-- Latest leader: `Entangled Team`, `33.85279`; score gap `5.71251`.
-- Own rank: `1372 / 3606 ranked teams` in the full snapshot; see
+- Accelra account score in this snapshot: `28.14028`, submission `58479383`
+  (public-circuit blend; ineligible for the source-owned goal).
+- Latest leader: `Entangled Team`, `33.85279`; gap from this account entry:
+  `5.71251` (not a source-owned baseline).
+- Accelra account rank: `1372 / 3606 ranked teams` in the full snapshot; see
   [metadata](2026-11-23-live-leaderboard-042724Z.json) and the
   [retained CSV](../kaggle/snapshots/2026-11-23/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-23T04-27-24.csv).
 - Local zero-error geometric mean: `28.1402768383` (not a leaderboard result).
