@@ -327,3 +327,14 @@ residues, while exp-057 currently processes 70 syndrome-derived sample values;
 no direct update map between those states is established. Do not build a gate
 screen for this recurrence unless both the input mapping and a cheaper schedule
 are derived. DQI output, cleanup, and the official verifier remain open.
+
+## Phase-node alignment gate
+
+Private-kernel versions 19 and 20 tested the FMA residue polynomial with its
+matching 70-node polynomial. The isolated phase gate passed with the converter
+at `Q=879`, `T=183,155`; the converter-free control had one phase error in two
+cases. The passing screen uses a residue pair built from known error locations,
+so it does not establish a reversible FMA generator or a full DQI candidate.
+The measured converter-plus-FMA-update subtotal is over the current score gate.
+See the [evaluation](../../evals/2026-11-23-exp057-phase-node-alignment.json)
+and [run log](../../log/2026-11-23-exp057-phase-node-alignment.md).

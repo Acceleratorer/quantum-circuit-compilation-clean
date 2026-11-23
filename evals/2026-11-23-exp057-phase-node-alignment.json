@@ -1,0 +1,52 @@
+{
+  "captured_utc": "2026-11-23T10:19:21Z",
+  "experiment": "exp-057-fma-phase-node-alignment",
+  "kernel": {
+    "id": "accelra/exp057-streaming-prefix-state",
+    "versions": [19, 20],
+    "visibility": "private",
+    "status": "COMPLETE"
+  },
+  "source": {
+    "v19_script_sha256": "C40E621C622C32C7938649198B49798C81FB9F2537A646C1A3BFCA5FBB50BAD9",
+    "v19_log_sha256": "4BF7660A777CD810CBB79727EDE391A13BDA22DA5E612116EF94A8B94E07D108",
+    "v20_script_sha256": "9EDB0042A6EF5045281BF617DA0C94217DF0C856015B954BB6BF578C038AF5C2",
+    "v20_log_sha256": "7DE5A694531BFA5B9B1857FB245F210128EC66FA2925670B4C8EBB72FA11CC0B"
+  },
+  "checks": {
+    "matched_node_polynomial_with_converter": {
+      "weights": [31, 35],
+      "oracle_constructed_residue_pair": true,
+      "phase_errors": 0,
+      "restored_pair_errors": 0,
+      "restored_mask_errors": 0,
+      "compiled_qubits": 879,
+      "toffoli_like_gates": 183155,
+      "clean_scratch_qubits": 39,
+      "skipped_scan_points": 132
+    },
+    "matched_node_polynomial_without_converter": {
+      "weights": [31, 35],
+      "oracle_constructed_residue_pair": true,
+      "phase_errors": 1,
+      "restored_pair_errors": 0,
+      "restored_mask_errors": 0,
+      "compiled_qubits": 851,
+      "toffoli_like_gates": 43593,
+      "clean_scratch_qubits": 11,
+      "skipped_scan_points": 132
+    },
+    "official_verifier": "NOT_RUN",
+    "competition_submission": null
+  },
+  "cost_gate": {
+    "score_equivalent_mean_t_at_q890": 210868.7444837654,
+    "matched_converter_scan_t": 183155,
+    "v18_repeated_fma_update_t": 130410,
+    "conditional_combined_t": 313565,
+    "conditional_excess_t_at_q890": 102696.2555162346,
+    "decision": "NO_GO_FOR_SCORE_ROUTE_WITH_CURRENT_FMA_UPDATE_AND_CONVERTER"
+  },
+  "scope": "The passing phase case uses an oracle-constructed residue pair from known error locations and magnitudes. It does not build that pair reversibly from the 70 input samples, handle sample-node errors, restore the full decoder state, or pass the official verifier.",
+  "decision": "Matching the scanner node polynomial fixes the isolated phase gate. Omitting the converter fails one of two cases. The remaining converter-plus-scan cost leaves too little room for the measured FMA updates and omitted output/cleanup; do not integrate or submit this route."
+}

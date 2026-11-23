@@ -30,11 +30,24 @@ def helper_archive() -> str:
     return base64.b64encode(buffer.getvalue()).decode("ascii")
 
 
-def build(out_dir: Path) -> None:
+def build(out_dir: Path, screen: str = "all") -> None:
     source = SOURCE.read_text(encoding="utf-8")
     if source.count(ENTRYPOINT) != 1:
         raise ValueError("expected one module entrypoint")
     body, main = source.split(ENTRYPOINT, 1)
+    if screen == "phase-node-alignment":
+        main = (
+            "\n    print(json.dumps(\n"
+            "        run_fma_phase_node_alignment_screen(), indent=2, sort_keys=True\n"
+            "    ))\n"
+        )
+    elif screen == "phase-node-alignment-no-convert":
+        main = (
+            "\n    print(json.dumps(\n"
+            "        run_fma_phase_node_alignment_screen(use_converter=False),\n"
+            "        indent=2, sort_keys=True\n"
+            "    ))\n"
+        )
     arithmetic = ARITHMETIC.read_text(encoding="utf-8")
     setup = (
         "\n\n# Embedded unchanged Apache-2.0 gate arithmetic helper.\n"
@@ -77,9 +90,19 @@ def build(out_dir: Path) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("out_dir", type=Path, help="new project-local Kaggle staging directory")
+    parser.add_argument(
+        "--screen",
+        choices=(
+            "all",
+            "phase-node-alignment",
+            "phase-node-alignment-no-convert",
+        ),
+        default="all",
+        help="run the full gate suite or only the FMA phase bridge screen",
+    )
     args = parser.parse_args()
     out_dir = args.out_dir if args.out_dir.is_absolute() else ROOT / args.out_dir
-    build(out_dir.resolve())
+    build(out_dir.resolve(), screen=args.screen)
 
 
 if __name__ == "__main__":

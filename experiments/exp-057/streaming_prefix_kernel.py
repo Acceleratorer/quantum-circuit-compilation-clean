@@ -2877,6 +2877,192 @@ def run_compact_prefix_matrix_stream_checksum_screen(
     }
 
 
+def run_fma_phase_node_alignment_screen(km=None, use_converter=True):
+    """Check FMA residues with the matching node polynomial in private Kaggle."""
+    if km is None:
+        km, _ = load_gate_arithmetic()
+    load_width_helpers(km)
+    scanner = importlib.import_module("exp.scan.scan")
+    common = importlib.import_module("common")
+    phase34 = importlib.import_module("exp.convert_short_hankel.phase34")
+    extract = importlib.import_module("exp.decoder.extract")
+    multiply = common.mul
+    polynomial_multiply = common.pmul
+
+    def evaluate(poly, point):
+        value = 0
+        for coefficient in reversed(poly):
+            value = multiply(value, point) ^ coefficient
+        return value
+
+    weights = (31, 35)
+    rng = Random(0xA66061)
+    data_node = [1]
+    for point in range(70):
+        data_node = polynomial_multiply(data_node, [point, 1])
+
+    alpha = common.gf.primitive_element
+    powers = [common.power(alpha, index) for index in range(4095)]
+    node_values = set(range(1, 70))
+    node_positions = {
+        index for index, value in enumerate(powers) if value in node_values
+    }
+    skip_points = frozenset(set(range(70)) | node_positions)
+    allowed_positions = [
+        index for index in range(4095) if index not in skip_points
+    ]
+    _, kappas, _, _ = extract.constants(35)
+
+    pairs = []
+    masks_by_case = []
+    expected_phase = []
+    for weight in weights:
+        positions = rng.sample(allowed_positions, weight)
+        errors = {
+            powers[index]: rng.randrange(1, 1 << FIELD_BITS)
+            for index in positions
+        }
+        locator = [1]
+        for root in errors:
+            locator = polynomial_multiply(locator, [root, 1])
+
+        evaluator = [0]
+        for root, value in errors.items():
+            residue = multiply(
+                multiply(value, root),
+                evaluate(data_node, root),
+            )
+            quotient, remainder = common.divmodp(locator[:], [root, 1])
+            assert remainder == [0]
+            if len(evaluator) < len(quotient):
+                evaluator.extend([0] * (len(quotient) - len(evaluator)))
+            for index, coefficient in enumerate(quotient):
+                evaluator[index] ^= multiply(residue, coefficient)
+
+        padding = [1]
+        for index in range(weight + 1, 35, 2):
+            padding = polynomial_multiply(padding, [kappas[index], 1, 1])
+        numerator = polynomial_multiply(evaluator, padding)
+        denominator = polynomial_multiply(locator, padding)
+        assert len(numerator) <= 35 and len(denominator) == 36
+        assert denominator[-1] == 1
+        pairs.append(
+            (
+                numerator + [0] * (35 - len(numerator)),
+                denominator[:35],
+            )
+        )
+
+        masks = [
+            0 if index < 70 else rng.randrange(1 << FIELD_BITS)
+            for index in range(4095)
+        ]
+        masks_by_case.append(masks)
+        expected_phase.append(
+            sum(
+                (value & masks[position]).bit_count()
+                for position, value in zip(positions, errors.values())
+            )
+            & 1
+        )
+
+    builder = km.CircuitBuilder()
+    numerator_words = [builder.alloc_qubits(FIELD_BITS) for _ in range(35)]
+    denominator_words = [builder.alloc_qubits(FIELD_BITS) for _ in range(35)]
+    mask_words = [builder.alloc_bits(FIELD_BITS) for _ in range(4095)]
+    phase_token = None
+    if use_converter:
+        phase_token = phase34.convert_safe(
+            builder, numerator_words, denominator_words, monic_root=True
+        )
+    scanner.scan(
+        builder,
+        numerator_words,
+        denominator_words,
+        mask_words,
+        skip_points=skip_points,
+        node_polynomial=data_node,
+    )
+    if use_converter:
+        phase34.convert_safe(
+            builder,
+            numerator_words,
+            denominator_words,
+            True,
+            phase_token=phase_token,
+        )
+    circuit = builder.finish_circuit()
+
+    simulator = km.Simulator(
+        batch_size=len(weights),
+        debug_print=False,
+        counting_operations=True,
+        seed=0,
+    )
+    simulator.use_same_registers_as(circuit)
+    for index, register in enumerate(numerator_words):
+        simulator.write_across_shots(
+            register, bit_columns([pair[0][index] for pair in pairs], FIELD_BITS)
+        )
+    for index, register in enumerate(denominator_words):
+        simulator.write_across_shots(
+            register, bit_columns([pair[1][index] for pair in pairs], FIELD_BITS)
+        )
+    mask_matrix = np.asarray(masks_by_case, dtype=np.uint32).T
+    mask_bits = np.stack(
+        [((mask_matrix >> bit) & 1).astype(np.bool_) for bit in range(FIELD_BITS)],
+        axis=1,
+    ).reshape(-1, len(weights))
+    simulator.write_across_shots(
+        km.array([bit for word in mask_words for bit in word]), mask_bits
+    )
+    simulator.do(circuit)
+
+    observed_phase = simulator.read_phase_flipped_across_shots().astype(int).tolist()
+    phase_errors = int(
+        np.count_nonzero(np.asarray(observed_phase) != np.asarray(expected_phase))
+    )
+    if use_converter:
+        assert phase_errors == 0
+    for index, register in enumerate(numerator_words):
+        assert np.array_equal(
+            simulator.read_across_shots(register),
+            bit_columns([pair[0][index] for pair in pairs], FIELD_BITS),
+        )
+    for index, register in enumerate(denominator_words):
+        assert np.array_equal(
+            simulator.read_across_shots(register),
+            bit_columns([pair[1][index] for pair in pairs], FIELD_BITS),
+        )
+    all_masks = km.array([bit for word in mask_words for bit in word])
+    assert np.array_equal(simulator.read_across_shots(all_masks), mask_bits)
+
+    live = set().union(*(set(register) for register in numerator_words + denominator_words))
+    scratch = [
+        km.q(index) for index in range(circuit.num_qubits) if km.q(index) not in live
+    ]
+    if scratch:
+        assert not np.any(simulator.read_across_shots(km.array(scratch)))
+    if use_converter:
+        assert not np.any(
+            simulator.read_phase_flipped_across_shots() ^ expected_phase
+        )
+    return {
+        "weights": list(weights),
+        "converter_used": use_converter,
+        "node_polynomial_degree": len(data_node) - 1,
+        "skipped_scan_points": len(skip_points),
+        "phase_errors": phase_errors,
+        "restored_pair_errors": 0,
+        "restored_mask_errors": 0,
+        "compiled_qubits": circuit.num_qubits,
+        "width_gate": 890,
+        "toffoli_like_gates": circuit.operation_statistics().num_toffoli_like,
+        "clean_scratch_qubits": len(scratch),
+        "scope": "FMA residue-pair phase gate only; sample-node error branch, prefix decoder, full schedule, and official verifier are omitted.",
+    }
+
+
 def run_screen():
     km, ar, circuit, registers = build_decoder()
     field = ar.field(FIELD_BITS)
