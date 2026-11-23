@@ -1,0 +1,53 @@
+{
+  "captured_utc": "2026-11-23T06:03:26Z",
+  "experiment": "exp-057-convert-cost-split",
+  "command": "uv run --no-project --with numpy --with kickmix==1.0.0 python experiments/exp-057/convert_cost_split.py",
+  "source": {
+    "screen": "experiments/exp-057/convert_cost_split.py",
+    "converter": "src/dqi/pro_q2_897/exp/convert_short_hankel/phase34.py",
+    "scan": "src/dqi/pro_q2_897/exp/scan/scan.py",
+    "prior_bridge_receipt": "evals/2026-11-23-exp057-fma-convert-scan-v19.json"
+  },
+  "source_hashes": {
+    "screen_sha256": "54A51A90CD7AAC01DA057B88562E236A540EABFAD887928A7EB7EFEB4E44C889",
+    "converter_sha256": "620985BA489A03CEF51095157AF60B7459732B72B68F85A10265F34905ED203F",
+    "scan_sha256": "BAB543D7FBAA33666E8C718A40EC47AC2B9A52E06E59DE27BBBE45E68C754B55"
+  },
+  "measured": {
+    "converter_qubits": 879,
+    "convert_forward_t": 69220,
+    "convert_reverse_t": 70342,
+    "convert_round_trip_t": 139562
+  },
+  "v19_scan_breakdown": {
+    "full_scan_t": 45045,
+    "points_skipped": 70,
+    "t_per_active_point": 11,
+    "screen_scan_t": 44275,
+    "basis": "The v19 screen skips points 0..69; scan.py's full-cycle count is 4095 * 11 T."
+  },
+  "cross_check": {
+    "convert_round_trip_plus_scan_t": 183837,
+    "v19_measured_path_t": 183837,
+    "matches": true
+  },
+  "optimistic_skip_reverse_convert": {
+    "assumed_saved_t": 70342,
+    "bridge_forward_convert_plus_scan_t": 113495,
+    "v18_repeated_fma_updates_t": 130410,
+    "combined_t_before_other_work": 243905,
+    "current_gate_t": 211775.05,
+    "over_gate_t": 32129.95,
+    "decision": "NO_GO_REVERSE_CONVERT_ALONE"
+  },
+  "direct_uncompute": {
+    "implemented_or_run": false,
+    "reason": "Even granting a zero-cost replacement for reverse CONVERT, the measured bridge plus v18 repeated update subtotal exceeds the current gate before integration, DQI output/phase, and cleanup. The existing unsynthesis expects the original FMA output coordinates."
+  },
+  "inherited_v19_phase_checks": {
+    "direct_fma_pair_matches_phase": false,
+    "canonical_dqi_pair_matches_phase": true
+  },
+  "official_verifier": "NOT_RUN",
+  "competition_submission": null
+}

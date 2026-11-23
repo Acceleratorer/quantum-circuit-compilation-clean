@@ -293,7 +293,14 @@ cleanup, and official verifier remain unmeasured. See the
 [v19 bridge receipt](../../evals/2026-11-23-exp057-fma-convert-scan-v19.json)
 and [reproduction screen](convert_bridge_screen.py).
 
-Next gate: derive a reversible map from the terminal FMA state to the scan-ready
-DQI residue pair without relying on the measured converter path. Measure that
-map with the scan before integrating the complete schedule. Close exp-057 if
-the composed circuit cannot fit the current resource gate.
+The follow-up cost split measures forward CONVERT at 69,220T, scan at 44,275T,
+and reverse CONVERT at 70,342T. Even granting a zero-cost replacement for the
+reverse step, the bridge plus v18 repeated updates totals 243,905T, above the
+current 211,775.05T gate before other work. See the
+[cost-split receipt](../../evals/2026-11-23-exp057-convert-cost-split.json)
+and [log](../../log/2026-11-23-exp057-convert-cost-split.md).
+
+Next gate: close the “remove only reverse CONVERT” route. Reopen exp-057 only
+with a lower-cost integrated schedule that saves at least 32,130T against this
+optimistic bound, plus headroom for DQI output, phase, and cleanup. The direct
+FMA pair still fails the current scan phase check.
