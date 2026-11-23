@@ -13,21 +13,24 @@ This directory separates local verifier estimates from Kaggle results.
 - DQI-only target with other task costs fixed: `199.830e9`, or mean
   `T <= 211,775.05` at `Q=890` and `R=1.1912605`. This is score-equivalence
   math, not the leader's measured circuit cost.
-- Current source-owned FMA projection: `202,075T`, leaving only `9,700.05T`
-  under the score-equivalent gate before omitted work. Exp-057's private v15
-  screen now composes compact-prefix decoding, matrix setup, and 66 tail
-  actions at `Q=889`, `T=19,004`. It outputs a checksum and does not establish
-  the complete FMA projection, DQI output/phase, reversible cleanup, or
-  verifier pass; its cost cannot yet be safely added to or subtracted from the
-  projection. This is not a candidate. See the
-  [v15 receipt](2026-11-23-exp057-prefix-matrix-stream-v15.json).
+- The previous source-owned FMA projection of `202,075T` is unsupported after
+  the v19 bridge diagnostic. `CONVERT + scan + reverse CONVERT` measured
+  `Q=879`, `T=183,837`; the canonical DQI residue-pair control passed phase,
+  while the padded FMA low-rank row did not. Adding the v18 repeated pair-update
+  subtotal gives `314,247T`, above the `211,775.05T` score-equivalent gate
+  before omitted work. See the [v19 receipt](2026-11-23-exp057-fma-convert-scan-v19.json)
+  and [reproduction screen](../experiments/exp-057/convert_bridge_screen.py).
+- Exp-057's private v15 screen composes compact-prefix decoding, matrix setup,
+  and 66 tail actions at `Q=889`, `T=19,004`. It outputs a checksum and does
+  not establish full DQI output/phase, cleanup, or verifier pass; this is not a
+  candidate. See the [v15 receipt](2026-11-23-exp057-prefix-matrix-stream-v15.json).
 - Exp-057 v18 measures one normalized MBU FMA pair update at `Q=50`, `T=54`
   with 13 clean scratch qubits. Repeating it for the 2,415 pair updates gives
   `130,410T`, matching the existing `42T` product plus `12T` controlled-swap
-  ledger. The existing `202,075T` full projection leaves only `9,700.05T`
-  under the `211,775.05T` gate; integration, width, DQI output/phase, cleanup,
-  and verifier remain open. This component result does not create new budget.
-  See the [v18 receipt](2026-11-23-exp057-fma-pair-update-mbu-v18.json).
+  ledger. This component result does not create new budget; the v19 diagnostic
+  shows the measured converter path cannot fit with it. Full integration,
+  width, DQI output/phase, cleanup, and verifier remain open. See the
+  [v18 receipt](2026-11-23-exp057-fma-pair-update-mbu-v18.json).
 - Full member hashes, verifier evidence, and submission:
   [2026-11-18 hybrid evaluation](2026-11-18-bori-frontier-hybrid.json).
 

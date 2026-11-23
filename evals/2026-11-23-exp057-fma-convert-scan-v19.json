@@ -1,0 +1,40 @@
+{
+  "captured_utc": "2026-11-23T03:44:02Z",
+  "experiment": "exp-057-fma-convert-scan-bridge-v19",
+  "source": {
+    "git_head_before_run": "3b13e7d1ddbbdd44e14e3966ca5dd9d68186ef4b",
+    "screen": "experiments/exp-057/convert_bridge_screen.py",
+    "screen_sha256": "642968D847716532618E19950065F65E25196B5DF583BD81183886802F806273",
+    "converter_sha256": "620985BA489A03CEF51095157AF60B7459732B72B68F85A10265F34905ED203F",
+    "scan_sha256": "BAB543D7FBAA33666E8C718A40EC47AC2B9A52E06E59DE27BBBE45E68C754B55",
+    "command": "uv run --no-project --with numpy --with kickmix==1.0.0 python -u experiments/exp-057/convert_bridge_screen.py"
+  },
+  "checks": {
+    "error_weight": 31,
+    "expected_phase": 1,
+    "fma_low_rank_row_phase": 0,
+    "direct_fma_pair_phase_match": false,
+    "canonical_dqi_residue_pair_phase": 1,
+    "canonical_reference_matches": true,
+    "input_pair_restored": true,
+    "residual_masks_restored": true,
+    "clean_scratch_qubits": 39
+  },
+  "resources": {
+    "compiled_qubits": 879,
+    "toffoli_like_gates": 183837,
+    "simulated_toffoli_like_gates": 367674,
+    "measured_scope": "CONVERT + 4095-point scan + reverse CONVERT"
+  },
+  "cost_audit": {
+    "current_score_equivalent_gate_t": 211775.05,
+    "v18_repeated_fma_pair_update_t": 130410,
+    "conditional_combined_t": 314247,
+    "conditional_over_gate_t": 102471.95,
+    "previous_full_projection_t": 202075,
+    "decision": "DIRECT_FMA_PAIR_BRIDGE_FAILED_AND_PREVIOUS_PROJECTION_UNSUPPORTED"
+  },
+  "official_verifier": "NOT_RUN",
+  "competition_submission": null,
+  "scope": "One seeded non-prefix verifier-form pattern. The low-rank FMA locator/evaluator pair, padded to degree 35, does not directly feed the current CONVERT + scan phase path. A canonical DQI residue pair passes as a control. The measured converter path alone leaves less than the repeated v18 pair-update subtotal under the current score-equivalent gate; no full schedule or candidate is established."
+}

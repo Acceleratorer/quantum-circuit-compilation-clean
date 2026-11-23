@@ -4,9 +4,9 @@ title: Four-word streaming decoder for quadratic-over-linear FMA
 task: dqi
 tests: exhaustive GF(8) prefix and tail state and matrix encoding; 2,048 seeded GF(2^12); 256 seeded GF(2^12) tail-matrix factorization cases; 32-case private coefficient-to-prefix and prefix-to-coefficient screens including a1=0; 32-case private integrated prefix-plus-tail action across both pivots; 32-case private 66-symbol matrix-stream checksum across both pivots; 32-case private compact-prefix-to-matrix 66-symbol checksum v15; 32 verifier-form prefix and tail cases; 64-case private MBU FMA pair update across both branches; 64-case private precomputed-matrix action; 64-case coefficient-derived tail action; 64-case in-place matrix setup; 32-case classical Forney/FMA MBUC phase-compatibility screen
 direction: D-004
-status: coefficient-prefix-component-gates-passed_classical-66-tail-schedule-passed_branchless-prefix-inverse-v11-passed_integrated-prefix-plus-one-tail-v13-passed_precomputed-state-66-symbol-matrix-stream-checksum-v14-passed_compact-prefix-matrix-66-stream-v15-passed_mbu-fma-pair-update-v18-component-passed_classical-phase-compatibility-screen-passed_full-70-symbol-schedule-dqi-output-cleanup-and-official-verifier-pending
+status: coefficient-prefix-component-gates-passed_classical-66-tail-schedule-passed_branchless-prefix-inverse-v11-passed_integrated-prefix-plus-one-tail-v13-passed_precomputed-state-66-symbol-matrix-stream-checksum-v14-passed_compact-prefix-matrix-66-stream-v15-passed_mbu-fma-pair-update-v18-component-passed_classical-phase-compatibility-screen-passed_direct-fma-convert-scan-bridge-v19-failed_full-70-symbol-schedule-dqi-output-cleanup-and-official-verifier-pending
 date: 2026-11-23
-result: Coefficient-to-prefix gate passes at Q=885 and T=7,483; branchless inverse prefix-to-coefficient gate passes at Q=888 and T=9,262; integrated compact-prefix decode plus one coefficient-derived tail action passes at Q=889 and T=10,084; precomputed-state 66-symbol matrix stream checksum passes at Q=888 and T=5,544; precomputed-matrix action at Q=873 and T=84; coefficient-derived one-symbol action at Q=889 and T=822; in-place matrix setup at Q=889 and T=558; integrated v15 compact-prefix, matrix setup, and 66-action checksum passes at Q=889 and T=19,004; v18 MBU FMA pair update passes 64 cases at Q=50 and T=54 with 13 clean scratch qubits. Its repeated subtotal of 130,410T matches the pair-update term already in the 202,075T full projection; that projection leaves only 9,700.05T under the current gate. Full integration, width, DQI output/phase, reversible cleanup, and the official verifier remain open.
+result: Earlier component screens stand. V19 measured CONVERT + scan + reverse CONVERT at Q=879 and T=183,837. The canonical DQI residue-pair control passes phase, while direct use of the padded FMA low-rank row fails. Combining the measured path with the v18 repeated update subtotal gives 314,247T, above the current 211,775.05T score-equivalent gate before omitted work. The earlier 202,075T full projection is unsupported. Full FMA schedule, scan-ready output mapping, cleanup, and official verifier remain open.
 ---
 
 # exp-057: four-word streaming decoder
@@ -279,16 +279,21 @@ measures `Q=50`, `T=54`.
 
 The older v17 cell cost `210T`; repeating it over 2,415 updates would exceed
 the full DQI gate. V18's `130,410T` repeated subtotal matches the existing
-ledger's `42T` product plus `12T` controlled swap per update. The prior full
-projection of `202,075T` already includes that subtotal and `71,665T` of other
-estimated work, leaving only `9,700.05T` under the current gate. The cell
-receives ratio and branch inputs, and the full 70-symbol schedule, width, DQI
-output/phase, cleanup, and official verifier remain unmeasured. See the
+ledger's `42T` product plus `12T` controlled swap per update. The v19 local
+diagnostic found that direct use of the padded FMA low-rank row fails phase
+through the current CONVERT + scan path. That path costs `183,837T` by itself
+at `Q=879`; a canonical DQI residue-pair control passes the same phase check.
+Combining the measured path with the v18 subtotal would cost `314,247T`, so the
+previous `202,075T` full projection is unsupported. The cell receives ratio
+and branch inputs, and the full 70-symbol schedule, width, DQI output/phase,
+cleanup, and official verifier remain unmeasured. See the
 [v18 receipt](../../evals/2026-11-23-exp057-fma-pair-update-mbu-v18.json),
 [run log](../../log/2026-11-23-exp057-fma-pair-update-mbu-v18.md), and
-[raw Kaggle output](kaggle-v18-output.log).
+[raw Kaggle output](kaggle-v18-output.log), plus the
+[v19 bridge receipt](../../evals/2026-11-23-exp057-fma-convert-scan-v19.json)
+and [reproduction screen](convert_bridge_screen.py).
 
-Next gate: compose ratio generation with the complete 70-symbol schedule and
-measure full `Q`, `T`, DQI output/phase, and cleanup. Close this route if it
-misses the full resource gate; do not open another algorithm branch based on
-the component result alone.
+Next gate: derive a reversible map from the terminal FMA state to the scan-ready
+DQI residue pair without relying on the measured converter path. Measure that
+map with the scan before integrating the complete schedule. Close exp-057 if
+the composed circuit cannot fit the current resource gate.

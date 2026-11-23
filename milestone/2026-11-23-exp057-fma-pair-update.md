@@ -23,13 +23,17 @@ Evidence: [v18 evaluation receipt](../evals/2026-11-23-exp057-fma-pair-update-mb
 
 The v17 `210T` implementation would cost `507,150T` across the 2,415 pair
 updates and is closed. Repeating the v18 `54T` component gives `130,410T`,
-matching the existing `42T` product plus `12T` controlled-swap ledger. The
-prior `202,075T` full projection already includes this subtotal and `71,665T`
-of other estimated work, leaving only `9,700.05T` beneath the current full
-DQI gate. V18 receives ratio and branch inputs; integration, width,
-output/phase, cleanup, and verifier cost remain unmeasured.
+matching the existing `42T` product plus `12T` controlled-swap ledger.
 
-The next gate is one source-owned circuit for ratio generation and all 2,415
-updates, followed by exact full-resource accounting and the DQI output/phase,
-cleanup, and official verifier. Close this route if the composed circuit misses
-the gate; no new branch is justified by the one-cell result.
+The v19 local bridge diagnostic measured `CONVERT + scan + reverse CONVERT`
+at `Q=879`, `T=183,837`. A canonical DQI residue-pair control matched phase,
+but the padded FMA low-rank row did not. Combining this path with the v18
+repeated subtotal would cost `314,247T`, above the current `211,775.05T`
+score-equivalent gate before omitted work. The earlier `202,075T` projection
+is unsupported. V18 receives ratio and branch inputs; the full schedule,
+width, cleanup, and verifier remain unmeasured.
+
+The next gate is a reversible mapping from the terminal FMA state to the
+scan-ready DQI residue pair that avoids the measured converter path. Measure it
+with the scan and close exp-057 if the combined circuit cannot fit the resource
+gate.
