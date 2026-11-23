@@ -16,13 +16,21 @@ reproduces it. Existing product-retention variants have already been screened.
 The active path is a source-owned DQI decoder with a genuinely different
 key-equation algorithm. Keep the official verifier's salted failure rate in
 the score model, and require the full `R × Q² × T` budget before building a
-candidate. The latest score-equivalence estimate is `200.147e9`; at
-`R=1.1912605` and `Q=890`, the DQI gate is `T <= 212,110.59`. The old
-`202,075T` FMA projection remains unvalidated. V18 measures the pair-update
-term at `54T` each, or `130,410T` across 2,415 updates, matching the existing
-`42T` product plus `12T` controlled-swap estimate. The projection already
-includes this term and leaves only `10,035.59T` under the gate; integration,
-width, output/phase, cleanup, and the official verifier remain unmeasured.
+candidate. The latest score-equivalence estimate is `199.830e9`; at
+`R=1.1912605` and `Q=890`, the DQI gate is `T <= 211,775.05`. V18 measures
+the pair-update term at `54T` each, or `130,410T` across 2,415 updates. V19
+measured `CONVERT + scan + reverse CONVERT` at `183,837T`; the direct FMA pair
+failed the phase check. Their conditional sum is `314,247T`, so the old
+`202,075T` full projection is unsupported. A replacement FMA-to-scan-ready
+map would need to cost below `81,365T` before any omitted integration,
+width, output, or cleanup work. No candidate is established.
+
+The public Syed v25 source reports a DQI cost of `336.560e9`, 3.26% below our
+current measurement but still 68.42% above the latest rank-1-equivalent DQI
+target. Its D69 lookup receipt saves only 66 Toffolis. Keep that source as a
+measurement baseline and close the D69 lookup route; see the
+[source screen log](../../log/2026-11-23-syed-dqi-source-screen.md) and
+[evaluation receipt](../../evals/2026-11-23-syed-dqi-v25-screen.json).
 
 The static source audit in [exp-058](../../experiments/exp-058/README.md)
 found that the 33.17033 public reference uses other authors' circuits and

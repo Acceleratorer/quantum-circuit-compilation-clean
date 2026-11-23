@@ -1,0 +1,67 @@
+{
+  "captured_utc": "2026-11-23",
+  "experiment": "syed-dqi-v25-source-screen",
+  "source": {
+    "dataset": "syed3000/vqcc-own-circuit-portfolio",
+    "url": "https://www.kaggle.com/datasets/syed3000/vqcc-own-circuit-portfolio",
+    "license": "Apache-2.0 (Kaggle CLI metadata)",
+    "files": {
+      "generator_readme": {
+        "path": "dqi_generator/dqi_generator/README.md",
+        "bytes": 4621,
+        "sha256": "8c43097e3fa875365894d370e10e5ce79fb186a5c74bc76170f0e69250db974b"
+      },
+      "build_script": {
+        "path": "dqi_generator/dqi_generator/build.py",
+        "bytes": 4420,
+        "sha256": "d400f69a899a7aac23d6abb5ed257c1cdbe96c192b964240d82e3022a4c497a9"
+      },
+      "generator_manifest": {
+        "path": "dqi_generator/dqi_generator/manifest.json",
+        "bytes": 135615,
+        "sha256": "d6a8fa8169eacfa50bcc43f89affd64a9fc2368002a367477b21b8824bcd3483"
+      },
+      "vendor_readme": {
+        "path": "dqi_generator/dqi_generator/vendor/d70-source/README.md",
+        "bytes": 3056,
+        "sha256": "0f0b77c4ab3e473688a2d42f9a302800880f874ddfc6291fc122e2f0cbbbadf8"
+      },
+      "d69_receipt": {
+        "path": "dqi_generator/dqi_generator/vendor/d70-source/antigravity_dqi_d69_own_20261119/results_receipts/d69_elliptic_remaining.json",
+        "bytes": 152212,
+        "sha256": "90849e5c88bc94d33252ec7128b74323c312921e27df67806bf8ff241e328cf0"
+      }
+    }
+  },
+  "published_generator_result": {
+    "profile": "paired-plain",
+    "dqi_score": 336559961203.1761,
+    "qubits": 890,
+    "mean_toffoli_like_gates": 356677.4942,
+    "shots": 102400,
+    "value_errors": 0,
+    "phase_errors": 0,
+    "evidence_scope": "Reported in the source README; not independently rebuilt or verified here"
+  },
+  "comparison": {
+    "current_dqi_score": 347904227555.5428,
+    "rank1_equivalent_dqi_target_with_other_costs_fixed": 199830395473.17633,
+    "source_score_reduction_fraction": 0.03260744036390185,
+    "source_score_above_target_fraction": 0.6842280695398677,
+    "fraction_of_current_to_target_gap_closed": 0.07661222913483067,
+    "projected_geomean_if_only_dqi_cost_changed": 28.45295986996244,
+    "projection_is_leaderboard_result": false
+  },
+  "d69_screen": {
+    "generators_scanned": 690,
+    "remaining_positions_found": 11,
+    "total_saved_toffoli_vs_p4bs": 66,
+    "evidence_scope": "Published static arithmetic receipt; not a circuit measurement"
+  },
+  "handling": {
+    "downloaded_files_read_as_text_or_json": true,
+    "downloaded_code_executed": false,
+    "circuit_downloaded_or_submitted": false
+  },
+  "decision": "Keep as an attributed measurement baseline only. Close the D69 lookup route; its 66-Toffoli saving is immaterial to the current DQI gap."
+}
