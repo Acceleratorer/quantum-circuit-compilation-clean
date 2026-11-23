@@ -2,9 +2,9 @@
 id: exp-057
 title: Four-word streaming decoder for quadratic-over-linear FMA
 task: dqi
-tests: exhaustive GF(8) prefix and tail state and matrix encoding; 2,048 seeded GF(2^12); 256 seeded GF(2^12) tail-matrix factorization cases; 32-case private coefficient-to-prefix and prefix-to-coefficient screens including a1=0; 32-case private integrated prefix-plus-tail action across both pivots; 32-case private 66-symbol matrix-stream checksum across both pivots; 32-case private compact-prefix-to-matrix 66-symbol checksum v15; 32 verifier-form prefix and tail cases; 64-case private MBU FMA pair update across both branches; 64-case private precomputed-matrix action; 64-case coefficient-derived tail action; 64-case in-place matrix setup
+tests: exhaustive GF(8) prefix and tail state and matrix encoding; 2,048 seeded GF(2^12); 256 seeded GF(2^12) tail-matrix factorization cases; 32-case private coefficient-to-prefix and prefix-to-coefficient screens including a1=0; 32-case private integrated prefix-plus-tail action across both pivots; 32-case private 66-symbol matrix-stream checksum across both pivots; 32-case private compact-prefix-to-matrix 66-symbol checksum v15; 32 verifier-form prefix and tail cases; 64-case private MBU FMA pair update across both branches; 64-case private precomputed-matrix action; 64-case coefficient-derived tail action; 64-case in-place matrix setup; 32-case classical Forney/FMA MBUC phase-compatibility screen
 direction: D-004
-status: coefficient-prefix-component-gates-passed_classical-66-tail-schedule-passed_branchless-prefix-inverse-v11-passed_integrated-prefix-plus-one-tail-v13-passed_precomputed-state-66-symbol-matrix-stream-checksum-v14-passed_compact-prefix-matrix-66-stream-v15-passed_mbu-fma-pair-update-v18-component-passed_full-70-symbol-schedule-dqi-output-cleanup-and-official-verifier-pending
+status: coefficient-prefix-component-gates-passed_classical-66-tail-schedule-passed_branchless-prefix-inverse-v11-passed_integrated-prefix-plus-one-tail-v13-passed_precomputed-state-66-symbol-matrix-stream-checksum-v14-passed_compact-prefix-matrix-66-stream-v15-passed_mbu-fma-pair-update-v18-component-passed_classical-phase-compatibility-screen-passed_full-70-symbol-schedule-dqi-output-cleanup-and-official-verifier-pending
 date: 2026-11-23
 result: Coefficient-to-prefix gate passes at Q=885 and T=7,483; branchless inverse prefix-to-coefficient gate passes at Q=888 and T=9,262; integrated compact-prefix decode plus one coefficient-derived tail action passes at Q=889 and T=10,084; precomputed-state 66-symbol matrix stream checksum passes at Q=888 and T=5,544; precomputed-matrix action at Q=873 and T=84; coefficient-derived one-symbol action at Q=889 and T=822; in-place matrix setup at Q=889 and T=558; integrated v15 compact-prefix, matrix setup, and 66-action checksum passes at Q=889 and T=19,004; v18 MBU FMA pair update passes 64 cases at Q=50 and T=54 with 13 clean scratch qubits. Its repeated subtotal of 130,410T matches the pair-update term already in the 202,075T full projection; that projection leaves only 10,035.59T under the current gate. Full integration, width, DQI output/phase, reversible cleanup, and the official verifier remain open.
 ---
@@ -80,6 +80,15 @@ and checked that the first four samples decode to the cell's supported
 division. Seed: `0x4A66057`. This only checks sampled classical input
 compatibility; it does not implement the reversible sample-to-coefficient map
 or cover the full verifier input distribution.
+
+The Forney phase-compatibility screen independently constructs the error
+locator/evaluator polynomials, recovers all error values from the FMA samples,
+and compares their parity against the verifier's 4,095 MBUC masks. All 1,056
+values and all 32 phases matched across weights 31 and 35, including forced
+errors at prefix nodes 1, 2, and 3. Reproduce with
+`python -m unittest discover -s tests -p test_exp057_phase_compatibility.py -v`.
+This is a classical formula check only; reversible phase extraction, full
+schedule cost, cleanup, and official verification are still open.
 
 A second seeded screen tried one valid error pattern at each weight from 0 to
 35. The supported shape held for the sampled weights 2 through 35; the
