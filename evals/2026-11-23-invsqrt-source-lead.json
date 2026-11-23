@@ -1,0 +1,43 @@
+{
+  "date": "2026-11-23",
+  "scope": "single active direction: inverse-square-root circuit",
+  "current_repo_generator": {
+    "source": "src/invsqrt (attributed Apache-2.0 port of marsyas)",
+    "verifier_status": "PASS",
+    "qubits": 92,
+    "cost": 148977.90224394592,
+    "circuit_sha256": "ff629b0925ebfce1e7da166f895b1105332e7edebe26f359deb32f7c942b5917",
+    "evidence": "experiments/exp-008/README.md; private Kaggle full verifier run"
+  },
+  "public_frontier_measurement_only": {
+    "dataset": "manwithacat/vqcc-apache-public-circuits",
+    "manifest_sha256": "6a596a2e089cc23d8491f32d799202c69cbb0a9807a2765dbd3d9af0abac03f0",
+    "circuit_sha256": "bb676b95f94c923cc5482f6cd8d457ab5ff3e8180c8f7cfd2c9678335d0ba56b",
+    "author": "varianceofx",
+    "parent_circuit_sha256": "d2148a7cd7a4d0a004eca1e7b18f9fd1282df4ed3be4a9aa970842f9119fa307",
+    "qubits": 37,
+    "cost": 60927.57739905387,
+    "license": "Apache-2.0, according to the dataset manifest",
+    "rebuild": "none recorded",
+    "source_kind": "unclassified",
+    "eligibility": "ineligible under the source-owned-generator rule; notebook edits a pinned public parent circuit"
+  },
+  "attributed_source_generator_lead": {
+    "dataset": "syed3000/vqcc-own-circuit-portfolio",
+    "author": "Syed Asad Ali",
+    "license": "Apache-2.0",
+    "reported_output": {
+      "qubits": 43,
+      "cost": 72440.3509518131,
+      "circuit_sha256": "70fe5f79d56bd48cd8fc9602757a0520b4d11859967627906cccb3dec25b7692",
+      "mean_toffolis": 1436.0941,
+      "generic_rotations": 34,
+      "official_verifier": "PASS, 200540928 shots, zero failures"
+    },
+    "source_archive_sha256_claimed": "4f9fabdcc7618d6ec93259b84b6a9f08d2e02efa6bf29cc54b47470f98e3ec3c",
+    "evidence_level": "source README claim; not independently rebuilt in this repository",
+    "access_note": "The dataset README and individual generator files are accessible, but Kaggle returned 404 for the advertised archive path; the complete source chain is not yet assembled locally."
+  },
+  "decision": "Do not copy or submit the 37-qubit public circuit. Keep invsqrt as the one active optimization direction; next resolve and port the attributed 43-qubit source generator, then build and verify its output in a private Kaggle kernel.",
+  "next_gate": "Confirm complete source inputs and Apache NOTICE, generate circuit from source in this repository, record exact output hash, then pass the unmodified official verifier in a private Kaggle kernel."
+}

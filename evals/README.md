@@ -48,3 +48,10 @@ Leaderboard CSVs are retained under `kaggle/snapshots/`; their hashes and the
 download archive hash are recorded in metadata. The ZIP remains ignored by the
 repository rules. Row count, ordering, leader, and own-team rank were checked.
 Refresh the leaderboard before every submission.
+
+## Active single direction
+
+The current focus is the attributed Syed v17 inverse-square-root generator;
+its source claim and access gate are recorded in the
+[lead receipt](2026-11-23-invsqrt-source-lead.json) and
+[run log](../log/2026-11-23-invsqrt-source-lead.md).
