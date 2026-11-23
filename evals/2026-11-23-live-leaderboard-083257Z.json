@@ -1,0 +1,60 @@
+{
+  "captured_utc": "2026-11-23T08:32:57Z",
+  "competition": "google-verifiable-quantum-circuit-compilation",
+  "source": "Kaggle CLI full public leaderboard download (competitions leaderboard --download)",
+  "snapshot": {
+    "path": "kaggle/snapshots/2026-11-23/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-23T08-32-57.csv",
+    "csv_sha256": "5a4dac3f57b8e15f45352fc1f1de0e1340a8684576ccad9c873c75debf6327f7",
+    "archive_sha256": "3e73437ba6d2e398f15540ad3f0ec153845d8b802bf4a20636762207dfe128d3",
+    "team_rows": 3616,
+    "unique_team_ids": 3616,
+    "scores_sorted_descending": true,
+    "ranked_team_rows": 3616,
+    "unranked_rows": 0
+  },
+  "own_team": {
+    "team": "Accelra",
+    "team_id": 17349145,
+    "public_score": 28.14028,
+    "rank": 1386,
+    "latest_best_submission": 58479383,
+    "submission_count": 23,
+    "last_submission": "2026-11-17 18:57:30"
+  },
+  "leader": {
+    "rank": 1,
+    "team": "Entangled Team",
+    "team_id": 17180610,
+    "score": 33.90122,
+    "last_submission": "2026-11-23 04:34:48",
+    "submission_count": 112
+  },
+  "score_gap": 5.7609400000000015,
+  "score_equivalence_estimate": {
+    "method": "Scale the product of the three task costs by (own public score / leader public score)^3.",
+    "required_product_cost_multiplier": 0.5719252373022968,
+    "current_dqi_cost": 347904227555.5428,
+    "dqi_target_if_other_task_costs_are_fixed": 198975207903.1761,
+    "dqi_reduction_if_other_task_costs_are_fixed": 0.42807476269770317,
+    "dqi_target_at_q890_zero_failure": {
+      "qubits": 890,
+      "repetition_factor": 1.1912605,
+      "maximum_mean_toffoli": 210868.7444837654
+    },
+    "exp057_optimistic_t_before_output_phase_cleanup": 243905,
+    "exp057_excess_over_gate_t": 33036.25551623461,
+    "status": "Public-score equivalence only; not a measured leader component cost or a candidate."
+  },
+  "top_team_public_code_check": {
+    "members_queried": [
+      "jackvd",
+      "jsday96",
+      "maciejsypetkowski",
+      "tonylica",
+      "yeoyunsianggeremie"
+    ],
+    "matching_public_kernel": "tonylica/quantum-ai-32-85306-ready",
+    "kernel_last_run": "2026-11-21 00:32:25.477000",
+    "decision": "Older 32.85306 material only; exp-056 provenance review rejected its reconstructed KMX generators as a source-owned candidate."
+  }
+}
