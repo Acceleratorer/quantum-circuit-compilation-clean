@@ -1,0 +1,33 @@
+{
+  "captured_utc": "2026-11-23T13:23:46Z",
+  "competition": "google-verifiable-quantum-circuit-compilation",
+  "source": "Kaggle CLI full public leaderboard download (competitions leaderboard --download --public)",
+  "snapshot": {
+    "path": "kaggle/snapshots/2026-11-23/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-23T13-23-46.csv",
+    "csv_sha256": "4388962effd42e3387405e1aa7b2eae79a9d4d3c7d0d5494d448ee3941e0cb67",
+    "archive_sha256": "567e0b9097e442169afe181da2809c841919f27a9589c115252cc10247edc7d2",
+    "team_rows": 3628,
+    "ranked_team_rows": 3628,
+    "scores_sorted_descending": true
+  },
+  "own_team": {
+    "team": "Accelra",
+    "team_id": 17349145,
+    "public_score": 33.17067,
+    "rank": 221,
+    "latest_best_submission": 58771243,
+    "submission_count": 24,
+    "last_submission_utc": "2026-11-23T09:29:39Z",
+    "source_owned": false
+  },
+  "leader": {
+    "rank": 1,
+    "team": "Entangled Team",
+    "team_id": 17180610,
+    "score": 34.12081,
+    "last_submission_utc": "2026-11-23T11:59:20Z",
+    "submission_count": 113
+  },
+  "score_gap": 0.95014,
+  "notes": "This snapshot records the public-circuit archive submission 58771243. The exp-062 source-built invsqrt candidate was not submitted and has no leaderboard score yet."
+}

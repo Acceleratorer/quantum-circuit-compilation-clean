@@ -9,17 +9,19 @@ Research log and reproducible tooling for the Google Quantum AI Verifiable Quant
 | Highest recorded account score (public archive; ineligible) | **33.17067**, submission `58771243` |
 | Source-owned submission with complete provenance | **None verified** |
 | Latest source-owned task member (not submitted) | **invsqrt Q=43, cost 72,440.35**, exp-062; full verifier PASS |
-| Latest retained leaderboard snapshot | `Accelra` rank **1372 / 3606**, score `28.14028`; submission `58479383`, public-circuit blend |
-| Rank 1 in that snapshot | **33.85279** (team `Entangled Team`) |
+| Latest retained leaderboard snapshot | `Accelra` rank **221 / 3628**, score `33.17067`; submission `58771243`, public-circuit archive |
+| Rank 1 in that snapshot | **34.12081** (team `Entangled Team`) |
 
 Submissions `58771243` and `58479383` used public circuit archives, so their
 scores are historical Kaggle measurements only. Neither demonstrates our own
 generator or counts as eligible evidence for the source-owned goal; see the
 [provenance receipt](evals/2026-11-23-submission-58771243-provenance.json).
 
-The latest persisted full leaderboard snapshot is from `2026-11-23T04:27:24Z`;
-its CSV has 3,607 rows, including Kaggle's unranked sample row. Its hash is in
-[`evals/2026-11-23-live-leaderboard-042724Z.json`](evals/2026-11-23-live-leaderboard-042724Z.json).
+The latest persisted full leaderboard snapshot is from `2026-11-23T13:23:46Z`;
+its CSV has 3,628 ranked teams. Accelra is 0.95014 points behind rank 1 in this
+snapshot. The recorded score still comes from public circuits and is not
+source-owned evidence; see
+[`evals/2026-11-23-live-leaderboard-132346Z.json`](evals/2026-11-23-live-leaderboard-132346Z.json).
 
 The repository keeps generators, verifier evidence, provenance, and experiment
 notes. Large circuit binaries and Kaggle submission ZIPs stay outside Git and

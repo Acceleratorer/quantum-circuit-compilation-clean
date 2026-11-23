@@ -10,7 +10,19 @@ This directory separates local verifier estimates from Kaggle results.
   source-owned submitted baseline with complete provenance is currently
   verified. See the [58771243 receipt](2026-11-23-submission-58771243-provenance.json).
 
-## Latest live status (`2026-11-23T04:27:24Z`)
+## Latest live status (`2026-11-23T13:23:46Z`)
+
+- Accelra account score: `33.17067`, submission `58771243`, rank `221 / 3628`.
+  This submission used public circuit binaries and is ineligible for the
+  source-owned goal.
+- Rank 1: `Entangled Team`, `34.12081`; score gap: `0.95014`.
+- Snapshot metadata and the retained CSV are in
+  [the 13:23Z receipt](2026-11-23-live-leaderboard-132346Z.json) and
+  [`kaggle/snapshots/`](../kaggle/snapshots/2026-11-23/).
+- The exp-062 source-built invsqrt candidate passed after this snapshot but
+  was not submitted, so it has no leaderboard score yet.
+
+## Previous live status (`2026-11-23T04:27:24Z`)
 
 - Accelra account score in this snapshot: `28.14028`, submission `58479383`
   (public-circuit blend; ineligible for the source-owned goal).
