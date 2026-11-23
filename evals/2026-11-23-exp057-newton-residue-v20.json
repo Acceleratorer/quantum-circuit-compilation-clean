@@ -1,0 +1,43 @@
+{
+  "captured_utc": "2026-11-23T09:11:33Z",
+  "experiment": "exp-057-newton-residue-screen",
+  "source": {
+    "git_head_before_run": "3ab9ded7339bc16c3e14dfc4002af9381cc21744",
+    "screen": "experiments/exp-057/newton_residue_screen.py",
+    "screen_sha256": "92288ab0e035f5a5aed4f9f3412120e6b7be304a7e2dda66b28a0b264b60bff0",
+    "fma_field_helpers": "experiments/exp-049/fma_state_compression.py",
+    "fma_field_helpers_sha256": "f698408af39066202daff2c63f5f3779d717128cbde6e8bb53369e9c412299d1",
+    "multiplier_frontier": "literature/papers/lit-gf212-rank-frontier.md",
+    "multiplier_frontier_sha256": "741fee822f2b63fee16a3ee3bcd0cf07a664d89a617e22f701cb51f954f154a2",
+    "command": "python experiments/exp-057/newton_residue_screen.py"
+  },
+  "classical_screen": {
+    "field": "GF(8)",
+    "node_polynomial_coefficients_low_to_high": [5, 3, 1],
+    "error_weights": [1, 2, 3, 4],
+    "exhaustive_distinct_root_and_nonzero_value_cases": 97118,
+    "newton_equals_direct_lagrange_cases": 97118,
+    "coefficient_or_root_value_mismatches": 0,
+    "result": "PASS"
+  },
+  "arithmetic_gate_proxy": {
+    "error_weight": 35,
+    "variable_field_products": 2415,
+    "product_cost_t": 42,
+    "estimated_product_t": 101430,
+    "remaining_fma_to_scan_gate_t": 36183.74,
+    "over_gate_before_inverses_and_uncomputation_t": 65246.26,
+    "is_lower_bound": false,
+    "desired_scanner_values_are_counted_as_inputs": true
+  },
+  "input_contract": {
+    "newton_requires": "each error root and its desired scanner residue value",
+    "current_exp057_fma_receives": "70 syndrome-derived sample values",
+    "direct_update_map_established": false
+  },
+  "decision": "NO_GO_FOR_STRAIGHTFORWARD_NEWTON_ROUTE",
+  "reversible_gate_screen": "NOT_RUN",
+  "official_verifier": "NOT_RUN",
+  "competition_submission": null,
+  "scope": "The interpolation recurrence is classically exact on this exhaustive small-field domain. The GF(2^12) cost is a straightforward coefficient-array operation-count estimate, not a lower bound or circuit measurement. No FMA input mapping, reversible circuit, cleanup, or verifier pass is established."
+}

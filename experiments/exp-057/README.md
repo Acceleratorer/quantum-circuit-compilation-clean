@@ -2,11 +2,11 @@
 id: exp-057
 title: Four-word streaming decoder for quadratic-over-linear FMA
 task: dqi
-tests: exhaustive GF(8) prefix and tail state and matrix encoding; 2,048 seeded GF(2^12); 256 seeded GF(2^12) tail-matrix factorization cases; 32-case private coefficient-to-prefix and prefix-to-coefficient screens including a1=0; 32-case private integrated prefix-plus-tail action across both pivots; 32-case private 66-symbol matrix-stream checksum across both pivots; 32-case private compact-prefix-to-matrix 66-symbol checksum v15; 32 verifier-form prefix and tail cases; 64-case private MBU FMA pair update across both branches; 64-case private precomputed-matrix action; 64-case coefficient-derived tail action; 64-case in-place matrix setup; 32-case classical Forney/FMA MBUC phase-compatibility screen
+tests: exhaustive GF(8) prefix and tail state and matrix encoding; 2,048 seeded GF(2^12); 256 seeded GF(2^12) tail-matrix factorization cases; 32-case private coefficient-to-prefix and prefix-to-coefficient screens including a1=0; 32-case private integrated prefix-plus-tail action across both pivots; 32-case private 66-symbol matrix-stream checksum across both pivots; 32-case private compact-prefix-to-matrix 66-symbol checksum v15; 32 verifier-form prefix and tail cases; 64-case private MBU FMA pair update across both branches; 64-case private precomputed-matrix action; 64-case coefficient-derived tail action; 64-case in-place matrix setup; 32-case classical Forney/FMA MBUC phase-compatibility screen; 97,118 exhaustive GF(8) Newton-residue versus direct interpolation cases
 direction: D-004
-status: coefficient-prefix-component-gates-passed_classical-66-tail-schedule-passed_branchless-prefix-inverse-v11-passed_integrated-prefix-plus-one-tail-v13-passed_precomputed-state-66-symbol-matrix-stream-checksum-v14-passed_compact-prefix-matrix-66-stream-v15-passed_mbu-fma-pair-update-v18-component-passed_classical-phase-compatibility-screen-passed_direct-fma-convert-scan-bridge-v19-failed_full-70-symbol-schedule-dqi-output-cleanup-and-official-verifier-pending
+status: coefficient-prefix-component-gates-passed_classical-66-tail-schedule-passed_branchless-prefix-inverse-v11-passed_integrated-prefix-plus-one-tail-v13-passed_precomputed-state-66-symbol-matrix-stream-checksum-v14-passed_compact-prefix-matrix-66-stream-v15-passed_mbu-fma-pair-update-v18-component-passed_classical-phase-compatibility-screen-passed_direct-fma-convert-scan-bridge-v19-failed_newton-residue-identity-v20-passed_newton-route-over-budget-and-input-contract-unmapped_full-70-symbol-schedule-dqi-output-cleanup-and-official-verifier-pending
 date: 2026-11-23
-result: Earlier component screens stand. V19 measured CONVERT + scan + reverse CONVERT at Q=879 and T=183,837. The canonical DQI residue-pair control passes phase, while direct use of the padded FMA low-rank row fails. Combining the measured path with the v18 repeated update subtotal gives 314,247T, above the current 211,775.05T score-equivalent gate before omitted work. The earlier 202,075T full projection is unsupported. Full FMA schedule, scan-ready output mapping, cleanup, and official verifier remain open.
+result: V20 Newton insertion exactly matches direct Lagrange scanner-residue interpolation in 97,118 exhaustive GF(8) cases. At weight 35, its straightforward coefficient-array screen counts 2,415 variable GF products (~101,430T at 42T/product), above the 36,183.74T converter allowance before inverses and uncomputation. The recurrence requires error-root/residue inputs; no direct map from exp-057's 70 syndrome-derived FMA samples is established. This estimate is not a lower bound. No reversible screen, full schedule, or official verifier was run.
 ---
 
 # exp-057: four-word streaming decoder
@@ -300,7 +300,30 @@ refreshed 210,868.74T score-equivalent gate before other work. See the
 [cost-split receipt](../../evals/2026-11-23-exp057-convert-cost-split.json)
 and [log](../../log/2026-11-23-exp057-convert-cost-split.md).
 
-Next gate: close the “remove only reverse CONVERT” route. Reopen exp-057 only
-with a lower-cost integrated schedule that saves at least 33,037T against this
-optimistic bound, plus headroom for DQI output, phase, and cleanup. The direct
-FMA pair still fails the current scan phase check.
+## Newton residue insertion screen
+
+For existing error roots `beta_i` and desired scanner values
+`y_i = e_i beta_i Pscan(beta_i)`, Newton interpolation updates the degree-`<t`
+scanner numerator with
+
+```text
+c_i = (y_i + A_(i-1)(beta_i)) / sigma_(i-1)(beta_i)
+A_i = A_(i-1) + c_i sigma_(i-1)
+sigma_i = sigma_(i-1) (X + beta_i)
+```
+
+The recurrence is exact: it matches direct Lagrange interpolation for all
+97,118 nonzero-magnitude, distinct-root cases of weights 1–4 in GF(8). The
+screen is [`newton_residue_screen.py`](newton_residue_screen.py); receipt and
+log: [`v20 evaluation`](../../evals/2026-11-23-exp057-newton-residue-v20.json)
+and [`v20 log`](../../log/2026-11-23-exp057-newton-residue-v20.md).
+
+At weight 35, a straightforward coefficient-array implementation counts 2,415
+variable GF(2^12) products, about 101,430T at the project's 42T product cost.
+This already exceeds the 36,183.74T allowance for replacing CONVERT, before
+inversions or uncomputation. It is an operation-count estimate, not a lower
+bound. More fundamentally, this recurrence consumes error roots and desired
+residues, while exp-057 currently processes 70 syndrome-derived sample values;
+no direct update map between those states is established. Do not build a gate
+screen for this recurrence unless both the input mapping and a cheaper schedule
+are derived. DQI output, cleanup, and the official verifier remain open.
