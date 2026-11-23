@@ -2,13 +2,13 @@
 
 This directory separates local verifier estimates from Kaggle results.
 
-## Latest live status (`2026-11-23T02:43:43Z`)
+## Latest live status (`2026-11-23T04:27:24Z`)
 
 - Best own public score: `28.14028`, submission `58479383`.
 - Latest leader: `Entangled Team`, `33.85279`; score gap `5.71251`.
-- Own rank: `1368 / 3603 ranked teams` in the full snapshot; see
-  [metadata](2026-11-23-live-leaderboard-024343Z.json) and the
-  [retained CSV](../kaggle/snapshots/2026-11-23/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-23T02-43-43.csv).
+- Own rank: `1372 / 3606 ranked teams` in the full snapshot; see
+  [metadata](2026-11-23-live-leaderboard-042724Z.json) and the
+  [retained CSV](../kaggle/snapshots/2026-11-23/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-23T04-27-24.csv).
 - Local zero-error geometric mean: `28.1402768383` (not a leaderboard result).
 - DQI-only target with other task costs fixed: `199.830e9`, or mean
   `T <= 211,775.05` at `Q=890` and `R=1.1912605`. This is score-equivalence

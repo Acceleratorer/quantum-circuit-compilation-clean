@@ -1,0 +1,52 @@
+{
+  "captured_utc": "2026-11-23T04:27:24Z",
+  "competition": "google-verifiable-quantum-circuit-compilation",
+  "source": "Kaggle CLI full public leaderboard download (competitions leaderboard --download)",
+  "snapshot": {
+    "path": "kaggle/snapshots/2026-11-23/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-23T04-27-24.csv",
+    "csv_sha256": "7C530EDA6B989590D64385ED404FCF2D24BF4F0B0DB4E3746D637A3DCB839B05",
+    "archive_sha256": "1C7B85175E4B0C254A42B9C0F92A01DAEFD7B451141798C77BBF9F16D4D629B8",
+    "team_rows": 3607,
+    "unique_team_ids": 3607,
+    "scores_sorted_descending": true,
+    "ranked_team_rows": 3606,
+    "unranked_rows": 1
+  },
+  "own_team": {
+    "team": "Accelra",
+    "team_id": 17349145,
+    "public_score": 28.14028,
+    "rank": 1372,
+    "latest_best_submission": 58479383,
+    "submission_count": 23
+  },
+  "leader": {
+    "rank": 1,
+    "team": "Entangled Team",
+    "team_id": 17180610,
+    "score": 33.85279,
+    "last_submission_utc": "2026-11-23T04:01:12Z"
+  },
+  "runner_up": {
+    "rank": 2,
+    "team": "codebeforework",
+    "team_id": 17238733,
+    "score": 33.56726
+  },
+  "score_gap": 5.712509999999998,
+  "score_equivalence_estimate": {
+    "method": "Scale the product of the three task costs by (own public score / leader public score)^3.",
+    "own_public_score": 28.14028,
+    "required_product_cost_multiplier": 0.5743833493407995,
+    "current_dqi_cost": 347904227555.5428,
+    "dqi_target_if_other_task_costs_are_fixed": 199830395473.17633,
+    "dqi_reduction_if_other_task_costs_are_fixed": 0.4256166506592005,
+    "dqi_target_at_q890_zero_failure": {
+      "qubits": 890,
+      "repetition_factor": 1.1912605,
+      "maximum_mean_toffoli": 211775.05000335467
+    },
+    "status": "Score-equivalence estimate from own current task costs and public scores; not measured leader component costs or a candidate."
+  },
+  "notes": "Public leaderboard snapshot; no competition submission was made."
+}

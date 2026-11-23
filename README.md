@@ -7,14 +7,14 @@ Research log and reproducible tooling for the Google Quantum AI Verifiable Quant
 | Item | Value |
 |---|---:|
 | Best own Kaggle public score | **28.14028** |
-| Latest live rank | **1368 / 3603 ranked teams** (team `Accelra`, Kaggle CLI snapshot at 2026-11-23 02:43 UTC) |
+| Latest live rank | **1372 / 3606 ranked teams** (team `Accelra`, Kaggle CLI snapshot at 2026-11-23 04:27 UTC) |
 | Latest observed rank 1 public score | **33.85279** (team `Entangled Team`) |
 | Score gap to rank 1 | **5.71251** |
 | Current best submission members | `563d0583` / `46446af1` / `0bd9c68f` |
 
-The latest persisted full leaderboard snapshot is from `2026-11-23T02:43:43Z`;
-its CSV has 3,604 rows, including Kaggle's unranked sample row. Its hash is in
-[`evals/2026-11-23-live-leaderboard-024343Z.json`](evals/2026-11-23-live-leaderboard-024343Z.json).
+The latest persisted full leaderboard snapshot is from `2026-11-23T04:27:24Z`;
+its CSV has 3,607 rows, including Kaggle's unranked sample row. Its hash is in
+[`evals/2026-11-23-live-leaderboard-042724Z.json`](evals/2026-11-23-live-leaderboard-042724Z.json).
 
 The repository keeps generators, verifier evidence, provenance, and experiment
 notes. Large circuit binaries and Kaggle submission ZIPs stay outside Git and
@@ -40,9 +40,11 @@ Its local zero-error geometric mean is `28.1402768383`; Kaggle submission
 `58479383` scored `28.14028`. The `2026-11-20T17:14:49Z` snapshot ranked the
 team **1079**; the `2026-11-21T12:55:34Z` snapshot ranked it **1202**; the
 `2026-11-22T23:05:56Z` snapshot ranked it **1353**; the
-`2026-11-23T00:16:46Z` snapshot ranked it **1356**; and the latest
-`2026-11-23T02:43:43Z` snapshot ranks it **1368**, with a `5.71251`-point gap
-to rank 1. The earlier `2026-11-20T01:43:00Z` snapshot ranked it 981.
+`2026-11-23T00:16:46Z` snapshot ranked it **1356**; the
+`2026-11-23T02:43:43Z` snapshot ranked it **1368**; and the latest
+`2026-11-23T04:27:24Z` snapshot ranks it **1372**, with a `5.71251`-point gap
+to rank 1.
+The earlier `2026-11-20T01:43:00Z` snapshot ranked it 981.
 The hash-verified 18-member archive has SHA-256
 `4ccce01059e6d5c769e80a8091cc08a8c05a38588fc10a3877524412dd9e95cf`.
 The downloaded archive was removed from local staging; its hash, member hashes,
@@ -80,7 +82,7 @@ reduction from `347.904e9`. At `Q=890` and `R=1.1912605`, this means mean
 `T <= 211,775.05`. The FMA projection is `202,075T`, leaving `9,700.05T`
 before the still-unproven full schedule, width, phase, and cleanup.
 This is score-equivalence math, not a measured leader cost or candidate. See
-the [latest leaderboard evaluation](evals/2026-11-23-live-leaderboard-024343Z.json).
+the [latest leaderboard evaluation](evals/2026-11-23-live-leaderboard-042724Z.json).
 The remaining high-value work is a reproducible candidate that clears its
 task's exact verifier and resource gates.
 
