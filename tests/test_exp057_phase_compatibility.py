@@ -33,6 +33,8 @@ class PhaseCompatibilityTests(unittest.TestCase):
         self.assertEqual(result["recovered_error_values"], 32 * 33)
         self.assertEqual(result["value_mismatches"], 0)
         self.assertEqual(result["phase_mismatches"], 0)
+        self.assertEqual(result["residue_identity_errors"], 0)
+        self.assertEqual(result["aggregate_phase_mismatches"], 0)
 
     def test_existing_inverse_phase_helper_costs_36_t_per_mask(self):
         builder = km.CircuitBuilder()

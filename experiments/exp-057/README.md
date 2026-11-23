@@ -99,6 +99,19 @@ would cost about 147,420T, far above exp-057's 10,035.59T projected margin.
 That is a warning against direct per-position integration, not a cost for an
 aggregate phase algorithm.
 
+An algebraic aggregation screen tests a possible way around that cost. Let
+`L(M)` be the trace-dual transform satisfying
+`Tr(e * L(M)) = popcount(e & M) mod 2`. For non-node error roots `b`, set
+`g(b) = L(M_position(b)) / (b * P(b))`; set `g(b)=0` for roots at sample nodes
+and add those node phases directly from the recovered values. The external
+phase field sum then equals the coefficient of `X^(t-1)` in
+`omega(X) * g(X) mod sigma(X)`, by Lagrange interpolation over the distinct
+roots of `sigma`. A seeded 32-case screen at weights 31 and 35, including
+prefix-node errors, had zero residue-identity errors and zero phase
+mismatches. The screen interpolates only the tested roots; a reversible way to
+derive the full mask polynomial/remainder, its gate cost, cleanup, and official
+verification are still open. Reproduce with the same phase-compatibility test.
+
 A second seeded screen tried one valid error pattern at each weight from 0 to
 35. The supported shape held for the sampled weights 2 through 35; the
 weight-0 case was unsupported and the weight-1 case hit zero division. This is
