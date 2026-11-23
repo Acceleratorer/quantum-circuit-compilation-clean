@@ -1,0 +1,61 @@
+{
+  "captured_utc": "2026-11-23T08:27:04Z",
+  "experiment": "exp-061",
+  "candidate": "7-bit source-generated chemistry QROM baseline",
+  "source": {
+    "dataset": "danishlynxthembones/vqcc-thembones-milestone-set",
+    "license": "Apache-2.0",
+    "npz_sha256": "e05fb18f808e410ff126d68b8415e6fd4b33712760f35f90412e96ba6a331f73",
+    "addresses": 1219,
+    "word_bits": 35,
+    "angle_loaders": 15
+  },
+  "builder_gate": {
+    "target_static_t_per_pass": 3468,
+    "measured_static_t_per_pass": 18255,
+    "static_t_per_loader": 1217,
+    "status": "NO_GO"
+  },
+  "official_verifier": {
+    "status": "PASS",
+    "shots": 78016,
+    "qubits": 405,
+    "toffoli_total": 43010,
+    "lambda_eff": 46.932071378175046,
+    "score": 817512097.94,
+    "receipt_sha256": "c79a1249b28a1364f3664d6f94e428b957afdc43c79bf13ae552751bff983e6a"
+  },
+  "comparison": {
+    "best_chemistry_score": 294642305.5649051,
+    "maximum_static_t_per_pass_to_beat_best": 4500,
+    "select_swap_screen": [
+      {
+        "block_size": 2,
+        "estimated_static_t_per_pass": 11250,
+        "estimated_angles_width": 92,
+        "projected_whole_task_score": 551217178.34,
+        "status": "NO_GO"
+      },
+      {
+        "block_size": 3,
+        "estimated_static_t_per_pass": 9255,
+        "estimated_angles_width": 127,
+        "projected_whole_task_score": 475377297.59,
+        "status": "NO_GO"
+      },
+      {
+        "block_size": 4,
+        "estimated_static_t_per_pass": 8775,
+        "estimated_angles_width": 162,
+        "status": "OVER_128_QUBIT_CAP"
+      }
+    ],
+    "projection_assumptions": [
+      "Same factorization and lambda_eff as the verified baseline.",
+      "Q_total remains 405 because the screened ANGLES workspace is below the shared heuristic workspace.",
+      "Static ANGLES Toffolis are charged in forward and reverse traversal.",
+      "SelectSwap estimates are paper-bound conversions, not measured XOR-loader circuits."
+    ]
+  },
+  "submission": "NONE"
+}

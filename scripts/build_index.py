@@ -88,7 +88,7 @@ def kaggle() -> None:
 def experiments() -> None:
     base = ROOT / "experiments"
     rows = []
-    for d in sorted(p for p in base.glob("exp-*") if p.is_dir()):
+    for d in sorted(p for p in base.glob("exp-*") if p.is_dir() and (p / "README.md").is_file()):
         m = frontmatter(d / "README.md")
         verdict = frontmatter(d / "critic.md").get("verdict", "pending")
         rows.append([f"[{m.get('id', d.name)}]({d.name}/README.md)", m.get("title", ""), m.get("task", ""),
