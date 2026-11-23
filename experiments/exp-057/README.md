@@ -90,6 +90,15 @@ errors at prefix nodes 1, 2, and 3. Reproduce with
 This is a classical formula check only; reversible phase extraction, full
 schedule cost, cleanup, and official verification are still open.
 
+The existing `phase_inverse36_pivot` helper was measured locally on 64 seeded
+inputs: it preserves the 12-bit value, cleans 12 scratch qubits, and matches
+all 64 expected phases. It compiles to 168 static Toffoli-like gates and the
+simulator executes 2,304 total, or 36 per mask. The official reference
+Forney loop visits 4,095 positions, so inserting this helper once per position
+would cost about 147,420T, far above exp-057's 10,035.59T projected margin.
+That is a warning against direct per-position integration, not a cost for an
+aggregate phase algorithm.
+
 A second seeded screen tried one valid error pattern at each weight from 0 to
 35. The supported shape held for the sampled weights 2 through 35; the
 weight-0 case was unsupported and the weight-1 case hit zero division. This is
