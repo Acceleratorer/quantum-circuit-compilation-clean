@@ -7,14 +7,14 @@ Research log and reproducible tooling for the Google Quantum AI Verifiable Quant
 | Item | Value |
 |---|---:|
 | Best own Kaggle public score | **28.14028** |
-| Latest live rank | **1291 / 3555** (team `Accelra`, Kaggle CLI snapshot at 2026-11-22 09:57 UTC) |
-| Latest observed rank 1 public score | **33.67349** (team `Maciej Sypetkowski`) |
-| Score gap to rank 1 | **5.53321** |
+| Latest live rank | **1356 / 3598** (team `Accelra`, Kaggle CLI snapshot at 2026-11-23 00:16 UTC) |
+| Latest observed rank 1 public score | **33.83493** (team `Entangled Team`) |
+| Score gap to rank 1 | **5.69465** |
 | Current best submission members | `563d0583` / `46446af1` / `0bd9c68f` |
 
-The latest persisted full leaderboard snapshot is from `2026-11-22T09:57:57Z`
-with 3,555 teams. Its CSV and SHA-256 are recorded in
-[`evals/2026-11-22-live-leaderboard-095757Z.json`](evals/2026-11-22-live-leaderboard-095757Z.json).
+The latest persisted full leaderboard snapshot is from `2026-11-23T00:16:46Z`
+with 3,598 teams. Its CSV and SHA-256 are recorded in
+[`evals/2026-11-23-live-leaderboard-001646Z.json`](evals/2026-11-23-live-leaderboard-001646Z.json).
 
 The repository keeps generators, verifier evidence, provenance, and experiment
 notes. Large circuit binaries and Kaggle submission ZIPs stay outside Git and
@@ -38,9 +38,10 @@ with the previously scored DQI from
 [`Asterios's kernel`](https://www.kaggle.com/code/asteriospanoras/qcc-atlas-toolkit-in-notebook-chemistry-refit).
 Its local zero-error geometric mean is `28.1402768383`; Kaggle submission
 `58479383` scored `28.14028`. The `2026-11-20T17:14:49Z` snapshot ranked the
-team **1079**; the `2026-11-21T12:55:34Z` snapshot ranked it **1202**; and the
-latest `2026-11-22T09:57:57Z` snapshot ranks it **1291**, with a `5.53321`-point
-gap to rank 1. The earlier `2026-11-20T01:43:00Z` snapshot ranked it 981.
+team **1079**; the `2026-11-21T12:55:34Z` snapshot ranked it **1202**; the
+`2026-11-22T23:05:56Z` snapshot ranked it **1353**; and the latest
+`2026-11-23T00:16:46Z` snapshot ranks it **1356**, with a `5.69465`-point gap
+to rank 1. The earlier `2026-11-20T01:43:00Z` snapshot ranked it 981.
 The hash-verified 18-member archive has SHA-256
 `4ccce01059e6d5c769e80a8091cc08a8c05a38588fc10a3877524412dd9e95cf`.
 The downloaded archive was removed from local staging; its hash, member hashes,

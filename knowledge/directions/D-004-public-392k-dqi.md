@@ -23,14 +23,14 @@ complete width, phase, and cleanup schedule remains unproven.
 
 ## 2026-11-23 live leaderboard and focused gate
 
-The latest full Kaggle CLI snapshot at `2026-11-22T23:05:56Z` has 3,596 teams.
-`Accelra` is rank 1,353 at `28.14028`; Entangled Team leads at `33.83493`, a
+The latest full Kaggle CLI snapshot at `2026-11-23T00:16:46Z` has 3,598 teams.
+`Accelra` is rank 1,356 at `28.14028`; Entangled Team leads at `33.83493`, a
 `5.69465`-point gap. Holding the other two submitted task costs fixed,
 matching that score requires DQI cost at or below `200.147e9`, or mean
 `T <= 212,110.59` at `Q=890` and `R=1.1912605`. The `202,075T` FMA projection
 leaves only `10,035.59T` for all omitted work. This is score-equivalence math,
 not a measured leader cost or a candidate. The snapshot and calculation are in
-[`evals/2026-11-22-live-leaderboard-230556Z.json`](../../evals/2026-11-22-live-leaderboard-230556Z.json).
+[`evals/2026-11-23-live-leaderboard-001646Z.json`](../../evals/2026-11-23-live-leaderboard-001646Z.json).
 
 The valid eight-point GF(8) screen finds that ratios alone need a six-bit
 fixed branch projection; ratio plus final rank needs four bits, with nine

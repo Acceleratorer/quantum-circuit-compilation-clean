@@ -1,0 +1,58 @@
+{
+  "captured_utc": "2026-11-23T00:16:46Z",
+  "competition": "google-verifiable-quantum-circuit-compilation",
+  "source": "Kaggle CLI full public leaderboard download (competitions leaderboard --download)",
+  "snapshot": {
+    "path": "kaggle/snapshots/2026-11-23/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-23T00-16-46Z.csv",
+    "csv_sha256": "e1156b7fa07172adfa4cfee320c728afe70dbba937e1ce52fab1e3d6180b867a",
+    "archive_sha256": "dab5e1b7bd842515ff8a20f26cd528811deccb6f6f5472219b5b716b32a56cf3",
+    "team_rows": 3598,
+    "unique_team_ids": 3598,
+    "scores_sorted_descending": true
+  },
+  "own_team": {
+    "team": "Accelra",
+    "team_id": 17349145,
+    "public_score": 28.14028,
+    "rank": 1356,
+    "latest_best_submission": 58479383
+  },
+  "leader": {
+    "rank": 1,
+    "team": "Entangled Team",
+    "team_id": 17180610,
+    "score": 33.83493,
+    "last_submission_utc": "2026-11-22T22:35:38.916000"
+  },
+  "runner_up": {
+    "rank": 2,
+    "team": "codebeforework",
+    "team_id": 17238733,
+    "score": 33.55422
+  },
+  "score_gap": 5.694649999999999,
+  "score_equivalence_estimate": {
+    "method": "Scale the product of the three task costs by (own public score / leader public score)^3.",
+    "own_local_geometric_mean": 28.14028,
+    "required_product_cost_multiplier": 0.5752934061298552,
+    "current_dqi_cost": 347904227555.5428,
+    "dqi_target_if_other_task_costs_are_fixed": 200147008077.40445,
+    "dqi_reduction_if_other_task_costs_are_fixed": 0.4247065938701448,
+    "dqi_target_at_q890_zero_failure": {
+      "qubits": 890,
+      "repetition_factor": 1.1912605,
+      "maximum_mean_toffoli": 212110.5877974592
+    },
+    "current_fma_projection_toffoli": 202075,
+    "remaining_toffoli_margin_before_omitted_work": 10035.587797459186,
+    "status": "Score-equivalence estimate from own prior cost and current public scores; not measured leader costs or a candidate.",
+    "current_dqi_cost_source": "evals/2026-11-21-live-leaderboard-125534Z.json"
+  },
+  "latest_own_submission": {
+    "ref": 58479383,
+    "status": "COMPLETE",
+    "public_score": 28.14028,
+    "submitted_at_utc": "2026-11-17T18:57:30.857000"
+  },
+  "notes": "Read-only Kaggle CLI refresh. The leaderboard CSV was checked for safe archive paths, row count, unique team IDs, descending scores, leader, and own-team rank. No submission was made."
+}
