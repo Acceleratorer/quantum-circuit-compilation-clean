@@ -31,13 +31,26 @@
     "v19_measured_path_t": 183837,
     "matches": true
   },
+  "leaderboard_refresh": {
+    "captured_utc": "2026-11-23T06:12:22Z",
+    "source": "Kaggle CLI leaderboard --show --page-size 1 and submissions --page-size 1",
+    "leader_score": 33.90122,
+    "leader_submission_utc": "2026-11-23T04:34:48.733000",
+    "own_public_score": 28.14028,
+    "own_latest_submission": 58479383,
+    "previous_leader_score": 33.85279,
+    "previous_gate_t": 211775.05000335467,
+    "score_equivalent_gate_t": 210868.74448376536,
+    "method": "Scale the previous score-equivalent gate by (previous leader score / current leader score)^3, holding the own score, other task costs, Q=890, and repetition factor fixed."
+  },
   "optimistic_skip_reverse_convert": {
     "assumed_saved_t": 70342,
     "bridge_forward_convert_plus_scan_t": 113495,
     "v18_repeated_fma_updates_t": 130410,
     "combined_t_before_other_work": 243905,
-    "current_gate_t": 211775.05,
-    "over_gate_t": 32129.95,
+    "current_gate_t": 210868.74448376536,
+    "over_gate_t": 33036.25551623464,
+    "minimum_reduction_from_v18_update_subtotal_fraction": 0.25332609091507274,
     "decision": "NO_GO_REVERSE_CONVERT_ALONE"
   },
   "direct_uncompute": {

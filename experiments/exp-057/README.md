@@ -296,11 +296,11 @@ and [reproduction screen](convert_bridge_screen.py).
 The follow-up cost split measures forward CONVERT at 69,220T, scan at 44,275T,
 and reverse CONVERT at 70,342T. Even granting a zero-cost replacement for the
 reverse step, the bridge plus v18 repeated updates totals 243,905T, above the
-current 211,775.05T gate before other work. See the
+refreshed 210,868.74T score-equivalent gate before other work. See the
 [cost-split receipt](../../evals/2026-11-23-exp057-convert-cost-split.json)
 and [log](../../log/2026-11-23-exp057-convert-cost-split.md).
 
 Next gate: close the “remove only reverse CONVERT” route. Reopen exp-057 only
-with a lower-cost integrated schedule that saves at least 32,130T against this
+with a lower-cost integrated schedule that saves at least 33,037T against this
 optimistic bound, plus headroom for DQI output, phase, and cleanup. The direct
 FMA pair still fails the current scan phase check.

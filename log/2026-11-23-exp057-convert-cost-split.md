@@ -7,10 +7,13 @@ The three parts sum to the v19 measured `183,837T` exactly.
 
 Skipping reverse `CONVERT` alone is a no-go. Even assuming a zero-cost direct
 FMA uncompute, the forward converter, scan, and v18's repeated pair updates
-total `243,905T`, which is `32,129.95T` above the current `211,775.05T` gate
-before integration, DQI output/phase, or cleanup. The existing unsynthesis
-expects the original FMA output coordinates, so applying it to the converted
-state is not a valid uncompute. We did not build that invalid composition.
+total `243,905T`. A fresh Kaggle CLI check at 06:12 UTC found the leader at
+`33.90122` and our latest scored submission at `28.14028`, tightening the
+score-equivalent gate to `210,868.74T`. The optimistic path is now
+`33,036.26T` over that gate before integration, DQI output/phase, or cleanup.
+The v18 update subtotal alone would need a 25.33% reduction. The existing
+unsynthesis expects the original FMA output coordinates, so applying it to the
+converted state is not a valid uncompute. We did not build that composition.
 
 The v19 control still passes with a canonical DQI residue pair, while direct
 use of the padded FMA pair still fails phase. This closes the
