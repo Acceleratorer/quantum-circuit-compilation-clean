@@ -38,6 +38,12 @@ leaves only `10,035.59T` for all omitted work. This is score-equivalence math,
 not a measured leader cost or a candidate. The snapshot and calculation are in
 [`evals/2026-11-23-live-leaderboard-001646Z.json`](../../evals/2026-11-23-live-leaderboard-001646Z.json).
 
+The official DQI contract audit clarifies the next gate: exp-057's 66-action
+checksum does not yet use the MBUC masks or apply the required error-value
+phase. The published BM alternative is also over both width and Toffoli gates.
+Use the classical phase-compatibility gate before any further circuit build;
+see [the contract audit](../../log/2026-11-23-dqi-contract-gate.md).
+
 The valid eight-point GF(8) screen finds that ratios alone need a six-bit
 fixed branch projection; ratio plus final rank needs four bits, with nine
 four-position choices. This is a block-tag lead only, not a GF(2^12) bound or a
