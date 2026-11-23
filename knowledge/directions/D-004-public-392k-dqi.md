@@ -18,10 +18,11 @@ key-equation algorithm. Keep the official verifier's salted failure rate in
 the score model, and require the full `R × Q² × T` budget before building a
 candidate. The latest score-equivalence estimate is `200.147e9`; at
 `R=1.1912605` and `Q=890`, the DQI gate is `T <= 212,110.59`. The old
-`202,075T` FMA projection remains unvalidated. V18's 54T pair cell repeats to
-`130,410T` over 2,415 updates, leaving `81,700.59T` for omitted work only if
-this cell composes unchanged; ratio generation, width, output/phase, cleanup,
-and the official verifier are still unmeasured.
+`202,075T` FMA projection remains unvalidated. V18 measures the pair-update
+term at `54T` each, or `130,410T` across 2,415 updates, matching the existing
+`42T` product plus `12T` controlled-swap estimate. The projection already
+includes this term and leaves only `10,035.59T` under the gate; integration,
+width, output/phase, cleanup, and the official verifier remain unmeasured.
 
 The static source audit in [exp-058](../../experiments/exp-058/README.md)
 found that the 33.17033 public reference uses other authors' circuits and
@@ -100,8 +101,9 @@ and [run log](../../log/2026-11-23-exp057-verifier-form-v16.md).
 Private kernel v17's 210T implementation would cost 507,150T over the 2,415
 pair updates and is closed. V18 replaces the product cleanup with MBU and
 passes 64 cases (32 per branch) at `Q=50`, `T=54`, with 13 clean scratch
-qubits and zero phase flips. Repeating this cell gives `130,410T`, below the
-full DQI gate by `81,700.59T` before ratio generation and other omitted work.
+qubits and zero phase flips. Repeating this cell gives `130,410T`, matching
+the existing product-plus-swap term in the `202,075T` full projection; that
+projection leaves only `10,035.59T` under the current gate.
 
 This is a component measurement only: the ratio and branch are inputs, and
 the full 70-symbol schedule, DQI output/phase, cleanup, and official verifier

@@ -23,10 +23,11 @@ Evidence: [v18 evaluation receipt](../evals/2026-11-23-exp057-fma-pair-update-mb
 
 The v17 `210T` implementation would cost `507,150T` across the 2,415 pair
 updates and is closed. Repeating the v18 `54T` component gives `130,410T`,
-leaving `81,700.59T` beneath the full DQI gate. V18 receives the ratio and
-branch as inputs, so ratio generation, full schedule integration, DQI
-output/phase, cleanup, and verifier cost remain unmeasured. Do not treat this
-component sum as a candidate cost.
+matching the existing `42T` product plus `12T` controlled-swap ledger. The
+prior `202,075T` full projection already includes this subtotal and `71,665T`
+of other estimated work, leaving only `10,035.59T` beneath the current full
+DQI gate. V18 receives ratio and branch inputs; integration, width,
+output/phase, cleanup, and verifier cost remain unmeasured.
 
 The next gate is one source-owned circuit for ratio generation and all 2,415
 updates, followed by exact full-resource accounting and the DQI output/phase,

@@ -6,12 +6,14 @@ with measurement-based uncomputation (MBU) for the product workspace. Across
 were preserved, 13 scratch qubits were clean, and there were no phase flips.
 The cell measured `Q=50`, `T=54`.
 
-This improves on v17's `210T` cell. The exp-053 recurrence ledger contains
-2,415 pair updates, so repeating this component gives `130,410T`, leaving
-`81,700.59T` under the current full DQI gate of `212,110.59T`. This is only a
-component sum: each cell receives its ratio and branch as inputs, and the
-ratio generation, complete schedule, DQI output/phase, cleanup, and official
-verifier are not included. It does not establish a candidate.
+This improves v17's isolated `210T` cell to `54T`. Across 2,415 pair updates,
+the measured subtotal is `130,410T`, matching the existing ledger's `42T`
+product plus `12T` controlled swap per update. The prior full-DQI projection
+of `202,075T` already includes that subtotal and `71,665T` of other estimated
+work, leaving only `10,035.59T` under the current `212,110.59T` gate. The
+projection still omits unmeasured integration, width, DQI output/phase,
+cleanup, and official verification; v18 does not create `81,700T` of new
+headroom or establish a candidate.
 
 ## Verification
 

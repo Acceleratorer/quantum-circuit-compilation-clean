@@ -23,10 +23,11 @@ This directory separates local verifier estimates from Kaggle results.
   [v15 receipt](2026-11-23-exp057-prefix-matrix-stream-v15.json).
 - Exp-057 v18 measures one normalized MBU FMA pair update at `Q=50`, `T=54`
   with 13 clean scratch qubits. Repeating it for the 2,415 pair updates gives
-  `130,410T`, below the whole DQI gate by `81,700.59T`; the cell takes the ratio
-  and branch as inputs, so this remains a component sum, not a schedule or
-  candidate. Ratio generation, DQI output/phase, cleanup, and verifier cost
-  remain open. See the [v18 receipt](2026-11-23-exp057-fma-pair-update-mbu-v18.json).
+  `130,410T`, matching the existing `42T` product plus `12T` controlled-swap
+  ledger. The existing `202,075T` full projection leaves only `10,035.59T`
+  under the `212,110.59T` gate; integration, width, DQI output/phase, cleanup,
+  and verifier remain open. This component result does not create new budget.
+  See the [v18 receipt](2026-11-23-exp057-fma-pair-update-mbu-v18.json).
 - Full member hashes, verifier evidence, and submission:
   [2026-11-18 hybrid evaluation](2026-11-18-bori-frontier-hybrid.json).
 

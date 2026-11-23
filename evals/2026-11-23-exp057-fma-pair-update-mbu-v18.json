@@ -39,10 +39,13 @@
     "previous_v17_cell_toffoli_like_gates": 210,
     "previous_v17_repeated_cell_toffoli_like_gates": 507150,
     "full_dqi_toffoli_gate": 212110.5877974592,
-    "remaining_after_repeated_cell_only": 81700.58779745921,
-    "decision": "PROMISING_COMPONENT_ONLY_FULL_SCHEDULE_UNMEASURED"
+    "arithmetic_difference_after_pair_cell_only": 81700.58779745921,
+    "existing_projected_full_dqi_toffoli_like_gates": 202075,
+    "other_costs_in_existing_projection": 71665,
+    "projected_margin_to_full_dqi_gate": 10035.5877974592,
+    "decision": "PAIR_UPDATE_COST_CONFIRMED_FULL_SCHEDULE_UNMEASURED"
   },
   "official_verifier": "NOT_RUN",
   "competition_submission": null,
-  "scope": "One normalized FMA pair update with supplied ratio and branch. The 130,410T figure simply repeats this 54T cell 2,415 times; it excludes ratio generation, the full 70-symbol circuit, DQI output/phase, reversible cleanup, and the official verifier. It is not a full-circuit estimate or candidate."
+  "scope": "One normalized FMA pair update with supplied ratio and branch. Repeating the measured 54T cell gives a 130,410T pair-update subtotal, matching the existing 42T product plus 12T controlled-swap ledger. The prior 202,075T full-DQI projection already includes this subtotal and 71,665T of other estimated work; it leaves only 10,035.59T under the current gate. Full integration, width, DQI output/phase, reversible cleanup, and the official verifier remain unproven."
 }

@@ -23,8 +23,18 @@ class FmaMbuReceiptTests(unittest.TestCase):
             cost["repeated_cell_toffoli_like_gates"],
         )
         self.assertLess(
-            cost["repeated_cell_toffoli_like_gates"],
+            cost["existing_projected_full_dqi_toffoli_like_gates"],
             cost["full_dqi_toffoli_gate"],
+        )
+        self.assertEqual(
+            cost["existing_projected_full_dqi_toffoli_like_gates"]
+            - cost["repeated_cell_toffoli_like_gates"],
+            cost["other_costs_in_existing_projection"],
+        )
+        self.assertAlmostEqual(
+            cost["full_dqi_toffoli_gate"]
+            - cost["existing_projected_full_dqi_toffoli_like_gates"],
+            cost["projected_margin_to_full_dqi_gate"],
         )
         self.assertIsNone(receipt["competition_submission"])
         self.assertEqual(receipt["official_verifier"], "NOT_RUN")
