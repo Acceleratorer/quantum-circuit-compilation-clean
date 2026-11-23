@@ -51,7 +51,11 @@ Refresh the leaderboard before every submission.
 
 ## Active single direction
 
-The current focus is the attributed Syed v17 inverse-square-root generator;
-its source claim and access gate are recorded in the
-[lead receipt](2026-11-23-invsqrt-source-lead.json) and
-[run log](../log/2026-11-23-invsqrt-source-lead.md).
+The attributed Syed v17 inverse-square-root generator has now been rebuilt
+from its published source tree and passed the full official verifier. The
+candidate is a verified task member, not a leaderboard submission; the full
+three-task archive remains open. See the [exp-062 evaluation receipt](2026-11-23-exp062-invsqrt.json),
+[experiment record](../experiments/exp-062/README.md), and
+[run log](../log/2026-11-23-exp062-invsqrt-rebuild.md). The earlier source
+lead and access limitation are preserved in the
+[lead receipt](2026-11-23-invsqrt-source-lead.json).

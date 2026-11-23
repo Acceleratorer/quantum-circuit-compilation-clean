@@ -1,0 +1,87 @@
+{
+  "dataset": "syed3000/vqcc-own-circuit-portfolio",
+  "dataset_version": 17,
+  "outer_archive_sha256_claim": "4f9fabdcc7618d6ec93259b84b6a9f08d2e02efa6bf29cc54b47470f98e3ec3c",
+  "outer_archive_present": false,
+  "inner_archive_present": false,
+  "source_tree_files": 1019,
+  "source_tree_bytes": 31891406,
+  "source_tree_suffixes": {
+    ".json": 397,
+    ".macro": 1,
+    ".md": 33,
+    ".npy": 3,
+    ".py": 576,
+    ".txt": 9
+  },
+  "source_tree_sha256": "d049ead9e2d6f0e0f4888737de3fa3137cf18e6697d657a7dcdf1607ab833c8a",
+  "source_tree_digest": "sha256 over sorted relative path, NUL, file SHA-256, newline",
+  "upstream_package_sha256": {
+    "build.py": "30d9b8f51877ce7d2efc9ce6faf7dbb03e9bc5de16b305101fe91172a547d6ed",
+    "coefficient_phase.json": "bb1820e62890e401068d7461e715876290649e779d562a73d0c1616938452020",
+    "coefficient_windows.py": "a72d6aedec56354a755d994af47f02eaeb2c893d372754b1117ee08290aaf116",
+    "finish_f16.py": "f3d12ff6aedf5283386e8e7f363f6121a67a6ffb41340ab9906f739b6df6408a",
+    "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "NOTICE": "51a1cacf35155c1152a874925463b4ab25016bc661d78f60143ca6d8cd167b2b",
+    "owner_lineage.py": "7779b72f90cf092a4c04acc23816ef1b4628bb24c1080fe68daa6c05f82ec7e8",
+    "prepare.py": "f25bf2f5448555fbe9b84b615e3b0ee2dfe8ddade7d4f66dfea2aadfbf946d1e",
+    "README.md": "76b1780b19cca8392480d26f0974677b0ec3a4424435590e2780e7b2eac9e205"
+  },
+  "copied_package_search_tree": false,
+  "copied_package_circuit_binaries": false,
+  "restored_gzip_inputs": [
+    {
+      "derived": "syed_source/root/q43_integrated_width_base_root_v1/ALL_INPUT_ALL_HMR_OCCUPANCY.json.gz",
+      "source": "syed_source/root/q43_integrated_width_base_root_v1/ALL_INPUT_ALL_HMR_OCCUPANCY.json",
+      "source_sha256": "8692b7f1dfde6a7e11fc32fa1b1321b15b8146c28d642db3da7395f857004661",
+      "derived_sha256": "266843868ab25fc3c359d22cf815a0e462cc2c1ea321bcde6feb5853110708ff",
+      "bytes": 7415
+    },
+    {
+      "derived": "syed_source/root/q43_all_early_and_quartics_width_root_v1/ALL_INPUT_ALL_HMR_OCCUPANCY.json.gz",
+      "source": "syed_source/root/q43_all_early_and_quartics_width_root_v1/ALL_INPUT_ALL_HMR_OCCUPANCY.json",
+      "source_sha256": "581db178f0bb95f9afb7be57c274f3fa3307437f7646ae7632868fae009bcc0d",
+      "derived_sha256": "97c27158ec29eb8c5960e6777ab1613236c1ef7d462be1d29f26c7a0de593509",
+      "bytes": 7826
+    },
+    {
+      "derived": "syed_source/agents/paid_helper/remaining_early_carry_windows_native_v3/OPERATION_MAP.json.gz",
+      "source": "syed_source/agents/paid_helper/remaining_early_carry_windows_native_v3/OPERATION_MAP.json",
+      "source_sha256": "90240d162259933ef123a5820386330d7da90e31770d46713279b98a8087a54f",
+      "derived_sha256": "d849f70a95276711729aed2345b9e3d8f2d36fc05dd1eb823a00da27b2875ccd",
+      "bytes": 240576
+    },
+    {
+      "derived": "syed_source/agents/paid_helper/early_conditional_carry_borrows_native_v1/OPERATION_MAP.json.gz",
+      "source": "syed_source/agents/paid_helper/early_conditional_carry_borrows_native_v1/OPERATION_MAP.json",
+      "source_sha256": "638a916c56613b6dd7bb060d346a14393d54d3765498964683f8d2068aa184c4",
+      "derived_sha256": "002853675554023a8defc2110016873d6a67791091b12928b55dc16200d2163f",
+      "bytes": 240208
+    },
+    {
+      "derived": "syed_source/agents/temporal_merges/q43_long_virtual_q21_native_v1/OPERATION_MAP.json.gz",
+      "source": "syed_source/agents/temporal_merges/q43_long_virtual_q21_native_v1/OPERATION_MAP.json",
+      "source_sha256": "0049c06b936d2417120b217873ab09be799ed62abb0c7e2cb98c2399575d0b80",
+      "derived_sha256": "ea5e4f172405526756c625793af9504360a7ad95ebf61ddb2cc174fd9926e11c",
+      "bytes": 237333
+    },
+    {
+      "derived": "syed_source/agents/temporal_merges/q43_middle_short_virtual_q21_native_v1/OPERATION_MAP.json.gz",
+      "source": "syed_source/agents/temporal_merges/q43_middle_short_virtual_q21_native_v1/OPERATION_MAP.json",
+      "source_sha256": "4b1e5fcdedaf69c805affe45f65f8d20c97f88a1b285c73301aaaf3b9b636e7e",
+      "derived_sha256": "9de08095a785656e123cba9b1e7abe1cb348c52fb98354be52369e91e4b5bd1c",
+      "bytes": 236552
+    },
+    {
+      "derived": "syed_source/agents/temporal_merges/q43_remaining_broad_fallbacks_v2/CASE_046.json.gz",
+      "source": "syed_source/agents/temporal_merges/q43_remaining_broad_fallbacks_v2/CASE_046.json",
+      "source_sha256": "10701edcd8513683891aa44c0c972e9d1e6402f86d3cc5fdc1eef25c524e1dd5",
+      "derived_sha256": "22e9f23f8a73a5f9d2a7c8a24d39bd3f54eb4a2a9944888a127978fc3891ea89",
+      "bytes": 783
+    }
+  ],
+  "patched_build_py_sha256": "e7221fced88bcbe0d76d0e3a7d643e62ce869cfc95e3f28661df55df2e094230",
+  "adaptation": "copied the Kaggle-published extracted syed_source tree instead of the unavailable nested zip",
+  "upstream_license": "Apache-2.0",
+  "circuit_binary_inputs_read": false
+}

@@ -8,6 +8,7 @@ Research log and reproducible tooling for the Google Quantum AI Verifiable Quant
 |---|---:|
 | Highest recorded account score (public archive; ineligible) | **33.17067**, submission `58771243` |
 | Source-owned submission with complete provenance | **None verified** |
+| Latest source-owned task member (not submitted) | **invsqrt Q=43, cost 72,440.35**, exp-062; full verifier PASS |
 | Latest retained leaderboard snapshot | `Accelra` rank **1372 / 3606**, score `28.14028`; submission `58479383`, public-circuit blend |
 | Rank 1 in that snapshot | **33.85279** (team `Entangled Team`) |
 

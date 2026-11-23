@@ -1,0 +1,59 @@
+{
+  "date": "2026-11-23",
+  "experiment": "exp-062",
+  "task": "invsqrt",
+  "kernel": {
+    "slug": "accelra/exp-062-syed-v17-invsqrt",
+    "version": 4,
+    "privacy": "private"
+  },
+  "source": {
+    "dataset": "syed3000/vqcc-own-circuit-portfolio",
+    "dataset_version": 17,
+    "license": "Apache-2.0",
+    "source_tree_files": 1019,
+    "source_tree_bytes": 31891406,
+    "source_tree_sha256": "d049ead9e2d6f0e0f4888737de3fa3137cf18e6697d657a7dcdf1607ab833c8a",
+    "claimed_outer_archive_sha256": "4f9fabdcc7618d6ec93259b84b6a9f08d2e02efa6bf29cc54b47470f98e3ec3c",
+    "outer_archive_present": false,
+    "circuit_binary_inputs_read": false,
+    "receipt": "../experiments/exp-062/receipts/source_provenance.json"
+  },
+  "build": {
+    "status": "PASS",
+    "seconds": 469.22916083,
+    "kernel_script_sha256": "5f1b2b6f3ff41ba837c666112d6f5dbdea0308d89e5617e0697b9a3e199de214",
+    "receipt": "../experiments/exp-062/receipts/build_receipt.json",
+    "runtime_versions": {
+      "kickmix": "1.0.0",
+      "numpy": "2.1.3",
+      "scipy": "1.16.3"
+    }
+  },
+  "candidate": {
+    "sha256": "70fe5f79d56bd48cd8fc9602757a0520b4d11859967627906cccb3dec25b7692",
+    "qubits": 43,
+    "cost": 72440.3509518131,
+    "toffoli_equivalent": 1684.65932446077,
+    "mean_toffoli_count": 1436.0940559924006,
+    "max_toffoli_count": 1622,
+    "t_count": 1.74996035721945,
+    "rotation_count": 34.0,
+    "rotation_eps": 1.435612524295067e-13,
+    "reaction_depth": 1422,
+    "num_ops": 38744
+  },
+  "verification": {
+    "status": "PASS",
+    "verifier_sha256": "ddef520dec6b68d1cf0a6f328ddd36d79eb84570b9192cf3f7acaf073f06733a",
+    "verified_shots": 200540928,
+    "worst_error_over_tolerance": 0.9969164058035003,
+    "worst_x": 13994,
+    "seconds": 481.13251443299987,
+    "receipt": "../experiments/exp-062/receipts/verify_full.json"
+  },
+  "submission": {
+    "submitted": false,
+    "reason": "This experiment verifies the invsqrt member only. The competition submission archive also requires dqi and dfthcsos members; no complete source-owned archive was built."
+  }
+}
