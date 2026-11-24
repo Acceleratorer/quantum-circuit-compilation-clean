@@ -35,4 +35,7 @@ The rebuild code is in [`kernel/`](kernel/). Hashes and verifier output are in [
 
 ## Archive status
 
-This verifies the third member only. The complete source-owned archive has not yet been assembled, rescored, or submitted. See the [archive milestone](../../milestone/2026-11-23-source-owned-archive.md).
+This verified member was included in the complete source-owned archive built
+in [exp-065](../exp-065/README.md), alongside the invsqrt and DQI members. The
+archive was submitted to Kaggle as ref `58832495`; its score is pending. See
+the [archive milestone](../../milestone/2026-11-23-source-owned-archive.md).

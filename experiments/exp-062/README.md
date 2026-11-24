@@ -35,7 +35,9 @@ The stage hashes, lineage, and cut hashes are in the [build receipt](receipts/bu
 
 ## Submission status
 
-This is a verified **invsqrt component**, not a competition submission. The
-official archive also requires `dqi` and `dfthcsos` members. No full archive was
-built or submitted in this experiment. The score and verification receipt are
-in [`evals/2026-11-23-exp062-invsqrt.json`](../../evals/2026-11-23-exp062-invsqrt.json).
+This verified **invsqrt component** was included in the complete source-owned
+archive built in [exp-065](../exp-065/README.md), alongside the DQI and
+dfthcsos members. The archive was submitted to Kaggle as ref `58832495`; its
+score is pending. This experiment did not submit the component by itself. The
+component receipt is in
+[`evals/2026-11-23-exp062-invsqrt.json`](../../evals/2026-11-23-exp062-invsqrt.json).

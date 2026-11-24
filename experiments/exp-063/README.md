@@ -52,8 +52,7 @@ the raw Kaggle output is under [`kaggle_output/`](kaggle_output/).
 
 ## Submission status
 
-This is a verified **DQI component**, not a competition submission or top-1
-result. Together with the exp-062 invsqrt component, two of the three required
-members now have source builds and official verifier passes. The dfthcsos
-member and a complete archive are still outstanding. No partial archive was
-submitted.
+This verified **DQI component** was included in the complete source-owned
+archive built in [exp-065](../exp-065/README.md), alongside the invsqrt and
+dfthcsos members. The archive was submitted to Kaggle as ref `58832495`; its
+score is pending. This experiment did not submit the component by itself.
