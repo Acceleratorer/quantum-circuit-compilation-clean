@@ -1,0 +1,55 @@
+{
+  "experiment": "exp-064",
+  "task": "dfthcsos",
+  "source": {
+    "dataset": "syed3000/vqcc-own-circuit-portfolio",
+    "dataset_version": 17,
+    "license": "Apache-2.0",
+    "source_tree_sha256": "61c2b9db025e13dac7192e436d6354a9892ffde0a719e1fb3a81734cfad9da83",
+    "submission_npz_sha256": "07f81f5f31341785821c773483e7bbeb7b7b087512dd65dc8c38589285373dbf"
+  },
+  "kernel": {
+    "id": "accelra/exp-064-dfthcsos-source-audit",
+    "version": 1,
+    "private": true,
+    "internet_enabled": false
+  },
+  "official_verifier": {
+    "status": "PASS",
+    "sha256": "0775be7a528922367caebe9e4d051d6199811f1aefeaa4b793eaaa4621b8ec9d",
+    "submission_sha256": "e3dd5a3eb24b6947efd225b9973d9a71d15c540a3c341450589da667325e5275",
+    "shots": 78080,
+    "score": 295006518.96994764,
+    "lambda_eff": 46.94128125065798,
+    "Lambda": 283.38034734579963,
+    "E_gap": 3.914898003000417,
+    "error_1": 0.01999998799999983,
+    "error_2": 0.01999998799999997,
+    "toffoli": 14718.0,
+    "qubits": 427,
+    "angle_width": 128,
+    "circuits": 15,
+    "build_seconds": 10.60369718,
+    "verification_seconds": 27.689957413
+  },
+  "generated_circuit_hashes": {
+    "angle_k_0.kmb": "ed0e37917eb890d5f85feb0befb13a0ab28ed63e502e55a9255a734a756ae95a",
+    "angle_k_1.kmb": "3369961bc4bbbc2adb50589aeeff77f18e5fa6730d54f76cc7374aef1eaab4e0",
+    "angle_k_2.kmb": "77e7617795492c3e1134fc6950dc74efc5d6bee4ee7e35d46d65562beef736e9",
+    "angle_k_3.kmb": "873dffe724f6cf4ffaa76570702b9f5050685e869d35b3ea994378608b9803c9",
+    "angle_k_4.kmb": "bda33d0f62f301e0c07bf54b59525ae35728320de255555fd6ea3f8a97e7d968",
+    "angle_k_5.kmb": "550fc63afc2f283d5c692ecb673ade6c395e244266a68ef9002eb883589d2a2d",
+    "angle_k_6.kmb": "cf18f63d18f523be9b328375623c378713f1ab82fb07b0ecb08d00d36e63178d",
+    "angle_k_7.kmb": "e10ae07b2bb844b4f013e1b756045233be9b7c6db765d1d7aa453bc61ba3a558",
+    "angle_k_8.kmb": "2d461781aa715d34e9c74fb45be5a5efd84e40e073e884cc12b3f33fa273ba8e",
+    "angle_k_9.kmb": "7605223c9c66f36d0458b2a8f8a543956ac9298e4840f381c8dace50ebace93c",
+    "angle_k_10.kmb": "cad76ad08b8ed31902b39b0e7a3dca0eb97913199f1b5e99cbc1b3789c20f6b1",
+    "angle_k_11.kmb": "f86245868393ff372d2d6234c99f93d0bf8731d847dfcab37c705d8ab430834f",
+    "angle_k_12.kmb": "9d7e45e900d769bd9e12b9e21bcdd7fac1792df6e9084d7290b7bb35dda4abe0",
+    "angle_k_13.kmb": "5e078606d3c35f39560bfe7b5bee0622b268b40402ce37c7d9787d1d2428ec7a",
+    "angle_k_14.kmb": "5b9ad036220c6248288929ac63d7cb762a584419729a1e67fa2e9a80e4ca18f0"
+  },
+  "public_circuit_inputs_read": false,
+  "blocked_public_circuit_read_attempts": 0,
+  "competition_submission_created": false
+}

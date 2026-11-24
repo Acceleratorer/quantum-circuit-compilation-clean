@@ -1,0 +1,28 @@
+{
+  "experiment": "exp-065",
+  "competition": "google-verifiable-quantum-circuit-compilation",
+  "archive": {
+    "sha256": "dd4615023eef0478f34738bd7205f3233a14c6cd7ccb800fa55e0b71b20233b6",
+    "size_bytes": 109303498,
+    "member_count": 18,
+    "integrity_receipt": "archive.json"
+  },
+  "attempts": [
+    {
+      "date": "2026-11-24",
+      "filename": "source-owned-submission.zip",
+      "status": "REJECTED",
+      "http_status": 400,
+      "reason": "Submission files must be named submission.zip for this Competition."
+    },
+    {
+      "date": "2026-11-24",
+      "filename": "submission.zip",
+      "status": "PENDING",
+      "submission_ref": 58832495,
+      "public_score": null
+    }
+  ],
+  "rules_accepted": true,
+  "daily_submissions_remaining_at_submit": 5
+}

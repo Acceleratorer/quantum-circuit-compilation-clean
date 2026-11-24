@@ -1,0 +1,98 @@
+{
+  "dataset": "syed3000/vqcc-own-circuit-portfolio",
+  "dataset_version_claim": 17,
+  "license": "Apache-2.0",
+  "official_kickmix_sha256": "c66b3216c4029e0cdfd09054306aa0feadf53ab2f50c1164e37f752874e5005e",
+  "official_verifier_sha256": "0775be7a528922367caebe9e4d051d6199811f1aefeaa4b793eaaa4621b8ec9d",
+  "public_circuit_inputs_read": false,
+  "selected_source_bytes": 2001839,
+  "selected_source_files": 35,
+  "selected_source_tree_sha256": "61c2b9db025e13dac7192e436d6354a9892ffde0a719e1fb3a81734cfad9da83",
+  "source_hashes": {
+    "FILE_HASHES.json": "4ea1f2c26f8467f362c2dc3fa91ff8494268874db58cdcd29ba9189ddcd22cd7",
+    "LICENSE": "4f4f015b67cac4d6786244a5416361cf8cf4e4b24b73fa74acd759b393dd9edd",
+    "NOTICE": "91c914e4fb60b96a5bd21abcd6a0c0b6067a25e69e07272ede217427d8f0ce3d",
+    "compiler/emit_k0.py": "cd1e5078b970c5b30faeeff3619d5b0b5968d8aa85d4a484e4f4143ec7855147",
+    "compiler/emit_k0c.py": "c4a0764133146ca4dd0dffc1119bb13c1d9d76da8f93a7eb4cba9330e00d8404",
+    "compiler/emit_plan.py": "d8d4c9c9ac1cdfe3a43e266bd7f79b7f3c3f319e95a358ed5a3395a08cebddf4",
+    "compiler/extract_matching.py": "567c0fd32b077517c3d8d1c6cb1cae2d7b7ff22d1d3da75d5aa3149cdcd17015",
+    "compiler/gauge_plan_fit.py": "5a298e05f372835bf6c934d406218f9d4444597c2f193fac090c16ef698a0769",
+    "compiler/helper_coordinates.py": "d6e55b4c5665511e53d0fe5734f0597c3bab1a0222d1111cacb0bf72db279fa9",
+    "compiler/high_subspace_emitter.py": "e796fb89a727303e258a60d21dff5c33642835d4c3e54867a454252c98945ced",
+    "compiler/k0_windows.json": "d9100a1573850635b82281d6f4c6917596fc338620e06fca1baad4729cf59b8c",
+    "compiler/low_helper_cache.py": "2499301ab777c7e938183cfb634c1de6ec89a1965113aa99012a88bf10e2b683",
+    "compiler/own_guard.py": "db68e6d8fdee24d7cdf6a0d77be336567414628cfbe2886586d469d522e21d9e",
+    "compiler/padding_completion.py": "dffb9aa7869812e9e9ed78c3a9af0252ea75aaadcca4d88eeba58d4d3ad974bb",
+    "compiler/parity_recover.py": "f0daca3e3b00f3b49aab38146f3f30702df36e417129c7fcd664f812cab37a01",
+    "compiler/stream_compact.py": "074807f37a58fb69e0c4ce7a36a01fa690daf9ac32a69a030b64dc28f2a2d614",
+    "compiler/transport_cuts.py": "146b2bcf71a22235f392a7c4a57ef60e1ed23a4eb52ccd126fae70e841d5f51b",
+    "manifest.json": "08bc05b1eea5a25a614c38e7ba93648c3e2adbcf97ec5c986810763f589a27db",
+    "plans/angle_k_0.json": "9a0816801ab427139ea638091896a18aedfe396316a7239027bd9fe3a3cddc37",
+    "plans/angle_k_1.json": "2f70eca28995da8aed23823fab1e939dc40067854e5abd9595d6d23d853cf2a2",
+    "plans/angle_k_10.json": "635532dbb04c245f552d016b0a6e035e1c3eebff48a3978078cd873ccf7aca19",
+    "plans/angle_k_11.json": "92a78a04dfb33552d4b93388372cfab6e090d00c8e438d3c34ed33f002e94c26",
+    "plans/angle_k_12.json": "a4efb344f7e8a57a17b3692dae5a0b88cd094772007eb67e48aa4163e45d82ab",
+    "plans/angle_k_13.json": "1ad3f709c917fab18d1bae660ce51f9b6bf14a87e9456f3dcfd34dbe3408746a",
+    "plans/angle_k_14.json": "d188c0b135903961bf5f5b103b7125240e5eb630d2e3fbb9be4cc4214f07e3a8",
+    "plans/angle_k_2.json": "42ca1a419f773ab4f3b3caa61acb6c2fd2376d7cc9a09a055eae4ebca82bd11a",
+    "plans/angle_k_3.json": "c8d065c91d07f9cff18c699281eaae6ea7ef7b3db7d99b8620d6f24b342d5d69",
+    "plans/angle_k_4.json": "1948af60949e3dcd3307a8854147de87947c7cb28f45503735e682d16c93118a",
+    "plans/angle_k_5.json": "01620f4b157f31ac9acacf8b02f6c7797654c266cf8bc77b8cf3656187e4f61e",
+    "plans/angle_k_6.json": "04cf2780f9d468511dc4efe3562420eeb3563dd7c0b77c75f8412cb2d15d0c16",
+    "plans/angle_k_7.json": "771ceed562a20d27898284382c114d3bbef541aede2bebb8abd07a984a42b66d",
+    "plans/angle_k_8.json": "b1bf1017cf064b7513eee20e0db021aa4b2617aa43dbca65e3f27ecd732b18cb",
+    "plans/angle_k_9.json": "04727f5fad4e4b83eebb23803c2766d77b07511493f1f77f35bc9318e7d69d5e",
+    "rebuild.py": "b26833d6baa662df2d24b58ad98ded7d26be08602e5996e316f584e73d26f879",
+    "submission.npz": "07f81f5f31341785821c773483e7bbeb7b7b087512dd65dc8c38589285373dbf"
+  },
+  "source_npz_schema": {
+    "H1_I": [
+      [],
+      "float32"
+    ],
+    "H2_I": [
+      [
+        8,
+        44
+      ],
+      "float64"
+    ],
+    "Hsym_lower": [
+      [
+        2926
+      ],
+      "float32"
+    ],
+    "U": [
+      [
+        8,
+        143,
+        76
+      ],
+      "float64"
+    ],
+    "W": [
+      [
+        8,
+        143,
+        44
+      ],
+      "float64"
+    ],
+    "angle_words": [
+      [
+        1220,
+        75
+      ],
+      "int64"
+    ],
+    "tree_edges": [
+      [
+        75,
+        2
+      ],
+      "int64"
+    ]
+  },
+  "status": "PINNED_SOURCE_TREE_VERIFIED"
+}

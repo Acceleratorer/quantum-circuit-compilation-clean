@@ -6,21 +6,24 @@ This directory separates local verifier estimates from Kaggle results.
 
 - Submission `58771243` scored `33.17067` using a public circuit archive.
 - Submission `58479383` scored `28.14028` and also used public circuits.
-- Both are historical account measurements, not source-owned candidates. No
-  source-owned submitted baseline with complete provenance is currently
-  verified. See the [58771243 receipt](2026-11-23-submission-58771243-provenance.json).
+- Both are historical account measurements, not source-owned candidates. As
+  of 2026-11-24, the source-owned exp-065 archive is submitted but still
+  pending scoring; no scored source-owned baseline is verified yet. See the
+  [58771243 receipt](2026-11-23-submission-58771243-provenance.json) and the
+  [exp-065 submission receipt](../experiments/exp-065/receipts/submission.json).
 
-## Latest live status (`2026-11-23T13:23:46Z`)
+## Latest live status (`2026-11-24T13:32:09Z`)
 
-- Accelra account score: `33.17067`, submission `58771243`, rank `221 / 3628`.
+- Accelra account score: `33.17067`, submission `58771243`, rank `354 / 3671`.
   This submission used public circuit binaries and is ineligible for the
   source-owned goal.
-- Rank 1: `Entangled Team`, `34.12081`; score gap: `0.95014`.
+- Rank 1: `Entangled Team`, `34.25544`; gap from the old public score:
+  `1.08477`.
 - Snapshot metadata and the retained CSV are in
-  [the 13:23Z receipt](2026-11-23-live-leaderboard-132346Z.json) and
-  [`kaggle/snapshots/`](../kaggle/snapshots/2026-11-23/).
-- The exp-062 invsqrt and exp-063 DQI source-built candidates passed after this
-  snapshot. Neither was submitted, so neither has a leaderboard score yet.
+  [the 13:32Z receipt](2026-11-24-live-leaderboard-133209Z.json) and
+  [`kaggle/snapshots/`](../kaggle/snapshots/2026-11-24/).
+- The source-owned exp-065 archive is submitted as ref `58832495` and was
+  `PENDING` at the last CLI readback. No score is recorded yet.
 
 ## Previous live status (`2026-11-23T04:27:24Z`)
 
@@ -63,10 +66,13 @@ Refresh the leaderboard before every submission.
 
 ## Active direction
 
-One source-owned archive is still the goal. Invsqrt and DQI now have exact
-source-built candidates and official verifier passes; dfthcsos is the only
-member gate still open. Neither verified component has been submitted. See
-the [archive milestone](../milestone/2026-11-23-source-owned-archive.md),
+One source-owned archive is still the goal. All three members have
+source-built candidates and official verifier passes. The 18-member exp-065
+archive is submitted and awaiting its score. See the
+[archive milestone](../milestone/2026-11-23-source-owned-archive.md),
 [exp-062 receipt](2026-11-23-exp062-invsqrt.json),
-[exp-063 receipt](2026-11-23-exp063-dqi.json), and
-[exp-063 run log](../log/2026-11-23-exp063-dqi-source-rebuild.md).
+[exp-063 receipt](2026-11-23-exp063-dqi.json),
+[exp-064 receipt](2026-11-23-exp064-dfthcsos.json), and
+[exp-064 run log](../log/2026-11-23-exp064-dfthcsos-source-rebuild.md).
+The archive and Kaggle submission readback are recorded in
+[experiments/exp-065/](../experiments/exp-065/README.md).

@@ -1,0 +1,33 @@
+{
+  "captured_utc": "2026-11-24T13:32:09Z",
+  "competition": "google-verifiable-quantum-circuit-compilation",
+  "source": "Kaggle CLI full public leaderboard download (competitions leaderboard --download)",
+  "snapshot": {
+    "path": "kaggle/snapshots/2026-11-24/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-24T133209Z.csv",
+    "csv_sha256": "15bf754adeaeafc96907a3633f11425ac6319af31dc23280e10eb658f5a358f8",
+    "archive_sha256": "a6edbbfb12a089dc10d7d11390d8d3aa16c057973c348868f6b7d7ccd62aa04f",
+    "team_rows": 3671,
+    "ranked_team_rows": 3671,
+    "scores_sorted_descending": true
+  },
+  "own_team": {
+    "team": "Accelra",
+    "team_id": 17349145,
+    "public_score": 33.17067,
+    "rank": 354,
+    "latest_best_submission": 58771243,
+    "submission_count": 24,
+    "last_submission_utc": "2026-11-23T09:29:39Z",
+    "source_owned": false
+  },
+  "leader": {
+    "rank": 1,
+    "team": "Entangled Team",
+    "team_id": 17180610,
+    "score": 34.25544,
+    "last_submission_utc": "2026-11-24T09:15:19Z",
+    "submission_count": 115
+  },
+  "score_gap": 1.08477,
+  "notes": "This is the pre-exp-065 public leaderboard snapshot. The source-owned archive was submitted as ref 58832495 and was pending at the last CLI readback."
+}

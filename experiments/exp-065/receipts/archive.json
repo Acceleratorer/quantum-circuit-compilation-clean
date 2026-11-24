@@ -1,0 +1,24 @@
+{
+  "archive_sha256": "dd4615023eef0478f34738bd7205f3233a14c6cd7ccb800fa55e0b71b20233b6",
+  "members": {
+    "invsqrt.kmb": "70fe5f79d56bd48cd8fc9602757a0520b4d11859967627906cccb3dec25b7692",
+    "dqi.kmb": "fc2564c61931a0b1c789d8857a78e54f88466b546870f0e99ad252b8c59183c5",
+    "dfthcsos/angle_k_0.kmb": "ed0e37917eb890d5f85feb0befb13a0ab28ed63e502e55a9255a734a756ae95a",
+    "dfthcsos/angle_k_1.kmb": "3369961bc4bbbc2adb50589aeeff77f18e5fa6730d54f76cc7374aef1eaab4e0",
+    "dfthcsos/angle_k_10.kmb": "cad76ad08b8ed31902b39b0e7a3dca0eb97913199f1b5e99cbc1b3789c20f6b1",
+    "dfthcsos/angle_k_11.kmb": "f86245868393ff372d2d6234c99f93d0bf8731d847dfcab37c705d8ab430834f",
+    "dfthcsos/angle_k_12.kmb": "9d7e45e900d769bd9e12b9e21bcdd7fac1792df6e9084d7290b7bb35dda4abe0",
+    "dfthcsos/angle_k_13.kmb": "5e078606d3c35f39560bfe7b5bee0622b268b40402ce37c7d9787d1d2428ec7a",
+    "dfthcsos/angle_k_14.kmb": "5b9ad036220c6248288929ac63d7cb762a584419729a1e67fa2e9a80e4ca18f0",
+    "dfthcsos/angle_k_2.kmb": "77e7617795492c3e1134fc6950dc74efc5d6bee4ee7e35d46d65562beef736e9",
+    "dfthcsos/angle_k_3.kmb": "873dffe724f6cf4ffaa76570702b9f5050685e869d35b3ea994378608b9803c9",
+    "dfthcsos/angle_k_4.kmb": "bda33d0f62f301e0c07bf54b59525ae35728320de255555fd6ea3f8a97e7d968",
+    "dfthcsos/angle_k_5.kmb": "550fc63afc2f283d5c692ecb673ade6c395e244266a68ef9002eb883589d2a2d",
+    "dfthcsos/angle_k_6.kmb": "cf18f63d18f523be9b328375623c378713f1ab82fb07b0ecb08d00d36e63178d",
+    "dfthcsos/angle_k_7.kmb": "e10ae07b2bb844b4f013e1b756045233be9b7c6db765d1d7aa453bc61ba3a558",
+    "dfthcsos/angle_k_8.kmb": "2d461781aa715d34e9c74fb45be5a5efd84e40e073e884cc12b3f33fa273ba8e",
+    "dfthcsos/angle_k_9.kmb": "7605223c9c66f36d0458b2a8f8a543956ac9298e4840f381c8dace50ebace93c",
+    "dfthcsos/submission.npz": "07f81f5f31341785821c773483e7bbeb7b7b087512dd65dc8c38589285373dbf"
+  },
+  "member_count": 18
+}
