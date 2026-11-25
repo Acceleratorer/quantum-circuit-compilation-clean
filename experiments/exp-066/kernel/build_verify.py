@@ -214,8 +214,20 @@ def main() -> None:
 
     fingerprint, file_count = dataset_fingerprint(dataset)
     manifest_path = dataset / "expected_sha256.json"
-    if fingerprint != DATASET_FINGERPRINT or sha256(manifest_path) != MANIFEST_SHA256:
-        raise RuntimeError("the mounted generator dataset differs from the pinned version")
+    manifest_hash = sha256(manifest_path)
+    print(
+        "DATASET_PIN",
+        str(dataset),
+        file_count,
+        fingerprint,
+        manifest_hash,
+        flush=True,
+    )
+    if fingerprint != DATASET_FINGERPRINT or manifest_hash != MANIFEST_SHA256:
+        raise RuntimeError(
+            "mounted dataset pin mismatch: "
+            f"files={file_count}, fingerprint={fingerprint}, manifest={manifest_hash}"
+        )
 
     competition = locate_one(input_root, "verify_submission_dqi.py").parents[2]
     kickmix_dir = competition / "kickmix"
