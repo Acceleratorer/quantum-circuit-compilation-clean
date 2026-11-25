@@ -945,18 +945,26 @@ roots of unity that GF(2^12) does not provide in characteristic two. See the
 [FLINT algorithm/source notes](https://github.com/flintlib/flint/blob/main/doc/src/algorithms/polynomials/gcd.md)
 and [van der Hoeven's half-GCD paper](https://www.texmacs.org/joris/gcd/gcd.pdf).
 
-The single remaining feasibility gate is the FMA forward-CONVERT + full
-remaining residue scan (the 70-point prefix is already handled) + v18 pair
-updates: `69,220 + 44,275 + 130,410 = 243,905T`
+The optimistic FMA subtotal is forward-CONVERT + the remaining residue scan
+(the 70-point prefix is already handled) + v18 pair updates:
+`69,220 + 44,275 + 130,410 = 243,905T`
 ([cost split](../../evals/2026-11-23-exp057-convert-cost-split.json),
 [v18 update](../../evals/2026-11-23-exp057-fma-pair-update-mbu-v18.json)).
-This is `37,928T` under the refreshed tie gate, but optimistically omits
-reverse CONVERT. Phase-derivative correction and complete cleanup are still
-unmeasured; this subtotal is not a candidate.
+It leaves `37,927.91T` under the refreshed tie gate and omits reverse CONVERT.
+The native FMA phase still mismatches 30 of 64 classical cases; the derivative
+identity repairs those cases classically, but no reversible correction has
+been built or costed
+([phase receipt](../../evals/2026-11-25-exp057-native-phase-derivative.json)).
 
-**Decision:** close half-GCD and keep that existing FMA route as the only
-active feasibility gate. Continue only if phase correction and cleanup fit
-inside its remaining budget and the completed circuit stays below
-`281,832.91T` and passes the official verifier. The classical asymptotic
-half-GCD result is neither a reversible resource estimate nor a lower-bound
-proof.
+The direct-RHS EEA estimate for `omega / sigma_prime` is `174,672T` mean.
+With the `130,410T` v18 pair updates, the optimistic subtotal is `305,082T`,
+`23,249T` above the refreshed tie gate, before complete input mapping and
+cleanup. It is not a reversible circuit or a candidate
+([EEA receipt](../../evals/2026-11-25-exp057-forney-polynomial-inverse.json)).
+
+**Decision:** close half-GCD and park the current EEA phase implementation;
+do not submit it. Reopen the DQI path only if a source-owned, reversible phase
+correction fits the `37,927.91T` remaining budget and composes with the full
+decoder under `Q <= 900`, followed by official verification. The separate
+mask-aggregation identity has only a classical 32-case screen and no circuit
+or resource estimate. These are feasibility gates, not lower-bound proofs.
