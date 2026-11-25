@@ -375,9 +375,10 @@ reversible schedule. See the [evaluation](../../evals/2026-11-25-exp057-tail-key
 and [run log](../../log/2026-11-25-exp057-tail-key-equation-composition.md).
 
 The direct Forney conversion `A = omega / sigma_prime mod sigma` passes its
-classical residue checks, but ordinary polynomial extended Euclid averages
-184,164T and peaks at 206,364T on 64 verifier-shaped inputs. That is 5.09x the
-36,183.74T replacement allowance before reversible branches or cleanup, so do
-not build this direct implementation. This closes the ordinary EEA route only;
-receipt: [evaluation](../../evals/2026-11-25-exp057-forney-polynomial-inverse.json)
-and [log](../../log/2026-11-25-exp057-forney-polynomial-inverse.md).
+classical residue checks, but ordinary polynomial Euclid averages 174,672T in
+its cheaper direct-right-hand-side form on 64 verifier-shaped inputs. That is
+4.83x the 36,183.74T replacement allowance before reversible branches or
+cleanup, so neither measured EEA formulation is worth building. This closes
+these direct implementations only; receipt:
+[evaluation](../../evals/2026-11-25-exp057-forney-polynomial-inverse.json) and
+[log](../../log/2026-11-25-exp057-forney-polynomial-inverse.md).

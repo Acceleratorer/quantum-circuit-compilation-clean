@@ -1,10 +1,10 @@
 {
-  "captured_utc": "2026-11-25T10:27:09Z",
+  "captured_utc": "2026-11-25T10:32:09Z",
   "experiment": "exp-057-forney-polynomial-inverse-screen",
   "source": {
-    "git_head_before_run": "08523b29ef279ab13e7d2ee80769fb6756e29df1",
+    "git_head_before_run": "1145adef9a292d84db45fa18ec38ba19ce09af9b",
     "screen": "experiments/exp-057/forney_polynomial_inverse_screen.py",
-    "screen_sha256": "2fb820c6c1ee255ea8745abeca91fbbfdbf14448f7c507c4ebddfad672d0fe07",
+    "screen_sha256": "f0d0737d96c39071e9f099327638d4b960c4b5c4e045db02ba12343e819d5baa",
     "fma_state_compression_sha256": "f698408af39066202daff2c63f5f3779d717128cbde6e8bb53369e9c412299d1",
     "phase_compatibility_sha256": "2aca269221197a278c6fd87ef2be0f35f0facb747acf26d954c569ef8fc5feb4",
     "command": "..\\..\\.venv\\Scripts\\python.exe -B experiments\\exp-057\\forney_polynomial_inverse_screen.py"
@@ -19,9 +19,14 @@
     "field_products_mean_max": [4355.0, 4882],
     "field_inversions_mean_max": [19.0, 20],
     "estimated_T_mean_max": [184164.0, 206364],
+    "inverse_then_multiply_residue_checks": 2112,
+    "direct_rhs_field_products_mean_max": [4129.0, 4626],
+    "direct_rhs_field_inversions_mean_max": [19.0, 20],
+    "direct_rhs_residue_checks": 2112,
+    "direct_rhs_estimated_T_mean_max": [174672.0, 195612],
     "replacement_budget_T": 36183.74,
     "within_budget": false
   },
-  "decision": "The direct ordinary polynomial EEA route computes omega/sigma_prime modulo sigma correctly, but its optimistic sample-path estimate is 5.09x the replacement budget on average. Do not build this exact route as a reversible circuit. This does not rule out a faster or integrated transformation.",
+  "decision": "Both ordinary polynomial EEA formulations compute omega/sigma_prime modulo sigma correctly. Tracking the right-hand side directly reduces the average estimate from 184,164T to 174,672T, still 4.83x the replacement budget before reversible overhead. Do not build either formulation as a circuit. This does not rule out a faster or integrated transformation.",
   "scope": "Classical sample-path arithmetic count only. No reversible circuit, fixed-branch upper bound, workspace/cleanup, full DQI schedule, official verifier, or submission."
 }

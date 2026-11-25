@@ -132,7 +132,8 @@ def run_screen(case_count: int = CASE_COUNT, seed: int = SEED) -> dict[str, obje
         ]
     rng = Random(seed)
     product_counts, inverse_counts = [], []
-    residue_checks = 0
+    direct_products, direct_inversions = [], []
+    residue_checks = direct_residue_checks = 0
 
     for case in range(case_count):
         weight = 31 if case % 2 == 0 else 35
@@ -167,9 +168,37 @@ def run_screen(case_count: int = CASE_COUNT, seed: int = SEED) -> dict[str, obje
         product_counts.append(counts.products)
         inverse_counts.append(counts.inversions)
 
+        # Solve sigma_prime * A = omega (mod sigma) without materializing the
+        # complete inverse polynomial first.
+        direct = _FieldCounts(mul, inv)
+        r0, r1, a0, a1 = list(sigma), list(sigma_prime), [0], list(omega)
+        while r1 != [0]:
+            quotient, remainder = _divmod_poly(r0, r1, direct)
+            next_a = _add(a0, _poly_multiply(quotient, a1, direct))
+            r0, r1, a0, a1 = r1, remainder, a1, next_a
+        if len(r0) != 1 or r0[0] == 0:
+            raise AssertionError("sample locator derivative is not invertible")
+        normalization = direct.inverse(r0[0])
+        a0 = [direct.multiply(value, normalization) for value in a0]
+        direct_residue = _remainder(a0, list(sigma), direct)
+        for root in errors:
+            expected = mul(
+                fma.poly_eval(omega, root, mul),
+                inv(fma.poly_eval(sigma_prime, root, mul)),
+            )
+            if fma.poly_eval(direct_residue, root, mul) != expected:
+                raise AssertionError("direct-RHS residue does not match omega/sigma_prime")
+            direct_residue_checks += 1
+        direct_products.append(direct.products)
+        direct_inversions.append(direct.inversions)
+
     costs = [
         products * PRODUCT_COST_T + inversions * INVERSE_COST_T
         for products, inversions in zip(product_counts, inverse_counts)
+    ]
+    direct_costs = [
+        products * PRODUCT_COST_T + inversions * INVERSE_COST_T
+        for products, inversions in zip(direct_products, direct_inversions)
     ]
     return {
         "experiment": "exp-057-forney-polynomial-inverse-screen",
@@ -187,8 +216,19 @@ def run_screen(case_count: int = CASE_COUNT, seed: int = SEED) -> dict[str, obje
             round(sum(inverse_counts) / case_count, 1), max(inverse_counts)
         ],
         "estimated_T_mean_max": [round(sum(costs) / case_count, 1), max(costs)],
+        "inverse_then_multiply_residue_checks": residue_checks,
+        "direct_rhs_field_products_mean_max": [
+            round(sum(direct_products) / case_count, 1), max(direct_products)
+        ],
+        "direct_rhs_field_inversions_mean_max": [
+            round(sum(direct_inversions) / case_count, 1), max(direct_inversions)
+        ],
+        "direct_rhs_residue_checks": direct_residue_checks,
+        "direct_rhs_estimated_T_mean_max": [
+            round(sum(direct_costs) / case_count, 1), max(direct_costs)
+        ],
         "replacement_budget_T": REPLACEMENT_BUDGET_T,
-        "within_budget": max(costs) <= REPLACEMENT_BUDGET_T,
+        "within_budget": max(costs + direct_costs) <= REPLACEMENT_BUDGET_T,
         "scope": (
             "Classical sample-path operation count for ordinary polynomial EEA and "
             "remainder arithmetic. No reversible circuit, fixed-branch upper bound, "
