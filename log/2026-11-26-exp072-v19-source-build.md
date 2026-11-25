@@ -22,18 +22,21 @@
   zero phase errors.
 - 18-member archive: CRC PASS; SHA-256
   `6fb21b160f87ebeff80a9b506e7335e5a4d0803db5ca6e2ba61257010e084a5e`.
-- Local verifier GM: `32.9148153851` for this DQI draw. The exact DQI hash had
-  zero value errors in exp-071; substituting that score gives diagnostic GM
-  `33.0813367703`, still below the `33.17067` account best. This is not a
-  public-score projection.
+- Local verifier GM: `32.9148153851`. The build starts from exp-071's DQI base
+  hash `4b572141…`, then applies ten gate rewrites to produce final DQI hash
+  `6f78ecdd…`. That same rewritten hash observed four value errors in exp-066
+  and exp-072; exp-071's unmodified base had zero. Substituting the base DQI
+  score gives counterfactual GM `33.0813367703`, still below the `33.17067`
+  account best. This is not a public-score projection.
 
 ## Submission
 
 The source build lowered chemistry cost by `608,050.4202` versus exp-071 and
-passed every verifier. The default DQI draw observed four value errors even
-though its bytes match exp-071; its local geometric mean is therefore not a
-stable comparison. The same-DQI diagnostic GM is `33.0813367703`, not a public
-score projection. One public measurement was submitted for calibration:
+passed every verifier. The DQI rewrites changed the source-built base circuit
+and the resulting hash observed four value errors in both exp-066 and exp-072.
+The `33.0813367703` diagnostic restores exp-071's unmodified DQI score while
+holding the chemistry change; it is not a public-score projection. One public
+measurement was submitted for calibration:
 
 - Kaggle ref: `58907057`
 - Archive SHA-256: `6fb21b160f87ebeff80a9b506e7335e5a4d0803db5ca6e2ba61257010e084a5e`

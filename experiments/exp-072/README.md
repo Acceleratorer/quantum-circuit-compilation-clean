@@ -30,11 +30,13 @@ build passed all verifiers at 3,328 Toffolis per pass, 18 above the notebook's
 claim. Chemistry cost was `249,967,854.72`, a `608,050.42` reduction from
 exp-071's `250,575,905.14`.
 
-The build uses the source-built exp-071 DQI and Invsqrt components. The DQI
-verifier observed four value errors on its default draw; exp-071's exact same
-DQI hash observed zero, so the raw local geometric means are salt-sensitive.
-Replacing only the DQI score with exp-071's result gives a diagnostic local
-GM of `33.08134`; this is not a public-score projection. After rechecking the
+The build starts from the source-built exp-071 DQI base circuit (`4b572141…`)
+and Invsqrt component, then applies ten DQI gate rewrites. The final DQI member
+hash is `6f78ecdd…`, not exp-071's base hash. The same rewritten DQI hash was
+used in exp-066; both official verifier runs observed four value errors and
+zero phase errors. The `33.08134` local GM substitutes exp-071's unmodified
+DQI score as a counterfactual to isolate the chemistry change; it is not the
+submitted archive's score or a public-score projection. After rechecking the
 archive and its member hashes, one public measurement was submitted as Kaggle
 ref `58907057`. It is currently pending; exp-071 remains the best scored
 source-owned submission at `33.05453`.

@@ -17,6 +17,13 @@
     "weight_payload_sha256": "4c91ad004ed90595fdc83bae462a88da9fcbf5952ce5c47be9aa9da702d82808",
     "loader_payload_sha256": "c9b5936f95b523b21f775fef039a4a86bdca5bab6576589fd90b37cfc1bd23bf"
   },
+  "dqi_rewrite": {
+    "base_source_circuit_sha256": "4b5721411adc239f61fc11c773a2358b75dfe7cb15586efae4f0459c77d77e52",
+    "rewrite_count": 10,
+    "rewritten_circuit_sha256": "6f78ecdd636051d4d2dd8f24aaece1d454eb220aaf0df2c1d64c3d96fe22081d",
+    "prior_same_hash_verification": "experiments/exp-066/receipts/kernel-v5-result.json",
+    "prior_same_hash_value_errors": 4
+  },
   "chemistry_build": {
     "source_weight_hash": "5b63a8f6d0be88249a8b0bdd2d56bc42e9c456e3936dfa35e5e066fb0886d2c1",
     "source_weight_payload_sha256": "4c91ad004ed90595fdc83bae462a88da9fcbf5952ce5c47be9aa9da702d82808",
@@ -114,8 +121,8 @@
       "dfthcsos": 249967854.71943197
     },
     "public_projection": false,
-    "same_dqi_score_as_exp071_diagnostic_geometric_mean": 33.081336770316234,
-    "diagnostic_note": "The DQI file hash matches exp-071, but this run observed four value errors versus zero in exp-071; substituting exp-071's DQI verifier score isolates the chemistry change and is not a public-score prediction."
+    "base_dqi_counterfactual_geometric_mean": 33.081336770316234,
+    "diagnostic_note": "The unmodified base DQI hash matches exp-071, but exp-072 applies ten gate rewrites, producing final hash 6f78ecdd636051d4d2dd8f24aaece1d454eb220aaf0df2c1d64c3d96fe22081d. The same rewritten hash in exp-066 and exp-072 observed four value errors. Substituting exp-071's unmodified DQI score is a counterfactual that isolates the chemistry change; it is not a public-score prediction."
   },
   "comparison": {
     "exp071_submission": 58894750,
@@ -174,6 +181,6 @@
     "submitted_at": "2026-11-25T19:41:41.383Z",
     "archive_sha256": "6fb21b160f87ebeff80a9b506e7335e5a4d0803db5ca6e2ba61257010e084a5e",
     "public_score": null,
-    "reason": "One public measurement was submitted after all official verifiers passed and chemistry cost improved by 608,050.42 over exp-071. The default DQI draw had four value errors despite the exact DQI hash matching exp-071, so the raw local geometric mean is salt-sensitive; the same-DQI diagnostic GM is not a public-score projection."
+    "reason": "One public measurement was submitted after all official verifiers passed and chemistry cost improved by 608,050.42 over exp-071. Exp-072 starts from the exp-071 base DQI hash but applies ten rewrites, producing final hash 6f78ecdd636051d4d2dd8f24aaece1d454eb220aaf0df2c1d64c3d96fe22081d; this same rewritten hash observed four value errors in exp-066 and exp-072. The local counterfactual substituting exp-071's unmodified DQI score is not a public-score projection."
   }
 }
