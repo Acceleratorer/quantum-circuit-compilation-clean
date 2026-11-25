@@ -13,6 +13,13 @@ The standing user decision forbids submitting or copying downloaded circuits;
 the archive is not a candidate until an attributed source-owned generator
 reproduces it. Existing product-retention variants have already been screened.
 
+The Kaggle notebook [Rank #1 Breakthrough](https://www.kaggle.com/code/rishabhbafnaiiitd/quantum-circuit-compilation-rank-1-breakthrough)
+was screened on 2026-11-26. Its source pins hashes for the existing compiled
+portfolio, extracts those artifacts from an archive or dataset, and packages
+them; it contains no source-owned circuit generator. Its stated rank-1 target
+of `29.30100` is also stale against the `34.34445` live leaderboard. Exclude
+it as a candidate; the notebook was inspected only, not executed or submitted.
+
 The current score-equivalent DQI cost gate is `271.946e9`, or
 `T <= 281,832.91` at `Q=900` and `R=1.1912604648`, holding exp-071's other
 source-built components fixed. This is derived from the live rank-1 score, not
@@ -961,6 +968,12 @@ With the `130,410T` v18 pair updates, the optimistic subtotal is `305,082T`,
 `23,249T` above the refreshed tie gate, before complete input mapping and
 cleanup. It is not a reversible circuit or a candidate
 ([EEA receipt](../../evals/2026-11-25-exp057-forney-polynomial-inverse.json)).
+
+The existing per-position `phase_inverse36_pivot` route costs `36T` for each
+of the 4,095 Chien positions, or `147,420T`, against `37,927.91T` remaining.
+Close this direct insertion; the count uses the measured helper cost in the
+[exp-057 record](../../experiments/exp-057/README.md) and is not a lower bound
+on an integrated phase algorithm.
 
 **Decision:** close half-GCD and park the current EEA phase implementation;
 do not submit it. Reopen the DQI path only if a source-owned, reversible phase
