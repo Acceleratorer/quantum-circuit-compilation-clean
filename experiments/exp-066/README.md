@@ -13,7 +13,8 @@ generator dataset, then applies the ten published DQI gate rewrites to the
 generated DQI assembly and recompiles it. The base source DQI is pinned at
 `4b572141…`; the rewritten output is expected to match `6f78ecdd…`.
 
-The dataset version is pinned by its 88-file fingerprint
+The kernel input is explicitly pinned to dataset version `2`; its mounted
+version is also checked by the 88-file fingerprint
 `50be321af83901e46476b55c7b1faedf60510f971abc495c02aa41f8c9b87e42` and the
 hash of `expected_sha256.json`. The build reads no public compiled circuit as
 input. The generator dataset's `notices/RELEASE_NOTICES.txt` credits the

@@ -9,7 +9,7 @@
   "enable_tpu": false,
   "enable_internet": false,
   "dataset_sources": [
-    "tonylica/quantum-ai-32-85306-task-generators"
+    "tonylica/quantum-ai-32-85306-task-generators/2"
   ],
   "competition_sources": [
     "google-verifiable-quantum-circuit-compilation"
