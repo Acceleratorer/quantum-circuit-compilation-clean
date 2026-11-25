@@ -49,6 +49,32 @@
       "syndrome_input_mapping": "NOT_ESTABLISHED",
       "reversible_circuit": "NOT_BUILT"
     },
+    "round_trip_converter_path_check": {
+      "receipts": [
+        "evals/2026-11-23-exp057-convert-cost-split.json",
+        "evals/2026-11-23-exp057-fma-convert-scan-v19.json",
+        "evals/2026-11-23-exp057-fma-pair-update-mbu-v18.json"
+      ],
+      "conditional_component_sum_t": {
+        "convert_forward": 69220,
+        "scan": 44275,
+        "convert_reverse": 70342,
+        "repeated_fma_pair_updates": 130410,
+        "sum": 314247
+      },
+      "integrated_schedule": "NOT_BUILT",
+      "converter_only_peak_qubits": 879,
+      "optimistic_q879_gate_t": 295460.18620380765,
+      "subtotal_excess_t_before_phase_fix_and_other_work": 18786.81379619235,
+      "phase": "The converter bridge still mismatches the raw FMA pair; only the canonical-pair control matches.",
+      "omitted": [
+        "reversible derivative correction",
+        "complete 70-sample state mapping",
+        "full-schedule peak qubits",
+        "output restoration and cleanup"
+      ],
+      "decision": "NO_GO_FOR_CURRENT_ROUND_TRIP_PATH"
+    },
     "decision": "Do not build or submit the current EEA phase route. The measured FMA subtotal is not a candidate because the raw phase is wrong and its reversible correction has no resource estimate. The direct-RHS EEA estimate plus pair updates already exceeds the refreshed tie gate before full mapping and cleanup."
   },
   "limits": "This is score-equivalence math, not the leader's measured component cost or a candidate score. It assumes the same scoring reference and repetition factor; the final candidate must pass the official verifier and beat the live leaderboard."

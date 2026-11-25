@@ -29,6 +29,15 @@ subtotal is not a candidate. See the
 [2026-11-26 gate receipt](../../evals/2026-11-26-dqi-score-equivalent-gate.json)
 and the [half-GCD gate result](#2026-11-26-half-gcd-gate--close-at-degree-35).
 
+Adding reverse CONVERT (`70,342T`) to the forward CONVERT, scan, and repeated
+pair-update component counts gives a conditional sum of `314,247T`; the full
+schedule has not been integrated. Even granting the converter-only width of
+`Q=879` to the whole schedule, the rank-1 tie threshold is `295,460T`, so this
+sum is already `18,787T` over before the phase fix, complete state mapping,
+output restoration, and cleanup. The FMA pair also fails the phase bridge while
+the canonical-pair control passes. Close this composition as a candidate; its
+`Q=879` measurement is not a full-schedule width result.
+
 The public Syed v25 source reports a DQI cost of `336.560e9`, 3.26% below our
 current measurement but 23.76% above the refreshed rank-1-equivalent DQI
 target. Its D69 lookup receipt saves only 66 Toffolis. Keep that source as a
