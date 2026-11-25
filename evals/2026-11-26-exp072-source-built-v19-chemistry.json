@@ -1,7 +1,7 @@
 {
   "experiment": "exp-072",
   "candidate": "V19 chemistry rebuild with source-built exp-071 DQI and Invsqrt",
-  "status": "VERIFIED_NOT_SUBMITTED",
+  "status": "VERIFIED_SUBMITTED_PENDING",
   "source": {
     "notebook": "goodpjw2008/qcc-shorter-chemistry-loaders-lb-33-25057",
     "notebook_version": 19,
@@ -169,7 +169,11 @@
     }
   },
   "submission": {
-    "status": "NOT_SUBMITTED",
-    "reason": "The source-only rebuild passes every verifier, but its measured local score is below the account best and it reproduces 3,328 rather than V19's claimed 3,310 Toffolis per pass. The V19 title score is not independently verified."
+    "status": "PENDING",
+    "ref": 58907057,
+    "submitted_at": "2026-11-25T19:41:41.383Z",
+    "archive_sha256": "6fb21b160f87ebeff80a9b506e7335e5a4d0803db5ca6e2ba61257010e084a5e",
+    "public_score": null,
+    "reason": "One public measurement was submitted after all official verifiers passed and chemistry cost improved by 608,050.42 over exp-071. The default DQI draw had four value errors despite the exact DQI hash matching exp-071, so the raw local geometric mean is salt-sensitive; the same-DQI diagnostic GM is not a public-score projection."
   }
 }

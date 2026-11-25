@@ -2,9 +2,9 @@
 id: exp-072
 title: Source-built V19 chemistry loaders
 task: portfolio
-status: verified_not_submitted
+status: submitted_pending
 date: 2026-11-26
-result: All verifiers PASS; chemistry 3,328 Toffolis/pass; local GM 32.91482; not submitted
+result: All verifiers PASS; chemistry 3,328 Toffolis/pass; Kaggle submission 58907057 is pending
 ---
 
 # exp-072 — source-built V19 chemistry loaders
@@ -34,8 +34,10 @@ The build uses the source-built exp-071 DQI and Invsqrt components. The DQI
 verifier observed four value errors on its default draw; exp-071's exact same
 DQI hash observed zero, so the raw local geometric means are salt-sensitive.
 Replacing only the DQI score with exp-071's result gives a diagnostic local
-GM of `33.08134`, still below the account best of `33.17067`. The candidate was
-not submitted.
+GM of `33.08134`; this is not a public-score projection. After rechecking the
+archive and its member hashes, one public measurement was submitted as Kaggle
+ref `58907057`. It is currently pending; exp-071 remains the best scored
+source-owned submission at `33.05453`.
 
 All official verifiers passed: chemistry on 78,016 shots at default and salt
 42; Invsqrt on 200,540,928 shots; DQI on 102,400 shots with zero phase errors.

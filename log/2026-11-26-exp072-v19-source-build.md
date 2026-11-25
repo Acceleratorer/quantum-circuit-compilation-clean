@@ -27,13 +27,21 @@
   `33.0813367703`, still below the `33.17067` account best. This is not a
   public-score projection.
 
-## Decision
+## Submission
 
-Do not submit. Chemistry improved over exp-071 by `608,050.4202`, but the
-source build missed the notebook's 3,310-Toffoli claim by 18 Toffolis/pass and
-the measured portfolio did not establish an account-best improvement. The
-notebook's `33.25057` title score remains unverified. Full verifier and
-leaderboard evidence is in
+The source build lowered chemistry cost by `608,050.4202` versus exp-071 and
+passed every verifier. The default DQI draw observed four value errors even
+though its bytes match exp-071; its local geometric mean is therefore not a
+stable comparison. The same-DQI diagnostic GM is `33.0813367703`, not a public
+score projection. One public measurement was submitted for calibration:
+
+- Kaggle ref: `58907057`
+- Archive SHA-256: `6fb21b160f87ebeff80a9b506e7335e5a4d0803db5ca6e2ba61257010e084a5e`
+- Status at last check: `PENDING`; no public score yet
+
+The build missed the notebook's 3,310-Toffoli claim by 18 Toffolis/pass, and
+its `33.25057` title score remains unverified. Full verifier and leaderboard
+evidence is in
 [`evals/2026-11-26-exp072-source-built-v19-chemistry.json`](../evals/2026-11-26-exp072-source-built-v19-chemistry.json).
 
 Next gate: V19's 37-qubit Invsqrt notebook starts from the published compiled

@@ -8,7 +8,7 @@ Research log and reproducible tooling for the Google Quantum AI Verifiable Quant
 |---|---:|
 | Highest recorded account score (public archive; ineligible) | **33.17067**, submission `58771243` |
 | Best source-owned submission | exp-071, Kaggle ref `58894750`, score **33.05453** |
-| Latest source-built candidate | exp-072: all verifiers PASS; local verifier GM **32.91482**; held from submission |
+| Latest source-built submission | exp-072: all verifiers PASS; Kaggle ref `58907057` is **PENDING**; local default-draw GM **32.91482** |
 | Latest leaderboard snapshot | `Accelra` rank **692 / 3722**, score `33.17067`; source [`snapshot`](kaggle/snapshots/2026-11-25/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-25T171313Z.csv) |
 | Rank 1 in that snapshot | **34.34445** (team `Entangled Team`); gap from account best: **1.17378** |
 
@@ -19,9 +19,11 @@ generator or counts as eligible evidence for the source-owned goal; see the
 
 The latest persisted full leaderboard snapshot is from `2026-11-25T17:13:13Z`;
 its CSV has 3,722 ranked teams. Accelra's 33.17067 score is from a public
-circuit archive. The best source-owned score is exp-071's `33.05453`; exp-072
-verified a lower chemistry cost but did not reproduce V19's 3,310-Toffoli claim
-or beat the account best, so it was not submitted. See the
+circuit archive. The best scored source-owned result remains exp-071's
+`33.05453`. exp-072 lowered chemistry cost by `608,050.42` and passed all
+verifiers; one source-built archive was submitted for public calibration and is
+pending. Its raw local draw had four DQI value errors, so `32.91482` is
+salt-sensitive. See the
 [`exp-072` evaluation](evals/2026-11-26-exp072-source-built-v19-chemistry.json).
 
 The repository keeps generators, verifier evidence, provenance, and experiment
