@@ -972,9 +972,17 @@ Close this direct insertion; the count uses the measured helper cost in the
 [exp-057 record](../../experiments/exp-057/README.md) and is not a lower bound
 on an integrated phase algorithm.
 
+For a packed list of 35 roots with all phase operands available, the same
+helper costs `1,260T`, leaving `36,667.91T` for root extraction and omitted
+work. The current scan emits no root list. A straightforward one-hot compactor
+would spend `860,160T` just writing root-coordinate bits (`24,576` set bits
+across GF(2^12)'s nonzero elements, times 35 slots), before pointer updates,
+mask access, or cleanup. This closes that layout only; it is not a lower bound
+on other root encodings.
+
 **Decision:** close half-GCD and park the current EEA phase implementation;
 do not submit it. Reopen the DQI path only if a source-owned, reversible phase
 correction fits the `37,927.91T` remaining budget and composes with the full
-decoder under `Q <= 900`, followed by official verification. The separate
-mask-aggregation identity has only a classical 32-case screen and no circuit
-or resource estimate. These are feasibility gates, not lower-bound proofs.
+decoder under `Q <= 900`, followed by official verification. No root compactor
+within that budget has been shown. These are feasibility gates, not
+lower-bound proofs.

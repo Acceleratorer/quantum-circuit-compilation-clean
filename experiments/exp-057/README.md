@@ -95,13 +95,11 @@ inputs: it preserves the 12-bit value, cleans 12 scratch qubits, and matches
 all 64 expected phases. It compiles to 168 static Toffoli-like gates and the
 simulator executes 2,304 total, or 36 per mask. The official reference
 Forney loop visits 4,095 positions, so inserting this helper once per position
-would cost about 147,420T, far above exp-057's current 9,700.05T projected
-margin. The existing 45,045T Chien/residue scan in
+costs `147,420T`, above D-004's refreshed `37,927.91T` remaining budget. The
+existing 45,045T Chien/residue scan in
 [`src/dqi/pro_q2_897/exp/scan/scan.py`](../../src/dqi/pro_q2_897/exp/scan/scan.py)
-is already included in the FMA projection. The open phase step is to produce
-its residue-form `A,B` from exp-057's final state and measure complete cleanup;
-that compatibility is not established. No new aggregate-mask circuit is
-needed unless this reuse fails.
+is already included in the FMA projection. The open algebraic aggregation
+screen below has no reversible root-list construction or resource count yet.
 
 An algebraic aggregation screen tests a possible way around that cost. Let
 `L(M)` be the trace-dual transform satisfying
