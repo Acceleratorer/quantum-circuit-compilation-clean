@@ -82,8 +82,11 @@ hashes.
 The exp-062/063/064 members are source-built and verifier-checked. The later
 exp-071 hybrid scored `33.05453` on Kaggle. exp-072 also passed all three task
 verifiers, rebuilt every circuit input from source, and reduced chemistry cost
-by `608,050.42`; its measured local score was `32.91482`, so it was not
-submitted. Rank 1 remains unmet. See the
+by `608,050.42`; it was submitted as Kaggle ref `58907057` and is still
+pending. Its local `32.91482` geometric mean included four DQI value errors on
+the default draw, despite matching exp-071's DQI hash; the `33.08134`
+same-DQI diagnostic is not a public-score projection. exp-071 remains the best
+scored source-owned submission, and rank 1 remains unmet. See the
 [source-owned archive milestone](milestone/2026-11-23-source-owned-archive.md),
 [exp-071](experiments/exp-071/README.md), and
 [exp-072](experiments/exp-072/README.md).
