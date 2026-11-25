@@ -36,6 +36,7 @@ notebook's `33.25057` title score remains unverified. Full verifier and
 leaderboard evidence is in
 [`evals/2026-11-26-exp072-source-built-v19-chemistry.json`](../evals/2026-11-26-exp072-source-built-v19-chemistry.json).
 
-Next high-upside work: reproduce the V19 37-qubit Invsqrt from editable source,
-then revisit the chemistry register layout only if that source build closes
-the 18-Toffoli gap.
+Next gate: V19's 37-qubit Invsqrt notebook starts from the published compiled
+`d2148a7c` circuit and edits its phases; it does not rebuild that circuit from
+editable source. Keep this lead parked unless a separate source generator is
+found. The source-built Invsqrt remains the 39-qubit exp-071 circuit.
