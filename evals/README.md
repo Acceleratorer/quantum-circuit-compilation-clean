@@ -56,6 +56,11 @@ This directory separates local verifier estimates from Kaggle results.
   shows the measured converter path cannot fit with it. Full integration,
   width, DQI output/phase, cleanup, and verifier remain open. See the
   [v18 receipt](2026-11-23-exp057-fma-pair-update-mbu-v18.json).
+- The 2026-11-25 classical derivative screen explains the failed native FMA
+  phase: the raw scan sees `error(r) * sigma_prime(r)`. It does not build the
+  reversible `omega/sigma_prime` map; the v15 tail solve remains the single
+  active path. See the [receipt](2026-11-25-exp057-native-phase-derivative.json)
+  and [run log](../log/2026-11-25-exp057-native-phase-derivative.md).
 - Full member hashes, verifier evidence, and submission:
   [2026-11-18 hybrid evaluation](2026-11-18-bori-frontier-hybrid.json).
 

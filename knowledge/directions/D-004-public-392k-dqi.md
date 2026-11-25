@@ -122,6 +122,18 @@ See the [v18 receipt](../../evals/2026-11-23-exp057-fma-pair-update-mbu-v18.json
 [run log](../../log/2026-11-23-exp057-fma-pair-update-mbu-v18.md), and
 [exp-057 record](../../experiments/exp-057/README.md). No submission is ready.
 
+## 2026-11-25 native phase diagnosis
+
+A 64-case classical GF(2^12) screen confirms the native FMA scan's missing
+factor: at each simple error root, `omega(r)/(r*P_data(r))` equals
+`error(r)*sigma_prime(r)`. This is a diagnosis, not a reversible fix. Keep
+work on the same exp-057 lane: derive the `omega/sigma_prime` residues from the
+v15 streamed state through the tail key-equation solve, then measure the full
+resource and cleanup schedule before submission. See the
+[evaluation](../../evals/2026-11-25-exp057-native-phase-derivative.json),
+[screen](../../experiments/exp-057/native_phase_derivative_diagnostic.py), and
+[run log](../../log/2026-11-25-exp057-native-phase-derivative.md).
+
 ## 2026-11-21 live leaderboard refresh
 
 The full Kaggle snapshot at `2026-11-21T12:55:34Z` has 3,519 teams.

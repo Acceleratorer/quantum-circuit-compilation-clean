@@ -349,3 +349,15 @@ verifier were not run, so this remains a failed shortcut screen.
 
 Receipt: [evaluation](../../evals/2026-11-24-exp057-fma-native-node-scan.json).
 Run with `python experiments/exp-057/native_node_scan_screen.py`.
+
+## Native phase derivative diagnosis
+
+A classical 64-case GF(2^12) screen isolated the phase mismatch: the raw FMA
+numerator gives `error(r) * sigma_prime(r)` at an error root. The scanner needs
+the corresponding `omega(r) / sigma_prime(r)` residue. The identity held on
+all cases; correcting its predicted parity removed all 30 raw phase
+mismatches. This does not implement the correction reversibly or establish
+its cost. The next gate remains producing those residues from the v15 streamed
+state and measuring complete cleanup. See the
+[evaluation](../../evals/2026-11-25-exp057-native-phase-derivative.json) and
+[run log](../../log/2026-11-25-exp057-native-phase-derivative.md).

@@ -1,0 +1,27 @@
+{
+  "captured_utc": "2026-11-25T07:48:11Z",
+  "experiment": "exp-057-native-phase-derivative-diagnostic",
+  "source": {
+    "git_head_before_run": "1e0a7849908ebc915c1d22ada688f6445f6ff61f",
+    "screen": "experiments/exp-057/native_phase_derivative_diagnostic.py",
+    "screen_sha256": "E7211C921E098490A613923CD9815C2D192F12C35E14FFE3E6499C2B2001AEB7",
+    "command": "..\\..\\.venv\\Scripts\\python.exe -B experiments\\exp-057\\native_phase_derivative_diagnostic.py"
+  },
+  "checks": {
+    "field": "GF(2^12), modulus 0x1053",
+    "seed": "0xA66062",
+    "cases": 64,
+    "weights": {"31": 32, "35": 32},
+    "roots_at_sample_nodes": 0,
+    "padding_root_collisions": 0,
+    "fma_pair_errors": 0,
+    "simple_root_derivative_errors": 0,
+    "omega_over_node_equals_error_times_locator_derivative_errors": 0,
+    "raw_phase_mismatches": 30,
+    "raw_phase_histogram": {"match": 34, "mismatch": 30},
+    "derivative_correction_errors": 0
+  },
+  "identity": "omega(r)/(r*P_data(r)) = error(r)*sigma_prime(r) at every sampled simple error root",
+  "decision": "The unconverted FMA numerator carries an extra locator-derivative factor in the native-node scan. Any continuation must obtain the equivalent of omega/sigma_prime at error roots from the v15 streamed state and include reversible cleanup in the full budget.",
+  "scope": "Classical arithmetic only. No DQI scanner import, circuit simulation, reversible correction, cleanup, Toffoli count, official verifier, or competition submission."
+}
