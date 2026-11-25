@@ -14,8 +14,10 @@ This directory separates local verifier estimates from Kaggle results.
 
 - exp-071 uses source-built KMX loaders 0–1 with the V18 source-plan loaders
   and factorization. Chemistry passed at default and salt 42. With the
-  source-built exp-069 DQI and exp-066 Invsqrt, the local projection is
-  `33.22214`; Kaggle submission `58894750` is pending. See
+  source-built exp-069 DQI and exp-066 Invsqrt, Kaggle submission `58894750`
+  completed at `33.05453`, below the team's `33.17067` best. The earlier
+  `33.22214` local projection was invalidated; chemistry-only calibration
+  predicts `33.05491` (inference). See the
   [the evaluation](2026-11-25-exp071-source-hybrid.json) and
   [experiment notes](../experiments/exp-071/README.md).
 

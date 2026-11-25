@@ -2,9 +2,9 @@
 id: exp-071
 title: Source-built chemistry loader hybrid
 task: portfolio
-status: submitted_pending
+status: scored_public
 date: 2026-11-25
-result: Chemistry PASS at 250575905.14; Kaggle submission 58894750 pending
+result: Kaggle public score 33.05453; chemistry PASS at 250575905.14
 ---
 
 # exp-071 — source-built chemistry loader hybrid
@@ -27,10 +27,11 @@ rebuilt from source.
 - Archive: 18 members, CRC and member hashes checked; SHA-256
   `378066e803c3383057159f13dac13ba86933dfbdd82dea7db37ddb49041aebd6`.
 
-The local geometric-mean projection is `33.22214`, above the prior public
-team best `33.17067`; it is an estimate. Kaggle submission `58894750` was
-uploaded on 2026-11-25 and is still pending. See the
-[evaluation record](../../evals/2026-11-25-exp071-source-hybrid.json).
+Kaggle submission `58894750` completed with public score `33.05453`. This is
+`0.11614` below the team's best `33.17067` and `1.28992` below the latest
+recorded rank-1 score `34.34445`. The earlier local projection `33.22214` was
+not a valid public-score estimate; see the [score calibration](../../log/2026-11-25-exp071-score-calibration.md)
+and [evaluation record](../../evals/2026-11-25-exp071-source-hybrid.json).
 
 ## Attribution
 
