@@ -14,4 +14,4 @@ Kaggle kernel version 5 rebuilt the 18-member archive from the attributed Apache
 
 ## Kaggle submission
 
-Submission `58878878` is currently `PENDING`; its public score is not available yet. The leaderboard reference at submission time had rank 1 at `34.25544`. This candidate is not claimed as rank 1 until Kaggle returns a score.
+Submission `58878878` completed with public score `32.85341`. This is `0.00035` above the `32.85306` source baseline and `1.40203` below rank 1 (`34.25544`). The full public leaderboard snapshot at 09:55:44 UTC still ranks the team 615th at its prior best `33.17067`; this candidate did not improve the team leaderboard score. It is not a rank-1 result.

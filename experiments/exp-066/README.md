@@ -28,9 +28,10 @@ credited separately in [UPSTREAM.md](UPSTREAM.md).
 ## Current gate
 
 Kernel version 5 rebuilt the candidate and passed all three unmodified official
-verifiers. Its archive was submitted as Kaggle submission `58878878`; the score
-is still pending. The base source portfolio scored `32.85306`; rank 1 was
-`34.25544` at submission time.
+verifiers. Its archive was submitted as Kaggle submission `58878878` and scored
+`32.85341`, only `0.00035` above the `32.85306` source baseline. Rank 1 was
+`34.25544`; the team's leaderboard best remains `33.17067` (rank 615), so this
+candidate did not improve its rank.
 
 ## Receipts
 
