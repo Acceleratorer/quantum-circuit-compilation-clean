@@ -1,0 +1,65 @@
+{
+  "experiment": "exp-068-dqi-zero-test-ablation",
+  "status": "PASS",
+  "source": {
+    "dataset": "tonylica/quantum-ai-32-85306-task-generators/2",
+    "manifest_sha256": "192853425ad64fd80ecc07aa904dc55b2adf53c7c3dff2cdce81babdb6eed9ce",
+    "base_dqi_sha256": "4b5721411adc239f61fc11c773a2358b75dfe7cb15586efae4f0459c77d77e52",
+    "official_kickmix_sha256": "c66b3216c4029e0cdfd09054306aa0feadf53ab2f50c1164e37f752874e5005e"
+  },
+  "build_seconds": 44.78,
+  "candidate_dqi_sha256": "140cc169c3fcfcf7c504629ca2ea18064ce1c8f532c84afec6ae28ed71bffec4",
+  "gate_counts": {
+    "retained_edits": {
+      "ozertuu: delete redundant conditional CCZ": 1,
+      "evgendvorkin: CCZ to CZ": 1
+    },
+    "omitted_zero_test_rewrites": 8,
+    "static_toffoli_like_before": 318972,
+    "static_toffoli_like_after": 318970
+  },
+  "dqi_verifier": {
+    "seconds": 447.84,
+    "result": {
+      "status": "PASS",
+      "score": 306441080139.99805,
+      "m": 4095,
+      "n": 70,
+      "degree": 12,
+      "r": 2016,
+      "verified_shots": 102400,
+      "value_errors": 1,
+      "phase_errors": 0,
+      "empirical_error_rate": 9.765625e-06,
+      "effective_error_rate": 0.0009104197583220583,
+      "log2_delta": -128.0,
+      "repetition_factor": 1.1967314991687559,
+      "mean_error_weight": 31.046737331746634,
+      "toffoli_count": 316129.65934570314,
+      "max_toffoli_count": 318970,
+      "reaction_depth": 40915,
+      "num_ops": 69782187,
+      "shot_operation_counts": {
+        "NEG": 11904659,
+        "BIT_INVERT": 925963842321,
+        "BIT_STORE0": 425369304215,
+        "BIT_STORE1": 914466351,
+        "X": 20401755089,
+        "Z": 13960611062,
+        "R": 4167435318,
+        "HMR": 8194831276,
+        "CX": 3758156437323,
+        "CZ": 90852720318,
+        "SWAP": 16601452578,
+        "CCX": 31695527475,
+        "CCZ": 676149642,
+        "POP_CONDITION": 72796774400,
+        "PUSH_CONDITION": 72796774400
+      },
+      "num_qubits": 900,
+      "num_bits": 691866,
+      "circuit_sha256": "140cc169c3fcfcf7c504629ca2ea18064ce1c8f532c84afec6ae28ed71bffec4"
+    }
+  },
+  "submission": "NOT_SUBMITTED"
+}

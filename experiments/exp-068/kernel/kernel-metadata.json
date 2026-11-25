@@ -1,0 +1,19 @@
+{
+  "id": "accelra/exp-068-dqi-zero-test-ablation",
+  "title": "exp-068 DQI zero-test ablation",
+  "code_file": "ablate_zero_test_edits.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "dataset_sources": [
+    "tonylica/quantum-ai-32-85306-task-generators/2"
+  ],
+  "competition_sources": [
+    "google-verifiable-quantum-circuit-compilation"
+  ],
+  "kernel_sources": [],
+  "model_sources": []
+}

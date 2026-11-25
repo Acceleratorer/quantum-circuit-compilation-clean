@@ -1,0 +1,35 @@
+{
+  "experiment": "exp-068",
+  "candidate_sha256": "140cc169c3fcfcf7c504629ca2ea18064ce1c8f532c84afec6ae28ed71bffec4",
+  "source": {
+    "dataset": "tonylica/quantum-ai-32-85306-task-generators/2",
+    "manifest_sha256": "192853425ad64fd80ecc07aa904dc55b2adf53c7c3dff2cdce81babdb6eed9ce",
+    "base_dqi_sha256": "4b5721411adc239f61fc11c773a2358b75dfe7cb15586efae4f0459c77d77e52"
+  },
+  "retained_rewrites": [
+    "evgendvorkin: CCZ to CZ",
+    "ozertuu: delete redundant conditional CCZ"
+  ],
+  "omitted_rewrites": 8,
+  "official_verifier": {
+    "status": "PASS",
+    "verified_shots": 102400,
+    "value_errors": 1,
+    "phase_errors": 0,
+    "score": 306441080139.99805,
+    "repetition_factor": 1.1967314991687559,
+    "num_qubits": 900,
+    "toffoli_count": 316129.65934570314,
+    "circuit_sha256": "140cc169c3fcfcf7c504629ca2ea18064ce1c8f532c84afec6ae28ed71bffec4"
+  },
+  "comparison": {
+    "exp066_score": 309694874626.0435,
+    "exp066_value_errors": 4,
+    "dqi_cost_change_percent": -1.0507,
+    "portfolio_score_projection": 32.9692,
+    "portfolio_projection_assumes_other_members_unchanged": true,
+    "source_portfolio_public_score": 32.85341
+  },
+  "decision": "Run the no-edit source baseline; do not submit this ablation.",
+  "submission": "NOT_SUBMITTED"
+}

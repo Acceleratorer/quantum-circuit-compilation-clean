@@ -1,0 +1,72 @@
+[{"stream_name":"stdout","time":583.115447515,"data":"{\n"}
+,{"stream_name":"stdout","time":583.115611229,"data":"  \"experiment\": \"exp-068-dqi-zero-test-ablation\",\n"}
+,{"stream_name":"stdout","time":583.115618205,"data":"  \"status\": \"PASS\",\n"}
+,{"stream_name":"stdout","time":583.115621919,"data":"  \"source\": {\n"}
+,{"stream_name":"stdout","time":583.115625298,"data":"    \"dataset\": \"tonylica/quantum-ai-32-85306-task-generators/2\",\n"}
+,{"stream_name":"stdout","time":583.115628897,"data":"    \"manifest_sha256\": \"192853425ad64fd80ecc07aa904dc55b2adf53c7c3dff2cdce81babdb6eed9ce\",\n"}
+,{"stream_name":"stdout","time":583.115632289,"data":"    \"base_dqi_sha256\": \"4b5721411adc239f61fc11c773a2358b75dfe7cb15586efae4f0459c77d77e52\",\n"}
+,{"stream_name":"stdout","time":583.115635685,"data":"    \"official_kickmix_sha256\": \"c66b3216c4029e0cdfd09054306aa0feadf53ab2f50c1164e37f752874e5005e\"\n"}
+,{"stream_name":"stdout","time":583.115639184,"data":"  },\n"}
+,{"stream_name":"stdout","time":583.115642369,"data":"  \"build_seconds\": 44.78,\n"}
+,{"stream_name":"stdout","time":583.115645643,"data":"  \"candidate_dqi_sha256\": \"140cc169c3fcfcf7c504629ca2ea18064ce1c8f532c84afec6ae28ed71bffec4\",\n"}
+,{"stream_name":"stdout","time":583.115648967,"data":"  \"gate_counts\": {\n"}
+,{"stream_name":"stdout","time":583.115652381,"data":"    \"retained_edits\": {\n"}
+,{"stream_name":"stdout","time":583.115655506,"data":"      \"ozertuu: delete redundant conditional CCZ\": 1,\n"}
+,{"stream_name":"stdout","time":583.11565865,"data":"      \"evgendvorkin: CCZ to CZ\": 1\n"}
+,{"stream_name":"stdout","time":583.115661726,"data":"    },\n"}
+,{"stream_name":"stdout","time":583.115664664,"data":"    \"omitted_zero_test_rewrites\": 8,\n"}
+,{"stream_name":"stdout","time":583.115667754,"data":"    \"static_toffoli_like_before\": 318972,\n"}
+,{"stream_name":"stdout","time":583.115670826,"data":"    \"static_toffoli_like_after\": 318970\n"}
+,{"stream_name":"stdout","time":583.115674195,"data":"  },\n"}
+,{"stream_name":"stdout","time":583.115677131,"data":"  \"dqi_verifier\": {\n"}
+,{"stream_name":"stdout","time":583.115680194,"data":"    \"seconds\": 447.84,\n"}
+,{"stream_name":"stdout","time":583.115683249,"data":"    \"result\": {\n"}
+,{"stream_name":"stdout","time":583.115686269,"data":"      \"status\": \"PASS\",\n"}
+,{"stream_name":"stdout","time":583.115689346,"data":"      \"score\": 306441080139.99805,\n"}
+,{"stream_name":"stdout","time":583.115692421,"data":"      \"m\": 4095,\n"}
+,{"stream_name":"stdout","time":583.115695405,"data":"      \"n\": 70,\n"}
+,{"stream_name":"stdout","time":583.115698368,"data":"      \"degree\": 12,\n"}
+,{"stream_name":"stdout","time":583.115701332,"data":"      \"r\": 2016,\n"}
+,{"stream_name":"stdout","time":583.115704265,"data":"      \"verified_shots\": 102400,\n"}
+,{"stream_name":"stdout","time":583.115707344,"data":"      \"value_errors\": 1,\n"}
+,{"stream_name":"stdout","time":583.115710322,"data":"      \"phase_errors\": 0,\n"}
+,{"stream_name":"stdout","time":583.115713298,"data":"      \"empirical_error_rate\": 9.765625e-06,\n"}
+,{"stream_name":"stdout","time":583.115716399,"data":"      \"effective_error_rate\": 0.0009104197583220583,\n"}
+,{"stream_name":"stdout","time":583.11571946,"data":"      \"log2_delta\": -128.0,\n"}
+,{"stream_name":"stdout","time":583.115722469,"data":"      \"repetition_factor\": 1.1967314991687559,\n"}
+,{"stream_name":"stdout","time":583.11572552,"data":"      \"mean_error_weight\": 31.046737331746634,\n"}
+,{"stream_name":"stdout","time":583.11572855,"data":"      \"toffoli_count\": 316129.65934570314,\n"}
+,{"stream_name":"stdout","time":583.115731732,"data":"      \"max_toffoli_count\": 318970,\n"}
+,{"stream_name":"stdout","time":583.115740328,"data":"      \"reaction_depth\": 40915,\n"}
+,{"stream_name":"stdout","time":583.115743668,"data":"      \"num_ops\": 69782187,\n"}
+,{"stream_name":"stdout","time":583.115751197,"data":"      \"shot_operation_counts\": {\n"}
+,{"stream_name":"stdout","time":583.115754489,"data":"        \"NEG\": 11904659,\n"}
+,{"stream_name":"stdout","time":583.115757828,"data":"        \"BIT_INVERT\": 925963842321,\n"}
+,{"stream_name":"stdout","time":583.115760956,"data":"        \"BIT_STORE0\": 425369304215,\n"}
+,{"stream_name":"stdout","time":583.115829604,"data":"        \"BIT_STORE1\": 914466351,\n"}
+,{"stream_name":"stdout","time":583.115835633,"data":"        \"X\": 20401755089,\n"}
+,{"stream_name":"stdout","time":583.1158401,"data":"        \"Z\": 13960611062,\n"}
+,{"stream_name":"stdout","time":583.115844606,"data":"        \"R\": 4167435318,\n"}
+,{"stream_name":"stdout","time":583.115849202,"data":"        \"HMR\": 8194831276,\n"}
+,{"stream_name":"stdout","time":583.115854055,"data":"        \"CX\": 3758156437323,\n"}
+,{"stream_name":"stdout","time":583.115860834,"data":"        \"CZ\": 90852720318,\n"}
+,{"stream_name":"stdout","time":583.115867687,"data":"        \"SWAP\": 16601452578,\n"}
+,{"stream_name":"stdout","time":583.115876512,"data":"        \"CCX\": 31695527475,\n"}
+,{"stream_name":"stdout","time":583.115880702,"data":"        \"CCZ\": 676149642,\n"}
+,{"stream_name":"stdout","time":583.115883879,"data":"        \"POP_CONDITION\": 72796774400,\n"}
+,{"stream_name":"stdout","time":583.115887064,"data":"        \"PUSH_CONDITION\": 72796774400\n"}
+,{"stream_name":"stdout","time":583.115890205,"data":"      },\n"}
+,{"stream_name":"stdout","time":583.115893242,"data":"      \"num_qubits\": 900,\n"}
+,{"stream_name":"stdout","time":583.115896345,"data":"      \"num_bits\": 691866,\n"}
+,{"stream_name":"stdout","time":583.115901585,"data":"      \"circuit_sha256\": \"140cc169c3fcfcf7c504629ca2ea18064ce1c8f532c84afec6ae28ed71bffec4\"\n"}
+,{"stream_name":"stdout","time":583.115905,"data":"    }\n"}
+,{"stream_name":"stdout","time":583.115907959,"data":"  },\n"}
+,{"stream_name":"stdout","time":583.115910984,"data":"  \"submission\": \"NOT_SUBMITTED\"\n"}
+,{"stream_name":"stdout","time":583.11591439,"data":"}\n"}
+,{"stream_name":"stderr","time":586.700914832,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":586.700978305,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":587.139510583,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":587.139556366,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":590.283038831,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":591.929648133,"data":"[NbConvertApp] Writing 314064 bytes to __results__.html\n"}
+]

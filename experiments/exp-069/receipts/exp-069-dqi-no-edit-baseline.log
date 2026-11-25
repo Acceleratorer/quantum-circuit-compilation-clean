@@ -1,0 +1,69 @@
+[{"stream_name":"stdout","time":514.890373178,"data":"{\n"}
+,{"stream_name":"stdout","time":514.890601649,"data":"  \"experiment\": \"exp-069-dqi-no-edit-baseline\",\n"}
+,{"stream_name":"stdout","time":514.890611493,"data":"  \"status\": \"PASS\",\n"}
+,{"stream_name":"stdout","time":514.890616738,"data":"  \"source\": {\n"}
+,{"stream_name":"stdout","time":514.890621549,"data":"    \"dataset\": \"tonylica/quantum-ai-32-85306-task-generators/2\",\n"}
+,{"stream_name":"stdout","time":514.890627226,"data":"    \"manifest_sha256\": \"192853425ad64fd80ecc07aa904dc55b2adf53c7c3dff2cdce81babdb6eed9ce\",\n"}
+,{"stream_name":"stdout","time":514.890632478,"data":"    \"base_dqi_sha256\": \"4b5721411adc239f61fc11c773a2358b75dfe7cb15586efae4f0459c77d77e52\",\n"}
+,{"stream_name":"stdout","time":514.89063784,"data":"    \"official_kickmix_sha256\": \"c66b3216c4029e0cdfd09054306aa0feadf53ab2f50c1164e37f752874e5005e\"\n"}
+,{"stream_name":"stdout","time":514.890643178,"data":"  },\n"}
+,{"stream_name":"stdout","time":514.890647531,"data":"  \"build_seconds\": 48.97,\n"}
+,{"stream_name":"stdout","time":514.890652255,"data":"  \"candidate_dqi_sha256\": \"4b5721411adc239f61fc11c773a2358b75dfe7cb15586efae4f0459c77d77e52\",\n"}
+,{"stream_name":"stdout","time":514.890657309,"data":"  \"gate_counts\": {\n"}
+,{"stream_name":"stdout","time":514.890662062,"data":"    \"retained_edits\": {},\n"}
+,{"stream_name":"stdout","time":514.890667061,"data":"    \"omitted_rewrites\": 10,\n"}
+,{"stream_name":"stdout","time":514.890671763,"data":"    \"static_toffoli_like_before\": 318972,\n"}
+,{"stream_name":"stdout","time":514.890676569,"data":"    \"static_toffoli_like_after\": 318972\n"}
+,{"stream_name":"stdout","time":514.890681285,"data":"  },\n"}
+,{"stream_name":"stdout","time":514.890685699,"data":"  \"dqi_verifier\": {\n"}
+,{"stream_name":"stdout","time":514.890690236,"data":"    \"seconds\": 375.97,\n"}
+,{"stream_name":"stdout","time":514.890694866,"data":"    \"result\": {\n"}
+,{"stream_name":"stdout","time":514.890699352,"data":"      \"status\": \"PASS\",\n"}
+,{"stream_name":"stdout","time":514.890704488,"data":"      \"score\": 305041647011.3978,\n"}
+,{"stream_name":"stdout","time":514.890709165,"data":"      \"m\": 4095,\n"}
+,{"stream_name":"stdout","time":514.890713792,"data":"      \"n\": 70,\n"}
+,{"stream_name":"stdout","time":514.89071838,"data":"      \"degree\": 12,\n"}
+,{"stream_name":"stdout","time":514.890723641,"data":"      \"r\": 2016,\n"}
+,{"stream_name":"stdout","time":514.890728273,"data":"      \"verified_shots\": 102400,\n"}
+,{"stream_name":"stdout","time":514.890732973,"data":"      \"value_errors\": 0,\n"}
+,{"stream_name":"stdout","time":514.890770532,"data":"      \"phase_errors\": 0,\n"}
+,{"stream_name":"stdout","time":514.890775877,"data":"      \"empirical_error_rate\": 0.0,\n"}
+,{"stream_name":"stdout","time":514.890799944,"data":"      \"effective_error_rate\": 0.0008660587301657926,\n"}
+,{"stream_name":"stdout","time":514.890804582,"data":"      \"log2_delta\": -128.0,\n"}
+,{"stream_name":"stdout","time":514.890808944,"data":"      \"repetition_factor\": 1.1912604648115832,\n"}
+,{"stream_name":"stdout","time":514.890813276,"data":"      \"mean_error_weight\": 31.046737331746634,\n"}
+,{"stream_name":"stdout","time":514.890817565,"data":"      \"toffoli_count\": 316131.2215625,\n"}
+,{"stream_name":"stdout","time":514.890821593,"data":"      \"max_toffoli_count\": 318972,\n"}
+,{"stream_name":"stdout","time":514.890825918,"data":"      \"reaction_depth\": 40915,\n"}
+,{"stream_name":"stdout","time":514.890830065,"data":"      \"num_ops\": 69782188,\n"}
+,{"stream_name":"stdout","time":514.890834842,"data":"      \"shot_operation_counts\": {\n"}
+,{"stream_name":"stdout","time":514.890856081,"data":"        \"NEG\": 11904117,\n"}
+,{"stream_name":"stdout","time":514.89086054,"data":"        \"BIT_INVERT\": 925955024874,\n"}
+,{"stream_name":"stdout","time":514.890864805,"data":"        \"BIT_STORE0\": 425367811988,\n"}
+,{"stream_name":"stdout","time":514.890868788,"data":"        \"BIT_STORE1\": 914455356,\n"}
+,{"stream_name":"stdout","time":514.890872861,"data":"        \"X\": 20401788159,\n"}
+,{"stream_name":"stdout","time":514.890876763,"data":"        \"Z\": 13959689170,\n"}
+,{"stream_name":"stdout","time":514.890880763,"data":"        \"R\": 4167436557,\n"}
+,{"stream_name":"stdout","time":514.890884901,"data":"        \"HMR\": 8194843743,\n"}
+,{"stream_name":"stdout","time":514.890888913,"data":"        \"CX\": 3758174815003,\n"}
+,{"stream_name":"stdout","time":514.890892971,"data":"        \"CZ\": 90881191740,\n"}
+,{"stream_name":"stdout","time":514.89089717,"data":"        \"SWAP\": 16601454905,\n"}
+,{"stream_name":"stdout","time":514.890901261,"data":"        \"CCX\": 31695586949,\n"}
+,{"stream_name":"stdout","time":514.890905275,"data":"        \"CCZ\": 676250139,\n"}
+,{"stream_name":"stdout","time":514.890909224,"data":"        \"POP_CONDITION\": 72796774400,\n"}
+,{"stream_name":"stdout","time":514.890913441,"data":"        \"PUSH_CONDITION\": 72796774400\n"}
+,{"stream_name":"stdout","time":514.890917499,"data":"      },\n"}
+,{"stream_name":"stdout","time":514.890921433,"data":"      \"num_qubits\": 900,\n"}
+,{"stream_name":"stdout","time":514.890925489,"data":"      \"num_bits\": 691866,\n"}
+,{"stream_name":"stdout","time":514.890929805,"data":"      \"circuit_sha256\": \"4b5721411adc239f61fc11c773a2358b75dfe7cb15586efae4f0459c77d77e52\"\n"}
+,{"stream_name":"stdout","time":514.89093427,"data":"    }\n"}
+,{"stream_name":"stdout","time":514.890938152,"data":"  },\n"}
+,{"stream_name":"stdout","time":514.89094198,"data":"  \"submission\": \"NOT_SUBMITTED\"\n"}
+,{"stream_name":"stdout","time":514.890946322,"data":"}\n"}
+,{"stream_name":"stderr","time":518.608202888,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":518.608250723,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":519.121125107,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":519.121157157,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":522.317575137,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":523.915855843,"data":"[NbConvertApp] Writing 312995 bytes to __results__.html\n"}
+]

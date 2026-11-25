@@ -1,0 +1,37 @@
+{
+  "experiment": "exp-069",
+  "candidate_sha256": "4b5721411adc239f61fc11c773a2358b75dfe7cb15586efae4f0459c77d77e52",
+  "source": {
+    "dataset": "tonylica/quantum-ai-32-85306-task-generators/2",
+    "license": "Apache-2.0",
+    "manifest_sha256": "192853425ad64fd80ecc07aa904dc55b2adf53c7c3dff2cdce81babdb6eed9ce",
+    "base_dqi_sha256": "4b5721411adc239f61fc11c773a2358b75dfe7cb15586efae4f0459c77d77e52",
+    "official_kickmix_sha256": "c66b3216c4029e0cdfd09054306aa0feadf53ab2f50c1164e37f752874e5005e"
+  },
+  "rewrites": [],
+  "official_verifier": {
+    "status": "PASS",
+    "verified_shots": 102400,
+    "value_errors": 0,
+    "phase_errors": 0,
+    "score": 305041647011.3978,
+    "effective_error_rate": 0.0008660587301657926,
+    "repetition_factor": 1.1912604648115832,
+    "num_qubits": 900,
+    "toffoli_count": 316131.2215625,
+    "circuit_sha256": "4b5721411adc239f61fc11c773a2358b75dfe7cb15586efae4f0459c77d77e52"
+  },
+  "comparison": {
+    "exp066_score": 309694874626.0435,
+    "exp066_value_errors": 4,
+    "exp068_score": 306441080139.99805,
+    "exp068_value_errors": 1,
+    "portfolio_score_projection": 33.01962,
+    "portfolio_projection_assumes_other_members_unchanged": true,
+    "source_portfolio_public_score": 32.85341,
+    "team_best_public_score": 33.17067,
+    "rank1_public_score": 34.25544
+  },
+  "decision": "Keep the source-built DQI as a candidate. Do not submit this lower-than-team-best portfolio; continue optimizing the other task members.",
+  "submission": "NOT_SUBMITTED"
+}
