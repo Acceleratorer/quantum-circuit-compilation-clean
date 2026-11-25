@@ -1,0 +1,27 @@
+{
+  "captured_utc": "2026-11-25T08:12:56Z",
+  "experiment": "exp-057-v15-tail-key-equation-composition",
+  "source": {
+    "git_head_before_run": "2860bb435ea7145131d4461b1d2de9cfa3b38861",
+    "screen": "experiments/exp-057/tail_key_equation_composition.py",
+    "screen_sha256": "DFCAB5AACBA2ACA5116A957E8B2C7DFD3DC020A1FB63AE5E332ED163F422BE98",
+    "command": "..\\..\\.venv\\Scripts\\python.exe -B experiments\\exp-057\\tail_key_equation_composition.py"
+  },
+  "checks": {
+    "field": "GF(2^12), modulus 0x1053",
+    "seed": "0xa66063",
+    "cases": 32,
+    "weights": {"31": 16, "35": 16},
+    "forced_prefix_error_roots": {"1": 4, "2": 4, "3": 3},
+    "prefix_pivots": {"0": 32},
+    "tail_symbols_per_case": 66,
+    "rank_pairs_by_weight": {
+      "31": {"prefix": [[4, 5]], "final": [[62, 79]]},
+      "35": {"prefix": [[4, 5]], "final": [[70, 71]]}
+    },
+    "normalized_low_rows_match_direct_basis": true,
+    "low_rows_match_error_locator_evaluator": true
+  },
+  "decision": "The canonical four-point FMA basis plus all 66 streamed tail updates reproduces the direct 70-symbol key-equation basis and expected error locator/evaluator on this seeded screen. Continue the single DQI path by obtaining the omega/sigma_prime residue from the streamed state and measuring full reversible cleanup.",
+  "scope": "Classical finite-field arithmetic only. No reversible output/phase correction, resource count, cleanup, official verifier, or competition submission."
+}

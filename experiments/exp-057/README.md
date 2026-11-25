@@ -361,3 +361,15 @@ its cost. The next gate remains producing those residues from the v15 streamed
 state and measuring complete cleanup. See the
 [evaluation](../../evals/2026-11-25-exp057-native-phase-derivative.json) and
 [run log](../../log/2026-11-25-exp057-native-phase-derivative.md).
+
+## Tail key-equation composition
+
+The canonical four-point FMA basis and all 66 streamed tail updates matched a
+direct 70-symbol basis and the expected error locator/evaluator on 32 seeded
+GF(2^12) cases, including 11 cases with errors at prefix roots 1, 2, or 3.
+This closes the classical basis-composition check only. It does not implement
+the derivative correction, DQI output, reversible cleanup, or the official
+verifier. Keep the next step on the same DQI path: derive the required
+`omega / sigma_prime` residue from the streamed state and measure the complete
+reversible schedule. See the [evaluation](../../evals/2026-11-25-exp057-tail-key-equation-composition.json)
+and [run log](../../log/2026-11-25-exp057-tail-key-equation-composition.md).
