@@ -3,7 +3,7 @@ id: D-004
 title: Improve the source-owned DQI decoder with a new key-equation algorithm
 status: active
 tasks: dqi, all
-last_checked: 2026-11-23
+last_checked: 2026-11-26
 ---
 
 # D-004: improve the source-owned DQI decoder
@@ -13,20 +13,20 @@ The standing user decision forbids submitting or copying downloaded circuits;
 the archive is not a candidate until an attributed source-owned generator
 reproduces it. Existing product-retention variants have already been screened.
 
-The active path is a source-owned DQI decoder with a genuinely different
-key-equation algorithm. Keep the official verifier's salted failure rate in
-the score model, and require the full `R × Q² × T` budget before building a
-candidate. The latest score-equivalence estimate is `199.830e9`; at
-`R=1.1912605` and `Q=890`, the DQI gate is `T <= 211,775.05`. V18 measures
-the pair-update term at `54T` each, or `130,410T` across 2,415 updates. V19
-measured `CONVERT + scan + reverse CONVERT` at `183,837T`; the direct FMA pair
-failed the phase check. Their conditional sum is `314,247T`, so the old
-`202,075T` full projection is unsupported. A replacement FMA-to-scan-ready
-map would need to cost below `81,365T` before any omitted integration,
-width, output, or cleanup work. No candidate is established.
+The current score-equivalent DQI cost gate is `271.946e9`, or
+`T <= 281,832.91` at `Q=900` and `R=1.1912604648`, holding exp-071's other
+source-built components fixed. This is derived from the live rank-1 score, not
+a measurement of the leader's DQI circuit. Exp-071 measures `316,131.22T`, so
+the required reduction is `34,298.32T` (10.85%). The one active feasibility
+gate is the FMA forward-CONVERT + remaining residue scan + v18 pair updates at
+`243,905T`; it leaves `37,927.91T` before the unmeasured phase-derivative
+correction and cleanup, while optimistically omitting reverse CONVERT. The
+subtotal is not a candidate. See the
+[2026-11-26 gate receipt](../../evals/2026-11-26-dqi-score-equivalent-gate.json)
+and the [half-GCD gate result](#2026-11-26-half-gcd-gate--close-at-degree-35).
 
 The public Syed v25 source reports a DQI cost of `336.560e9`, 3.26% below our
-current measurement but still 68.42% above the latest rank-1-equivalent DQI
+current measurement but 23.76% above the refreshed rank-1-equivalent DQI
 target. Its D69 lookup receipt saves only 66 Toffolis. Keep that source as a
 measurement baseline and close the D69 lookup route; see the
 [source screen log](../../log/2026-11-23-syed-dqi-source-screen.md) and
@@ -917,3 +917,46 @@ The two-bit prefix tag is therefore not a 34-qubit saving across 17 blocks:
 the pristine tag already occupies unused rank bits, and its blockwise
 extension fails the exhaustive small-field gate. Reproduction and limits are
 in [`exp-055`](../../experiments/exp-055/README.md).
+
+## 2026-11-26 half-GCD gate — close at degree 35
+
+The refreshed score-equivalent DQI gate is `T <= 281,832.91` at `Q=900`
+and `R=1.1912604648`, holding exp-071's Invsqrt and chemistry costs fixed.
+That is a 10.85% reduction from exp-071's `316,131.22` mean Toffolis; this is
+score-equivalence math, not a measured leader component cost. See the
+[gate receipt](../../evals/2026-11-26-dqi-score-equivalent-gate.json).
+
+The exp-057 direct-RHS EEA screen measures `174,672T` mean (`195,612T` max)
+for the degree-at-most-35 GF(2^12) Forney-residue problem
+([receipt](../../evals/2026-11-25-exp057-forney-polynomial-inverse.json)).
+Combining its mean with the `130,410T` v18 pair-update subtotal gives an
+optimistic `305,082T`, still `23,249T` above the refreshed gate before other
+work. Even with zero overhead, the EEA stage would need to fall to `151,423T`
+(13.3% below its measured estimate). The screen's error-root/residue inputs
+are also not mapped from the 70 syndrome-derived FMA samples; the receipt is a
+classical operation count, not a reversible circuit.
+
+Half-GCD is asymptotically `O(M(d) log d)` field operations, but that does not
+establish a gain at this degree. FLINT's finite-extension-field polynomial
+GCD implementations use ordinary Euclid below degree 80–120 and switch to
+half-GCD above, placing degree 35 below their practical crossover. The fast
+polynomial multiplication model in van der Hoeven's analysis also assumes
+roots of unity that GF(2^12) does not provide in characteristic two. See the
+[FLINT algorithm/source notes](https://github.com/flintlib/flint/blob/main/doc/src/algorithms/polynomials/gcd.md)
+and [van der Hoeven's half-GCD paper](https://www.texmacs.org/joris/gcd/gcd.pdf).
+
+The single remaining feasibility gate is the FMA forward-CONVERT + full
+remaining residue scan (the 70-point prefix is already handled) + v18 pair
+updates: `69,220 + 44,275 + 130,410 = 243,905T`
+([cost split](../../evals/2026-11-23-exp057-convert-cost-split.json),
+[v18 update](../../evals/2026-11-23-exp057-fma-pair-update-mbu-v18.json)).
+This is `37,928T` under the refreshed tie gate, but optimistically omits
+reverse CONVERT. Phase-derivative correction and complete cleanup are still
+unmeasured; this subtotal is not a candidate.
+
+**Decision:** close half-GCD and keep that existing FMA route as the only
+active feasibility gate. Continue only if phase correction and cleanup fit
+inside its remaining budget and the completed circuit stays below
+`281,832.91T` and passes the official verifier. The classical asymptotic
+half-GCD result is neither a reversible resource estimate nor a lower-bound
+proof.
