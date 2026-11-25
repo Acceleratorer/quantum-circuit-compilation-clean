@@ -245,7 +245,9 @@ def main() -> None:
         raise RuntimeError("official competition Kickmix SDK hash changed")
     env = sanitized_env([kickmix_dir, competition / "verifiers"])
 
-    with tempfile.TemporaryDirectory(prefix="exp066-", dir="/kaggle/temp") as temporary:
+    temp_root = Path("/kaggle/temp")
+    temp_root.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix="exp066-", dir=temp_root) as temporary:
         temp = Path(temporary)
         base_output = temp / "base"
         base_output.parent.mkdir(parents=True, exist_ok=True)
