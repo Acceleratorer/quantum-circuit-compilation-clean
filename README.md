@@ -7,25 +7,24 @@ Research log and reproducible tooling for the Google Quantum AI Verifiable Quant
 | Item | Value |
 |---|---:|
 | Highest recorded account score (public archive; ineligible) | **33.17067**, submission `58771243` |
-| Best source-owned submission | exp-071, Kaggle ref `58894750`, score **33.05453** |
-| Latest source-built submission | exp-072: all verifiers PASS; Kaggle ref `58907057` is **PENDING**; local default-draw GM **32.91482** |
-| Latest leaderboard snapshot | `Accelra` rank **692 / 3722**, score `33.17067`; source [`snapshot`](kaggle/snapshots/2026-11-25/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-25T171313Z.csv) |
-| Rank 1 in that snapshot | **34.34445** (team `Entangled Team`); gap from account best: **1.17378** |
+| Best source-owned submission | exp-072, Kaggle ref `58907057`, score **33.08169** |
+| Latest source-built candidate | exp-073: all verifiers PASS with base DQI; **not submitted** because no public-score gain is established |
+| Latest leaderboard snapshot | `Accelra` rank **719 / 3733**, score `33.17067`; source [`snapshot`](kaggle/snapshots/2026-11-25/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-25T202946Z.csv) |
+| Rank 1 in that snapshot | **34.34445** (team `Entangled Team`); gap from source-owned best: **1.26276**; score-equivalent rank **1164** |
 
 Submissions `58771243` and `58479383` used public circuit archives, so their
 scores are historical Kaggle measurements only. Neither demonstrates our own
 generator or counts as eligible evidence for the source-owned goal; see the
 [provenance receipt](evals/2026-11-23-submission-58771243-provenance.json).
 
-The latest persisted full leaderboard snapshot is from `2026-11-25T17:13:13Z`;
-its CSV has 3,722 ranked teams. Accelra's 33.17067 score is from a public
-circuit archive. The best scored source-owned result remains exp-071's
-`33.05453`. exp-072 lowered chemistry cost by `608,050.42` and passed all
-verifiers; one source-built archive was submitted for public calibration and is
-pending. Its ten DQI rewrites changed the final circuit hash from exp-071's
-`4b572141…` to `6f78ecdd…`; exp-066 and exp-072 both observed four value
-errors on that rewritten circuit. The raw local GM `32.91482` reflects this
-rewrite penalty. See the
+The latest persisted full leaderboard snapshot is from `2026-11-25T20:29:46Z`;
+its CSV has 3,733 ranked teams. Accelra's 33.17067 score is from a public
+circuit archive. The best scored source-owned result is exp-072's `33.08169`;
+that score would place 1,164 by score in the same snapshot. The exp-072 archive
+lowered chemistry cost by `608,050.42` and scored publicly. Its ten DQI rewrites
+changed the final circuit hash from exp-071's `4b572141…` to `6f78ecdd…`;
+exp-066 and exp-072 both observed four value errors on that rewritten circuit
+locally. The raw local GM `32.91482` is not a public-score projection. See the
 [`exp-072` evaluation](evals/2026-11-26-exp072-source-built-v19-chemistry.json).
 
 The repository keeps generators, verifier evidence, provenance, and experiment
@@ -81,15 +80,14 @@ hashes.
 
 ## Source-owned member progress
 
-The exp-062/063/064 members are source-built and verifier-checked. The later
-exp-071 hybrid scored `33.05453` on Kaggle. exp-072 also passed all three task
-verifiers, rebuilt every circuit input from source, and reduced chemistry cost
-by `608,050.42`; it was submitted as Kaggle ref `58907057` and is still
-pending. Its ten DQI rewrites changed the exp-071 base hash `4b572141…` to
-`6f78ecdd…`, which observed four value errors in both exp-066 and exp-072.
-The `33.08134` value is a counterfactual local GM using the unmodified exp-071
-DQI score, not a public-score projection. exp-071 remains the best scored
-source-owned submission, and rank 1 remains unmet. See the
+The exp-062/063/064 members are source-built and verifier-checked. The exp-071
+hybrid scored `33.05453` on Kaggle. exp-072 rebuilt every circuit input from
+source, passed all three task verifiers, reduced chemistry cost by `608,050.42`,
+and scored `33.08169` publicly as ref `58907057`. Its ten DQI rewrites changed
+the exp-071 base hash `4b572141…` to `6f78ecdd…`; the rewritten circuit observed
+four value errors in both exp-066 and exp-072 local verification. Rank 1
+remains unmet. exp-073 is checking the same chemistry with unmodified base DQI.
+See the
 [source-owned archive milestone](milestone/2026-11-23-source-owned-archive.md),
 [exp-071](experiments/exp-071/README.md), and
 [exp-072](experiments/exp-072/README.md).

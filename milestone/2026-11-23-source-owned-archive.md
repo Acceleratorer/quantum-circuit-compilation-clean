@@ -27,13 +27,20 @@ The exp-065 source-owned score was `5.53933` below rank 1.
 - exp-071's source-built hybrid completed as Kaggle ref `58894750` with public
   score `33.05453`.
 - exp-072 rebuilt the V19 chemistry proposal without reading compiled input
-  circuits. All task verifiers passed, but the source build produced 3,328
-  Toffolis/pass versus the notebook's claimed 3,310. It was held from
-  submission; its local verifier GM was `32.91482` on a DQI draw with four
-  value errors. See the [exp-072 evaluation](../evals/2026-11-26-exp072-source-built-v19-chemistry.json).
-- The latest full snapshot ranks Accelra `692 / 3722` at `33.17067` (public
-  circuit archive). Rank 1 is `34.34445`; the gap from the account best is
-  `1.17378`.
+  circuits. All task verifiers passed; the source build produced 3,328
+  Toffolis/pass versus the notebook's claimed 3,310. Kaggle submission
+  `58907057` completed at `33.08169`, improving exp-071's source-owned score
+  by `0.02716`. The local verifier measured four value errors on the rewritten
+  DQI hash; see the [exp-072 evaluation](../evals/2026-11-26-exp072-source-built-v19-chemistry.json).
+- The latest full snapshot ranks Accelra `719 / 3733` at `33.17067` from a
+  public circuit archive. The source-owned score `33.08169` is score-equivalent
+  to rank `1164`. Rank 1 is `34.34445`; its gap from the source-owned best is
+  `1.26276`.
+- exp-073 rebuilt the V19 chemistry with the verified, unmodified DQI base.
+  All three official verifiers passed with zero DQI value/phase errors. Its
+  local GM is `33.0813367703`, which does not establish a public-score gain
+  over exp-072's `33.08169`; no submission was made. See the
+  [exp-073 evaluation](../evals/2026-11-26-exp073-v19-base-dqi.json).
 
 Rank 1 remains unmet. The gate requires a source-owned submission that scores
 above the leader, not only component verifier passes.

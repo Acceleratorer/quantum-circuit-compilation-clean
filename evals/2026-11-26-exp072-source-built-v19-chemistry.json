@@ -1,7 +1,7 @@
 {
   "experiment": "exp-072",
-  "candidate": "V19 chemistry rebuild with source-built exp-071 DQI and Invsqrt",
-  "status": "VERIFIED_SUBMITTED_PENDING",
+  "candidate": "V19 chemistry rebuild with source-built base DQI and Invsqrt, then ten DQI rewrites",
+  "status": "VERIFIED_SUBMITTED_SCORED",
   "source": {
     "notebook": "goodpjw2008/qcc-shorter-chemistry-loaders-lb-33-25057",
     "notebook_version": 19,
@@ -150,6 +150,20 @@
     "leader_score": 34.34445,
     "rows": 3722
   },
+  "score_refresh": {
+    "captured_utc": "2026-11-25T20:29:46Z",
+    "snapshot_csv": "kaggle/snapshots/2026-11-25/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-25T202946Z.csv",
+    "snapshot_csv_sha256": "e302bfa5abb9869f31adcb743cf93ec3116cc00307ee934ddfefeaba07032858",
+    "leaderboard_rows": 3733,
+    "submission_status": "COMPLETE",
+    "public_score": 33.08169,
+    "source_owned_score_equivalent_rank": 1164,
+    "account_public_best_score": 33.17067,
+    "account_rank": 719,
+    "leader_score": 34.34445,
+    "gap_from_source_owned_best": 1.26276,
+    "improvement_over_exp071": 0.02716
+  },
   "archive": {
     "path": "/kaggle/working/submission.zip",
     "sha256": "6fb21b160f87ebeff80a9b506e7335e5a4d0803db5ca6e2ba61257010e084a5e",
@@ -176,11 +190,11 @@
     }
   },
   "submission": {
-    "status": "PENDING",
+    "status": "COMPLETE",
     "ref": 58907057,
     "submitted_at": "2026-11-25T19:41:41.383Z",
     "archive_sha256": "6fb21b160f87ebeff80a9b506e7335e5a4d0803db5ca6e2ba61257010e084a5e",
-    "public_score": null,
-    "reason": "One public measurement was submitted after all official verifiers passed and chemistry cost improved by 608,050.42 over exp-071. Exp-072 starts from the exp-071 base DQI hash but applies ten rewrites, producing final hash 6f78ecdd636051d4d2dd8f24aaece1d454eb220aaf0df2c1d64c3d96fe22081d; this same rewritten hash observed four value errors in exp-066 and exp-072. The local counterfactual substituting exp-071's unmodified DQI score is not a public-score projection."
+    "public_score": 33.08169,
+    "reason": "Kaggle scoring completed with public score 33.08169. The source-built archive improved on exp-071's 33.05453. The local verifier measured four value errors for the rewritten DQI hash; its raw local geometric mean is not a public-score projection."
   }
 }

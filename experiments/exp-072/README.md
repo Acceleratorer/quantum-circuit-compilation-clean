@@ -2,9 +2,9 @@
 id: exp-072
 title: Source-built V19 chemistry loaders
 task: portfolio
-status: submitted_pending
+status: scored_public
 date: 2026-11-26
-result: All verifiers PASS; chemistry 3,328 Toffolis/pass; Kaggle submission 58907057 is pending
+result: Kaggle ref 58907057 scored 33.08169; all verifiers PASS; chemistry 3,328 Toffolis/pass
 ---
 
 # exp-072 — source-built V19 chemistry loaders
@@ -38,8 +38,10 @@ zero phase errors. The `33.08134` local GM substitutes exp-071's unmodified
 DQI score as a counterfactual to isolate the chemistry change; it is not the
 submitted archive's score or a public-score projection. After rechecking the
 archive and its member hashes, one public measurement was submitted as Kaggle
-ref `58907057`. It is currently pending; exp-071 remains the best scored
-source-owned submission at `33.05453`.
+ref `58907057`; it completed with public score `33.08169`. This is now the best
+scored source-owned submission, improving on exp-071's `33.05453` by `0.02716`.
+The latest saved leaderboard puts rank 1 at `34.34445`, so the source-owned gap
+is `1.26276`.
 
 All official verifiers passed: chemistry on 78,016 shots at default and salt
 42; Invsqrt on 200,540,928 shots; DQI on 102,400 shots with zero phase errors.

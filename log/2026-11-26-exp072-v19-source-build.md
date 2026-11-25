@@ -35,12 +35,12 @@ The source build lowered chemistry cost by `608,050.4202` versus exp-071 and
 passed every verifier. The DQI rewrites changed the source-built base circuit
 and the resulting hash observed four value errors in both exp-066 and exp-072.
 The `33.0813367703` diagnostic restores exp-071's unmodified DQI score while
-holding the chemistry change; it is not a public-score projection. One public
-measurement was submitted for calibration:
+holding the chemistry change; it is not a public-score projection. Kaggle
+scoring later completed with public score `33.08169`:
 
 - Kaggle ref: `58907057`
 - Archive SHA-256: `6fb21b160f87ebeff80a9b506e7335e5a4d0803db5ca6e2ba61257010e084a5e`
-- Status at last check: `PENDING`; no public score yet
+- Status: `COMPLETE`; public score `33.08169`.
 
 The build missed the notebook's 3,310-Toffoli claim by 18 Toffolis/pass, and
 its `33.25057` title score remains unverified. Full verifier and leaderboard
