@@ -373,3 +373,11 @@ verifier. Keep the next step on the same DQI path: derive the required
 `omega / sigma_prime` residue from the streamed state and measure the complete
 reversible schedule. See the [evaluation](../../evals/2026-11-25-exp057-tail-key-equation-composition.json)
 and [run log](../../log/2026-11-25-exp057-tail-key-equation-composition.md).
+
+The direct Forney conversion `A = omega / sigma_prime mod sigma` passes its
+classical residue checks, but ordinary polynomial extended Euclid averages
+184,164T and peaks at 206,364T on 64 verifier-shaped inputs. That is 5.09x the
+36,183.74T replacement allowance before reversible branches or cleanup, so do
+not build this direct implementation. This closes the ordinary EEA route only;
+receipt: [evaluation](../../evals/2026-11-25-exp057-forney-polynomial-inverse.json)
+and [log](../../log/2026-11-25-exp057-forney-polynomial-inverse.md).
