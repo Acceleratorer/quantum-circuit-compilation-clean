@@ -1,0 +1,41 @@
+{
+  "checks": {
+    "clean_scratch_qubits": 11,
+    "expected_phase": [
+      0,
+      0
+    ],
+    "input_restore_errors": 0,
+    "observed_phase": [
+      1,
+      0
+    ],
+    "phase_errors": 1,
+    "scratch_clean": true
+  },
+  "date": "2026-11-24",
+  "decision": "Reject this direct scan shortcut because the phase screen fails.",
+  "experiment": "exp-057-fma-native-node-scan",
+  "method": {
+    "error_roots_excluded_at_sample_nodes": true,
+    "sample_node_root_positions": 69,
+    "scanner_node_polynomial": "the GF(2^12) product over sample points 0 through 69",
+    "skipped_scan_positions": 132,
+    "weights": [
+      31,
+      35
+    ]
+  },
+  "resources": {
+    "compiled_qubits": 851,
+    "simulated_toffoli_like_gates": 87186,
+    "toffoli_like_gates": 43593
+  },
+  "scope": "FMA-native-node scan only. The two cases exclude sample-node errors; the full FMA schedule, required sample-node phase, cleanup, and official verifier are omitted.",
+  "source": {
+    "git_head_before_run": "d0b082a6d2eb736a5fd2e37849b9efb20c276b1b",
+    "script": "experiments/exp-057/native_node_scan_screen.py",
+    "script_sha256": "32cd6a881cd58de86204ce0acb7ed2846a49f14e0ed87958ef22dc94e6c917bb"
+  },
+  "status": "FAIL_PHASE"
+}

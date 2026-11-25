@@ -18,11 +18,12 @@
     {
       "date": "2026-11-24",
       "filename": "submission.zip",
-      "status": "PENDING",
+      "status": "COMPLETE",
       "submission_ref": 58832495,
-      "public_score": null
+      "public_score": 28.71611
     }
   ],
   "rules_accepted": true,
-  "daily_submissions_remaining_at_submit": 5
+  "daily_submissions_remaining_at_submit": 5,
+  "status_checked_utc": "2026-11-24T15:21:56Z"
 }

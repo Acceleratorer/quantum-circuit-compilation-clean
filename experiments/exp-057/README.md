@@ -4,7 +4,7 @@ title: Four-word streaming decoder for quadratic-over-linear FMA
 task: dqi
 tests: exhaustive GF(8) prefix and tail state and matrix encoding; 2,048 seeded GF(2^12); 256 seeded GF(2^12) tail-matrix factorization cases; 32-case private coefficient-to-prefix and prefix-to-coefficient screens including a1=0; 32-case private integrated prefix-plus-tail action across both pivots; 32-case private 66-symbol matrix-stream checksum across both pivots; 32-case private compact-prefix-to-matrix 66-symbol checksum v15; 32 verifier-form prefix and tail cases; 64-case private MBU FMA pair update across both branches; 64-case private precomputed-matrix action; 64-case coefficient-derived tail action; 64-case in-place matrix setup; 32-case classical Forney/FMA MBUC phase-compatibility screen; 97,118 exhaustive GF(8) Newton-residue versus direct interpolation cases
 direction: D-004
-status: coefficient-prefix-component-gates-passed_classical-66-tail-schedule-passed_branchless-prefix-inverse-v11-passed_integrated-prefix-plus-one-tail-v13-passed_precomputed-state-66-symbol-matrix-stream-checksum-v14-passed_compact-prefix-matrix-66-stream-v15-passed_mbu-fma-pair-update-v18-component-passed_classical-phase-compatibility-screen-passed_direct-fma-convert-scan-bridge-v19-failed_newton-residue-identity-v20-passed_newton-route-over-budget-and-input-contract-unmapped_full-70-symbol-schedule-dqi-output-cleanup-and-official-verifier-pending
+status: coefficient-prefix-component-gates-passed_classical-66-tail-schedule-passed_branchless-prefix-inverse-v11-passed_integrated-prefix-plus-one-tail-v13-passed_precomputed-state-66-symbol-matrix-stream-checksum-v14-passed_compact-prefix-matrix-66-stream-v15-passed_mbu-fma-pair-update-v18-component-passed_classical-phase-compatibility-screen-passed_direct-fma-convert-scan-bridge-v19-failed_newton-residue-identity-v20-passed_newton-route-over-budget-and-input-contract-unmapped_full-70-symbol-schedule-dqi-output-cleanup-and-official-verifier-pending_native-node-scan-failed
 date: 2026-11-23
 result: V20 Newton insertion exactly matches direct Lagrange scanner-residue interpolation in 97,118 exhaustive GF(8) cases. At weight 35, its straightforward coefficient-array screen counts 2,415 variable GF products (~101,430T at 42T/product), above the 36,183.74T converter allowance before inverses and uncomputation. The recurrence requires error-root/residue inputs; no direct map from exp-057's 70 syndrome-derived FMA samples is established. This estimate is not a lower bound. No reversible screen, full schedule, or official verifier was run.
 ---
@@ -338,3 +338,14 @@ so it does not establish a reversible FMA generator or a full DQI candidate.
 The measured converter-plus-FMA-update subtotal is over the current score gate.
 See the [evaluation](../../evals/2026-11-23-exp057-phase-node-alignment.json)
 and [run log](../../log/2026-11-23-exp057-phase-node-alignment.md).
+
+## FMA-native-node scan screen (failed)
+
+The standalone circuit screen used weights 31 and 35 and observed one phase
+error at Q=851, T=43,593. It restored every input register and cleaned 11
+scratch qubits. The scan skipped the first 70 positions and all 69 roots of
+the FMA sample-node polynomial. The full sample-node error branch and official
+verifier were not run, so this remains a failed shortcut screen.
+
+Receipt: [evaluation](../../evals/2026-11-24-exp057-fma-native-node-scan.json).
+Run with `python experiments/exp-057/native_node_scan_screen.py`.

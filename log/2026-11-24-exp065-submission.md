@@ -2,9 +2,8 @@
 
 ## Outcome
 
-The source-owned 18-member archive was accepted by Kaggle as submission
-58832495. Its status was PENDING at the last CLI readback; no public score
-is available yet.
+Kaggle completed submission `58832495` with public score `28.71611`.
+The CLI returned no private score.
 
 ## Archive identity
 
@@ -25,5 +24,6 @@ rechecked before the successful submission.
 The pre-submit snapshot is recorded in
 [evals/2026-11-24-live-leaderboard-133209Z.json](../evals/2026-11-24-live-leaderboard-133209Z.json).
 It has 3,671 ranked teams; rank 1 is 34.25544. Accelra's older public-circuit
-entry is 33.17067 at rank 354. The exp-065 score is still pending, so no
-rank-1 claim is made.
+entry is 33.17067 at rank 354. The source-owned result is `5.53933` below
+the `34.25544` rank-1 score in the leaderboard readback. No rank-1
+claim is made.

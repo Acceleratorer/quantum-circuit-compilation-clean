@@ -7,23 +7,23 @@ This directory separates local verifier estimates from Kaggle results.
 - Submission `58771243` scored `33.17067` using a public circuit archive.
 - Submission `58479383` scored `28.14028` and also used public circuits.
 - Both are historical account measurements, not source-owned candidates. As
-  of 2026-11-24, the source-owned exp-065 archive is submitted but still
-  pending scoring; no scored source-owned baseline is verified yet. See the
+  of 2026-11-24, the source-owned exp-065 archive is complete with public score
+  `28.71611`.
+  This is the source-owned baseline, but it is not rank 1. See the
   [58771243 receipt](2026-11-23-submission-58771243-provenance.json) and the
   [exp-065 submission receipt](../experiments/exp-065/receipts/submission.json).
 
-## Latest live status (`2026-11-24T13:32:09Z`)
+## Latest CLI readback (`2026-11-24T15:21:56Z`); retained full snapshot: `13:32:09Z`
 
 - Accelra account score: `33.17067`, submission `58771243`, rank `354 / 3671`.
   This submission used public circuit binaries and is ineligible for the
   source-owned goal.
-- Rank 1: `Entangled Team`, `34.25544`; gap from the old public score:
-  `1.08477`.
+- Rank 1: `Entangled Team`, `34.25544`; gap from the source-owned score:
+  `5.53933`.
 - Snapshot metadata and the retained CSV are in
   [the 13:32Z receipt](2026-11-24-live-leaderboard-133209Z.json) and
   [`kaggle/snapshots/`](../kaggle/snapshots/2026-11-24/).
-- The source-owned exp-065 archive is submitted as ref `58832495` and was
-  `PENDING` at the last CLI readback. No score is recorded yet.
+- Source-owned exp-065: ref `58832495`, `COMPLETE`, score `28.71611` (`5.53933` below rank 1); rank 1 remains the target.
 
 ## Previous live status (`2026-11-23T04:27:24Z`)
 
@@ -68,7 +68,7 @@ Refresh the leaderboard before every submission.
 
 One source-owned archive is still the goal. All three members have
 source-built candidates and official verifier passes. The 18-member exp-065
-archive is submitted and awaiting its score. See the
+archive scored `28.71611` and did not reach rank 1. See the
 [archive milestone](../milestone/2026-11-23-source-owned-archive.md),
 [exp-062 receipt](2026-11-23-exp062-invsqrt.json),
 [exp-063 receipt](2026-11-23-exp063-dqi.json),

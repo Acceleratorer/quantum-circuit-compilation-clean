@@ -17,16 +17,20 @@ DQI, and dfthcsos before submission.
 
 The 18-member source-owned archive is assembled and its SHA-256 matches the
 receipt: `dd4615023eef0478f34738bd7205f3233a14c6cd7ccb800fa55e0b71b20233b6`.
-Kaggle accepted it as submission ref `58832495`; the last CLI readback showed
-`PENDING`, so there is no score to compare yet.
+Kaggle accepted it as submission ref `58832495`; CLI readback at
+`2026-11-24T15:21:56Z` reports
+`COMPLETE` with public score `28.71611`.
+The source-owned score is `5.53933` below rank 1.
 
 The latest public snapshot has rank 1 at `34.25544`. Accelra's previous
 `33.17067` entry used public circuits and ranked `354 / 3671`; that is not
-the source-owned result. Rank 1 remains unverified until ref `58832495` is
-scored and the public and private standings are addressed.
+the source-owned result.
+Ref `58832495` scored `28.71611`, still below rank 1 by `5.53933`.
+Rank 1 remains the target; the CLI readback returned no private score.
 
 Receipts: [exp-062](../experiments/exp-062/README.md),
 [exp-063](../experiments/exp-063/README.md),
 [exp-064](../experiments/exp-064/README.md), and
 [exp-065](../experiments/exp-065/README.md). Component passes verify circuit
-correctness; the pending Kaggle result determines the portfolio score.
+correctness; the completed Kaggle result sets the source-owned baseline
+at `28.71611`; rank 1 remains unmet.

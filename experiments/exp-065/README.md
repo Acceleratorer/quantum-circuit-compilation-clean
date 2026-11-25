@@ -20,12 +20,11 @@ requires the upload filename `submission.zip`. A byte-identical copy was then
 submitted under the required name; its SHA-256 matches the archive receipt.
 
 - Submission ref: `58832495`
-- Last observed status: `PENDING`
-- Public score: pending
+- Final status: COMPLETE
+- Public score: 28.71611
 - Leaderboard snapshot before this submission:
   [2026-11-24 evaluation](../../evals/2026-11-24-live-leaderboard-133209Z.json)
 
-The rules page confirms the account has accepted the competition rules. The
-CLI readback confirms the submission exists; the score must be recorded after
-Kaggle finishes scoring. Rank 1 is not established by the local verifier
-passes or by this pending submission.
+The CLI readback at `2026-11-24T15:21:56Z` reports `COMPLETE`, public score `28.71611`,
+and no private score. It is `5.53933` below the rank-1 score `34.25544`, so it
+did not reach rank 1.

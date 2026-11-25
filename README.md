@@ -7,10 +7,10 @@ Research log and reproducible tooling for the Google Quantum AI Verifiable Quant
 | Item | Value |
 |---|---:|
 | Highest recorded account score (public archive; ineligible) | **33.17067**, submission `58771243` |
-| Source-owned archive submission | exp-065, 18 members, archive SHA-256 `dd461502…b20233b6`; Kaggle ref `58832495` pending |
+| Source-owned archive submission | exp-065, 18 members, archive SHA-256 `dd461502…b20233b6`; Kaggle ref `58832495` complete; score **28.71611** |
 | Verified source-owned members | **invsqrt Q=43** (exp-062); **DQI Q=890** (exp-063); **dfthcsos Q=427** (exp-064); official verifier PASS for all |
 | Latest retained leaderboard snapshot | `Accelra` rank **354 / 3671**, score `33.17067`; submission `58771243`, public-circuit archive |
-| Rank 1 in that snapshot | **34.25544** (team `Entangled Team`); gap from the old public score: **1.08477** |
+| Rank 1 in that snapshot | **34.25544** (team `Entangled Team`); gap from the source-owned score: **5.53933** |
 
 Submissions `58771243` and `58479383` used public circuit archives, so their
 scores are historical Kaggle measurements only. Neither demonstrates our own
@@ -19,8 +19,8 @@ generator or counts as eligible evidence for the source-owned goal; see the
 
 The latest persisted full leaderboard snapshot is from `2026-11-24T13:32:09Z`;
 its CSV has 3,671 ranked teams. Accelra's 33.17067 score is from a public
-circuit archive. The source-owned exp-065 submission is pending scoring under
-ref `58832495`; its result is not included in that snapshot. See the
+circuit archive. The source-owned exp-065 submission completed with public score `28.71611`
+under ref `58832495`; the retained 13:32Z snapshot predates it. See the
 [`2026-11-24` evaluation record](evals/2026-11-24-live-leaderboard-133209Z.json).
 
 The repository keeps generators, verifier evidence, provenance, and experiment
@@ -81,9 +81,9 @@ all been rebuilt from attributed Apache-2.0 source and passed their official
 verifiers. DQI is Q=890 with cost `336,559,961,203.1761`; its 102,400-shot run
 had zero value and phase errors. dfthcsos is Q=427 with score
 `295,006,518.96994764`; its accuracy and gap margins are very close to the
-acceptance limits. The exp-065 archive is built, hash-checked, and submitted
-under ref `58832495`; Kaggle is still scoring it. The leaderboard result is
-not known yet, so rank 1 remains unverified. See the
+acceptance limits. The exp-065 archive is built, hash-checked, and submitted under ref `58832495`.
+Kaggle scored it at `28.71611`, `5.53933` below rank 1, so it has not
+reached the goal. See the
 [source-owned archive milestone](milestone/2026-11-23-source-owned-archive.md),
 [exp-062](experiments/exp-062/README.md),
 [exp-063](experiments/exp-063/README.md), and
