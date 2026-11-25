@@ -13,12 +13,9 @@ The standing user decision forbids submitting or copying downloaded circuits;
 the archive is not a candidate until an attributed source-owned generator
 reproduces it. Existing product-retention variants have already been screened.
 
-The Kaggle notebook [Rank #1 Breakthrough](https://www.kaggle.com/code/rishabhbafnaiiitd/quantum-circuit-compilation-rank-1-breakthrough)
-was screened on 2026-11-26. Its source pins hashes for the existing compiled
-portfolio, extracts those artifacts from an archive or dataset, and packages
-them; it contains no source-owned circuit generator. Its stated rank-1 target
-of `29.30100` is also stale against the `34.34445` live leaderboard. Exclude
-it as a candidate; the notebook was inspected only, not executed or submitted.
+The Kaggle “Rank #1 Breakthrough” package notebook is already audited in
+[exp-043](../../experiments/exp-043/README.md); it remains disqualified as a
+compiled-artifact-only source.
 
 The current score-equivalent DQI cost gate is `271.946e9`, or
 `T <= 281,832.91` at `Q=900` and `R=1.1912604648`, holding exp-071's other
