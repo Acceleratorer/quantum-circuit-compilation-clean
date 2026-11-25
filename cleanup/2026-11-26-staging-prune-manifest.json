@@ -1,0 +1,33 @@
+{
+  "created_utc": "2026-11-26",
+  "purpose": "Remove an extracted DQI member and the rejected duplicate ZIP filename while retaining the exact submitted archive and all tracked source/evaluation receipts.",
+  "removed_files": 2,
+  "removed_bytes": 938135322,
+  "targets": [
+    {
+      "path": "../archive-stage-2026-11-23/dqi/exp063/dqi.kmb",
+      "bytes": 828831824,
+      "sha256": "fc2564c61931a0b1c789d8857a78e54f88466b546870f0e99ad252b8c59183c5",
+      "reason": "Exact SHA-256 match to the dqi.kmb member in the preserved submission.zip."
+    },
+    {
+      "path": "../archive-stage-2026-11-23/source-owned-submission.zip",
+      "bytes": 109303498,
+      "sha256": "dd4615023eef0478f34738bd7205f3233a14c6cd7ccb800fa55e0b71b20233b6",
+      "reason": "Byte-identical to submission.zip; Kaggle rejected this filename and accepted the retained submission.zip."
+    }
+  ],
+  "preserved": [
+    {
+      "path": "../archive-stage-2026-11-23/submission.zip",
+      "bytes": 109303498,
+      "sha256": "dd4615023eef0478f34738bd7205f3233a14c6cd7ccb800fa55e0b71b20233b6",
+      "submission_ref": "58832495",
+      "status": "COMPLETE"
+    },
+    {
+      "path": "experiments/exp-065/receipts/archive.json",
+      "reason": "Tracked archive/member integrity receipt."
+    }
+  ]
+}

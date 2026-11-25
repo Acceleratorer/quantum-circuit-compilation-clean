@@ -53,3 +53,14 @@ canonical input, source archives, source code, and compact evaluation receipts
 remain in place.
 
 See [`2026-11-19-staging-artifact-prune-manifest.json`](2026-11-19-staging-artifact-prune-manifest.json).
+
+## Source-owned archive staging prune — 2026-11-26
+
+Removed one extracted DQI circuit after its SHA-256 matched the `dqi.kmb`
+member of the preserved source-owned `submission.zip`. Also removed the
+byte-identical `source-owned-submission.zip` copy: Kaggle rejected that
+filename, while the retained `submission.zip` completed as submission
+`58832495`. The archive receipt and source/evaluation records remain in Git.
+
+Removed 2 files (`938,135,322` bytes, about `0.87 GiB`). See
+[`2026-11-26-staging-prune-manifest.json`](2026-11-26-staging-prune-manifest.json).
