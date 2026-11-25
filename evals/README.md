@@ -2,6 +2,14 @@
 
 This directory separates local verifier estimates from Kaggle results.
 
+## 2026-11-25 chemistry loader check
+
+- exp-070 rebuilt the V18 chemistry loaders from source and passed the
+  official verifier, but its chemistry cost (`284.625M`) is 11.52% above
+  exp-066 (`255.215M`). Its projected portfolio is `31.84075`, so it was not
+  submitted. See [the evaluation](2026-11-25-exp070-source-chemistry.json)
+  and [experiment notes](../experiments/exp-070/README.md).
+
 ## Provenance correction (2026-11-23)
 
 - Submission `58771243` scored `33.17067` using a public circuit archive.

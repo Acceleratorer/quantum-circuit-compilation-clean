@@ -1,0 +1,33 @@
+{
+  "experiment": "exp-070",
+  "candidate": "source-built V18 chemistry loaders",
+  "source": {
+    "notebook": "goodpjw2008/qcc-shorter-chemistry-loaders-lb-33-24213",
+    "license": "Apache-2.0",
+    "notebook_sha256": "a0e7554c2552c799fe8ef7edccd9110a2b75f65052eaac42495257a7b4494997",
+    "factorization_npz_sha256": "71e1c87fe316bde17a00b3a484c4c7eb5c92d16ba8537270b979dead8b9cf37e",
+    "compiled_circuit_inputs_read": false
+  },
+  "official_verifier": {
+    "status": "PASS",
+    "score": 284624435.7743065,
+    "verified_shots": 78016,
+    "submission_sha256": "18399ebf011b5be97951a72deeca703a165f2f7e7614f59b1b5472234776d60e",
+    "toffoli_per_pass": 4240,
+    "num_qubits": 405,
+    "angle_qubit_cap": 128,
+    "error_1": 0.019999999880132274,
+    "error_2": 0.01999999987950554,
+    "lambda_eff": 46.914311390381656,
+    "total_toffoli": 14980.0
+  },
+  "comparison": {
+    "exp066_chemistry_cost": 255214794.20557788,
+    "cost_increase_fraction": 0.11523486191415234,
+    "exp069_portfolio_projection": 33.01962,
+    "candidate_portfolio_projection": 31.840750229278143,
+    "exp066_public_score": 32.85341,
+    "kaggle_submission": "NOT_SUBMITTED"
+  },
+  "decision": "Reject for portfolio use; valid circuit family but higher task cost than the current source-built chemistry baseline."
+}
