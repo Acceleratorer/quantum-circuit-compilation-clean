@@ -1,0 +1,175 @@
+{
+  "experiment": "exp-072",
+  "candidate": "V19 chemistry rebuild with source-built exp-071 DQI and Invsqrt",
+  "status": "VERIFIED_NOT_SUBMITTED",
+  "source": {
+    "notebook": "goodpjw2008/qcc-shorter-chemistry-loaders-lb-33-25057",
+    "notebook_version": 19,
+    "notebook_sha256": "c4c9f473d26f10cdb5351be8885bb1e26636269c5b39488ea3eba47ed7661121",
+    "tony_li_dataset": "quantum-ai-32-85306-task-generators",
+    "tony_li_fingerprint": "50be321af83901e46476b55c7b1faedf60510f971abc495c02aa41f8c9b87e42",
+    "kickmix_sha256": "c66b3216c4029e0cdfd09054306aa0feadf53ab2f50c1164e37f752874e5005e",
+    "maoxin_parameter_table_sha256": "ec85d969811623b5b4c7e3fff26fef2151bafedaa9a4741cb978e56ff34fbba1",
+    "compiled_input_circuits_read": 0,
+    "base_loader_files_compiled_from_source": 15,
+    "source_generator_seconds": 69.2,
+    "source_weight_sha256": "5b63a8f6d0be88249a8b0bdd2d56bc42e9c456e3936dfa35e5e066fb0886d2c1",
+    "weight_payload_sha256": "4c91ad004ed90595fdc83bae462a88da9fcbf5952ce5c47be9aa9da702d82808",
+    "loader_payload_sha256": "c9b5936f95b523b21f775fef039a4a86bdca5bab6576589fd90b37cfc1bd23bf"
+  },
+  "chemistry_build": {
+    "source_weight_hash": "5b63a8f6d0be88249a8b0bdd2d56bc42e9c456e3936dfa35e5e066fb0886d2c1",
+    "source_weight_payload_sha256": "4c91ad004ed90595fdc83bae462a88da9fcbf5952ce5c47be9aa9da702d82808",
+    "source_loader_payload_sha256": "c9b5936f95b523b21f775fef039a4a86bdca5bab6576589fd90b37cfc1bd23bf",
+    "loader_toffoli_per_pass": 3328,
+    "loader_toffoli_by_batch": [
+      263,
+      240,
+      214,
+      212,
+      213,
+      240,
+      213,
+      240,
+      205,
+      212,
+      213,
+      240,
+      210,
+      206,
+      207
+    ],
+    "source_loader_toffoli_by_batch": [
+      263,
+      251,
+      223,
+      221,
+      221,
+      251,
+      221,
+      251,
+      217,
+      221,
+      221,
+      250,
+      221,
+      216,
+      217
+    ],
+    "chemistry_table_sha256": "38823b9ba7e820562b6e8d690a4657fa6bc9a774b115c94a07a11302236c5340",
+    "dead_word_changes": 2261,
+    "angle_qubit_cap": 128
+  },
+  "verifiers": {
+    "chemistry_default": {
+      "status": "PASS",
+      "score": 249967854.71943197,
+      "verified_shots": 78016,
+      "value_errors": null,
+      "phase_errors": null,
+      "num_qubits": 405,
+      "toffoli_count": 13156.0,
+      "worst_error_over_tolerance": null,
+      "seconds": 28.34
+    },
+    "chemistry_salt_42": {
+      "status": "PASS",
+      "score": 249967854.71943197,
+      "verified_shots": 78016,
+      "value_errors": null,
+      "phase_errors": null,
+      "num_qubits": 405,
+      "toffoli_count": 13156.0,
+      "worst_error_over_tolerance": null,
+      "seconds": 24.43
+    },
+    "invsqrt": {
+      "status": "PASS",
+      "score": 61696.23146663024,
+      "verified_shots": 200540928,
+      "value_errors": null,
+      "phase_errors": null,
+      "num_qubits": 39,
+      "toffoli_count": 1339.8752813141466,
+      "worst_error_over_tolerance": 0.9998178006580166,
+      "seconds": 655.9
+    },
+    "dqi": {
+      "status": "PASS",
+      "score": 309694874626.0435,
+      "verified_shots": 102400,
+      "value_errors": 4,
+      "phase_errors": 0,
+      "num_qubits": 900,
+      "toffoli_count": 316122.95665039064,
+      "worst_error_over_tolerance": null,
+      "seconds": 185.5
+    }
+  },
+  "local_score": {
+    "verifier_geometric_mean": 32.91481538512081,
+    "components": {
+      "invsqrt": 61696.23146663024,
+      "dqi": 309694874626.0435,
+      "dfthcsos": 249967854.71943197
+    },
+    "public_projection": false,
+    "same_dqi_score_as_exp071_diagnostic_geometric_mean": 33.081336770316234,
+    "diagnostic_note": "The DQI file hash matches exp-071, but this run observed four value errors versus zero in exp-071; substituting exp-071's DQI verifier score isolates the chemistry change and is not a public-score prediction."
+  },
+  "comparison": {
+    "exp071_submission": 58894750,
+    "exp071_public_score": 33.05453,
+    "exp071_chemistry_score": 250575905.1396231,
+    "exp071_chemistry_toffoli_per_pass": 3344,
+    "exp072_chemistry_score": 249967854.71943197,
+    "exp072_chemistry_toffoli_per_pass": 3328,
+    "chemistry_cost_reduction": 608050.420191139,
+    "account_best_score": 33.17067,
+    "leaderboard_rank_1_score": 34.34445,
+    "rank_1_gap_from_account_best": 1.1737800000000007,
+    "account_rank": 692,
+    "leaderboard_rows": 3722
+  },
+  "leaderboard_snapshot": {
+    "timestamp_utc": "2026-11-25T17:13:13Z",
+    "csv": "kaggle/snapshots/2026-11-25/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-25T171313Z.csv",
+    "csv_sha256": "1e4dc2c5785d4be761e0b307be6c68c210a51c19708a6742396bba21d9396096",
+    "download_zip_sha256": "b460951af5564f44315962084f90feb5219f4bed2c76506d392f8bdf6eecfbfe",
+    "account_team": "Accelra",
+    "account_rank": 692,
+    "account_score": 33.17067,
+    "leader_team": "Entangled Team",
+    "leader_score": 34.34445,
+    "rows": 3722
+  },
+  "archive": {
+    "path": "/kaggle/working/submission.zip",
+    "sha256": "6fb21b160f87ebeff80a9b506e7335e5a4d0803db5ca6e2ba61257010e084a5e",
+    "bytes": 78003509,
+    "members": {
+      "invsqrt.kmb": "68eb8c13ebc75c5e443ed5a8c6357c2c77e6676c499ed1324108bf025faf1489",
+      "dqi.kmb": "6f78ecdd636051d4d2dd8f24aaece1d454eb220aaf0df2c1d64c3d96fe22081d",
+      "dfthcsos/angle_k_0.kmb": "cc6aa67f8e6b533e4e558683377bb9de36a8a8415cba37c7a92a3068a9e8666e",
+      "dfthcsos/angle_k_1.kmb": "136b8bdeb7526a72afa7cb7d6f573e7cb54e481c8cf6ba6f769e7e0850895b4e",
+      "dfthcsos/angle_k_2.kmb": "d9c98fbad79d10965bacaa58cca9e9f1c485b2d95a918ee9a7e0ccb831bc038c",
+      "dfthcsos/angle_k_3.kmb": "5bc52c05e7de219ea9b1c1a030658e0123ad79985979a0f2153990c51dab93ae",
+      "dfthcsos/angle_k_4.kmb": "156f529d0c9fe1db5d984116956322cf76241994f1f1141755b492f8f53b48f9",
+      "dfthcsos/angle_k_5.kmb": "e20c07df8b86f5c5752eaf38bc3f9e8e5e4ca3f12abe36272a5542d534ffaad6",
+      "dfthcsos/angle_k_6.kmb": "64da73de9dca109b59eb4176ee3d98c7e7a3ad43886a134a6f69539d16cdc393",
+      "dfthcsos/angle_k_7.kmb": "62e9155e046ee690008bca5e0b4d8895f4955a77614d5a59fe68fb2d27eb13d1",
+      "dfthcsos/angle_k_8.kmb": "d24ddafdf6ceacf743b3555eea02af6261bdb8e75edabd319bf4a42749c4412e",
+      "dfthcsos/angle_k_9.kmb": "2f38d7c06cf95b17a47284dd1fe824eaadb0349fb1eb7bf31b41bf9d478d9805",
+      "dfthcsos/angle_k_10.kmb": "53d0115a25c12d739df715749487566bbf96794f681e375537386fe1354a943f",
+      "dfthcsos/angle_k_11.kmb": "c1b1c45f1e80c465d676f09ff06c8e9e140cbb3b903e7b482c8fb5373d896e9f",
+      "dfthcsos/angle_k_12.kmb": "94ea0c2ea8d466d44e4b19c166a87153cdfb702f1a9ad2b9be9848d8ef4da972",
+      "dfthcsos/angle_k_13.kmb": "5df21fc544ba25ed3f4b032189dc41aa9958864898b84e7ee366e6e9417efd24",
+      "dfthcsos/angle_k_14.kmb": "d25ce26999c48adbcc299d4a91e6e1f01891361d180eb84fa46b9d9962fad9c2",
+      "dfthcsos/submission.npz": "38823b9ba7e820562b6e8d690a4657fa6bc9a774b115c94a07a11302236c5340"
+    }
+  },
+  "submission": {
+    "status": "NOT_SUBMITTED",
+    "reason": "The source-only rebuild passes every verifier, but its measured local score is below the account best and it reproduces 3,328 rather than V19's claimed 3,310 Toffolis per pass. The V19 title score is not independently verified."
+  }
+}

@@ -2,6 +2,18 @@
 
 This directory separates local verifier estimates from Kaggle results.
 
+## 2026-11-26 source-built V19 chemistry screen
+
+- exp-072 rebuilt from source and passed all task verifiers. Chemistry cost
+  fell to `249,967,854.72` at 3,328 Toffolis/pass; the V19 notebook claims
+  3,310, which this source build did not reproduce. The local verifier GM was
+  `32.91482` on a DQI draw with four value errors. A same-DQI-score diagnostic
+  gives `33.08134`, still below the account best `33.17067`; no submission was
+  made. The full leaderboard snapshot ranks Accelra `692 / 3722`; rank 1 is
+  `34.34445`. See the
+  [evaluation](2026-11-26-exp072-source-built-v19-chemistry.json) and
+  [experiment](../experiments/exp-072/README.md).
+
 ## 2026-11-25 chemistry loader check
 
 - exp-070 rebuilt the V18 chemistry loaders from source and passed the
@@ -32,7 +44,16 @@ This directory separates local verifier estimates from Kaggle results.
   [58771243 receipt](2026-11-23-submission-58771243-provenance.json) and the
   [exp-065 submission receipt](../experiments/exp-065/receipts/submission.json).
 
-## Latest CLI readback (`2026-11-24T15:21:56Z`); retained full snapshot: `13:32:09Z`
+## Latest full leaderboard snapshot (`2026-11-25T17:13:13Z`)
+
+- Accelra rank: `692 / 3722`; account best: `33.17067` from public-circuit
+  submission `58771243`.
+- Rank 1: `Entangled Team`, `34.34445`; gap from account best: `1.17378`.
+- The complete CSV and its digest are in
+  [`kaggle/snapshots/2026-11-25/`](../kaggle/snapshots/2026-11-25/); see the
+  [snapshot evaluation](2026-11-26-exp072-source-built-v19-chemistry.json).
+
+## Previous CLI readback (`2026-11-24T15:21:56Z`); retained full snapshot: `13:32:09Z`
 
 - Accelra account score: `33.17067`, submission `58771243`, rank `354 / 3671`.
   This submission used public circuit binaries and is ineligible for the
@@ -90,10 +111,13 @@ Refresh the leaderboard before every submission.
 
 ## Active direction
 
-One source-owned archive is still the goal. All three members have
-source-built candidates and official verifier passes. The 18-member exp-065
-archive scored `28.71611` and did not reach rank 1. See the
+One source-owned archive is still the goal. exp-071 is the current source-owned
+public score at `33.05453`. exp-072 verifies but was held: its chemistry gain
+was small, its source build missed the notebook's 3,310-Toffoli count, and the
+default local GM did not clear the account best. See the
 [archive milestone](../milestone/2026-11-23-source-owned-archive.md),
+[exp-071 calibration](2026-11-25-exp071-source-hybrid.json),
+[exp-072 evaluation](2026-11-26-exp072-source-built-v19-chemistry.json),
 [exp-062 receipt](2026-11-23-exp062-invsqrt.json),
 [exp-063 receipt](2026-11-23-exp063-dqi.json),
 [exp-064 receipt](2026-11-23-exp064-dfthcsos.json), and

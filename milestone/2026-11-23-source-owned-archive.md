@@ -20,13 +20,23 @@ receipt: `dd4615023eef0478f34738bd7205f3233a14c6cd7ccb800fa55e0b71b20233b6`.
 Kaggle accepted it as submission ref `58832495`; CLI readback at
 `2026-11-24T15:21:56Z` reports
 `COMPLETE` with public score `28.71611`.
-The source-owned score is `5.53933` below rank 1.
+The exp-065 source-owned score was `5.53933` below rank 1.
 
-The latest public snapshot has rank 1 at `34.25544`. Accelra's previous
-`33.17067` entry used public circuits and ranked `354 / 3671`; that is not
-the source-owned result.
-Ref `58832495` scored `28.71611`, still below rank 1 by `5.53933`.
-Rank 1 remains the target; the CLI readback returned no private score.
+## Latest progress (`2026-11-26`)
+
+- exp-071's source-built hybrid completed as Kaggle ref `58894750` with public
+  score `33.05453`.
+- exp-072 rebuilt the V19 chemistry proposal without reading compiled input
+  circuits. All task verifiers passed, but the source build produced 3,328
+  Toffolis/pass versus the notebook's claimed 3,310. It was held from
+  submission; its local verifier GM was `32.91482` on a DQI draw with four
+  value errors. See the [exp-072 evaluation](../evals/2026-11-26-exp072-source-built-v19-chemistry.json).
+- The latest full snapshot ranks Accelra `692 / 3722` at `33.17067` (public
+  circuit archive). Rank 1 is `34.34445`; the gap from the account best is
+  `1.17378`.
+
+Rank 1 remains unmet. The gate requires a source-owned submission that scores
+above the leader, not only component verifier passes.
 
 Receipts: [exp-062](../experiments/exp-062/README.md),
 [exp-063](../experiments/exp-063/README.md),
