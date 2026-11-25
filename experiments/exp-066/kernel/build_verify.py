@@ -17,7 +17,12 @@ import zipfile
 
 
 DATASET_SLUG = "quantum-ai-32-85306-task-generators"
-DATASET_FINGERPRINT = "50be321af83901e46476b55c7b1faedf60510f971abc495c02aa41f8c9b87e42"
+ALLOWED_DATASET_FINGERPRINTS = {
+    # Downloaded dataset version 2.
+    "50be321af83901e46476b55c7b1faedf60510f971abc495c02aa41f8c9b87e42",
+    # Fingerprint observed when Kaggle mounted this input for kernel version 3.
+    "e672ec5a48511e51fadc28aedac3bcf327593a7cc5d299a3ae859074d36667e5",
+}
 MANIFEST_SHA256 = "192853425ad64fd80ecc07aa904dc55b2adf53c7c3dff2cdce81babdb6eed9ce"
 KICKMIX_SHA256 = "c66b3216c4029e0cdfd09054306aa0feadf53ab2f50c1164e37f752874e5005e"
 BASE_DQI_SHA256 = "4b5721411adc239f61fc11c773a2358b75dfe7cb15586efae4f0459c77d77e52"
@@ -110,17 +115,17 @@ def locate_one(root: Path, filename: str) -> Path:
     return paths[0]
 
 
-def dataset_fingerprint(root: Path) -> tuple[str, int]:
-    rows = []
+def dataset_fingerprint(root: Path) -> tuple[str, int, dict[str, str]]:
+    file_hashes: dict[str, str] = {}
     for path in sorted(root.rglob("*")):
         relative = path.relative_to(root)
         if not path.is_file() or any(
             part.startswith(".") or part == "__pycache__" for part in relative.parts
         ):
             continue
-        rows.append((relative.as_posix(), sha256(path)))
-    payload = "".join(f"{name}\t{digest}\n" for name, digest in rows).encode()
-    return hashlib.sha256(payload).hexdigest(), len(rows)
+        file_hashes[relative.as_posix()] = sha256(path)
+    payload = "".join(f"{name}\t{digest}\n" for name, digest in file_hashes.items()).encode()
+    return hashlib.sha256(payload).hexdigest(), len(file_hashes), file_hashes
 
 
 def rewrite_kmx(source: Path, destination: Path) -> dict[str, object]:
@@ -212,7 +217,7 @@ def main() -> None:
     if dataset is None:
         raise RuntimeError("could not locate the pinned Tony Li generator dataset")
 
-    fingerprint, file_count = dataset_fingerprint(dataset)
+    fingerprint, file_count, source_file_hashes = dataset_fingerprint(dataset)
     manifest_path = dataset / "expected_sha256.json"
     manifest_hash = sha256(manifest_path)
     print(
@@ -223,11 +228,15 @@ def main() -> None:
         manifest_hash,
         flush=True,
     )
-    if fingerprint != DATASET_FINGERPRINT or manifest_hash != MANIFEST_SHA256:
+    if fingerprint not in ALLOWED_DATASET_FINGERPRINTS or manifest_hash != MANIFEST_SHA256:
         raise RuntimeError(
             "mounted dataset pin mismatch: "
             f"files={file_count}, fingerprint={fingerprint}, manifest={manifest_hash}"
         )
+    (OUT / "source-files.sha256.json").write_text(
+        json.dumps(source_file_hashes, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
 
     competition = locate_one(input_root, "verify_submission_dqi.py").parents[2]
     kickmix_dir = competition / "kickmix"
