@@ -1,0 +1,19 @@
+{
+  "id": "accelra/exp-066-source-built-dqi-gate-rewrites",
+  "title": "exp-066 source-built DQI gate rewrites",
+  "code_file": "build_verify.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "dataset_sources": [
+    "tonylica/quantum-ai-32-85306-task-generators"
+  ],
+  "competition_sources": [
+    "google-verifiable-quantum-circuit-compilation"
+  ],
+  "kernel_sources": [],
+  "model_sources": []
+}
