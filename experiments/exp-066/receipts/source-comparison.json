@@ -1,0 +1,11 @@
+{
+  "dataset": "tonylica/quantum-ai-32-85306-task-generators",
+  "dataset_version": 2,
+  "local_file_count": 88,
+  "kaggle_file_count": 88,
+  "file_hash_mismatches": 0,
+  "expected_sha256_manifest": "192853425ad64fd80ecc07aa904dc55b2adf53c7c3dff2cdce81babdb6eed9ce",
+  "local_path_sort_fingerprint": "50be321af83901e46476b55c7b1faedf60510f971abc495c02aa41f8c9b87e42",
+  "kaggle_path_object_sort_fingerprint": "e672ec5a48511e51fadc28aedac3bcf327593a7cc5d299a3ae859074d36667e5",
+  "finding": "All file paths and SHA-256 hashes match; the earlier discrepancy came from platform-specific pathlib ordering."
+}

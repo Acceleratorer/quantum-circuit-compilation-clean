@@ -1,0 +1,16 @@
+{
+  "experiment": "exp-066",
+  "submission_ref": 58878878,
+  "status": "PENDING",
+  "public_score": null,
+  "candidate_sha256": "b6472501ace18bdb44ca04234b95c7731ea59b856f9289522b050888c9fcbe41",
+  "official_verifiers": {
+    "invsqrt": "PASS",
+    "dqi": "PASS",
+    "dfthcsos": "PASS"
+  },
+  "leaderboard_reference_at_submit": {
+    "rank": 1,
+    "score": 34.25544
+  }
+}
