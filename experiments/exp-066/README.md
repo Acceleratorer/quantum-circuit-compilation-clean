@@ -27,9 +27,15 @@ credited separately in [UPSTREAM.md](UPSTREAM.md).
 
 ## Current gate
 
-Build and run all three unmodified official verifiers in the private Kaggle
-kernel defined in `kernel/`. If all pass, the resulting `submission.zip` is a
-complete candidate and may be submitted for a real score. The base source
-portfolio scored `32.85306`; rank 1 is currently `34.25544`.
+Kernel version 5 rebuilt the candidate and passed all three unmodified official
+verifiers. Its archive was submitted as Kaggle submission `58878878`; the score
+is still pending. The base source portfolio scored `32.85306`; rank 1 was
+`34.25544` at submission time.
 
-The build and verifier receipts will be linked here after the kernel finishes.
+## Receipts
+
+- [Kernel build and verifier results](receipts/kernel-v5-result.json)
+- [Archive integrity and member hashes](receipts/archive.json)
+- [Dataset source comparison](receipts/source-comparison.json)
+- [Kaggle submission status](receipts/submission.json)
+- [Submission evaluation record](../../evals/2026-11-25-exp066-submission-58878878.json)
