@@ -17,12 +17,7 @@ import zipfile
 
 
 DATASET_SLUG = "quantum-ai-32-85306-task-generators"
-ALLOWED_DATASET_FINGERPRINTS = {
-    # Downloaded dataset version 2.
-    "50be321af83901e46476b55c7b1faedf60510f971abc495c02aa41f8c9b87e42",
-    # Fingerprint observed when Kaggle mounted this input for kernel version 3.
-    "e672ec5a48511e51fadc28aedac3bcf327593a7cc5d299a3ae859074d36667e5",
-}
+DATASET_FINGERPRINT = "50be321af83901e46476b55c7b1faedf60510f971abc495c02aa41f8c9b87e42"
 MANIFEST_SHA256 = "192853425ad64fd80ecc07aa904dc55b2adf53c7c3dff2cdce81babdb6eed9ce"
 KICKMIX_SHA256 = "c66b3216c4029e0cdfd09054306aa0feadf53ab2f50c1164e37f752874e5005e"
 BASE_DQI_SHA256 = "4b5721411adc239f61fc11c773a2358b75dfe7cb15586efae4f0459c77d77e52"
@@ -124,7 +119,9 @@ def dataset_fingerprint(root: Path) -> tuple[str, int, dict[str, str]]:
         ):
             continue
         file_hashes[relative.as_posix()] = sha256(path)
-    payload = "".join(f"{name}\t{digest}\n" for name, digest in file_hashes.items()).encode()
+    payload = "".join(
+        f"{name}\t{digest}\n" for name, digest in sorted(file_hashes.items())
+    ).encode()
     return hashlib.sha256(payload).hexdigest(), len(file_hashes), file_hashes
 
 
@@ -228,7 +225,7 @@ def main() -> None:
         manifest_hash,
         flush=True,
     )
-    if fingerprint not in ALLOWED_DATASET_FINGERPRINTS or manifest_hash != MANIFEST_SHA256:
+    if fingerprint != DATASET_FINGERPRINT or manifest_hash != MANIFEST_SHA256:
         raise RuntimeError(
             "mounted dataset pin mismatch: "
             f"files={file_count}, fingerprint={fingerprint}, manifest={manifest_hash}"

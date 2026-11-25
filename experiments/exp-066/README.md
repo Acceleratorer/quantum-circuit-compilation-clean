@@ -13,13 +13,14 @@ generator dataset, then applies the ten published DQI gate rewrites to the
 generated DQI assembly and recompiles it. The base source DQI is pinned at
 `4b572141…`; the rewritten output is expected to match `6f78ecdd…`.
 
-The kernel input requests dataset version `2`. Kaggle mounted a different
-88-file snapshot in kernel version 3, although its `expected_sha256.json` hash
-matched. The build accepts only the downloaded version-2 fingerprint
-`50be321a…` or that observed mounted fingerprint `e672ec5a…`, and records each
-mounted source-file hash. It then checks the rebuilt portfolio member hashes,
-the rewritten DQI hash, and all three official verifiers. The build reads no
-public compiled circuit as input. The generator dataset's
+The kernel input requests dataset version `2`. An earlier fingerprint
+discrepancy (`50be321a…` locally and `e672ec5a…` in Kaggle) came from
+platform-specific ordering of `Path` objects, not different source files; the
+SHA-256 comparison confirmed all 88 files matched. Fingerprinting now sorts
+normalized relative paths, giving the same result on Windows and Linux, and
+records each mounted source-file hash. The build checks the rebuilt portfolio
+member hashes, the rewritten DQI hash, and all three official verifiers. It
+reads no public compiled circuit as input. The generator dataset's
 `notices/RELEASE_NOTICES.txt` credits the
 underlying Team ThemBones work and earlier contributors. The ten DQI edits are
 credited separately in [UPSTREAM.md](UPSTREAM.md).
