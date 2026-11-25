@@ -1,0 +1,73 @@
+{
+  "experiment": "exp-071",
+  "candidate": "source-built chemistry loader hybrid",
+  "source": {
+    "chemistry_notebook": "goodpjw2008/qcc-shorter-chemistry-loaders-lb-33-24213",
+    "chemistry_notebook_sha256": "a0e7554c2552c799fe8ef7edccd9110a2b75f65052eaac42495257a7b4494997",
+    "factorization_sha256": "71e1c87fe316bde17a00b3a484c4c7eb5c92d16ba8537270b979dead8b9cf37e",
+    "loader_0_kmx_sha256": "c26bc0fb1faa19f2bad3ddedbea64d54263fc33477dce4c0e8d20d7192eb2b40",
+    "loader_1_kmx_sha256": "5baea04829ebc022201b30a714bbf1ba55af37411a9638ee3e48946af180098d",
+    "compiled_circuit_inputs_read": false,
+    "dqi_source_build_sha256": "4b5721411adc239f61fc11c773a2358b75dfe7cb15586efae4f0459c77d77e52",
+    "invsqrt_source_build_sha256": "68eb8c13ebc75c5e443ed5a8c6357c2c77e6676c499ed1324108bf025faf1489"
+  },
+  "chemistry_verifiers": {
+    "default": {
+      "status": "PASS",
+      "score": 250575905.1396231,
+      "verified_shots": 78016,
+      "submission_sha256": "c9061bc9728005baf6fd150d64b1d04b8ac1daacab6419e38b9bc4067d7afd7e",
+      "angles_toffoli_per_pass": 3344,
+      "num_qubits": 405,
+      "angle_qubit_cap": 128
+    },
+    "salt_42": {
+      "status": "PASS",
+      "score": 250575905.1396231,
+      "verified_shots": 78016,
+      "submission_sha256": "c9061bc9728005baf6fd150d64b1d04b8ac1daacab6419e38b9bc4067d7afd7e"
+    }
+  },
+  "other_member_verifiers": {
+    "dqi": {
+      "status": "PASS",
+      "evidence": "exact source-build hash match to exp-069",
+      "score": 305041647011.3978,
+      "verified_shots": 102400,
+      "value_errors": 0,
+      "phase_errors": 0,
+      "num_qubits": 900
+    },
+    "invsqrt": {
+      "status": "PASS",
+      "evidence": "exact source-build hash match to exp-066",
+      "score": 61696.23146663024,
+      "verified_shots": 200540928,
+      "num_qubits": 39,
+      "worst_error_over_tolerance": 0.9998178006580166
+    }
+  },
+  "archive": {
+    "sha256": "378066e803c3383057159f13dac13ba86933dfbdd82dea7db37ddb49041aebd6",
+    "bytes": 77983881,
+    "members": 18,
+    "crc_check": "PASS",
+    "member_hashes_checked": true
+  },
+  "comparison": {
+    "baseline_submission": 58878878,
+    "baseline_public_score": 32.85341,
+    "prior_team_best_public_score": 33.17067,
+    "projected_portfolio_score": 33.22213916843475,
+    "leaderboard_snapshot": "2026-11-25T15:09:41",
+    "team_rank_before_submit": 672,
+    "leader_score_before_submit": 34.34445
+  },
+  "submission": {
+    "ref": 58894750,
+    "status": "PENDING",
+    "submitted_at": "2026-11-25T15:11:54.927000",
+    "description": "exp-071 source-built hybrid; 18-member archive; all official tasks verified; chemistry PASS at default and salt 42",
+    "public_score": null
+  }
+}

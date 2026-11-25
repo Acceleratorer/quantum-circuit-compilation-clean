@@ -10,6 +10,15 @@ This directory separates local verifier estimates from Kaggle results.
   submitted. See [the evaluation](2026-11-25-exp070-source-chemistry.json)
   and [experiment notes](../experiments/exp-070/README.md).
 
+## 2026-11-25 source-built portfolio hybrid
+
+- exp-071 uses source-built KMX loaders 0–1 with the V18 source-plan loaders
+  and factorization. Chemistry passed at default and salt 42. With the
+  source-built exp-069 DQI and exp-066 Invsqrt, the local projection is
+  `33.22214`; Kaggle submission `58894750` is pending. See
+  [the evaluation](2026-11-25-exp071-source-hybrid.json) and
+  [experiment notes](../experiments/exp-071/README.md).
+
 ## Provenance correction (2026-11-23)
 
 - Submission `58771243` scored `33.17067` using a public circuit archive.
