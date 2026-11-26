@@ -53,6 +53,16 @@ This directory separates local verifier estimates from Kaggle results.
   [experiment notes](../experiments/exp-057/README.md), and
   [run log](../log/2026-11-26-exp057-root-conditioned-phase-gate.md).
 
+## 2026-11-26 exp-082 source-built V22 chemistry
+
+- All official verifiers pass. The source-built loader uses 3,324 Toffolis per
+  pass; local verifier GM is `33.08804494`, up `0.00167755` from exp-074. It was
+  not submitted because this local score remains below the team's recorded
+  public best of `33.17067`. See the
+  [evaluation](2026-11-26-exp082-source-built-v22-chemistry.json),
+  [experiment](../experiments/exp-082/README.md), and
+  [run log](../log/2026-11-26-exp082-v22-chemistry.md).
+
 ## 2026-11-26 source-built V20 chemistry screen
 
 - exp-074 rebuilt the V20 chemistry loaders from source and passed all task

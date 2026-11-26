@@ -1,0 +1,22 @@
+{
+  "id": "accelra/exp-082-source-built-v22-chemistry-with-base-dqi",
+  "title": "exp-082 Source-Built V22 Chemistry with Base DQI",
+  "code_file": "main.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "dataset_sources": [
+    "tonylica/quantum-ai-32-85306-task-generators"
+  ],
+  "kernel_sources": [
+    "maoxin123/qcc-33-17-3-357-toffoli-chemistry-loaders"
+  ],
+  "competition_sources": [
+    "google-verifiable-quantum-circuit-compilation"
+  ],
+  "model_sources": [],
+  "machine_shape": "None"
+}

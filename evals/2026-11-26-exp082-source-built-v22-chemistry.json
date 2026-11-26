@@ -1,0 +1,61 @@
+{
+  "experiment": "exp-082",
+  "status": "PASS",
+  "submission_status": "NOT_SUBMITTED",
+  "source": {
+    "tony_li_dataset": "quantum-ai-32-85306-task-generators",
+    "tony_li_dataset_fingerprint": "50be321af83901e46476b55c7b1faedf60510f971abc495c02aa41f8c9b87e42",
+    "goodpjw_notebook": "goodpjw2008/qcc-shorter-chemistry-loaders-lb-33-25737",
+    "goodpjw_notebook_version": 26,
+    "goodpjw_notebook_sha256": "ee75f7d419f3f687edf2fc1f1e6899e8a1eca94694b695c8c122e85aec29da7a",
+    "compiled_input_circuits_read": 0,
+    "loader_toffoli_per_pass": 3324,
+    "source_loader_payload_sha256": "5076df379225232c722bc9f0c27f6b7f796a871b17c5501d5fd21fab19dac4ff"
+  },
+  "verifiers": {
+    "chemistry_default": {
+      "status": "PASS",
+      "score": 249815852.375425,
+      "toffoli_count": 13148,
+      "num_qubits": 405,
+      "verified_shots": 78016
+    },
+    "chemistry_salt_42": {
+      "status": "PASS",
+      "score": 249815852.375425,
+      "toffoli_count": 13148,
+      "num_qubits": 405,
+      "verified_shots": 78016
+    },
+    "invsqrt": {
+      "status": "PASS",
+      "score": 61696.23146663024,
+      "verified_shots": 200540928
+    },
+    "dqi": {
+      "status": "PASS",
+      "score": 305041647011.3978,
+      "verified_shots": 102400,
+      "value_errors": 0,
+      "phase_errors": 0
+    }
+  },
+  "local_score": {
+    "verifier_geometric_score": 33.088044939773205,
+    "exp074_local_geometric_score": 33.08636738729924,
+    "delta_vs_exp074": 0.0016775524739642833,
+    "is_public_leaderboard_projection": false
+  },
+  "decision": {
+    "reason_not_submitted": "The measured local GM is below the team's recorded public best score of 33.17067 (submission 58771243).",
+    "team_recorded_public_best_score": 33.17067,
+    "source_owned_public_best_score": 33.08634,
+    "source_owned_public_best_submission": "58917074"
+  },
+  "archive": {
+    "path": "experiments/exp-082/out/kaggle-v2/submission.zip",
+    "sha256": "6e01db3a1cb0ab1ebf5e98a37344fbde752ca2f5ba397c37236c17a83b847228",
+    "bytes": 78001522
+  },
+  "receipt": "experiments/exp-082/out/kaggle-v2/exp082/receipt.json"
+}
