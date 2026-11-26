@@ -13,9 +13,9 @@ This directory separates local verifier estimates from Kaggle results.
   [v36 receipt](2026-11-26-exp053-parity-handoff-v36.json), and
   [exp-053 notes](../experiments/exp-053/README.md).
 
-## Live leaderboard read (`2026-11-26T06:06:32Z`)
+## Live leaderboard read (`2026-11-26T06:23:47Z`)
 
-- Kaggle CLI top-five read: leader `34.50408`.
+- Kaggle CLI top-ten read: `Cat with 2 Qubits` leads at `34.50408`.
 - Source-owned best remains `33.08634`; score gap is `1.41774`.
 - At `Q=890`, the DQI score-equivalent tie gate is `285,041.64` mean T. This
   is a derived component target, not the leader's measured DQI cost. See the

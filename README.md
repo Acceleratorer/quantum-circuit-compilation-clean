@@ -11,7 +11,7 @@ Research log and reproducible tooling for the Google Quantum AI Verifiable Quant
 | Latest source-built candidate | exp-074: all task verifiers PASS with source-built V20 chemistry and base DQI |
 | Latest leaderboard snapshot | `Accelra` rank **719 / 3733**, score `33.17067`; source [`snapshot`](kaggle/snapshots/2026-11-25/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-25T202946Z.csv) |
 | Rank 1 in that snapshot | **34.34445** (team `Entangled Team`); gap from source-owned best: **1.26276**; score-equivalent rank **1164** |
-| Current CLI top-five leader (`2026-11-26T06:06:32Z`) | **34.50408**; gap from source-owned best: **1.41774** |
+| Current CLI top-ten leader (`2026-11-26T06:23:47Z`) | **34.50408** (`Cat with 2 Qubits`); gap from source-owned best: **1.41774** |
 | DQI tie gate at `Q=890` | **285,041.64 mean T** (score-equivalent estimate) |
 
 Submissions `58771243` and `58479383` used public circuit archives, so their

@@ -47,9 +47,19 @@ The exp-065 source-owned score was `5.53933` below rank 1.
   `33.0863673873`; Kaggle ref `58917074` completed at `33.08634`, improving
   the source-owned best by `0.00465`. See the
   [exp-074 evaluation](../evals/2026-11-26-exp074-source-built-v20-chemistry.json).
-- A fresh Kaggle CLI top-five read at `2026-11-26T06:06:32Z` shows the leader
-  at `34.50408`, leaving a `1.41774` gap to the source-owned best. The current
-  DQI score-equivalent tie gate is `285,041.64` mean T at `Q=890`.
+- A fresh Kaggle CLI top-ten read at `2026-11-26T06:23:47Z` shows leader `Cat
+  with 2 Qubits` at `34.50408`, leaving a `1.41774` gap to the source-owned
+  best. The DQI score-equivalent tie gate is `285,041.64` mean T at `Q=890`.
+- A static read of Goodpjw2008's latest public chemistry source found a
+  `3,306 T/pass` loader recipe versus exp-074's `3,325`; its chemistry score
+  implies only about `+0.032` local GM if exp-074's other members stay fixed.
+  That notebook also pins public DQI and Invsqrt binaries, so its `33.25733`
+  full score is not an eligible portfolio. Keep the recipe as a reference;
+  skip a port for now. Source slug:
+  [`qcc-shorter-chemistry-loaders-lb-33-25733`](https://www.kaggle.com/code/goodpjw2008/qcc-shorter-chemistry-loaders-lb-33-25733),
+  notebook SHA-256 `12e4877137f12203f83efedee3d31cd8fe81c135aa3b4ffaa1ee994553eeccb8`.
+  Kaggle metadata says `33.25733`; its embedded notebook heading says
+  `33.25737`. This was a static screen; we did not run that notebook.
 - exp-053's four-to-five-pivot handoff failed the hard width gate at `Q=891`.
   Its no-ancilla parity-controlled follow-up kept `Q=891` and added 76 T, so
   close this 4+1 continuation. See the [v35 receipt](../evals/2026-11-26-exp053-four-plus-one-handoff-v35.json)

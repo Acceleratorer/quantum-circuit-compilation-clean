@@ -1,7 +1,7 @@
 ---
 id: D-004
 title: Improve the source-owned DQI decoder with a new key-equation algorithm
-status: active
+status: parked
 tasks: dqi, all
 last_checked: 2026-11-26
 ---
@@ -17,40 +17,31 @@ The Kaggle “Rank #1 Breakthrough” package notebook is already audited in
 [exp-043](../../experiments/exp-043/README.md); it remains disqualified as a
 compiled-artifact-only source.
 
-The current score-equivalent DQI cost gate is `268.965e9`, or
-`T <= 278,742.57` at `Q=900` and `R=1.1912604648`, holding exp-074's other
-source-built components fixed. The live Kaggle leader is Schrodingers Cats
-Lived at `34.50408`; this is score-equivalence math, not a measurement of the
-leader's DQI circuit. Exp-074 measures `316,131.22T`, so the required
-reduction is `37,388.65T` (11.83%). The one active feasibility gate is the FMA
-forward-CONVERT + remaining residue scan + v18 pair updates at `243,905T`; it
-leaves `34,837.57T` before the unmeasured phase-derivative correction and
-cleanup, while optimistically omitting reverse CONVERT. The subtotal is not a
-candidate. See the
-[2026-11-26 gate receipt](../../evals/2026-11-26-dqi-score-equivalent-gate.json)
-and the [half-GCD gate result](#2026-11-26-half-gcd-gate--close-at-degree-35).
+The latest Kaggle CLI read at `2026-11-26T06:23:47Z` shows `Cat with 2 Qubits`
+at `34.50408`. The best source-owned score remains exp-074 at `33.08634`, a
+`1.41774` gap. Holding exp-074's other two component costs fixed, matching the
+leader requires DQI cost at or below `268.965e9`, or mean `T <= 278,742.57` at
+`Q=900` and `R=1.1912604648`. Exp-074 measures `316,131.22T`, so the required
+reduction is `37,388.65T` (11.83%). This is score-equivalence math, not a
+measurement of the leader's DQI circuit. See the
+[score gate receipt](../../evals/2026-11-26-dqi-score-equivalent-gate.json).
 
-Adding reverse CONVERT (`70,342T`) to the forward CONVERT, scan, and repeated
-pair-update component counts gives a conditional sum of `314,247T`; the full
-schedule has not been integrated. Even granting the converter-only width of
-`Q=879` to the whole schedule, the rank-1 tie threshold is `292,220T`, so this
-sum is already `22,027T` over before the phase fix, complete state mapping,
-output restoration, and cleanup. The FMA pair also fails the phase bridge while
-the canonical-pair control passes. Close this composition as a candidate; its
-`Q=879` measurement is not a full-schedule width result.
+The latest implementation gates close the current DQI branches: exp-057's
+root-conditioned phase correction costs `573,144T`, peaks at `Q=892`, leaves
+scratch dirty, and has one phase mismatch; exp-053's 4+1 and parity handoffs
+both peak at `Q=891` before the remaining pivots; and the direct EEA and
+round-trip converter estimates are already above the score gate before full
+mapping and cleanup. The published BM resource point is `6.50x` over the tie
+gate. Receipts: [phase gate](../../evals/2026-11-26-exp057-root-conditioned-phase-gate.json),
+[v35](../../evals/2026-11-26-exp053-four-plus-one-handoff-v35.json),
+[v36](../../evals/2026-11-26-exp053-parity-handoff-v36.json),
+[EEA/converter gate](../../evals/2026-11-26-dqi-score-equivalent-gate.json),
+and [published BM gate](../../evals/2026-11-26-bm-published-cost-gate.json).
 
-The public Syed v25 source reports a DQI cost of `336.560e9`, 10.33% above
-exp-074's current `305.042e9` baseline and 25.13% above the live tie gate. Its
-D69 lookup receipt saves only 66 Toffolis. Keep that source as a measurement
-baseline and close the D69 lookup route; see the
-[source screen log](../../log/2026-11-23-syed-dqi-source-screen.md) and
-[evaluation receipt](../../evals/2026-11-23-syed-dqi-v25-screen.json).
-
-The static source audit in [exp-058](../../experiments/exp-058/README.md)
-found that the 33.17033 public reference uses other authors' circuits and
-offers no source-owned candidate. Its local gate-deletion and wire-reuse
-results are specific to those public files; they do not replace the active
-exp-057 algorithmic path.
+**Decision:** park D-004. Reopen it only with a different source-owned
+algorithm whose projected full `R × Q² × T` cost is under the current gate and
+whose phase, output restoration, and cleanup have a credible width/cost plan.
+No DQI candidate or submission is ready.
 
 ## 2026-11-23 live leaderboard and focused gate
 
