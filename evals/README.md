@@ -2,6 +2,17 @@
 
 This directory separates local verifier estimates from Kaggle results.
 
+## 2026-11-26 exp-057 root-conditioned phase gate
+
+- Private Kaggle version 23 added `573,144` simulator-counted T for a gate
+  covering only 66 denominator-root positions, against a `34,837.57T`
+  remaining allowance. It also reached `Q=892` against the 890 screen, left
+  scratch dirty, and had one phase error. Close this route; no candidate was
+  integrated or submitted. See the
+  [evaluation](2026-11-26-exp057-root-conditioned-phase-gate.json),
+  [experiment notes](../experiments/exp-057/README.md), and
+  [run log](../log/2026-11-26-exp057-root-conditioned-phase-gate.md).
+
 ## 2026-11-26 source-built V20 chemistry screen
 
 - exp-074 rebuilt the V20 chemistry loaders from source and passed all task

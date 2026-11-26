@@ -12,6 +12,7 @@ from zipfile import ZIP_DEFLATED, ZipFile
 
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE = Path(__file__).with_name("streaming_prefix_kernel.py")
+ROOT_GATE_SOURCE = Path(__file__).with_name("root_conditioned_phase_gate.py")
 ARITHMETIC = ROOT / "src" / "dqi" / "pro_q2_897" / "exp" / "arithmetic" / "field.py"
 HELPER_ROOT = ROOT / "src" / "dqi" / "pro_q2_897"
 NOTICE = ROOT / "src" / "dqi" / "NOTICE"
@@ -48,6 +49,16 @@ def build(out_dir: Path, screen: str = "all") -> None:
             "        indent=2, sort_keys=True\n"
             "    ))\n"
         )
+    elif screen == "root-conditioned-phase":
+        main = (
+            "\n    print(json.dumps(\n"
+            "        run_root_conditioned_phase_gate_screen(),\n"
+            "        indent=2, sort_keys=True\n"
+            "    ))\n"
+        )
+    source_body = body.rstrip()
+    if screen == "root-conditioned-phase":
+        source_body += "\n\n" + ROOT_GATE_SOURCE.read_text(encoding="utf-8").rstrip()
     arithmetic = ARITHMETIC.read_text(encoding="utf-8")
     setup = (
         "\n\n# Embedded unchanged Apache-2.0 gate arithmetic helper.\n"
@@ -62,7 +73,7 @@ def build(out_dir: Path, screen: str = "all") -> None:
         "# Embedded helper source archive; Apache-2.0 attribution is in NOTICE.\n"
         f"HELPER_ARCHIVE_B64 = {helper_archive()!r}\n\n"
     )
-    script = body.rstrip() + setup + helpers + ENTRYPOINT + main
+    script = source_body + setup + helpers + ENTRYPOINT + main
     metadata = {
         "id": "accelra/exp057-streaming-prefix-state",
         "title": "exp057 streaming prefix state",
@@ -96,9 +107,10 @@ def main() -> None:
             "all",
             "phase-node-alignment",
             "phase-node-alignment-no-convert",
+            "root-conditioned-phase",
         ),
         default="all",
-        help="run the full gate suite or only the FMA phase bridge screen",
+        help="run all gate screens or one targeted phase gate",
     )
     args = parser.parse_args()
     out_dir = args.out_dir if args.out_dir.is_absolute() else ROOT / args.out_dir

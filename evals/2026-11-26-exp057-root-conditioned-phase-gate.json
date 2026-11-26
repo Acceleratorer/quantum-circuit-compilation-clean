@@ -1,0 +1,72 @@
+{
+  "captured_utc": "2026-11-26T05:25:37Z",
+  "experiment": "exp-057-root-conditioned-forney-phase-gate",
+  "status": "NO_GO",
+  "kernel": {
+    "id": "accelra/exp057-streaming-prefix-state",
+    "version": 23,
+    "visibility": "private",
+    "execution_status": "COMPLETE",
+    "url": "https://www.kaggle.com/code/accelra/exp057-streaming-prefix-state/versions/23",
+    "source_git_head": "6c20dc9e813fd5068b1866904f0bf6749b80d763",
+    "script_sha256": "ce2afc0db5e20ab36807c45fcfcb4086aedf1827de5ccc0024a2fbfeb28950d9",
+    "metadata_sha256": "d2b5d6a5e6c390f8829a7de60a69141be1090818d510030d0cf6c8ee72d3cf71",
+    "raw_log_sha256": "48f45843b2f833a3476ca8f4e20faa339a16d3b524c03026f967953690024dce"
+  },
+  "inputs": {
+    "weights": [
+      31,
+      35
+    ],
+    "seed": "0xA66063",
+    "processed_denominator_roots_union": 66
+  },
+  "gate": {
+    "added_mean_t_budget": 34837.5678948333,
+    "width_gate": 890
+  },
+  "results": {
+    "phase_errors": 1,
+    "restore_errors": 0,
+    "scratch_clean": false,
+    "peak_qubits": 892,
+    "added_mean_simulated_t": 573144,
+    "budget_ratio": 16.4518947399,
+    "cases": [
+      {
+        "weight": 31,
+        "denominator_roots": 31,
+        "expected_phase": 0,
+        "observed_phase": 1,
+        "phase_errors": 1,
+        "restore_errors": 0,
+        "scratch_clean": false,
+        "baseline_simulated_t": 726,
+        "corrected_simulated_t": 573870,
+        "added_simulated_t": 573144,
+        "compiled_qubits": 892
+      },
+      {
+        "weight": 35,
+        "denominator_roots": 35,
+        "expected_phase": 1,
+        "observed_phase": 1,
+        "phase_errors": 0,
+        "restore_errors": 0,
+        "scratch_clean": false,
+        "baseline_simulated_t": 726,
+        "corrected_simulated_t": 573870,
+        "added_simulated_t": 573144,
+        "compiled_qubits": 892
+      }
+    ]
+  },
+  "decision": "Close the root-conditioned derivative-correction route. The simulator-counted overhead for only the 66 denominator-root positions is 16.45x the remaining T budget; the circuit exceeds the width gate, leaves scratch dirty, and has one phase error. Do not integrate or submit it.",
+  "identity": "At a simple denominator root beta, A(beta)=omega(beta)*padding(beta), B'(beta)=sigma'(beta)*padding(beta), and omega(beta)/(beta*P_data(beta)*sigma'(beta)) equals the error value.",
+  "scope": "Two verifier-shaped cases and the union of their denominator roots only. This is not the full 4095-position scanner, a full DQI schedule, an official verifier run, or a candidate score.",
+  "raw_artifacts": [
+    "experiments/exp-057/out/kaggle-v23/exp057-streaming-prefix-state.py",
+    "experiments/exp-057/out/kaggle-v23/kernel-metadata.json",
+    "experiments/exp-057/out/kaggle-v23/exp057-streaming-prefix-state.log"
+  ]
+}

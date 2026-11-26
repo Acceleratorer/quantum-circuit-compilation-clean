@@ -355,10 +355,24 @@ numerator gives `error(r) * sigma_prime(r)` at an error root. The scanner needs
 the corresponding `omega(r) / sigma_prime(r)` residue. The identity held on
 all cases; correcting its predicted parity removed all 30 raw phase
 mismatches. This does not implement the correction reversibly or establish
-its cost. The next gate remains producing those residues from the v15 streamed
-state and measuring complete cleanup. See the
+its cost. The next root-conditioned gate below tested that correction and
+closed the route. See the
 [evaluation](../../evals/2026-11-25-exp057-native-phase-derivative.json) and
 [run log](../../log/2026-11-25-exp057-native-phase-derivative.md).
+
+## Root-conditioned Forney phase gate (closed)
+
+Private Kaggle version 23 tested the derivative correction at all 66
+denominator-root positions from one seeded weight-31 and one seeded weight-35
+case. It added `573,144` simulator-counted T, against a `34,837.57T` remaining
+budget, exceeded the 890-qubit screen at `Q=892`, left scratch dirty, and had
+one phase mismatch. The same T count for both weights shows that quantum
+control did not make the compiled correction cost scale with the number of
+roots. Close this route; do not integrate or submit it.
+
+Receipt: [evaluation](../../evals/2026-11-26-exp057-root-conditioned-phase-gate.json),
+[run log](../../log/2026-11-26-exp057-root-conditioned-phase-gate.md), and
+[private Kaggle version 23](https://www.kaggle.com/code/accelra/exp057-streaming-prefix-state/versions/23).
 
 ## Tail key-equation composition
 
