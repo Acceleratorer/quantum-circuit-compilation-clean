@@ -1,0 +1,36 @@
+{
+  "date": "2026-11-26",
+  "experiment": "exp-078-gf2m-78and-screen",
+  "status": "NO_GO_BEFORE_BUILD",
+  "question": "Can Swapnil Jain's GF(2^12) circuit lower the active DQI Toffoli count enough to justify a port?",
+  "source": {
+    "repository": "https://github.com/Swapnil-jain/gf2m-circuits",
+    "file": "multipliers/circuits/final_f12.slp",
+    "license": "Apache-2.0 for repository code and circuits; paper is CC BY 4.0",
+    "field_polynomial": "0x1009",
+    "gates": 210,
+    "and_gates": 78,
+    "xor_gates": 132,
+    "count_method": "Counted SLP lines containing a binary multiplication operator or XOR operator."
+  },
+  "active_dqi": {
+    "source": "tonylica/quantum-ai-32-85306-task-generators, version 2",
+    "base_circuit_sha256": "4b5721411adc239f61fc11c773a2358b75dfe7cb15586efae4f0459c77d77e52",
+    "static_toffoli_like": 318972,
+    "mean_toffolis": 316131.2215625,
+    "dqi_field_polynomial_in_prior_analysis": "0x1053",
+    "required_mean_toffoli_reduction_to_leader_tie": 37388.6536676667,
+    "four_d16_substitutions_toffoli_total": 850
+  },
+  "comparison": {
+    "prior_dqi_12x12_multiplier_cost": 42,
+    "prior_cost_scope": "exp-005 analyzed an older public decoder; this is not a newly measured per-multiplier count for the active source.",
+    "candidate_and_count_exceeds_prior_cost_by": 36,
+    "d16_relevance": "The active source's D16 substitutions use custom input/output bilinear maps, not a drop-in GF(2^12) field multiply. Even eliminating all 850 static Toffolis in those four substitutions would be far below the 37388.65 mean-Toffoli gap."
+  },
+  "decision": "Do not port or build. The candidate has 78 nonlinear ANDs before reversible cleanup, which offers no credible advantage over the prior 42-Toffoli generic multiply, and it does not directly implement the D16 maps. The field-polynomial mismatch is linearly transformable in principle but does not improve the nonlinear count.",
+  "circuit_built": false,
+  "verifier_run": false,
+  "submission": null,
+  "next_gate": "Only pursue a source-native DQI rewrite with a defensible path to at least 37389 mean-Toffoli savings before compiling a full verifier candidate."
+}
