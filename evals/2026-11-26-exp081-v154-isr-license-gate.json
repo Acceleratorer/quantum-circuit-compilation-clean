@@ -1,0 +1,33 @@
+{
+  "experiment": "exp081-v154-isr-source-license-gate",
+  "captured_utc": "2026-11-26T12:04:45Z",
+  "status": "NO_GO_LICENSE_SCOPE_UNCLEAR",
+  "source": {
+    "notebook": "https://www.kaggle.com/code/dziyanavalenta/q2026-v154-submission-nb",
+    "archive_path": "experiments/exp-081/external/dziyanavalenta/q2026-v154-isr-generator.zip",
+    "archive_sha256": "2de7416acd9a2cad8932987e11186906cf7c111770d1339091386617ecf325d4",
+    "inner_source_archive_sha256": "16fa277737a0974d5e2c5c474fdf71cf772a49a6aa2879ccbc211c5f33397a02"
+  },
+  "inspection": {
+    "archive_read_as_text_only": true,
+    "source_readme_label": "private",
+    "apache_2_components_present": [
+      "Syed Asad Ali DQI/invsqrt generators",
+      "ThemBones inverse-square-root generators"
+    ],
+    "archive_level_license_scope": "Unclear for the Quantum 2026 additions; the bundle is labeled private while carrying upstream Apache-2.0 licenses.",
+    "reported_invsqrt": {
+      "qubits": 39,
+      "cost": 62993.5,
+      "rotations": 33,
+      "evidence": "Embedded result in the archive; not independently reproduced."
+    },
+    "source_owned_invsqrt_reference_cost": 61696.23146663024
+  },
+  "decision": "Do not port, execute, publish, or redistribute this bundle without clear permission for the archive-level additions. Its reported inverse-square-root cost also does not improve on the current source-owned reference.",
+  "handling": {
+    "source_code_executed": false,
+    "source_files_added_to_git": false,
+    "competition_submission": null
+  }
+}
