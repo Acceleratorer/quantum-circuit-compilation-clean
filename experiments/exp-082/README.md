@@ -2,9 +2,9 @@
 id: exp-082
 title: Source-built V22 chemistry with base DQI
 task: portfolio
-status: verified_not_submitted
+status: submitted_pending
 date: 2026-11-26
-result: All official verifiers PASS; local GM 33.08804494 (+0.00167755 vs exp-074); not submitted because below team public best 33.17067
+result: All official verifiers PASS; local GM 33.08804494 (+0.00167755 vs exp-074); Kaggle ref 58958257 pending
 ---
 
 # exp-082 — V22 chemistry loader candidate
@@ -22,9 +22,11 @@ official chemistry verifier passed at default and salt 42 (78,016 shots each),
 with 13,148 Toffolis total. Invsqrt and DQI also passed. The measured local
 verifier GM is `33.08804494`, up `0.00167755` from exp-074's `33.08636739`.
 
-This is a small local improvement, not a public score. It was not submitted:
-the candidate's local GM remains below the team's recorded public best of
-`33.17067` (submission `58771243`).
+This is a small local improvement, not a public score. The source-built bundle
+was submitted as Kaggle ref `58958257`; it was still pending when this record
+was updated. Its local GM is `0.00167755` above exp-074's source-owned score.
+The live rank-1 score is `34.50408`, so this submission records the incremental
+source-owned result and does not close the rank-1 gap.
 
 ## Source and handling
 

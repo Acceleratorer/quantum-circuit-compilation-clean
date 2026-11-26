@@ -1,7 +1,7 @@
 {
   "experiment": "exp-082",
   "status": "PASS",
-  "submission_status": "NOT_SUBMITTED",
+  "submission_status": "PENDING",
   "source": {
     "tony_li_dataset": "quantum-ai-32-85306-task-generators",
     "tony_li_dataset_fingerprint": "50be321af83901e46476b55c7b1faedf60510f971abc495c02aa41f8c9b87e42",
@@ -47,10 +47,19 @@
     "is_public_leaderboard_projection": false
   },
   "decision": {
-    "reason_not_submitted": "The measured local GM is below the team's recorded public best score of 33.17067 (submission 58771243).",
-    "team_recorded_public_best_score": 33.17067,
-    "source_owned_public_best_score": 33.08634,
-    "source_owned_public_best_submission": "58917074"
+    "reason_submitted": "The source-built local GM is 0.00167755 above the source-owned exp-074 result; the public archive score 33.17067 is excluded from source-owned comparison.",
+    "source_owned_baseline_score": 33.08636738729924,
+    "source_owned_baseline_submission": "58917074",
+    "local_gm_delta": 0.0016775524739642833,
+    "live_rank1_score_at_submission": 34.50408,
+    "local_candidate_gap_to_rank1": 1.416035060226795
+  },
+  "submission": {
+    "ref": "58958257",
+    "status": "PENDING",
+    "submitted_at_utc": "2026-11-26T17:13:07.360000Z",
+    "public_score": null,
+    "description": "exp-082 source-built V22 chemistry; all official verifiers PASS"
   },
   "archive": {
     "path": "experiments/exp-082/out/kaggle-v2/submission.zip",
