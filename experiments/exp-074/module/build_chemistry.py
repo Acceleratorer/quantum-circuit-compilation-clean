@@ -208,7 +208,7 @@ def build_chemistry(base_table: str | Path, work_dir: str | Path, submission_dir
     print(f'{"batch":>6s}{"public":>8s}{"ours":>6s}{"qubits":>8s}   forward / back on all 1,219 addresses     dead words used')
     for k in range(15):
         hdr, pub_ops, sel, wq = read_loader(f'{WORK}/public_loaders/angle_k_{k}.kmb'); path = f'{SUB}/dfthcsos/angle_k_{k}.kmb'; TOF_PUB.append(sum(t[0] in ('CCX', 'CCZ') for t in pub_ops)); ours = k in LOADER
-        # Source-built base circuits provide register metadata only; every retained loader is rebuilt below.
+        # Source-built base circuits provide register metadata; batch 0 stays source-built and other loaders are rebuilt below.
         if ours:
             ops = build_window(LOADER[k], wq) if isinstance(LOADER[k], bytes) else build_loader(LOADER[k], sel, wq)
             km.Circuit.from_file(io.BytesIO(('\n'.join(hdr + [FMT[t[0]] % t[1:] for t in ops]) + '\n').encode()), format='kmx').to_file(path, format='kmb')
