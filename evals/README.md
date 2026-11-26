@@ -2,6 +2,14 @@
 
 This directory separates local verifier estimates from Kaggle results.
 
+## 2026-11-26 DQI source stage profile
+
+- Exact source assembly totals `318,972` static Toffoli-like gates. The largest
+  stage is `decoder_return` at `109,515`; the four D16 substitutions total only
+  `850`. This is an analysis profile, not a candidate. See the
+  [receipt](2026-11-26-dqi-stage-profile.json) and
+  [log](../log/2026-11-26-dqi-stage-profile.md).
+
 ## 2026-11-26 exp-053 four-to-five-pivot handoff
 
 - Private kernel v35 measured the compact 4+1 prefix at `Q=891`, one over

@@ -1,0 +1,49 @@
+{
+  "date": "2026-11-26",
+  "status": "PROFILE_ONLY",
+  "task": "dqi",
+  "source": {
+    "dataset": "tonylica/quantum-ai-32-85306-task-generators",
+    "license": "Apache-2.0",
+    "dataset_file_count": 88,
+    "dataset_fingerprint": "50be321af83901e46476b55c7b1faedf60510f971abc495c02aa41f8c9b87e42",
+    "expected_sha256_manifest": "192853425ad64fd80ecc07aa904dc55b2adf53c7c3dff2cdce81babdb6eed9ce",
+    "dqi_release_sha256": "4b5721411adc239f61fc11c773a2358b75dfe7cb15586efae4f0459c77d77e52"
+  },
+  "method": {
+    "description": "Stream-decompressed the exact KMX source stages and generated selector/product sections; counted CCX, CCZ, CSWAP, and TOFFOLI instruction lines per stage.",
+    "total_kmx_instructions": 69782188,
+    "total_assembly_lines_with_register_metadata": 69836333,
+    "static_toffoli_like": 318972,
+    "matches_dataset_release_readme": true,
+    "circuit_built": false,
+    "official_verifier_run": false
+  },
+  "stage_static_toffoli_like": [
+    {"stage": "decoder/registers", "count": 0},
+    {"stage": "lambda_selector", "count": 0},
+    {"stage": "decoder/classical_decoder_entry", "count": 0},
+    {"stage": "decoder/quantum_decoder_to_field_1", "count": 90766},
+    {"stage": "field_1_D16", "count": 196},
+    {"stage": "decoder/field_1_to_field_2", "count": 2893},
+    {"stage": "field_2_D16", "count": 250},
+    {"stage": "decoder/field_2_to_root_1330_phase", "count": 77036},
+    {"stage": "lambda_phase", "count": 0},
+    {"stage": "decoder/root_1330_phase_to_field_3", "count": 23844},
+    {"stage": "field_3_D16", "count": 208},
+    {"stage": "decoder/field_3_to_field_4", "count": 14068},
+    {"stage": "field_4_D16", "count": 196},
+    {"stage": "decoder/decoder_return", "count": 109515},
+    {"stage": "restore_gauges", "count": 0}
+  ],
+  "derived": {
+    "top_three_static_toffoli_like": 277317,
+    "top_three_share_of_static_percent": 86.94,
+    "four_D16_substitutions_total": 850,
+    "dqi_mean_toffoli_tie_gate_at_q900": 278742.567894833,
+    "current_source_owned_mean_toffoli": 316131.2215625,
+    "mean_toffoli_reduction_needed": 37388.6536676667,
+    "mean_gap_as_fraction_of_return_stage_static_percent": 34.14
+  },
+  "decision": "Inspect decoder_return first because it is the largest stage. The D16 substitution blocks are too small to close the score gate. Static stage counts do not predict mean savings; any rewrite still needs the full official verifier."
+}

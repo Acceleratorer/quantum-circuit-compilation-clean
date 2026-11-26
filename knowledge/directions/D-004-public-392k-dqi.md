@@ -38,6 +38,14 @@ gate. Receipts: [phase gate](../../evals/2026-11-26-exp057-root-conditioned-phas
 [EEA/converter gate](../../evals/2026-11-26-dqi-score-equivalent-gate.json),
 and [published BM gate](../../evals/2026-11-26-bm-published-cost-gate.json).
 
+A source-only profile of the exact exp-074 DQI release found `318,972` static
+Toffoli-like gates. `decoder_return` is the largest stage at `109,515`; the
+four D16 substitutions total only `850`. The `37,388.65` mean-Toffoli score gap
+is `34.14%` of the return stage's static count; this is a scale comparison,
+not an exact gate-deletion requirement. The profile is a target-setting
+diagnostic, not a measured candidate. See the
+[stage profile receipt](../../evals/2026-11-26-dqi-stage-profile.json).
+
 **Decision:** park D-004. Reopen it only with a different source-owned
 algorithm whose projected full `R × Q² × T` cost is under the current gate and
 whose phase, output restoration, and cleanup have a credible width/cost plan.
