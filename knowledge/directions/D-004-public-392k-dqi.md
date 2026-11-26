@@ -996,6 +996,20 @@ decoder under `Q <= 900`, followed by official verification. No root compactor
 within that budget has been shown. These are feasibility gates, not
 lower-bound proofs.
 
+## 2026-11-27 provenance correction
+
+Exp-073/074/082 reused DQI and Invsqrt inputs from Tony Li's task-generator
+dataset. Exp-056 had already rejected that dataset because its generators
+reconstruct released KMX stages byte-for-byte. Keep exp-082's score as a
+historical measurement only; it is not a source-owned candidate. The
+`278,784.97T` tie figure above is conditional on exp-082's portfolio and is not
+the active source-owned gate. Do not reuse those circuits; recompute the score
+gate around an eligible, independently generated portfolio. Using exp-065's
+eligible component costs, the current conditional target is `205,608.39T` at
+`Q=890`, versus `356,677.49T` mean in exp-063. This target assumes exp-065's
+other task costs and repetition factor remain fixed; see the eligible gate in
+[`evals/2026-11-26-dqi-score-equivalent-gate.json`](../../evals/2026-11-26-dqi-score-equivalent-gate.json).
+
 ## 2026-11-26 published BM cost gate
 
 The optimized published BM DQI circuit is closed as a direct port: its

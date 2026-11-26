@@ -63,14 +63,19 @@ This directory separates local verifier estimates from Kaggle results.
   [v36 receipt](2026-11-26-exp053-parity-handoff-v36.json), and
   [exp-053 notes](../experiments/exp-053/README.md).
 
-## Live leaderboard and source-owned result (`2026-11-26T17:42:19Z`)
+## Live leaderboard and latest measured result (`2026-11-26T17:42:19Z`)
 
 - Kaggle CLI top-ten read: `Cat with 2 Qubits` leads at `34.50408`.
-- Source-owned best is exp-082, submission `58958257`, at `33.08801`; score gap
-  is `1.41607`.
-- Using exp-082's component costs, the derived DQI tie gate is `278,784.97`
-  mean T at `Q=900` (`285,084.99` at `Q=890`). This is a score-equivalent
-  target, not the leader's measured DQI cost. See the
+- Best eligible source-owned submission is exp-065 at `28.71611`; its gap to
+  the current leader is `5.78798`.
+- Holding exp-065's other costs and `R` fixed, the eligible-reference DQI tie
+  target is `205,608.39` mean T at `Q=890`, versus `356,677.49` now.
+- Submission `58958257` completed at `33.08801`, but exp-082's DQI and Invsqrt
+  provenance is excluded from our source-owned workflow; do not treat this as
+  an eligible source-owned result.
+- The `278,784.97` mean-T gate at `Q=900` (`285,084.99` at `Q=890`) is a
+  conditional calculation using exp-082's portfolio costs, not a valid gate
+  for a source-owned portfolio or the leader's measured DQI cost. See the
   [updated gate receipt](2026-11-26-dqi-score-equivalent-gate.json).
 
 ## 2026-11-26 exp-057 root-conditioned phase gate
@@ -84,13 +89,15 @@ This directory separates local verifier estimates from Kaggle results.
   [experiment notes](../experiments/exp-057/README.md), and
   [run log](../log/2026-11-26-exp057-root-conditioned-phase-gate.md).
 
-## 2026-11-26 exp-082 source-built V22 chemistry
+## 2026-11-26 exp-082 V22 chemistry measurement
 
 - All official verifiers pass. The source-built loader uses 3,324 Toffolis per
   pass; local verifier GM is `33.08804494`, up `0.00167755` from exp-074.
   Kaggle submission `58958257` completed at public score `33.08801`, making it
-  the best source-owned submission. The `33.17067` account score used a public
-  circuit archive and is not an eligible source-owned result. See the
+  a measured result. Its DQI and Invsqrt use a dataset rejected by the exp-056
+  provenance screen, so this is not an eligible source-owned result. The
+  `33.17067` account score used a public circuit archive and is also not an
+  eligible source-owned result. See the
   [evaluation](2026-11-26-exp082-source-built-v22-chemistry.json),
   [experiment](../experiments/exp-082/README.md), and
   [run log](../log/2026-11-26-exp082-v22-chemistry.md).
@@ -218,13 +225,13 @@ Refresh the leaderboard before every submission.
 
 ## Active direction
 
-The rank-1 gate remains unmet. exp-074 is the current source-owned best at
-`33.08634`; its all-verifier-pass 3,325-Toffoli chemistry build missed the
-V20 notebook's 3,118 claim. Its public score is `1.41774` below the current
-leader. The verifier-approved exp-063 DQI remains the baseline, but no lower-
-cost redesign currently has a full schedule under the width and phase gates:
-exp-057's root-conditioned phase route and exp-053's 4+1 handoff are closed.
-Do not treat a component prefix as a submission candidate.
+The best eligible source-owned submission is exp-065 at `28.71611`. Its DQI
+component from exp-063 is `Q=890`, `356,677.49` mean T. Holding exp-065's other
+costs and `R` fixed, the derived rank-1 tie target is `205,608.39` mean T.
+Exp-074/082's stronger scores are historical measurements whose Tony Li
+DQI/Invsqrt provenance is excluded by exp-056. No current DQI redesign reaches
+the eligible tie target with complete width, phase, cleanup, and verifier
+evidence. Do not treat a component prefix as a submission candidate.
 See the
 [exp-074 evaluation](2026-11-26-exp074-source-built-v20-chemistry.json),
 [archive milestone](../milestone/2026-11-23-source-owned-archive.md),

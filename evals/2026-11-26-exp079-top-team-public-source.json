@@ -12,7 +12,6 @@
     "competition": "google-verifiable-quantum-circuit-compilation",
     "top_code_listing_page_size": 200,
     "team_member_list_source": "https://clist.by/standings/google-quantum-ai-verifiable-quantum-circuit-compilation-physics-computer-science-custom-metric-71529627/",
-    "team_member_list_source": "https://clist.by/standings/google-quantum-ai-verifiable-quantum-circuit-compilation-physics-computer-science-custom-metric-71529627/",
     "member_handles_checked": [
       "pjmathematician",
       "dziyanavalenta",
@@ -31,6 +30,22 @@
     "sha256": "063C9E8CCF6EE533C029E905DA5F8D7E1A7D6E534426732F217971887C5EE712",
     "bytes": 4379,
     "finding": "The notebook packages a prebuilt submission archive and generator source archives from Kaggle datasets; it does not rebuild the generators in this notebook. Its described invsqrt lineage uses ThemBones/Syed generators, and its DQI lineage is based on Syed v12 plus public contributions. The source contains no two-qubit invsqrt design."
+  },
+  "followup_kernel_audit": {
+    "captured_utc": "2026-11-26T18:12:31Z",
+    "ref": "manwithacat/the-real-150k-was-the-friends-we-made",
+    "url": "https://www.kaggle.com/code/manwithacat/the-real-150k-was-the-friends-we-made",
+    "kernel_id_no": 140715781,
+    "download_date_utc": "2026-11-26",
+    "revision": "Latest public revision at fetch time; numeric version was not exposed by the Kaggle CLI metadata.",
+    "last_run_utc": "2026-11-26T17:37:17.920Z",
+    "downloaded_files": {
+      "the-real-150k-was-the-friends-we-made.ipynb": "10F8B09618EE8680F9EDAFA1125D9D03F075CA04E58B9FE989C0A6445AAC6A20",
+      "kernel-metadata.json": "E6A3CB82D97C5D58E044C603648846827B258AEFC0CA3E5F4216A0967C3A9D6C"
+    },
+    "finding": "The notebook describes itself as a compilation, not a method; it selects among public circuits and Hedge entries and adds no circuits. It does not establish a connection to the current leaderboard leader or a new source-owned decoder route.",
+    "handling": "Notebook source and metadata were read as text only; code was not run; outputs were not downloaded; source files remain ignored under experiments/exp-079/external/manwithacat/.",
+    "decision": "No-go as an optimization candidate; measurement reference only."
   },
   "handling": {
     "download_path": "experiments/exp-079/external/dziyanavalenta/",

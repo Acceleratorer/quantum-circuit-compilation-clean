@@ -19,9 +19,13 @@ notebook is read or copied.
 
 ## Base source and raw data
 
-The DQI, Invsqrt, and base chemistry inputs are generated from Tony Li's
-Apache-2.0 `quantum-ai-32-85306-task-generators` source dataset, pinned by its
-manifest and full dataset fingerprint in `main.py`. The raw chemistry table is
+The DQI and Invsqrt inputs were generated from Tony Li's
+`quantum-ai-32-85306-task-generators` dataset. Exp-056 records the Kaggle
+dataset license metadata as `other` and finds that its generators reconstruct
+released KMX stages byte-for-byte. Under the standing source-owned rule, these
+components are historical measurements only and are excluded from future
+submissions. The Apache-2.0 notice above applies to the adapted Goodpjw2008
+loader code, not to the Tony Li dataset. The raw chemistry table is
 Maoxin123's v4 `submission.npz`, pinned by SHA-256
 `ec85d969811623b5b4c7e3fff26fef2151bafedaa9a4741cb978e56ff34fbba1` and used
 only as source data. No compiled candidate circuits are used as inputs.

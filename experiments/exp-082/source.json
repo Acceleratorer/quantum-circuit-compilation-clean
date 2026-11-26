@@ -18,14 +18,23 @@
   "exp074_local_geometric_score": 33.08636738729924,
   "measured_local_geometric_score": 33.088044939773205,
   "measured_local_geometric_score_delta_vs_exp074": 0.0016775524739642833,
-  "submission_status": "not_submitted",
+  "submission_status": "COMPLETE",
+  "kaggle_submission_ref": 58958257,
+  "public_submission_score": 33.08801,
   "team_recorded_public_best_score": 33.17067,
   "archive_sha256": "6e01db3a1cb0ab1ebf5e98a37344fbde752ca2f5ba397c37236c17a83b847228",
   "score_is_public_leaderboard_projection": false,
   "source_weights": "reused from exp-074; no V22 refit",
   "maoxin_v4_raw_table_sha256": "ec85d969811623b5b4c7e3fff26fef2151bafedaa9a4741cb978e56ff34fbba1",
   "base_source_dataset": "tonylica/quantum-ai-32-85306-task-generators",
+  "base_source_dataset_license_metadata": "other (as recorded in exp-056)",
   "base_source_dataset_fingerprint": "50be321af83901e46476b55c7b1faedf60510f971abc495c02aa41f8c9b87e42",
+  "provenance_eligibility": {
+    "status": "excluded_from_source_owned_workflow",
+    "affected_components": ["dqi.kmb", "invsqrt.kmb"],
+    "basis": "exp-056 found the dataset rebuilds released KMX stages byte-for-byte and rejected it for reuse",
+    "future_use": "historical measurement only; do not reuse these components in a future submission"
+  },
   "compiled_candidate_circuits_read": 0,
   "verification": "all_official_verifiers_pass"
 }

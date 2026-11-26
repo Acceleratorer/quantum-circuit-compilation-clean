@@ -2,13 +2,14 @@
   "captured_utc": "2026-11-26T17:42:19Z",
   "experiment": "dqi-score-equivalent-gate-refresh",
   "status": "DERIVED_NOT_MEASURED",
+  "portfolio_eligibility": "CONDITIONAL_REFERENCE_ONLY; exp-082 DQI and Invsqrt provenance is excluded from the source-owned workflow by exp-056",
   "leaderboard": {
     "source": "Kaggle CLI competitions leaderboard --show --page-size 10",
     "leader_team": "Cat with 2 Qubits",
     "leader_submission_utc": "2026-11-26T01:12:30.220000Z",
     "leader_score": 34.50408
   },
-  "fixed_source_owned_components": {
+  "fixed_reference_components": {
     "portfolio": "exp-082",
     "verifier_geometric_score": 33.088044939773205,
     "public_score": 33.08801,
@@ -31,7 +32,25 @@
     "required_cost_reduction_pct": 11.813528802182848,
     "required_mean_toffoli_reduction": 37346.2529119784
   },
-  "method": "Solve the official geometric-mean score formula for DQI cost using exp-082's verifier geometric score and holding its Invsqrt and chemistry costs, Q=900, and R fixed against the current Kaggle leader.",
+  "eligible_reference_components": {
+    "portfolio": "exp-065",
+    "submission_ref": 58832495,
+    "public_score": 28.71611,
+    "invsqrt_cost": 72440.3509518131,
+    "dfthcsos_cost": 295006518.96994764,
+    "dqi_qubits": 890,
+    "dqi_repetition_factor": 1.1912604648115832,
+    "dqi_cost": 336559961203.1761,
+    "dqi_mean_toffolis": 356677.4941796875
+  },
+  "eligible_derived_dqi_gate": {
+    "score_equivalent_target_mean_toffolis_at_q890": 205608.38972564403,
+    "required_mean_toffoli_reduction": 151069.1044540435,
+    "required_reduction_pct": 42.35453790026283,
+    "target_dqi_cost": 194011544878.267
+  },
+  "eligible_method": "Solve the official score formula using the exp-065 source-owned reference costs, the current leader score, and fixed Q=890 and R. This is a conditional DQI target; changing either other task cost changes the target.",
+  "method": "Conditional score-equivalence calculation: solve the official geometric-mean score formula for DQI cost using exp-082's verifier score and holding its Invsqrt and chemistry costs, Q=900, and R fixed against the current Kaggle leader. Exp-082 is not an eligible source-owned portfolio under the exp-056 provenance decision.",
   "phase_compatibility_gate": {
     "status": "NO_GO_FOR_CURRENT_EEA_IMPLEMENTATION",
     "fma_scan_subtotal_mean_t": 243905,
@@ -81,5 +100,5 @@
     },
     "decision": "Do not build or submit the current EEA phase route. The measured FMA subtotal is not a candidate because the raw phase is wrong and its reversible correction has no resource estimate. The direct-RHS EEA estimate plus pair updates already exceeds the refreshed tie gate before full mapping and cleanup."
   },
-  "limits": "This is score-equivalence math, not the leader's measured component cost or a candidate score. It assumes the same scoring reference and repetition factor; the final candidate must pass the official verifier and beat the live leaderboard."
+  "limits": "These are conditional score-equivalence calculations, not the leader's measured component cost or a candidate score. The exp-082 gate is ineligible; the exp-065 gate assumes its other task costs and R remain fixed. Any final candidate must pass the official verifier and beat the live leaderboard."
 }

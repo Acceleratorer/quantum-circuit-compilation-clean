@@ -7,12 +7,12 @@ Research log and reproducible tooling for the Google Quantum AI Verifiable Quant
 | Item | Value |
 |---|---:|
 | Highest recorded account score (public archive; ineligible) | **33.17067**, submission `58771243` |
-| Best source-owned submission | exp-082, Kaggle ref `58958257`, score **33.08801** |
-| Latest source-built result | exp-082: all task verifiers PASS; local GM `33.08804`; Kaggle score `33.08801` |
-| Latest leaderboard snapshot | `Accelra` rank **719 / 3733**, score `33.17067`; source [`snapshot`](kaggle/snapshots/2026-11-25/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-25T202946Z.csv) |
-| Rank 1 in that snapshot | **34.34445** (`Entangled Team`); gap from the then-best source-owned score: **1.26276**; score-equivalent rank **1164** |
-| Current CLI leader (read `2026-11-26T17:42:19Z`) | **34.50408** (`Cat with 2 Qubits`); gap from source-owned best: **1.41607** |
-| DQI tie gate at `Q=900` | **278,784.97 mean T** (score-equivalent estimate using exp-082) |
+| Best eligible source-owned submission | exp-065, Kaggle ref `58832495`, score **28.71611** |
+| Latest measured public submission (provenance-excluded) | exp-082, ref `58958257`, score **33.08801** |
+| Latest leaderboard snapshot | `Accelra` rank **719 / 3733** with an ineligible public-archive score of `33.17067`; source [`snapshot`](kaggle/snapshots/2026-11-25/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-25T202946Z.csv) |
+| Rank 1 in that snapshot | **34.34445** (`Entangled Team`); gap from eligible exp-065: **5.62834** |
+| Current CLI leader (read `2026-11-26T17:42:19Z`) | **34.50408** (`Cat with 2 Qubits`); gap from eligible source-owned best: **5.78798** |
+| Conditional DQI tie gate at `Q=890` | **205,608.39 mean T** (score-equivalent estimate using exp-065) |
 
 Submissions `58771243` and `58479383` used public circuit archives, so their
 scores are historical Kaggle measurements only. Neither demonstrates our own
@@ -21,11 +21,13 @@ generator or counts as eligible evidence for the source-owned goal; see the
 
 The latest persisted full leaderboard snapshot is from `2026-11-25T20:29:46Z`;
 its CSV has 3,733 ranked teams. Accelra's 33.17067 score is from a public
-circuit archive. The best source-owned public result is exp-082's `33.08801`
-(ref `58958257`), from a source build with local verifier GM `33.08804`; the
-submission is complete. A fresh CLI top-five read shows the live leader at
-`34.50408`, a `1.41607` gap. The DQI gate at `Q=900` is derived from the
-scoring formula and is not the leader's measured component cost. Exp-072's
+circuit archive. Exp-065 is the best eligible source-owned submission at
+`28.71611` (ref `58832495`). Exp-082's `33.08801` is a completed historical
+measurement, but its DQI and Invsqrt provenance is excluded by exp-056. A fresh
+CLI top-five read shows the live leader at `34.50408`, a `5.78798` gap from
+exp-065. The `205,608.39T` DQI tie gate at `Q=890` is derived from exp-065's
+eligible component costs; it is not the leader's measured component cost.
+Exp-072's
 ten DQI rewrites changed the final circuit hash from exp-071's `4b572141…` to
 `6f78ecdd…`; exp-066 and exp-072 both observed four value errors on that
 rewritten circuit locally, so it is not the current base.
@@ -85,10 +87,12 @@ hashes.
 
 ## Source-owned member progress
 
-The exp-062/063/064 members are source-built and verifier-checked. The current
-source-owned best is exp-082 at `33.08801`, up `0.00167` from exp-074. Earlier
-DQI rewrites were rejected after local value errors; the best valid DQI remains
-at `316,131.22` mean T. Rank 1 is still `1.41607` ahead. See the
+The exp-062/063/064 members are source-built and verifier-checked. The best
+eligible source-owned result is exp-065 at `28.71611`. Its DQI from exp-063 is
+`356,677.49` mean T at `Q=890`; the conditional tie gate is `205,608.39T` with
+the other exp-065 costs fixed. Exp-082 and exp-074 used DQI/Invsqrt inputs
+excluded by exp-056 and are historical measurements only. Earlier DQI rewrites
+were rejected after local value errors. See the
 [source-owned archive milestone](milestone/2026-11-23-source-owned-archive.md),
 [exp-082 evaluation](evals/2026-11-26-exp082-source-built-v22-chemistry.json),
 and [current DQI gate](evals/2026-11-26-dqi-score-equivalent-gate.json).

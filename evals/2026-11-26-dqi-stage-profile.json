@@ -4,7 +4,8 @@
   "task": "dqi",
   "source": {
     "dataset": "tonylica/quantum-ai-32-85306-task-generators",
-    "license": "Apache-2.0",
+    "license": "other (as recorded in exp-056)",
+    "eligibility": "measurement reference only; dataset generators reconstruct released KMX stages byte-for-byte",
     "dataset_file_count": 88,
     "dataset_fingerprint": "50be321af83901e46476b55c7b1faedf60510f971abc495c02aa41f8c9b87e42",
     "expected_sha256_manifest": "192853425ad64fd80ecc07aa904dc55b2adf53c7c3dff2cdce81babdb6eed9ce",
@@ -41,7 +42,7 @@
     "top_three_share_of_static_percent": 86.94,
     "four_D16_substitutions_total": 850,
     "dqi_mean_toffoli_tie_gate_at_q900": 278784.96865052154,
-    "current_source_owned_mean_toffoli": 316131.2215625,
+    "reference_mean_toffoli": 316131.2215625,
     "mean_toffoli_reduction_needed": 37346.2529119784,
     "mean_gap_as_fraction_of_return_stage_static_percent": 34.10
   },
@@ -67,5 +68,5 @@
     "official_verifier_run": false,
     "result": "NO_CANDIDATE_IDENTIFIED"
   },
-  "decision": "The D16 substitution blocks are too small to close the score gate, and the conservative decoder_return cancellation screen found no Toffoli-like pairs. Any next candidate must target algorithm-level reversible uncomputation and project at least 37,346 mean-Toffoli savings at the exp-082 score gate before a private full-verifier run."
+  "decision": "The D16 substitution blocks are too small to close the conditional exp-082 reference gate, and the conservative decoder_return cancellation screen found no Toffoli-like pairs. This profile is measurement-only for a dataset rejected by exp-056; any next candidate must be independently generated and the score gate recomputed around an eligible portfolio."
 }

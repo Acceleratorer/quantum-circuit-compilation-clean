@@ -9,6 +9,7 @@
     "goodpjw_notebook_version": 26,
     "goodpjw_notebook_sha256": "ee75f7d419f3f687edf2fc1f1e6899e8a1eca94694b695c8c122e85aec29da7a",
     "compiled_input_circuits_read": 0,
+    "source_owned_eligibility": "EXCLUDED_BY_EXP056_PROVENANCE_REVIEW",
     "loader_toffoli_per_pass": 3324,
     "source_loader_payload_sha256": "5076df379225232c722bc9f0c27f6b7f796a871b17c5501d5fd21fab19dac4ff"
   },
@@ -47,9 +48,9 @@
     "is_public_leaderboard_projection": false
   },
   "decision": {
-    "reason_submitted": "The source-built local GM is 0.00167755 above the source-owned exp-074 result; the public archive score 33.17067 is excluded from source-owned comparison.",
-    "source_owned_baseline_score": 33.08636738729924,
-    "source_owned_baseline_submission": "58917074",
+    "reason_submitted": "The local GM is 0.00167755 above exp-074 as a historical measurement. Both use the Tony Li dataset rejected by exp-056; neither is an eligible source-owned baseline.",
+    "reference_baseline_score": 33.08636738729924,
+    "reference_baseline_submission": "58917074",
     "local_gm_delta": 0.0016775524739642833,
     "live_rank1_score_at_submission": 34.50408,
     "local_candidate_gap_to_rank1": 1.416035060226795
@@ -60,7 +61,7 @@
     "submitted_at_utc": "2026-11-26T17:13:07.360000Z",
     "status_observed_at_utc": "2026-11-26T17:42:19Z",
     "public_score": 33.08801,
-    "description": "exp-082 source-built V22 chemistry; all official verifiers PASS"
+    "description": "Historical exp-082 bundle; official verifiers PASS; source-owned eligibility excluded by exp-056"
   },
   "archive": {
     "path": "experiments/exp-082/out/kaggle-v2/submission.zip",
