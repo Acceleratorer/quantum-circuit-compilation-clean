@@ -49,5 +49,17 @@
     "decision": "Do not build the direct BM layout while retaining the full syndrome bank. Continue only with an in-place block/Hankel update that overwrites or compresses the syndrome state.",
     "limits": "The 847-bit packed-state width is an observed maximum in 128 seeded GF(2^12) sequences, not a worst-case bound. The 2,450-product count is a straightforward estimate, not a lower bound. The comparison screens this layout only."
   },
+  "packed_state_feedback_degree_screen": {
+    "status": "NO_FORMULA_THROUGH_DEGREE_5",
+    "field": "GF(2)",
+    "prefix_length": 12,
+    "exhaustive_prefixes": 4096,
+    "packed_state_coordinates": 33,
+    "tested_polynomial_degree": 5,
+    "span_rank_after_each_degree": [1, 26, 221, 891, 2094, 3262],
+    "next_feedback_in_span": false,
+    "decision": "Do not pursue a direct low-degree Boolean formula for the packed-state next-feedback function. Keep only a block/Hankel algorithm that avoids this local feedback map.",
+    "limits": "This exhaustive screen covers one output function over GF(2) at prefix length 12. It does not rule out higher-degree formulas, GF(2^12) field-level constructions, or block updates. No reversible circuit was built."
+  },
   "limits": "This screens the published resource point against the competition's Q-squared score. It does not rule out a redesigned BM circuit with substantially smaller live width or Toffoli count. The reported failure rate is sampled evidence, not an exhaustive correctness proof."
 }

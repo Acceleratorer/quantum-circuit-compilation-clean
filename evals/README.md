@@ -28,8 +28,9 @@ This directory separates local verifier estimates from Kaggle results.
 - The published 440,000-Toffoli BM circuit misses the current `R × Q² × T`
   rank-1 tie gate by `6.50×`. A second screen finds that the straightforward
   packed-state layout retaining the syndrome bank already costs `1.297×` the
-  tie gate before omitted work. Continue only if an in-place block/Hankel
-  update can reuse that bank. See the
+  tie gate before omitted work; the direct packed-state feedback is not a
+  degree-5 GF(2) function at prefix 12 either. Continue only if an in-place
+  block/Hankel update can reuse that bank. See the
   [evaluation](2026-11-26-bm-published-cost-gate.json) and
   [run log](../log/2026-11-26-bm-published-cost-gate.md).
 

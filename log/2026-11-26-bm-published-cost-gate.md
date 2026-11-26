@@ -25,5 +25,11 @@ product count is a straightforward estimate rather than a lower bound. The
 screen closes this high-space layout only. Continue the BM/Hankel route only
 if the block update can overwrite or compress the syndrome state in place.
 
+I also extended the exact packed-state feedback screen to degree 5 at a
+12-symbol GF(2) prefix. None of the polynomials through degree 5 in the 33
+packed-state coordinates reproduces the next feedback across all 4,096
+prefixes. This closes the simple low-degree local-feedback formula at that
+screen size; it does not rule out a field-level or block/Hankel update.
+
 Sources: [Gu et al., arXiv:2610.22367](https://arxiv.org/abs/2610.22367),
 [Anthropic's summary](https://www.anthropic.com/research/designing-efficient-quantum-circuits).
