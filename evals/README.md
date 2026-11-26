@@ -45,6 +45,9 @@ This directory separates local verifier estimates from Kaggle results.
   [evaluation](2026-11-26-bm-block-hankel-screen.json),
   [exp-045 notes](../experiments/exp-045/README.md), and
   [run log](../log/2026-11-26-bm-block-hankel-screen.md).
+  The published block-factor-2 matrix-BM construction needs an extra syndrome
+  at degree 35, so it cannot cover the full correction radius with the current
+  70-symbol input.
 
 ## 2026-11-26 exp-053 four-to-five-pivot handoff
 

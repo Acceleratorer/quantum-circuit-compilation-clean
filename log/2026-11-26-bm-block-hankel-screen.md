@@ -42,6 +42,12 @@ Source SHA-256:
   the degree-independent structured solver remains the only BM/Hankel follow-up.
 - The live Kaggle CLI read at `2026-11-26T15:46:00Z` still shows `Cat with 2
   Qubits` first at `34.50408`; the score-equivalent tie gate is unchanged.
+- The primary-source matrix-BM construction groups scalar terms into matrix
+  sequences and returns the scalar locator from the matrix generator
+  determinant, but states an overhead of `b-1` extra scalar samples. For
+  `b=2`, that implies at least 71 samples at `t=35`; the decoder has 70. Close
+  this documented block route for full-radius decoding. See Kaltofen,
+  [“What parallel computations I do today,” PASCO 2010, §2.2](https://www.csd.uwo.ca/~mmorenom/Publications/pasco2010.pdf).
 
 The machine-readable receipt is
 [`evals/2026-11-26-bm-block-hankel-screen.json`](../evals/2026-11-26-bm-block-hankel-screen.json).

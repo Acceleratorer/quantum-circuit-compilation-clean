@@ -92,6 +92,14 @@ candidate. The next gate is one degree-independent structured update that
 matches BM on verifier-form inputs and has a complete `Q`/`T` schedule below
 the live score gate.
 
+A primary-source block-generator construction computes a matrix-BM generator
+whose determinant is the scalar locator, but it requires `b-1` more scalar
+sequence elements than scalar BM. At maximum degree `t=35`, applying `b=2`
+therefore needs at least 71 symbols, while DQI provides 70 (inference from the
+paper's stated overhead). Close this documented block-size-2 route for the
+full correction radius; only a no-extra-syndrome structured update remains in
+scope. See [Kaltofen, “What parallel computations I do today,” PASCO 2010, §2.2](https://www.csd.uwo.ca/~mmorenom/Publications/pasco2010.pdf).
+
 This is only a state-space screen. The model computes each discrepancy from the
 original syndrome prefix, so it does **not** yet provide the required local
 reversible transition. Injectivity on small fields is evidence, not a proof

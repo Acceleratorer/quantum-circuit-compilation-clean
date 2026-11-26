@@ -1,5 +1,5 @@
 {
-  "captured_utc": "2026-11-26T15:46:00Z",
+  "captured_utc": "2026-11-26T15:56:36Z",
   "experiment": "bm-block-hankel-locator-screen",
   "status": "NO_GO_FOR_DENSE_KNOWN_DEGREE_SOLVE",
   "leaderboard": {
@@ -63,6 +63,18 @@
     "maximum_mean_t_at_q900": 278742.567894833,
     "dense_e35_product_only_multiple_of_gate": 3.322
   },
-  "decision": "Do not port the dense known-degree Gaussian solve. The triangular H70 primitive is not a locator update, and the known-degree solver has no unknown-degree detection or reversible circuit. Continue only if a degree-independent structured solve has a complete width, phase, inverse, and cleanup schedule under the live gate.",
+  "literature_screen": {
+    "source": "Erich L. Kaltofen, 'What parallel computations I do today,' PASCO 2010, section 2.2; https://www.csd.uwo.ca/~mmorenom/Publications/pasco2010.pdf",
+    "method": "block scalar generators via matrix Berlekamp-Massey; determinant of the matrix generator yields the scalar locator",
+    "stated_overhead": "b-1 more scalar sequence elements than scalar BM",
+    "inference_at_max_degree": {
+      "degree": 35,
+      "block_factor": 2,
+      "available_syndrome_symbols": 70,
+      "required_symbols_at_least": 71,
+      "decision": "NO_GO_FOR_FULL_CORRECTION_RADIUS"
+    }
+  },
+  "decision": "Do not port the dense known-degree Gaussian solve or the documented block-factor-2 matrix-BM construction for the full correction radius. The triangular H70 primitive is not a locator update, and the known-degree solver has no unknown-degree detection or reversible circuit. Continue only if a degree-independent structured solve works with the existing 70 syndromes and has a complete width, phase, inverse, and cleanup schedule under the live gate.",
   "limits": "Three deterministic verifier-form syndrome patterns validate the known-degree algebra against classical BM; they do not prove all inputs or establish a reversible implementation. The dense matrix width is for the straightforward materialized Gaussian solve, not a lower bound on structured algorithms. No candidate was built or submitted."
 }
