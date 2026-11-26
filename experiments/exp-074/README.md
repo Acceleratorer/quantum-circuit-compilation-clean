@@ -2,9 +2,9 @@
 id: exp-074
 title: Source-built V20 chemistry with base DQI
 task: portfolio
-status: verified_local_submission_pending
+status: scored_public
 date: 2026-11-26
-result: All official verifiers pass; 3,325 Toffolis/pass; local GM 33.08637; public score pending
+result: All official verifiers pass; Kaggle ref 58917074 scored 33.08634
 ---
 
 # exp-074 — V20 chemistry with source-built DQI baseline
@@ -18,8 +18,10 @@ candidate circuit from V20 is used.
 The notebook reports 3,118 Toffolis per chemistry pass. This source port
 measured 3,325, so the reported count was not reproduced. It is three below
 exp-073's 3,328. With the other measured component costs held fixed, the local
-verifier GM is 33.08637, up 0.00503 from exp-073's 33.08134. This is a small
-local improvement, not a public-score projection or a rank-1 result.
+verifier GM is 33.08637, up 0.00503 from exp-073's 33.08134. Kaggle scored the
+archive at 33.08634, improving the previous source-owned public score of
+33.08169 by 0.00465. The notebook's 3,118 count was not reproduced, and rank 1
+remains 1.25811 points higher.
 
 ## Verification and submission
 
@@ -34,8 +36,10 @@ Kaggle kernel version 3 completed all official verifiers:
 - Archive: 18 members, SHA-256
   `a77203a68528a8f01a4e2275aff35a38e188be5a065a807021e9e12d8ac9e521`.
 
-The archive was submitted as Kaggle ref `58917074`; public scoring is pending.
-The latest pre-submission snapshot has rank 1 at `34.34445`. See the
+The archive was submitted as Kaggle ref `58917074` and completed at public score
+`33.08634`. The post-submission snapshot has rank 1 at `34.34445` and Accelra at
+`746 / 3740`; Accelra's higher `33.17067` entry used a public circuit archive.
+The source-owned score-equivalent rank is `1176`. See the
 [evaluation receipt](../../evals/2026-11-26-exp074-source-built-v20-chemistry.json)
 and [run log](../../log/2026-11-26-exp074-v20-chemistry.md). Raw verifier logs
 are kept under the ignored `out/kaggle-v3/` directory.

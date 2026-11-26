@@ -1,7 +1,7 @@
 {
   "experiment": "exp-074",
   "status": "PASS",
-  "submission_status": "PENDING",
+  "submission_status": "COMPLETE",
   "source": {
     "tony_li_dataset": "quantum-ai-32-85306-task-generators",
     "tony_li_file_count": 88,
@@ -287,9 +287,35 @@
     "chemistry_score_reduction": 114001.75800520182,
     "exp072_source_owned_public_score": 33.08169,
     "exp072_source_owned_submission_ref": 58907057,
-    "public_score_projection": false
+    "public_score_projection": false,
+    "exp074_public_score": 33.08634,
+    "public_score_improvement_over_exp072": 0.004649999999998045,
+    "rank1_public_score": 34.34445,
+    "gap_from_rank1": 1.258110000000002,
+    "public_minus_local_gm": -2.7387299240899665e-05
   },
   "leaderboard_snapshot": {
+    "captured_utc": "2026-11-26T00:50:28Z",
+    "csv": "kaggle/snapshots/2026-11-26/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-26T005028Z.csv",
+    "csv_sha256": "bea859b67c1f6a9057a56a1613a54bedae7c1a9bb5669817c5e8b668d2d2b9c1",
+    "rows": 3740,
+    "leader_team": "Entangled Team",
+    "leader_score": 34.34445,
+    "account_team": "Accelra",
+    "account_rank": 746,
+    "account_score": 33.17067,
+    "source_owned_score_equivalent_rank": 1176,
+    "previous_source_owned_score_equivalent_rank": 1176
+  },
+  "submission": {
+    "status": "COMPLETE",
+    "ref": 58917074,
+    "submitted_at": "2026-11-26T00:21:02.667Z",
+    "archive_sha256": "a77203a68528a8f01a4e2275aff35a38e188be5a065a807021e9e12d8ac9e521",
+    "public_score": 33.08634,
+    "reason": "Kaggle scoring completed; this improves the previous source-owned public score, but remains below rank 1."
+  },
+  "pre_submission_leaderboard_snapshot": {
     "captured_utc": "2026-11-26T00:18:21Z",
     "csv": "kaggle/snapshots/2026-11-26/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-26T001821Z.csv",
     "csv_sha256": "47f5fbe7f90552ba64df69754d060f7f52dc5c53566266c72d9335904faac35e",
@@ -300,12 +326,5 @@
     "account_rank": 742,
     "account_score": 33.17067,
     "source_owned_best_score": 33.08169
-  },
-  "submission": {
-    "status": "PENDING",
-    "ref": 58917074,
-    "submitted_at": "2026-11-26T00:21:02.667Z",
-    "archive_sha256": "a77203a68528a8f01a4e2275aff35a38e188be5a065a807021e9e12d8ac9e521",
-    "public_score": null
   }
 }

@@ -44,13 +44,14 @@ The exp-065 source-owned score was `5.53933` below rank 1.
 - exp-074 rebuilt the V20 chemistry from source and passed all official
   verifiers with the same base DQI. It measured 3,325 Toffolis/pass, only three
   below exp-073 and 207 above the notebook's 3,118 claim. Local GM is
-  `33.0863673873`; Kaggle ref `58917074` is pending public scoring. See the
+  `33.0863673873`; Kaggle ref `58917074` completed at `33.08634`, improving
+  the source-owned best by `0.00465`. See the
   [exp-074 evaluation](../evals/2026-11-26-exp074-source-built-v20-chemistry.json).
 
-The `2026-11-26T00:18:21Z` leaderboard snapshot has 3,740 rows: Accelra is
-`742 / 3740` at `33.17067`; rank 1 remains `34.34445`. The source-owned best is
-still `33.08169` while ref `58917074` is pending. The refreshed snapshot and
-hash are recorded in the [exp-074 evaluation](../evals/2026-11-26-exp074-source-built-v20-chemistry.json).
+The `2026-11-26T00:50:28Z` leaderboard snapshot has 3,740 rows: Accelra is
+`746 / 3740` at `33.17067`; rank 1 remains `34.34445`. The source-owned best is
+`33.08634`, still `1.25811` below rank 1. The refreshed snapshot and hash are
+recorded in the [exp-074 evaluation](../evals/2026-11-26-exp074-source-built-v20-chemistry.json).
 
 Rank 1 remains unmet. The gate requires a source-owned submission that scores
 above the leader, not only component verifier passes.
