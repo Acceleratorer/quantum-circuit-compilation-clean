@@ -71,6 +71,11 @@ def main():
         expected=[dot((b[i+j+1] if i+j+1<=35 else 0 for j in range(35)),old) for i in range(35)]
         c=tri(list(reversed(b[1:])),x);x.reverse();assert x==expected and c==147
         x.reverse();tri(list(reversed(b[1:])),x,True);assert x==old
-    out={'GF12_modulus':hex(MOD),'triangular_forward_reverse_cases':tests,'hankel35_forward_reverse_cases':100,'products':rank_counts,'H35_forward_T':147*42,'H35_pair_T':294*42,'extra_words':0,'inversions':0,'measurement_phase_corrections':0}
+    # H_ij=B_(i+j+1), with B_70=1 and B_(>70)=0: one anti-triangular H70 sample.
+    n=70;b=[rng.randrange(4096) for _ in range(n)]+[1];x=[rng.randrange(4096) for _ in range(n)];old=x[:]
+    q=list(reversed(b[1:]));expected=[dot((b[i+j+1] if i+j+1<=n else 0 for j in range(n)),old) for i in range(n)]
+    c70=tri(q,x);x.reverse();assert x==expected and c70==363
+    x.reverse();cr70=tri(q,x,True);assert x==old and c70==cr70
+    out={'GF12_modulus':hex(MOD),'triangular_forward_reverse_cases':tests,'hankel35_forward_reverse_cases':100,'hankel70_forward_reverse_cases':1,'products':rank_counts,'H35_forward_T':147*42,'H35_pair_T':294*42,'H70_forward_products':c70,'H70_pair_T':(c70+cr70)*42,'extra_words':0,'inversions':0,'measurement_phase_corrections':0}
     print(json.dumps(out,indent=2))
 if __name__=='__main__':main()

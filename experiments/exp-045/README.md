@@ -2,9 +2,9 @@
 id: exp-045
 title: Streaming Berlekamp-Massey state-space screen for DQI
 task: dqi
-tests: tests/test_exp045_bm_state.py; src/dqi/pro_q2_897/exp/convert/hankel_check.py
+tests: tests/test_exp045_bm_state.py; src/dqi/pro_q2_897/exp/convert/hankel_check.py; experiments/exp-045/hankel_locator_screen.py
 status: feasibility_screen
-result: packed BM state is injective and fits the processed-prefix coefficient budget in exhaustive small-field checks; no reversible circuit yet
+result: known-degree Hankel solve matches BM for e=1,17,35; dense Gaussian solve is a resource no-go; degree-independent structured solve remains open
 ---
 
 # Streaming Berlekamp-Massey state-space screen
@@ -59,11 +59,38 @@ transition or a higher-degree formula.
 
 The existing in-place Hankel primitive at
 `src/dqi/pro_q2_897/exp/convert/hankel_check.py` also passes its local check:
-700 triangular forward/reverse cases and 100 Hankel-35 round trips. A fixed
-35-by-35 transform uses 147 GF(2^12) products (6,174 Toffolis forward; 12,348
-for the pair), with no extra words. A block method could reduce discrepancy
-convolution cost, but this does not directly replace 70 BM rounds because the
-locator changes after each discrepancy.
+700 triangular forward/reverse cases and 100 triangular Hankel-35 round trips
+with `B_35 = 1` and `B_(>35) = 0`. A fixed 35-by-35 transform uses 147
+GF(2^12) products (6,174 Toffolis forward; 12,348 for the pair), with no
+extra transform words. A block method could reduce discrepancy convolution
+cost, but this does not directly replace 70 BM rounds because the locator
+changes after each discrepancy.
+
+## 2026-11-26 block/Hankel continuation
+
+The added H70 check uses an anti-triangular Hankel matrix with `B_70 = 1` and
+`B_(>70) = 0`. One seeded GF(2^12) sample matches direct multiplication and
+round-trips through the inverse: 363 field products (15,246T) per direction,
+or 30,492T for the pair. The coefficient sequence is external to the
+70-symbol input vector. This is a primitive check, not the full BM key-equation
+matrix: that matrix needs the nonzero syndrome terms through `S_69`.
+
+For a known locator degree `e`, the block key equation is
+`H_e[i,j] = S_(i+j+1)`, `H_e x = [S_(e+i+1)]`, where
+`x[j] = lambda_(e-j)`. A deterministic valid-syndrome sample at each of
+`e = 1, 17, 35` recovers the same locator as standard BM. The direct dense
+Gaussian solve at `e=35` needs 22,050 non-unit field products (926,100T at
+42T/product), excluding pivot inversions, phase, and cleanup. It also
+materializes 1,225 field words (14,700 qubits). This is a no-go for the dense
+solver at the current `Q=900`, `T<=278,742.57` rank-1 tie gate; it is not a
+lower bound on a structured solver.
+
+The degree is supplied to this solve. Unknown-degree detection, singular pivot
+branches, reversible cleanup, and a low-space structured solve remain open.
+Do not treat this fixed-degree classical solve or the H70 primitive as a
+candidate. The next gate is one degree-independent structured update that
+matches BM on verifier-form inputs and has a complete `Q`/`T` schedule below
+the live score gate.
 
 This is only a state-space screen. The model computes each discrepancy from the
 original syndrome prefix, so it does **not** yet provide the required local
@@ -83,9 +110,8 @@ unproven. See [van der Hoeven and Lecerf, *Optimizing the half-gcd algorithm*](h
 
 ## Next gate
 
-Derive either an explicit reversible local transition from the packed state
-and next syndrome symbol, or a block locator update that can use the Hankel-35
-transform. Include the inverse that restores the input. Count the complete
-forward, phase-evaluation, and uncompute Toffolis and peak qubits before
-implementing the circuit. The candidate must beat `R×Q²×T = 245.285e9`;
-isolated multiplier savings do not pass the gate.
+Continue only with the degree-independent structured BM/Hankel solve described
+above. Prove it matches standard BM on verifier-form inputs, then count the
+complete forward, phase-evaluation, inverse, cleanup, and peak-qubit schedule
+against the current gate in `evals/2026-11-26-dqi-score-equivalent-gate.json`.
+The dense known-degree solve and triangular H70 primitive do not pass this gate.

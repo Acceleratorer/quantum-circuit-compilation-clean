@@ -1,0 +1,68 @@
+{
+  "captured_utc": "2026-11-26T15:46:00Z",
+  "experiment": "bm-block-hankel-locator-screen",
+  "status": "NO_GO_FOR_DENSE_KNOWN_DEGREE_SOLVE",
+  "leaderboard": {
+    "source": "Kaggle CLI: competitions leaderboard --show --page-size 10",
+    "leader_team": "Cat with 2 Qubits",
+    "leader_submission_utc": "2026-11-26T01:12:30.220000Z",
+    "leader_score": 34.50408
+  },
+  "primitive": {
+    "matrix": "H[i,j] = B_(i+j+1), B_70 = 1, B_(>70) = 0",
+    "field": "GF(2^12), polynomial modulus 0x1053",
+    "seeded_cases": 1,
+    "direct_product_match": true,
+    "forward_products": 363,
+    "inverse_products": 363,
+    "forward_t_at_42_per_product": 15246,
+    "round_trip_t": 30492,
+    "extra_work_words_beyond_70_symbol_input": 0,
+    "coefficient_words_held_external": 70,
+    "scope": "anti-triangular Hankel primitive only; not the full BM key-equation matrix"
+  },
+  "known_degree_key_equation": {
+    "matrix": "H_e[i,j] = S_(i+j+1)",
+    "rhs": "S_(e+i+1), i=0..e-1",
+    "solution_coordinates": "x[j] = lambda_(e-j)",
+    "input": "70 power syndromes generated from distinct nonzero error locations and magnitudes",
+    "seed": 20261126,
+    "degrees_checked": [1, 17, 35],
+    "all_locator_solutions_match_standard_bm": true,
+    "dense_gaussian_results": [
+      {
+        "error_count": 1,
+        "nonunit_field_products_excluding_inversions": 1,
+        "optimistic_t_at_42_per_product": 42,
+        "dense_matrix_field_words": 1
+      },
+      {
+        "error_count": 17,
+        "nonunit_field_products_excluding_inversions": 2601,
+        "optimistic_t_at_42_per_product": 109242,
+        "dense_matrix_field_words": 289
+      },
+      {
+        "error_count": 35,
+        "nonunit_field_products_excluding_inversions": 22050,
+        "optimistic_t_at_42_per_product": 926100,
+        "dense_matrix_field_words": 1225
+      }
+    ],
+    "omitted_from_product_to_t_conversion": [
+      "pivot inversions",
+      "phase evaluation",
+      "input restoration",
+      "scratch cleanup"
+    ]
+  },
+  "score_gate": {
+    "source": "2026-11-26-dqi-score-equivalent-gate.json",
+    "leader_score": 34.50408,
+    "q": 900,
+    "maximum_mean_t_at_q900": 278742.567894833,
+    "dense_e35_product_only_multiple_of_gate": 3.322
+  },
+  "decision": "Do not port the dense known-degree Gaussian solve. The triangular H70 primitive is not a locator update, and the known-degree solver has no unknown-degree detection or reversible circuit. Continue only if a degree-independent structured solve has a complete width, phase, inverse, and cleanup schedule under the live gate.",
+  "limits": "Three deterministic verifier-form syndrome patterns validate the known-degree algebra against classical BM; they do not prove all inputs or establish a reversible implementation. The dense matrix width is for the straightforward materialized Gaussian solve, not a lower bound on structured algorithms. No candidate was built or submitted."
+}

@@ -34,6 +34,18 @@ This directory separates local verifier estimates from Kaggle results.
   [evaluation](2026-11-26-bm-published-cost-gate.json) and
   [run log](../log/2026-11-26-bm-published-cost-gate.md).
 
+## 2026-11-26 BM block/Hankel screen
+
+- The triangular H70 primitive passes a seeded forward/inverse check at
+  `30,492T` round trip, but it is not the full key-equation matrix. A
+  known-degree Hankel solve matches standard BM at degrees 1, 17, and 35;
+  dense Gaussian elimination at degree 35 costs at least `926,100T` before
+  inversions, phase, and cleanup. Close the dense solve; only a structured,
+  degree-independent in-place update remains in scope. See the
+  [evaluation](2026-11-26-bm-block-hankel-screen.json),
+  [exp-045 notes](../experiments/exp-045/README.md), and
+  [run log](../log/2026-11-26-bm-block-hankel-screen.md).
+
 ## 2026-11-26 exp-053 four-to-five-pivot handoff
 
 - Private kernel v35 measured the compact 4+1 prefix at `Q=891`, one over
