@@ -40,10 +40,10 @@
     "top_three_static_toffoli_like": 277317,
     "top_three_share_of_static_percent": 86.94,
     "four_D16_substitutions_total": 850,
-    "dqi_mean_toffoli_tie_gate_at_q900": 278742.567894833,
+    "dqi_mean_toffoli_tie_gate_at_q900": 278784.96865052154,
     "current_source_owned_mean_toffoli": 316131.2215625,
-    "mean_toffoli_reduction_needed": 37388.6536676667,
-    "mean_gap_as_fraction_of_return_stage_static_percent": 34.14
+    "mean_toffoli_reduction_needed": 37346.2529119784,
+    "mean_gap_as_fraction_of_return_stage_static_percent": 34.10
   },
   "followup_screen": {
     "stage": "decoder/decoder_return.kmx.xz",
@@ -67,5 +67,5 @@
     "official_verifier_run": false,
     "result": "NO_CANDIDATE_IDENTIFIED"
   },
-  "decision": "The D16 substitution blocks are too small to close the score gate, and the conservative decoder_return cancellation screen found no Toffoli-like pairs. Any next candidate must target algorithm-level reversible uncomputation and project at least 37,389 mean-Toffoli savings before a private full-verifier run."
+  "decision": "The D16 substitution blocks are too small to close the score gate, and the conservative decoder_return cancellation screen found no Toffoli-like pairs. Any next candidate must target algorithm-level reversible uncomputation and project at least 37,346 mean-Toffoli savings at the exp-082 score gate before a private full-verifier run."
 }

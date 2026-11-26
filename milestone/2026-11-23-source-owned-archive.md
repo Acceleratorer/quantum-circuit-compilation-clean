@@ -47,6 +47,11 @@ The exp-065 source-owned score was `5.53933` below rank 1.
   `33.0863673873`; Kaggle ref `58917074` completed at `33.08634`, improving
   the source-owned best by `0.00465`. See the
   [exp-074 evaluation](../evals/2026-11-26-exp074-source-built-v20-chemistry.json).
+- exp-082 rebuilt V22 chemistry from source, passed all official verifiers,
+  and completed as Kaggle ref `58958257` at `33.08801`, improving the
+  source-owned best by `0.00167`. Its local GM is `33.08804494`; the
+  `33.17067` public-archive result remains ineligible. See the
+  [exp-082 evaluation](../evals/2026-11-26-exp082-source-built-v22-chemistry.json).
 - A fresh Kaggle CLI top-ten read at `2026-11-26T06:23:47Z` shows leader `Cat
   with 2 Qubits` at `34.50408`, leaving a `1.41774` gap to the source-owned
   best. The DQI score-equivalent tie gate is `285,041.64` mean T at `Q=890`.
@@ -72,6 +77,10 @@ recorded in the [exp-074 evaluation](../evals/2026-11-26-exp074-source-built-v20
 
 Rank 1 remains unmet. The gate requires a source-owned submission that scores
 above the leader, not only component verifier passes.
+
+The latest CLI read (`2026-11-26T17:42:19Z`) still shows `Cat with 2 Qubits`
+at `34.50408`; exp-082 is `1.41607` below it. The refreshed DQI tie gate is
+`278,784.97` mean T at `Q=900`, derived from exp-082's non-DQI component costs.
 
 Receipts: [exp-062](../experiments/exp-062/README.md),
 [exp-063](../experiments/exp-063/README.md),

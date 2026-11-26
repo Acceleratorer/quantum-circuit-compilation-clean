@@ -18,7 +18,8 @@ This directory separates local verifier estimates from Kaggle results.
   stage is `decoder_return` at `109,515`; the four D16 substitutions total only
   `850`. A follow-up safe cancellation scan found no identical CCX/CCZ pairs,
   closing the generic peephole screen. Any next candidate needs an
-  algorithm-level rewrite with a credible path to `37,389` mean-T savings.
+  algorithm-level rewrite with a credible path to `37,346` mean-T savings at
+  the current exp-082 tie gate.
   This is analysis, not a candidate. See the
   [receipt](2026-11-26-dqi-stage-profile.json) and
   [log](../log/2026-11-26-dqi-stage-profile.md).
@@ -62,13 +63,15 @@ This directory separates local verifier estimates from Kaggle results.
   [v36 receipt](2026-11-26-exp053-parity-handoff-v36.json), and
   [exp-053 notes](../experiments/exp-053/README.md).
 
-## Live leaderboard read (`2026-11-26T06:23:47Z`)
+## Live leaderboard and source-owned result (`2026-11-26T17:42:19Z`)
 
 - Kaggle CLI top-ten read: `Cat with 2 Qubits` leads at `34.50408`.
-- Source-owned best remains `33.08634`; score gap is `1.41774`.
-- At `Q=890`, the DQI score-equivalent tie gate is `285,041.64` mean T. This
-  is a derived component target, not the leader's measured DQI cost. See the
-  [v36 receipt](2026-11-26-exp053-parity-handoff-v36.json).
+- Source-owned best is exp-082, submission `58958257`, at `33.08801`; score gap
+  is `1.41607`.
+- Using exp-082's component costs, the derived DQI tie gate is `278,784.97`
+  mean T at `Q=900` (`285,084.99` at `Q=890`). This is a score-equivalent
+  target, not the leader's measured DQI cost. See the
+  [updated gate receipt](2026-11-26-dqi-score-equivalent-gate.json).
 
 ## 2026-11-26 exp-057 root-conditioned phase gate
 
@@ -84,9 +87,10 @@ This directory separates local verifier estimates from Kaggle results.
 ## 2026-11-26 exp-082 source-built V22 chemistry
 
 - All official verifiers pass. The source-built loader uses 3,324 Toffolis per
-  pass; local verifier GM is `33.08804494`, up `0.00167755` from exp-074. It was
-  not submitted because this local score remains below the team's recorded
-  public best of `33.17067`. See the
+  pass; local verifier GM is `33.08804494`, up `0.00167755` from exp-074.
+  Kaggle submission `58958257` completed at public score `33.08801`, making it
+  the best source-owned submission. The `33.17067` account score used a public
+  circuit archive and is not an eligible source-owned result. See the
   [evaluation](2026-11-26-exp082-source-built-v22-chemistry.json),
   [experiment](../experiments/exp-082/README.md), and
   [run log](../log/2026-11-26-exp082-v22-chemistry.md).

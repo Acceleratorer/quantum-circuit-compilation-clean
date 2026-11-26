@@ -3,7 +3,7 @@ id: D-004
 title: Improve the source-owned DQI decoder with a new key-equation algorithm
 status: parked
 tasks: dqi, all
-last_checked: 2026-11-26
+last_checked: 2026-11-27
 ---
 
 # D-004: improve the source-owned DQI decoder
@@ -17,13 +17,13 @@ The Kaggle “Rank #1 Breakthrough” package notebook is already audited in
 [exp-043](../../experiments/exp-043/README.md); it remains disqualified as a
 compiled-artifact-only source.
 
-The latest Kaggle CLI read at `2026-11-26T06:23:47Z` shows `Cat with 2 Qubits`
-at `34.50408`. The best source-owned score remains exp-074 at `33.08634`, a
-`1.41774` gap. Holding exp-074's other two component costs fixed, matching the
-leader requires DQI cost at or below `268.965e9`, or mean `T <= 278,742.57` at
-`Q=900` and `R=1.1912604648`. Exp-074 measures `316,131.22T`, so the required
-reduction is `37,388.65T` (11.83%). This is score-equivalence math, not a
-measurement of the leader's DQI circuit. See the
+The latest Kaggle CLI read at `2026-11-26T17:42:19Z` shows `Cat with 2 Qubits`
+at `34.50408`. Source-owned exp-082 now leads our submissions at `33.08801`,
+a `1.41607` public-score gap. Holding exp-082's other two component costs
+fixed, matching the leader requires DQI cost at or below `269.005e9`, or mean
+`T <= 278,784.97` at `Q=900` and `R=1.1912604648`. Exp-082 measures
+`316,131.22T`, so the required reduction is `37,346.25T` (11.81%). This is
+score-equivalence math, not a measurement of the leader's DQI circuit. See the
 [score gate receipt](../../evals/2026-11-26-dqi-score-equivalent-gate.json).
 
 The latest implementation gates close the current DQI branches: exp-057's
@@ -40,8 +40,8 @@ and [published BM gate](../../evals/2026-11-26-bm-published-cost-gate.json).
 
 A source-only profile of the exact exp-074 DQI release found `318,972` static
 Toffoli-like gates. `decoder_return` is the largest stage at `109,515`; the
-four D16 substitutions total only `850`. The `37,388.65` mean-Toffoli score gap
-is `34.14%` of the return stage's static count; this is a scale comparison,
+four D16 substitutions total only `850`. The current `37,346.25` mean-Toffoli
+score gap is `34.10%` of the return stage's static count; this is a scale comparison,
 not an exact gate-deletion requirement. The profile is a target-setting
 diagnostic, not a measured candidate. See the
 [stage profile receipt](../../evals/2026-11-26-dqi-stage-profile.json).
@@ -933,18 +933,18 @@ in [`exp-055`](../../experiments/exp-055/README.md).
 
 ## 2026-11-26 half-GCD gate — close at degree 35
 
-The live score-equivalent DQI gate is `T <= 278,742.57` at `Q=900`
-and `R=1.1912604648`, holding exp-074's Invsqrt and chemistry costs fixed.
-That is an 11.83% reduction from exp-074's `316,131.22` mean Toffolis; the
-leader score is `34.50408`, not a measured leader component cost. See the
+Using the current exp-082 portfolio, the score-equivalent DQI gate is
+`T <= 278,784.97` at `Q=900` and `R=1.1912604648`. That is an 11.81%
+reduction from the unchanged DQI's `316,131.22` mean Toffolis; the leader score
+is `34.50408`, not a measured leader component cost. See the
 [gate receipt](../../evals/2026-11-26-dqi-score-equivalent-gate.json).
 
 The exp-057 direct-RHS EEA screen measures `174,672T` mean (`195,612T` max)
 for the degree-at-most-35 GF(2^12) Forney-residue problem
 ([receipt](../../evals/2026-11-25-exp057-forney-polynomial-inverse.json)).
 Combining its mean with the `130,410T` v18 pair-update subtotal gives an
-optimistic `305,082T`, still `26,339T` above the live gate before other
-work. Even with zero overhead, the EEA stage would need to fall to `148,333T`
+optimistic `305,082T`, still `26,297T` above the live gate before other
+work. Even with zero overhead, the EEA stage would need to fall to `148,375T`
 (15.1% below its measured estimate). The screen's error-root/residue inputs
 are also not mapped from the 70 syndrome-derived FMA samples; the receipt is a
 classical operation count, not a reversible circuit.

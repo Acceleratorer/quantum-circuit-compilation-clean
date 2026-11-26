@@ -7,12 +7,12 @@ Research log and reproducible tooling for the Google Quantum AI Verifiable Quant
 | Item | Value |
 |---|---:|
 | Highest recorded account score (public archive; ineligible) | **33.17067**, submission `58771243` |
-| Best source-owned submission | exp-074, Kaggle ref `58917074`, score **33.08634** |
-| Latest source-built candidate | exp-082: all task verifiers PASS; local GM `33.08804`; Kaggle ref `58958257` is pending |
+| Best source-owned submission | exp-082, Kaggle ref `58958257`, score **33.08801** |
+| Latest source-built result | exp-082: all task verifiers PASS; local GM `33.08804`; Kaggle score `33.08801` |
 | Latest leaderboard snapshot | `Accelra` rank **719 / 3733**, score `33.17067`; source [`snapshot`](kaggle/snapshots/2026-11-25/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-25T202946Z.csv) |
-| Rank 1 in that snapshot | **34.34445** (team `Entangled Team`); gap from source-owned best: **1.26276**; score-equivalent rank **1164** |
-| Current CLI leader (read `2026-11-26` UTC) | **34.50408** (`Cat with 2 Qubits`); gap from source-owned best: **1.41774** |
-| DQI tie gate at `Q=900` | **278,742.57 mean T** (score-equivalent estimate) |
+| Rank 1 in that snapshot | **34.34445** (`Entangled Team`); gap from the then-best source-owned score: **1.26276**; score-equivalent rank **1164** |
+| Current CLI leader (read `2026-11-26T17:42:19Z`) | **34.50408** (`Cat with 2 Qubits`); gap from source-owned best: **1.41607** |
+| DQI tie gate at `Q=900` | **278,784.97 mean T** (score-equivalent estimate using exp-082) |
 
 Submissions `58771243` and `58479383` used public circuit archives, so their
 scores are historical Kaggle measurements only. Neither demonstrates our own
@@ -21,16 +21,16 @@ generator or counts as eligible evidence for the source-owned goal; see the
 
 The latest persisted full leaderboard snapshot is from `2026-11-25T20:29:46Z`;
 its CSV has 3,733 ranked teams. Accelra's 33.17067 score is from a public
-circuit archive. The best source-owned public result is exp-074's `33.08634`;
-exp-082's source-built V22 chemistry candidate has local GM `33.08804` and
-submission ref `58958257` is pending Kaggle scoring. A fresh CLI top-five read
-shows the live leader at `34.50408`. The DQI gate at `Q=900` is derived from the
+circuit archive. The best source-owned public result is exp-082's `33.08801`
+(ref `58958257`), from a source build with local verifier GM `33.08804`; the
+submission is complete. A fresh CLI top-five read shows the live leader at
+`34.50408`, a `1.41607` gap. The DQI gate at `Q=900` is derived from the
 scoring formula and is not the leader's measured component cost. Exp-072's
 ten DQI rewrites changed the final circuit hash from exp-071's `4b572141…` to
 `6f78ecdd…`; exp-066 and exp-072 both observed four value errors on that
 rewritten circuit locally, so it is not the current base.
-See the [`exp-074` evaluation](evals/2026-11-26-exp074-source-built-v20-chemistry.json)
-and the [latest DQI gate](evals/2026-11-26-exp053-parity-handoff-v36.json).
+See the [exp-082 evaluation](evals/2026-11-26-exp082-source-built-v22-chemistry.json)
+and [updated DQI gate](evals/2026-11-26-dqi-score-equivalent-gate.json).
 
 The repository keeps generators, verifier evidence, provenance, and experiment
 notes. Large circuit binaries and Kaggle submission ZIPs stay outside Git and
@@ -85,17 +85,13 @@ hashes.
 
 ## Source-owned member progress
 
-The exp-062/063/064 members are source-built and verifier-checked. The exp-071
-hybrid scored `33.05453` on Kaggle. exp-072 rebuilt every circuit input from
-source, passed all three task verifiers, reduced chemistry cost by `608,050.42`,
-and scored `33.08169` publicly as ref `58907057`. Its ten DQI rewrites changed
-the exp-071 base hash `4b572141…` to `6f78ecdd…`; the rewritten circuit observed
-four value errors in both exp-066 and exp-072 local verification. Rank 1
-remains unmet. exp-073 is checking the same chemistry with unmodified base DQI.
-See the
+The exp-062/063/064 members are source-built and verifier-checked. The current
+source-owned best is exp-082 at `33.08801`, up `0.00167` from exp-074. Earlier
+DQI rewrites were rejected after local value errors; the best valid DQI remains
+at `316,131.22` mean T. Rank 1 is still `1.41607` ahead. See the
 [source-owned archive milestone](milestone/2026-11-23-source-owned-archive.md),
-[exp-071](experiments/exp-071/README.md), and
-[exp-072](experiments/exp-072/README.md).
+[exp-082 evaluation](evals/2026-11-26-exp082-source-built-v22-chemistry.json),
+and [current DQI gate](evals/2026-11-26-dqi-score-equivalent-gate.json).
 
 Rebuild the local archive with:
 

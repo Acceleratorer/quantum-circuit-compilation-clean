@@ -1,7 +1,7 @@
 {
   "experiment": "exp-082",
   "status": "PASS",
-  "submission_status": "PENDING",
+  "submission_status": "COMPLETE",
   "source": {
     "tony_li_dataset": "quantum-ai-32-85306-task-generators",
     "tony_li_dataset_fingerprint": "50be321af83901e46476b55c7b1faedf60510f971abc495c02aa41f8c9b87e42",
@@ -56,9 +56,10 @@
   },
   "submission": {
     "ref": "58958257",
-    "status": "PENDING",
+    "status": "COMPLETE",
     "submitted_at_utc": "2026-11-26T17:13:07.360000Z",
-    "public_score": null,
+    "status_observed_at_utc": "2026-11-26T17:42:19Z",
+    "public_score": 33.08801,
     "description": "exp-082 source-built V22 chemistry; all official verifiers PASS"
   },
   "archive": {
