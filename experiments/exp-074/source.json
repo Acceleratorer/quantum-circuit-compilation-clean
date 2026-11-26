@@ -1,0 +1,8 @@
+{
+  "upstream_kernel": "goodpjw2008/qcc-shorter-chemistry-loaders-lb-33-25564",
+  "upstream_notebook_sha256": "ea7323f8536747c7775397e718f42745db802dacf4dcd24a5ead07baa9ed3420",
+  "upstream_license": "Apache-2.0 (as stated in the upstream Kaggle notebook)",
+  "upstream_public_score": 33.25564,
+  "expected_loader_toffoli_per_pass": 3118,
+  "compiled_input_circuits_read": 0
+}
