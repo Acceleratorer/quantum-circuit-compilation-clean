@@ -1,0 +1,54 @@
+{
+  "captured_utc": "2026-11-26T09:08:43Z",
+  "experiment": "exp-077-phase-product-rank99",
+  "status": "NO_GO_WRONG_SOURCE_AND_PHASE_ERROR",
+  "private_kernel": {
+    "ref": "accelra/exp-077-dqi-rank-99-phase-product",
+    "version": 2,
+    "visibility": "private",
+    "status": "ERROR",
+    "url": "https://www.kaggle.com/code/accelra/exp-077-dqi-rank-99-phase-product/versions/2"
+  },
+  "hypothesis": "Replace the five GF(2^12) phase products in GF(2^24) uncomputation with the existing 99-term extension-field tensor.",
+  "source_mismatch": {
+    "experiment_builder": "src/dqi/generate.py -> src/dqi/pro_q2_897",
+    "builder_expected_sha256": "b3354f60e459dcebe67910363e96498f8bb0aa7f699bc016ef962015c3732fd6",
+    "active_portfolio_dqi_sha256": "4b5721411adc239f61fc11c773a2358b75dfe7cb15586efae4f0459c77d77e52",
+    "active_portfolio_source": "tonylica/quantum-ai-32-85306-task-generators",
+    "note": "The experiment generated the older Q2-897 decoder, not the exp-074 source pipeline's active DQI member."
+  },
+  "candidate": {
+    "circuit_sha256": "3742e190b0dfe2f539575a05f08cc419467394af504aab34670b5fb9ce8b6cf4",
+    "num_qubits": 897,
+    "max_toffoli_count": 454477,
+    "default_seed": {
+      "verifier_status": "PASS",
+      "verified_shots": 102400,
+      "value_errors": 0,
+      "phase_errors": 1,
+      "mean_toffolis": 440632.83296875,
+      "score": 424285766775.6472
+    },
+    "explicit_seed_20261126": {
+      "verifier_status": "PASS",
+      "verified_shots": 102400,
+      "value_errors": 0,
+      "phase_errors": 0,
+      "mean_toffolis": 440632.81865234376,
+      "score": 422346068162.58203
+    }
+  },
+  "baseline": {
+    "source_owned_submission": "exp-074",
+    "num_qubits": 900,
+    "mean_toffolis": 316131.2215625,
+    "dqi_score": 305041647011.3978
+  },
+  "leader_gate": {
+    "leader_score": 34.50408,
+    "dqi_score_to_tie_at_q900": 268964550804.47,
+    "candidate_default_score_multiple_of_tie_gate": 1.577478
+  },
+  "decision": "Do not use or submit this variant. It is a different, more expensive decoder source, and the rank-99 rewrite did not pass the strict zero-phase-error gate across both verifier seeds.",
+  "submission": null
+}

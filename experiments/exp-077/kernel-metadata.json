@@ -1,0 +1,18 @@
+{
+  "id": "accelra/exp-077-dqi-rank-99-phase-product",
+  "title": "exp-077 DQI Rank-99 Phase Product",
+  "code_file": "main.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "dataset_sources": [],
+  "kernel_sources": [],
+  "competition_sources": [
+    "google-verifiable-quantum-circuit-compilation"
+  ],
+  "model_sources": [],
+  "machine_shape": "None"
+}

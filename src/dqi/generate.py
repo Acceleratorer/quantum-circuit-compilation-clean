@@ -40,9 +40,12 @@ def check_manifest() -> int:
     return len(manifest['files'])
 
 
-def load_decoder():
+def load_decoder(phase_product_rank99: bool = False):
     import kickmix as km
     sys.modules['circ'] = km
+    if phase_product_rank99:
+        from phase_product_rank99 import install
+        install(KIT)
     spec = importlib.util.spec_from_file_location('decoder_under_test', KIT / 'final_decoder' / 'decode.py')
     module = importlib.util.module_from_spec(spec)
     sys.modules['decoder_under_test'] = module
@@ -81,11 +84,18 @@ def kit_modules() -> list[str]:
     return sorted(out)
 
 
-def build(target: Path) -> dict:
+def kickmix_version(km) -> str:
+    try:
+        return importlib.metadata.version('kickmix')
+    except importlib.metadata.PackageNotFoundError:
+        return getattr(km, '__version__', 'competition-sdk-unpackaged')
+
+
+def build(target: Path, phase_product_rank99: bool = False) -> dict:
     start = time.time()
     before = set(sys.modules)
     n_files = check_manifest()
-    km, module = load_decoder()
+    km, module = load_decoder(phase_product_rank99)
     b = km.CircuitBuilder()
     S = [b.alloc_qubits(12) for _ in range(70)]
     E = [b.alloc_bits(12) for _ in range(4095)]
@@ -101,10 +111,16 @@ def build(target: Path) -> dict:
     c.to_file(str(target), format='kmb')
     with open(target, 'rb') as f:
         digest = hashlib.file_digest(f, 'sha256').hexdigest()
+    phase_profile = None
+    if phase_product_rank99:
+        from phase_product_rank99 import stats
+        phase_profile = stats()
     return dict(sha256=digest, matches_upstream_stated=(digest == EXPECTED_SHA256), Q=c.num_qubits,
                 T_static=c.operation_statistics().num_toffoli_like, num_ops=len(c), num_bits=c.num_bits,
                 seconds=round(time.time() - start, 1), kit_files_checked=n_files,
-                kickmix_version=importlib.metadata.version('kickmix'), kit_modules_imported=kit_modules(),
+                phase_product_variant='rank99' if phase_product_rank99 else 'baseline',
+                phase_product_profile=phase_profile,
+                kickmix_version=kickmix_version(km), kit_modules_imported=kit_modules(),
                 **module_origins(before))
 
 
@@ -113,9 +129,9 @@ def main(argv: list[str]) -> None:
         start = time.time()
         before = set(sys.modules)
         n_files = check_manifest()
-        load_decoder()
+        km, _ = load_decoder()
         record = dict(kit_files_checked=n_files, kit_modules_imported=kit_modules(), **module_origins(before),
-                      kickmix_version=importlib.metadata.version('kickmix'), seconds=round(time.time() - start, 1))
+                      kickmix_version=kickmix_version(km), seconds=round(time.time() - start, 1))
         Path(argv[1]).write_text(json.dumps(record, indent=1) + '\n', encoding='utf-8')
     else:
         target = Path(argv[0])

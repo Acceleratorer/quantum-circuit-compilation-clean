@@ -2,6 +2,16 @@
 
 This directory separates local verifier estimates from Kaggle results.
 
+## 2026-11-26 exp-077 phase-product rank screen — no-go
+
+- The experiment built the older `pro_q2_897` source variant, not exp-074's
+  active DQI generator. It measured Q=897 and 440,632.83 mean Toffolis versus
+  exp-074's Q=900 and 316,131.22. The default-hash verifier run also had one
+  phase error; a second seed had none. No candidate was submitted. See the
+  [evaluation](2026-11-26-exp077-phase-product-rank99.json),
+  [experiment](../experiments/exp-077/README.md), and
+  [run log](../log/2026-11-26-exp077-phase-product-rank99.md).
+
 ## 2026-11-26 DQI source stage profile
 
 - Exact source assembly totals `318,972` static Toffoli-like gates. The largest
