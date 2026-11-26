@@ -1,5 +1,5 @@
 {
-  "captured_utc": "2026-11-26T15:56:36Z",
+  "captured_utc": "2026-11-26T16:07:37Z",
   "experiment": "bm-block-hankel-locator-screen",
   "status": "NO_GO_FOR_DENSE_KNOWN_DEGREE_SOLVE",
   "leaderboard": {
@@ -75,6 +75,24 @@
       "decision": "NO_GO_FOR_FULL_CORRECTION_RADIUS"
     }
   },
-  "decision": "Do not port the dense known-degree Gaussian solve or the documented block-factor-2 matrix-BM construction for the full correction radius. The triangular H70 primitive is not a locator update, and the known-degree solver has no unknown-degree detection or reversible circuit. Continue only if a degree-independent structured solve works with the existing 70 syndromes and has a complete width, phase, inverse, and cleanup schedule under the live gate.",
-  "limits": "Three deterministic verifier-form syndrome patterns validate the known-degree algebra against classical BM; they do not prove all inputs or establish a reversible implementation. The dense matrix width is for the straightforward materialized Gaussian solve, not a lower bound on structured algorithms. No candidate was built or submitted."
+  "shift_elision_screen": {
+    "hypothesis": "shift = processed + 1 - L - deg(B)",
+    "status": "COUNTEREXAMPLE_ON_VALID_GF12_SYNDROME",
+    "field": "GF(2^12), polynomial modulus 0x1053",
+    "valid_error_count": 2,
+    "roots": [2, 2089],
+    "magnitudes": [3436, 1351],
+    "first_three_syndromes": [1, 0, 1],
+    "processed": 3,
+    "bm_state": {
+      "shift": 1,
+      "linear_complexity_L": 2,
+      "connection_degree": 2,
+      "backup_actual_degree": 0
+    },
+    "predicted_shift": 2,
+    "decision": "Do not remove the shift counter using current polynomial degrees."
+  },
+  "decision": "Do not port the dense known-degree Gaussian solve or the documented block-factor-2 matrix-BM construction for the full correction radius. The triangular H70 primitive is not a locator update, and the known-degree solver has no unknown-degree detection or reversible circuit. The tested shift-elision formula also fails on a valid GF(2^12) two-error syndrome. Continue only if a degree-independent structured solve or a different reversible encoding fits the existing 70-symbol bank and has a complete width, phase, inverse, and cleanup schedule under the live gate.",
+  "limits": "Three deterministic verifier-form syndrome patterns validate the known-degree algebra against classical BM; they do not prove all inputs or establish a reversible implementation. One valid two-error GF(2^12) sequence disproves the tested shift-elision identity. The dense matrix width is for the straightforward materialized Gaussian solve, not a lower bound on structured algorithms. No candidate was built or submitted."
 }

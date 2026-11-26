@@ -31,6 +31,31 @@ class BMStateTests(unittest.TestCase):
         _check_all_prefix_states_are_injective(self, bm_model.GF2Field(2, 0b111), 7)
         _check_all_prefix_states_are_injective(self, bm_model.GF2Field(3, 0b1011), 6)
 
+    def test_shift_is_not_derived_from_current_polynomial_degrees(self):
+        field = bm_model.GF2Field(12, 0x1053)
+        beta_a = 2
+        beta_b = field.inv(beta_a)
+        scale = field.inv(beta_a ^ beta_b)
+        magnitude_a = field.mul(field.mul(beta_b, scale), field.inv(beta_a))
+        magnitude_b = field.mul(field.mul(beta_a, scale), field.inv(beta_b))
+
+        syndrome = []
+        power_a, power_b = beta_a, beta_b
+        for _ in range(70):
+            syndrome.append(
+                field.mul(magnitude_a, power_a) ^ field.mul(magnitude_b, power_b)
+            )
+            power_a = field.mul(power_a, beta_a)
+            power_b = field.mul(power_b, beta_b)
+
+        self.assertEqual(syndrome[:3], [1, 0, 1])
+        state = bm_model.bm_prefix_states(syndrome, field)[3]
+        self.assertEqual((state.shift, state.linear_complexity, state.backup_degree), (1, 2, 0))
+        self.assertNotEqual(
+            state.shift,
+            3 + 1 - state.linear_complexity - state.backup_degree,
+        )
+
     def test_gf2_12_prefix_degree_bound_on_seeded_sequences(self):
         field = bm_model.GF2Field(12, 0x1053)
         rng = random.Random(20261118)

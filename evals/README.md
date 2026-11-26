@@ -47,7 +47,9 @@ This directory separates local verifier estimates from Kaggle results.
   [run log](../log/2026-11-26-bm-block-hankel-screen.md).
   The published block-factor-2 matrix-BM construction needs an extra syndrome
   at degree 35, so it cannot cover the full correction radius with the current
-  70-symbol input.
+  70-symbol input. A separate valid GF(2^12) two-error sample also disproves
+  the simple shift-counter elimination formula; the packed-state width is
+  still not within the syndrome bank.
 
 ## 2026-11-26 exp-053 four-to-five-pivot handoff
 

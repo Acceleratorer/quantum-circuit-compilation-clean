@@ -4,7 +4,7 @@ title: Streaming Berlekamp-Massey state-space screen for DQI
 task: dqi
 tests: tests/test_exp045_bm_state.py; src/dqi/pro_q2_897/exp/convert/hankel_check.py; experiments/exp-045/hankel_locator_screen.py
 status: feasibility_screen
-result: known-degree Hankel solve matches BM for e=1,17,35; dense Gaussian solve is a resource no-go; degree-independent structured solve remains open
+result: known-degree Hankel solve matches BM for e=1,17,35; dense solve and simple shift-elision are no-go; structured solve remains open
 ---
 
 # Streaming Berlekamp-Massey state-space screen
@@ -30,9 +30,9 @@ that advantage.
 The packed Berlekamp-Massey state may fit in the already-required 70 syndrome
 registers. After `k` input symbols, the active nonconstant coefficients in the
 connection and backup polynomials use `deg(C)+deg(B)` GF(2^12) words. Small
-field enumeration suggests this is at most `k`, and that the packed state
-(`C`, `B`, their degrees, `L`, shift, and previous discrepancy) uniquely
-encodes the full processed prefix.
+field enumeration suggests this is at most `k`. The packed state keeps the
+active coefficients of `C` and `B`, their nominal degrees, the shift, and the
+previous discrepancy.
 
 If a reversible update can compute the next discrepancy from this packed state
 without retaining the raw syndrome prefix, it could keep `Q` near the current
@@ -43,10 +43,20 @@ without retaining the raw syndrome prefix, it could keep `Q` near the current
 `tests/test_exp045_bm_state.py` checks all prefixes for GF(2) sequences through
 length 12, GF(4) through length 7, and GF(8) through length 6. It also checks
 seeded length-70 sequences over the competition's GF(2^12) polynomial basis
-(`0x1053`). Across 128 sequences, `deg(C)=L`, the coefficient arrays use at
-most 69 field words, and the packed state including the 12-bit previous
-discrepancy and shift uses at most 847 bits. This is seven bits over the
-840-bit syndrome bank, and is sampled evidence rather than a worst-case bound.
+(`0x1053`). Across 128 sequences and every prefix, `deg(C)=L`, the coefficient
+arrays use at most 69 field words, and the packed state including the 12-bit
+previous discrepancy and shift uses at most 847 bits. This is seven bits over
+the 840-bit syndrome bank, and is sampled evidence rather than a worst-case
+bound.
+
+The tested shift-elision identity
+`shift = processed + 1 - L - deg(B)` is false even on a valid GF(2^12)
+two-error power-syndrome input. With roots `[2, 2089]` and magnitudes
+`[3436, 1351]`, the first syndromes are `[1, 0, 1]`; after three symbols the
+BM state has `shift=1`, `L=2`, and actual `deg(B)=0`, so the identity predicts
+2. Keep the shift counter in this state encoding unless a different reversible
+encoding is established. The regression check is in
+[`tests/test_exp045_bm_state.py`](../../tests/test_exp045_bm_state.py).
 
 The exhaustive [`feedback_degree_screen.py`](feedback_degree_screen.py) checks
 all GF(2) prefixes of lengths 5 through 12. The next BM feedback term has no

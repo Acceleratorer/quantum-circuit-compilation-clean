@@ -12,6 +12,7 @@ built or submitted.
 ```powershell
 & 'D:\Code\Kaggle\competitions\Google Quantum AI\.venv\Scripts\python.exe' src/dqi/pro_q2_897/exp/convert/hankel_check.py
 & 'D:\Code\Kaggle\competitions\Google Quantum AI\.venv\Scripts\python.exe' experiments/exp-045/hankel_locator_screen.py
+& 'D:\Code\Kaggle\competitions\Google Quantum AI\.venv\Scripts\python.exe' tests/test_exp045_bm_state.py
 & 'D:\Code\Kaggle\competitions\Google Quantum AI\.venv\Scripts\python.exe' -m kaggle competitions leaderboard google-verifiable-quantum-circuit-compilation --show --page-size 10 --format json
 ```
 
@@ -26,6 +27,8 @@ Source SHA-256:
   `8dcfe45b3f18946815a821c9fde7f2f002ae99507ef1a24406485fc4c118410b`
 - `experiments/exp-045/hankel_locator_screen.py`:
   `a983c98fc19a749cb3784c06cfbd032b8de041e134ac1adef277e983c96de9dd`
+- `tests/test_exp045_bm_state.py`:
+  `649310c99a38173b6953352e04931673e5057ff38caef4402980a78595df4eda`
 
 ## Result
 
@@ -48,6 +51,12 @@ Source SHA-256:
   `b=2`, that implies at least 71 samples at `t=35`; the decoder has 70. Close
   this documented block route for full-radius decoding. See Kaltofen,
   [“What parallel computations I do today,” PASCO 2010, §2.2](https://www.csd.uwo.ca/~mmorenom/Publications/pasco2010.pdf).
+- A second proposed width reduction, deriving `shift` from processed count,
+  current complexity, and actual backup degree, also failed. A valid two-error
+  GF(2^12) syndrome with roots `[2, 2089]` and magnitudes `[3436, 1351]`
+  begins `[1, 0, 1]`; after three symbols BM stores `shift=1`, while the
+  formula predicts 2. The regression check is in
+  `tests/test_exp045_bm_state.py`; the full exp-045 test file passes.
 
 The machine-readable receipt is
 [`evals/2026-11-26-bm-block-hankel-screen.json`](../evals/2026-11-26-bm-block-hankel-screen.json).
