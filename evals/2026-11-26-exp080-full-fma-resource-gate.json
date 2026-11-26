@@ -1,0 +1,58 @@
+{
+  "experiment": "exp080-full-70-point-fma-recurrence",
+  "captured_utc": "2026-11-26T11:43:23Z",
+  "status": "NO_GO_RESOURCE_GATE",
+  "source": {
+    "history_source": "experiments/exp-053/inplace_ratio_history.py",
+    "history_source_sha256": "00443f971f0b41f5ebe2fb6414168f5cc51affe3ca6514800ff13995e2bb0bf1",
+    "arithmetic_source": "src/dqi/pro_q2_897/exp/arithmetic/field.py",
+    "arithmetic_source_sha256": "c1b8b2ff583ffd5997856605c35d37f7116aa5811e52a3ce04a1ae7215d381c3",
+    "arithmetic_license": "Apache-2.0; see src/dqi/LICENSE and src/dqi/NOTICE",
+    "generated_kernel_source_sha256": "550aed9726f7270490b5906ab1128be810743dd48cdee8e1667e7d6e00ffdd7b",
+    "generated_kernel_source_bytes": 69471
+  },
+  "kernel": {
+    "ref": "accelra/exp080-full-70-point-fma-recurrence",
+    "version": 1,
+    "visibility": "private",
+    "status": "COMPLETE",
+    "url": "https://www.kaggle.com/code/accelra/exp080-full-70-point-fma-recurrence/versions/1"
+  },
+  "scope": {
+    "points": 70,
+    "cases": 32,
+    "operation": "Full sample-to-ratio/history map with measurement recycling; not the complete DQI decoder.",
+    "official_dqi_verifier_run": false,
+    "competition_submission": null
+  },
+  "checks": {
+    "output_labels_match_reference": true,
+    "branch_history_matches_reference": true,
+    "other_payload_preserved": true,
+    "scratch_clean": true,
+    "dirty_scratch_qubits": [],
+    "clean_scratch_qubits": 39,
+    "phase_flips": 0
+  },
+  "resources": {
+    "compiled_qubits": 958,
+    "static_toffoli_like_gates": 632090
+  },
+  "score_gate": {
+    "leader_score": 34.50408,
+    "leader_team": "Cat with 2 Qubits",
+    "leader_submission_utc": "2026-11-26T01:12:30.220Z",
+    "tie_mean_t_at_q900": 278742.567894833,
+    "tie_mean_t_at_q958": 246012.5696745729,
+    "static_t_over_tie_mean_t_at_q958": 2.5693402611,
+    "static_t_above_previous_arithmetic_projection": 430015,
+    "previous_projection_t": 202075,
+    "interpretation": "The measured map's static Toffoli count is 2.57x the tie mean-T gate at Q=958. This is not the complete DQI candidate and no official mean-T verifier run was made; however, the measured map is already too costly to advance as the proposed replacement. The earlier arithmetic-only estimate omitted sample-reconstruction cost."
+  },
+  "decision": "Close this full 70-point schedule before a full DQI build. The earlier 202,075T projection omitted the measured cost of reversible sample reconstruction and does not predict the compiled map. Q=890 is not a hard official cap; the no-go is cost-based.",
+  "handling": {
+    "local_external_code_executed": false,
+    "private_kaggle_execution": true,
+    "external_files_tracked": false
+  }
+}

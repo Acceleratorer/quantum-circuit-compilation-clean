@@ -4,12 +4,21 @@ title: Pivot-normalized FMA recurrence screen
 task: dqi
 tests: prior GF(8) and GF(2^12) screens; private Kaggle kernel screens through version 36
 direction: D-004
-status: four_pivot_prefix_only; four_plus_one_closed_on_width
+status: closed_after_full_70_point_resource_gate
 date: 2026-11-26
-result: v34 four-pivot prefix passes at Q=890/T=3,032. v35/v36 four-plus-one continuation stays at Q=891, one over limit, with clean phase and scratch. The remaining 65 pivots are unbuilt; close this route.
+result: v34 four-pivot prefix passes at Q=890/T=3,032. v35/v36 four-plus-one continuation is Q=891 with clean phase and scratch. A full 70-point sample-to-ratio/history resource gate then measured Q=958/T=632,090; close this schedule on cost, not on the internal Q=890 target.
 ---
 
 # Pivot-normalized FMA recurrence
+
+## Current status correction
+
+`Q=890` in the earlier receipts is a score-equivalence target, not a hard
+official limit. The DQI verifier scores `R(eps+) * Q^2 * T` without an 890
+qubit cap. Exp-080 tested the full 70-point sample-to-ratio/history map at
+`Q=958`; its `632,090` static Toffolis are far above the current tie gate at
+that width, so this specific schedule is closed. See the
+[exp-080 result](../../evals/2026-11-26-exp080-full-fma-resource-gate.json).
 
 ## Question
 
