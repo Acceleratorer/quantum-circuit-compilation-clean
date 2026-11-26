@@ -30,5 +30,24 @@
     "maximum_toffolis_at_published_width": 67648.53636973971,
     "decision": "NO_GO_FOR_DIRECT_PORT"
   },
+  "packed_bm_retained_syndrome_screen": {
+    "status": "NO_GO_FOR_SCREENED_HIGH_SPACE_LAYOUT",
+    "basis": "exp-045 sampled packed state plus the required original syndrome bank",
+    "syndrome_bank_qubits": 840,
+    "observed_packed_state_bits": 847,
+    "combined_qubits_before_extra_workspace": 1687,
+    "straightforward_bm_product_estimate": {
+      "gf12_products": 2450,
+      "toffoli_per_product": 42,
+      "product_only_toffolis": 102900,
+      "omitted": ["field inversions", "phase evaluation", "input restoration", "cleanup"]
+    },
+    "current_rank1_tie_cost": 268964550804.47,
+    "maximum_mean_toffolis_at_q1687": 79333.7805137071,
+    "product_only_score_at_q1687": 348860877403.896,
+    "multiple_of_rank1_tie_cost": 1.29705151240361,
+    "decision": "Do not build the direct BM layout while retaining the full syndrome bank. Continue only with an in-place block/Hankel update that overwrites or compresses the syndrome state.",
+    "limits": "The 847-bit packed-state width is an observed maximum in 128 seeded GF(2^12) sequences, not a worst-case bound. The 2,450-product count is a straightforward estimate, not a lower bound. The comparison screens this layout only."
+  },
   "limits": "This screens the published resource point against the competition's Q-squared score. It does not rule out a redesigned BM circuit with substantially smaller live width or Toffoli count. The reported failure rate is sampled evidence, not an exhaustive correctness proof."
 }

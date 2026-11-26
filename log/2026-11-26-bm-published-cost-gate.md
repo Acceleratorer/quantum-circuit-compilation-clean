@@ -11,5 +11,19 @@ The result does not rule out a new BM design that substantially reduces the
 live width or gate count. The calculation and assumptions are in
 [`evals/2026-11-26-bm-published-cost-gate.json`](../evals/2026-11-26-bm-published-cost-gate.json).
 
+## Packed-state layout check
+
+Keeping the 840-qubit syndrome bank beside exp-045's observed 847-bit packed
+BM state gives `Q=1,687` before extra workspace. At the current rank-1 tie
+gate, that width allows about `79,334` mean Toffolis. The straightforward BM
+subtotal is `102,900T` for 2,450 GF(2^12) products alone, before inversions,
+phase evaluation, input restoration, and cleanup. Its optimistic score is
+already `1.297x` the tie gate, so do not build this retained-syndrome layout.
+
+The 847-bit state width is sampled rather than a worst-case bound, and the
+product count is a straightforward estimate rather than a lower bound. The
+screen closes this high-space layout only. Continue the BM/Hankel route only
+if the block update can overwrite or compress the syndrome state in place.
+
 Sources: [Gu et al., arXiv:2610.22367](https://arxiv.org/abs/2610.22367),
 [Anthropic's summary](https://www.anthropic.com/research/designing-efficient-quantum-circuits).
