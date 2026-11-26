@@ -7,12 +7,13 @@ data/
 *.npz
 *.zip
 experiments/*/out/
+experiments/*/kaggle_output/
+experiments/*/upstream/
 /submissions/
 kaggle/.cache/
 kaggle/staging/
 /experiments/*/external/
-/tmp/exp057_streaming_prefix_private_*/
-/tmp/exp053-*
+/tmp/
 
 # Python
 .venv/

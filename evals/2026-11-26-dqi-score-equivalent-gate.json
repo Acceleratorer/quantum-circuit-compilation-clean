@@ -1,16 +1,19 @@
 {
-  "captured_utc": "2026-11-25T17:50:03Z",
+  "captured_utc": "2026-11-26T03:01:19Z",
   "experiment": "dqi-score-equivalent-gate-refresh",
   "status": "DERIVED_NOT_MEASURED",
   "leaderboard": {
-    "source": "Kaggle CLI competitions leaderboard --show --page-size 20",
-    "leader_team": "Entangled Team",
-    "leader_score": 34.34445
+    "source": "Kaggle CLI competitions leaderboard --show --page-size 10",
+    "leader_team": "Schrodingers Cats Lived",
+    "leader_submission_utc": "2026-11-26T01:12:30.220000Z",
+    "leader_score": 34.50408
   },
   "fixed_source_owned_components": {
-    "portfolio": "exp-071",
+    "portfolio": "exp-074",
+    "verifier_geometric_score": 33.08636738729924,
+    "public_score": 33.08634,
     "invsqrt_cost": 61696.23146663024,
-    "dfthcsos_cost": 250575905.1396231,
+    "dfthcsos_cost": 249853852.96142676,
     "dqi_qubits": 900,
     "dqi_repetition_factor": 1.1912604648115832,
     "dqi_cost": 305041647011.3978,
@@ -22,16 +25,16 @@
     "dfthcsos": 3355599588.3155375
   },
   "derived_dqi_gate": {
-    "cost_to_tie_rank_1": 271946482710.1979,
-    "mean_toffolis_to_tie_rank_1_at_q900": 281832.90583789645,
-    "required_cost_reduction_pct": 10.849392083161458,
-    "required_mean_toffoli_reduction": 34298.31572460348
+    "cost_to_tie_rank_1": 268964550804.47,
+    "mean_toffolis_to_tie_rank_1_at_q900": 278742.567894833,
+    "required_cost_reduction_pct": 11.8269411932395,
+    "required_mean_toffoli_reduction": 37388.6536676667
   },
-  "method": "Solve the official geometric-mean score formula for DQI cost while holding exp-071 Invsqrt and chemistry costs, Q=900, and R fixed.",
+  "method": "Solve the official geometric-mean score formula for DQI cost using exp-074's verifier geometric score and holding its Invsqrt and chemistry costs, Q=900, and R fixed against the current Kaggle leader.",
   "phase_compatibility_gate": {
     "status": "NO_GO_FOR_CURRENT_EEA_IMPLEMENTATION",
     "fma_scan_subtotal_mean_t": 243905,
-    "remaining_budget_to_tie_mean_t": 37927.90583789645,
+    "remaining_budget_to_tie_mean_t": 34837.5678948333,
     "native_fma_phase_diagnostic": {
       "receipt": "evals/2026-11-25-exp057-native-phase-derivative.json",
       "cases": 64,
@@ -45,7 +48,7 @@
       "max_t": 195612,
       "v18_pair_update_mean_t": 130410,
       "combined_mean_t": 305082,
-      "above_tie_gate_mean_t": 23249.09416210355,
+      "above_tie_gate_mean_t": 26339.4321051667,
       "syndrome_input_mapping": "NOT_ESTABLISHED",
       "reversible_circuit": "NOT_BUILT"
     },
@@ -64,8 +67,8 @@
       },
       "integrated_schedule": "NOT_BUILT",
       "converter_only_peak_qubits": 879,
-      "optimistic_q879_gate_t": 295460.18620380765,
-      "subtotal_excess_t_before_phase_fix_and_other_work": 18786.81379619235,
+      "optimistic_q879_gate_t": 292220.423191126,
+      "subtotal_excess_t_before_phase_fix_and_other_work": 22026.576808874,
       "phase": "The converter bridge still mismatches the raw FMA pair; only the canonical-pair control matches.",
       "omitted": [
         "reversible derivative correction",

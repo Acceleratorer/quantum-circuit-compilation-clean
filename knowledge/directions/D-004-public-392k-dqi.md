@@ -17,31 +17,32 @@ The Kaggle “Rank #1 Breakthrough” package notebook is already audited in
 [exp-043](../../experiments/exp-043/README.md); it remains disqualified as a
 compiled-artifact-only source.
 
-The current score-equivalent DQI cost gate is `271.946e9`, or
-`T <= 281,832.91` at `Q=900` and `R=1.1912604648`, holding exp-071's other
-source-built components fixed. This is derived from the live rank-1 score, not
-a measurement of the leader's DQI circuit. Exp-071 measures `316,131.22T`, so
-the required reduction is `34,298.32T` (10.85%). The one active feasibility
-gate is the FMA forward-CONVERT + remaining residue scan + v18 pair updates at
-`243,905T`; it leaves `37,927.91T` before the unmeasured phase-derivative
-correction and cleanup, while optimistically omitting reverse CONVERT. The
-subtotal is not a candidate. See the
+The current score-equivalent DQI cost gate is `268.965e9`, or
+`T <= 278,742.57` at `Q=900` and `R=1.1912604648`, holding exp-074's other
+source-built components fixed. The live Kaggle leader is Schrodingers Cats
+Lived at `34.50408`; this is score-equivalence math, not a measurement of the
+leader's DQI circuit. Exp-074 measures `316,131.22T`, so the required
+reduction is `37,388.65T` (11.83%). The one active feasibility gate is the FMA
+forward-CONVERT + remaining residue scan + v18 pair updates at `243,905T`; it
+leaves `34,837.57T` before the unmeasured phase-derivative correction and
+cleanup, while optimistically omitting reverse CONVERT. The subtotal is not a
+candidate. See the
 [2026-11-26 gate receipt](../../evals/2026-11-26-dqi-score-equivalent-gate.json)
 and the [half-GCD gate result](#2026-11-26-half-gcd-gate--close-at-degree-35).
 
 Adding reverse CONVERT (`70,342T`) to the forward CONVERT, scan, and repeated
 pair-update component counts gives a conditional sum of `314,247T`; the full
 schedule has not been integrated. Even granting the converter-only width of
-`Q=879` to the whole schedule, the rank-1 tie threshold is `295,460T`, so this
-sum is already `18,787T` over before the phase fix, complete state mapping,
+`Q=879` to the whole schedule, the rank-1 tie threshold is `292,220T`, so this
+sum is already `22,027T` over before the phase fix, complete state mapping,
 output restoration, and cleanup. The FMA pair also fails the phase bridge while
 the canonical-pair control passes. Close this composition as a candidate; its
 `Q=879` measurement is not a full-schedule width result.
 
-The public Syed v25 source reports a DQI cost of `336.560e9`, 3.26% below our
-current measurement but 23.76% above the refreshed rank-1-equivalent DQI
-target. Its D69 lookup receipt saves only 66 Toffolis. Keep that source as a
-measurement baseline and close the D69 lookup route; see the
+The public Syed v25 source reports a DQI cost of `336.560e9`, 10.33% above
+exp-074's current `305.042e9` baseline and 25.13% above the live tie gate. Its
+D69 lookup receipt saves only 66 Toffolis. Keep that source as a measurement
+baseline and close the D69 lookup route; see the
 [source screen log](../../log/2026-11-23-syed-dqi-source-screen.md) and
 [evaluation receipt](../../evals/2026-11-23-syed-dqi-v25-screen.json).
 
@@ -933,19 +934,19 @@ in [`exp-055`](../../experiments/exp-055/README.md).
 
 ## 2026-11-26 half-GCD gate — close at degree 35
 
-The refreshed score-equivalent DQI gate is `T <= 281,832.91` at `Q=900`
-and `R=1.1912604648`, holding exp-071's Invsqrt and chemistry costs fixed.
-That is a 10.85% reduction from exp-071's `316,131.22` mean Toffolis; this is
-score-equivalence math, not a measured leader component cost. See the
+The live score-equivalent DQI gate is `T <= 278,742.57` at `Q=900`
+and `R=1.1912604648`, holding exp-074's Invsqrt and chemistry costs fixed.
+That is an 11.83% reduction from exp-074's `316,131.22` mean Toffolis; the
+leader score is `34.50408`, not a measured leader component cost. See the
 [gate receipt](../../evals/2026-11-26-dqi-score-equivalent-gate.json).
 
 The exp-057 direct-RHS EEA screen measures `174,672T` mean (`195,612T` max)
 for the degree-at-most-35 GF(2^12) Forney-residue problem
 ([receipt](../../evals/2026-11-25-exp057-forney-polynomial-inverse.json)).
 Combining its mean with the `130,410T` v18 pair-update subtotal gives an
-optimistic `305,082T`, still `23,249T` above the refreshed gate before other
-work. Even with zero overhead, the EEA stage would need to fall to `151,423T`
-(13.3% below its measured estimate). The screen's error-root/residue inputs
+optimistic `305,082T`, still `26,339T` above the live gate before other
+work. Even with zero overhead, the EEA stage would need to fall to `148,333T`
+(15.1% below its measured estimate). The screen's error-root/residue inputs
 are also not mapped from the 70 syndrome-derived FMA samples; the receipt is a
 classical operation count, not a reversible circuit.
 
@@ -963,7 +964,7 @@ The optimistic FMA subtotal is forward-CONVERT + the remaining residue scan
 `69,220 + 44,275 + 130,410 = 243,905T`
 ([cost split](../../evals/2026-11-23-exp057-convert-cost-split.json),
 [v18 update](../../evals/2026-11-23-exp057-fma-pair-update-mbu-v18.json)).
-It leaves `37,927.91T` under the refreshed tie gate and omits reverse CONVERT.
+It leaves `34,837.57T` under the live tie gate and omits reverse CONVERT.
 The native FMA phase still mismatches 30 of 64 classical cases; the derivative
 identity repairs those cases classically, but no reversible correction has
 been built or costed
@@ -971,18 +972,18 @@ been built or costed
 
 The direct-RHS EEA estimate for `omega / sigma_prime` is `174,672T` mean.
 With the `130,410T` v18 pair updates, the optimistic subtotal is `305,082T`,
-`23,249T` above the refreshed tie gate, before complete input mapping and
+`26,339T` above the live tie gate, before complete input mapping and
 cleanup. It is not a reversible circuit or a candidate
 ([EEA receipt](../../evals/2026-11-25-exp057-forney-polynomial-inverse.json)).
 
 The existing per-position `phase_inverse36_pivot` route costs `36T` for each
-of the 4,095 Chien positions, or `147,420T`, against `37,927.91T` remaining.
+of the 4,095 Chien positions, or `147,420T`, against `34,837.57T` remaining.
 Close this direct insertion; the count uses the measured helper cost in the
 [exp-057 record](../../experiments/exp-057/README.md) and is not a lower bound
 on an integrated phase algorithm.
 
 For a packed list of 35 roots with all phase operands available, the same
-helper costs `1,260T`, leaving `36,667.91T` for root extraction and omitted
+helper costs `1,260T`, leaving `33,577.57T` for root extraction and omitted
 work. The current scan emits no root list. A straightforward one-hot compactor
 would spend `860,160T` just writing root-coordinate bits (`24,576` set bits
 across GF(2^12)'s nonzero elements, times 35 slots), before pointer updates,
@@ -991,7 +992,7 @@ on other root encodings.
 
 **Decision:** close half-GCD and park the current EEA phase implementation;
 do not submit it. Reopen the DQI path only if a source-owned, reversible phase
-correction fits the `37,927.91T` remaining budget and composes with the full
+correction fits the `34,837.57T` remaining budget and composes with the full
 decoder under `Q <= 900`, followed by official verification. No root compactor
 within that budget has been shown. These are feasibility gates, not
 lower-bound proofs.
