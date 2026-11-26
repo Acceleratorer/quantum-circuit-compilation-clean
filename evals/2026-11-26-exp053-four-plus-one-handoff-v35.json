@@ -1,0 +1,52 @@
+{
+  "captured_utc": "2026-11-26T05:48:52Z",
+  "experiment": "exp053-four-plus-one-handoff",
+  "kernel": {
+    "id": "accelra/exp053-inplace-ratio-history",
+    "version": 35,
+    "visibility": "private",
+    "status": "COMPLETE",
+    "url": "https://www.kaggle.com/code/accelra/exp053-inplace-ratio-history/versions/35"
+  },
+  "execution": {
+    "local_source": "experiments/exp-053/inplace_ratio_history.py",
+    "local_source_sha256": "2d83909754af2d276ed2ee90e96d87dddf5ece38cab74ae9b3807c91535e0abe",
+    "built_kernel_source": "kaggle/staging/exp053-four-plus-one-handoff-v35/exp053-inplace-ratio-history.py",
+    "built_kernel_source_sha256": "81671562fb092ed55316f270abb7d151e5b395e3ddc5af3596d17f3c8df1259a",
+    "metadata_sha256": "282718a743507938c6fa22dbfc57e326883f2b9231059e018cb1bd8f42033c7e",
+    "raw_kernel_log": "kaggle/staging/exp053-four-plus-one-handoff-v35/output/exp053-inplace-ratio-history.log",
+    "raw_kernel_log_sha256": "d8106981f376036d84ec761ba851478e9347c6781b04e2f469970560a8c1692d",
+    "normalized_kernel_output": "experiments/exp-053/logs/kernel-v35-output.json"
+  },
+  "scope": "Compacts the first four pivot branches at the handoff, reconstructs the released branch for pivot 4, then compacts the five-pivot state. This is one 4+1 prefix gate; the remaining 65 pivots and official verifier are not covered.",
+  "score_gate": {
+    "leaderboard_score": 34.50408,
+    "leader_submission_utc": "2026-11-26T01:12:30.220000Z",
+    "qubit_limit": 890,
+    "mean_tie_t_at_q890": 285041.6361505047,
+    "historical_full_projection_t": 202075,
+    "four_point_block_proxy_t": 11508,
+    "derived_headroom_after_proxy_t": 71458.6361505047,
+    "status": "Cost-only screen; the proxy may overlap the historical ledger and is not a compiled full-schedule estimate."
+  },
+  "checks": {
+    "cases": 32,
+    "history_identity_cases": 32,
+    "output_labels_match_reference": true,
+    "retained_branch_history_matches_reference": true,
+    "other_payload_preserved": true,
+    "scratch_clean": true,
+    "clean_scratch_qubits": 43,
+    "phase_flips": 0
+  },
+  "resources": {
+    "compiled_qubits": 891,
+    "qubit_limit": 890,
+    "qubits_over_limit": 1,
+    "toffoli_like_gates": 4500
+  },
+  "official_verifier_run": false,
+  "competition_submission": null,
+  "result": "NO_GO_Q_BY_ONE",
+  "decision": "The measured 4+1 handoff is correct, phase-clean, and scratch-clean, but Q=891 exceeds the 890-qubit limit before the remaining 65 pivots. Close this layout; do not integrate or submit it."
+}

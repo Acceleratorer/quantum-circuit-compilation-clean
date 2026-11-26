@@ -13,11 +13,13 @@ ARITHMETIC = ROOT / "src" / "dqi" / "pro_q2_897" / "exp" / "arithmetic" / "field
 ENTRYPOINT = 'if __name__ == "__main__":'
 
 
-def build(out_dir: Path) -> None:
+def build(out_dir: Path, entrypoint: str = "run_screen") -> None:
+    if entrypoint not in {"run_screen", "run_handoff_screen"}:
+        raise ValueError(f"unsupported kernel entrypoint: {entrypoint}")
     source = SOURCE.read_text(encoding="utf-8")
     if source.count(ENTRYPOINT) != 1:
         raise ValueError("expected one module entrypoint")
-    body, main = source.split(ENTRYPOINT, 1)
+    body, _main = source.split(ENTRYPOINT, 1)
     arithmetic = ARITHMETIC.read_text(encoding="utf-8")
     setup = (
         "\n\n# Embedded unchanged Apache-2.0 gate arithmetic helper.\n"
@@ -28,7 +30,12 @@ def build(out_dir: Path) -> None:
         f"exec({arithmetic!r}, _arithmetic.__dict__)\n"
         "sys.modules['dqi_inplace_ratio_arithmetic'] = _arithmetic\n\n"
     )
-    script = body.rstrip() + setup + ENTRYPOINT + main
+    script = (
+        body.rstrip()
+        + setup
+        + ENTRYPOINT
+        + f"\n    print(json.dumps({entrypoint}(), indent=2, sort_keys=True))\n"
+    )
 
     metadata = {
         "id": "accelra/exp053-inplace-ratio-history",
@@ -67,9 +74,14 @@ def build(out_dir: Path) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("out_dir", type=Path, help="new project-local Kaggle staging directory")
+    parser.add_argument(
+        "--entrypoint",
+        choices=("run_screen", "run_handoff_screen"),
+        default="run_screen",
+    )
     args = parser.parse_args()
     out_dir = args.out_dir if args.out_dir.is_absolute() else ROOT / args.out_dir
-    build(out_dir.resolve())
+    build(out_dir.resolve(), args.entrypoint)
 
 
 if __name__ == "__main__":

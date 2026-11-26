@@ -447,6 +447,7 @@ def build_prefix_encoder(
     measurement_erase=False,
     measurement_recycle=False,
     compact_history=False,
+    handoff_compact_4plus1=False,
 ):
     """Build a short prefix map: samples -> ratios plus branch history."""
     if measurement_erase and (not in_place or sentinel_labels):
@@ -457,6 +458,14 @@ def build_prefix_encoder(
         raise ValueError("measurement recycling requires the in-place ratio/history map")
     if compact_history and (sentinel_labels or len(POINTS) not in (4, 5)):
         raise ValueError("compact history is defined for four- or five-pivot maps")
+    if handoff_compact_4plus1 and (
+        not in_place
+        or not measurement_recycle
+        or sentinel_labels
+        or compact_history
+        or len(POINTS) != 5
+    ):
+        raise ValueError("4+1 handoff compaction requires the five-pivot recycled prefix")
     km, ar = load_gate_arithmetic()
     builder = km.CircuitBuilder()
     if len(POINTS) > 5:
@@ -487,6 +496,13 @@ def build_prefix_encoder(
     for pivot, point in enumerate(POINTS):
         pair_d = builder.alloc_qubits(FIELD_BITS)
         pair_g = builder.alloc_qubits(FIELD_BITS)
+        if handoff_compact_4plus1 and pivot == 4:
+            # Recreate b1 from the four-pivot handoff identity in a temporary
+            # wire. The original b1 wire was released before this pair stage.
+            decoded_b1 = builder.alloc_qubits(1)[0]
+            builder.cx(branches[3], decoded_b1)
+            builder.cx(rank1[1], decoded_b1)
+            branches[1] = decoded_b1
         builder.cx(samples[pivot], pair_d)
         builder.x(pair_g[0])
 
@@ -607,7 +623,14 @@ def build_prefix_encoder(
                 builder, payload, rank1, branches, spare_rank_bit, pivot, ar
             )
 
-    if compact_history:
+        if handoff_compact_4plus1 and pivot == 3:
+            # At the handoff, rank1 after four pivots gives
+            # b1 = b3 XOR rank1[1]. Clear and release b1 before pivot 4.
+            builder.cx(branches[3], branches[1])
+            builder.cx(rank1[1], branches[1])
+            builder.free([branches[1]])
+
+    if compact_history or handoff_compact_4plus1:
         if len(POINTS) == 4:
             # For all 16 four-pivot histories, final rank r1 gives
             # b1 = b3 XOR r1[1]. Keep this clean wire for the 66-point tail.
@@ -657,6 +680,7 @@ def build_prefix_encoder(
         "samples": samples,
         "sentinel_labels": sentinel_labels,
         "compact_history": compact_history,
+        "handoff_compact_4plus1": handoff_compact_4plus1,
         "branch_pivots": branch_pivots,
     }
 
@@ -672,9 +696,10 @@ def screen_prefix_encoder(
     measurement_erase=False,
     measurement_recycle=False,
     compact_history=False,
+    handoff_compact_4plus1=False,
 ):
     history_compaction_identity_cases = 0
-    if compact_history:
+    if compact_history or handoff_compact_4plus1:
         for history in range(1 << len(POINTS)):
             bits = tuple(bool(history >> pivot & 1) for pivot in range(len(POINTS)))
             final_rank = rank1_after(bits)
@@ -692,6 +717,7 @@ def screen_prefix_encoder(
         measurement_erase=measurement_erase,
         measurement_recycle=measurement_recycle,
         compact_history=compact_history,
+        handoff_compact_4plus1=handoff_compact_4plus1,
     )
     field = km.GF2Field(FIELD_BITS)
     rng = Random(0xF1A05304)
@@ -777,7 +803,7 @@ def screen_prefix_encoder(
         if not in_place:
             assert not np.any(sim.read_across_shots(registers["samples"][pivot]))
         if not use_sentinel_labels:
-            if compact_history and pivot not in registers["branch_pivots"]:
+            if (compact_history or handoff_compact_4plus1) and pivot not in registers["branch_pivots"]:
                 continue
             branch_index = registers["branch_pivots"].index(pivot)
             actual_branch = sim.read_across_shots(
@@ -829,7 +855,8 @@ def screen_prefix_encoder(
         "output_mismatches": output_mismatches,
         "branch_history_matches_reference": None if use_sentinel_labels else True,
         "branch_registers_erased": use_sentinel_labels,
-        "branch_registers_compacted": compact_history,
+        "branch_registers_compacted": compact_history or handoff_compact_4plus1,
+        "handoff_compact_4plus1": handoff_compact_4plus1,
         "history_compaction_identity_cases": history_compaction_identity_cases,
         "retained_branch_pivots": list(registers["branch_pivots"]),
         "erased_branch_pivots": (
@@ -855,6 +882,7 @@ def screen_inplace_prefix_encoder(
     measurement_recycle=False,
     point_count=None,
     compact_history=False,
+    handoff_compact_4plus1=False,
 ):
     global POINTS
     original_points = POINTS
@@ -870,9 +898,24 @@ def screen_inplace_prefix_encoder(
             measurement_erase=measurement_erase,
             measurement_recycle=measurement_recycle,
             compact_history=compact_history,
+            handoff_compact_4plus1=handoff_compact_4plus1,
         )
     finally:
         POINTS = original_points
+
+
+def run_handoff_screen():
+    result = screen_inplace_prefix_encoder(
+        case_count=32,
+        measurement_recycle=True,
+        point_count=5,
+        handoff_compact_4plus1=True,
+    )
+    return {
+        "experiment": "exp053-four-plus-one-handoff",
+        "scope": "Four-pivot compact handoff followed by one recycled fifth pivot.",
+        "result": result,
+    }
 
 
 def append_sample_eraser(

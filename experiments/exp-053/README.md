@@ -491,13 +491,28 @@ blocks starting at points 2 through 66, exhaustive rank-state enumeration
 found no branch bit recoverable from final rank1 and the other three local
 bits. Tail compression must use the ratio or additional FMA state.
 
+### Four-to-five-pivot handoff — kernel version 35
+
+Version 35 compacts the four-pivot history at the handoff, reconstructs the
+released branch bit for pivot 4, then compacts the five-pivot state. All 32
+GF(2^12) cases matched the reference labels and retained history; payload was
+preserved, scratch was clean, and phase flips were zero. The measured circuit
+uses `Q=891` and `T=4,500`, so it misses the `Q=890` limit by one qubit before
+the remaining 65 pivots. Close this 4+1 layout; do not integrate it as a
+candidate. See the [evaluation](../../evals/2026-11-26-exp053-four-plus-one-handoff-v35.json),
+[dated log](../../log/2026-11-26-exp053-four-plus-one-handoff-v35.md), and
+[private kernel](https://www.kaggle.com/code/accelra/exp053-inplace-ratio-history/versions/35).
+
 ## Limit
 
 The compiled one-pair cell does not solve width for the full recurrence. The
 direct sequential state holds 70 `d` words and up to 69 variable `g` words, or
 1,668 qubits before ratio workspace. A complete 4+66 schedule must integrate
 the measured prefix, generate and consume each pair from the compact 840-qubit
-payload, and stay within `Q=890`, `T=215,175.99` with cleanup and phase included.
+payload, and stay within `Q=890` and the current score-equivalent threshold of
+`T=285,041.64` at that width, including cleanup and phase. This threshold is
+derived against the 2026-11-26 leaderboard and will move with the leaderboard;
+see the [current gate receipt](../../evals/2026-11-26-dqi-score-equivalent-gate.json).
 No full circuit or submission exists.
 
 ## Reproduce
