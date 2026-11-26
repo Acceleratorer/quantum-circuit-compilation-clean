@@ -31,6 +31,13 @@ disjoint wires. Close this generic peephole screen; a future candidate needs an
 algorithm-level reversible-uncompute change with a credible path to at least
 `37,389` mean-Toffoli savings before a private full-verifier run.
 
+A separate wire-taint pass found `19,645` HMR instructions in `decoder_return`;
+`18,411` measured wires had prior CCX/TOFFOLI history propagated through CX.
+This is only a heuristic count: it does not model inverse-gate cancellation or
+classical conditions, and it proves no additional savings. No circuit was built
+from this screen; keep measurement-based uncomputation open only if a concrete
+target and cost delta can be identified.
+
 This remains static inspection only: no circuit was built, no verifier was
 run, and no candidate was made. The full stage table and source hashes are in
 the [evaluation receipt](../evals/2026-11-26-dqi-stage-profile.json).

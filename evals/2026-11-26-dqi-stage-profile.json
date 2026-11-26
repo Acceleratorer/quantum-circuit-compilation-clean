@@ -56,5 +56,16 @@
     "official_verifier_run": false,
     "result": "NO_GO_GENERIC_PEEPHOLE"
   },
+  "measurement_uncompute_screen": {
+    "stage": "decoder/decoder_return.kmx.xz",
+    "method": "Streaming wire-taint screen: propagate nonlinear history from CCX/TOFFOLI targets through CX targets and reset the taint at HMR. This does not symbolically model inverse-gate cancellation or classical conditions.",
+    "hmr_count": 19645,
+    "hmr_targets_with_prior_nonlinear_taint": 18411,
+    "hmr_targets_without_prior_nonlinear_taint": 1234,
+    "interpretation": "The release already contains substantial measurement of nonlinear-history wires. This count is a heuristic upper bound, not a measured saving or proof that all measurement-based uncomputation opportunities are exhausted.",
+    "circuit_built": false,
+    "official_verifier_run": false,
+    "result": "NO_CANDIDATE_IDENTIFIED"
+  },
   "decision": "The D16 substitution blocks are too small to close the score gate, and the conservative decoder_return cancellation screen found no Toffoli-like pairs. Any next candidate must target algorithm-level reversible uncomputation and project at least 37,389 mean-Toffoli savings before a private full-verifier run."
 }
