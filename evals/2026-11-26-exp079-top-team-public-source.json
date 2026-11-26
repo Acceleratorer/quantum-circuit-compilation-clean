@@ -1,0 +1,42 @@
+{
+  "experiment": "exp-079-top-team-public-source",
+  "captured_utc": "2026-11-26T11:25:26Z",
+  "status": "NO_GO_IDENTIFY_CURRENT_TOP_SOURCE",
+  "live_public_leaderboard": {
+    "team_id": 17194321,
+    "team_name": "Cat with 2 Qubits",
+    "score": 34.50408,
+    "submission_utc": "2026-11-26T01:12:30.220Z"
+  },
+  "public_kernel_scan": {
+    "competition": "google-verifiable-quantum-circuit-compilation",
+    "top_code_listing_page_size": 200,
+    "member_handles_checked": [
+      "pjmathematician",
+      "dziyanavalenta",
+      "cody11null",
+      "syed3000"
+    ],
+    "latest_member_kernel_run_date": "2026-11-20",
+    "current_leader_source_found": false,
+    "interpretation": "The checked team-member listings show no public kernel run on or after the 2026-11-26 top submission. This does not establish that no public source exists elsewhere, or that older source was not reused."
+  },
+  "inspected_kernel": {
+    "ref": "dziyanavalenta/q2026-v154-submission-nb",
+    "url": "https://www.kaggle.com/code/dziyanavalenta/q2026-v154-submission-nb",
+    "release_label": "v154",
+    "last_run_utc": "2026-11-20T21:07:43.747Z",
+    "sha256": "063C9E8CCF6EE533C029E905DA5F8D7E1A7D6E534426732F217971887C5EE712",
+    "bytes": 4379,
+    "finding": "The notebook packages a prebuilt submission archive and generator source archives from Kaggle datasets; it does not rebuild the generators in this notebook. Its described invsqrt lineage uses ThemBones/Syed generators, and its DQI lineage is based on Syed v12 plus public contributions. The source contains no two-qubit invsqrt design."
+  },
+  "handling": {
+    "download_path": "experiments/exp-079/external/dziyanavalenta/",
+    "code_executed": false,
+    "external_files_tracked": false,
+    "candidate_built": false,
+    "verifier_run": false,
+    "submission": null
+  },
+  "decision": "Do not treat this older packaging notebook as the current leader's method. The checked public kernel listings do not identify the method behind the 2026-11-26 score; continue with source-owned algorithm work and require a credible path to the score-equivalent DQI gate before a full verifier run."
+}
