@@ -2,11 +2,11 @@
 id: exp-053
 title: Pivot-normalized FMA recurrence screen
 task: dqi
-tests: prior GF(8) and GF(2^12) screens; private Kaggle kernel screens through version 30
+tests: prior GF(8) and GF(2^12) screens; private Kaggle kernel screens through version 36
 direction: D-004
-status: four_pivot_prefix_meets_qubit_gate
-date: 2026-11-22
-result: v30 four-pivot prefix passes at Q=890/T=3,032. v34 compacts one history bit at the 4+66 handoff, leaving 43 clean scratch qubits at Q=890/T=3,032. The 66-point tail remains unbuilt. v32 sentinel/recycle erasure misses width and fails cleanup/phase; v33 five-pivot compaction leaves Q/T unchanged at 891/4,500.
+status: four_pivot_prefix_only; four_plus_one_closed_on_width
+date: 2026-11-26
+result: v34 four-pivot prefix passes at Q=890/T=3,032. v35/v36 four-plus-one continuation stays at Q=891, one over limit, with clean phase and scratch. The remaining 65 pivots are unbuilt; close this route.
 ---
 
 # Pivot-normalized FMA recurrence
@@ -503,6 +503,16 @@ candidate. See the [evaluation](../../evals/2026-11-26-exp053-four-plus-one-hand
 [dated log](../../log/2026-11-26-exp053-four-plus-one-handoff-v35.md), and
 [private kernel](https://www.kaggle.com/code/accelra/exp053-inplace-ratio-history/versions/35).
 
+### Parity-controlled follow-up — kernel version 36
+
+Version 36 stores the rank bit at the handoff and replaces the decoded-branch
+ancilla with parity-controlled rank reflections and CSWAPs. The same 32-case
+checks pass with clean scratch and zero phase flips, but width remains
+`Q=891`; Toffolis rise by 76 to `T=4,576`. This closes the 4+1 continuation.
+See the [evaluation](../../evals/2026-11-26-exp053-parity-handoff-v36.json),
+[dated log](../../log/2026-11-26-exp053-parity-handoff-v36.md), and
+[private kernel](https://www.kaggle.com/code/accelra/exp053-inplace-ratio-history/versions/36).
+
 ## Limit
 
 The compiled one-pair cell does not solve width for the full recurrence. The
@@ -513,7 +523,8 @@ payload, and stay within `Q=890` and the current score-equivalent threshold of
 `T=285,041.64` at that width, including cleanup and phase. This threshold is
 derived against the 2026-11-26 leaderboard and will move with the leaderboard;
 see the [current gate receipt](../../evals/2026-11-26-dqi-score-equivalent-gate.json).
-No full circuit or submission exists.
+The measured 4+1 continuation misses width by one qubit, so exp-053 is closed
+without a full circuit or submission.
 
 ## Reproduce
 

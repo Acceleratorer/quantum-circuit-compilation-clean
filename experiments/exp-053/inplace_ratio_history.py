@@ -139,6 +139,41 @@ def reflect_rank1(builder, rank1, step, branch):
         builder.iadd(increment, target=rank1, control=branch)
 
 
+def reflect_rank1_xor_control(builder, rank1, step, control_a, control_b):
+    """Reflect rank for step 1 controlled by control_a XOR control_b, without ancilla."""
+    if step != 1 or len(rank1) != 4:
+        raise ValueError("parity-controlled rank reflection is defined for step 1 in four bits")
+    for bit in rank1:
+        builder.cx(control_a, bit)
+        builder.cx(control_b, bit)
+    builder.iadd(4, target=rank1, control=control_a)
+    builder.iadd(4, target=rank1, control=control_b)
+    # Two active controls add eight; cancel that term when both are set.
+    builder.ccx(control_a, control_b, rank1[3])
+
+
+def reflect_rank1_from_history(builder, rank1, branches, step, parity_branch=None):
+    if parity_branch is not None and step == parity_branch[0]:
+        reflect_rank1_xor_control(
+            builder,
+            rank1,
+            step,
+            branches[parity_branch[0]],
+            branches[parity_branch[1]],
+        )
+    else:
+        reflect_rank1(builder, rank1, step, branches[step])
+
+
+def cswap_xor_control(builder, control_a, control_b, left, right):
+    """Apply CSWAP controlled by control_a XOR control_b without ancilla."""
+    for left_bit, right_bit in zip(left, right):
+        builder.cx(left_bit, right_bit)
+        builder.ccx(control_a, right_bit, left_bit)
+        builder.ccx(control_b, right_bit, left_bit)
+        builder.cx(left_bit, right_bit)
+
+
 def xor_zero_flag(builder, value, target):
     """Toggle target by [value == 0], using and then clearing a ladder."""
     builder.x(value)
@@ -496,20 +531,23 @@ def build_prefix_encoder(
     for pivot, point in enumerate(POINTS):
         pair_d = builder.alloc_qubits(FIELD_BITS)
         pair_g = builder.alloc_qubits(FIELD_BITS)
-        if handoff_compact_4plus1 and pivot == 4:
-            # Recreate b1 from the four-pivot handoff identity in a temporary
-            # wire. The original b1 wire was released before this pair stage.
-            decoded_b1 = builder.alloc_qubits(1)[0]
-            builder.cx(branches[3], decoded_b1)
-            builder.cx(rank1[1], decoded_b1)
-            branches[1] = decoded_b1
+        parity_branch = (1, 3) if handoff_compact_4plus1 and pivot == 4 else None
         builder.cx(samples[pivot], pair_d)
         builder.x(pair_g[0])
 
         # Replay the earlier normalized FMA updates on (sample_j, 1).
         for previous in range(pivot):
             delta = point ^ POINTS[previous]
-            builder.cswap(branches[previous], pair_d, pair_g)
+            if parity_branch is not None and previous == parity_branch[0]:
+                cswap_xor_control(
+                    builder,
+                    branches[parity_branch[0]],
+                    branches[parity_branch[1]],
+                    pair_d,
+                    pair_g,
+                )
+            else:
+                builder.cswap(branches[previous], pair_d, pair_g)
             ar.mul_xor(builder, ratios[previous], pair_g, pair_d)
             builder.gf2_imul(delta, target=pair_g, field=one)
 
@@ -530,7 +568,9 @@ def build_prefix_encoder(
         # Rank1 is determined by the branch prefix. Clear its bits and borrow
         # them, plus the spare rank bit, for the in-place inverse.
         for step in reversed(range(pivot + 1)):
-            reflect_rank1(builder, rank1, step, branches[step])
+            reflect_rank1_from_history(
+                builder, rank1, branches, step, parity_branch
+            )
         builder.free(rank1)
         builder.free([spare_rank_bit])
 
@@ -553,7 +593,9 @@ def build_prefix_encoder(
         rank1 = list(builder.alloc_qubits(rank_bits))
         spare_rank_bit = builder.alloc_qubits(1)[0]
         for step in range(pivot + 1):
-            reflect_rank1(builder, rank1, step, branches[step])
+            reflect_rank1_from_history(
+                builder, rank1, branches, step, parity_branch
+            )
 
         # Undo the replay and clear this temporary copy of the sample.
         for previous in reversed(range(pivot)):
@@ -561,7 +603,16 @@ def build_prefix_encoder(
             inverse_delta = ar.field(FIELD_DEGREE).invert(delta)
             builder.gf2_imul(inverse_delta, target=pair_g, field=one)
             ar.mul_xor(builder, ratios[previous], pair_g, pair_d)
-            builder.cswap(branches[previous], pair_d, pair_g)
+            if parity_branch is not None and previous == parity_branch[0]:
+                cswap_xor_control(
+                    builder,
+                    branches[parity_branch[0]],
+                    branches[parity_branch[1]],
+                    pair_d,
+                    pair_g,
+                )
+            else:
+                builder.cswap(branches[previous], pair_d, pair_g)
         if measurement_recycle:
             builder.x(pair_g[0])
             builder.free(pair_g)
@@ -582,6 +633,7 @@ def build_prefix_encoder(
                 ratio_words=ratio_words,
                 phase_mask=measurement_mask,
                 phase_only=True,
+                parity_branch=parity_branch,
             )
             builder.free(measurement_mask)
         elif in_place:
@@ -624,13 +676,21 @@ def build_prefix_encoder(
             )
 
         if handoff_compact_4plus1 and pivot == 3:
-            # At the handoff, rank1 after four pivots gives
-            # b1 = b3 XOR rank1[1]. Clear and release b1 before pivot 4.
+            # At the handoff, b1 = b3 XOR rank1[1]. Clear b1, then reuse
+            # its register to save rank1[1] for parity-controlled pivot-4 gates.
             builder.cx(branches[3], branches[1])
             builder.cx(rank1[1], branches[1])
-            builder.free([branches[1]])
+            builder.cx(rank1[1], branches[1])
 
     if compact_history or handoff_compact_4plus1:
+        if handoff_compact_4plus1:
+            # Restore the saved rank bit, then reconstruct b1 from the
+            # five-pivot identity before applying the final compaction.
+            reflect_rank1(builder, rank1, 4, branches[4])
+            builder.cx(rank1[1], branches[1])
+            reflect_rank1(builder, rank1, 4, branches[4])
+            builder.cx(branches[3], branches[1])
+            builder.cx(rank1[1], branches[1])
         if len(POINTS) == 4:
             # For all 16 four-pivot histories, final rank r1 gives
             # b1 = b3 XOR r1[1]. Keep this clean wire for the 66-point tail.
@@ -913,7 +973,10 @@ def run_handoff_screen():
     )
     return {
         "experiment": "exp053-four-plus-one-handoff",
-        "scope": "Four-pivot compact handoff followed by one recycled fifth pivot.",
+        "scope": (
+            "Four-pivot compact handoff followed by one recycled fifth pivot; "
+            "uses a saved rank bit for parity-controlled gates without a branch ancilla."
+        ),
         "result": result,
     }
 
@@ -931,13 +994,16 @@ def append_sample_eraser(
     ratio_words=None,
     phase_mask=None,
     phase_only=False,
+    parity_branch=None,
 ):
     """Append sample_j ^= decode(r_0..r_j, b_0..b_j) to an existing circuit."""
     # At the four-point split, rank1 is determined by branch history. Restore
     # its three low bits to zero and borrow them plus the unused high bit as
     # clean arithmetic workspace; rank1 is recomputed before returning.
     for step in range(pivot, -1, -1):
-        reflect_rank1(builder, rank_low, step, branches[step])
+        reflect_rank1_from_history(
+            builder, rank_low, branches, step, parity_branch
+        )
     builder.free(rank_low)
     builder.free(spare_rank_bit)
 
@@ -972,7 +1038,16 @@ def append_sample_eraser(
         inverse_delta = ar.field(FIELD_DEGREE).invert(delta)
         builder.gf2_imul(inverse_delta, target=pair_g, field=one)
         ar.mul_xor(builder, ratios[previous], pair_g, pair_d)
-        builder.cswap(branches[previous], pair_d, pair_g)
+        if parity_branch is not None and previous == parity_branch[0]:
+            cswap_xor_control(
+                builder,
+                branches[parity_branch[0]],
+                branches[parity_branch[1]],
+                pair_d,
+                pair_g,
+            )
+        else:
+            builder.cswap(branches[previous], pair_d, pair_g)
 
     inverse_transcript = ar.inverse_inplace_forward(builder, pair_g)
     if phase_mask is not None:
@@ -983,7 +1058,16 @@ def append_sample_eraser(
 
     # Reverse the decoder so its field-pair workspace is clean.
     for previous in range(pivot):
-        builder.cswap(branches[previous], pair_d, pair_g)
+        if parity_branch is not None and previous == parity_branch[0]:
+            cswap_xor_control(
+                builder,
+                branches[parity_branch[0]],
+                branches[parity_branch[1]],
+                pair_d,
+                pair_g,
+            )
+        else:
+            builder.cswap(branches[previous], pair_d, pair_g)
         ar.mul_xor(builder, ratios[previous], pair_g, pair_d)
         delta = POINTS[pivot] ^ POINTS[previous]
         builder.gf2_imul(delta, target=pair_g, field=one)
@@ -995,7 +1079,9 @@ def append_sample_eraser(
                      if str(qubit) not in borrowed_rank_ids]
     builder.free(reusable_pair)
     for step in range(pivot + 1):
-        reflect_rank1(builder, rank_low, step, branches[step])
+        reflect_rank1_from_history(
+            builder, rank_low, branches, step, parity_branch
+        )
 
 
 def append_sample_eraser_mbu(

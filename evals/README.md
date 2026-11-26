@@ -2,6 +2,25 @@
 
 This directory separates local verifier estimates from Kaggle results.
 
+## 2026-11-26 exp-053 four-to-five-pivot handoff
+
+- Private kernel v35 measured the compact 4+1 prefix at `Q=891`, one over
+  limit, despite matching labels with clean scratch and phase. Version 36
+  replaced the temporary branch ancilla with parity-controlled gates; checks
+  still pass but width remains `Q=891` and Toffolis rise from `4,500` to
+  `4,576`. Close this continuation before integrating the remaining 65 pivots.
+  See the [v35 receipt](2026-11-26-exp053-four-plus-one-handoff-v35.json),
+  [v36 receipt](2026-11-26-exp053-parity-handoff-v36.json), and
+  [exp-053 notes](../experiments/exp-053/README.md).
+
+## Live leaderboard read (`2026-11-26T06:06:32Z`)
+
+- Kaggle CLI top-five read: leader `34.50408`.
+- Source-owned best remains `33.08634`; score gap is `1.41774`.
+- At `Q=890`, the DQI score-equivalent tie gate is `285,041.64` mean T. This
+  is a derived component target, not the leader's measured DQI cost. See the
+  [v36 receipt](2026-11-26-exp053-parity-handoff-v36.json).
+
 ## 2026-11-26 exp-057 root-conditioned phase gate
 
 - Private Kaggle version 23 added `573,144` simulator-counted T for a gate
@@ -136,9 +155,14 @@ Refresh the leaderboard before every submission.
 
 ## Active direction
 
-The rank-1 gate remains unmet. exp-074 is the current source-owned public best
-at `33.08634`; its all-verifier-pass 3,325-Toffoli chemistry build missed the
-V20 notebook's 3,118 claim. Its public score is `1.25811` below the leader. See the
+The rank-1 gate remains unmet. exp-074 is the current source-owned best at
+`33.08634`; its all-verifier-pass 3,325-Toffoli chemistry build missed the
+V20 notebook's 3,118 claim. Its public score is `1.41774` below the current
+leader. The verifier-approved exp-063 DQI remains the baseline, but no lower-
+cost redesign currently has a full schedule under the width and phase gates:
+exp-057's root-conditioned phase route and exp-053's 4+1 handoff are closed.
+Do not treat a component prefix as a submission candidate.
+See the
 [exp-074 evaluation](2026-11-26-exp074-source-built-v20-chemistry.json),
 [archive milestone](../milestone/2026-11-23-source-owned-archive.md),
 [exp-071 calibration](2026-11-25-exp071-source-hybrid.json),

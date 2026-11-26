@@ -1,0 +1,28 @@
+{
+  "experiment": "exp053-four-plus-one-handoff",
+  "scope": "Four-pivot compact handoff followed by one recycled fifth pivot; uses a saved rank bit for parity-controlled gates without a branch ancilla.",
+  "result": {
+    "branch_history_matches_reference": true,
+    "branch_registers_compacted": true,
+    "branch_registers_erased": false,
+    "cases": 32,
+    "clean_scratch_qubits": 43,
+    "compiled_qubits": 891,
+    "dirty_scratch_qubits": [],
+    "erased_branch_pivots": [2, 3],
+    "handoff_compact_4plus1": true,
+    "history_compaction_identity_cases": 32,
+    "measurement_erase": false,
+    "measurement_recycle": true,
+    "original_ratio_words_overwritten_in_place": true,
+    "other_payload_preserved": true,
+    "output_labels_match_reference": true,
+    "output_mismatches": [],
+    "phase_flips": 0,
+    "retained_branch_pivots": [0, 1, 4],
+    "samples_cleared": false,
+    "scratch_clean": true,
+    "sentinel_labels": false,
+    "toffoli_like_gates": 4576
+  }
+}

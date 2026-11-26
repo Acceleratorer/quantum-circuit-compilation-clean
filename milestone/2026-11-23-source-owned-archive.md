@@ -47,6 +47,13 @@ The exp-065 source-owned score was `5.53933` below rank 1.
   `33.0863673873`; Kaggle ref `58917074` completed at `33.08634`, improving
   the source-owned best by `0.00465`. See the
   [exp-074 evaluation](../evals/2026-11-26-exp074-source-built-v20-chemistry.json).
+- A fresh Kaggle CLI top-five read at `2026-11-26T06:06:32Z` shows the leader
+  at `34.50408`, leaving a `1.41774` gap to the source-owned best. The current
+  DQI score-equivalent tie gate is `285,041.64` mean T at `Q=890`.
+- exp-053's four-to-five-pivot handoff failed the hard width gate at `Q=891`.
+  Its no-ancilla parity-controlled follow-up kept `Q=891` and added 76 T, so
+  close this 4+1 continuation. See the [v35 receipt](../evals/2026-11-26-exp053-four-plus-one-handoff-v35.json)
+  and [v36 receipt](../evals/2026-11-26-exp053-parity-handoff-v36.json).
 
 The `2026-11-26T00:50:28Z` leaderboard snapshot has 3,740 rows: Accelra is
 `746 / 3740` at `33.17067`; rank 1 remains `34.34445`. The source-owned best is

@@ -1,0 +1,51 @@
+{
+  "captured_utc": "2026-11-26T06:06:32Z",
+  "experiment": "exp053-four-plus-one-parity-handoff",
+  "kernel": {
+    "id": "accelra/exp053-inplace-ratio-history",
+    "version": 36,
+    "visibility": "private",
+    "status": "COMPLETE",
+    "url": "https://www.kaggle.com/code/accelra/exp053-inplace-ratio-history/versions/36"
+  },
+  "execution": {
+    "local_source": "experiments/exp-053/inplace_ratio_history.py",
+    "local_source_sha256": "00443f971f0b41f5ebe2fb6414168f5cc51affe3ca6514800ff13995e2bb0bf1",
+    "built_kernel_source": "kaggle/staging/exp053-parity-handoff-v36/exp053-inplace-ratio-history.py",
+    "built_kernel_source_sha256": "a5d29f63334f345f0af6707b3279e3b5f73b096e4c707a9aa1d9d656e4cb7dd8",
+    "metadata_sha256": "282718a743507938c6fa22dbfc57e326883f2b9231059e018cb1bd8f42033c7e",
+    "raw_kernel_log": "kaggle/staging/exp053-parity-handoff-v36/output/exp053-inplace-ratio-history.log",
+    "raw_kernel_log_sha256": "0f60bfc673677c730b965cc1da0c682b61a0fc2f453347eaab536f680f6b8b89",
+    "normalized_kernel_output": "experiments/exp-053/logs/kernel-v36-output.json"
+  },
+  "scope": "The released branch register stores rank1[1] after four pivots. Parity-controlled rank reflections and CSWAPs replace the temporary decoded-branch ancilla. This gate measures a five-pivot prefix only; the remaining 65 pivots and official verifier are not covered.",
+  "score_gate": {
+    "leaderboard_capture_utc": "2026-11-26T06:06:32Z",
+    "leaderboard_top_score": 34.50408,
+    "source_owned_best_public_score": 33.08634,
+    "score_gap": 1.41774,
+    "qubit_limit": 890,
+    "mean_tie_t_at_q890": 285041.6361505047
+  },
+  "checks": {
+    "cases": 32,
+    "history_identity_cases": 32,
+    "output_labels_match_reference": true,
+    "retained_branch_history_matches_reference": true,
+    "other_payload_preserved": true,
+    "scratch_clean": true,
+    "clean_scratch_qubits": 43,
+    "phase_flips": 0
+  },
+  "resources": {
+    "compiled_qubits": 891,
+    "qubit_limit": 890,
+    "qubits_over_limit": 1,
+    "toffoli_like_gates": 4576,
+    "delta_from_v35_toffolis": 76
+  },
+  "official_verifier_run": false,
+  "competition_submission": null,
+  "result": "NO_GO_Q_UNCHANGED",
+  "decision": "The no-ancilla parity gates preserve labels, payload, phase, and cleanup, but do not reduce width: Q remains 891. Close the exp-053 4+1 continuation; do not integrate or submit it."
+}
