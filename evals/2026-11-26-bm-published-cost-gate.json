@@ -1,0 +1,34 @@
+{
+  "captured_utc": "2026-11-26T01:07:47Z",
+  "experiment": "published-bm-score-gate",
+  "status": "CLOSED_BEFORE_PORT",
+  "question": "Can the published Anthropic Berlekamp-Massey DQI circuit beat the current rank-1-equivalent DQI gate without redesign?",
+  "source": {
+    "paper": "https://arxiv.org/abs/2610.22367",
+    "paper_html": "https://arxiv.org/html/2610.22367",
+    "project_summary": "https://www.anthropic.com/research/designing-efficient-quantum-circuits",
+    "resource_table": "Table 1, Reed-Solomon DQI decoder",
+    "reported_full_circuit_tests": 100000,
+    "reported_wrong_sign_tests": 7,
+    "code_note": "No source code was downloaded or executed for this arithmetic screen."
+  },
+  "published_resources": {
+    "toffoli_count": 440000,
+    "peak_qubits": 1837,
+    "history_stack_qubits": 19,
+    "note": "This is the optimized published BM circuit, not the naive 840-qubit history stack."
+  },
+  "competition_gate": {
+    "formula": "R * Q^2 * T",
+    "repetition_factor": 1.1912604648115832,
+    "rank1_tie_cost": 271946482710.1979,
+    "source_receipt": "2026-11-26-dqi-score-equivalent-gate.json"
+  },
+  "screen": {
+    "published_cost_under_competition_formula": 1768795879610.6543,
+    "multiple_of_rank1_tie_gate": 6.504205761306304,
+    "maximum_toffolis_at_published_width": 67648.53636973971,
+    "decision": "NO_GO_FOR_DIRECT_PORT"
+  },
+  "limits": "This screens the published resource point against the competition's Q-squared score. It does not rule out a redesigned BM circuit with substantially smaller live width or Toffoli count. The reported failure rate is sampled evidence, not an exhaustive correctness proof."
+}

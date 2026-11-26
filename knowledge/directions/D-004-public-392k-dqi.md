@@ -995,3 +995,13 @@ correction fits the `37,927.91T` remaining budget and composes with the full
 decoder under `Q <= 900`, followed by official verification. No root compactor
 within that budget has been shown. These are feasibility gates, not
 lower-bound proofs.
+
+## 2026-11-26 published BM cost gate
+
+The optimized published BM DQI circuit is closed as a direct port: its
+`440,000T`, `Q=1,837` resource point is `6.50×` the current rank-1 tie gate
+under `R × Q² × T`. The 19-qubit exception stack solves the history-storage
+problem but does not meet this competition's score gate at the reported width.
+See the [cost receipt](../../evals/2026-11-26-bm-published-cost-gate.json) and
+[log](../../log/2026-11-26-bm-published-cost-gate.md). This closes only the
+published resource point, not every possible BM redesign.

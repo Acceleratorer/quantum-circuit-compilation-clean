@@ -46,3 +46,13 @@ objective, about 4.29 times the current DQI cost `347.904e9`. It is not a
 replacement candidate as published. The reachable-state ideas may still
 inform a lower-space design; no repository code was downloaded or executed in
 this audit.
+
+### 2026-11-26 score-gate refresh
+
+The optimized circuit's 19-qubit exception stack addresses the history-storage
+problem, but its published point (`440,000T`, `Q=1,837`) costs `1.769e12` under
+the current `R × Q² × T` model. That is 6.50 times the refreshed rank-1 tie
+gate. Close the direct port before translation. This does not rule out a
+different BM design with substantially lower live width or Toffoli count. See
+the [cost receipt](../../evals/2026-11-26-bm-published-cost-gate.json) and
+[decision log](../../log/2026-11-26-bm-published-cost-gate.md).
