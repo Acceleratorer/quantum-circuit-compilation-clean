@@ -24,7 +24,13 @@ current leader-equivalent gate is `278,742.57`, a required mean reduction of
 scale comparison, not an exact gate-deletion requirement. Static counts do not
 predict the verifier's mean.
 
-This was source inspection only: no circuit was built, no verifier was run, and
-no candidate was made. The full stage table and source hashes are in the
-[evaluation receipt](../evals/2026-11-26-dqi-stage-profile.json). The next
-useful work targets `decoder_return`'s source-level reversible uncompute.
+The first `decoder_return` follow-up scanned 19,804,589 assembly instructions,
+including 107,422 CCX and 2,093 CCZ gates. It found zero identical Toffoli-like
+pairs that could be canceled by adjacency or by commuting across gates on
+disjoint wires. Close this generic peephole screen; a future candidate needs an
+algorithm-level reversible-uncompute change with a credible path to at least
+`37,389` mean-Toffoli savings before a private full-verifier run.
+
+This remains static inspection only: no circuit was built, no verifier was
+run, and no candidate was made. The full stage table and source hashes are in
+the [evaluation receipt](../evals/2026-11-26-dqi-stage-profile.json).

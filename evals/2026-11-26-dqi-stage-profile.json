@@ -45,5 +45,16 @@
     "mean_toffoli_reduction_needed": 37388.6536676667,
     "mean_gap_as_fraction_of_return_stage_static_percent": 34.14
   },
-  "decision": "Inspect decoder_return first because it is the largest stage. The D16 substitution blocks are too small to close the score gate. Static stage counts do not predict mean savings; any rewrite still needs the full official verifier."
+  "followup_screen": {
+    "stage": "decoder/decoder_return.kmx.xz",
+    "method": "Stream scan for identical CCX/CCZ gates with the same explicit conditions, permitting cancellation only when intervening gates touch disjoint qubits and condition bits remain unchanged.",
+    "stage_lines": 19804589,
+    "ccx_seen": 107422,
+    "ccz_seen": 2093,
+    "safe_pairs_canceled": 0,
+    "circuit_built": false,
+    "official_verifier_run": false,
+    "result": "NO_GO_GENERIC_PEEPHOLE"
+  },
+  "decision": "The D16 substitution blocks are too small to close the score gate, and the conservative decoder_return cancellation screen found no Toffoli-like pairs. Any next candidate must target algorithm-level reversible uncomputation and project at least 37,389 mean-Toffoli savings before a private full-verifier run."
 }

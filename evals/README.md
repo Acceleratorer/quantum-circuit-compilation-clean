@@ -16,7 +16,10 @@ This directory separates local verifier estimates from Kaggle results.
 
 - Exact source assembly totals `318,972` static Toffoli-like gates. The largest
   stage is `decoder_return` at `109,515`; the four D16 substitutions total only
-  `850`. This is an analysis profile, not a candidate. See the
+  `850`. A follow-up safe cancellation scan found no identical CCX/CCZ pairs,
+  closing the generic peephole screen. Any next candidate needs an
+  algorithm-level rewrite with a credible path to `37,389` mean-T savings.
+  This is analysis, not a candidate. See the
   [receipt](2026-11-26-dqi-stage-profile.json) and
   [log](../log/2026-11-26-dqi-stage-profile.md).
 
