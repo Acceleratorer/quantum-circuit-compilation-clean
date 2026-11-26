@@ -35,17 +35,19 @@ This directory separates local verifier estimates from Kaggle results.
   [evaluation](2026-11-26-bm-published-cost-gate.json) and
   [run log](../log/2026-11-26-bm-published-cost-gate.md).
 
-## 2026-11-26 BM block/Hankel screen
+## 2026-11-26 BM block/Hankel screen — closed 2026-11-27
 
 - The triangular H70 primitive passes a seeded forward/inverse check at
-  `30,492T` round trip, but it is not the full key-equation matrix. A
-  known-degree Hankel solve matches standard BM at degrees 1, 17, and 35;
-  dense Gaussian elimination at degree 35 costs at least `926,100T` before
-  inversions, phase, and cleanup. Close the dense solve; only a structured,
-  degree-independent in-place update remains in scope. See the
+  `30,492T` round trip, but it is not the full key-equation matrix. Dense
+  Gaussian elimination at degree 35 costs at least `926,100T` before
+  inversions, phase, and cleanup. A primary-source implementation of the exact
+  decoder is complete at `442,397T`, `Q=1,837`, or `9.17×` the eligible `Q²T`
+  gate; close the direct route and reopen only with a complete adapted schedule
+  below the gate. See the
   [evaluation](2026-11-26-bm-block-hankel-screen.json),
   [exp-045 notes](../experiments/exp-045/README.md), and
-  [run log](../log/2026-11-26-bm-block-hankel-screen.md).
+  [run log](../log/2026-11-26-bm-block-hankel-screen.md), plus the
+  [primary-source cost note](../literature/papers/lit-reversible-bm-fit.md).
   The published block-factor-2 matrix-BM construction needs an extra syndrome
   at degree 35, so it cannot cover the full correction radius with the current
   70-symbol input. A separate valid GF(2^12) two-error sample also disproves

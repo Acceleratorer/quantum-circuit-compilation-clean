@@ -3,8 +3,8 @@ id: exp-045
 title: Streaming Berlekamp-Massey state-space screen for DQI
 task: dqi
 tests: tests/test_exp045_bm_state.py; src/dqi/pro_q2_897/exp/convert/hankel_check.py; experiments/exp-045/hankel_locator_screen.py
-status: feasibility_screen
-result: known-degree Hankel solve matches BM for e=1,17,35; dense solve and simple shift-elision are no-go; structured solve remains open
+status: no_go_published_cost_gate
+result: the published reversible BM decoder is complete but costs 442,397T at 1,837 qubits; direct port misses the current eligible Q²T gate by 9.17×
 ---
 
 # Streaming Berlekamp-Massey state-space screen
@@ -126,10 +126,12 @@ not apply directly. The source gives no crossover or reversible-circuit cost at
 this size. A custom block update using the existing Hankel-35 transform remains
 unproven. See [van der Hoeven and Lecerf, *Optimizing the half-gcd algorithm*](https://www.texmacs.org/joris/gcd/gcd.html).
 
-## Next gate
+## Decision (2026-11-27)
 
-Continue only with the degree-independent structured BM/Hankel solve described
-above. Prove it matches standard BM on verifier-form inputs, then count the
-complete forward, phase-evaluation, inverse, cleanup, and peak-qubit schedule
-against the current gate in `evals/2026-11-26-dqi-score-equivalent-gate.json`.
-The dense known-degree solve and triangular H70 primitive do not pass this gate.
+The primary-source follow-up found an exact reversible BM decoder for this
+syndrome task. Its complete circuit includes the locator, MBU phase, evaluator,
+scan, syndrome restoration, and cleanup, but measures `442,397T` at `Q=1,837`.
+That is `9.17×` the current eligible `Q²T` allowance. Close the direct BM/Hankel
+route. Reopen it only with a concrete adaptation whose complete schedule fits
+`Q=890`, `mean T <= 205,608.39`, including phase, restoration, and cleanup. See
+[`lit-reversible-bm-fit`](../../literature/papers/lit-reversible-bm-fit.md).
