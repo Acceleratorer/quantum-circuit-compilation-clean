@@ -10,17 +10,17 @@ updated: 2026-11-27
 | Task | Our best source-owned cost | Live frontier / target | Status |
 |---|---:|---:|---|
 | Invsqrt | 62,993.51 (exp-085) | Fixed in S-001 projection | Rebuilt and official-verifier clean |
-| DQI | 356,677.49 mean T (exp-063, Q=890) | <=279,171.55 mean T to tie | 21.73% reduction still needed |
+| DQI | 356,677.49 mean T (exp-063, Q=890) | <=275,518.87 mean T to tie | 22.75% reduction still needed |
 | Chemistry | 249,853,852.96 (exp-074) | Fixed in S-001 projection | Source-built and verifier clean |
-| Portfolio | 31.79818 projected (S-001) | Live leader 34.50408 | Not submitted; projection only |
+| Portfolio | 31.79818 projected (S-001) | Live leader 34.65589 | Not submitted; projection only |
 
 ## What changed
 
-- The 2026-11-27 leaderboard snapshot puts Accelra at rank 889 with a best
+- The 2026-11-27 11:20 UTC leaderboard snapshot puts Accelra at rank 928 with a best
   public score of 33.17067; its latest submission scored 33.08801. The best
   score is a public reproduction, outside our source-owned target. Rank 1 is
-  34.50408, and Kaggle lists the deadline as 2027-01-20 23:59
-  ([full snapshot and receipt](../evals/2026-11-27-live-leaderboard-045600Z.json)).
+  34.65589. The snapshot and derived DQI gate are recorded in
+  [the latest gate receipt](../evals/2026-11-27-live-gate-112015Z.json).
 - The public DQI profile screen found `paired-plain` already best among the
   four published profiles. Re-running the other three cannot close the gap.
 - D-005 is closed before a kernel: its `109,515` return-stage count came from
@@ -32,9 +32,10 @@ updated: 2026-11-27
 
 ## Current focus
 
-- No experiment is queued. Select the next source-owned construction only
+- No experiment is queued. Select one source-owned DQI construction only
   after it has an identified state and a credible estimate against
-  `Q<=890`, `T<=273,588.12`.
+  `Q<=890`, `T<=275,518.87` mean Toffolis. To take rank 1, the final score
+  must exceed the live leader; this tie gate alone is not enough.
 
 ## Worth reading
 
