@@ -68,7 +68,14 @@
     "target_mean_toffolis_at_q890": 242765.1789437997,
     "required_mean_toffoli_reduction": 113912.31523588783,
     "required_reduction_pct": 31.937062779324364,
-    "decision": "Do not spend another full Kaggle run on the chemistry-only projection; continue only with a source-eligible DQI rewrite that has a credible path to this gate."
+    "chemistry_only_tie_gate_at_exp065_dqi_and_invsqrt": {
+      "status": "CONDITIONAL_PROJECTION_NOT_INTEGRATED",
+      "current_v20_chemistry_cost": 249853852.96142676,
+      "chemistry_cost_to_tie_rank_1": 170057871.084575,
+      "required_cost_reduction_pct": 31.937062779324364,
+      "decision": "After V20 passes the integrated verifier, screen a source-owned chemistry parameter refit against this gate. Hold the exp-065 DQI and Invsqrt costs fixed; do not reuse any public compiled circuits."
+    },
+    "decision": "Do not submit this projection. After integrated V20 verification, the next score routes are source-owned DQI at or below 242,765 mean T or chemistry at or below 170,057,871 cost; evaluate the smaller chemistry refit against its gate before starting another DQI rewrite."
   },
   "public_dqi_generator_screen": {
     "status": "REPORTED_NO_GO",

@@ -45,8 +45,20 @@ This is not a DQI generator. It searches Kaggle inputs for a prebuilt
 chemistry parameters. It does not independently rebuild the DQI circuit, so
 the DQI output cannot be used for our source-owned candidate under the
 standing provenance decision. No notebook code was executed and no circuit
-was read or used. Close this lead; the chemistry-only refit does not address
-the current DQI gate.
+was used as a candidate.
+
+The refit is a separate chemistry opportunity: the notebook varies three
+parameter directions, estimates score gradients with central differences,
+uses constrained linear optimization near the accuracy limits, and checks
+each selected parameter set with the official chemistry verifier. Its parent
+portfolio scored 33.25737, and this notebook's captured source does not report
+its final score. The method may be independently adapted to our source-owned
+V20 loader outputs after their integrated verifier passes. With exp-065 DQI
+and Invsqrt fixed, that route needs chemistry cost at or below 170,057,871
+(31.94% below V20's measured component cost) to tie the current leader. This
+is a derived conditional gate, not a predicted optimizer result; no refit has
+been run.
+Do not transfer the public submission archive or its compiled circuits.
 
 ## Leader-team v156 DQI generator check
 
