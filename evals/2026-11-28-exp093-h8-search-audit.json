@@ -1,0 +1,26 @@
+{
+  "experiment": "exp-093",
+  "status": "closed_no_go_gate",
+  "source": "toshiaki517/qcc-prv-h8-live-search-v3",
+  "source_path": "experiments\\exp-093\\external\\qcc-prv-h8-live-search-v3.py",
+  "source_sha256": "bc7c97d87a13cebe78f90eb6b94cfe344587faba6b07976bb0087c4a7d14c459",
+  "source_line_count": 143,
+  "static_parse": true,
+  "executed_downloaded_code": false,
+  "private_kernel_launched": false,
+  "declared_budget_seconds": 2400,
+  "declared_loaders": "2,3,4,6,9,10,12,8,13,14",
+  "declared_reference_constants": {
+    "invsqrt": 2076774.233715282,
+    "dqi": 24439463583672.93,
+    "dfthcsos": 3355599588.3155375
+  },
+  "explicit_score_or_cost_claims": [],
+  "declared_chemistry_cost": null,
+  "declared_lb": null,
+  "baseline_chem_cost": 249853852.96,
+  "required_chem_cost": 204476813.83,
+  "required_reduction_pct": 18.16,
+  "gate_cleared": false,
+  "decision": "No credible near-gate resource or cost estimate is present; stochastic search output would only be known after a private kernel run."
+}

@@ -256,6 +256,15 @@ credible path to an `18.16%` reduction before another private build.
   [evaluation](2026-11-28-exp092-public-chemistry-lead-audit.json) and
   [experiment](../experiments/exp-092/README.md).
 
+## 2026-11-28 exp-093 public H8 live-search lead audit
+
+- The public `toshiaki517/qcc-prv-h8-live-search-v3` script was parsed as
+  source text only. It declares a `2,400` second stochastic search over ten
+  loaders, but no chemistry cost, score, leaderboard result, or near-gate
+  resource estimate. Close this lead without launching a private kernel. See
+  the [evaluation](2026-11-28-exp093-h8-search-audit.json) and
+  [experiment](../experiments/exp-093/README.md).
+
 ## Active direction
 
 The best measured eligible source-owned submission remains exp-065 at
