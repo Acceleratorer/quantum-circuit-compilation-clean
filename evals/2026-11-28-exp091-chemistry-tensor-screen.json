@@ -1,0 +1,172 @@
+{
+  "experiment": "exp-091",
+  "captured_utc": "2026-11-28",
+  "status": "NO_GO_RANK99_PENCIL",
+  "source": {
+    "payload": "experiments/exp-082/module/payload/v22_loader_programs.b85",
+    "payload_sha256": "5076df379225232c722bc9f0c27f6b7f796a871b17c5501d5fd21fab19dac4ff",
+    "screen_sha256": "bdc368a968b535034d298c05cd34c435898a3ec78c4a43ee1ba1a05d66665d15",
+    "executed_downloaded_code": false
+  },
+  "gate": {
+    "baseline_cost": 249853852.96142676,
+    "required_cost_at_qv2_projection": 204476813.8348401,
+    "required_reduction_fraction": 0.1816
+  },
+  "screen": {
+    "status": "NO_GO_RANK99_PENCIL",
+    "payload_bytes": 130791,
+    "custom_loader_count": 10,
+    "custom_product_terms": 1281,
+    "rank99_product_savings_ceiling": 294,
+    "chemistry_gate": {
+      "baseline_cost": 249853852.96142676,
+      "required_cost_at_qv2_projection": 204476813.8348401,
+      "required_reduction_fraction": 0.1816
+    },
+    "loaders": [
+      {
+        "loader": 2,
+        "product_terms": 131,
+        "unique_product_pairs": 131,
+        "left_flattening_rank": 99,
+        "right_flattening_rank": 99,
+        "rank99_pencil": {
+          "trials": 128,
+          "full_rank_trials": 0,
+          "idempotent_failures": 0,
+          "commutation_failures": 0,
+          "rank99_witness": false
+        }
+      },
+      {
+        "loader": 3,
+        "product_terms": 130,
+        "unique_product_pairs": 130,
+        "left_flattening_rank": 99,
+        "right_flattening_rank": 99,
+        "rank99_pencil": {
+          "trials": 128,
+          "full_rank_trials": 0,
+          "idempotent_failures": 0,
+          "commutation_failures": 0,
+          "rank99_witness": false
+        }
+      },
+      {
+        "loader": 4,
+        "product_terms": 131,
+        "unique_product_pairs": 131,
+        "left_flattening_rank": 99,
+        "right_flattening_rank": 99,
+        "rank99_pencil": {
+          "trials": 128,
+          "full_rank_trials": 0,
+          "idempotent_failures": 0,
+          "commutation_failures": 0,
+          "rank99_witness": false
+        }
+      },
+      {
+        "loader": 6,
+        "product_terms": 131,
+        "unique_product_pairs": 131,
+        "left_flattening_rank": 98,
+        "right_flattening_rank": 99,
+        "rank99_pencil": {
+          "trials": 128,
+          "full_rank_trials": 0,
+          "idempotent_failures": 0,
+          "commutation_failures": 0,
+          "rank99_witness": false
+        }
+      },
+      {
+        "loader": 8,
+        "product_terms": 123,
+        "unique_product_pairs": 123,
+        "left_flattening_rank": 99,
+        "right_flattening_rank": 98,
+        "rank99_pencil": {
+          "trials": 128,
+          "full_rank_trials": 0,
+          "idempotent_failures": 0,
+          "commutation_failures": 0,
+          "rank99_witness": false
+        }
+      },
+      {
+        "loader": 9,
+        "product_terms": 130,
+        "unique_product_pairs": 130,
+        "left_flattening_rank": 99,
+        "right_flattening_rank": 99,
+        "rank99_pencil": {
+          "trials": 128,
+          "full_rank_trials": 0,
+          "idempotent_failures": 0,
+          "commutation_failures": 0,
+          "rank99_witness": false
+        }
+      },
+      {
+        "loader": 10,
+        "product_terms": 130,
+        "unique_product_pairs": 130,
+        "left_flattening_rank": 99,
+        "right_flattening_rank": 99,
+        "rank99_pencil": {
+          "trials": 128,
+          "full_rank_trials": 0,
+          "idempotent_failures": 0,
+          "commutation_failures": 0,
+          "rank99_witness": false
+        }
+      },
+      {
+        "loader": 12,
+        "product_terms": 127,
+        "unique_product_pairs": 127,
+        "left_flattening_rank": 99,
+        "right_flattening_rank": 99,
+        "rank99_pencil": {
+          "trials": 128,
+          "full_rank_trials": 0,
+          "idempotent_failures": 0,
+          "commutation_failures": 0,
+          "rank99_witness": false
+        }
+      },
+      {
+        "loader": 13,
+        "product_terms": 124,
+        "unique_product_pairs": 124,
+        "left_flattening_rank": 99,
+        "right_flattening_rank": 99,
+        "rank99_pencil": {
+          "trials": 128,
+          "full_rank_trials": 0,
+          "idempotent_failures": 0,
+          "commutation_failures": 0,
+          "rank99_witness": false
+        }
+      },
+      {
+        "loader": 14,
+        "product_terms": 124,
+        "unique_product_pairs": 124,
+        "left_flattening_rank": 98,
+        "right_flattening_rank": 99,
+        "rank99_pencil": {
+          "trials": 128,
+          "full_rank_trials": 0,
+          "idempotent_failures": 0,
+          "commutation_failures": 0,
+          "rank99_witness": false
+        }
+      }
+    ]
+  },
+  "decision": "NO_GO_PRIVATE_KERNEL",
+  "reason": "No invertible output slice appeared in 128 seeded trials for any custom loader; this only closes the cheap rank-99 matrix-pencil route and is not a tensor-rank lower bound."
+}

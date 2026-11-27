@@ -1,0 +1,154 @@
+{
+  "status": "NO_GO_RANK99_PENCIL",
+  "payload_bytes": 130791,
+  "custom_loader_count": 10,
+  "custom_product_terms": 1281,
+  "rank99_product_savings_ceiling": 294,
+  "chemistry_gate": {
+    "baseline_cost": 249853852.96142676,
+    "required_cost_at_qv2_projection": 204476813.8348401,
+    "required_reduction_fraction": 0.1816
+  },
+  "loaders": [
+    {
+      "loader": 2,
+      "product_terms": 131,
+      "unique_product_pairs": 131,
+      "left_flattening_rank": 99,
+      "right_flattening_rank": 99,
+      "rank99_pencil": {
+        "trials": 128,
+        "full_rank_trials": 0,
+        "idempotent_failures": 0,
+        "commutation_failures": 0,
+        "rank99_witness": false
+      }
+    },
+    {
+      "loader": 3,
+      "product_terms": 130,
+      "unique_product_pairs": 130,
+      "left_flattening_rank": 99,
+      "right_flattening_rank": 99,
+      "rank99_pencil": {
+        "trials": 128,
+        "full_rank_trials": 0,
+        "idempotent_failures": 0,
+        "commutation_failures": 0,
+        "rank99_witness": false
+      }
+    },
+    {
+      "loader": 4,
+      "product_terms": 131,
+      "unique_product_pairs": 131,
+      "left_flattening_rank": 99,
+      "right_flattening_rank": 99,
+      "rank99_pencil": {
+        "trials": 128,
+        "full_rank_trials": 0,
+        "idempotent_failures": 0,
+        "commutation_failures": 0,
+        "rank99_witness": false
+      }
+    },
+    {
+      "loader": 6,
+      "product_terms": 131,
+      "unique_product_pairs": 131,
+      "left_flattening_rank": 98,
+      "right_flattening_rank": 99,
+      "rank99_pencil": {
+        "trials": 128,
+        "full_rank_trials": 0,
+        "idempotent_failures": 0,
+        "commutation_failures": 0,
+        "rank99_witness": false
+      }
+    },
+    {
+      "loader": 8,
+      "product_terms": 123,
+      "unique_product_pairs": 123,
+      "left_flattening_rank": 99,
+      "right_flattening_rank": 98,
+      "rank99_pencil": {
+        "trials": 128,
+        "full_rank_trials": 0,
+        "idempotent_failures": 0,
+        "commutation_failures": 0,
+        "rank99_witness": false
+      }
+    },
+    {
+      "loader": 9,
+      "product_terms": 130,
+      "unique_product_pairs": 130,
+      "left_flattening_rank": 99,
+      "right_flattening_rank": 99,
+      "rank99_pencil": {
+        "trials": 128,
+        "full_rank_trials": 0,
+        "idempotent_failures": 0,
+        "commutation_failures": 0,
+        "rank99_witness": false
+      }
+    },
+    {
+      "loader": 10,
+      "product_terms": 130,
+      "unique_product_pairs": 130,
+      "left_flattening_rank": 99,
+      "right_flattening_rank": 99,
+      "rank99_pencil": {
+        "trials": 128,
+        "full_rank_trials": 0,
+        "idempotent_failures": 0,
+        "commutation_failures": 0,
+        "rank99_witness": false
+      }
+    },
+    {
+      "loader": 12,
+      "product_terms": 127,
+      "unique_product_pairs": 127,
+      "left_flattening_rank": 99,
+      "right_flattening_rank": 99,
+      "rank99_pencil": {
+        "trials": 128,
+        "full_rank_trials": 0,
+        "idempotent_failures": 0,
+        "commutation_failures": 0,
+        "rank99_witness": false
+      }
+    },
+    {
+      "loader": 13,
+      "product_terms": 124,
+      "unique_product_pairs": 124,
+      "left_flattening_rank": 99,
+      "right_flattening_rank": 99,
+      "rank99_pencil": {
+        "trials": 128,
+        "full_rank_trials": 0,
+        "idempotent_failures": 0,
+        "commutation_failures": 0,
+        "rank99_witness": false
+      }
+    },
+    {
+      "loader": 14,
+      "product_terms": 124,
+      "unique_product_pairs": 124,
+      "left_flattening_rank": 98,
+      "right_flattening_rank": 99,
+      "rank99_pencil": {
+        "trials": 128,
+        "full_rank_trials": 0,
+        "idempotent_failures": 0,
+        "commutation_failures": 0,
+        "rank99_witness": false
+      }
+    }
+  ]
+}

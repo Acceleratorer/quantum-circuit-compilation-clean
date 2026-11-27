@@ -1,8 +1,8 @@
 ---
 id: plan
-updated: 2026-11-27
+updated: 2026-11-28
 direction: D-005
-status: qv2_audit_closed_no_gate_candidate
+status: qv2_and_chemistry_rank99_screens_closed_no_gate
 ---
 
 ## Next experiment
@@ -16,6 +16,12 @@ roughly 18% reduction. Exp-069's 305.042B is only a measurement reference:
 exp-056 rejects its dataset because its generators reconstruct released KMX
 stages. Do not inspect, copy, or run its code or circuits. Do not open
 parallel DQI branches.
+
+Exp-091 also closed the cheap chemistry rank-99 matrix-pencil route: the
+tracked V22 payload has 1,281 unique product terms across ten custom loaders,
+and 128 seeded output-slice trials found no invertible slice for any loader.
+This is not a tensor-rank lower bound; an explicit decomposition is required
+before a chemistry kernel is justified.
 
 ## Current gate
 
