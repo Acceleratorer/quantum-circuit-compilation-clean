@@ -2,18 +2,20 @@
 id: plan
 updated: 2026-11-27
 direction: D-005
-status: qv2_measured_below_gate
+status: qv2_audit_closed_no_gate_candidate
 ---
 
 ## Next experiment
 
-Audit the QV2 source used in exp-089 for one transformation that we can
-implement as our own change. The measured baseline is 317.509B; it needs an
-18.16% score reduction (about 60,521 mean T at Q=889 if the measured
-repetition factor holds) before another private build. Exp-069's 305.042B is
-only a measurement reference: exp-056 rejects its dataset because its
-generators reconstruct released KMX stages. Do not inspect, copy, or run its
-code or circuits. Do not open parallel DQI branches.
+The exp-090 audit closed the current public-lead route. The measured QV2
+baseline is 317.509B; even zero observed errors at the same cost would be
+313.736B, still 20.68% above the current DQI tie gate. Do not launch another
+private kernel until a new algorithmic construction or source-level
+transformation has an explicit resource screen that can plausibly clear the
+roughly 18% reduction. Exp-069's 305.042B is only a measurement reference:
+exp-056 rejects its dataset because its generators reconstruct released KMX
+stages. Do not inspect, copy, or run its code or circuits. Do not open
+parallel DQI branches.
 
 ## Current gate
 
@@ -27,6 +29,9 @@ code or circuits. Do not open parallel DQI branches.
   leaderboard snapshot. A future candidate needs a credible resource screen
   before another private build, then official verification at three salts and
   a refreshed leaderboard before a submission proposal.
+- Exp-090 audited the public QV2Beat and zero-test-cut leads; neither clears
+  the source-owned gate. See
+  [the audit receipt](../evals/2026-11-27-exp090-public-lead-audit.json).
 
 ## Not pursued
 

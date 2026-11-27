@@ -35,7 +35,9 @@ the live leader.
 - A Kaggle score above the live rank-1 score.
 
 Keep the next work to one QV2 source-level change implemented and measured as
-our own modification. It must have a credible path to at least an 18.16% score
+our own modification. Exp-090's public-lead audit found no such change: even
+the zero-error verifier counterfactual is still 20.68% above the current tie
+gate. A future candidate must have a credible path to at least an 18.16% score
 reduction (about 60,521 mean T at Q=889 if the measured repetition factor
 holds) before another private build. D-005 failed its source-mapping screen;
 the exp-057 FMA phase and cleanup routes failed their resource gates. Do not

@@ -1,0 +1,33 @@
+{
+  "experiment": "exp-090",
+  "status": "CLOSED_NO_GATE_CANDIDATE",
+  "leaderboard": {
+    "read_at_utc": "2026-11-27",
+    "rank_1_score": 34.66186,
+    "rank_1_team": "Cat with 2 Qubits"
+  },
+  "qv2beat": {
+    "slug": "toshiaki517/qv2beat",
+    "metadata_sha256": "bf21360ab4889446f7d1756d5ccae798023589fb803b56f089cfe3991cadd7df",
+    "notebook_sha256": "7643ba7894e276c3d37dab1ed15ab5d83e30b0b83b2995ed326138cb5ba99b41",
+    "executed": false,
+    "finding": "same QV2 DQI lineage; chemistry-only changes"
+  },
+  "zero_test_gate_script": {
+    "slug": "ghazarosbarseghyan91/vqcc-goodpjw-13106-t-clean-dqi-v30-gate",
+    "metadata_sha256": "cf285b8067ea34af8d0f5a7f940a2ef9dbb17caac6c9cabb9e216f6e3fa3e91c",
+    "script_sha256": "b0646cf07afd3bf46b6d69cb4a7ae5aa443b9aca47ceef3e2f589e97ffa7d8f0",
+    "dqi_pin": "6f78ecdd636051d4d2dd8f24aaece1d454eb220aaf0df2c1d64c3d96fe22081d",
+    "eligible": false
+  },
+  "official_verifier": {
+    "sha256": "f14274bc0943fb9769ddb01131be6063191a15009fe1caf1d4bdd9fd25194e65",
+    "qv2_mean_t": 333238.01297851565,
+    "qv2_qubits": 889,
+    "qv2_measured_score": 317508715032.3894,
+    "zero_error_repetition_factor": 1.1912604648115797,
+    "zero_error_score_at_same_qv2_cost": 313736311904.3473,
+    "zero_error_reduction_from_measured_pct": 1.1881258527525085,
+    "zero_error_gap_above_tie_gate_pct": 20.677608828201933
+  }
+}
