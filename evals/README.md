@@ -246,6 +246,16 @@ do not use its source or circuits. Its `32.85767` S-001 substitution is not a
 Kaggle score. The single allowed next step is a QV2 source-level change with a
 credible path to an `18.16%` reduction before another private build.
 
+## 2026-11-28 exp-092 public chemistry lead audit
+
+- The newest public chemistry notebook `goodpjw2008/qcc-shorter-chemistry-loaders-lb-33-29000`
+  was downloaded with Kaggle CLI and parsed as JSON only. It declares LB
+  `33.29000` and chemistry cost `249,046,453.34`, a `0.323%` reduction from
+  the local `249,853,852.96` baseline. The score gate needs about `18.16%`;
+  close this lead without launching a private kernel. See the
+  [evaluation](2026-11-28-exp092-public-chemistry-lead-audit.json) and
+  [experiment](../experiments/exp-092/README.md).
+
 ## Active direction
 
 The best measured eligible source-owned submission remains exp-065 at

@@ -1,0 +1,30 @@
+{
+  "experiment": "exp-092",
+  "status": "closed_no_go_gate",
+  "notebook": "goodpjw2008/qcc-shorter-chemistry-loaders-lb-33-29000",
+  "notebook_path": "experiments\\exp-092\\external\\goodpjw\\qcc-shorter-chemistry-loaders-lb-33-29000.ipynb",
+  "notebook_sha256": "36a5415042ce1d01566199a7bd34772a42211ca497c7d2300e53c71a9ab6d9f9",
+  "cell_count": 16,
+  "declared_lb": 33.29,
+  "declared_chem_cost": 249046453.34492633,
+  "declared_required_chem_cost": 204476813.83,
+  "baseline_chem_cost": 249853852.96,
+  "chemistry_reduction_pct": 0.32314875496554396,
+  "required_reduction_pct": 18.16,
+  "declared_toffoli_counts": [
+    13214,
+    13108
+  ],
+  "declared_lambda_eff": 46.91253543118072,
+  "declared_license": "Apache-2.0",
+  "declared_kernel_sources": [
+    "prvsiyan/verifier-guided-quantum-circuit-optimization",
+    "maoxin123/qcc-33-287-37-qubit-invsqrt-at-60-774"
+  ],
+  "declared_competition_sources": [
+    "google-verifiable-quantum-circuit-compilation"
+  ],
+  "executed_downloaded_code": false,
+  "private_kernel_launched": false,
+  "gate_cleared": false
+}

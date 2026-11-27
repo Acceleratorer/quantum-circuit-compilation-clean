@@ -1,0 +1,702 @@
+[
+  {
+    "ref": "goodpjw2008/qcc-shorter-chemistry-loaders-lb-33-29000",
+    "title": "QCC | Shorter Chemistry Loaders | LB 33.29000",
+    "author": "goodpjw2008",
+    "lastRunTime": "2026-11-27T17:17:46.717000",
+    "totalVotes": 119
+  },
+  {
+    "ref": "ozertuu/google-quantum-ai-vqcc-33-25906-sota-apex",
+    "title": "Google Quantum AI VQCC 33.25906 SOTA Apex",
+    "author": "Ertu\u011frul \u00d6zer",
+    "lastRunTime": "2026-11-27T16:42:20.783000",
+    "totalVotes": 66
+  },
+  {
+    "ref": "areebbb/qai-trim-the-loader-tune-the-circuit-33-28959",
+    "title": "QAI | Trim the Loader, Tune the Circuit | 33.28959",
+    "author": "Areeb Ali",
+    "lastRunTime": "2026-11-27T15:19:48.530000",
+    "totalVotes": 64
+  },
+  {
+    "ref": "kozykappa/vqcc-tests",
+    "title": "VQCC tests",
+    "author": "Kozykorpesh",
+    "lastRunTime": "2026-11-27T14:57:48.307000",
+    "totalVotes": 32
+  },
+  {
+    "ref": "mizeroluckygall/qcc-gate-counts-angle-words-resource-costs",
+    "title": "QCC | Gate Counts, Angle Words & Resource Costs",
+    "author": "Mizero Lucky Gall",
+    "lastRunTime": "2026-11-27T14:57:07.643000",
+    "totalVotes": 40
+  },
+  {
+    "ref": "alexchilton/33-28-lb-which-circuits-survive-private-salt",
+    "title": "33.28 LB | Which Circuits Survive Private Salt?",
+    "author": "alex chilton",
+    "lastRunTime": "2026-11-27T14:32:13.150000",
+    "totalVotes": 82
+  },
+  {
+    "ref": "yalickj/qcc-shorter-chemistry-loaders-lb-33-28959",
+    "title": "QCC | Shorter Chemistry Loaders | LB 33.28959",
+    "author": "YALICKJ",
+    "lastRunTime": "2026-11-27T14:24:53.343000",
+    "totalVotes": 1
+  },
+  {
+    "ref": "evgendvorkin/google-quantum-ai-deep-eda-with-analogies",
+    "title": "\ud83e\udde0 Google Quantum AI | Deep EDA with Analogies",
+    "author": "\u0414\u0432\u043e\u0440\u043a\u0438\u043d \u0415\u0432\u0433\u0435\u043d\u0438\u0439 \u0412\u043b\u0430\u0434\u0438\u043c\u0438\u0440\u043e\u0432\u0438\u0447",
+    "lastRunTime": "2026-11-27T13:21:19.307000",
+    "totalVotes": 127
+  },
+  {
+    "ref": "ghazarosbarseghyan91/vqcc-goodpjw-13106-t-clean-dqi-v30-gate",
+    "title": "VQCC goodpjw 13106-T clean DQI (v30 gate)",
+    "author": "Ghazaros Barseghyan",
+    "lastRunTime": "2026-11-27T13:20:44.113000",
+    "totalVotes": 1
+  },
+  {
+    "ref": "pablodiegoo/google-quantum-compilation-starter-notebook",
+    "title": "Google Quantum Compilation Starter Notebook",
+    "author": "Pablo Diego Pereira",
+    "lastRunTime": "2026-11-27T13:16:25.027000",
+    "totalVotes": 29
+  },
+  {
+    "ref": "dennis6886/quantum-circuits-21-37712-fused-dqi-reproduction",
+    "title": "Quantum Circuits 21.37712 | Fused DQI Reproduction",
+    "author": "\u5976\u9f99",
+    "lastRunTime": "2026-11-27T12:28:33.283000",
+    "totalVotes": 27
+  },
+  {
+    "ref": "ghazarosbarseghyan91/vqcc-33-28872-goodpjw-13108-t-clean-dqi",
+    "title": "VQCC 33.28872 goodpjw 13108-T clean DQI",
+    "author": "Ghazaros Barseghyan",
+    "lastRunTime": "2026-11-27T11:51:04.670000",
+    "totalVotes": 3
+  },
+  {
+    "ref": "taylorclark637/vqcc-submission-notebook-v1-v16-assemblies",
+    "title": "VQCC Submission Notebook \u2014 v1\u2013v16 Assemblies",
+    "author": "Taylor Clark",
+    "lastRunTime": "2026-11-27T09:34:33.557000",
+    "totalVotes": 0
+  },
+  {
+    "ref": "ghazarosbarseghyan91/vqcc-28-23441-verified-portfolio",
+    "title": "VQCC 28.23441 verified portfolio",
+    "author": "Ghazaros Barseghyan",
+    "lastRunTime": "2026-11-27T08:32:10.117000",
+    "totalVotes": 8
+  },
+  {
+    "ref": "rdaccel/qcc-33-25906-reproduction-goodpjw2008",
+    "title": "QCC 33.25906 reproduction (goodpjw2008)",
+    "author": "RD_Accel",
+    "lastRunTime": "2026-11-27T07:10:33.440000",
+    "totalVotes": 0
+  },
+  {
+    "ref": "letusassume/verifiable-quantum-circuit-compilation-three-smal",
+    "title": "Verifiable Quantum Circuit Compilation: three smal",
+    "author": "Syed Shahed",
+    "lastRunTime": "2026-11-27T06:40:00.760000",
+    "totalVotes": 3
+  },
+  {
+    "ref": "rishabhbafnaiiitd/qcc-33-2870-3-task-sota-portfolio-visual-guide",
+    "title": "QCC 33.2870 | 3-Task SOTA Portfolio & Visual Guide",
+    "author": "Rishabh Bafna",
+    "lastRunTime": "2026-11-27T04:20:25.827000",
+    "totalVotes": 17
+  },
+  {
+    "ref": "maoxin123/qcc-33-287-37-qubit-invsqrt-at-60-774",
+    "title": "QCC 33.287 | 37-qubit invsqrt at 60,774",
+    "author": "maoxin123",
+    "lastRunTime": "2026-11-27T03:30:50.857000",
+    "totalVotes": 38
+  },
+  {
+    "ref": "manwithacat/the-real-150k-was-the-friends-we-made",
+    "title": "The Real $150K Was the Friends We Made",
+    "author": "manwithacat",
+    "lastRunTime": "2026-11-27T03:15:55.353000",
+    "totalVotes": 131
+  },
+  {
+    "ref": "darkgobelin/qc-frontier-gated-submission",
+    "title": "QC Frontier Gated Submission",
+    "author": "Sven Dumain",
+    "lastRunTime": "2026-11-26T22:33:37.593000",
+    "totalVotes": 0
+  },
+  {
+    "ref": "darkgobelin/qc-multi-salt-verified-baseline",
+    "title": "QC Multi-Salt Verified Baseline",
+    "author": "Sven Dumain",
+    "lastRunTime": "2026-11-26T22:33:35.567000",
+    "totalVotes": 0
+  },
+  {
+    "ref": "dariushafshar/quantum-circuits-silver-line-is-a-113-team-tie",
+    "title": "Quantum Circuits: Silver Line Is a 113-Team Tie",
+    "author": "Dariush Afshar",
+    "lastRunTime": "2026-11-26T21:13:10.497000",
+    "totalVotes": 0
+  },
+  {
+    "ref": "hermesrmtupinamba/notebook6c1f027398",
+    "title": "notebook6c1f027398",
+    "author": "HERMES R M TUPINAMBA",
+    "lastRunTime": "2026-11-26T20:13:45.053000",
+    "totalVotes": 0
+  },
+  {
+    "ref": "mos3santos/circuit-optimization-test",
+    "title": "Circuit Optimization TEST",
+    "author": "M\u00e1rcio Santos",
+    "lastRunTime": "2026-11-26T14:57:54.270000",
+    "totalVotes": 5
+  },
+  {
+    "ref": "muhakabartay/vqcc-salt-lottery-unit-prices-width-maps",
+    "title": "VQCC | Salt Lottery, Unit Prices & Width Maps",
+    "author": "Mukharbek Organokov",
+    "lastRunTime": "2026-11-26T14:53:08.573000",
+    "totalVotes": 4
+  },
+  {
+    "ref": "ghazarosbarseghyan91/vqcc-dennis-fused-dqi-25735-clean-pick",
+    "title": "VQCC Dennis fused DQI + 25735 clean pick",
+    "author": "Ghazaros Barseghyan",
+    "lastRunTime": "2026-11-26T12:38:16.180000",
+    "totalVotes": 1
+  },
+  {
+    "ref": "ghazarosbarseghyan91/vqcc-33-25735-13112-t-chemistry-clean-dqi",
+    "title": "VQCC 33.25735 13112-T chemistry clean DQI",
+    "author": "Ghazaros Barseghyan",
+    "lastRunTime": "2026-11-26T12:22:24.093000",
+    "totalVotes": 1
+  },
+  {
+    "ref": "toshiaki517/qcc-chem-loader-scan",
+    "title": "QCC Chem Loader Scan",
+    "author": "AK1FPS",
+    "lastRunTime": "2026-11-26T12:14:19.070000",
+    "totalVotes": 1
+  },
+  {
+    "ref": "toshiaki517/qcc-dqi-motif-scan",
+    "title": "QCC DQI Motif Scan",
+    "author": "AK1FPS",
+    "lastRunTime": "2026-11-26T12:11:40.807000",
+    "totalVotes": 1
+  },
+  {
+    "ref": "toshiaki517/qcc-invsqrt-splice-campaign",
+    "title": "QCC invsqrt Splice Campaign",
+    "author": "AK1FPS",
+    "lastRunTime": "2026-11-26T12:02:23.190000",
+    "totalVotes": 0
+  },
+  {
+    "ref": "toshiaki517/qcc-dqi-frontier-row-measure",
+    "title": "QCC DQI Frontier Row Measure",
+    "author": "AK1FPS",
+    "lastRunTime": "2026-11-26T11:14:41.500000",
+    "totalVotes": 1
+  },
+  {
+    "ref": "toshiaki517/qcc-dqi-salt-failure-campaign",
+    "title": "QCC DQI Salt Failure Campaign",
+    "author": "AK1FPS",
+    "lastRunTime": "2026-11-26T10:42:56.503000",
+    "totalVotes": 1
+  },
+  {
+    "ref": "zhuangbility/qcc-v23-our-refit-b183c793-lb-33-25737",
+    "title": "QCC | V23 + Our Refit + b183c793 | LB 33.25737",
+    "author": "Cristiano",
+    "lastRunTime": "2026-11-26T08:38:25.387000",
+    "totalVotes": 3
+  },
+  {
+    "ref": "orel1986/qcc-33257-fork",
+    "title": "qcc 33257 fork",
+    "author": "ML_Orlov_Dmitry",
+    "lastRunTime": "2026-11-26T08:31:42.607000",
+    "totalVotes": 0
+  },
+  {
+    "ref": "toshiaki517/qcc-chem-refit-dqi-rewrites-dir-run",
+    "title": "QCC chem refit DQI rewrites dir run",
+    "author": "AK1FPS",
+    "lastRunTime": "2026-11-26T08:13:10.870000",
+    "totalVotes": 0
+  },
+  {
+    "ref": "ratnachand/vqcc-verified-floor-and-circuit-anatomy",
+    "title": "VQCC verified floor and circuit anatomy",
+    "author": "Ratnachand Kancharla",
+    "lastRunTime": "2026-11-26T07:31:33.883000",
+    "totalVotes": 0
+  },
+  {
+    "ref": "cosmorin/qcc-33-25733-verified-reproduction",
+    "title": "QCC 33.25733 Verified Reproduction",
+    "author": "cosmorin",
+    "lastRunTime": "2026-11-26T06:13:27.907000",
+    "totalVotes": 3
+  },
+  {
+    "ref": "areebbb/qai-cut-the-gates-keep-the-chemistry-33-25733",
+    "title": "QAI | Cut the Gates, Keep the Chemistry | 33.25733",
+    "author": "Areeb Ali",
+    "lastRunTime": "2026-11-26T03:21:44.447000",
+    "totalVotes": 42
+  },
+  {
+    "ref": "zhuangbility/vqcc-v22-refit-b183",
+    "title": "VQCC V22 refit b183",
+    "author": "Cristiano",
+    "lastRunTime": "2026-11-26T03:19:45.087000",
+    "totalVotes": 19
+  },
+  {
+    "ref": "varianceofx/vqcc-verified-v22-chem-portfolio",
+    "title": "VQCC Verified V22 Chem Portfolio",
+    "author": "varianceofx",
+    "lastRunTime": "2026-11-26T03:06:49.347000",
+    "totalVotes": 2
+  },
+  {
+    "ref": "ruijiezhao666/vqcc-source-built-arithmetic-and-chemistry",
+    "title": "VQCC Source Built Arithmetic and Chemistry",
+    "author": "Ruijie Zhao666",
+    "lastRunTime": "2026-11-26T02:59:58.973000",
+    "totalVotes": 0
+  },
+  {
+    "ref": "aiokajima/quantum-goodpjw-3325226-reproduction-public",
+    "title": "quantum goodpjw 3325226 reproduction public",
+    "author": "AI OKAJIMA",
+    "lastRunTime": "2026-11-26T02:54:47.903000",
+    "totalVotes": 0
+  },
+  {
+    "ref": "atakanaldemir/qcc-shared-products-and-controlled-refits",
+    "title": "QCC: Shared Products and Controlled Refits",
+    "author": "Atakan Aldemir",
+    "lastRunTime": "2026-11-25T21:22:51.187000",
+    "totalVotes": 42
+  },
+  {
+    "ref": "aiokajima/quantum-goodpjw-3324213-reproduction-public",
+    "title": "quantum goodpjw 3324213 reproduction public",
+    "author": "AI OKAJIMA",
+    "lastRunTime": "2026-11-25T20:54:06.397000",
+    "totalVotes": 0
+  },
+  {
+    "ref": "asteriospanoras/qcc-33-25229-best-public-merge-and-credits",
+    "title": "QCC 33.25229 | Best public merge and credits",
+    "author": "Asterios Panoras",
+    "lastRunTime": "2026-11-25T20:40:06.833000",
+    "totalVotes": 77
+  },
+  {
+    "ref": "kadirov0/the-atlas-of-dead-ends-141-hypotheses-we-tested",
+    "title": "The Atlas of Dead Ends - 141 hypotheses we tested ",
+    "author": "Abdullokh Abdukodirov",
+    "lastRunTime": "2026-11-25T19:21:30.760000",
+    "totalVotes": 0
+  },
+  {
+    "ref": "ghazarosbarseghyan91/vqcc-chemistry-loader-splice-matrix-zhuang-base",
+    "title": "VQCC chemistry loader splice matrix zhuang base",
+    "author": "Ghazaros Barseghyan",
+    "lastRunTime": "2026-11-25T17:52:26.630000",
+    "totalVotes": 0
+  },
+  {
+    "ref": "ghazarosbarseghyan91/vqcc-33-24213-verified-public-set",
+    "title": "VQCC 33.24213 verified public set",
+    "author": "Ghazaros Barseghyan",
+    "lastRunTime": "2026-11-25T17:28:50.707000",
+    "totalVotes": 3
+  },
+  {
+    "ref": "manwithacat/quantum-voodoo-2-electric-boogaloo",
+    "title": "Quantum Voodoo 2: Electric Boogaloo",
+    "author": "manwithacat",
+    "lastRunTime": "2026-11-25T16:54:58.570000",
+    "totalVotes": 15
+  },
+  {
+    "ref": "srinath2495/dfthc-r8-b127-c46-brot6-gpu-train",
+    "title": "DFTHC R8 B127 C46 brot6 GPU Train",
+    "author": "sixer srinath",
+    "lastRunTime": "2026-11-25T14:49:10.487000",
+    "totalVotes": 0
+  },
+  {
+    "ref": "ghazarosbarseghyan91/vqcc-33-21180-verified-public-set",
+    "title": "VQCC 33.21180 verified public set",
+    "author": "Ghazaros Barseghyan",
+    "lastRunTime": "2026-11-25T14:46:16.797000",
+    "totalVotes": 4
+  },
+  {
+    "ref": "zhuangbility/qcc-v18-dead-word-refit",
+    "title": "QCC | V18 Dead-Word Refit",
+    "author": "Cristiano",
+    "lastRunTime": "2026-11-25T14:28:48.667000",
+    "totalVotes": 2
+  },
+  {
+    "ref": "logiclab/quantum-circuit-compilation-v58-submission",
+    "title": "Quantum Circuit Compilation V58 Submission",
+    "author": "LogicLab",
+    "lastRunTime": "2026-11-25T13:21:08.340000",
+    "totalVotes": 2
+  },
+  {
+    "ref": "zhuangbility/vqcc-v18-refit",
+    "title": "VQCC V18 refit",
+    "author": "Cristiano",
+    "lastRunTime": "2026-11-25T12:41:46.347000",
+    "totalVotes": 0
+  },
+  {
+    "ref": "ghazarosbarseghyan91/vqcc-dqi-failshot-replay",
+    "title": "VQCC DQI failshot replay",
+    "author": "Ghazaros Barseghyan",
+    "lastRunTime": "2026-11-25T11:55:07.137000",
+    "totalVotes": 0
+  },
+  {
+    "ref": "ruijiezhao666/vqcc-compiler-validation",
+    "title": "VQCC Compiler Validation",
+    "author": "Ruijie Zhao666",
+    "lastRunTime": "2026-11-25T09:54:02.747000",
+    "totalVotes": 1
+  },
+  {
+    "ref": "ruijiezhao666/vqcc-constrained-chemistry-and-verified-circuits",
+    "title": "VQCC Constrained Chemistry and Verified Circuits",
+    "author": "Ruijie Zhao666",
+    "lastRunTime": "2026-11-25T09:03:25.883000",
+    "totalVotes": 0
+  },
+  {
+    "ref": "aiokajima/quantum-goodpjw-3321179-reproduction-public",
+    "title": "quantum goodpjw 3321179 reproduction public",
+    "author": "AI OKAJIMA",
+    "lastRunTime": "2026-11-25T08:52:59.980000",
+    "totalVotes": 0
+  },
+  {
+    "ref": "varianceofx/vqcc-verified-3333-loader-portfolio",
+    "title": "VQCC Verified 3333 Loader Portfolio",
+    "author": "varianceofx",
+    "lastRunTime": "2026-11-25T08:14:07.143000",
+    "totalVotes": 1
+  },
+  {
+    "ref": "zhuangbility/qcc-v17-loaders-and-our-refit-lb-33-21180",
+    "title": "QCC | V17 Loaders and Our Refit | LB 33.21180",
+    "author": "Cristiano",
+    "lastRunTime": "2026-11-25T06:59:51.447000",
+    "totalVotes": 13
+  },
+  {
+    "ref": "sachchidanandadaki/vqcc-spliced-loader",
+    "title": "Vqcc spliced loader",
+    "author": "Sachidanand",
+    "lastRunTime": "2026-11-25T06:49:37.943000",
+    "totalVotes": 6
+  },
+  {
+    "ref": "rithvikredrouthu/shut-up-and-calculate-vqcc-milestone-32-86114",
+    "title": "Shut up and Calculate | VQCC Milestone 32.86114",
+    "author": "Rithvik Redrouthu",
+    "lastRunTime": "2026-11-25T05:57:01.357000",
+    "totalVotes": 3
+  },
+  {
+    "ref": "leotang09/vqcc-t7421-eligible",
+    "title": "VQCC T7421 eligible",
+    "author": "Leo Tang",
+    "lastRunTime": "2026-11-25T01:51:05.713000",
+    "totalVotes": 0
+  },
+  {
+    "ref": "asteriospanoras/qcc-33-1933-ablation-floors-human-vs-ai-next",
+    "title": "QCC 33.1933 | Ablation, Floors, Human vs AI, Next?",
+    "author": "Asterios Panoras",
+    "lastRunTime": "2026-11-24T23:18:15.567000",
+    "totalVotes": 45
+  },
+  {
+    "ref": "hassanabdulhafid/chronos-kickmix-verifiable-quantum-circuit-comp",
+    "title": "Chronos-Kickmix: Verifiable Quantum Circuit Comp.",
+    "author": "Hassan Alghamoudi",
+    "lastRunTime": "2026-11-24T22:13:44.557000",
+    "totalVotes": 11
+  },
+  {
+    "ref": "thomasgamet/quantum-attempt-reset",
+    "title": "Quantum Attempt - Reset",
+    "author": "ThomasG",
+    "lastRunTime": "2026-11-24T21:08:35.153000",
+    "totalVotes": 19
+  },
+  {
+    "ref": "arsen123/qcc-public-frontier-full-independent-audit",
+    "title": "QCC Public Frontier: Full Independent Audit",
+    "author": "Arsen Zakaryan",
+    "lastRunTime": "2026-11-24T19:50:24.290000",
+    "totalVotes": 3
+  },
+  {
+    "ref": "lucifer19/black-cat-quantum-heist-three-locks",
+    "title": "\ud83d\udc08\u200d\u2b1b\u269b\ufe0f Black Cat Quantum Heist | Three Locks",
+    "author": "Adaptive Agent Systems",
+    "lastRunTime": "2026-11-24T18:12:00.673000",
+    "totalVotes": 20
+  },
+  {
+    "ref": "lionalmedong/qai-the-26-toffoli-cut-lb-33-19287",
+    "title": "QAI | The 26-Toffoli Cut | LB 33.19287",
+    "author": "123321123",
+    "lastRunTime": "2026-11-24T16:35:15.730000",
+    "totalVotes": 0
+  },
+  {
+    "ref": "alexchilton/33-18-lb-which-circuits-survive-private-salt",
+    "title": "33.18 LB | Which Circuits Survive Private Salt?",
+    "author": "alex chilton",
+    "lastRunTime": "2026-11-24T13:46:53.650000",
+    "totalVotes": 2
+  },
+  {
+    "ref": "ghazarosbarseghyan91/vqcc-dqi-kmx-export-failshot-manifest",
+    "title": "vqcc-dqi-kmx-export-failshot-manifest",
+    "author": "Ghazaros Barseghyan",
+    "lastRunTime": "2026-11-24T13:06:17.727000",
+    "totalVotes": 0
+  },
+  {
+    "ref": "ghazarosbarseghyan91/vqcc-dqi-syndrome-audit-8-salts",
+    "title": "VQCC DQI syndrome audit 8 salts",
+    "author": "Ghazaros Barseghyan",
+    "lastRunTime": "2026-11-24T13:06:12.070000",
+    "totalVotes": 0
+  },
+  {
+    "ref": "ranjeet258/qcc-1124-ten-published-decoder-rewrites",
+    "title": "QCC 1124 Ten published decoder rewrites",
+    "author": "RanJeet Gupta",
+    "lastRunTime": "2026-11-24T08:47:36.390000",
+    "totalVotes": 0
+  },
+  {
+    "ref": "aslan007x/qcc-v4-portfolio",
+    "title": "QCC v4 Portfolio",
+    "author": "Aldiyawan",
+    "lastRunTime": "2026-11-24T05:20:44.530000",
+    "totalVotes": 0
+  },
+  {
+    "ref": "kawh1111/qcomp-harvest-1124pc",
+    "title": "Qcomp harvest 1124pc",
+    "author": "kawh1111",
+    "lastRunTime": "2026-11-24T01:30:38.023000",
+    "totalVotes": 0
+  },
+  {
+    "ref": "woofery/qcc-hourly-optimize-log-official-33-17033",
+    "title": "QCC Hourly Optimize Log | Official 33.17033",
+    "author": "woofery",
+    "lastRunTime": "2026-11-23T23:30:39.613000",
+    "totalVotes": 1
+  },
+  {
+    "ref": "prvsiyan/verifier-guided-quantum-circuit-optimization",
+    "title": "Verifier-Guided Quantum Circuit Optimization",
+    "author": "prvsiyan",
+    "lastRunTime": "2026-11-23T20:16:31.200000",
+    "totalVotes": 55
+  },
+  {
+    "ref": "mzishran/google-quantum-ai-verified-chemistry-refit",
+    "title": "Google Quantum AI | Verified Chemistry Refit ",
+    "author": "Mirza Ishran",
+    "lastRunTime": "2026-11-23T17:33:28.647000",
+    "totalVotes": 15
+  },
+  {
+    "ref": "orel1986/qcc-331707-reclaim",
+    "title": "qcc 331707 reclaim",
+    "author": "ML_Orlov_Dmitry",
+    "lastRunTime": "2026-11-23T14:45:51.957000",
+    "totalVotes": 0
+  },
+  {
+    "ref": "kawh1111/qcomp-harvest-3317",
+    "title": "Qcomp harvest 3317",
+    "author": "kawh1111",
+    "lastRunTime": "2026-11-23T14:06:56.597000",
+    "totalVotes": 1
+  },
+  {
+    "ref": "salmanfarsi786/google-quantum-ai-verifiable-circuit-optimization",
+    "title": "Google Quantum AI: Verifiable Circuit Optimization",
+    "author": "Md Salman Alam",
+    "lastRunTime": "2026-11-23T12:14:04.177000",
+    "totalVotes": 1
+  },
+  {
+    "ref": "jiaobinliu/vqcc-33-17067-round-13-reproduction",
+    "title": "VQCC 33.17067 Round 13 Reproduction",
+    "author": "\u6c38\u96cf\u5854\u83f2",
+    "lastRunTime": "2026-11-23T08:24:23.060000",
+    "totalVotes": 2
+  },
+  {
+    "ref": "pranavmudgal/notebookd56a5f0e70",
+    "title": "notebookd56a5f0e70",
+    "author": "Pranav Mudgal",
+    "lastRunTime": "2026-11-23T06:18:47.303000",
+    "totalVotes": 0
+  },
+  {
+    "ref": "liuzewen123/qcc-3357-loaders-stock-dqi",
+    "title": "QCC | 3357 loaders + stock DQI",
+    "author": "liuzewen123",
+    "lastRunTime": "2026-11-23T05:25:56",
+    "totalVotes": 0
+  },
+  {
+    "ref": "liuzewen123/qcc-dqi-zero-test-cuts-verbatim-33-17067",
+    "title": "QCC | DQI Zero-Test Cuts (verbatim 33.17067)",
+    "author": "liuzewen123",
+    "lastRunTime": "2026-11-23T04:35:45.227000",
+    "totalVotes": 4
+  },
+  {
+    "ref": "adilshamim8/google-quantum-ai-101",
+    "title": "Google Quantum AI 101",
+    "author": "Adil Shamim",
+    "lastRunTime": "2026-11-23T03:48:35.393000",
+    "totalVotes": 22
+  },
+  {
+    "ref": "wenbodai/qcc-33-13877-verified-three-task-portfolio",
+    "title": "QCC 33.13877 verified three-task portfolio",
+    "author": "wenbodai",
+    "lastRunTime": "2026-11-23T02:25:09.517000",
+    "totalVotes": 0
+  },
+  {
+    "ref": "varianceofx/vqcc-verified-3357-loader-portfolio",
+    "title": "VQCC Verified 3357 Loader Portfolio",
+    "author": "varianceofx",
+    "lastRunTime": "2026-11-23T00:55:29.233000",
+    "totalVotes": 1
+  },
+  {
+    "ref": "ozertuu/25-218-starter-notebook",
+    "title": "25.218 Starter Notebook",
+    "author": "Ertu\u011frul \u00d6zer",
+    "lastRunTime": "2026-11-22T22:59:38.887000",
+    "totalVotes": 6
+  },
+  {
+    "ref": "whyithastobesix/which-data-may-a-prize-generator-read",
+    "title": "Which data may a prize generator read?",
+    "author": "WhyItHasToBeSix",
+    "lastRunTime": "2026-11-22T21:27:43.400000",
+    "totalVotes": 1
+  },
+  {
+    "ref": "orel1986/qcc-alex33-17-fork",
+    "title": "qcc alex33 17 fork",
+    "author": "ML_Orlov_Dmitry",
+    "lastRunTime": "2026-11-22T20:41:17.390000",
+    "totalVotes": 0
+  },
+  {
+    "ref": "ghazarosbarseghyan91/vqcc-33-17033-table-swap",
+    "title": "VQCC 33.17033 table swap",
+    "author": "Ghazaros Barseghyan",
+    "lastRunTime": "2026-11-22T16:10:25.710000",
+    "totalVotes": 0
+  },
+  {
+    "ref": "areebbb/qai-same-gates-better-chemistry-33-17029",
+    "title": "QAI | Same Gates, Better Chemistry | 33.17029",
+    "author": "Areeb Ali",
+    "lastRunTime": "2026-11-22T14:55:39.227000",
+    "totalVotes": 38
+  },
+  {
+    "ref": "kawh1111/qcomp-harvest-3314",
+    "title": "Qcomp harvest 3314",
+    "author": "kawh1111",
+    "lastRunTime": "2026-11-22T14:49:43.867000",
+    "totalVotes": 0
+  },
+  {
+    "ref": "rdaccel/qcc-33-13877-reproduction-leotang09",
+    "title": "QCC 33.13877 reproduction (leotang09)",
+    "author": "RD_Accel",
+    "lastRunTime": "2026-11-22T13:10:10.500000",
+    "totalVotes": 1
+  },
+  {
+    "ref": "manwithacat/how-the-newest-circuit-families-work",
+    "title": "How the newest circuit families work",
+    "author": "manwithacat",
+    "lastRunTime": "2026-11-22T12:22:49.960000",
+    "totalVotes": 4
+  },
+  {
+    "ref": "varianceofx/vqcc-phase-and-chemistry-compiler",
+    "title": "VQCC Phase and Chemistry Compiler",
+    "author": "varianceofx",
+    "lastRunTime": "2026-11-22T12:00:28.033000",
+    "totalVotes": 1
+  },
+  {
+    "ref": "orel1986/qcc-alex33-fork",
+    "title": "qcc alex33 fork",
+    "author": "ML_Orlov_Dmitry",
+    "lastRunTime": "2026-11-22T10:53:20.567000",
+    "totalVotes": 1
+  },
+  {
+    "ref": "ghazarosbarseghyan91/vqcc-33-14398-public-set-reproduction",
+    "title": "VQCC 33.14398 public set reproduction",
+    "author": "Ghazaros Barseghyan",
+    "lastRunTime": "2026-11-22T09:12:34.310000",
+    "totalVotes": 1
+  },
+  {
+    "ref": "leotang09/vqcc-t7421-submission",
+    "title": "VQCC T7421 Submission",
+    "author": "Leo Tang",
+    "lastRunTime": "2026-11-22T08:29:08.367000",
+    "totalVotes": 5
+  }
+]
