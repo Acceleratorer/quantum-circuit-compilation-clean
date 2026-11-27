@@ -81,7 +81,17 @@
         "selected_coefficients": [0.0, 0.0, 3e-8],
         "result": "NO_REDUCTION"
       },
-      "decision": "The public family-3 refit provides no evidence of a path to this gate; do not spend a Kaggle run reproducing it. Other independent chemistry optimizations need a credible estimate before a run. Keep all public compiled circuits out of candidates."
+      "public_v20_controlled_refit": {
+        "kernel": "atakanaldemir/qcc-shared-products-and-controlled-refits",
+        "notebook_sha256": "66f5f6fbd9082bfeb44e4084a80ec3e14a989bcb0b49732c69a9388f888560d7",
+        "reported_base_chemistry_cost": 249245843.59,
+        "reported_refit_chemistry_cost": 249246255.76,
+        "reported_cost_delta": 412.17,
+        "reported_conditional_portfolio_score": 33.25224,
+        "candidate_eligibility": "PUBLIC_OTHER_CIRCUITS; NOT_SOURCE_OWNED",
+        "result": "NO_IMPROVEMENT_REPORTED"
+      },
+      "decision": "The public family-3 and V20 controlled refits did not reduce chemistry cost and do not approach this gate; do not reproduce them. Other independent chemistry optimizations need a credible estimate before a run. Keep all public compiled circuits out of candidates."
     },
     "decision": "Do not submit this projection. After integrated V20 verification, the next score routes are source-owned DQI at or below 242,765 mean T or chemistry at or below 170,057,871 cost; evaluate the smaller chemistry refit against its gate before starting another DQI rewrite."
   },

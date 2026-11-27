@@ -69,6 +69,20 @@ the selected `lambda_eff` rose from `46.91426578167395` to
 setting found no cost reduction and is a no-go. Families 0–2 were not tested;
 do not run another kernel for this method without a stronger local estimate.
 
+## Shared-products and controlled-refit screen
+
+I pulled `atakanaldemir/qcc-shared-products-and-controlled-refits` on
+2026-11-27 and read the notebook as text only. The 645,966-byte notebook is
+under `experiments/exp-084/external/atakan-shared-products/`; SHA-256
+`66f5f6fbd9082bfeb44e4084a80ec3e14a989bcb0b49732c69a9388f888560d7`.
+The notebook reports 3,309 Toffolis per pass for its V20 chemistry loaders,
+and a weight/offset refit changes its verifier cost from `249245843.59` to
+`249246255.76` (+`412.17`, slightly worse). Its conditional score projection
+is `33.25224`, below the current leader, and it relies on the public V20
+portfolio's other circuits. No notebook code was executed and no circuit was
+used. The refit and the unmeasured 3,308-Toffoli synthesis do not clear our
+source-owned top-1 gate; close this lead.
+
 ## Leader-team v156 DQI generator check
 
 The public `dziyanavalenta/31-45-every-circuit-generated-submission` kernel
