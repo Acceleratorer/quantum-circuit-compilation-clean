@@ -1,0 +1,51 @@
+{
+  "captured_utc": "2026-11-27T10:41:26Z",
+  "experiment": "d005-source-mapping-screen",
+  "direction": "D-005",
+  "status": "NO_GO_SOURCE_MAPPING",
+  "question": "Does exp-063 expose a decoder state or stage that maps to the reversible BM history-recovery invariant?",
+  "source": {
+    "dataset": "syed3000/vqcc-own-circuit-portfolio",
+    "version": 17,
+    "license": "Apache-2.0",
+    "url": "https://www.kaggle.com/datasets/syed3000/vqcc-own-circuit-portfolio/versions/17",
+    "files_read_as_text_only": [
+      {
+        "path": "dqi_generator/dqi_generator/emit.py",
+        "sha256": "0e69f89841f30db5b2254ae4bfdf455ca0f2de3087f803b6f8fc5b6ec84ca11c",
+        "matches_exp063_pin": true
+      },
+      {
+        "path": "dqi_generator/dqi_generator/vendor/d70-source/dqi_laneB_middle_arch/src/d70_laneB_builder.py",
+        "sha256": "aabe3740f14af9f708096a447a958a81abce2b62508788ddb3eb03878f451905",
+        "matches_source_manifest": true
+      },
+      {
+        "path": "dqi_generator/dqi_generator/vendor/d70-source/dqi_laneB_middle_arch/src/d70_laneB_upgrades.py",
+        "sha256": "5e55b105d8e5f48ba5459635c1fd90f877e1011aecdd038e9ac3750428fdaafa",
+        "matches_source_manifest": true
+      }
+    ],
+    "code_executed_locally": false
+  },
+  "invalid_stage_reference": {
+    "stage": "decoder_return",
+    "static_toffoli_like": 109515,
+    "receipt": "2026-11-26-dqi-stage-profile.json",
+    "source_dataset": "tonylica/quantum-ai-32-85306-task-generators",
+    "eligibility": "measurement reference only under exp-056; not an exp-063 measurement"
+  },
+  "screen": {
+    "finding": "The pinned emitter selects the D70 Lane B builder and shear, quotient, norm-handoff, elliptic-tensor, and converter operations. The reviewed builder/upgrade files expose no mapped Berlekamp-Massey state or matching decoder_return stage.",
+    "required_gate": {
+      "qubits_max": 890,
+      "mean_toffolis_max": 273588.12
+    },
+    "measured_exp063_return_mean_toffolis": null,
+    "complete_resource_projection": null,
+    "private_kernel_run": false,
+    "submission_made": false
+  },
+  "decision": "Close D-005 before a private kernel: no eligible source mapping or cost projection supports its gate.",
+  "limits": "This is a source-mapping screen of the exact emitter, builder, and upgrade files, not a full semantic audit of all 630 source files and not a proof that every BM-based redesign is impossible."
+}

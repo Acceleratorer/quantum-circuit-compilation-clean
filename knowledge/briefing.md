@@ -23,16 +23,18 @@ updated: 2026-11-27
   ([full snapshot and receipt](../evals/2026-11-27-live-leaderboard-045600Z.json)).
 - The public DQI profile screen found `paired-plain` already best among the
   four published profiles. Re-running the other three cannot close the gap.
+- D-005 is closed before a kernel: its `109,515` return-stage count came from
+  a measurement-only dataset, and the pinned exp-063 builder screen did not
+  identify a corresponding BM state or stage. See the
+  [source-mapping receipt](../evals/2026-11-27-d005-source-mapping.json).
 - The full released reversible BM circuit is not a candidate at its published
-  `Q=1,837`, `442,397T`; only its shared-update/history-recovery invariant
-  remains a possible, untested adaptation (`lit-reversible-bm-fit`).
+  `Q=1,837`, `442,397T` (`lit-reversible-bm-fit`).
 
-## Open decision
+## Current focus
 
-- Approve or reject D-005, a one-day maximum local resource screen. It stops
-  before a private kernel unless the complete estimate reaches `Q<=890` and
-  saves at least `83,089T` (2% below the tie gate) with phase and cleanup
-  included.
+- No experiment is queued. Select the next source-owned construction only
+  after it has an identified state and a credible estimate against
+  `Q<=890`, `T<=273,588.12`.
 
 ## Worth reading
 

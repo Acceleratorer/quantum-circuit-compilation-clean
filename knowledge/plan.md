@@ -2,18 +2,21 @@
 id: plan
 updated: 2026-11-27
 direction: D-005
+status: closed_no_go
 ---
 
 ## Next experiments
 
-| # | Claim | What it tests | Expected gain | Cost | Why now |
-|---|---|---|---|---|---|
-| 1 | C-001 | Measure and target exp-063's `decoder_return` with BM history recovery | 5–15% subjective success range; 0.147–0.441 expected points versus S-001 projection | Up to one workday | Only unresolved source-owned route with a plausible savings term near the gate |
+None is queued. D-005 was closed before a kernel because its proposed BM state
+could not be mapped to the pinned exp-063 generator; see the source-mapping
+receipt linked from the direction record.
 
-## Waiting on
+## Current gate
 
-- User approval of proposed direction D-005. No experiment or kernel is running.
-- A passed screen must project `T<=273,588.12` at `Q<=890`; a candidate then needs the full verifier at three salts and a refreshed leaderboard before a submission proposal.
+- No private kernel is running. A new DQI direction needs an eligible,
+  source-level path to `Q<=890` and mean `T<=273,588.12` before a build.
+- Any candidate still needs the official verifier at three salts and a
+  refreshed leaderboard before a submission proposal.
 
 ## Not pursued
 

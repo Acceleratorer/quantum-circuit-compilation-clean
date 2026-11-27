@@ -1,8 +1,8 @@
 ---
 id: D-005
 title: Test width-preserving BM history recovery for source-owned DQI
-decision: start
-status: proposed
+decision: close
+status: closed_no_go
 tasks: [dqi, all]
 claims: [C-001]
 date: 2026-11-27
@@ -101,3 +101,22 @@ before assembling a new proposal.
 ## Critic review
 
 Light review complete on 2026-11-27; see the dissent and response in Options.
+
+## 2026-11-27 source-mapping result
+
+**No-go for D-005 as proposed.** Its `109,515` return-stage count comes from
+`evals/2026-11-26-dqi-stage-profile.json`, whose Tony Li source is marked
+measurement-only under exp-056. It is not an exp-063 cost measurement.
+
+I read the pinned exp-063 v17 `emit.py`, `d70_laneB_builder.py`, and
+`d70_laneB_upgrades.py` as text only. Their hashes match the exp-063 pin and
+source manifest. The emitter selects the D70 Lane B builder, which composes
+shear, quotient, norm-handoff, elliptic-tensor, and converter operations.
+This screen did not identify a Berlekamp–Massey state or a corresponding
+`decoder_return` stage in that generator. Therefore it cannot estimate an
+eligible return-stage mean or support the `Q<=890`, `T<=273,588.12` gate.
+
+No private kernel or submission was made. This closes the proposed mapping;
+it does not prove that every new BM-based DQI construction is impossible.
+The source hashes and scope limit are in
+[`evals/2026-11-27-d005-source-mapping.json`](../../evals/2026-11-27-d005-source-mapping.json).

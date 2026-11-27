@@ -24,6 +24,6 @@ Status changes to `supported` or `refuted` require an experiment whose critic ve
 - confidence: low
 - task: dqi
 - expected gain: reduce mean Toffoli from 356,677.49 to at most 273,588.12 at Q<=890 (23.30%, a 2% buffer under the current tie gate); conditional portfolio projection is 34.737, about 0.233 above the current leader
-- sources: lit-reversible-bm-fit, exp-063, evals/2026-11-27-exp085-v20-portfolio.json, evals/2026-11-26-dqi-stage-profile.json
+- sources: lit-reversible-bm-fit, exp-063, evals/2026-11-27-exp085-v20-portfolio.json
 - tests: none
-- history: 2026-11-27 created from the shared reversible BM history-reconstruction invariant; full published circuit is a no-go and this adaptation remains untested
+- history: 2026-11-27 created from the shared reversible BM history-reconstruction invariant; the D-005 source-mapping screen found no corresponding state in the pinned exp-063 builder, so this remains an untested hypothesis rather than a measured refutation
