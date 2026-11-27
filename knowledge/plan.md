@@ -2,7 +2,7 @@
 id: plan
 updated: 2026-11-28
 direction: D-005
-status: qv2_and_chemistry_rank99_screens_closed_no_gate
+status: qv2_and_chemistry_and_joint_lift_screens_closed_no_gate
 ---
 
 ## Next experiment
@@ -22,6 +22,12 @@ tracked V22 payload has 1,281 unique product terms across ten custom loaders,
 and 128 seeded output-slice trials found no invertible slice for any loader.
 This is not a tensor-rank lower bound; an explicit decomposition is required
 before a chemistry kernel is justified.
+
+Exp-097 closed the fixed joint GF(2^12) tensor lift. The seven-point GF(8)
+lift expands to 49 joint terms, and projection through the existing tensor
+gives only a 931-T best-case saving across the 31 best nonzero contexts. This
+is far below the roughly 57,861-T DQI tie gate; the zero-context accounting is
+also worse than baseline. No private kernel was launched.
 
 ## Current gate
 

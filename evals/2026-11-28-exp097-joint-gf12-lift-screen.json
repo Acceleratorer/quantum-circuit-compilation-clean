@@ -1,0 +1,30 @@
+{
+  "experiment": "exp-097",
+  "status": "closed_no_go_gate",
+  "lead": "joint_gf2_12_tensor_lift",
+  "source_paths": [
+    "src/dqi/qv2_m4/kit/repo/src/dqi_q18_retire/joint_pair12_lift.py",
+    "src/dqi/qv2_m4/kit/repo/src/dqi_q18_retire/joint_basis_gate.py",
+    "src/dqi/qv2_m4/kit/repo/src/dqi_q18_retire/published_joint_gate.py"
+  ],
+  "screen_type": "local_tensor_resource_screen",
+  "executed_downloaded_code": false,
+  "private_kernel_launched": false,
+  "official_verifier_run": false,
+  "published_gf8_terms": 7,
+  "lifted_joint_gf12_terms": 49,
+  "projected_gf12_terms": 99,
+  "all_context_min_terms": 147,
+  "all_context_max_terms": 346,
+  "all_context_mean_terms": 246.000244140625,
+  "zero_context_terms": 346,
+  "nonzero_context_min_terms": 147,
+  "nonzero_context_max_terms": 246,
+  "nonzero_argmin": [2545],
+  "projected_full_saving_t_across_31_best_nonzero_contexts": 931,
+  "qv2_measured_mean_t": 333238.01297851565,
+  "dqi_tie_gate_mean_t": 275376.0,
+  "required_reduction_t_approx": 57861,
+  "gate_cleared": false,
+  "decision": "Close the fixed lift. The best-case projected saving is far below the DQI tie gate, and the zero-context accounting is worse than baseline. Require a new source-level construction with an explicit near-gate resource screen before another private kernel."
+}

@@ -265,6 +265,16 @@ credible path to an `18.16%` reduction before another private build.
   the [evaluation](2026-11-28-exp093-h8-search-audit.json) and
   [experiment](../experiments/exp-093/README.md).
 
+## 2026-11-28 exp-097 joint GF(2^12) tensor lift screen
+
+- The fixed seven-point GF(8) lift expands to 49 joint GF(2^12) terms. The
+  projected tensor has 147 to 346 terms by context, with a 931-T best-case
+  saving across 31 nonzero contexts. The current QV2 build needs roughly
+  57,861 T of reduction to reach the DQI tie gate, so this lead is closed
+  without a private kernel or official verifier run. See the
+  [evaluation](2026-11-28-exp097-joint-gf12-lift-screen.json) and
+  [experiment](../experiments/exp-097/README.md).
+
 ## Active direction
 
 The best measured eligible source-owned submission remains exp-065 at
