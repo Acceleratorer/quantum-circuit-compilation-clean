@@ -8,26 +8,27 @@ Research log and reproducible tooling for the Google Quantum AI Verifiable Quant
 |---|---:|
 | Highest recorded account score (public archive; ineligible) | **33.17067**, submission `58771243` |
 | Best eligible source-owned submission | exp-065, Kaggle ref `58832495`, score **28.71611** |
-| Current source-built proposal (not submitted) | S-001, projected verifier GM **31.79818**; archive SHA `acad50cc…9871152d` |
+| Current source-built proposal (not submitted) | S-001, projected verifier GM **31.79818**; gap to rank 1 **2.85771**; archive SHA `acad50cc…9871152d` |
 | Latest measured public submission (provenance-excluded) | exp-082, ref `58958257`, score **33.08801** |
-| Latest leaderboard snapshot | `Accelra` rank **719 / 3733** with an ineligible public-archive score of `33.17067`; source [`snapshot`](kaggle/snapshots/2026-11-25/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-25T202946Z.csv) |
-| Rank 1 in that snapshot | **34.34445** (`Entangled Team`); gap from eligible exp-065: **5.62834** |
-| Current CLI leader (read `2026-11-27`) | **34.50408** (`Cat with 2 Qubits`); gap from eligible source-owned best: **5.78798** |
-| Current DQI tie gate at `Q=890` | **279,171.55 mean T** with v155 Invsqrt and V20 chemistry fixed |
+| Latest leaderboard snapshot | `Accelra` rank **928 / 3805** with an ineligible public-archive score of `33.17067`; source [`snapshot`](kaggle/snapshots/2026-11-27/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-27T112015Z.csv) |
+| Rank 1 in that snapshot | **34.65589** (`Cat with 2 Qubits`); gap from eligible exp-065: **5.93978** |
+| Latest private DQI verifier run | exp-087 `pro-q2-897`: **440,632.998 mean T** at Q=897; exceeds the top-1 cost ceiling |
+| Current DQI tie gate at `Q=890` | **275,518.87 mean T** with v155 Invsqrt and V20 chemistry fixed |
 
 Submissions `58771243` and `58479383` used public circuit archives, so their
 scores are historical Kaggle measurements only. Neither demonstrates our own
 generator or counts as eligible evidence for the source-owned goal; see the
 [provenance receipt](evals/2026-11-23-submission-58771243-provenance.json).
 
-The latest persisted full leaderboard snapshot is from `2026-11-25T20:29:46Z`;
-its CSV has 3,733 ranked teams. Accelra's 33.17067 score is from a public
+The latest full leaderboard snapshot is from `2026-11-27T11:20:15Z`; its CSV
+has 3,805 ranked teams. Accelra's `33.17067` leaderboard score is from a public
 circuit archive. Exp-065 is the best eligible source-owned submission at
-`28.71611` (ref `58832495`). Exp-082's `33.08801` is a completed historical
-measurement, but its DQI and Invsqrt provenance is excluded by exp-056. A fresh
-CLI top-five read shows the live leader at `34.50408`, a `5.78798` gap from
-exp-065. The historical `205,608.39T` DQI tie gate at `Q=890` is derived from exp-065's
-eligible component costs; it is not the leader's measured component cost.
+`28.71611` (ref `58832495`), while S-001 is a `31.79818` verifier projection,
+not a Kaggle score. The live leader is at `34.65589`; with S-001's other
+components fixed, matching it requires DQI mean Toffolis at or below
+`275,518.87` at `Q=890`. This is a score-equivalence gate, not the leader's
+measured DQI cost. The refreshed leaderboard, rank, and gate are recorded in
+[`evals/2026-11-27-live-gate-112015Z.json`](evals/2026-11-27-live-gate-112015Z.json).
 Exp-072's
 ten DQI rewrites changed the final circuit hash from exp-071's `4b572141…` to
 `6f78ecdd…`; exp-066 and exp-072 both observed four value errors on that
@@ -38,10 +39,14 @@ and [updated DQI gate](evals/2026-11-26-dqi-score-equivalent-gate.json).
 Proposal S-001 combines exp-085's source-built v155 Invsqrt, exp-063's
 source-built DQI, and exp-074's source-built V20 chemistry. Its exact archive
 passed the member-hash and CRC checks, but its `31.79818` verifier GM remains
-a projection until Kaggle scores it. It is `2.70590` below the live leader.
+a projection until Kaggle scores it. It is `2.85771` below the live leader.
 The archive is staged locally and awaits the exact-hash approval file required
 by `approvals/README.md`; see the [proposal](knowledge/submissions/S-001.md)
 and [evaluation](evals/2026-11-27-exp085-v20-portfolio.json).
+Exp-087's independently rebuilt pro-q2-897 decoder passed the official
+verifier, but its measured cost projects to `29.48041` if substituted into
+S-001; it is a baseline measurement, not a replacement proposal. See the
+[run record](evals/2026-11-27-exp087-pro-q2-897.json).
 
 The repository keeps generators, verifier evidence, provenance, and experiment
 notes. Large circuit binaries and Kaggle submission ZIPs stay outside Git and

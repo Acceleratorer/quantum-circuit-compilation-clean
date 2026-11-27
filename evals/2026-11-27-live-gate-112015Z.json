@@ -1,0 +1,65 @@
+{
+  "captured_utc": "2026-11-27T11:20:15Z",
+  "source": "Kaggle CLI competitions leaderboard google-verifiable-quantum-circuit-compilation --download",
+  "snapshot": {
+    "path": "kaggle/snapshots/2026-11-27/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-27T112015Z.csv",
+    "csv_sha256": "d8ec14d9841608dab14a3adf03e6d05c659f0038dd2fbc8870c0a88647ef5373",
+    "archive_sha256": "7a0684aba6063a58d3057034938d08807eb33589b874f91c5f3c364a230b927e",
+    "total_rows": 3806,
+    "ranked_team_rows": 3805,
+    "unranked_rows": 1
+  },
+  "leaderboard": {
+    "leader": {
+      "rank": 1,
+      "team": "Cat with 2 Qubits",
+      "team_id": 17194321,
+      "score": 34.65589,
+      "last_submission_date": "2026-11-27 06:55:35"
+    },
+    "runner_up": {
+      "rank": 2,
+      "team": "Entangled Team",
+      "team_id": 17180610,
+      "score": 34.57214,
+      "last_submission_date": "2026-11-27 07:00:46"
+    },
+    "own_team": {
+      "team": "Accelra",
+      "rank": 928,
+      "best_public_score": 33.17067,
+      "best_submission_source_owned": false
+    }
+  },
+  "candidate": {
+    "proposal": "S-001",
+    "archive_sha256": "acad50cc8e1e059655ad0f0f7753ae1c9760ce694d508980644722ff9871152d",
+    "status": "NOT_SUBMITTED",
+    "verifier_geometric_mean_projection": 31.798180509655666,
+    "is_kaggle_score": false,
+    "gap_to_live_leader": 2.857709490344334
+  },
+  "dqi_tie_gate": {
+    "status": "DERIVED_NOT_MEASURED",
+    "method": "Scale S-001's DQI cost by (candidate score / leader score)^3, holding Invsqrt cost, chemistry cost, Q=890, and R fixed.",
+    "leader_score": 34.65589,
+    "fixed_components": {
+      "invsqrt_cost": 62993.50561189282,
+      "chemistry_cost": 249853852.96142676,
+      "dqi_qubits": 890,
+      "repetition_factor": 1.1912604648115832
+    },
+    "baseline_dqi_mean_toffolis": 356677.4941796875,
+    "tie_mean_toffolis_at_q890": 275518.870022053,
+    "required_saving_mean_toffolis": 81158.6241576346,
+    "required_reduction_pct": 22.7540636799328,
+    "tie_mean_toffolis_at_q897": 271235.46585294,
+    "two_percent_buffer_mean_toffolis_at_q890": 270008.492621612,
+    "two_percent_buffer_mean_toffolis_at_q897": 265810.756535881
+  },
+  "notes": [
+    "The official rank and team score come from the full public CSV; the CSV contains one unranked sample_submission.zip row.",
+    "S-001 has passed component verifiers and archive integrity checks, but has not received an integrated Kaggle score.",
+    "The DQI gates are conditional score-equivalence calculations, not measurements of the leader's component costs."
+  ]
+}

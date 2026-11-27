@@ -1,0 +1,17 @@
+{
+  "id": "accelra/exp-087-pro-q2-dqi-source-gate",
+  "title": "exp-087-pro-q2-dqi-source-gate",
+  "code_file": "main.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "competition_sources": [
+    "google-verifiable-quantum-circuit-compilation"
+  ],
+  "dataset_sources": [],
+  "kernel_sources": [],
+  "model_sources": []
+}
