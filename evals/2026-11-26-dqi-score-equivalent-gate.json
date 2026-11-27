@@ -70,6 +70,32 @@
     "required_reduction_pct": 31.937062779324364,
     "decision": "Do not spend another full Kaggle run on the chemistry-only projection; continue only with a source-eligible DQI rewrite that has a credible path to this gate."
   },
+  "public_dqi_generator_screen": {
+    "status": "REPORTED_NO_GO",
+    "kernel": "dziyanavalenta/31-45-every-circuit-generated-submission",
+    "kernel_id": 146284100,
+    "last_run": "2026-11-20T23:33:14.523",
+    "source_dataset": "dziyanavalenta/q2026-v156-dqi-generator",
+    "source_dataset_license": "Apache-2.0 (Kaggle metadata)",
+    "source_archive_sha256": "55da8b50e5b20a76e196d297391482a4864f1527f42360322f9139b04a297783",
+    "source_report": {
+      "candidate": "release_d80",
+      "candidate_sha256": "1abd01dedaeaad13194426261b221691268e7b88b53c5817eaf8e8d45c5e2912",
+      "qubits": 890,
+      "mean_toffolis": 359300.734,
+      "native_diagnostic_shots": 4096,
+      "official_verifier_result": "NOT_REPORTED"
+    },
+    "comparison": {
+      "exp065_official_mean_toffolis": 356677.4941796875,
+      "worse_than_exp065_by_mean_toffolis": 2623.239820312476,
+      "above_exp083_v20_tie_gate_by_mean_toffolis": 116535.5550562003
+    },
+    "license_scope_note": "The source README labels the archive private and its build recipe has an empty per-file license map; do not port until scope is resolved.",
+    "compiled_submission_archive_downloaded": false,
+    "source_code_executed": false,
+    "decision": "No-go for the current top-1 DQI route; the source-reported output is worse than the eligible baseline and far above the conditional tie gate."
+  },
   "eligible_method": "Solve the official score formula using the exp-065 source-owned reference costs, the current leader score, and fixed Q=890 and R. This is a conditional DQI target; changing either other task cost changes the target.",
   "method": "Conditional score-equivalence calculation: solve the official geometric-mean score formula for DQI cost using exp-082's verifier score and holding its Invsqrt and chemistry costs, Q=900, and R fixed against the current Kaggle leader. Exp-082 is not an eligible source-owned portfolio under the exp-056 provenance decision.",
   "phase_compatibility_gate": {

@@ -27,3 +27,44 @@ No downloaded code was executed and no circuit was used as a candidate.
 
 The primary-source BM cost gate is recorded in
 [`lit-reversible-bm-fit`](../literature/papers/lit-reversible-bm-fit.md).
+
+## Fused DQI kernel check
+
+I pulled `dennis6886/quantum-circuits-21-37712-fused-dqi-reproduction`
+(kernel ID `141177641`) on 2026-11-27 and read its notebook as text only. The
+isolated copy is under
+`experiments/exp-084/external/dennis6886-fused-dqi/`. Kaggle did not expose a
+numeric version in the pulled metadata; the public listing showed its last
+run at `2026-11-26T11:50:35.017`.
+
+- Notebook SHA-256: `5293188bf095ef07dbbc0b06a5d35889c7a5e4d4090277f0cad2f581adb220ca`
+- Metadata SHA-256: `af7dc0f6b7627d1f44e8f204b13f20dcae4043fc02fda80bb9c565668843ae8c`
+
+This is not a DQI generator. It searches Kaggle inputs for a prebuilt
+`submission.zip` matching fixed circuit CRC/size values, then refits only the
+chemistry parameters. It does not independently rebuild the DQI circuit, so
+the DQI output cannot be used for our source-owned candidate under the
+standing provenance decision. No notebook code was executed and no circuit
+was read or used. Close this lead; the chemistry-only refit does not address
+the current DQI gate.
+
+## Leader-team v156 DQI generator check
+
+The public `dziyanavalenta/31-45-every-circuit-generated-submission` kernel
+(ID `146284100`, last public run `2026-11-20T23:33:14.523`) states that its
+circuits are generator-built. The notebook itself only copies a submission
+archive and source tarballs from Kaggle inputs. I downloaded the 12.7 MB DQI
+source tarball from `dziyanavalenta/q2026-v156-dqi-generator` (Kaggle reports
+Apache-2.0) and did not download its submission archive or run any source.
+
+- Notebook SHA-256: `3b84791e1d7726c6ae669a179eeb4758e4cccfeba566b3328ab32b56460b1346`
+- Metadata SHA-256: `14a115b541cf694371ecd8afbf95f6ad1d10cbcf555d1632dd05e0c5253d5bcfe`
+- DQI source tarball SHA-256: `55da8b50e5b20a76e196d297391482a4864f1527f42360322f9139b04a297783`
+
+The source archive reports a Q=890 D80 build at `359,300.734` mean T from
+4,096 native diagnostic shots; it contains no official-verifier result. That
+is `2,623.24` T above our exp-065 official DQI result and `116,535.56` T above
+the conditional exp-083 tie gate. The archive README also calls the source
+“private” while its build recipe has an empty per-file license map, so its
+later-stage license scope needs clarification before any port. This is a
+no-go for the current top-1 DQI route; no candidate or submission was made.
