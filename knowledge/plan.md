@@ -29,6 +29,11 @@ gives only a 931-T best-case saving across the 31 best nonzero contexts. This
 is far below the roughly 57,861-T DQI tie gate; the zero-context accounting is
 also worse than baseline. No private kernel was launched.
 
+Exp-098 closed the public ACC1 shared-denominator lead. QV2 already carries a
+shared scale through its node extractor; the public 31,600-T figure is from an
+incomplete different decoder and would still leave about 26,262 T above the
+current DQI gate while adding 24 qubits. No private kernel was launched.
+
 ## Current gate
 
 - Exp-089 rebuilt QV2 exactly and passed the official verifier, but its score

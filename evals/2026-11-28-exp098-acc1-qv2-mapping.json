@@ -1,0 +1,30 @@
+{
+  "experiment": "exp-098",
+  "status": "closed_no_go_mapping_and_gate",
+  "lead": "ACC1_shared_denominator",
+  "public_source": "davidpiln/acc1-one-shared-denominator-for-a-dqi-decoder",
+  "public_license": "Apache-2.0",
+  "source_text_audit": true,
+  "executed_downloaded_notebook": false,
+  "private_kernel_launched": false,
+  "official_verifier_run": false,
+  "acc1_claimed_saving_t": 31600,
+  "acc1_claimed_width_delta_q": 24,
+  "qv2_baseline_q": 889,
+  "qv2_baseline_mean_t": 333238.01297851565,
+  "qv2_dqi_tie_gate_mean_t": 275376.0,
+  "optimistic_acc1_q": 913,
+  "optimistic_acc1_mean_t": 301638.01297851565,
+  "remaining_t_above_gate": 26262.012978515646,
+  "hypothetical_q900_q2t_ratio": 0.927711696058621,
+  "qv2_mapping_paths": [
+    "src/dqi/qv2_m4/kit/repo/src/dqi_v8/v8_model.py",
+    "src/dqi/qv2_m4/kit/repo/tools/dqi_pair_v12/confluent_ext.py"
+  ],
+  "mapping_evidence": [
+    "v8_model.extractor_old starts each node from the carried scale and assigns c = n after each node",
+    "confluent_ext uses a persistent carry word across the node prefix and return"
+  ],
+  "gate_cleared": false,
+  "decision": "Do not launch ACC1 on QV2. Its shared-scale mechanism is already represented in the QV2 source family, the public notebook is incomplete, and the optimistic transferred cost remains above the DQI gate while exceeding the width cap. Reopen only with a distinct source-level transformation that removes at least 26,262 T and fits Q<=900."
+}

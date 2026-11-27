@@ -275,6 +275,15 @@ credible path to an `18.16%` reduction before another private build.
   [evaluation](2026-11-28-exp097-joint-gf12-lift-screen.json) and
   [experiment](../experiments/exp-097/README.md).
 
+## 2026-11-28 exp-098 ACC1 shared-denominator mapping
+
+- The public ACC1 note claims about 31,600 T saved for 24 extra qubits, but
+  QV2 already carries a shared scale through its node extractor. An optimistic
+  transfer still leaves about 26,262 T above the current DQI gate and reaches
+  Q=913 before any integration overhead. No private kernel was launched. See
+  the [evaluation](2026-11-28-exp098-acc1-qv2-mapping.json) and
+  [experiment](../experiments/exp-098/README.md).
+
 ## Active direction
 
 The best measured eligible source-owned submission remains exp-065 at
