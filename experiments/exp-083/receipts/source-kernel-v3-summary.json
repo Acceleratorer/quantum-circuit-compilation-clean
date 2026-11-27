@@ -1,0 +1,16 @@
+{
+  "kernel": "accelra/exp-083-source-owned-exp-065-with-v20-chemistry",
+  "version": 3,
+  "status": "ERROR_DURING_V20_BUILD",
+  "elapsed_seconds_at_error": 2993.16,
+  "error": "The V20 parser supplied 35 word-table bits to 40 registered word qubits.",
+  "component_rebuilds": {
+    "invsqrt": "SOURCE_BUILD_AND_OFFICIAL_VERIFIER_PASS; expected hash reproduced",
+    "dqi": "SOURCE_BUILD_AND_OFFICIAL_VERIFIER_PASS; expected hash reproduced",
+    "dfthcsos_base": "SOURCE_BUILD_AND_OFFICIAL_VERIFIER_PASS; all 15 output hashes recorded"
+  },
+  "v20_build_started": true,
+  "chemistry_verifiers_run": false,
+  "submission_archive_created": false,
+  "repair": "Parse seven data qubits from each 8-qubit word register; keep the extra register qubits untouched."
+}

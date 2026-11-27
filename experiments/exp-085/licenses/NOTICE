@@ -1,0 +1,24 @@
+Verified three-task portfolio for the Google Quantum AI 'Verifiable Quantum Circuit Compilation' competition.
+Copyright 2026 team ThemBones. Licensed under the Apache License, Version 2.0 (see LICENSE).
+
+The circuits in this dataset were built by the team. Parts of their design derive from public Apache-2.0 work,
+credited in the notebook's Credits section. The upstream LICENSE, NOTICE and CREDITS files are the third_party__* files:
+- third_party__syed3000_invsqrt__*, third_party__syed3000_dqi__*, third_party__syed3000_dfthcsos__*: Syed Asad Ali,
+  Kaggle dataset syed3000/vqcc-own-circuit-portfolio (invsqrt generator, DQI decoder, chemistry plans).
+- third_party__atakanaldemir_dqi_bundle__*: Atakan Aldemir and co-credited authors, Kaggle dataset
+  atakanaldemir/qcc-c44-five-helper-release-sources (DQI source bundle; its CREDITS files name its upstream).
+- third_party__jday96314_QuantumAI-archive__*: James Day, github.com/jday96314/QuantumAI-archive (DQI design).
+
+Upstream NOTICE texts, reproduced as Apache-2.0 section 4(d) asks:
+--- third_party__syed3000_invsqrt__NOTICE ---
+Copyright 2026 Syed Asad Ali. Licensed under Apache-2.0.
+Credits: Syed Asad Ali, working with a team of AI agents (GPT-6 Astra Pro, Gemini 4 Argon, Fable 5.2, Mythos 5.2 and Opus 5.5), with Claude Science supporting the research.
+--- third_party__syed3000_dqi__NOTICE ---
+Copyright 2026 Syed Asad Ali. Licensed under Apache-2.0.
+Credits: Syed Asad Ali, working with a team of AI agents (GPT-6 Astra Pro, Gemini 4 Argon, Fable 5.2, Mythos 5.2 and Opus 5.5), with Claude Science supporting the research.
+--- third_party__syed3000_dfthcsos__NOTICE ---
+Copyright 2026 Syed Asad Ali. Licensed under Apache-2.0.
+Credits: Syed Asad Ali, working with a team of AI agents (GPT-6 Astra Pro, Gemini 4 Argon, Fable 5.2, Mythos 5.2 and Opus 5.5), with Claude Science supporting the research.
+
+The competition data (kickmix, verifiers, task inputs) is NOT included; the notebook reads it from the
+attached competition input.

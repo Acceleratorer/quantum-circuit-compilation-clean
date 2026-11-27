@@ -1,0 +1,58 @@
+{
+  "experiment": "exp-083",
+  "status": "SOURCE_COMPONENTS_VERIFIED_V20_REGISTER_FIX_PENDING",
+  "private_source_kernel": {
+    "slug": "accelra/exp-083-source-owned-exp-065-with-v20-chemistry",
+    "version": 1,
+    "status": "ERROR_AFTER_COMPONENT_VERIFIERS",
+    "orchestrator_issue": "exp-062 reports status under official_verification.status; the v1 aggregator incorrectly required a top-level status field",
+    "component_results": {
+      "invsqrt": "SOURCE_BUILD_AND_OFFICIAL_VERIFIER_PASS; expected hash reproduced",
+      "dqi": "SOURCE_BUILD_AND_OFFICIAL_VERIFIER_PASS; expected hash reproduced",
+      "dfthcsos_base": "SOURCE_BUILD_AND_OFFICIAL_VERIFIER_PASS; all 15 output hashes recorded"
+    },
+    "repair": "version 2 fixed the receipt-schema check; version 3 fixed the V20 output-directory argument; version 4 adapts the V20 parser for 7 data qubits in each 8-qubit register"
+  },
+  "prior_attempt": {
+    "kernel_version": 2,
+    "status": "ERROR_DURING_V20_BUILD",
+    "elapsed_seconds": 2625.03,
+    "error": "The V20 module appended dfthcsos to an already nested chemistry directory.",
+    "component_rebuilds": "All three completed and passed official verification."
+  },
+  "latest_attempt": {
+    "kernel_version": 3,
+    "status": "ERROR_DURING_V20_BUILD",
+    "elapsed_seconds": 2993.16,
+    "error": "The V20 parser supplied 35 word-table bits to 40 registered word qubits.",
+    "component_rebuilds": "All three completed and passed official verification before the V20 data-shape error."
+  },
+  "component_source_dataset": {
+    "slug": "syed3000/vqcc-own-circuit-portfolio",
+    "version": 17,
+    "license": "Apache-2.0",
+    "components": ["invsqrt", "dqi", "dfthcsos base loaders"]
+  },
+  "chemistry_loader_source": {
+    "slug": "goodpjw2008/qcc-shorter-chemistry-loaders-lb-33-25564",
+    "license": "Apache-2.0 (as stated by the source notebook)",
+    "notebook_sha256": "ea7323f8536747c7775397e718f42745db802dacf4dcd24a5ead07baa9ed3420",
+    "adaptation": "read seven data qubits from each of five 8-qubit word registers; leave each extra qubit untouched"
+  },
+  "chemistry_parameter_data": {
+    "slug": "maoxin123/qcc-33-17-3-357-toffoli-chemistry-loaders",
+    "file": "submission.npz",
+    "sha256": "ec85d969811623b5b4c7e3fff26fef2151bafedaa9a4741cb978e56ff34fbba1",
+    "compiled_circuit_input_read": false
+  },
+  "expected_component_hashes": {
+    "invsqrt.kmb": "70fe5f79d56bd48cd8fc9602757a0520b4d11859967627906cccb3dec25b7692",
+    "dqi.kmb": "fc2564c61931a0b1c789d8857a78e54f88466b546870f0e99ad252b8c59183c5"
+  },
+  "score_gate": {
+    "best_eligible_baseline": 28.71611,
+    "projected_geometric_score": 30.351078566958652,
+    "projected_gain": 1.6349685669586504,
+    "projection_is_measured": false
+  }
+}

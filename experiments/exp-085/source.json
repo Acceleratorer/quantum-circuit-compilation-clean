@@ -1,0 +1,43 @@
+{
+  "experiment": "exp-085",
+  "kernel": "accelra/exp-085-v155-source-built-invsqrt",
+  "kernel_version": 2,
+  "kernel_status": "COMPLETE",
+  "source_dataset": {
+    "slug": "dziyanavalenta/q2026-v155-isr-generator",
+    "license": "Apache-2.0",
+    "file": "isr_source_targz.bin",
+    "bytes": 2130989,
+    "sha256": "5d34399e677402091cd18505637c88711dcce9a64ad66e594f1dd1e8651ef405",
+    "last_updated_kaggle_metadata": "2026-11-20 21:58:26.110000"
+  },
+  "build": {
+    "status": "SOURCE_BUILD_HASH_MATCH",
+    "seconds": 668.32,
+    "internet_enabled": false,
+    "verify_environment": "VERIFY=0",
+    "source_environment": "S5LEND=1",
+    "ssh_agent_environment_removed": true,
+    "compiled_circuit_used_as_build_input": false
+  },
+  "circuit": {
+    "file": "invsqrt.kmb",
+    "sha256": "b4ba2126a1ac435af2ab4e8e8394eb79bdf9dfae1ccb2aad06e5fad177e47608",
+    "bytes": 216533
+  },
+  "published_official_verifier_evidence": [
+    {
+      "status": "PASS",
+      "score": 62993.51131455168,
+      "qubits": 39,
+      "shots": 200540928
+    },
+    {
+      "status": "PASS",
+      "score": 62993.49990923396,
+      "qubits": 39,
+      "shots": 200540928
+    }
+  ],
+  "evidence_scope": "The official verifier evidence is published with the source release and matches the rebuilt circuit hash; it is not a new Kaggle portfolio score."
+}

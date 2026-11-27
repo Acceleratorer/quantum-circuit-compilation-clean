@@ -1,0 +1,48 @@
+{
+  "experiment": "exp-085",
+  "status": "SOURCE_BUILD_HASH_MATCH",
+  "source_dataset": "dziyanavalenta/q2026-v155-isr-generator",
+  "source_archive_sha256": "5d34399e677402091cd18505637c88711dcce9a64ad66e594f1dd1e8651ef405",
+  "source_archive_bytes": 2130989,
+  "circuit_sha256": "b4ba2126a1ac435af2ab4e8e8394eb79bdf9dfae1ccb2aad06e5fad177e47608",
+  "circuit_bytes": 216533,
+  "source_build_seconds": 668.32,
+  "published_official_results": [
+    {
+      "status": "PASS",
+      "score": 62993.51131455168,
+      "toffoli_equivalent": 1615.2182388346585,
+      "toffoli_count": 1376.3745056320872,
+      "max_toffoli_count": 1490,
+      "t_count": 1.0,
+      "rotation_count": 33.0,
+      "rotation_eps": 2.0078976789777427e-13,
+      "num_qubits": 39,
+      "reaction_depth": 1276,
+      "num_ops": 24608,
+      "verified_shots": 200540928,
+      "worst_error_over_tolerance": 0.9996661710609854,
+      "worst_x": 89,
+      "circuit_sha256": "b4ba2126a1ac435af2ab4e8e8394eb79bdf9dfae1ccb2aad06e5fad177e47608"
+    },
+    {
+      "status": "PASS",
+      "score": 62993.49990923396,
+      "toffoli_equivalent": 1615.2179463906143,
+      "toffoli_count": 1376.374213188043,
+      "max_toffoli_count": 1490,
+      "t_count": 1.0,
+      "rotation_count": 33.0,
+      "rotation_eps": 2.0078976789777427e-13,
+      "num_qubits": 39,
+      "reaction_depth": 1276,
+      "num_ops": 24608,
+      "verified_shots": 200540928,
+      "worst_error_over_tolerance": 0.9996661710609854,
+      "worst_x": 89,
+      "circuit_sha256": "b4ba2126a1ac435af2ab4e8e8394eb79bdf9dfae1ccb2aad06e5fad177e47608"
+    }
+  ],
+  "published_official_evidence_only": true,
+  "compiled_circuit_used_as_build_input": false
+}

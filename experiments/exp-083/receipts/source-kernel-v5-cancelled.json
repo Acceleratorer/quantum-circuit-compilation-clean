@@ -1,0 +1,10 @@
+{
+  "kernel": "accelra/exp-083-source-owned-exp-065-with-v20-chemistry",
+  "version": 5,
+  "status": "CANCEL_ACKNOWLEDGED",
+  "observed_on": "2026-11-27",
+  "integrated_verifier_completed": false,
+  "submission_archive_created": false,
+  "public_score": null,
+  "decision": "Closed. Do not infer a v5 build or verifier pass from the source changes. The independently verified chemistry output from exp-074 remains usable in component-composed portfolios."
+}

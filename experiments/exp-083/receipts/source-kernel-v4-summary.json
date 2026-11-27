@@ -1,0 +1,18 @@
+{
+  "kernel": "accelra/exp-083-source-owned-exp-065-with-v20-chemistry",
+  "version": 4,
+  "status": "ERROR_DURING_V20_BUILD",
+  "elapsed_seconds_at_error": 2599.22,
+  "error": "AssertionError: ('R', 51)",
+  "component_rebuilds": {
+    "invsqrt": "SOURCE_BUILD_AND_OFFICIAL_VERIFIER_PASS",
+    "dqi": "SOURCE_BUILD_AND_OFFICIAL_VERIFIER_PASS",
+    "dfthcsos_base": "SOURCE_BUILD_AND_OFFICIAL_VERIFIER_PASS"
+  },
+  "failure_gate": "The bundled V20 classical simulator did not model reset operation R.",
+  "repair_in_version_5": "Model R and HMR as resetting their target to zero.",
+  "integrated_chemistry_verifiers_run": false,
+  "submission_archive_created": false,
+  "source_bundle_sha256": "c0f701a3a6a0345c036f65b62b57b963191047f83f5ea2b75a887dfb176a75e1",
+  "source_bundle_sha256_fixed_version_5": "2fae48daedab87c8157bebf5a1eb6a3365dfdb38799ef224e9868419da29c11a"
+}

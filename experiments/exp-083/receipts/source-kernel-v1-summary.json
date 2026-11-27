@@ -1,0 +1,32 @@
+{
+  "kernel": "accelra/exp-083-source-owned-exp-065-with-v20-chemistry",
+  "version": 1,
+  "status": "ERROR_BEFORE_INTEGRATED_CHEMISTRY",
+  "elapsed_seconds_at_error": 2894.01,
+  "error": "The Invsqrt receipt has no top-level status field; its official verifier status is official_verification.status.",
+  "components": {
+    "invsqrt": {
+      "build_seconds": 727.81,
+      "verification_seconds": 861.37,
+      "candidate_sha256": "70fe5f79d56bd48cd8fc9602757a0520b4d11859967627906cccb3dec25b7692",
+      "official_status": "PASS",
+      "score": 72440.3509518131
+    },
+    "dqi": {
+      "build_seconds": 498.87,
+      "verification_seconds": 603.43,
+      "candidate_sha256": "fc2564c61931a0b1c789d8857a78e54f88466b546870f0e99ad252b8c59183c5",
+      "official_status": "PASS",
+      "score": 336559961203.1761
+    },
+    "dfthcsos_base": {
+      "build_seconds": 10.68,
+      "verification_seconds": 27.75,
+      "official_status": "PASS",
+      "score": 295006518.96994764,
+      "circuit_count": 15
+    }
+  },
+  "integrated_chemistry_verifiers_run": false,
+  "submission_archive_created": false
+}

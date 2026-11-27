@@ -227,27 +227,32 @@ Refresh the leaderboard before every submission.
 
 ## Active direction
 
-The best eligible source-owned submission is exp-065 at `28.71611`. Its DQI
-component from exp-063 is `Q=890`, `356,677.49` mean T. Holding exp-065's other
-costs and `R` fixed, the derived rank-1 tie target is `205,608.39` mean T.
-The Kaggle CLI refresh on 2026-11-27 keeps the leader at `34.50408`. The
-exp-083 V20 chemistry-only projection would raise the exp-065 portfolio to
-`30.35107`; even with that chemistry cost, DQI must reach `242,765.18` mean T,
-a `31.94%` reduction, to tie rank 1. This remains conditional: the exp-083
-chemistry archive has not passed its integrated verifier. Do not run another
-full Kaggle build for that projection without a DQI candidate near this gate.
-Exp-074/082's stronger scores are historical measurements whose Tony Li
-DQI/Invsqrt provenance is excluded by exp-056. No current DQI redesign reaches
-the eligible tie target with complete width, phase, cleanup, and verifier
-evidence. Do not treat a component prefix as a submission candidate.
-See the
+The best measured eligible source-owned submission remains exp-065 at
+`28.71611`. Proposal S-001 combines exp-085's rebuilt v155 Invsqrt, exp-063's
+source-built DQI, and exp-074's independently verified V20 chemistry. Its
+archive passes member-hash and CRC checks and projects to verifier GM
+`31.79818`; it has not been submitted or scored by Kaggle. The live leader is
+`34.50408`, leaving a projected gap of `2.70590`.
+
+With v155 Invsqrt and V20 chemistry fixed, the exp-063 DQI at `Q=890` must
+fall from `356,677.49` to at most `279,171.55` mean Toffolis to tie the current
+leader, a `21.73%` reduction. Refresh the leaderboard and recompute this gate
+before any later submission. The DQI output, phase, cleanup, and official
+verifier must all pass; component prefixes do not qualify as candidates.
+
+The exp-083 source rebuild was cancelled before its integrated verifier and
+produced no archive or score. Its local component composition is only a
+projection; the V20 chemistry output used in S-001 comes from exp-074's
+source-built and verified chemistry component. Exp-074/082 DQI and Invsqrt
+members remain excluded under exp-056. Focus follow-up work on one source-owned
+DQI design that can credibly meet the refreshed `279,171.55T` gate.
+
+See the [S-001 evaluation](2026-11-27-exp085-v20-portfolio.json),
+[S-001 proposal](../knowledge/submissions/S-001.md),
+[exp-085 source build](../experiments/exp-085/README.md),
 [exp-074 evaluation](2026-11-26-exp074-source-built-v20-chemistry.json),
 [archive milestone](../milestone/2026-11-23-source-owned-archive.md),
-[exp-071 calibration](2026-11-25-exp071-source-hybrid.json),
-[exp-072 evaluation](2026-11-26-exp072-source-built-v19-chemistry.json),
 [exp-062 receipt](2026-11-23-exp062-invsqrt.json),
 [exp-063 receipt](2026-11-23-exp063-dqi.json),
 [exp-064 receipt](2026-11-23-exp064-dfthcsos.json), and
-[exp-064 run log](../log/2026-11-23-exp064-dfthcsos-source-rebuild.md).
-The archive and Kaggle submission readback are recorded in
-[experiments/exp-065/](../experiments/exp-065/README.md).
+[exp-065 submission](../experiments/exp-065/README.md).

@@ -1,0 +1,19 @@
+{
+  "id": "accelra/exp-085-v155-source-built-invsqrt",
+  "title": "exp-085 v155 source-built Invsqrt",
+  "code_file": "main.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "dataset_sources": [
+    "dziyanavalenta/q2026-v155-isr-generator"
+  ],
+  "kernel_sources": [],
+  "competition_sources": [
+    "google-verifiable-quantum-circuit-compilation"
+  ],
+  "model_sources": []
+}

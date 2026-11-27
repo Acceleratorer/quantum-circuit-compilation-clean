@@ -1,0 +1,66 @@
+{
+  "experiment": "exp-085-v155-invsqrt-exp-063-dqi-exp-074-v20-chemistry",
+  "captured_date": "2026-11-27",
+  "status": "ARCHIVE_INTEGRITY_PASS_APPROVAL_PENDING_NOT_SUBMITTED",
+  "leaderboard": {
+    "source": "Kaggle CLI: competitions leaderboard google-verifiable-quantum-circuit-compilation --show --page-size 10 --format json",
+    "leader_team": "Cat with 2 Qubits",
+    "leader_score": 34.50408
+  },
+  "components": {
+    "invsqrt": {
+      "source_experiment": "exp-085",
+      "source_dataset": "dziyanavalenta/q2026-v155-isr-generator",
+      "source_archive_sha256": "5d34399e677402091cd18505637c88711dcce9a64ad66e594f1dd1e8651ef405",
+      "circuit_sha256": "b4ba2126a1ac435af2ab4e8e8394eb79bdf9dfae1ccb2aad06e5fad177e47608",
+      "score": 62993.50561189282,
+      "qubits": 39,
+      "official_verifier_evidence": "Two published PASS results match the rebuilt circuit hash; see experiments/exp-085/receipts/source-build-v2.json."
+    },
+    "dqi": {
+      "source_experiment": "exp-063",
+      "source_dataset": "syed3000/vqcc-own-circuit-portfolio, version 17",
+      "circuit_sha256": "fc2564c61931a0b1c789d8857a78e54f88466b546870f0e99ad252b8c59183c5",
+      "score": 336559961203.1761,
+      "qubits": 890,
+      "mean_toffolis": 356677.4941796875,
+      "official_verifier": "PASS; 102400 shots; zero value and phase errors"
+    },
+    "dfthcsos": {
+      "source_experiment": "exp-074 chemistry component only",
+      "source": "Goodpjw2008 V20 loader generator; Apache-2.0, adapted and source-built in exp-074",
+      "parameter_data_sha256": "9f472ae472b2eae95940a55cf899fb000861c624a294feb021a4d6ffd6340d67",
+      "score": 249853852.96142676,
+      "official_verifier": "PASS at default settings and salt 42"
+    }
+  },
+  "portfolio": {
+    "archive_path": "submissions/S-001.zip",
+    "archive_sha256": "acad50cc8e1e059655ad0f0f7753ae1c9760ce694d508980644722ff9871152d",
+    "bytes": 109480887,
+    "member_count": 18,
+    "member_hashes_match_receipt": true,
+    "zip_crc_check": "PASS",
+    "component_verifiers_pass": true,
+    "integrated_kaggle_score": null,
+    "submission_status": "NOT_SUBMITTED"
+  },
+  "projection": {
+    "method": "Geometric mean computed from the three component verifier costs.",
+    "verifier_geometric_mean": 31.798180509655666,
+    "is_kaggle_score": false,
+    "gap_to_current_leader": 2.7058994903443363,
+    "gain_over_best_eligible_public_score": 3.0820705096556653
+  },
+  "rank1_tie_gate": {
+    "assumptions": "Current leader remains at 34.50408; Invsqrt and V20 chemistry costs stay fixed; DQI width remains Q=890 and R=1.1912604648115832.",
+    "dqi_mean_toffolis_max": 279171.5525393529,
+    "reduction_from_exp063_pct": 21.72997817498643,
+    "is_measured": false
+  },
+  "approval": {
+    "proposal": "knowledge/submissions/S-001.md",
+    "required_user_file": "approvals/S-001.txt",
+    "required_contents": "acad50cc8e1e059655ad0f0f7753ae1c9760ce694d508980644722ff9871152d"
+  }
+}

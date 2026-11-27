@@ -1,0 +1,16 @@
+{
+  "kernel": "accelra/exp-083-source-owned-exp-065-with-v20-chemistry",
+  "version": 2,
+  "status": "ERROR_DURING_V20_BUILD",
+  "elapsed_seconds_at_error": 2625.03,
+  "error": "The V20 module appends dfthcsos to submission_dir, but the caller passed submission/dfthcsos, producing a duplicated path.",
+  "component_rebuilds": {
+    "invsqrt": "SOURCE_BUILD_AND_OFFICIAL_VERIFIER_PASS; expected hash reproduced",
+    "dqi": "SOURCE_BUILD_AND_OFFICIAL_VERIFIER_PASS; expected hash reproduced",
+    "dfthcsos_base": "SOURCE_BUILD_AND_OFFICIAL_VERIFIER_PASS; all 15 output hashes recorded"
+  },
+  "v20_build_started": true,
+  "chemistry_verifiers_run": false,
+  "submission_archive_created": false,
+  "repair": "Pass the parent submission directory to build_chemistry; version 3 will rerun the source builds."
+}

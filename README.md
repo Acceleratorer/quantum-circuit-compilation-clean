@@ -8,11 +8,12 @@ Research log and reproducible tooling for the Google Quantum AI Verifiable Quant
 |---|---:|
 | Highest recorded account score (public archive; ineligible) | **33.17067**, submission `58771243` |
 | Best eligible source-owned submission | exp-065, Kaggle ref `58832495`, score **28.71611** |
+| Current source-built proposal (not submitted) | S-001, projected verifier GM **31.79818**; archive SHA `acad50cc…9871152d` |
 | Latest measured public submission (provenance-excluded) | exp-082, ref `58958257`, score **33.08801** |
 | Latest leaderboard snapshot | `Accelra` rank **719 / 3733** with an ineligible public-archive score of `33.17067`; source [`snapshot`](kaggle/snapshots/2026-11-25/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-25T202946Z.csv) |
 | Rank 1 in that snapshot | **34.34445** (`Entangled Team`); gap from eligible exp-065: **5.62834** |
-| Current CLI leader (read `2026-11-26T17:42:19Z`) | **34.50408** (`Cat with 2 Qubits`); gap from eligible source-owned best: **5.78798** |
-| Conditional DQI tie gate at `Q=890` | **205,608.39 mean T** (score-equivalent estimate using exp-065) |
+| Current CLI leader (read `2026-11-27`) | **34.50408** (`Cat with 2 Qubits`); gap from eligible source-owned best: **5.78798** |
+| Current DQI tie gate at `Q=890` | **279,171.55 mean T** with v155 Invsqrt and V20 chemistry fixed |
 
 Submissions `58771243` and `58479383` used public circuit archives, so their
 scores are historical Kaggle measurements only. Neither demonstrates our own
@@ -25,7 +26,7 @@ circuit archive. Exp-065 is the best eligible source-owned submission at
 `28.71611` (ref `58832495`). Exp-082's `33.08801` is a completed historical
 measurement, but its DQI and Invsqrt provenance is excluded by exp-056. A fresh
 CLI top-five read shows the live leader at `34.50408`, a `5.78798` gap from
-exp-065. The `205,608.39T` DQI tie gate at `Q=890` is derived from exp-065's
+exp-065. The historical `205,608.39T` DQI tie gate at `Q=890` is derived from exp-065's
 eligible component costs; it is not the leader's measured component cost.
 Exp-072's
 ten DQI rewrites changed the final circuit hash from exp-071's `4b572141…` to
@@ -33,6 +34,14 @@ ten DQI rewrites changed the final circuit hash from exp-071's `4b572141…` to
 rewritten circuit locally, so it is not the current base.
 See the [exp-082 evaluation](evals/2026-11-26-exp082-source-built-v22-chemistry.json)
 and [updated DQI gate](evals/2026-11-26-dqi-score-equivalent-gate.json).
+
+Proposal S-001 combines exp-085's source-built v155 Invsqrt, exp-063's
+source-built DQI, and exp-074's source-built V20 chemistry. Its exact archive
+passed the member-hash and CRC checks, but its `31.79818` verifier GM remains
+a projection until Kaggle scores it. It is `2.70590` below the live leader.
+The archive is staged locally and awaits the exact-hash approval file required
+by `approvals/README.md`; see the [proposal](knowledge/submissions/S-001.md)
+and [evaluation](evals/2026-11-27-exp085-v20-portfolio.json).
 
 The repository keeps generators, verifier evidence, provenance, and experiment
 notes. Large circuit binaries and Kaggle submission ZIPs stay outside Git and
@@ -89,8 +98,10 @@ hashes.
 
 The exp-062/063/064 members are source-built and verifier-checked. The best
 eligible source-owned result is exp-065 at `28.71611`. Its DQI from exp-063 is
-`356,677.49` mean T at `Q=890`; the conditional tie gate is `205,608.39T` with
-the other exp-065 costs fixed. Exp-082 and exp-074 used DQI/Invsqrt inputs
+`356,677.49` mean T at `Q=890`; the historical `205,608.39T` gate used the
+older exp-065 component costs. With exp-085 Invsqrt and exp-074 V20 chemistry,
+the current score-equivalent tie gate is `279,171.55T`. Exp-082 and exp-074
+used DQI/Invsqrt inputs
 excluded by exp-056 and are historical measurements only. Earlier DQI rewrites
 were rejected after local value errors. See the
 [source-owned archive milestone](milestone/2026-11-23-source-owned-archive.md),
