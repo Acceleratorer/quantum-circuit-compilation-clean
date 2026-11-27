@@ -1,0 +1,21 @@
+{
+  "experiment": "exp-099",
+  "status": "CLOSED_NO_GO_STATIC_SCREEN",
+  "captured_utc": "2026-11-28T00:00:00Z",
+  "input": {
+    "origin": "exp-089 source-built QV2 output",
+    "artifact_sha256": "3c03fa53dd86be8e2ea3caa5d37597d371bc49426605a57a6ae8d31adc3c2ef3",
+    "artifact_bytes": 495618056,
+    "static_toffoli_like": 333684,
+    "executed": false
+  },
+  "screen": {
+    "condition_blocks": 2143570,
+    "conditional_ccx": 42970,
+    "blocks_with_at_least_two_ccx": 114,
+    "ccx_in_multi_ccx_blocks": 2150,
+    "mergeable_shared_control_clusters": 0,
+    "projected_toffoli_saving": 0
+  },
+  "decision": "CLOSE: no conditional rankmerge candidate near the DQI gate; do not build or submit"
+}
