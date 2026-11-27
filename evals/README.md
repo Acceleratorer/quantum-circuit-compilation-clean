@@ -230,6 +230,12 @@ Refresh the leaderboard before every submission.
 The best eligible source-owned submission is exp-065 at `28.71611`. Its DQI
 component from exp-063 is `Q=890`, `356,677.49` mean T. Holding exp-065's other
 costs and `R` fixed, the derived rank-1 tie target is `205,608.39` mean T.
+The Kaggle CLI refresh on 2026-11-27 keeps the leader at `34.50408`. The
+exp-083 V20 chemistry-only projection would raise the exp-065 portfolio to
+`30.35107`; even with that chemistry cost, DQI must reach `242,765.18` mean T,
+a `31.94%` reduction, to tie rank 1. This remains conditional: the exp-083
+chemistry archive has not passed its integrated verifier. Do not run another
+full Kaggle build for that projection without a DQI candidate near this gate.
 Exp-074/082's stronger scores are historical measurements whose Tony Li
 DQI/Invsqrt provenance is excluded by exp-056. No current DQI redesign reaches
 the eligible tie target with complete width, phase, cleanup, and verifier
