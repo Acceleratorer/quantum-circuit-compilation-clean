@@ -1,0 +1,73 @@
+{
+  "captured_utc": "2026-11-27T04:56:00Z",
+  "competition": "google-verifiable-quantum-circuit-compilation",
+  "sources": {
+    "leaderboard": "Kaggle CLI competitions leaderboard --download",
+    "competition_status": "Kaggle CLI competitions list --search",
+    "account_submissions": "Kaggle CLI competitions submissions",
+    "kernel_status": "Kaggle CLI kernels status accelra/exp-085-v155-source-built-invsqrt"
+  },
+  "snapshot": {
+    "path": "kaggle/snapshots/2026-11-27/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-27T045600Z.csv",
+    "csv_sha256": "885bd8c31ed6d91a6f627579c58e8c9c8fe3957547c9e0ec2197358567e4e997",
+    "archive_sha256": "38169f8eefefb530f6a422d63dcff039b01b0cc130dd94df9b55edc3502d30db",
+    "archive_bytes": 125338,
+    "archive_staged_path": "tmp/kaggle-leaderboard-downloads/google-verifiable-quantum-circuit-compilation.zip",
+    "total_rows": 3792,
+    "ranked_team_rows": 3791,
+    "unranked_rows": 1,
+    "unranked_entry": {
+      "team_name": "sample_submission.zip",
+      "rank": 0
+    },
+    "scores_sorted_descending": true
+  },
+  "competition_status": {
+    "deadline_as_returned_by_kaggle": "2027-01-20T23:59:00",
+    "team_count_as_returned_by_kaggle": 3791,
+    "user_has_entered": true
+  },
+  "own_team": {
+    "team": "Accelra",
+    "team_id": 17349145,
+    "best_public_score": 33.17067,
+    "rank": 889,
+    "best_submission_ref": 58771243,
+    "best_submission_source_owned": false,
+    "latest_submission_ref": 58958257,
+    "latest_submission_score": 33.08801,
+    "latest_submission_status": "COMPLETE",
+    "latest_submission_date": "2026-11-26 17:13:07.360000",
+    "submission_count": 30
+  },
+  "leader": {
+    "rank": 1,
+    "team": "Cat with 2 Qubits",
+    "team_id": 17194321,
+    "score": 34.50408,
+    "last_submission_date": "2026-11-26 01:12:30.220000"
+  },
+  "runner_up": {
+    "rank": 2,
+    "team": "Entangled Team",
+    "team_id": 17180610,
+    "score": 34.39255,
+    "last_submission_date": "2026-11-27 04:14:25.613000"
+  },
+  "score_gaps": {
+    "leader_to_best_account_score": 1.33341,
+    "leader_to_latest_account_submission": 1.41607,
+    "leader_to_s001_projection": 2.7058994903443363
+  },
+  "latest_kernel": {
+    "ref": "accelra/exp-085-v155-source-built-invsqrt",
+    "status": "KernelWorkerStatus.COMPLETE",
+    "last_run_time_as_returned_by_kaggle": "2026-11-27T02:34:04.083000"
+  },
+  "notes": [
+    "The downloaded CSV has one rank-0 sample_submission.zip row; 3,791 is the ranked-team count.",
+    "The account's best score is an earlier public reproduction and is not source-owned under the project's current provenance rule.",
+    "The latest submission scored lower than the account's leaderboard best.",
+    "The S-001 score is a local geometric-mean projection, not a Kaggle submission score."
+  ]
+}

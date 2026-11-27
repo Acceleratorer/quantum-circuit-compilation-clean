@@ -16,6 +16,11 @@ updated: 2026-11-27
 
 ## What changed
 
+- The 2026-11-27 leaderboard snapshot puts Accelra at rank 889 with a best
+  public score of 33.17067; its latest submission scored 33.08801. The best
+  score is a public reproduction, outside our source-owned target. Rank 1 is
+  34.50408, and Kaggle lists the deadline as 2027-01-20 23:59
+  ([full snapshot and receipt](../evals/2026-11-27-live-leaderboard-045600Z.json)).
 - The public DQI profile screen found `paired-plain` already best among the
   four published profiles. Re-running the other three cannot close the gap.
 - The full released reversible BM circuit is not a candidate at its published
