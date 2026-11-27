@@ -60,6 +60,15 @@ is a derived conditional gate, not a predicted optimizer result; no refit has
 been run.
 Do not transfer the public submission archive or its compiled circuits.
 
+I then downloaded only the completed kernel's 152-byte
+`chemistry-audit.json` (SHA-256
+`80682984c33674e06dbe96c118b9a67eadaa184645f2858d1a61b66bd1d68b0b`). It
+reports family 3, coefficients `[0.0, 0.0, 3e-8]`, and 11 tested candidates;
+the selected `lambda_eff` rose from `46.91426578167395` to
+`46.91426584850391`, with official chemistry score `249131640.7912612`. This
+setting found no cost reduction and is a no-go. Families 0–2 were not tested;
+do not run another kernel for this method without a stronger local estimate.
+
 ## Leader-team v156 DQI generator check
 
 The public `dziyanavalenta/31-45-every-circuit-generated-submission` kernel

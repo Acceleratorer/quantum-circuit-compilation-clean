@@ -73,7 +73,15 @@
       "current_v20_chemistry_cost": 249853852.96142676,
       "chemistry_cost_to_tie_rank_1": 170057871.084575,
       "required_cost_reduction_pct": 31.937062779324364,
-      "decision": "After V20 passes the integrated verifier, screen a source-owned chemistry parameter refit against this gate. Hold the exp-065 DQI and Invsqrt costs fixed; do not reuse any public compiled circuits."
+      "public_family_3_refit": {
+        "old_lambda_eff": 46.91426578167395,
+        "new_lambda_eff": 46.91426584850391,
+        "verified_chemistry_score": 249131640.7912612,
+        "tested_candidates": 11,
+        "selected_coefficients": [0.0, 0.0, 3e-8],
+        "result": "NO_REDUCTION"
+      },
+      "decision": "The public family-3 refit provides no evidence of a path to this gate; do not spend a Kaggle run reproducing it. Other independent chemistry optimizations need a credible estimate before a run. Keep all public compiled circuits out of candidates."
     },
     "decision": "Do not submit this projection. After integrated V20 verification, the next score routes are source-owned DQI at or below 242,765 mean T or chemistry at or below 170,057,871 cost; evaluate the smaller chemistry refit against its gate before starting another DQI rewrite."
   },
