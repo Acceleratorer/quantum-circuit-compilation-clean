@@ -103,3 +103,21 @@ the conditional exp-083 tie gate. The archive README also calls the source
 “private” while its build recipe has an empty per-file license map, so its
 later-stage license scope needs clarification before any port. This is a
 no-go for the current top-1 DQI route; no candidate or submission was made.
+
+## Source-owned generator profile gate
+
+I rechecked `syed3000/vqcc-own-circuit-portfolio` through Kaggle CLI. Its
+latest update is still 2026-11-20. I downloaded only the Apache-2.0 DQI
+generator README, build script, manifest, NOTICE, and LICENSE; no circuit
+binary was downloaded or read. The pinned builder exposes four profiles:
+`stack100`, `deferred-bulk`, `head-deferred`, and `paired-plain`. Its README
+reports `paired-plain` as best at Q=890 and mean T=356,677.4942; the other
+three are historical D70, head-deferred, and deferred-cleanup variants with
+higher verifier cost. Only `paired-plain` has been independently rebuilt and
+verified in exp-063.
+
+Against S-001's current conditional tie gate of T<=279,171.55, that leaves a
+21.73% DQI reduction requirement. **Decision:** close the published-profile
+route; do not run those three profiles. Reopen DQI work only with a new
+algorithmic construction or a source-level change whose estimate can clear
+the S-001 gate.
