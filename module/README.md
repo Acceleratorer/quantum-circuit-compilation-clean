@@ -5,6 +5,7 @@ The repository keeps reusable generators under `src/`. This directory is the sma
 Current module boundary:
 
 - `src/dqi/` — DQI generator and experiments.
+- `src/dqi/qv2_m4/` — attributed QV2 source baseline, with its source hashes and reproduction record.
 - `src/invsqrt/` — inverse-square-root generator.
 - `src/angleload/` — chemistry angle-loader helpers.
 - `tests/test_submission_receipt.py` — receipt invariant check.

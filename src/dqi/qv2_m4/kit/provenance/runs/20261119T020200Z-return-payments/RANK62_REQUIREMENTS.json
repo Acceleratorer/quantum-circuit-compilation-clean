@@ -1,0 +1,51 @@
+{
+ "inherits": "LOW_ENDPOINT_REQUIREMENTS.json",
+ "incremental_sources": {
+  "minor_constraints.py": "b85655b260101baa4ebf60aff7604dc0216d2ddc672a7a87ef6dd68cd276933b",
+  "minorcircuit_22187.json": "6a4d84b31533f92398e3da510b2e719812295cb6bbaa49994386570079760e06",
+  "minor_constraints_22181.json": "c5cb92099afe6f7eec7eea05f309ac61feb33a5f65eb01ddc43d3ba020e715c3",
+  "minor_circuit_search.py": "ca55a9b23433666ec95e4af7efd04a730b518377d39041d37bffed5a2a0e3f0f",
+  "minor_circuits.cpp": "942875d3a0d9ced0f03035783d2a772f3ea5c57dda45d357bf9e22c3abdfae23",
+  "asymmetric_completion.py": "7a0d011452d60b18a193ceaaf30105aacba46a3b0d1d797485a292573824e939",
+  "free_potential_rank.py": "97c25a9f96be7d7d8481a7bf2fa98e6c747059ccede9990c5d940e2c3180a423",
+  "LOW_ENDPOINT_REQUIREMENTS.json": "9433cb205ccacc4629a0160ba1ee4f0e6a35551085f3a0f3008960862f39c670"
+ },
+ "nodes": [
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16
+ ],
+ "native_build": [
+  "build_whole_lowendpoint.py",
+  "--nodes",
+  "7,8,9,10,11,12,13,14,15,16",
+  "--pair-terms",
+  "minorcircuit_22187.json",
+  "--unconditional-scalar",
+  "--cut",
+  "15",
+  "--base",
+  "joint",
+  "--variant",
+  "timed-mask",
+  "--consume-units",
+  "--fuse-phase"
+ ],
+ "reconstruct_witness": [
+  "minor_constraints.py pairex_21990.json 0 22181",
+  "g++ -O3 -std=c++17 -o minor_circuits minor_circuits.cpp",
+  "minor_circuit_search.py minor_constraints_22181.json 5 500 120 22187 --out-stem minorcircuit_22187_replica"
+ ],
+ "reproduction": "terms and circuit mask identical",
+ "signed_native": [
+  "rank62_22191/result.json",
+  "rank62_22192/result.json"
+ ]
+}

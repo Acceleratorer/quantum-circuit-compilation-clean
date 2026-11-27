@@ -1,0 +1,108 @@
+{
+  "captured_utc": "2026-11-27T15:36:13Z",
+  "source": "Kaggle CLI competitions leaderboard google-verifiable-quantum-circuit-compilation --download",
+  "snapshot": {
+    "path": "kaggle/snapshots/2026-11-27/google-verifiable-quantum-circuit-compilation-publicleaderboard-2026-11-27T153613Z.csv",
+    "csv_sha256": "bf69fc4f1fdcd938320dad41bf6bce97f309794750f4ff7a8283c042d635705b",
+    "archive_sha256": "6f36ee3976dabe8cd8341fcc1dd1d8505b460054853313e04d1be61923619438",
+    "total_rows": 3820,
+    "ranked_team_rows": 3820,
+    "unranked_rows": 0
+  },
+  "leaderboard": {
+    "leader": {
+      "rank": 1,
+      "team": "Cat with 2 Qubits",
+      "team_id": 17194321,
+      "score": 34.66186,
+      "last_submission_date": "2026-11-27 14:31:32"
+    },
+    "runner_up": {
+      "rank": 2,
+      "team": "Entangled Team",
+      "team_id": 17180610,
+      "score": 34.606,
+      "last_submission_date": "2026-11-27 13:59:16"
+    },
+    "own_team": {
+      "team": "Accelra",
+      "team_id": 17349145,
+      "rank": 947,
+      "best_public_score": 33.17067,
+      "best_submission_source_owned": false
+    }
+  },
+  "candidate": {
+    "proposal": "S-001",
+    "archive_sha256": "acad50cc8e1e059655ad0f0f7753ae1c9760ce694d508980644722ff9871152d",
+    "status": "NOT_SUBMITTED",
+    "verifier_geometric_mean_projection": 31.798180509655666,
+    "is_kaggle_score": false,
+    "gap_to_live_leader": 2.863679490344334
+  },
+  "exp_089_qv2": {
+    "status": "SOURCE_BUILD_AND_OFFICIAL_VERIFIER_PASS",
+    "kernel": "accelra/exp-089-qv2-dqi-source-verification",
+    "kernel_version": 2,
+    "candidate_sha256": "3c03fa53dd86be8e2ea3caa5d37597d371bc49426605a57a6ae8d31adc3c2ef3",
+    "dqi_score": 317508715032.3894,
+    "qubits": 889,
+    "mean_toffolis": 333238.01297851565,
+    "repetition_factor": 1.2055843238398525,
+    "value_errors": 3,
+    "phase_errors": 0,
+    "s001_projection_if_substituted": 32.42185580226154,
+    "gap_to_live_leader": 2.24000419773846,
+    "is_kaggle_score": false,
+    "submission_status": "NOT_SUBMITTED"
+  },
+  "exp_069_reference": {
+    "status": "VERIFIED_ZERO_OBSERVED_ERRORS",
+    "experiment": "exp-069",
+    "source": "tonylica/quantum-ai-32-85306-task-generators/2",
+    "license_assessment": "Dataset metadata was 'other' per exp-056; bundled notices claim Apache-2.0, but the candidate was rejected because its generators reconstruct released KMX stages.",
+    "eligibility": "MEASUREMENT_REFERENCE_ONLY",
+    "candidate_sha256": "4b5721411adc239f61fc11c773a2358b75dfe7cb15586efae4f0459c77d77e52",
+    "dqi_score": 305041647011.3978,
+    "qubits": 900,
+    "mean_toffolis": 316131.2215625,
+    "repetition_factor": 1.1912604648115832,
+    "value_errors": 0,
+    "phase_errors": 0,
+    "s001_projection_if_substituted": 32.85766577128833,
+    "gap_to_live_leader": 1.8041942287116655,
+    "score_above_tie_gate_pct": 17.393883159,
+    "mean_toffoli_gate_at_q900_if_repetition_factor_is_fixed": 269291.050825006,
+    "mean_toffolis_to_save_if_repetition_factor_is_fixed": 46840.170737494,
+    "is_own_design": false,
+    "submission_status": "NOT_SUBMITTED"
+  },
+  "dqi_tie_gate": {
+    "status": "DERIVED_NOT_MEASURED",
+    "method": "Scale S-001's DQI cost by (candidate score / leader score)^3, holding Invsqrt cost, chemistry cost, Q=890, and repetition factor fixed.",
+    "leader_score": 34.66186,
+    "fixed_components": {
+      "invsqrt_cost": 62993.50561189282,
+      "chemistry_cost": 249853852.96142676,
+      "dqi_qubits": 890,
+      "repetition_factor": 1.1912604648115832
+    },
+    "baseline_dqi_mean_toffolis": 356677.4941796875,
+    "baseline_dqi_cost": 336559961203.1761,
+    "tie_dqi_cost": 259844583724.07104,
+    "tie_mean_toffolis_at_q890": 275376.5322159511,
+    "required_saving_mean_toffolis": 81300.96196373639,
+    "required_reduction_pct": 22.79397007887952,
+    "tie_mean_toffolis_at_q897": 271095.3409274006,
+    "qv2_candidate_score_above_tie_gate_pct": 22.19177728543762,
+    "qv2_score_reduction_needed_pct_at_fixed_resources": 18.16143260900287,
+    "qv2_mean_toffoli_gate_at_q889_if_its_repetition_factor_is_fixed": 272717.2158238423
+  },
+  "notes": [
+    "The leaderboard snapshot contains 3,820 ranked teams; Accelra's 33.17067 score is from a public circuit archive and is not source-owned evidence.",
+    "QV2 rebuilt the exact pinned DQI output and received official verifier PASS on 102,400 shots, with 3 value errors and 0 phase errors; its verified score includes the measured repetition factor.",
+    "Substituting QV2 into S-001 projects to 32.42186, not a Kaggle score. It remains 2.24000 below the live leader and 22.19% above the derived DQI tie gate.",
+    "Exp-069 is a lower-cost measurement reference at 305.042B with zero observed errors; substituting it projects to 32.85767. Exp-056 rejects its dataset because the generators reconstruct released KMX stages, so no exp-069 code or circuit is used for optimization or submission.",
+    "Neither verifier projection is a Kaggle score. No competition submission was made."
+  ]
+}

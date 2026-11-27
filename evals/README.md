@@ -225,6 +225,27 @@ download archive hash are recorded in metadata. The ZIP remains ignored by the
 repository rules. Row count, ordering, leader, and own-team rank were checked.
 Refresh the leaderboard before every submission.
 
+## 2026-11-27 exp-089 QV2 source verification
+
+- Kernel version 2 rebuilt the exact pinned output and passed the official DQI
+  verifier on 102,400 shots. It measured Q=889, mean T `333238.01297851565`,
+  repetition factor `1.2055843238398525`, three value errors, zero phase errors,
+  and verifier score `317508715032.3894`.
+- Substituting it into S-001 projects to `32.42186`, not a Kaggle score. The
+  refreshed rank-1 score is `34.66186`; QV2 is `22.19%` above the derived DQI
+  tie-cost gate. Keep it as a reproducible baseline, not a top-1 candidate.
+  See the [run receipt](2026-11-27-exp089-qv2-dqi-source.json),
+  [leaderboard gate](2026-11-27-live-gate-153613Z.json),
+  [experiment](../experiments/exp-089/README.md), and
+  [run log](../log/2026-11-27-exp089-qv2-dqi.md).
+
+Exp-069 measured `305041647011.3978` at Q=900 with zero observed value or phase
+errors, but exp-056 rejects its dataset because its generators reconstruct
+released KMX stages. Keep that result as measurement/provenance context only;
+do not use its source or circuits. Its `32.85767` S-001 substitution is not a
+Kaggle score. The single allowed next step is a QV2 source-level change with a
+credible path to an `18.16%` reduction before another private build.
+
 ## Active direction
 
 The best measured eligible source-owned submission remains exp-065 at
@@ -232,20 +253,24 @@ The best measured eligible source-owned submission remains exp-065 at
 source-built DQI, and exp-074's independently verified V20 chemistry. Its
 archive passes member-hash and CRC checks and projects to verifier GM
 `31.79818`; it has not been submitted or scored by Kaggle. The live leader is
-`34.50408`, leaving a projected gap of `2.70590`.
+`34.66186`, leaving a projected gap of `2.86368` for S-001. Replacing its DQI
+with exp-089's measured component projects to `32.42186`, still `2.24000` below
+rank 1.
 
 With v155 Invsqrt and V20 chemistry fixed, the exp-063 DQI at `Q=890` must
-fall from `356,677.49` to at most `279,171.55` mean Toffolis to tie the current
-leader, a `21.73%` reduction. Refresh the leaderboard and recompute this gate
-before any later submission. The DQI output, phase, cleanup, and official
-verifier must all pass; component prefixes do not qualify as candidates.
+fall from `356,677.49` to at most `275,376.53` mean Toffolis to tie the current
+leader, a `22.79%` reduction. QV2 rebuilt exactly but its verifier score is
+`22.19%` above this derived gate. Recompute the gate before any later
+submission. A candidate must pass the official verifier at the required salts;
+record all value/phase errors and repetition factors.
 
 The exp-083 source rebuild was cancelled before its integrated verifier and
 produced no archive or score. Its local component composition is only a
 projection; the V20 chemistry output used in S-001 comes from exp-074's
 source-built and verified chemistry component. Exp-074/082 DQI and Invsqrt
-members remain excluded under exp-056. Focus follow-up work on one source-owned
-DQI design that can credibly meet the refreshed `279,171.55T` gate.
+members remain excluded under exp-056. Focus follow-up on one source-level
+QV2 cost audit and require a credible path to at least an `18.16%` score
+reduction before another private build.
 
 See the [S-001 evaluation](2026-11-27-exp085-v20-portfolio.json),
 [S-001 proposal](../knowledge/submissions/S-001.md),

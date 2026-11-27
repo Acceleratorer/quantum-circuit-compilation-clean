@@ -1,0 +1,44 @@
+{
+  "inherits": "Previous 889Q symmetric F4/F8 af07bce922d628737253ee8bb48927655d1424f030c753b4407f617a43d0ab2e whole generator kit, official KickMix, Python and NumPy.",
+  "added_native_runtime": {
+    "runs/20261117T181300Z-dqi-projective-carry/block_identity.py": "b459acb01b0b26e61bceacc94d9623e6dbb9cabb62bc72ac64834be9a8e9441d",
+    "runs/20261117T181300Z-dqi-projective-carry/probe.py": "cb4d30b227ce5717cb0f68cbf9438f749d5c3509970371dad5f4725a00fbf6b1",
+    "runs/20261117T184500Z-dqi-source-gauss/chart.py": "3dd836387f0613715edd3f747dce3ba48a18b58613961feab26f4047c3032d03",
+    "runs/20261117T184500Z-dqi-source-gauss/peel.py": "2f4bb2ae611a6cbacd1ae8b96b80f2705168be3792777981af0d179e1e131a2f",
+    "runs/20261117T184500Z-dqi-source-gauss/return_peel.py": "9f52f7be742ff8b9ab7e73e0e2dc69e2d79ef239b26944d2932089cbd1facda2",
+    "runs/20261117T214100Z-dqi-direct-bezout/physical_locators.dat": "02ec8c9abdad02cf0c0b7d51009d9ced2c96aa6ce4e286b952f1e4688a6f9b77",
+    "runs/20261117T214100Z-dqi-direct-bezout/source_maps.py": "63c4f8a07a02735ecfe09fd5255b354dba8d9ace92b4d35d2681ed37b8d39646",
+    "runs/20261118T033800Z-dqi-block-source/pencil_scale_carrier.py": "815797523a6c4ac5c02aa961d4dc0fd1c18e5c435c3e1c055b3332d9a8cc1320",
+    "runs/20261118T033800Z-dqi-block-source/source_panel.py": "ad6c0970a006c49eca1bf3178c6a435f59644285772984df4291ebcf3617fd9d",
+    "runs/20261119T020200Z-return-payments/aligned_native.py": "1d41a06521661b04ec49f54fbd6a31994310d41cb372f47c5fb0387550f64748",
+    "runs/20261119T020200Z-return-payments/aligned_wronskian.py": "fa6ff12ba6f0264bf6e251716cf3f6d0ed27c3854e21319bd97c97c0ceff7e52",
+    "runs/20261119T020200Z-return-payments/build_whole_aligned.py": "510c1053f67c9a0defeb59918e820b8fdccb6e10628f792b8cd8e8e8705489dc",
+    "runs/20261119T020200Z-return-payments/paired_jets.py": "1c272d7dd3c36d35186f2a5e22b397a5e681f8a1874fc7f7175781e9b034d059",
+    "runs/20261119T020200Z-return-payments/pairex_21990.json": "15aec8d3fbc224c65736d26f9d4c8b467c48cb197bb13c800011f1f9d7a6aa8b",
+    "runs/20261119T020200Z-return-payments/projected_derivative.py": "e696b3ee1df4cae28f071b8c2a7c487d4e49cf79953079070e2008a3f53d5495",
+    "runs/20261119T020200Z-return-payments/wronskian_potential.py": "9ccf8df3512c799b458b10cf72bed5faacfc064db666acb3341eaead7a72ca17",
+    "src/dqi_end/confluent_model.py": "81752ab8868a9525053b3ef43831fcd288f853e3aa9066468455832ff0f1a126",
+    "src/dqi_math/model.py": "8689487af8e58ab8bb4e3a933c6f363b54f81f317c2b19f5f9d90bca00010aa4",
+    "src/dqi_v8/v8_model.py": "a0c871561c60e35c1a04ff6bcdc47fd99734429b67a3ad98ac48d0e9c03dc8e7"
+  },
+  "additional_witness_source": {
+    "runs/20261031T215700Z-published-joint-source-loader/construct.json": "c730e09f053e3ba9b31fd2805eeaa02a3e4f9c91d76e93118511c8f07ba77ef6",
+    "runs/20261119T020200Z-return-payments/aligned_paired_field_terms.json": "c0e105df33cff37811c33194aeeb7e590332e90b3d2d443e671ec63309909bc7",
+    "runs/20261119T020200Z-return-payments/field_basis_exchange.cpp": "473c28a873459fe931f236d2bf0b36f3fcaf38bc13b396a380e319d49cc94a23",
+    "runs/20261119T020200Z-return-payments/field_basis_exchange.py": "8901f171c3a2c68deb0c7fc6c626ed29dd26633e172395f754c2ce8f4d5c19db",
+    "runs/20261119T020200Z-return-payments/paired_field_tensor.py": "a7ca0e92533ddc5c74a9acb7f2e33073b81d09d82215c90f58cb463f8d908afa",
+    "runs/20261119T020200Z-return-payments/pairex_21990_steps1143.json": "0ec77f1413216f175c0ad4a8fcda90b330dfbc07529e049b7a736fedd033a302",
+    "src/dqi_q18_retire/joint_basis_gate.py": "06dd8576ad4e309e5a4249b8fdcf840201eb493d2520cbcd839b9b899b8ccbc4",
+    "src/dqi_q18_retire/joint_pair12_lift.py": "33f1b3f9d03cc85efcbb4f5fa29103a821b25a7c125a395992984b651714136a",
+    "src/dqi_q18_retire/published_joint_gate.py": "4e6e19eab97430822ce111cefca9b09ea5a7849563eff26238743fea9da068d6"
+  },
+  "terms_sha256": "f283d36355018167f356fee34f82ff0479061bb96abcd44292a3c211a3f4eccc",
+  "native_reference": "field63whole_22004/driver_report.json",
+  "rebuild_witness": [
+    ".venv-quantum/bin/python -B runs/20261119T020200Z-return-payments/paired_field_tensor.py",
+    "g++ -O3 -std=c++17 -o runs/20261119T020200Z-return-payments/field_basis_replay runs/20261119T020200Z-return-payments/field_basis_exchange.cpp",
+    ".venv-quantum/bin/python -B runs/20261119T020200Z-return-payments/field_basis_exchange.py diagonal 21990 3 3 140 --steps 1143"
+  ],
+  "attribution": "Seven-term GF8 algorithm by Bartoli, Zini and Zullo, Non-minimum tensor rank Gabidulin codes, Table 1, arXiv:2201.08242v1, CC BY 4.0. Existing repository loader constructs and verifies these terms. The quartic interpolation, exchange search, compensated Wronskian construction and whole-generator changes are implemented in this workspace.",
+  "primary_source": "https://arxiv.org/abs/2201.08242"
+}

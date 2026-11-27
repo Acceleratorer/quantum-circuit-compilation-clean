@@ -1,0 +1,109 @@
+Generator kit for package combo-m4, Google Quantum AI "Verifiable Quantum Circuit Compilation" competition.
+Licensed under the Apache License, Version 2.0 (see LICENSE).
+
+1. Our files: dqi/ (except the upstream files kept at their original paths under dqi/repo/, which carry their own
+   LICENSE / NOTICE), invsqrt/rebuild.sh, invsqrt/build_driver.sh, invsqrt/recipe/, invsqrt/ours/, chem/rebuild.sh, chem/ours/, and the kit's documents.
+   Copyright 2026 the submitting team. Our DQI compiler extends Syed Asad Ali's Apache-2.0 DQI decoder (v12 source) and
+   the further public work credited in CREDITS.md section C. The GF(8) multiplication terms behind one stored DQI
+   witness are by D. Bartoli, G. Zini and F. Zullo (CC BY 4.0).
+
+2. thembones_generators/ is team ThemBones' public Apache-2.0 generator release (Kaggle dataset
+   vqcc-thembones-milestone-generators, version 2 of 2026-11-20), and thembones_set/ is their circuit release
+   (vqcc-thembones-milestone-set), both unchanged (sha256 of every file in their own manifests). The chemistry member is built from them
+   as they are. The invsqrt member is built by their invsqrt generator (their design and code) run with ONE source patch of ours
+   (invsqrt/recipe/, applied to a working copy at build time; README.md says what is changed); it is not the invsqrt file
+   of their circuit release. Their NOTICE files follow verbatim (sections 4 and 5 below).
+
+3. chem/third_party_michaelrustad/gauge.py is Michael Rustad's Gram-preserving column rotation, unchanged from the
+   Kaggle dataset michaelrustad/vqcc-dfthc-r10-merged-groups, version 5, file src/gauge.py (Apache-2.0; its LICENSE
+   is chem/third_party_michaelrustad/LICENSE; the dataset carries no NOTICE file). It is used only for the regenerated
+   variant of the chemistry table.
+
+Further credits for what this entry changes against the kit of the 32.22304 entry (CREDITS.md, section E):
+   - **Almond Labs** (Kaggle `almondlabs`), notebook "Almond Labs QCC 31.69054 | Demonstrable Advantage" (`almondlabs/almond-labs-qcc-31-69054-demonstrable-advantage`; its section 8: "This notebook and all Almond Labs circuit/compiler contributions in it are released under the Apache License 2.0"): the optimisation `LEND29` of its section 6.1 (the generator's guard-lending pass applied also on the row of the `h1c` stage that has no auxiliary carry wire, with the lent wire kept out of the later merge pool). It is the one change that our inverse-square-root recipe makes to team ThemBones' generator. Almond Labs published the compiled circuit and the description; our source patch re-implements the change in ThemBones' generator from that description, and the circuit it emits equals theirs up to CNOT gates that cancel.
+   - **Team ThemBones**, public Apache-2.0 generator release (`danishlynxthembones/vqcc-thembones-milestone-generators`): the mechanism of the hoisted prefix in our DQI compiler (`generators/dqi/repo/tools/dqi_pair_v12/confluent_ext.py`: `hoist_block`, `hoist_block4`, `plain_query`, `carry_erase`, `carry_rebuild`), in which the e-products of the first old heads are summed in one block on the raw node words before the chain and the first node's carried scale is measured away, follows their "hoisted-L prefix" (`thembones_generators/dqi/tools/dqi_build_patch_prefix3.py`); our form, identities and code are our own.
+
+kickmix, the verifiers and the task inputs are Google Quantum AI's competition data; they are NOT included.
+
+4. --- NOTICE of the ThemBones generator dataset (thembones_generators/NOTICE), verbatim ---
+Generator code for the verified three-task portfolio (set s108) of team ThemBones, Google Quantum AI 'Verifiable
+Quantum Circuit Compilation' competition.
+Copyright 2026 team ThemBones. Licensed under the Apache License, Version 2.0 (see LICENSE).
+
+The generators in this dataset were written by the team. Parts of their design derive from public Apache-2.0 work,
+credited below and in the companion notebook's Credits section. The upstream LICENSE, NOTICE and CREDITS files are the
+third_party__* files:
+- third_party__syed3000_invsqrt__*, third_party__syed3000_dqi__*, third_party__syed3000_dfthcsos__*: Syed Asad Ali,
+  Kaggle dataset syed3000/vqcc-own-circuit-portfolio (invsqrt generator, DQI decoder, chemistry plans).
+- third_party__atakanaldemir_dqi_bundle__*: Atakan Aldemir and co-credited authors, Kaggle dataset
+  atakanaldemir/qcc-c44-five-helper-release-sources (DQI source bundle; its CREDITS files name its upstream).
+- third_party__jday96314_QuantumAI-archive__*: James Day, github.com/jday96314/QuantumAI-archive (DQI design).
+
+By task (the same credits as the notebook):
+- invsqrt (invsqrt/): our builder is a fork of Syed Asad Ali's public Apache-2.0 generator (the in-place root,
+  quotient signs kept in freed wires, cyclic routing into the rotations). manwithacat's "VQCC Hedge Wizardry
+  Notebook", tweak HW-27 (measure-first), applied by our own tool. Prior art that overlaps our exact post-pass and
+  angle solve, credited to be safe: the measure-out rewrite (manwithacat, HW-26), identical-Toffoli-pair deletion in
+  boristown's public qccscope package, the public AND merge of jeffemerson's notebook, and the linear-programming
+  angle re-solve in the public notebooks of asteriospanoras and hayatohikawa.
+- DQI (dqi/): our DQI builder started from the public source bundle of Atakan Aldemir and the co-credited authors
+  (Syed Asad Ali, Lera / marculera, qwertykeypadapple, manwithacat). The upstream lineage credited inside that bundle
+  is SomeJoint (the 892-qubit decoder), Ali Haydar Ozdag / yoyobar (carry; cache reuses), manwithacat (HW06 / HW07
+  flag uncomputation templates), Craig Gidney (temporary-AND cleanup) and Busya PRIME / Ahmed Berat Ozer (product
+  caching). James Day (jday96314), repository QuantumAI (Apache-2.0 since 2026-11-09), wrote the decoder design the
+  public line descends from. Our projective finish and CRT closing follow Syed Asad Ali's public DQI decoder and were
+  re-implemented in our code. Public mathematics: flip graphs (M. Kauers and J. Moosbauer, arXiv:2212.01175), flip
+  graphs with plus transitions (Y. Arai, Y. Ichikawa and K. Hukushima, arXiv:2312.17094), and Toom-Cook evaluation and
+  interpolation. dqi/kit/ (added in version 2: kv_unfused4_z2, kv_unfused5) is our working copy of that bundle, as
+  our DQI line runs it. Its files carry no licence header or notice of their own. The bundle's LICENSE (Apache-2.0)
+  and CREDITS files are the third_party__atakanaldemir_dqi_bundle__* files in this dataset.
+- Chemistry (chem/): the loaders' high-cache form at 68 ANDs and the "sector closure" were learned from Syed Asad
+  Ali's public chemistry plans, read as data. Our fitting objective was first rebuilt from Lera / marculera's
+  public Apache-2.0 pipeline (marculera/dfthc-compact-pipeline), and the public loader notebooks of Lera and maoxin
+  were read for our loader engine's early ideas. The objective and the file format come from the hosts' Verifiable
+  Circuit Compilation Starter Kit. Public mathematics: L. Lovasz's randomized algebraic test for linear matroid
+  parity. The channel gauge (chem/tools/lead_gauge.py: the idea is public, the code is ours) follows these public
+  notebooks: Kirill Tymchishin (exact gauge), Alex Chilton (LLM gauge), Agniv Banerjee / SomeJoint (exact gauge
+  sweeps), Isabe11aM00re (per-rank column gauge), James Barlow / manwithacat (refit alternated with the column gauge).
+- kickmix, the verifiers and the competition paper (Khattar et al., arXiv:2610.23832) are by Google Quantum AI. They
+  are read from the competition data and are not redistributed here.
+Built by our team with the help of AI coding agents (the competition's Description invites them).
+
+Upstream NOTICE texts, reproduced as Apache-2.0 section 4(d) asks:
+--- third_party__syed3000_invsqrt__NOTICE ---
+Copyright 2026 Syed Asad Ali. Licensed under Apache-2.0.
+Credits: Syed Asad Ali, working with a team of AI agents (GPT-6 Astra Pro, Gemini 4 Argon, Fable 5.2, Mythos 5.2 and Opus 5.5), with Claude Science supporting the research.
+--- third_party__syed3000_dqi__NOTICE ---
+Copyright 2026 Syed Asad Ali. Licensed under Apache-2.0.
+Credits: Syed Asad Ali, working with a team of AI agents (GPT-6 Astra Pro, Gemini 4 Argon, Fable 5.2, Mythos 5.2 and Opus 5.5), with Claude Science supporting the research.
+--- third_party__syed3000_dfthcsos__NOTICE ---
+Copyright 2026 Syed Asad Ali. Licensed under Apache-2.0.
+Credits: Syed Asad Ali, working with a team of AI agents (GPT-6 Astra Pro, Gemini 4 Argon, Fable 5.2, Mythos 5.2 and Opus 5.5), with Claude Science supporting the research.
+
+The competition data (kickmix, verifiers, task inputs) is NOT included.
+
+5. --- NOTICE of the ThemBones circuit dataset (thembones_set/NOTICE), verbatim ---
+Verified three-task portfolio for the Google Quantum AI 'Verifiable Quantum Circuit Compilation' competition.
+Copyright 2026 team ThemBones. Licensed under the Apache License, Version 2.0 (see LICENSE).
+
+The circuits in this dataset were built by the team. Parts of their design derive from public Apache-2.0 work,
+credited in the notebook's Credits section. The upstream LICENSE, NOTICE and CREDITS files are the third_party__* files:
+- third_party__syed3000_invsqrt__*, third_party__syed3000_dqi__*, third_party__syed3000_dfthcsos__*: Syed Asad Ali,
+  Kaggle dataset syed3000/vqcc-own-circuit-portfolio (invsqrt generator, DQI decoder, chemistry plans).
+- third_party__atakanaldemir_dqi_bundle__*: Atakan Aldemir and co-credited authors, Kaggle dataset
+  atakanaldemir/qcc-c44-five-helper-release-sources (DQI source bundle; its CREDITS files name its upstream).
+- third_party__jday96314_QuantumAI-archive__*: James Day, github.com/jday96314/QuantumAI-archive (DQI design).
+
+Upstream NOTICE texts, reproduced as Apache-2.0 section 4(d) asks:
+--- third_party__syed3000_invsqrt__NOTICE ---
+Copyright 2026 Syed Asad Ali. Licensed under Apache-2.0.
+Credits: Syed Asad Ali, working with a team of AI agents (GPT-6 Astra Pro, Gemini 4 Argon, Fable 5.2, Mythos 5.2 and Opus 5.5), with Claude Science supporting the research.
+--- third_party__syed3000_dqi__NOTICE ---
+Copyright 2026 Syed Asad Ali. Licensed under Apache-2.0.
+Credits: Syed Asad Ali, working with a team of AI agents (GPT-6 Astra Pro, Gemini 4 Argon, Fable 5.2, Mythos 5.2 and Opus 5.5), with Claude Science supporting the research.
+--- third_party__syed3000_dfthcsos__NOTICE ---
+Copyright 2026 Syed Asad Ali. Licensed under Apache-2.0.
+Credits: Syed Asad Ali, working with a team of AI agents (GPT-6 Astra Pro, Gemini 4 Argon, Fable 5.2, Mythos 5.2 and Opus 5.5), with Claude Science supporting the research.
+
+The competition data (kickmix, verifiers, task inputs) is NOT included; the notebook reads it from the
+attached competition input.

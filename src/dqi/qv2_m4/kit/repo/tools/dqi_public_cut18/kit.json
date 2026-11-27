@@ -1,0 +1,43 @@
+{
+ "name": "dqi_public_cut18",
+ "what": "public DQI circuit 821bf8d1 of the notebook areebbb/qai-fewer-toffolis-same-qubits-lb-27-11042 (LB 27.11042), rebuilt from source",
+ "credit": "Syed Asad Ali (v12 decoder, Apache-2.0), Ertugrul Ozer (extractor cutoff), areebbb (retained products)",
+ "notebook": {
+  "id": "areebbb/qai-fewer-toffolis-same-qubits-lb-27-11042",
+  "id_no": 144563339,
+  "ipynb_sha256": "a03370c71a34908970e5e3e914a8fd588c468e9d38405cd23124d07d8808001d",
+  "pulled": "competition_materials/frontier-20261113T1630Z/kernels/areebbb__qai-fewer-toffolis-same-qubits-lb-27-11042/",
+  "cells": {
+   "notebook/retain.py": 4,
+   "notebook/peep.py": 5,
+   "notebook/alloc.py": 6,
+   "notebook/build_cut.py": 9
+  },
+  "steps_cells": [
+   10,
+   12
+  ]
+ },
+ "archive": {
+  "path": "tools/dqi_public_syed_v12/dqi_source_zip",
+  "sha256": "49e2b331d4008afb724985caf1038765b7a910f08838b590bf6e8fb692772763",
+  "upstream": "syed3000/vqcc-own-circuit-portfolio v12, Copyright 2026 Syed Asad Ali, Apache-2.0 (LICENSE/NOTICE in tools/dqi_public_syed_v12/upstream/)"
+ },
+ "official_dir": "official/2026-10-27",
+ "host_inputs": {
+  "kickmix/kickmix.so": "c66b3216c4029e0cdfd09054306aa0feadf53ab2f50c1164e37f752874e5005e",
+  "verifiers/dqi/verify_submission_dqi.py": "f14274bc0943fb9769ddb01131be6063191a15009fe1caf1d4bdd9fd25194e65"
+ },
+ "code": {
+  "driver.py": "72d60d2692f6d97f6d8e2552125341dbf462cc2ce6cbf525ddc13a27b54d1a75",
+  "notebook/build_cut.py": "4b95d3e5ae69ea8ad6d5443389c54e4ca84b9249e2712dc26cb742c0cc94317b",
+  "notebook/retain.py": "f9a477f5148bf6cb454917e5f3f10e7a042fce0c14d20ea21e32fe3a36240bfc",
+  "notebook/peep.py": "62cfe49711c566a610a5bc5a5422fb6cd24575eda23a611d9282d4bac684b8b9",
+  "notebook/alloc.py": "238db077be99c047f4188f0005a4b054fde66dbed732a02985c6280ee3b09f71"
+ },
+ "cut": 18,
+ "unretained_sha256_prefix": "32b0a8b44476",
+ "output": "dqi.kmb",
+ "output_sha256": "821bf8d157c03c3e868a0099b0ab1438cfba664ab1bc6fec3210654099b672a3",
+ "output_bytes": 455584321
+}

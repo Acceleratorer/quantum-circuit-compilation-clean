@@ -1,0 +1,9 @@
+Copyright 2026 Syed Asad Ali. Licensed under Apache-2.0.
+Credits: Syed Asad Ali, working with a team of AI agents (GPT-6 Astra Pro, Gemini 4 Argon, Fable 5.2, Mythos 5.2 and Opus 5.5), with Claude Science supporting the research.
+
+Norm-preserving GF(2^24) closing (npclose.py, kit v11): idea and reference implementation by Balram Srinivasan's team,
+dataset "VQCC 28.10 norm-preserving DQI closings" (Apache-2.0), written against Syed Asad Ali's builder; re-implemented
+in this kit as our own code (lane dqi_close).
+
+Shared-control merge pass (rankmerge.py, kit v12): own code (lane dqi_rank). The rewrite a.b + a.c = a.(b + c) for
+Toffolis into one target was first shown publicly for the inverse-sqrt circuit by Jeff Emerson (Apache-2.0).
