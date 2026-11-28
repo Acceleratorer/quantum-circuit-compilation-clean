@@ -1,0 +1,14 @@
+{
+  "id": "accelra/exp-100-diana-v150-dqi-screen",
+  "title": "exp-100-diana-v150-dqi-screen",
+  "code_file": "main.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "competition_sources": ["google-verifiable-quantum-circuit-compilation"],
+  "dataset_sources": ["dziyanavalenta/q2026-v150-dqi-generator"],
+  "kernel_sources": [],
+  "model_sources": []
+}

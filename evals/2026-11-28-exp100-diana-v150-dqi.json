@@ -1,0 +1,33 @@
+{
+  "experiment": "exp-100",
+  "status": "SOURCE_BUILD_AND_OFFICIAL_VERIFIER_PASS",
+  "kernel": "accelra/exp-100-diana-v150-dqi-screen",
+  "kernel_version": 3,
+  "source": {
+    "dataset": "dziyanavalenta/q2026-v150-dqi-generator",
+    "archive_sha256": "21735d33f3cb390453dcce2adcc01fbf377b32a7bb2ab618cba01c4a26dab808",
+    "compiled_input_used": false,
+    "internet_enabled": false
+  },
+  "candidate_sha256": "4426ca10776fcfaf3ecb75211a812a68c37228f0d3f95fd1207383d5a308deca",
+  "official_verifier": {
+    "status": "PASS",
+    "score": 341530299301.2656,
+    "verified_shots": 102400,
+    "value_errors": 1,
+    "phase_errors": 0,
+    "repetition_factor": 1.1967314991687559,
+    "toffoli_count": 360290.2446679688,
+    "num_qubits": 890,
+    "circuit_sha256": "4426ca10776fcfaf3ecb75211a812a68c37228f0d3f95fd1207383d5a308deca"
+  },
+  "comparison": {
+    "leader_score_snapshot": 34.77295,
+    "s001_projection_if_other_components_fixed": 31.64317165222998,
+    "dqi_cost_tie_gate": 257362135701.191,
+    "dqi_cost_above_tie_gate_pct": 32.70417513856725,
+    "meets_tie_gate": false
+  },
+  "decision": "closed_no_go_score_gate",
+  "submission": "not_submitted"
+}
