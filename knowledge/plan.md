@@ -2,10 +2,16 @@
 id: plan
 updated: 2026-11-28
 direction: D-005
-status: qv2_and_chemistry_and_joint_lift_screens_closed_no_gate
+status: v156_screen_closed_no_gate_pause
 ---
 
 ## Next experiment
+
+There is no active experiment.  Exp-101 screened the rank-1 team's v156
+source-owned DQI generator and closed it locally: Q=890, native mean
+359,300.734, common-R bill 339.035B, versus the current 257.362B tie gate.
+Do not launch another Kaggle kernel or submission until a new source-owned
+construction has a resource estimate near the gate.
 
 The exp-090 audit closed the current public-lead route. The measured QV2
 baseline is 317.509B; even zero observed errors at the same cost would be

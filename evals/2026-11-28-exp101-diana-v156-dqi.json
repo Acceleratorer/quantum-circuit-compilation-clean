@@ -1,0 +1,32 @@
+{
+  "experiment": "exp-101",
+  "status": "SOURCE_BUILD_AND_NATIVE_DIAGNOSTIC_PASS",
+  "source": {
+    "dataset": "dziyanavalenta/q2026-v156-dqi-generator",
+    "source_archive_sha256": "55da8b50e5b20a76e196d297391482a4864f1527f42360322f9139b04a297783",
+    "compiled_input_used": false,
+    "internet_enabled": false
+  },
+  "candidate": {
+    "sha256": "1abd01dedaeaad13194426261b221691268e7b88b53c5817eaf8e8d45c5e2912",
+    "release": "release_d80",
+    "num_qubits": 890,
+    "static_toffolis": 360498,
+    "native_mean_toffolis": 359300.734,
+    "native_diagnostic_shots": 4096,
+    "native_value_errors": 0,
+    "native_phase_errors": 0,
+    "common_r_verifier_bill": 339035243514
+  },
+  "comparison": {
+    "leader_score_snapshot": 34.77295,
+    "dqi_cost_tie_gate": 257362135701.191,
+    "cost_above_tie_gate_pct": 31.7347023835842,
+    "reference_mean_toffoli_gate_at_q890": 271498.801218394,
+    "native_mean_above_reference_gate_pct": 32.3397128781346,
+    "meets_tie_gate": false
+  },
+  "decision": "closed_no_go_score_gate",
+  "private_kernel": "not_launched",
+  "submission": "not_submitted"
+}
