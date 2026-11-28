@@ -12,6 +12,9 @@ experiments/*/upstream/
 /submissions/
 kaggle/.cache/
 kaggle/staging/
+kaggle/current/
+kaggle/public/
+kaggle/*.csv
 /experiments/*/external/
 /tmp/
 
